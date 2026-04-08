@@ -11,6 +11,43 @@
 <meta property="og:description" content="Cabinet indépendant de gestion de patrimoine à Colombes. Optimisation fiscale, immobilier, retraite, transmission. Bilan gratuit.">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FinancialService","name":"Proactifs Conseils – Gestion de Patrimoine Colombes","description":"Cabinet indépendant de gestion de patrimoine à Colombes (92). Conseil en optimisation fiscale, investissement immobilier, assurance vie, PER, transmission et cession d'entreprise.","url":"https://www.proactifsconseils.fr","telephone":"+33184782830","address":{"@type":"PostalAddress","streetAddress":"54 Rue du Bournard","addressLocality":"Colombes","postalCode":"92700","addressCountry":"FR"},"geo":{"@type":"GeoCoordinates","latitude":48.9228,"longitude":2.2527},"areaServed":["Colombes","Asnières-sur-Seine","Courbevoie","Nanterre","Levallois-Perret","Hauts-de-Seine","Île-de-France"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"19:00"}]}
+
+// ── Scroll Reveal ──
+(function(){
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+    });
+  },{threshold:.1,rootMargin:'0px 0px -55px 0px'});
+  document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function(el){obs.observe(el);});
+})();
+
+// ── Scroll-to-top ──
+var _scrollBtn=document.getElementById('scrollTop');
+if(_scrollBtn){
+  window.addEventListener('scroll',function(){
+    _scrollBtn.classList.toggle('visible',window.scrollY>520);
+  },{passive:true});
+  _scrollBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+}
+
+// ── Hamburger menu ──
+var _burger=document.getElementById('hamburger');
+var _mobileMenu=document.getElementById('mobileMenu');
+if(_burger&&_mobileMenu){
+  _burger.addEventListener('click',function(){
+    _burger.classList.toggle('open');
+    _mobileMenu.classList.toggle('open');
+  });
+  // Fermer au clic sur un lien
+  _mobileMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      _burger.classList.remove('open');
+      _mobileMenu.classList.remove('open');
+    });
+  });
+}
+
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -90,14 +127,94 @@ h2{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);color:var
 
 footer{background:#080f1e;padding:36px 40px;text-align:center;color:rgba(255,255,255,.35);font-size:12px}
 footer a{color:var(--gold);text-decoration:none;margin:0 12px}
+
+/* ═══ MODERNISATION 2026 ═══ */
+
+/* — Hamburger & menu mobile — */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;flex-shrink:0}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:all .3s cubic-bezier(.4,0,.2,1)}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(13,31,60,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:20px 32px 28px;border-bottom:1px solid rgba(201,168,76,.25);z-index:198;animation:slideDown .25s ease}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;color:rgba(255,255,255,.82);text-decoration:none;font-size:15px;font-weight:500;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.07);transition:color .2s,padding-left .2s}
+.mobile-menu a:last-child{border-bottom:none;color:var(--gold);margin-top:8px}
+.mobile-menu a:hover{color:var(--gold);padding-left:8px}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:900px){.hamburger{display:flex}.nav-links{display:none}.nav-cta{display:none}}
+
+/* — Scroll reveal — */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-30px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(30px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+.d4{transition-delay:.32s}.d5{transition-delay:.40s}.d6{transition-delay:.48s}
+.d7{transition-delay:.56s}.d8{transition-delay:.64s}
+
+/* — Animations hero — */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes pulse-gold{0%,100%{box-shadow:0 8px 28px rgba(201,168,76,.4)}60%{box-shadow:0 8px 40px rgba(201,168,76,.6),0 0 0 10px rgba(201,168,76,.07)}}
+@keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+.hero-badge{animation:float 3.8s ease-in-out infinite}
+.hero-btn{animation:pulse-gold 2.8s ease-in-out infinite}
+.hero-btn:hover{animation:none;transform:translateY(-2px)!important}
+
+/* — Service cards — */
+.service-card .service-img{transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.service-card:hover .service-img{transform:scale(1.06)}
+.service-card .service-link{background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* — Testimonials — */
+.temoignage{transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s,border-color .3s}
+.temoignage:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(13,31,60,.11);border-color:rgba(201,168,76,.28)}
+
+/* — Steps — */
+.step{padding:14px 12px;border-radius:14px;transition:background .25s,transform .25s}
+.step:hover{background:rgba(13,31,60,.04);transform:translateX(4px)}
+.step-num{transition:background .25s,color .25s}
+.step:hover .step-num{background:var(--gold);color:var(--navy)}
+
+/* — Bouton scroll-to-top — */
+.scroll-top{position:fixed;bottom:28px;right:28px;width:46px;height:46px;background:var(--gold);color:var(--navy);border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;font-size:20px;line-height:1;opacity:0;transform:translateY(18px);transition:opacity .3s,transform .3s,background .2s,box-shadow .2s;z-index:100;box-shadow:0 6px 24px rgba(201,168,76,.4);font-family:'Inter',sans-serif;font-weight:700}
+.scroll-top.visible{opacity:1;transform:translateY(0)}
+.scroll-top:hover{background:var(--gold-light);transform:translateY(-4px)!important;box-shadow:0 12px 36px rgba(201,168,76,.5)}
+
+/* — Améliorations générales — */
+.nav-cta{transition:background .2s,transform .15s,box-shadow .2s}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,168,76,.4)}
+.btn-gold{transition:background .2s,transform .2s,box-shadow .2s}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,168,76,.4)}
+.social-btn{transition:background .2s,color .2s,transform .2s}
+.social-btn:hover{transform:translateY(-2px)}
+
+/* — Section accent radial — */
+#services{position:relative;overflow:hidden}
+#services::before{content:'';position:absolute;top:-100px;right:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,.045) 0%,transparent 65%);pointer-events:none;z-index:0}
+#temoignages{position:relative;overflow:hidden}
+#temoignages::before{content:'';position:absolute;bottom:-60px;left:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(13,31,60,.04) 0%,transparent 65%);pointer-events:none;z-index:0}
+
 </style>
 </head>
 <body>
 <nav>
   <a href="/" class="nav-logo"><div class="nav-logo-icon">P</div><div class="nav-logo-text">Proactifs Conseils<span>Gestion de Patrimoine</span></div></a>
   <a href="/" class="nav-back">← Retour au site</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   <a href="/bilan-patrimonial-gratuit" class="nav-cta">Bilan gratuit</a>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Accueil</a>
+  <a href="bilan-patrimonial-gratuit.html">Bilan patrimonial</a>
+  <a href="optimisation-fiscale-ile-de-france.html">Optimisation fiscale</a>
+  <a href="investissement-scpi-hauts-de-seine.html">SCPI</a>
+  <a href="preparation-retraite.html">Retraite</a>
+  <a href="index.html#contact">Contact</a>
+  <a href="bilan-patrimonial-gratuit.html">Bilan gratuit →</a>
+</div>
 
 <section class="hero">
   <div class="hero-inner">
@@ -116,9 +233,9 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
 <!-- SERVICES -->
 <section class="section" style="background:var(--gray)">
   <div class="container">
-    <div class="sl">Nos domaines d'expertise</div>
+    <div class="sl reveal">Nos domaines d'expertise</div>
     <h2>Les services de votre conseiller<br>patrimonial à Colombes</h2>
-    <p class="lead">Chaque situation patrimoniale est unique. Nous construisons pour chaque client une stratégie personnalisée, sans produit imposé.</p>
+    <p class="lead reveal d1">Chaque situation patrimoniale est unique. Nous construisons pour chaque client une stratégie personnalisée, sans produit imposé.</p>
     <div class="services-local">
       <div class="sl-card"><div class="sl-icon">💰</div><div class="sl-title">Optimisation fiscale</div><div class="sl-desc">Réduire vos impôts légalement grâce au PER, à la loi Pinel, au déficit foncier, aux SCPI fiscales ou à la loi Girardin.</div><a href="/optimisation-fiscale" class="sl-link">En savoir plus →</a></div>
       <div class="sl-card"><div class="sl-icon">🏠</div><div class="sl-title">Investissement immobilier</div><div class="sl-desc">Résidence principale, SCPI, LMNP, SCI IS… Nous identifions l'investissement le mieux adapté à votre situation.</div><a href="#" class="sl-link">En savoir plus →</a></div>
@@ -135,7 +252,7 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
 <!-- ZONES INTERVENTION -->
 <div class="zones">
   <div class="zones-inner">
-    <div class="sl" style="justify-content:center;display:flex;margin-bottom:12px">Zone d'intervention</div>
+    <div class="sl reveal" style="justify-content:center;display:flex;margin-bottom:12px">Zone d'intervention</div>
     <h2>Nous intervenons partout<br>en Île-de-France</h2>
     <p>Basé à Colombes, notre cabinet accompagne les particuliers et chefs d'entreprise de toute la région parisienne, en présentiel ou à distance.</p>
     <div class="zones-grid">
@@ -164,9 +281,9 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
       <img src="https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?w=800&q=80&fit=crop&crop=face" alt="Conseiller en gestion de patrimoine Colombes" class="portrait-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="">
       <div class="portrait-img-placeholder" style="display:none">👨‍💼</div>
       <div>
-        <div class="sl">Pourquoi nous choisir</div>
+        <div class="sl reveal">Pourquoi nous choisir</div>
         <h2>Un conseiller indépendant<br>vraiment à votre service</h2>
-        <p class="lead" style="font-size:15px">Contrairement aux conseillers bancaires ou aux réseaux d'agents liés, Proactifs Conseils est un cabinet 100% indépendant. Notre intérêt est le vôtre.</p>
+        <p class="lead reveal d1" style="font-size:15px">Contrairement aux conseillers bancaires ou aux réseaux d'agents liés, Proactifs Conseils est un cabinet 100% indépendant. Notre intérêt est le vôtre.</p>
         <div class="val-list">
           <div class="val-item"><div class="val-icon">🎯</div><div><div class="val-title">Indépendance totale</div><div class="val-desc">Aucun lien avec une banque ou un assureur. Nos recommandations sont guidées uniquement par votre intérêt, conformément à MIF II.</div></div></div>
           <div class="val-item"><div class="val-icon">🔍</div><div><div class="val-title">Approche globale</div><div class="val-desc">Nous analysons l'ensemble de votre situation (fiscale, immobilière, financière, successorale) pour des préconisations cohérentes et articulées.</div></div></div>
@@ -181,7 +298,7 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
 <!-- TEMOIGNAGES -->
 <section class="section" style="background:var(--gray)">
   <div class="container">
-    <div class="sl">Avis clients</div>
+    <div class="sl reveal">Avis clients</div>
     <h2>Ils nous ont fait confiance<br>à Colombes et en Île-de-France</h2>
     <div class="temo-grid">
       <div class="temo"><div class="stars">★★★★★</div><p>« Conseiller très professionnel et surtout honnête. Pas de produit imposé, des explications claires. J'ai économisé 7 200 € d'impôts la première année. »</p><div class="temo-name">Marc T.</div><div class="temo-role">Dirigeant, Courbevoie</div></div>
@@ -193,7 +310,7 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
 
 <section class="cta-band">
   <div class="container">
-    <div class="sl" style="display:flex;justify-content:center;margin-bottom:14px">Votre cabinet de proximité à Colombes</div>
+    <div class="sl reveal" style="display:flex;justify-content:center;margin-bottom:14px">Votre cabinet de proximité à Colombes</div>
     <h2>54 Rue du Bournard, 92700 Colombes<br><span style="color:var(--gold);font-size:0.75em">Prenez rendez-vous dès aujourd'hui</span></h2>
     <p>Bilan patrimonial offert · Réponse sous 24h · Cabinet 100% indépendant</p>
     <a href="/bilan-patrimonial-gratuit" class="btn-gold">Demander mon bilan gratuit</a>
@@ -205,5 +322,7 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
   <p>© 2026 Proactifs Conseils – 54 Rue du Bournard, 92700 Colombes – 01 84 78 28 30</p>
   <div style="margin-top:10px"><a href="/">Accueil</a><a href="/bilan-patrimonial-gratuit">Bilan gratuit</a><a href="#">Mentions légales</a></div>
 </footer>
+
+<button class="scroll-top" id="scrollTop" title="Retour en haut">↑</button>
 </body>
 </html>

@@ -89,14 +89,94 @@ h2{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);color:var
 .btn-gold:hover{background:var(--gold-light)}
 footer{background:#080f1e;padding:36px 40px;text-align:center;color:rgba(255,255,255,.35);font-size:12px}
 footer a{color:var(--gold);text-decoration:none;margin:0 12px}
+
+/* ═══ MODERNISATION 2026 ═══ */
+
+/* — Hamburger & menu mobile — */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;flex-shrink:0}
+.hamburger span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:all .3s cubic-bezier(.4,0,.2,1)}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(13,31,60,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:20px 32px 28px;border-bottom:1px solid rgba(201,168,76,.25);z-index:198;animation:slideDown .25s ease}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;color:rgba(255,255,255,.82);text-decoration:none;font-size:15px;font-weight:500;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.07);transition:color .2s,padding-left .2s}
+.mobile-menu a:last-child{border-bottom:none;color:var(--gold);margin-top:8px}
+.mobile-menu a:hover{color:var(--gold);padding-left:8px}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:900px){.hamburger{display:flex}.nav-links{display:none}.nav-cta{display:none}}
+
+/* — Scroll reveal — */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-30px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(30px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+.d4{transition-delay:.32s}.d5{transition-delay:.40s}.d6{transition-delay:.48s}
+.d7{transition-delay:.56s}.d8{transition-delay:.64s}
+
+/* — Animations hero — */
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes pulse-gold{0%,100%{box-shadow:0 8px 28px rgba(201,168,76,.4)}60%{box-shadow:0 8px 40px rgba(201,168,76,.6),0 0 0 10px rgba(201,168,76,.07)}}
+@keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+.hero-badge{animation:float 3.8s ease-in-out infinite}
+.hero-btn{animation:pulse-gold 2.8s ease-in-out infinite}
+.hero-btn:hover{animation:none;transform:translateY(-2px)!important}
+
+/* — Service cards — */
+.service-card .service-img{transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.service-card:hover .service-img{transform:scale(1.06)}
+.service-card .service-link{background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* — Testimonials — */
+.temoignage{transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s,border-color .3s}
+.temoignage:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(13,31,60,.11);border-color:rgba(201,168,76,.28)}
+
+/* — Steps — */
+.step{padding:14px 12px;border-radius:14px;transition:background .25s,transform .25s}
+.step:hover{background:rgba(13,31,60,.04);transform:translateX(4px)}
+.step-num{transition:background .25s,color .25s}
+.step:hover .step-num{background:var(--gold);color:var(--navy)}
+
+/* — Bouton scroll-to-top — */
+.scroll-top{position:fixed;bottom:28px;right:28px;width:46px;height:46px;background:var(--gold);color:var(--navy);border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;font-size:20px;line-height:1;opacity:0;transform:translateY(18px);transition:opacity .3s,transform .3s,background .2s,box-shadow .2s;z-index:100;box-shadow:0 6px 24px rgba(201,168,76,.4);font-family:'Inter',sans-serif;font-weight:700}
+.scroll-top.visible{opacity:1;transform:translateY(0)}
+.scroll-top:hover{background:var(--gold-light);transform:translateY(-4px)!important;box-shadow:0 12px 36px rgba(201,168,76,.5)}
+
+/* — Améliorations générales — */
+.nav-cta{transition:background .2s,transform .15s,box-shadow .2s}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,168,76,.4)}
+.btn-gold{transition:background .2s,transform .2s,box-shadow .2s}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,168,76,.4)}
+.social-btn{transition:background .2s,color .2s,transform .2s}
+.social-btn:hover{transform:translateY(-2px)}
+
+/* — Section accent radial — */
+#services{position:relative;overflow:hidden}
+#services::before{content:'';position:absolute;top:-100px;right:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,.045) 0%,transparent 65%);pointer-events:none;z-index:0}
+#temoignages{position:relative;overflow:hidden}
+#temoignages::before{content:'';position:absolute;bottom:-60px;left:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(13,31,60,.04) 0%,transparent 65%);pointer-events:none;z-index:0}
+
 </style>
 </head>
 <body>
 <nav>
   <a href="/" class="nav-logo"><div class="nav-logo-icon">P</div><div class="nav-logo-text">Proactifs Conseils<span>Gestion de Patrimoine</span></div></a>
   <a href="/" class="nav-back">← Retour</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   <a href="/bilan-patrimonial-gratuit" class="nav-cta">Simulation gratuite</a>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Accueil</a>
+  <a href="bilan-patrimonial-gratuit.html">Bilan patrimonial</a>
+  <a href="optimisation-fiscale-ile-de-france.html">Optimisation fiscale</a>
+  <a href="investissement-scpi-hauts-de-seine.html">SCPI</a>
+  <a href="preparation-retraite.html">Retraite</a>
+  <a href="index.html#contact">Contact</a>
+  <a href="bilan-patrimonial-gratuit.html">Bilan gratuit →</a>
+</div>
 <section class="hero">
   <div class="hero-inner">
     <div>
@@ -126,9 +206,9 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
 </section>
 <section class="section" style="background:var(--gray)">
   <div class="container">
-    <div class="sl">Les différentes SCPI</div>
+    <div class="sl reveal">Les différentes SCPI</div>
     <h2>Quel type de SCPI<br>selon votre objectif ?</h2>
-    <p class="lead">Il existe plusieurs catégories de SCPI, chacune répondant à un objectif précis.</p>
+    <p class="lead reveal d1">Il existe plusieurs catégories de SCPI, chacune répondant à un objectif précis.</p>
     <div class="types-grid">
       <div class="type-card"><div class="tc-header"><div class="tc-icon">🏢</div><div><div class="tc-title">SCPI de rendement</div><div class="tc-tag">Revenus immédiats</div></div></div><p class="tc-desc">Investissement dans des actifs immobiliers professionnels. Distribution régulière de revenus trimestriels.</p><ul class="tc-avantages"><li>Rendements moyens entre 4% et 6.5%</li><li>Diversification géographique et sectorielle</li><li>Mutualisation des risques locatifs</li><li>Accessible dès 1 000€ selon les SCPI</li></ul></div>
       <div class="type-card"><div class="tc-header"><div class="tc-icon">💰</div><div><div class="tc-title">SCPI fiscales</div><div class="tc-tag">Défiscalisation</div></div></div><p class="tc-desc">SCPI Pinel, Malraux ou Déficit Foncier : avantage fiscal associé à l'investissement immobilier collectif.</p><ul class="tc-avantages"><li>Réduction d'impôt jusqu'à 21% (Pinel+)</li><li>Déficit foncier imputable sur revenu global</li><li>Ticket d'entrée souvent plus faible</li><li>Idéal pour les TMI 30% et +</li></ul></div>
@@ -139,7 +219,7 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
 </section>
 <section class="section">
   <div class="container">
-    <div class="sl">Comparatif placements</div>
+    <div class="sl reveal">Comparatif placements</div>
     <h2>SCPI vs autres placements :<br>le comparatif objectif</h2>
     <table class="vs-table">
       <thead><tr><th>Placement</th><th>Rendement net moyen</th><th>Liquidité</th><th>Ticket d'entrée</th><th>Gestion</th></tr></thead>
@@ -156,7 +236,7 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
 <section class="chart-section">
   <div class="chart-inner">
     <div>
-      <div class="sl" style="color:var(--gold)">Projection sur 15 ans</div>
+      <div class="sl reveal" style="color:var(--gold)">Projection sur 15 ans</div>
       <h2 style="color:#fff">20 000€ investis en SCPI :<br>ce que ça rapporte vraiment</h2>
       <p style="color:rgba(255,255,255,.55);font-size:14.5px;line-height:1.8;margin-top:16px">Avec un taux de distribution de 5% et une revalorisation annuelle de 1%, un investissement de 20 000€ génère plus de 15 000€ de revenus cumulés sur 15 ans — sans aucune gestion de votre part.</p>
     </div>
@@ -165,7 +245,7 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
 </section>
 <section class="section" style="background:var(--gray)">
   <div class="container" style="max-width:800px">
-    <div class="sl">Questions fréquentes</div>
+    <div class="sl reveal">Questions fréquentes</div>
     <h2>Tout savoir sur<br>les SCPI avant d'investir</h2>
     <div class="faq-list">
       <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Les SCPI sont-elles risquées ? <span class="icon">+</span></button><div class="faq-a"><p>Comme tout investissement immobilier, les SCPI comportent un risque de perte en capital et de fluctuation des revenus. Ces risques sont toutefois mutualisés entre des centaines d'actifs et de locataires.</p></div></div>
@@ -177,9 +257,9 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
 </section>
 <section class="cta-band">
   <div class="container">
-    <div class="sl" style="display:flex;justify-content:center;margin-bottom:14px">Conseil SCPI indépendant à Colombes (92)</div>
+    <div class="sl reveal" style="display:flex;justify-content:center;margin-bottom:14px">Conseil SCPI indépendant à Colombes (92)</div>
     <h2>Quelles SCPI correspondent<br>à votre profil ?</h2>
-    <p>Simulation gratuite · Sélection indépendante · Sans commission cachée</p>
+    <p>Simulation · Sélection large panel · Cabinet de conseil à Colombes (92)</p>
     <a href="/bilan-patrimonial-gratuit" class="btn-gold">Simulation SCPI gratuite →</a>
     <a href="tel:0184782830" style="display:inline-block;border:1px solid rgba(255,255,255,.3);color:#fff;padding:14px 28px;border-radius:8px;font-weight:500;text-decoration:none;font-size:14.5px;margin-left:12px">01 84 78 28 30</a>
   </div>
@@ -195,6 +275,46 @@ calcMiniSim();
 const labels=Array.from({length:15},(_,i)=>'An '+(i+1));
 new Chart(document.getElementById('chartScpiComp'),{type:'line',data:{labels,datasets:[{label:'SCPI (5%)',data:labels.map((_,i)=>Math.round(20000*0.05*(i+1))),borderColor:'#c9a84c',backgroundColor:'rgba(201,168,76,.15)',fill:true,tension:.4,pointRadius:0},{label:'Livret A (3%)',data:labels.map((_,i)=>Math.round(20000*0.03*(i+1))),borderColor:'rgba(255,255,255,.4)',backgroundColor:'transparent',fill:false,tension:.4,pointRadius:0,borderDash:[5,5]},{label:'Fonds euros (3%)',data:labels.map((_,i)=>Math.round(20000*0.03*(i+1))),borderColor:'rgba(255,255,255,.2)',backgroundColor:'transparent',fill:false,tension:.4,pointRadius:0,borderDash:[3,3]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'rgba(255,255,255,.6)',font:{size:11}}}},scales:{x:{ticks:{color:'rgba(255,255,255,.4)',font:{size:10}},grid:{color:'rgba(255,255,255,.05)'}},y:{ticks:{color:'rgba(255,255,255,.4)',font:{size:10},callback:v=>fmtEur(v)},grid:{color:'rgba(255,255,255,.07)'}}}}});
 function toggleFaq(btn){const item=btn.closest('.faq-item');document.querySelectorAll('.faq-item.open').forEach(i=>{if(i!==item)i.classList.remove('open')});item.classList.toggle('open')}
+
+// ── Scroll Reveal ──
+(function(){
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+    });
+  },{threshold:.1,rootMargin:'0px 0px -55px 0px'});
+  document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function(el){obs.observe(el);});
+})();
+
+// ── Scroll-to-top ──
+var _scrollBtn=document.getElementById('scrollTop');
+if(_scrollBtn){
+  window.addEventListener('scroll',function(){
+    _scrollBtn.classList.toggle('visible',window.scrollY>520);
+  },{passive:true});
+  _scrollBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+}
+
+// ── Hamburger menu ──
+var _burger=document.getElementById('hamburger');
+var _mobileMenu=document.getElementById('mobileMenu');
+if(_burger&&_mobileMenu){
+  _burger.addEventListener('click',function(){
+    _burger.classList.toggle('open');
+    _mobileMenu.classList.toggle('open');
+  });
+  // Fermer au clic sur un lien
+  _mobileMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      _burger.classList.remove('open');
+      _mobileMenu.classList.remove('open');
+    });
+  });
+}
+
 </script>
+
+<button class="scroll-top" id="scrollTop" title="Retour en haut">↑</button>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
