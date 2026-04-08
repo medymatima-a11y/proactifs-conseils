@@ -1,0 +1,11 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/bilan-patrimonial-gratuit", "destination": "/bilan-patrimonial-gratuit.html" },
+    { "source": "/conseiller-gestion-patrimoine-colombes", "destination": "/conseiller-gestion-patrimoine-colombes.html" },
+    { "source": "/optimisation-fiscale-ile-de-france", "destination": "/optimisation-fiscale-ile-de-france.html" },
+    { "source": "/investissement-scpi-hauts-de-seine", "destination": "/investissement-scpi-hauts-de-seine.html" },
+    { "source": "/courtage-credit-immobilier", "destination": "/courtage-credit-immobilier.html" },
+    { "source": "/declaration-impots-ile-de-france", "destination": "/declaration-impots-ile-de-france.html" }
+  ]
+}
