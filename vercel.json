@@ -1,11 +1,64 @@
 {
   "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
-    { "source": "/bilan-patrimonial-gratuit", "destination": "/bilan-patrimonial-gratuit.html" },
-    { "source": "/conseiller-gestion-patrimoine-colombes", "destination": "/conseiller-gestion-patrimoine-colombes.html" },
-    { "source": "/optimisation-fiscale-ile-de-france", "destination": "/optimisation-fiscale-ile-de-france.html" },
-    { "source": "/investissement-scpi-hauts-de-seine", "destination": "/investissement-scpi-hauts-de-seine.html" },
-    { "source": "/courtage-credit-immobilier", "destination": "/courtage-credit-immobilier.html" },
-    { "source": "/declaration-impots-ile-de-france", "destination": "/declaration-impots-ile-de-france.html" }
+    { "source": "/bilan-patrimonial-gratuit",           "destination": "/bilan-patrimonial-gratuit.html" },
+    { "source": "/optimisation-fiscale-ile-de-france",  "destination": "/optimisation-fiscale-ile-de-france.html" },
+    { "source": "/investissement-scpi-hauts-de-seine",  "destination": "/investissement-scpi-hauts-de-seine.html" },
+    { "source": "/courtage-credit-immobilier",          "destination": "/courtage-credit-immobilier.html" },
+    { "source": "/declaration-impots-ile-de-france",    "destination": "/declaration-impots-ile-de-france.html" },
+    { "source": "/preparation-retraite",                "destination": "/preparation-retraite.html" },
+    { "source": "/cession-entreprise",                  "destination": "/cession-entreprise.html" },
+    { "source": "/transmission",                        "destination": "/transmission.html" },
+    { "source": "/page-conseiller-patrimoine-colombes", "destination": "/page-conseiller-patrimoine-colombes.html" }
+  ],
+  "redirects": [
+    { "source": "/conseiller-gestion-patrimoine-colombes", "destination": "/page-conseiller-patrimoine-colombes", "permanent": true },
+    { "source": "/nos-services",          "destination": "/",                                    "permanent": true },
+    { "source": "/services",             "destination": "/",                                    "permanent": true },
+    { "source": "/contact",              "destination": "/",                                    "permanent": true },
+    { "source": "/a-propos",             "destination": "/page-conseiller-patrimoine-colombes", "permanent": true },
+    { "source": "/qui-sommes-nous",      "destination": "/page-conseiller-patrimoine-colombes", "permanent": true },
+    { "source": "/fiscalite",            "destination": "/optimisation-fiscale-ile-de-france",  "permanent": true },
+    { "source": "/retraite",             "destination": "/preparation-retraite",                "permanent": true },
+    { "source": "/immobilier",           "destination": "/investissement-scpi-hauts-de-seine",  "permanent": true },
+    { "source": "/credit-immobilier",    "destination": "/courtage-credit-immobilier",          "permanent": true },
+    { "source": "/succession",           "destination": "/transmission",                        "permanent": true },
+    { "source": "/transmission-succession","destination": "/transmission",                      "permanent": true },
+    { "source": "/blog",                 "destination": "/",                                    "permanent": true },
+    { "source": "/blog/:path*",          "destination": "/",                                    "permanent": true },
+    { "source": "/wp-admin",             "destination": "/",                                    "permanent": true },
+    { "source": "/wp-content/:path*",    "destination": "/",                                    "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options",    "value": "nosniff" },
+        { "key": "X-Frame-Options",           "value": "SAMEORIGIN" },
+        { "key": "X-XSS-Protection",          "value": "1; mode=block" },
+        { "key": "Referrer-Policy",           "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        { "key": "Content-Type",  "value": "application/xml" },
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    },
+    {
+      "source": "/robots.txt",
+      "headers": [
+        { "key": "Content-Type",  "value": "text/plain" },
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    },
+    {
+      "source": "/:path*.html",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }
+      ]
+    }
   ]
 }
