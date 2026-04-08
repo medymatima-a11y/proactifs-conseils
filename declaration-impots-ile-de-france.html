@@ -87,7 +87,7 @@ h2{font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,38px);color:var
 .cl-item{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--text-light);line-height:1.5}
 .cl-check{width:20px;height:20px;background:rgba(201,168,76,.1);border:1.5px solid var(--gold);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;cursor:pointer;transition:all .2s}
 .cl-check.done{background:var(--gold)}
-.cl-check.done::after{content:'✓';color:var(--navy);font-size:11px;font-weight:700}
+.cl-check.done::after{content:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>';color:var(--navy);font-size:11px;font-weight:700}
 .calendrier{background:rgba(201,168,76,.06);border:1.5px solid rgba(201,168,76,.2);border-radius:16px;padding:32px;margin-top:48px}
 .cal-title{font-family:'Playfair Display',serif;color:var(--navy);font-size:20px;margin-bottom:24px}
 .cal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
@@ -183,6 +183,237 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
 #temoignages{position:relative;overflow:hidden}
 #temoignages::before{content:'';position:absolute;bottom:-60px;left:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(13,31,60,.04) 0%,transparent 65%);pointer-events:none;z-index:0}
 
+
+/* ═══ NAVY RAFFINÉ — Design Update ═══ */
+
+/* — Boutons avec gradient gold animé — */
+.hero-btn,
+.btn-gold,
+.sim-btn,
+.nav-cta {
+  background: linear-gradient(110deg, #b8922e 0%, #e8c96a 40%, #c9a84c 60%, #b8922e 100%) !important;
+  background-size: 250% auto !important;
+  transition: background-position .5s ease, transform .2s, box-shadow .2s !important;
+  animation: none !important;
+}
+.hero-btn:hover,
+.btn-gold:hover,
+.sim-btn:hover,
+.nav-cta:hover {
+  background-position: right center !important;
+  box-shadow: 0 8px 28px rgba(201,168,76,.45) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* CTA principal — pulse discret */
+@keyframes subtle-pulse {
+  0%,100% { box-shadow: 0 6px 20px rgba(201,168,76,.35); }
+  50%      { box-shadow: 0 6px 32px rgba(201,168,76,.55), 0 0 0 6px rgba(201,168,76,.08); }
+}
+.hero-btn { animation: subtle-pulse 3s ease-in-out infinite !important; }
+.hero-btn:hover { animation: none !important; }
+
+/* — Section labels avec accent gauche — */
+.section-label,
+.sl {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  position: relative !important;
+  padding-left: 14px !important;
+}
+.section-label::before,
+.sl::before {
+  content: '' !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 3px !important;
+  height: 18px !important;
+  background: var(--gold) !important;
+  border-radius: 2px !important;
+}
+
+/* — Cards services — ombres multi-couches — */
+.service-card {
+  box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.04) !important;
+  transition: box-shadow .3s cubic-bezier(.4,0,.2,1), transform .3s cubic-bezier(.4,0,.2,1), border-color .3s !important;
+}
+.service-card:hover {
+  box-shadow: 0 4px 6px rgba(0,0,0,.05), 0 16px 40px rgba(13,31,60,.1), 0 0 0 1px rgba(201,168,76,.3) !important;
+  transform: translateY(-5px) !important;
+}
+
+/* — Service icon container — */
+.service-icon {
+  width: 56px !important;
+  height: 56px !important;
+  background: linear-gradient(135deg, rgba(13,31,60,.05) 0%, rgba(201,168,76,.12) 100%) !important;
+  border-radius: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 18px !important;
+  transition: background .3s !important;
+}
+.service-card:hover .service-icon {
+  background: linear-gradient(135deg, rgba(201,168,76,.15) 0%, rgba(201,168,76,.25) 100%) !important;
+}
+
+/* — Étapes en ring — */
+.step-num {
+  background: #fff !important;
+  color: var(--navy) !important;
+  border: 2.5px solid var(--navy) !important;
+  box-shadow: 0 2px 8px rgba(13,31,60,.12) !important;
+  transition: all .3s !important;
+}
+.step:hover .step-num {
+  background: var(--gold) !important;
+  border-color: var(--gold) !important;
+  color: var(--navy) !important;
+  box-shadow: 0 4px 16px rgba(201,168,76,.35) !important;
+  transform: scale(1.08) !important;
+}
+
+/* — Témoignages avec guillemet décoratif — */
+.temoignage {
+  position: relative !important;
+  overflow: visible !important;
+}
+.temoignage::before {
+  content: '\201C' !important;
+  position: absolute !important;
+  top: -8px !important;
+  right: 20px !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-size: 96px !important;
+  line-height: 1 !important;
+  color: rgba(201,168,76,.13) !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+.temo-text, .temo-stars, .temo-author {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* — Levier cards (pages SEO) — */
+.levier {
+  box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.04) !important;
+  transition: box-shadow .3s, transform .3s !important;
+}
+.levier:hover {
+  box-shadow: 0 8px 32px rgba(13,31,60,.1), 0 0 0 1px rgba(201,168,76,.2) !important;
+  transform: translateY(-4px) !important;
+}
+.levier::before {
+  background: linear-gradient(180deg, var(--gold) 0%, #e8c96a 100%) !important;
+}
+
+/* — Profil cards (pages SEO) — */
+.profil {
+  transition: all .3s !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,.15) !important;
+}
+.profil:hover, .profil.active {
+  border-color: var(--gold) !important;
+  box-shadow: 0 8px 32px rgba(201,168,76,.25) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* — Nav raffinée — */
+nav {
+  background: rgba(10,24,48,.97) !important;
+  box-shadow: 0 1px 0 rgba(201,168,76,.15), 0 4px 24px rgba(0,0,0,.15) !important;
+}
+
+/* — Stat numbers — */
+.stat-num {
+  background: linear-gradient(135deg, #c9a84c, #e8c96a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* — Hero badge amélioré — */
+.hero-badge {
+  background: rgba(201,168,76,.12) !important;
+  border: 1px solid rgba(201,168,76,.35) !important;
+  box-shadow: 0 2px 16px rgba(201,168,76,.1) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+/* — Footer gradient — */
+footer {
+  background: linear-gradient(180deg, #0a1830 0%, #060d1c 100%) !important;
+}
+
+/* — Simulateurs — améliorations — */
+.sim-tab.active {
+  background: linear-gradient(110deg, #b8922e, #e8c96a) !important;
+  box-shadow: 0 2px 12px rgba(201,168,76,.3) !important;
+}
+
+/* — Résultats cards — */
+.result-card {
+  border-left: 3px solid var(--gold) !important;
+  background: rgba(255,255,255,.06) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* — Form fields — */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus,
+.field input:focus,
+.field select:focus {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 3px rgba(201,168,76,.12) !important;
+}
+
+/* — CTA band — */
+#cta-bande, .cta-band {
+  background: linear-gradient(135deg, #0a1830 0%, #0d1f3c 50%, #0a1830 100%) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+#cta-bande::before, .cta-band::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -100px !important;
+  right: -100px !important;
+  width: 400px !important;
+  height: 400px !important;
+  background: radial-gradient(circle, rgba(201,168,76,.08) 0%, transparent 65%) !important;
+  pointer-events: none !important;
+}
+
+/* — Btn outline amélioré — */
+.btn-outline, .btn-outline-light {
+  border: 1.5px solid rgba(255,255,255,.25) !important;
+  backdrop-filter: blur(4px) !important;
+  transition: all .25s !important;
+}
+.btn-outline:hover, .btn-outline-light:hover {
+  border-color: var(--gold) !important;
+  color: var(--gold) !important;
+  background: rgba(201,168,76,.06) !important;
+}
+
+/* — Scroll top raffiné — */
+.scroll-top {
+  background: linear-gradient(135deg, #c9a84c, #e8c96a) !important;
+  box-shadow: 0 4px 20px rgba(201,168,76,.4) !important;
+}
+
+/* — Social buttons — */
+.social-btn:hover {
+  background: linear-gradient(135deg, var(--gold), #e8c96a) !important;
+  color: var(--navy) !important;
+}
+
 </style>
 
 <script type="application/ld+json">
@@ -240,7 +471,7 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
   <a href="investissement-scpi-hauts-de-seine.html">SCPI</a>
   <a href="preparation-retraite.html">Retraite</a>
   <a href="index.html#contact">Contact</a>
-  <a href="bilan-patrimonial-gratuit.html">Bilan gratuit →</a>
+  <a href="bilan-patrimonial-gratuit.html">Bilan gratuit <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="currentColor"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></svg></a>
 </div>
 <section class="hero">
   <div class="hero-bg"></div>
@@ -251,9 +482,9 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
       <h1>Votre déclaration d'impôts<br><em>optimisée</em> et sans erreur</h1>
       <p class="hero-desc">Revenus fonciers, LMNP, plus-values immobilières, revenus étrangers, cession d'entreprise… Notre accompagnement va bien au-delà du simple remplissage de formulaire : nous optimisons chaque ligne de votre déclaration pour minimiser légalement votre impôt.</p>
       <div class="hero-badges">
-        <span class="badge gold">✓ Expertise patrimoniale intégrée</span>
-        <span class="badge gold">✓ Déclarations complexes acceptées</span>
-        <span class="badge">📍 Colombes & Île-de-France</span>
+        <span class="badge gold"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Expertise patrimoniale intégrée</span>
+        <span class="badge gold"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg> Déclarations complexes acceptées</span>
+        <span class="badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.2em;height:1.2em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M228.92,49.69a8,8,0,0,0-6.86-1.45L160.93,63.52,99.58,32.84a8,8,0,0,0-5.52-.6l-64,16A8,8,0,0,0,24,56V200a8,8,0,0,0,9.94,7.76l61.13-15.28,61.35,30.68A8.15,8.15,0,0,0,160,224a8,8,0,0,0,1.94-.24l64-16A8,8,0,0,0,232,200V56A8,8,0,0,0,228.92,49.69ZM96,204.43l-56,14V59.57l56-14Zm120-10.79-56,14V51.57l56-14Z"/></svg> Colombes & Île-de-France</span>
         <span class="badge">💻 Présentiel ou visio</span>
       </div>
     </div>
@@ -270,10 +501,10 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
         <div style="display:flex;align-items:flex-start;gap:6px"><div class="radio"></div><div><div class="pkg-header"><span class="pkg-title">Déclaration complexe</span><span class="pkg-price">Sur devis</span></div><div class="pkg-desc">LMNP, plus-values, revenus étrangers, cession d'entreprise.</div></div></div>
       </div>
       <div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:12px;margin:16px 0 4px;font-size:12.5px;color:var(--text-light);line-height:1.6">
-        📋 <strong style="color:var(--navy)">Lors du RDV :</strong> déclaration finalisée et optimisée, prête à être soumise.
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M168,152a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,152Zm-8-40H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm40-104H192a8,8,0,0,0-8-8H72a8,8,0,0,0-8,8H56A16,16,0,0,0,40,24V200a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V24A16,16,0,0,0,200,8ZM80,24h96V48H80ZM200,200H56V24H64V56a8,8,0,0,0,8,8H184a8,8,0,0,0,8-8V24h8Z"/></svg> <strong style="color:var(--navy)">Lors du RDV :</strong> déclaration finalisée et optimisée, prête à être soumise.
       </div>
-      <button class="rdv-btn" onclick="alert('Demande envoyée ! Nous vous contactons sous 24h.')">Demander un rendez-vous →</button>
-      <p class="rdv-note">🔒 Données confidentielles – Ne jamais revendues</p>
+      <button class="rdv-btn" onclick="alert('Demande envoyée ! Nous vous contactons sous 24h.')">Demander un rendez-vous <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="currentColor"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></svg></button>
+      <p class="rdv-note"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208Z"/></svg> Données confidentielles – Ne jamais revendues</p>
     </div>
   </div>
 </section>
@@ -287,10 +518,10 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
       <div class="cas-card"><div class="cas-icon">🛋️</div><div class="cas-title">Location meublée (LMNP)</div><div class="cas-desc">Déclaration BIC réel simplifié, amortissement du bien, déduction des charges.</div><div class="cas-tag">BIC / LMNP</div></div>
       <div class="cas-card"><div class="cas-icon">📊</div><div class="cas-title">Plus-values immobilières</div><div class="cas-desc">Abattements pour durée de détention, exonérations résidence principale.</div><div class="cas-tag">CGI art. 150 U</div></div>
       <div class="cas-card"><div class="cas-icon">🌍</div><div class="cas-title">Revenus étrangers</div><div class="cas-desc">Conventions fiscales bilatérales, crédit d'impôt, revenus de source étrangère.</div><div class="cas-tag">Conventions fiscales</div></div>
-      <div class="cas-card"><div class="cas-icon">📈</div><div class="cas-title">Plus-values mobilières</div><div class="cas-desc">PFU 30%, option barème, abattements, pertes reportables.</div><div class="cas-tag">PFU / Barème IR</div></div>
-      <div class="cas-card"><div class="cas-icon">🏢</div><div class="cas-title">Cession d'entreprise</div><div class="cas-desc">Plus-value de cession, abattement dirigeant retraite, apport-cession.</div><div class="cas-tag">Art. 150-0 D ter</div></div>
-      <div class="cas-card"><div class="cas-icon">💼</div><div class="cas-title">Stock-options & AGA</div><div class="cas-desc">Attribution gratuite d'actions, BSPCE, levée d'options.</div><div class="cas-tag">Rémunération dirigeant</div></div>
-      <div class="cas-card"><div class="cas-icon">👨‍👩‍👧</div><div class="cas-title">Quotient familial</div><div class="cas-desc">Rattachement des enfants, demi-parts, pension alimentaire, divorce.</div><div class="cas-tag">Situations familiales</div></div>
+      <div class="cas-card"><div class="cas-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1,0-16H224A8,8,0,0,1,232,208Zm-8-152H176a8,8,0,0,0-8,8V208h48V64A8,8,0,0,0,224,56ZM144,96H104a8,8,0,0,0-8,8V208h56V104A8,8,0,0,0,144,96ZM64,136H40a8,8,0,0,0-8,8v64H72V144A8,8,0,0,0,64,136Z"/></svg></div><div class="cas-title">Plus-values mobilières</div><div class="cas-desc">PFU 30%, option barème, abattements, pertes reportables.</div><div class="cas-tag">PFU / Barème IR</div></div>
+      <div class="cas-card"><div class="cas-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M240,208h-16V96a16,16,0,0,0-16-16H168V48a16,16,0,0,0-16-16H56A16,16,0,0,0,40,48V208H24a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H168V96ZM56,48H152V208H112V168a8,8,0,0,0-8-8H88a8,8,0,0,0-8,8v40H56ZM96,208V176h16v32Z"/></svg></div><div class="cas-title">Cession d'entreprise</div><div class="cas-desc">Plus-value de cession, abattement dirigeant retraite, apport-cession.</div><div class="cas-tag">Art. 150-0 D ter</div></div>
+      <div class="cas-card"><div class="cas-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M208,40H48A16,16,0,0,0,32,56v58.77c0,89.61,75.82,119.34,91,124.38a15.53,15.53,0,0,0,10,0c15.2-5,91-34.77,91-124.38V56A16,16,0,0,0,208,40Zm-48,104H152v16a8,8,0,0,1-16,0V144H120a8,8,0,0,1,0-16h16V112a8,8,0,0,1,16,0v16h16a8,8,0,0,1,0,16Z"/></svg></div><div class="cas-title">Stock-options & AGA</div><div class="cas-desc">Attribution gratuite d'actions, BSPCE, levée d'options.</div><div class="cas-tag">Rémunération dirigeant</div></div>
+      <div class="cas-card"><div class="cas-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,1.1-8.84,24,24,0,1,0-36.46,0,8,8,0,0,1-5.74,13.73,51.6,51.6,0,0,0-41.2,20.8,8,8,0,1,1-12.8-9.6A67.3,67.3,0,0,1,112,119.69a40,40,0,1,1,54.55-54.55A40,40,0,0,1,192,112a67.3,67.3,0,0,1,22.4,19.2A8,8,0,0,1,244.8,150.4ZM160,168a40,40,0,1,0-40,40A40,40,0,0,0,160,168Zm0,0a40,40,0,1,0-40,40A40,40,0,0,0,160,168Z"/></svg></div><div class="cas-title">Quotient familial</div><div class="cas-desc">Rattachement des enfants, demi-parts, pension alimentaire, divorce.</div><div class="cas-tag">Situations familiales</div></div>
     </div>
   </div>
 </section>
@@ -327,7 +558,7 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
         </ul>
       </div>
       <div class="cl-section">
-        <h3>🏠 Si vous avez des revenus fonciers</h3>
+        <h3><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168H104v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.44,0l.11.11,80,75.48A16,16,0,0,1,224,115.55Z"/></svg> Si vous avez des revenus fonciers</h3>
         <ul class="cl-items">
           <li><div class="cl-check" onclick="toggleCheck(this)"></div>Quittances de loyer perçues sur l'année</li>
           <li><div class="cl-check" onclick="toggleCheck(this)"></div>Relevés de charges de copropriété</li>
@@ -342,8 +573,8 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
       <div class="cal-title">📅 Calendrier fiscal 2026 à ne pas manquer</div>
       <div class="cal-grid">
         <div class="cal-item"><div class="cal-month">Avril 2026</div><div class="cal-event">Ouverture déclaration en ligne</div></div>
-        <div class="cal-item urgent"><div class="cal-month">Mai 2026</div><div class="cal-event">📍 Date limite zones 1 et 2</div></div>
-        <div class="cal-item urgent"><div class="cal-month">Juin 2026</div><div class="cal-event">📍 Date limite zone 3 (Île-de-France)</div></div>
+        <div class="cal-item urgent"><div class="cal-month">Mai 2026</div><div class="cal-event"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.2em;height:1.2em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M228.92,49.69a8,8,0,0,0-6.86-1.45L160.93,63.52,99.58,32.84a8,8,0,0,0-5.52-.6l-64,16A8,8,0,0,0,24,56V200a8,8,0,0,0,9.94,7.76l61.13-15.28,61.35,30.68A8.15,8.15,0,0,0,160,224a8,8,0,0,0,1.94-.24l64-16A8,8,0,0,0,232,200V56A8,8,0,0,0,228.92,49.69ZM96,204.43l-56,14V59.57l56-14Zm120-10.79-56,14V51.57l56-14Z"/></svg> Date limite zones 1 et 2</div></div>
+        <div class="cal-item urgent"><div class="cal-month">Juin 2026</div><div class="cal-event"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.2em;height:1.2em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M228.92,49.69a8,8,0,0,0-6.86-1.45L160.93,63.52,99.58,32.84a8,8,0,0,0-5.52-.6l-64,16A8,8,0,0,0,24,56V200a8,8,0,0,0,9.94,7.76l61.13-15.28,61.35,30.68A8.15,8.15,0,0,0,160,224a8,8,0,0,0,1.94-.24l64-16A8,8,0,0,0,232,200V56A8,8,0,0,0,228.92,49.69ZM96,204.43l-56,14V59.57l56-14Zm120-10.79-56,14V51.57l56-14Z"/></svg> Date limite zone 3 (Île-de-France)</div></div>
         <div class="cal-item"><div class="cal-month">Automne 2026</div><div class="cal-event">Avis d'imposition & ajustement prélèvement</div></div>
       </div>
     </div>

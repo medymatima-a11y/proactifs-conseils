@@ -57,7 +57,7 @@ h1 em{color:var(--gold);font-style:normal}
 .cc-title{color:#fff;font-size:13px;font-weight:600;margin-bottom:2px}
 .cc-desc{color:rgba(255,255,255,.4);font-size:11px;line-height:1.4}
 .cc-check{width:18px;height:18px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:0;transition:opacity .2s}
-.cc-check::after{content:'✓';color:var(--navy);font-size:10px;font-weight:700}
+.cc-check::after{content:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg>';color:var(--navy);font-size:10px;font-weight:700}
 .hero-btn{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--navy);padding:16px 36px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none;transition:all .2s;border:none;cursor:pointer;font-family:'Inter',sans-serif}
 .hero-btn:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,168,76,.35)}
 .hero-stats{display:flex;gap:48px;margin-top:52px;padding-top:40px;border-top:1px solid rgba(255,255,255,.1);position:relative;z-index:2}
@@ -232,6 +232,237 @@ footer{background:#080f1e;padding:64px 40px 32px}
 #temoignages{position:relative;overflow:hidden}
 #temoignages::before{content:'';position:absolute;bottom:-60px;left:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(13,31,60,.04) 0%,transparent 65%);pointer-events:none;z-index:0}
 
+
+/* ═══ NAVY RAFFINÉ — Design Update ═══ */
+
+/* — Boutons avec gradient gold animé — */
+.hero-btn,
+.btn-gold,
+.sim-btn,
+.nav-cta {
+  background: linear-gradient(110deg, #b8922e 0%, #e8c96a 40%, #c9a84c 60%, #b8922e 100%) !important;
+  background-size: 250% auto !important;
+  transition: background-position .5s ease, transform .2s, box-shadow .2s !important;
+  animation: none !important;
+}
+.hero-btn:hover,
+.btn-gold:hover,
+.sim-btn:hover,
+.nav-cta:hover {
+  background-position: right center !important;
+  box-shadow: 0 8px 28px rgba(201,168,76,.45) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* CTA principal — pulse discret */
+@keyframes subtle-pulse {
+  0%,100% { box-shadow: 0 6px 20px rgba(201,168,76,.35); }
+  50%      { box-shadow: 0 6px 32px rgba(201,168,76,.55), 0 0 0 6px rgba(201,168,76,.08); }
+}
+.hero-btn { animation: subtle-pulse 3s ease-in-out infinite !important; }
+.hero-btn:hover { animation: none !important; }
+
+/* — Section labels avec accent gauche — */
+.section-label,
+.sl {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  position: relative !important;
+  padding-left: 14px !important;
+}
+.section-label::before,
+.sl::before {
+  content: '' !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 3px !important;
+  height: 18px !important;
+  background: var(--gold) !important;
+  border-radius: 2px !important;
+}
+
+/* — Cards services — ombres multi-couches — */
+.service-card {
+  box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.04) !important;
+  transition: box-shadow .3s cubic-bezier(.4,0,.2,1), transform .3s cubic-bezier(.4,0,.2,1), border-color .3s !important;
+}
+.service-card:hover {
+  box-shadow: 0 4px 6px rgba(0,0,0,.05), 0 16px 40px rgba(13,31,60,.1), 0 0 0 1px rgba(201,168,76,.3) !important;
+  transform: translateY(-5px) !important;
+}
+
+/* — Service icon container — */
+.service-icon {
+  width: 56px !important;
+  height: 56px !important;
+  background: linear-gradient(135deg, rgba(13,31,60,.05) 0%, rgba(201,168,76,.12) 100%) !important;
+  border-radius: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 18px !important;
+  transition: background .3s !important;
+}
+.service-card:hover .service-icon {
+  background: linear-gradient(135deg, rgba(201,168,76,.15) 0%, rgba(201,168,76,.25) 100%) !important;
+}
+
+/* — Étapes en ring — */
+.step-num {
+  background: #fff !important;
+  color: var(--navy) !important;
+  border: 2.5px solid var(--navy) !important;
+  box-shadow: 0 2px 8px rgba(13,31,60,.12) !important;
+  transition: all .3s !important;
+}
+.step:hover .step-num {
+  background: var(--gold) !important;
+  border-color: var(--gold) !important;
+  color: var(--navy) !important;
+  box-shadow: 0 4px 16px rgba(201,168,76,.35) !important;
+  transform: scale(1.08) !important;
+}
+
+/* — Témoignages avec guillemet décoratif — */
+.temoignage {
+  position: relative !important;
+  overflow: visible !important;
+}
+.temoignage::before {
+  content: '\201C' !important;
+  position: absolute !important;
+  top: -8px !important;
+  right: 20px !important;
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-size: 96px !important;
+  line-height: 1 !important;
+  color: rgba(201,168,76,.13) !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+.temo-text, .temo-stars, .temo-author {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* — Levier cards (pages SEO) — */
+.levier {
+  box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.04) !important;
+  transition: box-shadow .3s, transform .3s !important;
+}
+.levier:hover {
+  box-shadow: 0 8px 32px rgba(13,31,60,.1), 0 0 0 1px rgba(201,168,76,.2) !important;
+  transform: translateY(-4px) !important;
+}
+.levier::before {
+  background: linear-gradient(180deg, var(--gold) 0%, #e8c96a 100%) !important;
+}
+
+/* — Profil cards (pages SEO) — */
+.profil {
+  transition: all .3s !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,.15) !important;
+}
+.profil:hover, .profil.active {
+  border-color: var(--gold) !important;
+  box-shadow: 0 8px 32px rgba(201,168,76,.25) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* — Nav raffinée — */
+nav {
+  background: rgba(10,24,48,.97) !important;
+  box-shadow: 0 1px 0 rgba(201,168,76,.15), 0 4px 24px rgba(0,0,0,.15) !important;
+}
+
+/* — Stat numbers — */
+.stat-num {
+  background: linear-gradient(135deg, #c9a84c, #e8c96a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* — Hero badge amélioré — */
+.hero-badge {
+  background: rgba(201,168,76,.12) !important;
+  border: 1px solid rgba(201,168,76,.35) !important;
+  box-shadow: 0 2px 16px rgba(201,168,76,.1) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+/* — Footer gradient — */
+footer {
+  background: linear-gradient(180deg, #0a1830 0%, #060d1c 100%) !important;
+}
+
+/* — Simulateurs — améliorations — */
+.sim-tab.active {
+  background: linear-gradient(110deg, #b8922e, #e8c96a) !important;
+  box-shadow: 0 2px 12px rgba(201,168,76,.3) !important;
+}
+
+/* — Résultats cards — */
+.result-card {
+  border-left: 3px solid var(--gold) !important;
+  background: rgba(255,255,255,.06) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* — Form fields — */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus,
+.field input:focus,
+.field select:focus {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 3px rgba(201,168,76,.12) !important;
+}
+
+/* — CTA band — */
+#cta-bande, .cta-band {
+  background: linear-gradient(135deg, #0a1830 0%, #0d1f3c 50%, #0a1830 100%) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+#cta-bande::before, .cta-band::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -100px !important;
+  right: -100px !important;
+  width: 400px !important;
+  height: 400px !important;
+  background: radial-gradient(circle, rgba(201,168,76,.08) 0%, transparent 65%) !important;
+  pointer-events: none !important;
+}
+
+/* — Btn outline amélioré — */
+.btn-outline, .btn-outline-light {
+  border: 1.5px solid rgba(255,255,255,.25) !important;
+  backdrop-filter: blur(4px) !important;
+  transition: all .25s !important;
+}
+.btn-outline:hover, .btn-outline-light:hover {
+  border-color: var(--gold) !important;
+  color: var(--gold) !important;
+  background: rgba(201,168,76,.06) !important;
+}
+
+/* — Scroll top raffiné — */
+.scroll-top {
+  background: linear-gradient(135deg, #c9a84c, #e8c96a) !important;
+  box-shadow: 0 4px 20px rgba(201,168,76,.4) !important;
+}
+
+/* — Social buttons — */
+.social-btn:hover {
+  background: linear-gradient(135deg, var(--gold), #e8c96a) !important;
+  color: var(--navy) !important;
+}
+
 </style>
 </head>
 <body>
@@ -268,14 +499,14 @@ footer{background:#080f1e;padding:64px 40px 32px}
 
     <p class="concerns-label">Quelle est votre priorité du moment ?</p>
     <div class="concerns-grid" id="concernsGrid">
-      <div class="concern-card" onclick="toggleConcern(this,'Réduire mes impôts')"><div class="cc-icon">💰</div><div class="cc-text"><div class="cc-title">Réduire mes impôts</div><div class="cc-desc">Optimiser ma fiscalité</div></div><div class="cc-check"></div></div>
-      <div class="concern-card" onclick="toggleConcern(this,'Investir dans l\'immobilier')"><div class="cc-icon">🏠</div><div class="cc-text"><div class="cc-title">Investir dans l'immobilier</div><div class="cc-desc">Résidence ou locatif</div></div><div class="cc-check"></div></div>
-      <div class="concern-card" onclick="toggleConcern(this,'Préparer ma retraite')"><div class="cc-icon">🌅</div><div class="cc-text"><div class="cc-title">Préparer ma retraite</div><div class="cc-desc">Anticiper et sécuriser</div></div><div class="cc-check"></div></div>
-      <div class="concern-card" onclick="toggleConcern(this,'Placer mon épargne')"><div class="cc-icon">📈</div><div class="cc-text"><div class="cc-title">Placer mon épargne</div><div class="cc-desc">Faire fructifier mon capital</div></div><div class="cc-check"></div></div>
-      <div class="concern-card" onclick="toggleConcern(this,'Transmettre à mes proches')"><div class="cc-icon">👨‍👩‍👧</div><div class="cc-text"><div class="cc-title">Transmettre à mes proches</div><div class="cc-desc">Donation & succession</div></div><div class="cc-check"></div></div>
-      <div class="concern-card" onclick="toggleConcern(this,'Céder mon entreprise')"><div class="cc-icon">🏢</div><div class="cc-text"><div class="cc-title">Céder mon entreprise</div><div class="cc-desc">Optimiser la cession</div></div><div class="cc-check"></div></div>
-      <div class="concern-card" onclick="toggleConcern(this,'Obtenir un crédit immobilier')"><div class="cc-icon">🏦</div><div class="cc-text"><div class="cc-title">Obtenir un crédit</div><div class="cc-desc">Financer mon projet immobilier</div></div><div class="cc-check"></div></div>
-      <div class="concern-card" onclick="toggleConcern(this,'Déclarer mes impôts')"><div class="cc-icon">📝</div><div class="cc-text"><div class="cc-title">Déclarer mes impôts</div><div class="cc-desc">Aide à la déclaration</div></div><div class="cc-check"></div></div>
+      <div class="concern-card" onclick="toggleConcern(this,'Réduire mes impôts')"><div class="cc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm12,152v8a12,12,0,0,1-24,0v-8a28,28,0,0,1-28-28,12,12,0,0,1,24,0,4,4,0,0,0,4,4h20a4,4,0,0,0,0-8H112a28,28,0,0,1,0-56v-8a12,12,0,0,1,24,0v8a28,28,0,0,1,28,28,12,12,0,0,1-24,0,4,4,0,0,0-4-4H116a4,4,0,0,0,0,8h20a28,28,0,0,1,4,55.65Z"/></svg></div><div class="cc-text"><div class="cc-title">Réduire mes impôts</div><div class="cc-desc">Optimiser ma fiscalité</div></div><div class="cc-check"></div></div>
+      <div class="concern-card" onclick="toggleConcern(this,'Investir dans l\'immobilier')"><div class="cc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168H104v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.44,0l.11.11,80,75.48A16,16,0,0,1,224,115.55Z"/></svg></div><div class="cc-text"><div class="cc-title">Investir dans l'immobilier</div><div class="cc-desc">Résidence ou locatif</div></div><div class="cc-check"></div></div>
+      <div class="concern-card" onclick="toggleConcern(this,'Préparer ma retraite')"><div class="cc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/></svg></div><div class="cc-text"><div class="cc-title">Préparer ma retraite</div><div class="cc-desc">Anticiper et sécuriser</div></div><div class="cc-check"></div></div>
+      <div class="concern-card" onclick="toggleConcern(this,'Placer mon épargne')"><div class="cc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1,0-16H224A8,8,0,0,1,232,208Zm-8-152H176a8,8,0,0,0-8,8V208h48V64A8,8,0,0,0,224,56ZM144,96H104a8,8,0,0,0-8,8V208h56V104A8,8,0,0,0,144,96ZM64,136H40a8,8,0,0,0-8,8v64H72V144A8,8,0,0,0,64,136Z"/></svg></div><div class="cc-text"><div class="cc-title">Placer mon épargne</div><div class="cc-desc">Faire fructifier mon capital</div></div><div class="cc-check"></div></div>
+      <div class="concern-card" onclick="toggleConcern(this,'Transmettre à mes proches')"><div class="cc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,1.1-8.84,24,24,0,1,0-36.46,0,8,8,0,0,1-5.74,13.73,51.6,51.6,0,0,0-41.2,20.8,8,8,0,1,1-12.8-9.6A67.3,67.3,0,0,1,112,119.69a40,40,0,1,1,54.55-54.55A40,40,0,0,1,192,112a67.3,67.3,0,0,1,22.4,19.2A8,8,0,0,1,244.8,150.4ZM160,168a40,40,0,1,0-40,40A40,40,0,0,0,160,168Zm0,0a40,40,0,1,0-40,40A40,40,0,0,0,160,168Z"/></svg></div><div class="cc-text"><div class="cc-title">Transmettre à mes proches</div><div class="cc-desc">Donation & succession</div></div><div class="cc-check"></div></div>
+      <div class="concern-card" onclick="toggleConcern(this,'Céder mon entreprise')"><div class="cc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M240,208h-16V96a16,16,0,0,0-16-16H168V48a16,16,0,0,0-16-16H56A16,16,0,0,0,40,48V208H24a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H168V96ZM56,48H152V208H112V168a8,8,0,0,0-8-8H88a8,8,0,0,0-8,8v40H56ZM96,208V176h16v32Z"/></svg></div><div class="cc-text"><div class="cc-title">Céder mon entreprise</div><div class="cc-desc">Optimiser la cession</div></div><div class="cc-check"></div></div>
+      <div class="concern-card" onclick="toggleConcern(this,'Obtenir un crédit immobilier')"><div class="cc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,144H32V64H224Zm0-64H32V96H224Z"/></svg></div><div class="cc-text"><div class="cc-title">Obtenir un crédit</div><div class="cc-desc">Financer mon projet immobilier</div></div><div class="cc-check"></div></div>
+      <div class="concern-card" onclick="toggleConcern(this,'Déclarer mes impôts')"><div class="cc-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-40-88H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm0,32H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Z"/></svg></div><div class="cc-text"><div class="cc-title">Déclarer mes impôts</div><div class="cc-desc">Aide à la déclaration</div></div><div class="cc-check"></div></div>
     </div>
     <button class="hero-btn" onclick="openModal(null)">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
@@ -297,14 +528,14 @@ footer{background:#080f1e;padding:64px 40px 32px}
       <p class="section-sub reveal d2" style="max-width:320px">De l'analyse à la mise en œuvre, nous couvrons tous vos besoins patrimoniaux.</p>
     </div>
     <div class="services-grid">
-      <div class="service-card reveal d1"><img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80&fit=crop" alt="Fiscalité" class="service-img"><div class="service-body"><div class="service-icon">💰</div><div class="service-title">Optimisation fiscale</div><p class="service-desc">PER, déficit foncier, lois de défiscalisation… Nous identifions les leviers adaptés à votre TMI.</p><a class="service-link" href="optimisation-fiscale-ile-de-france.html">En savoir plus →</a></div></div>
-      <div class="service-card reveal d2"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80&fit=crop" alt="Immobilier" class="service-img"><div class="service-body"><div class="service-icon">🏠</div><div class="service-title">Investissement immobilier</div><p class="service-desc">SCPI, LMNP, SCI IS… Nous construisons la stratégie qui maximise votre rendement net.</p><a class="service-link" href="investissement-scpi-hauts-de-seine.html">En savoir plus →</a></div></div>
-      <div class="service-card reveal d3"><img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80&fit=crop" alt="Placements" class="service-img"><div class="service-body"><div class="service-icon">📈</div><div class="service-title">Placements financiers</div><p class="service-desc">Assurance vie, PEA, produits structurés… Les meilleurs supports selon votre profil de risque.</p><a class="service-link" href="bilan-patrimonial-gratuit.html">En savoir plus →</a></div></div>
-      <div class="service-card reveal d4"><img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=600&q=80&fit=crop" alt="Retraite" class="service-img"><div class="service-body"><div class="service-icon">🌅</div><div class="service-title">Préparation retraite</div><p class="service-desc">PER, épargne salariale, capitalisation… Anticipez pour maintenir votre niveau de vie.</p><a class="service-link" href="preparation-retraite.html">En savoir plus →</a></div></div>
-      <div class="service-card reveal d1"><img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80&fit=crop" alt="Transmission" class="service-img"><div class="service-body"><div class="service-icon">👨‍👩‍👧</div><div class="service-title">Transmission & succession</div><p class="service-desc">Donation, démembrement, SCI familiale… Optimisez la transmission en minimisant les droits.</p><a class="service-link" href="transmission-succession.html">En savoir plus →</a></div></div>
-      <div class="service-card reveal d2"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80&fit=crop" alt="Entreprise" class="service-img"><div class="service-body"><div class="service-icon">🏢</div><div class="service-title">Cession d'entreprise</div><p class="service-desc">Apport-cession, 150-0 B ter, remploi du produit… Sécurisez et optimisez votre cession.</p><a class="service-link" href="cession-entreprise.html">En savoir plus →</a></div></div>
-      <div class="service-card reveal d3"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80&fit=crop" alt="Crédit immobilier" class="service-img"><div class="service-body"><div class="service-icon">🏦</div><div class="service-title">Courtage en crédit</div><p class="service-desc">Nous négocions pour vous les meilleures conditions de financement auprès de nos partenaires bancaires.</p><a class="service-link" href="courtage-credit-immobilier.html">En savoir plus →</a></div></div>
-      <div class="service-card reveal d4"><img src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&q=80&fit=crop" alt="Déclaration impôts" class="service-img"><div class="service-body"><div class="service-icon">📝</div><div class="service-title">Déclaration d'impôts</div><p class="service-desc">Accompagnement personnalisé pour votre déclaration annuelle : revenus fonciers, plus-values, LMNP.</p><a class="service-link" href="declaration-impots-ile-de-france.html">En savoir plus →</a></div></div>
+      <div class="service-card reveal d1"><img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80&fit=crop" alt="Fiscalité" class="service-img"><div class="service-body"><div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm12,152v8a12,12,0,0,1-24,0v-8a28,28,0,0,1-28-28,12,12,0,0,1,24,0,4,4,0,0,0,4,4h20a4,4,0,0,0,0-8H112a28,28,0,0,1,0-56v-8a12,12,0,0,1,24,0v8a28,28,0,0,1,28,28,12,12,0,0,1-24,0,4,4,0,0,0-4-4H116a4,4,0,0,0,0,8h20a28,28,0,0,1,4,55.65Z"/></svg></div><div class="service-title">Optimisation fiscale</div><p class="service-desc">PER, déficit foncier, lois de défiscalisation… Nous identifions les leviers adaptés à votre TMI.</p><a class="service-link" href="optimisation-fiscale-ile-de-france.html">En savoir plus <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="currentColor"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></svg></a></div></div>
+      <div class="service-card reveal d2"><img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80&fit=crop" alt="Immobilier" class="service-img"><div class="service-body"><div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168H104v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.44,0l.11.11,80,75.48A16,16,0,0,1,224,115.55Z"/></svg></div><div class="service-title">Investissement immobilier</div><p class="service-desc">SCPI, LMNP, SCI IS… Nous construisons la stratégie qui maximise votre rendement net.</p><a class="service-link" href="investissement-scpi-hauts-de-seine.html">En savoir plus <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="currentColor"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></svg></a></div></div>
+      <div class="service-card reveal d3"><img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80&fit=crop" alt="Placements" class="service-img"><div class="service-body"><div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1,0-16H224A8,8,0,0,1,232,208Zm-8-152H176a8,8,0,0,0-8,8V208h48V64A8,8,0,0,0,224,56ZM144,96H104a8,8,0,0,0-8,8V208h56V104A8,8,0,0,0,144,96ZM64,136H40a8,8,0,0,0-8,8v64H72V144A8,8,0,0,0,64,136Z"/></svg></div><div class="service-title">Placements financiers</div><p class="service-desc">Assurance vie, PEA, produits structurés… Les meilleurs supports selon votre profil de risque.</p><a class="service-link" href="bilan-patrimonial-gratuit.html">En savoir plus <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="currentColor"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></svg></a></div></div>
+      <div class="service-card reveal d4"><img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=600&q=80&fit=crop" alt="Retraite" class="service-img"><div class="service-body"><div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/></svg></div><div class="service-title">Préparation retraite</div><p class="service-desc">PER, épargne salariale, capitalisation… Anticipez pour maintenir votre niveau de vie.</p><a class="service-link" href="preparation-retraite.html">En savoir plus <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="currentColor"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></svg></a></div></div>
+      <div class="service-card reveal d1"><img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80&fit=crop" alt="Transmission" class="service-img"><div class="service-body"><div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,1.1-8.84,24,24,0,1,0-36.46,0,8,8,0,0,1-5.74,13.73,51.6,51.6,0,0,0-41.2,20.8,8,8,0,1,1-12.8-9.6A67.3,67.3,0,0,1,112,119.69a40,40,0,1,1,54.55-54.55A40,40,0,0,1,192,112a67.3,67.3,0,0,1,22.4,19.2A8,8,0,0,1,244.8,150.4ZM160,168a40,40,0,1,0-40,40A40,40,0,0,0,160,168Zm0,0a40,40,0,1,0-40,40A40,40,0,0,0,160,168Z"/></svg></div><div class="service-title">Transmission & succession</div><p class="service-desc">Donation, démembrement, SCI familiale… Optimisez la transmission en minimisant les droits.</p><a class="service-link" href="transmission-succession.html">En savoir plus <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="currentColor"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></svg></a></div></div>
+      <div class="service-card reveal d2"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80&fit=crop" alt="Entreprise" class="service-img"><div class="service-body"><div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M240,208h-16V96a16,16,0,0,0-16-16H168V48a16,16,0,0,0-16-16H56A16,16,0,0,0,40,48V208H24a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H168V96ZM56,48H152V208H112V168a8,8,0,0,0-8-8H88a8,8,0,0,0-8,8v40H56ZM96,208V176h16v32Z"/></svg></div><div class="service-title">Cession d'entreprise</div><p class="service-desc">Apport-cession, 150-0 B ter, remploi du produit… Sécurisez et optimisez votre cession.</p><a class="service-link" href="cession-entreprise.html">En savoir plus <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="currentColor"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></svg></a></div></div>
+      <div class="service-card reveal d3"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80&fit=crop" alt="Crédit immobilier" class="service-img"><div class="service-body"><div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,144H32V64H224Zm0-64H32V96H224Z"/></svg></div><div class="service-title">Courtage en crédit</div><p class="service-desc">Nous négocions pour vous les meilleures conditions de financement auprès de nos partenaires bancaires.</p><a class="service-link" href="courtage-credit-immobilier.html">En savoir plus <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="currentColor"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></svg></a></div></div>
+      <div class="service-card reveal d4"><img src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&q=80&fit=crop" alt="Déclaration impôts" class="service-img"><div class="service-body"><div class="service-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-40-88H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm0,32H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Z"/></svg></div><div class="service-title">Déclaration d'impôts</div><p class="service-desc">Accompagnement personnalisé pour votre déclaration annuelle : revenus fonciers, plus-values, LMNP.</p><a class="service-link" href="declaration-impots-ile-de-france.html">En savoir plus <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="currentColor"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></svg></a></div></div>
     </div>
   </div>
 </section>
@@ -314,10 +545,10 @@ footer{background:#080f1e;padding:64px 40px 32px}
     <div class="section-label reveal" style="color:var(--gold)">Outils en ligne</div>
     <h2 class="section-title reveal d1">Simulez votre situation<br>en quelques clics</h2>
     <div class="sim-tabs">
-      <button class="sim-tab active" onclick="switchSim('credit')">🏠 Crédit immobilier</button>
-      <button class="sim-tab" onclick="switchSim('av')">💼 Assurance vie</button>
-      <button class="sim-tab" onclick="switchSim('scpi')">🏛️ SCPI</button>
-      <button class="sim-tab" onclick="switchSim('impots')">💰 Impôts 2026</button>
+      <button class="sim-tab active" onclick="switchSim('credit')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168H104v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.44,0l.11.11,80,75.48A16,16,0,0,1,224,115.55Z"/></svg> Crédit immobilier</button>
+      <button class="sim-tab" onclick="switchSim('av')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M208,40H48A16,16,0,0,0,32,56v58.77c0,89.61,75.82,119.34,91,124.38a15.53,15.53,0,0,0,10,0c15.2-5,91-34.77,91-124.38V56A16,16,0,0,0,208,40Zm-48,104H152v16a8,8,0,0,1-16,0V144H120a8,8,0,0,1,0-16h16V112a8,8,0,0,1,16,0v16h16a8,8,0,0,1,0,16Z"/></svg> Assurance vie</button>
+      <button class="sim-tab" onclick="switchSim('scpi')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M216,48H40A16,16,0,0,0,24,64V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V64A16,16,0,0,0,216,48ZM40,64H72V192H40ZM216,192H88V64H216Z"/></svg> SCPI</button>
+      <button class="sim-tab" onclick="switchSim('impots')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm12,152v8a12,12,0,0,1-24,0v-8a28,28,0,0,1-28-28,12,12,0,0,1,24,0,4,4,0,0,0,4,4h20a4,4,0,0,0,0-8H112a28,28,0,0,1,0-56v-8a12,12,0,0,1,24,0v8a28,28,0,0,1,28,28,12,12,0,0,1-24,0,4,4,0,0,0-4-4H116a4,4,0,0,0,0,8h20a28,28,0,0,1,4,55.65Z"/></svg> Impôts 2026</button>
     </div>
     <div class="sim-panels">
       <div class="sim-panel active" id="sim-credit">
@@ -429,9 +660,9 @@ footer{background:#080f1e;padding:64px 40px 32px}
       <h2 class="section-title reveal d1" style="margin:0 auto">Ce que disent nos clients</h2>
     </div>
     <div class="temoignages-grid">
-      <div class="temoignage reveal d1"><div class="temo-stars">★★★★★</div><p class="temo-text">« Grâce à Proactifs Conseils, j'ai économisé plus de 6 000 € d'impôts dès la première année. L'approche est claire, honnête et vraiment sur mesure. »</p><div class="temo-author"><div class="temo-avatar">S</div><div><div class="temo-name">Sophie M.</div><div class="temo-role">Cadre supérieure, Paris 17e</div></div></div></div>
-      <div class="temoignage reveal d2"><div class="temo-stars">★★★★★</div><p class="temo-text">« J'ai enfin compris comment structurer mon patrimoine. Le bilan patrimonial a été une vraie révélation. Je recommande sans hésiter. »</p><div class="temo-author"><div class="temo-avatar">T</div><div><div class="temo-name">Thomas R.</div><div class="temo-role">Chef d'entreprise, Colombes</div></div></div></div>
-      <div class="temoignage reveal d3"><div class="temo-stars">★★★★★</div><p class="temo-text">« Un accompagnement professionnel et humain. Medy a su prendre le temps d'écouter notre situation familiale complexe et trouver les meilleures solutions. »</p><div class="temo-author"><div class="temo-avatar">A</div><div><div class="temo-name">Anne & Pierre D.</div><div class="temo-role">Retraités, Levallois</div></div></div></div>
+      <div class="temoignage reveal d1"><div class="temo-stars"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.1em;height:1.1em;display:inline-block;vertical-align:-.15em" fill="#c9a84c"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"/></svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.1em;height:1.1em;display:inline-block;vertical-align:-.15em" fill="#c9a84c"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"/></svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.1em;height:1.1em;display:inline-block;vertical-align:-.15em" fill="#c9a84c"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"/></svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.1em;height:1.1em;display:inline-block;vertical-align:-.15em" fill="#c9a84c"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"/></svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.1em;height:1.1em;display:inline-block;vertical-align:-.15em" fill="#c9a84c"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"/></svg> </div><p class="temo-text">« Grâce à Proactifs Conseils, j'ai économisé plus de 6 000 € d'impôts dès la première année. L'approche est claire, honnête et vraiment sur mesure. »</p><div class="temo-author"><div class="temo-avatar">S</div><div><div class="temo-name">Sophie M.</div><div class="temo-role">Cadre supérieure, Paris 17e</div></div></div></div>
+      <div class="temoignage reveal d2"><div class="temo-stars"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.1em;height:1.1em;display:inline-block;vertical-align:-.15em" fill="#c9a84c"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"/></svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.1em;height:1.1em;display:inline-block;vertical-align:-.15em" fill="#c9a84c"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"/></svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.1em;height:1.1em;display:inline-block;vertical-align:-.15em" fill="#c9a84c"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"/></svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.1em;height:1.1em;display:inline-block;vertical-align:-.15em" fill="#c9a84c"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"/></svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.1em;height:1.1em;display:inline-block;vertical-align:-.15em" fill="#c9a84c"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"/></svg> </div><p class="temo-text">« J'ai enfin compris comment structurer mon patrimoine. Le bilan patrimonial a été une vraie révélation. Je recommande sans hésiter. »</p><div class="temo-author"><div class="temo-avatar">T</div><div><div class="temo-name">Thomas R.</div><div class="temo-role">Chef d'entreprise, Colombes</div></div></div></div>
+      <div class="temoignage reveal d3"><div class="temo-stars"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.1em;height:1.1em;display:inline-block;vertical-align:-.15em" fill="#c9a84c"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"/></svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.1em;height:1.1em;display:inline-block;vertical-align:-.15em" fill="#c9a84c"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"/></svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.1em;height:1.1em;display:inline-block;vertical-align:-.15em" fill="#c9a84c"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"/></svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.1em;height:1.1em;display:inline-block;vertical-align:-.15em" fill="#c9a84c"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"/></svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.1em;height:1.1em;display:inline-block;vertical-align:-.15em" fill="#c9a84c"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34l13.49-58.54-45.11-39.42a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"/></svg> </div><p class="temo-text">« Un accompagnement professionnel et humain. Medy a su prendre le temps d'écouter notre situation familiale complexe et trouver les meilleures solutions. »</p><div class="temo-author"><div class="temo-avatar">A</div><div><div class="temo-name">Anne & Pierre D.</div><div class="temo-role">Retraités, Levallois</div></div></div></div>
     </div>
   </div>
 </section>
@@ -444,7 +675,7 @@ footer{background:#080f1e;padding:64px 40px 32px}
     <p>Un conseiller à votre écoute — transparent sur sa rémunération, engagé pour vos intérêts.</p>
     <div class="cta-group">
       <a href="bilan-patrimonial-gratuit.html" class="btn-gold">Prendre rendez-vous</a>
-      <a href="tel:0184782830" class="btn-outline">📞 01 84 78 28 30</a>
+      <a href="tel:0184782830" class="btn-outline"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1.3em;height:1.3em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="#c9a84c"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-25.72a7.6,7.6,0,0,0,.56-.76,16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46Z"/></svg> 01 84 78 28 30</a>
     </div>
   </div>
 </section>
@@ -513,7 +744,7 @@ footer{background:#080f1e;padding:64px 40px 32px}
       </select>
     </div>
     <div class="form-group"><label>Message (optionnel)</label><textarea placeholder="Décrivez brièvement votre situation..."></textarea></div>
-    <button class="hero-btn" style="width:100%;justify-content:center" onclick="submitForm()">Envoyer ma demande →</button>
+    <button class="hero-btn" style="width:100%;justify-content:center" onclick="submitForm()">Envoyer ma demande <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" style="width:1em;height:1em;display:inline-block;vertical-align:-.15em;flex-shrink:0" fill="currentColor"><path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.48a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"/></svg></button>
   </div>
 </div>
 
