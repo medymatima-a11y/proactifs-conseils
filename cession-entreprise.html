@@ -453,6 +453,43 @@ footer {
   .hero-badge { font-size: 11px !important; padding: 4px 12px !important; }
 }
 
+
+/* ═══ FIX OVERFLOW MOBILE — anti-scroll horizontal ═══ */
+html { overflow-x: hidden; max-width: 100%; }
+body { overflow-x: hidden; max-width: 100%; }
+* { box-sizing: border-box; }
+/* Conteneurs larges : width fixe → max-width fluide */
+.container, .hero-inner, .section-inner, .sim-container,
+.steps-inner, .temoignages-inner, .cta-inner, .faq-inner,
+.contact-inner, .bilan-inner, .leviers-inner, .profils-inner,
+.intro-inner, .advisor-inner, .why-inner, .blog-inner {
+  max-width: 100% !important;
+  width: 100% !important;
+  overflow-x: hidden;
+}
+/* Simulateur : colonnes côte à côte → empilées sur mobile */
+@media (max-width: 700px) {
+  .sim-layout {
+    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .sim-panel { display: block !important; width: 100% !important; }
+  .sim-results { width: 100% !important; }
+}
+/* Hero flex → wrap sur mobile */
+@media (max-width: 600px) {
+  .hero-inner, .hero-content {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  /* Nav sur mobile : pas de débordement */
+  nav { padding: 0 16px !important; }
+  .nav-logo-text { display: none; }
+  .nav-logo-icon { width: 34px !important; height: 34px !important; font-size: 15px !important; }
+}
+
 </style>
 
 <script type="application/ld+json">
