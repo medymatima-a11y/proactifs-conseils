@@ -75,4 +75,33 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Pages villes -->
+  <url>
+    <loc>https://www.proactifsconseils.fr/conseiller-patrimoine-courbevoie</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.proactifsconseils.fr/conseiller-patrimoine-asnieres</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.proactifsconseils.fr/conseiller-patrimoine-levallois</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.proactifsconseils.fr/conseiller-patrimoine-nanterre</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
