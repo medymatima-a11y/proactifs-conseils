@@ -30,6 +30,7 @@
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'Inter',sans-serif;color:var(--text)}
 nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(13,31,60,.97);backdrop-filter:blur(12px);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:72px;border-bottom:1px solid rgba(201,168,76,.2)}
 .nav-logo{display:flex;align-items:center;text-decoration:none;background:#fff;padding:4px 8px;border-radius:6px}
+.nav-logo-img{height:42px;width:auto;display:block}
 
 
 
@@ -44,12 +45,12 @@ nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(13,31,60,.97);ba
 .hero-content{position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:var(--gold);padding:6px 16px;border-radius:100px;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:28px}
 .hero-badge::before{content:'●';font-size:8px}
-h1{font-family:'Playfair Display',serif;color:#fff;font-size:clamp(34px,5vw,60px);font-weight:700;line-height:1.15;max-width:760px;margin-bottom:20px}
+h1{font-family:'Playfair Display',serif;color:#fff;font-size:clamp(26px,3.8vw,52px);font-weight:700;line-height:1.18;max-width:820px;margin-bottom:20px}
 h1 em{color:var(--gold);font-style:normal}
-.hero-sub{color:rgba(255,255,255,.65);font-size:17px;max-width:520px;line-height:1.7;margin-bottom:52px}
+.hero-sub{color:rgba(255,255,255,.65);font-size:16px;max-width:520px;line-height:1.7;margin-bottom:32px}
 .concerns-label{color:var(--gold);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
-.concerns-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:960px;width:100%;margin-bottom:36px}
-.concern-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px 14px;cursor:pointer;transition:all .25s;text-align:left;display:flex;align-items:center;gap:12px}
+.concerns-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:960px;width:100%;margin-bottom:28px}
+.concern-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 12px;cursor:pointer;transition:all .25s;text-align:left;display:flex;align-items:center;gap:10px}
 .concern-card:hover,.concern-card.active{background:rgba(201,168,76,.12);border-color:var(--gold);transform:translateY(-2px)}
 .concern-card.active .cc-check{opacity:1}
 .cc-icon{font-size:24px;flex-shrink:0}
@@ -60,7 +61,7 @@ h1 em{color:var(--gold);font-style:normal}
 .cc-check::after{content:'✓';color:var(--navy);font-size:10px;font-weight:700}
 .hero-btn{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--navy);padding:16px 36px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none;transition:all .2s;border:none;cursor:pointer;font-family:'Inter',sans-serif}
 .hero-btn:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,168,76,.35)}
-.hero-stats{display:flex;gap:48px;margin-top:52px;padding-top:40px;border-top:1px solid rgba(255,255,255,.1);position:relative;z-index:2}
+.hero-stats{display:flex;gap:40px;margin-top:32px;padding-top:28px;border-top:1px solid rgba(255,255,255,.1);position:relative;z-index:2}
 .stat{text-align:center}
 .stat-num{font-family:'Playfair Display',serif;color:var(--gold);font-size:30px;font-weight:700}
 .stat-label{color:rgba(255,255,255,.5);font-size:12px;margin-top:4px;letter-spacing:.5px}
@@ -179,7 +180,7 @@ footer{background:#080f1e;padding:64px 40px 32px}
 .mobile-menu a:last-child{border-bottom:none;color:var(--gold);margin-top:8px}
 .mobile-menu a:hover{color:var(--gold);padding-left:8px}
 @keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:900px){.nav-logo-img{height:28px}.hamburger{display:flex}.nav-links{display:none}.nav-cta{display:none}}
+@media(max-width:900px){.nav-logo-img{height:32px}.hamburger{display:flex}.nav-links{display:none}.nav-cta{display:none}}
 
 /* — Scroll reveal — */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
@@ -546,13 +547,13 @@ body { overflow-x: hidden; max-width: 100%; }
   /* Nav sur mobile : pas de débordement */
   nav { padding: 0 16px !important; }
   
-  .nav-logo-img{height:36px;width:auto;display:block}}
+  }
 
 </style>
 </head>
 <body>
 <nav id="mainNav">
-  <a href="/" class="nav-logo"><img src="/images/logo-proactifs.png" alt="Proactifs Conseils - Gestion de Patrimoine" class="nav-logo-img"></a>
+  <a href="/" class="nav-logo"><img src="/images/logo.svg" alt="Proactifs Conseils - Gestion de Patrimoine" class="nav-logo-img"></a>
   <ul class="nav-links">
     <li><a href="#services">Nos services</a></li>
     <li><a href="#simulateurs">Simulateurs</a></li>
