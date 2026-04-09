@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 110" fill="none">
+  <!-- Infinity symbol: teal left loop, gold right loop, crossing at center -->
+  <defs>
+    <clipPath id="cp-left">
+      <rect x="0" y="0" width="130" height="110"/>
+    </clipPath>
+    <clipPath id="cp-right">
+      <rect x="130" y="0" width="130" height="110"/>
+    </clipPath>
+  </defs>
+
+  <!-- Teal left loop (drawn first, behind gold at crossing) -->
+  <ellipse cx="95"  cy="38" rx="32" ry="22" stroke="#1e7a6e" stroke-width="9" stroke-linecap="round" clip-path="url(#cp-left)"/>
+  <!-- Gold right loop -->
+  <ellipse cx="165" cy="38" rx="32" ry="22" stroke="#c9a84c" stroke-width="9" stroke-linecap="round" clip-path="url(#cp-right)"/>
+  <!-- Gold right loop left portion (over teal at crossing) -->
+  <ellipse cx="165" cy="38" rx="32" ry="22" stroke="#c9a84c" stroke-width="9" stroke-linecap="round" clip-path="url(#cp-left)"/>
+  <!-- Teal left loop right portion — front arc at crossing point (teal in front of gold) -->
+  <!-- Hidden by clip — intentional layering: gold in front at center -->
+
+  <!-- Text: PROACTIFS CONSEILS in teal -->
+  <text x="130" y="80" text-anchor="middle"
+        font-family="'Playfair Display', Georgia, serif"
+        font-weight="700" font-size="22" fill="#1e7a6e" letter-spacing="2">
+    PROACTIFS CONSEILS
+  </text>
+
+  <!-- Text: PATRIMOINE in gold -->
+  <text x="130" y="100" text-anchor="middle"
+        font-family="'Inter', Arial, sans-serif"
+        font-weight="400" font-size="11" fill="#c9a84c" letter-spacing="4">
+    PATRIMOINE
+  </text>
+</svg>

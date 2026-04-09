@@ -28,10 +28,10 @@
 :root{--navy:#0d1f3c;--gold:#c9a84c;--gold-light:#e8c96a;--white:#fff;--gray:#f5f6f8;--text:#2c3e50;--text-light:#6b7a8d}
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'Inter',sans-serif;color:var(--text)}
 nav{position:fixed;top:0;width:100%;z-index:200;background:rgba(13,31,60,.97);backdrop-filter:blur(12px);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:68px;border-bottom:1px solid rgba(201,168,76,.2)}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.nav-logo-icon{width:36px;height:36px;background:var(--gold);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;color:var(--navy);font-size:16px}
-.nav-logo-text{color:#fff;font-family:'Playfair Display',serif;font-size:15px;line-height:1.2}
-.nav-logo-text span{display:block;color:var(--gold);font-size:10px;font-family:'Inter',sans-serif;letter-spacing:2px;text-transform:uppercase}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+
+
+
 .nav-back{color:rgba(255,255,255,.7);font-size:13px;text-decoration:none}.nav-back:hover{color:var(--gold)}
 .nav-cta{background:var(--gold);color:var(--navy);padding:9px 20px;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none}
 .hero{background:var(--navy);padding:120px 40px 80px;position:relative;overflow:hidden}
@@ -111,7 +111,7 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
 .mobile-menu a:last-child{border-bottom:none;color:var(--gold);margin-top:8px}
 .mobile-menu a:hover{color:var(--gold);padding-left:8px}
 @keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:900px){.hamburger{display:flex}.nav-links{display:none}.nav-cta{display:none}}
+@media(max-width:900px){.nav-logo-img{height:44px}.hamburger{display:flex}.nav-links{display:none}.nav-cta{display:none}}
 
 /* — Scroll reveal — */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
@@ -191,8 +191,7 @@ footer a{color:var(--gold);text-decoration:none;margin:0 12px}
 /* CTA principal — pulse discret */
 @keyframes subtle-pulse {
   0%,100% { box-shadow: 0 6px 20px rgba(201,168,76,.35); }
-  50%      { box-shadow: 0 6px 32px rgba(201,168,76,.55), 0 0 0 6px rgba(201,168,76,.08); }
-}
+  50%      { box-shadow: 0 6px 32px rgba(201,168,76,.55), 0 0 0 6px rgba(201,168,76,.08); }}
 .hero-btn { animation: subtle-pulse 3s ease-in-out infinite !important; }
 .hero-btn:hover { animation: none !important; }
 
@@ -420,8 +419,7 @@ footer {
   /* Grille 5 col → 3 col */
   .etapes-grid, .chiffres-grid {
     grid-template-columns: repeat(3, 1fr) !important;
-  }
-}
+  }}
 
 @media (max-width: 600px) {
   /* Toutes les grilles → 1 colonne */
@@ -445,8 +443,7 @@ footer {
   /* Cartes stats → 2 colonnes */
   .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
   /* Nav */
-  .hero-badge { font-size: 11px !important; padding: 4px 12px !important; }
-}
+  .hero-badge { font-size: 11px !important; padding: 4px 12px !important; }}
 
 
 /* ═══ FIX OVERFLOW MOBILE — anti-scroll horizontal ═══ */
@@ -470,8 +467,7 @@ body { overflow-x: hidden; max-width: 100%; }
     flex-direction: column !important;
   }
   .sim-panel { display: block !important; width: 100% !important; }
-  .sim-results { width: 100% !important; }
-}
+  .sim-results { width: 100% !important; }}
 /* Hero flex → wrap sur mobile */
 @media (max-width: 600px) {
   .hero-inner, .hero-content {
@@ -481,9 +477,8 @@ body { overflow-x: hidden; max-width: 100%; }
   }
   /* Nav sur mobile : pas de débordement */
   nav { padding: 0 16px !important; }
-  .nav-logo-text { display: none; }
-  .nav-logo-icon { width: 34px !important; height: 34px !important; font-size: 15px !important; }
-}
+  
+  .nav-logo-img{height:64px;width:auto;display:block}}
 
 </style>
 
@@ -530,7 +525,7 @@ body { overflow-x: hidden; max-width: 100%; }
 </head>
 <body>
 <nav>
-  <a href="/" class="nav-logo"><div class="nav-logo-icon">P</div><div class="nav-logo-text">Proactifs Conseils<span>Gestion de Patrimoine</span></div></a>
+  <a href="/" class="nav-logo"><img src="/images/logo.svg" alt="Proactifs Conseils - Gestion de Patrimoine" class="nav-logo-img"></a>
   <a href="/" class="nav-back">← Retour</a>
   <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   <a href="/bilan-patrimonial-gratuit" class="nav-cta">Bilan fiscal gratuit</a>
