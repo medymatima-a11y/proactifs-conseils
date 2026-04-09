@@ -430,6 +430,57 @@ footer {
   color: var(--navy) !important;
 }
 
+
+/* ═══ RESPONSIVE MOBILE — Correction globale ═══ */
+
+/* Conteneurs larges → max-width fluide */
+.container, .section-inner, .hero-inner, .steps-inner,
+.temoignages-inner, .cta-inner, .faq-inner, .contact-inner,
+.levier-grid, .profil-grid, .blog-grid, .bilan-inner {
+  max-width: 100% !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 900px) {
+  /* Grilles 3-4 colonnes → 2 colonnes */
+  .steps-grid, .leviers-grid, .levier-grid,
+  .cards-grid, .profils, .avantages-grid,
+  .services-row, .comparaison-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  /* Grille 5 col → 3 col */
+  .etapes-grid, .chiffres-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Toutes les grilles → 1 colonne */
+  .steps-grid, .leviers-grid, .levier-grid,
+  .cards-grid, .profils, .avantages-grid,
+  .services-row, .comparaison-grid,
+  .etapes-grid, .chiffres-grid, .profil-grid {
+    grid-template-columns: 1fr !important;
+  }
+  /* Hero texte */
+  .hero-title { font-size: clamp(26px, 7vw, 48px) !important; }
+  .hero-subtitle { font-size: clamp(14px, 4vw, 18px) !important; }
+  /* Boutons côte à côte → empilés */
+  .hero-btns { flex-direction: column !important; gap: 12px !important; }
+  /* Tableaux → scroll horizontal */
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  /* Simulateur tabs → wrap */
+  .sim-tabs { flex-wrap: wrap !important; gap: 6px !important; }
+  /* Section padding réduit */
+  section { padding: 40px 0 !important; }
+  /* Cartes stats → 2 colonnes */
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  /* Nav */
+  .hero-badge { font-size: 11px !important; padding: 4px 12px !important; }
+}
+
 </style>
 </head>
 <body>
