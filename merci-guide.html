@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Votre guide est en route – Proactifs Conseils</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --forest:  #1B3A2D;
+    --forest2: #152E23;
+    --forest3: #0F2A1E;
+    --gold:    #C9A84C;
+    --gold-l:  #E2C47A;
+    --gold-d:  #A07A30;
+    --ivory:   #FAFAF7;
+    --sand:    #F2EDE3;
+    --dark:    #080C10;
+    --grey:    #6B7A6A;
+    --grey-l:  #CBD5C0;
+    --grey-d:  #9CAA9C;
+    --white:   #ffffff;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--forest2);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    border-bottom: 1px solid rgba(201,168,76,.15);
+    background: rgba(21,46,35,.8);
+    backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 2px;
+    color: var(--gold); text-transform: uppercase; text-decoration: none;
+  }
+  .nav-back {
+    font-size: 13px; color: var(--grey-d);
+    text-decoration: none; transition: color .2s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .nav-back:hover { color: var(--gold-l); }
+
+  /* ── HERO CONFIRMATION ── */
+  .confirm-hero {
+    text-align: center;
+    padding: 72px 24px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .confirm-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(201,168,76,.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .check-circle {
+    width: 72px; height: 72px;
+    background: rgba(201,168,76,.12);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 28px;
+    animation: popIn .5s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  .check-circle svg { color: var(--gold); }
+
+  .confirm-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 2px;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 16px;
+    animation: fadeUp .5s .1s ease both;
+  }
+  .confirm-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 16px;
+    animation: fadeUp .5s .15s ease both;
+  }
+  .confirm-title em { font-style: italic; color: var(--gold-l); font-weight: 400; }
+  .confirm-sub {
+    font-size: 16px; font-weight: 300;
+    color: var(--grey-l); line-height: 1.7;
+    max-width: 520px; margin: 0 auto 40px;
+    animation: fadeUp .5s .2s ease both;
+  }
+
+  /* Download button */
+  .btn-download {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--gold);
+    color: var(--forest);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 700;
+    padding: 16px 32px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background .2s, transform .15s, box-shadow .2s;
+    animation: fadeUp .5s .25s ease both;
+  }
+  .btn-download:hover {
+    background: var(--gold-l);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(201,168,76,.3);
+  }
+  .email-note {
+    margin-top: 14px;
+    font-size: 12.5px; color: var(--grey-d);
+    animation: fadeUp .5s .3s ease both;
+  }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    display: flex; align-items: center; gap: 20px;
+    max-width: 700px; margin: 0 auto;
+    padding: 0 24px;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: ''; flex: 1;
+    height: 1px; background: rgba(201,168,76,.2);
+  }
+  .divider-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 2px;
+    color: rgba(201,168,76,.5); text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ── TRANSITION SECTION ── */
+  .transition-section {
+    max-width: 700px; margin: 0 auto;
+    padding: 56px 24px 48px;
+    text-align: center;
+  }
+  .transition-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 600; color: var(--white);
+    line-height: 1.3; margin-bottom: 16px;
+  }
+  .transition-section h2 em { font-style: italic; color: var(--gold-l); font-weight: 400; }
+  .transition-section p {
+    font-size: 15.5px; font-weight: 300;
+    color: var(--grey-l); line-height: 1.75;
+    margin-bottom: 12px;
+  }
+
+  /* Erreur pills */
+  .erreur-pills {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    margin: 28px 0;
+  }
+  .pill {
+    font-size: 12.5px; color: var(--gold-l);
+    background: rgba(201,168,76,.08);
+    border: 1px solid rgba(201,168,76,.2);
+    padding: 7px 16px; border-radius: 2px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: .5px;
+  }
+
+  /* ── CALENDLY SECTION ── */
+  .calendly-section {
+    background: var(--forest3);
+    border-top: 1px solid rgba(201,168,76,.15);
+    border-bottom: 1px solid rgba(201,168,76,.15);
+    padding: 64px 24px;
+  }
+  .calendly-header {
+    text-align: center; margin-bottom: 40px;
+  }
+  .calendly-header .badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 2px;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .calendly-header h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 700; color: var(--white);
+    line-height: 1.2; margin-bottom: 10px;
+  }
+  .calendly-header h2 em { font-style: italic; color: var(--gold-l); font-weight: 400; }
+  .calendly-header p {
+    font-size: 15px; font-weight: 300;
+    color: var(--grey-l); line-height: 1.65;
+    max-width: 500px; margin: 0 auto;
+  }
+  .calendly-embed {
+    max-width: 900px; margin: 0 auto;
+    border-radius: 8px; overflow: hidden;
+    border: 1px solid rgba(201,168,76,.15);
+  }
+
+  /* ── ABOUT STRIP ── */
+  .about-strip {
+    max-width: 800px; margin: 0 auto;
+    padding: 64px 24px;
+    display: flex; align-items: center; gap: 40px;
+  }
+  .about-avatar {
+    width: 80px; height: 80px; flex-shrink: 0;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-size: 30px; font-weight: 700;
+    color: var(--forest);
+  }
+  .about-text h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--white); margin-bottom: 4px;
+  }
+  .about-text .role {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 1.5px;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .about-text p {
+    font-size: 14px; font-weight: 300;
+    color: var(--grey-l); line-height: 1.7;
+  }
+  .about-contacts {
+    display: flex; flex-wrap: wrap; gap: 16px; margin-top: 14px;
+  }
+  .about-contact {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 13px; color: var(--grey-d);
+    text-decoration: none; transition: color .2s;
+  }
+  .about-contact:hover { color: var(--gold-l); }
+  .about-contact svg { color: var(--gold); flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    padding: 28px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap;
+    border-top: 1px solid rgba(255,255,255,.06);
+  }
+  .footer-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 2px;
+    color: var(--gold); text-transform: uppercase;
+  }
+  .footer-note { font-size: 12px; color: rgba(255,255,255,.25); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(.5); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    nav { padding: 16px 20px; }
+    .about-strip { flex-direction: column; gap: 24px; text-align: center; }
+    .about-contacts { justify-content: center; }
+    footer { flex-direction: column; text-align: center; padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">Proactifs Conseils · Patrimoine</a>
+  <a href="/" class="nav-back">
+    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+    Retour au site
+  </a>
+</nav>
+
+<!-- CONFIRMATION HERO -->
+<section class="confirm-hero">
+  <div class="check-circle">
+    <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+    </svg>
+  </div>
+  <p class="confirm-badge">Inscription confirmée</p>
+  <h1 class="confirm-title">
+    Votre guide est<br><em>en route.</em>
+  </h1>
+  <p class="confirm-sub">
+    Vérifiez votre boîte mail dans 2 minutes.<br>
+    En attendant, téléchargez-le directement ici :
+  </p>
+  <a href="/files/guide-5-erreurs-patrimoniaux.pdf" download class="btn-download">
+    <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+    </svg>
+    Télécharger le guide PDF
+  </a>
+  <p class="email-note">Le guide vous a aussi été envoyé par email.</p>
+</section>
+
+<!-- DIVIDER -->
+<div class="section-divider">
+  <span class="divider-text">Et maintenant ?</span>
+</div>
+
+<!-- TRANSITION -->
+<section class="transition-section">
+  <h2>Ce guide vous concerne-t-il<br><em>vraiment</em> ?</h2>
+  <p>
+    Lecture en 15 minutes. Mais une question avant de commencer :
+    parmi les 5 erreurs, combien s'appliquent à votre situation aujourd'hui ?
+  </p>
+  <div class="erreur-pills">
+    <span class="pill">01 · Fiscalité non pilotée</span>
+    <span class="pill">02 · Épargne dormante</span>
+    <span class="pill">03 · Retraite négligée</span>
+    <span class="pill">04 · Proches non protégés</span>
+    <span class="pill">05 · Transmission non anticipée</span>
+  </div>
+  <p>
+    Si vous vous reconnaissez dans au moins une de ces erreurs,
+    <strong style="color:var(--white)">un échange de 30 minutes peut changer la trajectoire de votre patrimoine.</strong>
+  </p>
+</section>
+
+<!-- CALENDLY -->
+<section class="calendly-section">
+  <div class="calendly-header">
+    <p class="badge">Étape suivante</p>
+    <h2>Réservez votre<br><em>bilan patrimonial sur mesure</em></h2>
+    <p>
+      30 minutes, en visio ou à Colombes. Sans engagement.<br>
+      On identifie ensemble les leviers qui s'appliquent à votre cas.
+    </p>
+  </div>
+  <div class="calendly-embed">
+    <div class="calendly-inline-widget"
+         data-url="https://calendly.com/gestionnairedepatrimoine/decouverte?hide_gdpr_banner=1&background_color=0F2A1E&text_color=FAFAF7&primary_color=C9A84C"
+         style="min-width:320px; height:700px;">
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT MEDY -->
+<section>
+  <div class="about-strip">
+    <div class="about-avatar">M</div>
+    <div class="about-text">
+      <h3>Medy Matima</h3>
+      <p class="role">Conseiller en Gestion de Patrimoine · Colombes (92)</p>
+      <p>
+        J'accompagne les cadres supérieurs et chefs d'entreprise d'Île-de-France
+        dans la construction et l'optimisation de leur patrimoine.
+        Mon approche est globale, personnalisée, et orientée résultats concrets.
+      </p>
+      <div class="about-contacts">
+        <a href="tel:+33184782830" class="about-contact">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          01 84 78 28 30
+        </a>
+        <a href="mailto:contact@proactifsconseils.fr" class="about-contact">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          contact@proactifsconseils.fr
+        </a>
+        <a href="https://www.proactifsconseils.fr" class="about-contact">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg>
+          proactifsconseils.fr
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Proactifs Conseils · Patrimoine</div>
+  <p class="footer-note">54 Rue du Bournard, 92700 Colombes · CIF enregistré AMF</p>
+</footer>
+
+<!-- Calendly widget script -->
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+
+</body>
+</html>
