@@ -75,6 +75,14 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Page de capture tunnel -->
+  <url>
+    <loc>https://www.proactifsconseils.fr/guide-5-erreurs-patrimoniaux</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Pages villes -->
   <url>
     <loc>https://www.proactifsconseils.fr/conseiller-patrimoine-courbevoie</loc>
