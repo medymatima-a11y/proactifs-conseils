@@ -775,7 +775,7 @@
       </div>
     </div>
 
-    <form class="hero-form" action="https://app.systeme.io/api/optin/23567368" method="POST">
+    <form class="hero-form" onsubmit="redirectToSysteme(this); return false;">
       <div class="form-row">
         <div class="form-field">
           <label>Prénom</label>
@@ -892,7 +892,7 @@
     <h2>Votre guide vous attend.<br><em>Recevez-le en 30 secondes.</em></h2>
     <p>Entrez simplement votre email — le guide arrive instantanément.</p>
   </div>
-  <form class="mid-cta-form" action="https://app.systeme.io/api/optin/23567368" method="POST">
+  <form class="mid-cta-form" onsubmit="redirectToSysteme(this); return false;">
     <input type="email" name="email" placeholder="votre@email.com" required>
     <button class="btn-cta-sm" type="submit">Recevoir le guide →</button>
   </form>
@@ -988,7 +988,7 @@
       Recevez les 5 erreurs et leurs solutions en détail.<br>
       Lecture en 15 minutes. Résultats potentiels : des années d'optimisation.
     </p>
-    <form class="final-form" action="https://app.systeme.io/api/optin/23567368" method="POST">
+    <form class="final-form" onsubmit="redirectToSysteme(this); return false;">
       <div class="final-form-row">
         <input type="text" name="first_name" placeholder="Votre prénom" required>
         <input type="email" name="email" placeholder="votre@email.com" required>
@@ -1023,6 +1023,17 @@
     });
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
+
+  // Redirect to Systeme.io with pre-filled fields
+  function redirectToSysteme(form) {
+    const email = form.querySelector('input[type="email"]')?.value || '';
+    const firstName = form.querySelector('input[type="text"]')?.value || '';
+    if (!email) { form.querySelector('input[type="email"]').focus(); return; }
+    const url = new URL('https://www.proactifsconseils.com/c487a722');
+    if (email) url.searchParams.set('email', email);
+    if (firstName) url.searchParams.set('first_name', firstName);
+    window.location.href = url.toString();
+  }
 </script>
 </body>
 </html>
