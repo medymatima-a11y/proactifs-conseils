@@ -47,10 +47,10 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Champs manquants' });
   }
 
-  const tagName      = TAG_MAP[service]   || 'site-web';
+  const tagName       = TAG_MAP[service]   || 'site-web';
   const preoccupation = LABEL_MAP[service] || service;
-  const prenomNom    = `${prenom} ${nom || ''}`.trim();
-  const now          = new Date().toISOString();
+  const prenomNom     = `${prenom} ${nom || ''}`.trim();
+  const nowDate       = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
   // ── 1. Systeme.io ──────────────────────────────────────────
   if (systemeKey) {
@@ -70,11 +70,10 @@ module.exports = async (req, res) => {
   // ── 2. Airtable ────────────────────────────────────────────
   if (airtableKey) {
     try {
-      const answersText = answers.join('\n');
-      // Dernière réponse = info complémentaires si textarea
+      // Sépare les réponses normales de l'info complémentaire (textarea)
       const lastAnswer = answers[answers.length - 1] || '';
       const infoCompl  = lastAnswer.includes('Informations') ? lastAnswer.split(' : ').slice(1).join(' : ') : '';
-      const reponsesQ  = infoCompl ? answers.slice(0, -1).join('\n') : answersText;
+      const reponsesQ  = (infoCompl ? answers.slice(0, -1) : answers).join('\n');
 
       const atRes = await fetch(AIRTABLE_API, {
         method: 'POST',
@@ -83,6 +82,7 @@ module.exports = async (req, res) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          typecast: true,
           records: [{
             fields: {
               'fldB23sDZVIYqaA81': prenomNom,
@@ -90,12 +90,12 @@ module.exports = async (req, res) => {
               'fldwBNH11DPxcFtG0': tel || '',
               'fldZ1GOsvgvBAmKoq': situation || '',
               'fldoF56h17WokQt3S': preoccupation,
-              'fldrnpT5Fnhd4uY5e': '🆕 Nouveau',
+              'fldrnpT5Fnhd4uY5e': 'Nouveau',
               'fldJtmKxVMXgBGDz3': reponsesQ,
               'fld8cbbXHqM5YM6XN': infoCompl,
-              'fldg4IeV2r50trZhA': now,
+              'fldg4IeV2r50trZhA': nowDate,
             }
-          }]
+          }],
         }),
       });
       if (!atRes.ok) {
@@ -109,7 +109,7 @@ module.exports = async (req, res) => {
   if (resendKey) {
     try {
       const answersHtml = answers.map(a => `<li style="margin:4px 0">${a}</li>`).join('');
-      await fetch('https://api.resend.com/emails', {
+      const rsRes = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${resendKey}`,
@@ -118,28 +118,32 @@ module.exports = async (req, res) => {
         body: JSON.stringify({
           from: 'Proactifs Conseils <onboarding@resend.dev>',
           to: [notifEmail],
-          subject: `🔔 Nouveau lead — ${preoccupation} (${prenomNom})`,
+          subject: `Nouveau lead - ${preoccupation} (${prenomNom})`,
           html: `
             <div style="font-family:sans-serif;max-width:560px;margin:0 auto;padding:24px">
-              <h2 style="color:#1B3A2D;margin-bottom:4px">🆕 Nouveau lead qualifié</h2>
+              <h2 style="color:#1B3A2D;margin-bottom:4px">Nouveau lead</h2>
               <p style="color:#666;margin-top:0">Via le wizard proactifsconseils.fr</p>
               <table style="width:100%;border-collapse:collapse;margin:16px 0">
                 <tr><td style="padding:8px;background:#f5f5f5;font-weight:600;width:40%">Nom</td><td style="padding:8px;border-bottom:1px solid #eee">${prenomNom}</td></tr>
-                <tr><td style="padding:8px;background:#f5f5f5;font-weight:600">Email</td><td style="padding:8px;border-bottom:1px solid #eee"><a href="mailto:${email}">${email}</a></td></tr>
-                <tr><td style="padding:8px;background:#f5f5f5;font-weight:600">Téléphone</td><td style="padding:8px;border-bottom:1px solid #eee">${tel || '—'}</td></tr>
-                <tr><td style="padding:8px;background:#f5f5f5;font-weight:600">Situation</td><td style="padding:8px;border-bottom:1px solid #eee">${situation || '—'}</td></tr>
-                <tr><td style="padding:8px;background:#C9A84C;color:#fff;font-weight:600">Préoccupation</td><td style="padding:8px;background:#fff9ee;font-weight:600;border-bottom:1px solid #eee">${preoccupation}</td></tr>
+                <tr><td style="padding:8px;background:#f5f5f5;font-weight:600">Email</td><td style="padding:8px;border-bottom:1px solid #eee">${email}</td></tr>
+                <tr><td style="padding:8px;background:#f5f5f5;font-weight:600">Tel</td><td style="padding:8px;border-bottom:1px solid #eee">${tel || '-'}</td></tr>
+                <tr><td style="padding:8px;background:#f5f5f5;font-weight:600">Situation</td><td style="padding:8px;border-bottom:1px solid #eee">${situation || '-'}</td></tr>
+                <tr><td style="padding:8px;background:#C9A84C;color:#fff;font-weight:600">Sujet</td><td style="padding:8px;background:#fff9ee;font-weight:600;border-bottom:1px solid #eee">${preoccupation}</td></tr>
               </table>
-              <h3 style="color:#1B3A2D">Réponses au questionnaire</h3>
+              <h3 style="color:#1B3A2D">Reponses</h3>
               <ul style="padding-left:20px;color:#333">${answersHtml}</ul>
               <p style="margin-top:24px">
-                <a href="https://airtable.com/appxCpuqfmqfS8jpD" style="background:#1B3A2D;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600">Voir dans Airtable →</a>
+                <a href="https://airtable.com/appxCpuqfmqfS8jpD" style="background:#1B3A2D;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600">Voir dans Airtable</a>
               </p>
             </div>
           `,
         }),
       });
-    } catch(e) { console.warn('Resend error:', e.message); }
+      if (!rsRes.ok) {
+        const rsErr = await rsRes.text();
+        console.error('Resend HTTP error:', rsRes.status, rsErr);
+      }
+    } catch(e) { console.error('Resend fetch error:', e.message); }
   }
 
   return res.status(200).json({ success: true });
