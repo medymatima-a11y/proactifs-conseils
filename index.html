@@ -1069,14 +1069,14 @@ footer {
         <h3>Vous y êtes presque&nbsp;!</h3>
         <p>Laissez-nous vos coordonnées pour recevoir votre analyse personnalisée <strong>sous 24h</strong>.</p>
         <div class="wiz-form-row">
-          <div class="wiz-field"><label>Prénom</label><input type="text" id="wPrenom" placeholder="Jean"></div>
-          <div class="wiz-field"><label>Nom</label><input type="text" id="wNom" placeholder="Dupont"></div>
+          <div class="wiz-field"><label>Prénom *</label><input type="text" id="wPrenom" placeholder="Jean" required></div>
+          <div class="wiz-field"><label>Nom *</label><input type="text" id="wNom" placeholder="Dupont" required></div>
         </div>
-        <div class="wiz-field"><label>Email</label><input type="email" id="wEmail" placeholder="jean@exemple.fr"></div>
-        <div class="wiz-field"><label>Téléphone</label><input type="tel" id="wTel" placeholder="06 00 00 00 00"></div>
+        <div class="wiz-field"><label>Email *</label><input type="email" id="wEmail" placeholder="jean@exemple.fr" required></div>
+        <div class="wiz-field"><label>Téléphone *</label><input type="tel" id="wTel" placeholder="06 00 00 00 00" required></div>
         <div class="wiz-field">
-          <label>Votre situation professionnelle</label>
-          <select id="wSituation">
+          <label>Votre situation professionnelle *</label>
+          <select id="wSituation" required>
             <option value="">Sélectionner…</option>
             <option>Salarié(e)</option>
             <option>Dirigeant(e) / TNS</option>
@@ -1802,7 +1802,19 @@ const flows = {
         {l:"Oui, des revenus complexes", d:"Difficile à déclarer correctement"},
         {l:"Oui, j'ai eu un redressement", d:"Je veux sécuriser mes futures déclarations"},
         {l:"Je ne sais pas si tout était juste", d:""}
-      ]}
+      ]},
+      { q:"Quel est votre principal objectif fiscal\u00a0?", sub:"Cela nous permettra d'orienter notre accompagnement.", opts:[
+        {l:"Réduire mon impôt sur le revenu", d:"Optimiser ma TMI et mes déductions"},
+        {l:"Optimiser ma déclaration de revenus fonciers / LMNP", d:"Régime réel, amortissements, charges"},
+        {l:"Régulariser une situation passée", d:"Corriger une erreur ou un oubli"},
+        {l:"Anticiper les impôts de l'année prochaine", d:"Préparer dès maintenant"}
+      ]},
+      { q:"Quand souhaitez-vous débuter la préparation\u00a0?", sub:"", opts:[
+        {l:"Cette semaine", d:"Je souhaite démarrer rapidement"},
+        {l:"D'ici 15 jours", d:"Je prends le temps de me préparer"},
+        {l:"Plus tard", d:"Je veux d'abord m'informer"}
+      ]},
+      { q:"Informations complémentaires", sub:"Précisez votre situation ou vos questions si vous le souhaitez.", type:"textarea" }
     ]
   }
 };
@@ -1841,19 +1853,41 @@ function renderWizStep() {
 
   const optsEl = document.getElementById('wizOpts');
   optsEl.innerHTML = '';
-  step.opts.forEach((opt, i) => {
-    const div = document.createElement('div');
-    div.className = 'wiz-opt' + (wizAnswers[wizStep]===i?' selected':'');
-    div.innerHTML = '<div class="wiz-opt-check"></div><div><div class="wiz-opt-label">'+opt.l+'</div>'+(opt.d?'<div class="wiz-opt-desc">'+opt.d+'</div>':'')+'</div>';
-    div.onclick = () => selectOpt(i);
-    optsEl.appendChild(div);
-  });
+
+  if (step.type === 'textarea') {
+    // Zone de texte libre
+    const ta = document.createElement('textarea');
+    ta.id = 'wizTextarea';
+    ta.placeholder = 'Décrivez votre situation, vos questions, tout élément utile…';
+    ta.style.cssText = 'width:100%;min-height:120px;padding:12px 14px;border:1.5px solid #e0e4e8;border-radius:6px;font-size:14px;font-family:inherit;color:#1a2230;resize:vertical;outline:none;transition:border-color .2s;box-sizing:border-box;';
+    ta.value = wizAnswers[wizStep] || '';
+    ta.oninput = () => {
+      wizAnswers[wizStep] = ta.value;
+      document.getElementById('wizNext').classList.toggle('ready', ta.value.trim().length > 0);
+    };
+    ta.onfocus = () => ta.style.borderColor = 'var(--gold)';
+    ta.onblur  = () => ta.style.borderColor = '#e0e4e8';
+    optsEl.appendChild(ta);
+  } else {
+    step.opts.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'wiz-opt' + (wizAnswers[wizStep]===i?' selected':'');
+      div.innerHTML = '<div class="wiz-opt-check"></div><div><div class="wiz-opt-label">'+opt.l+'</div>'+(opt.d?'<div class="wiz-opt-desc">'+opt.d+'</div>':'')+'</div>';
+      div.onclick = () => selectOpt(i);
+      optsEl.appendChild(div);
+    });
+  }
 
   // Back button
   document.getElementById('wizBack').style.visibility = wizStep===0 ? 'hidden' : 'visible';
   // Next button state
   const nextBtn = document.getElementById('wizNext');
-  nextBtn.classList.toggle('ready', wizAnswers[wizStep]!==undefined);
+  const step2 = flow.steps[wizStep];
+  if (step2.type === 'textarea') {
+    nextBtn.classList.toggle('ready', !!(wizAnswers[wizStep] && wizAnswers[wizStep].trim().length > 0));
+  } else {
+    nextBtn.classList.toggle('ready', wizAnswers[wizStep]!==undefined);
+  }
 
   // Show question view
   document.getElementById('wizQBody').style.display='block';
@@ -1870,11 +1904,19 @@ function selectOpt(i) {
     el.querySelector('.wiz-opt-check').style.background = idx===i ? 'var(--gold)' : '';
   });
   document.getElementById('wizNext').classList.add('ready');
-  // Auto-advance on mobile / fast UX after short delay
-  setTimeout(()=>{ if(wizAnswers[wizStep]!==undefined) document.getElementById('wizNext').click(); }, 350);
+  // Auto-advance uniquement sur les étapes à choix multiple (pas textarea)
+  const curStep = flows[wizService] && flows[wizService].steps[wizStep];
+  if (!curStep || curStep.type !== 'textarea') {
+    setTimeout(()=>{ if(wizAnswers[wizStep]!==undefined) document.getElementById('wizNext').click(); }, 350);
+  }
 }
 function wizNext() {
-  if(wizAnswers[wizStep]===undefined) return;
+  const currentStep = flows[wizService].steps[wizStep];
+  if (currentStep && currentStep.type === 'textarea') {
+    const ta = document.getElementById('wizTextarea');
+    if (!ta || !ta.value.trim()) { ta && ta.focus(); return; }
+    wizAnswers[wizStep] = ta.value.trim();
+  } else if(wizAnswers[wizStep]===undefined) return;
   wizStep++;
   if(wizStep >= flows[wizService].steps.length) {
     // Show contact form
@@ -1897,9 +1939,15 @@ function wizPrev() {
   renderWizStep();
 }
 async function wizSubmit() {
-  const prenom = document.getElementById('wPrenom').value.trim();
-  const email  = document.getElementById('wEmail').value.trim();
-  if (!prenom || !email) { alert("Veuillez renseigner votre prénom et votre email."); return; }
+  const prenom    = document.getElementById('wPrenom').value.trim();
+  const nom       = document.getElementById('wNom').value.trim();
+  const email     = document.getElementById('wEmail').value.trim();
+  const tel       = document.getElementById('wTel').value.trim();
+  const situation = document.getElementById('wSituation').value.trim();
+  if (!prenom || !nom || !email || !tel || !situation) {
+    alert("Veuillez renseigner tous les champs obligatoires (*).");
+    return;
+  }
 
   const btn = document.querySelector('#wizContact .wiz-submit-btn');
   if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
