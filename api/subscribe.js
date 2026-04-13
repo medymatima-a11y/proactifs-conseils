@@ -76,7 +76,7 @@ module.exports = async (req, res) => {
       const infoCompl  = lastAnswer.includes('Informations') ? lastAnswer.split(' : ').slice(1).join(' : ') : '';
       const reponsesQ  = infoCompl ? answers.slice(0, -1).join('\n') : answersText;
 
-      await fetch(AIRTABLE_API, {
+      const atRes = await fetch(AIRTABLE_API, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${airtableKey}`,
@@ -85,20 +85,24 @@ module.exports = async (req, res) => {
         body: JSON.stringify({
           records: [{
             fields: {
-              'Prénom Nom':                prenomNom,
-              'Email':                     email.trim().toLowerCase(),
-              'Téléphone':                 tel || '',
-              'Situation':                 situation || '',
-              'Préoccupation':             preoccupation,
-              'Statut':                    '🆕 Nouveau',
-              'Réponses questionnaire':    reponsesQ,
-              'Informations complémentaires': infoCompl,
-              'Date':                      now,
+              'fldB23sDZVIYqaA81': prenomNom,
+              'fld17XQzLs5FJ85cO': email.trim().toLowerCase(),
+              'fldwBNH11DPxcFtG0': tel || '',
+              'fldZ1GOsvgvBAmKoq': situation || '',
+              'fldoF56h17WokQt3S': preoccupation,
+              'fldrnpT5Fnhd4uY5e': '🆕 Nouveau',
+              'fldJtmKxVMXgBGDz3': reponsesQ,
+              'fld8cbbXHqM5YM6XN': infoCompl,
+              'fldg4IeV2r50trZhA': now,
             }
           }]
         }),
       });
-    } catch(e) { console.warn('Airtable error:', e.message); }
+      if (!atRes.ok) {
+        const atErr = await atRes.text();
+        console.error('Airtable HTTP error:', atRes.status, atErr);
+      }
+    } catch(e) { console.error('Airtable fetch error:', e.message); }
   }
 
   // ── 3. Email de notification (Resend) ──────────────────────
