@@ -31,11 +31,12 @@
       position: fixed; inset: 0; z-index: 99999;
       background: rgba(10,25,18,.72);
       backdrop-filter: blur(4px);
-      display: flex; align-items: center; justify-content: center;
+      display: none; align-items: center; justify-content: center;
       opacity: 0; transition: opacity .35s ease;
       padding: 16px;
+      pointer-events: none;
     }
-    #pc-overlay.pc-show { opacity: 1; }
+    #pc-overlay.pc-show { opacity: 1; pointer-events: auto; }
     #pc-modal {
       background: #1B3A2D;
       border: 1px solid rgba(201,168,76,.25);
@@ -173,8 +174,8 @@
   function showPopup() {
     var overlay = document.getElementById('pc-overlay');
     if (!overlay || overlay.classList.contains('pc-show')) return;
+    overlay.style.display = 'flex';
     requestAnimationFrame(function () {
-      overlay.style.display = 'flex';
       requestAnimationFrame(function () {
         overlay.classList.add('pc-show');
       });
