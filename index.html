@@ -1896,13 +1896,27 @@ function wizPrev() {
   wizStep--;
   renderWizStep();
 }
-function wizSubmit() {
-  const prenom = document.getElementById('wPrenom').value;
-  const email = document.getElementById('wEmail').value;
-  if(!prenom || !email) { alert("Veuillez renseigner votre prénom et votre email."); return; }
-  document.getElementById('wizContact').style.display='none';
-  document.getElementById('wizThanks').style.display='block';
-  document.getElementById('wizFill').style.width='100%';
+async function wizSubmit() {
+  const prenom = document.getElementById('wPrenom').value.trim();
+  const email  = document.getElementById('wEmail').value.trim();
+  if (!prenom || !email) { alert("Veuillez renseigner votre prénom et votre email."); return; }
+
+  const btn = document.querySelector('#wizContact .wiz-submit-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
+
+  try {
+    await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prenom, email, service: wizService }),
+    });
+  } catch(e) {
+    console.warn('Subscribe error:', e);
+  }
+
+  document.getElementById('wizContact').style.display = 'none';
+  document.getElementById('wizThanks').style.display  = 'block';
+  document.getElementById('wizFill').style.width = '100%';
 }
 
 
