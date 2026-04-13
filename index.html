@@ -1952,11 +1952,26 @@ async function wizSubmit() {
   const btn = document.querySelector('#wizContact .wiz-submit-btn');
   if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
 
+  // Construire les réponses lisibles
+  const flow = flows[wizService];
+  const answersLabels = wizAnswers.map((ans, i) => {
+    const step = flow.steps[i];
+    if (!step) return null;
+    const q = step.q.replace(/\u00a0/g, ' ');
+    if (step.type === 'textarea') return q + ' : ' + ans;
+    const opt = step.opts && step.opts[ans];
+    return opt ? q + ' : ' + opt.l : null;
+  }).filter(Boolean);
+
   try {
     await fetch('/api/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prenom, email, service: wizService }),
+      body: JSON.stringify({
+        prenom, nom, email, tel, situation,
+        service: wizService,
+        answers: answersLabels,
+      }),
     });
   } catch(e) {
     console.warn('Subscribe error:', e);
