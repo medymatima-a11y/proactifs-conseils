@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page introuvable | Proactifs Conseils</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --forest: #1B3A2D;
+    --forest-mid: #244d3b;
+    --gold: #C9A84C;
+    --gold-light: #dfc278;
+    --ivory: #FAFAF7;
+    --ivory-dim: rgba(250,250,247,0.6);
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--forest);
+    color: var(--ivory);
+    font-family: 'DM Sans', sans-serif;
+    overflow: hidden;
+  }
+
+  /* Atmospheric background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 15% 50%, rgba(201,168,76,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 85% 20%, rgba(201,168,76,0.05) 0%, transparent 55%),
+      radial-gradient(ellipse 100% 100% at 50% 100%, rgba(0,0,0,0.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Subtle grid lines */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: clamp(24px, 4vw, 48px);
+  }
+
+  /* Header */
+  header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .logo-wrap img {
+    height: 40px;
+    width: auto;
+    opacity: 0.9;
+  }
+
+  .brand-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ivory-dim);
+  }
+
+  /* Main content */
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: clamp(20px, 3vw, 32px);
+    padding: 40px 24px;
+  }
+
+  .error-code {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(100px, 20vw, 200px);
+    font-weight: 300;
+    line-height: 0.85;
+    letter-spacing: -0.03em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201,168,76,0.35);
+    position: relative;
+    animation: fadeUp 0.8s ease 0.1s both;
+    user-select: none;
+  }
+
+  .error-code::after {
+    content: '404';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 40%, rgba(201,168,76,0.3) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0.15;
+  }
+
+  .divider {
+    width: 48px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  .headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(22px, 4vw, 40px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--ivory);
+    max-width: 560px;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+
+  .headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .subtext {
+    font-size: clamp(14px, 1.8vw, 16px);
+    font-weight: 300;
+    color: var(--ivory-dim);
+    max-width: 420px;
+    line-height: 1.7;
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+
+  .actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 0.8s ease 0.5s both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold);
+    color: var(--forest);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 2px;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(201,168,76,0.3);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--ivory-dim);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 2px;
+    border: 1px solid rgba(250,250,247,0.15);
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .btn-secondary:hover {
+    color: var(--ivory);
+    border-color: rgba(250,250,247,0.35);
+    transform: translateY(-1px);
+  }
+
+  /* Footer */
+  footer {
+    display: flex;
+    justify-content: center;
+    animation: fadeUp 0.6s ease 0.6s both;
+  }
+
+  .footer-note {
+    font-size: 12px;
+    color: rgba(250,250,247,0.3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* Floating gold line decoration */
+  .deco-line {
+    position: fixed;
+    top: 0;
+    right: clamp(80px, 12vw, 160px);
+    width: 1px;
+    height: 100vh;
+    background: linear-gradient(180deg, transparent 0%, rgba(201,168,76,0.15) 30%, rgba(201,168,76,0.25) 50%, rgba(201,168,76,0.15) 70%, transparent 100%);
+    pointer-events: none;
+    animation: fadeIn 1.2s ease 0.3s both;
+  }
+
+  .deco-line-2 {
+    position: fixed;
+    top: 0;
+    left: clamp(80px, 12vw, 160px);
+    width: 1px;
+    height: 100vh;
+    background: linear-gradient(180deg, transparent 0%, rgba(201,168,76,0.08) 30%, rgba(201,168,76,0.12) 50%, rgba(201,168,76,0.08) 70%, transparent 100%);
+    pointer-events: none;
+    animation: fadeIn 1.2s ease 0.5s both;
+  }
+
+  /* Animations */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @media (max-width: 480px) {
+    html, body { overflow: auto; }
+    .actions { flex-direction: column; align-items: center; }
+    .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="deco-line"></div>
+<div class="deco-line-2"></div>
+
+<div class="page">
+
+  <header>
+    <div class="logo-wrap">
+      <img src="/images/logo-proactifs.png" alt="Proactifs Conseils">
+    </div>
+    <span class="brand-name">Proactifs Conseils</span>
+  </header>
+
+  <main>
+    <div class="error-code">404</div>
+    <div class="divider"></div>
+    <h1 class="headline">Cette page n'existe <em>plus</em>,<br>mais nous sommes là.</h1>
+    <p class="subtext">
+      Le lien que vous avez suivi est peut-être obsolète ou a été déplacé.
+      Retournez à l'accueil pour découvrir nos services de gestion de patrimoine.
+    </p>
+    <div class="actions">
+      <a href="/" class="btn-primary">
+        ← Retour à l'accueil
+      </a>
+      <a href="/#contact" class="btn-secondary">
+        Nous contacter
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <p class="footer-note">Proactifs Conseils &mdash; Cabinet de gestion de patrimoine</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
