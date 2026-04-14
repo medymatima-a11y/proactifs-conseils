@@ -704,16 +704,15 @@ footer {
   display:flex; flex-direction:column; gap:10px;
   position:relative; overflow:hidden;
   opacity:0;
-  animation: card-in .5s cubic-bezier(.4,0,.2,1) forwards;
+  transform: translateY(28px);
+  transition: all .25s cubic-bezier(.4,0,.2,1);
 }
-.lead-card:nth-child(1) { animation-delay: .10s; }
-.lead-card:nth-child(2) { animation-delay: .22s; }
-.lead-card:nth-child(3) { animation-delay: .34s; }
-.lead-card:nth-child(4) { animation-delay: .46s; }
-.lead-card:nth-child(5) { animation-delay: .58s; }
-.lead-card:nth-child(6) { animation-delay: .70s; }
-.lead-card:nth-child(7) { animation-delay: .82s; }
-.lead-card:nth-child(8) { animation-delay: .94s; }
+/* Une fois visible (classe ajoutée par JS) */
+.lead-card.card-visible {
+  opacity:1;
+  transform: translateY(0);
+  animation: none;
+}
 
 /* ── Ligne dorée en bas ── */
 .lead-card::after {
@@ -2059,5 +2058,24 @@ if (document.readyState === 'loading') {
 }
 // Fallback: force visible after 100ms no matter what
 setTimeout(triggerHeroAnims, 100);
+
+// ── Scroll-triggered cascade sur les cartes ──────────────────
+(function() {
+  const cards = document.querySelectorAll('.lead-card');
+  if (!cards.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const card = entry.target;
+        const idx  = Array.from(cards).indexOf(card);
+        setTimeout(() => card.classList.add('card-visible'), idx * 120);
+        observer.unobserve(card);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  cards.forEach(card => observer.observe(card));
+})();
 
 </script>
