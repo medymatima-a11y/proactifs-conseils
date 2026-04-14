@@ -11,6 +11,31 @@
 //
 // ============================================================
 
+import crypto from 'crypto';
+
+// Désactive le body parser auto de Vercel pour récupérer le raw body
+// (nécessaire pour la vérification HMAC)
+export const config = {
+  api: { bodyParser: false }
+};
+
+async function readRawBody(req) {
+  const chunks = [];
+  for await (const chunk of req) chunks.push(chunk);
+  return Buffer.concat(chunks).toString('utf8');
+}
+
+function verifySignature(rawBody, signature, secret) {
+  if (!signature || !secret) return false;
+  const expected = crypto.createHmac('sha256', secret).update(rawBody).digest('hex');
+  // Compare en temps constant pour éviter les timing attacks
+  try {
+    return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature));
+  } catch {
+    return false;
+  }
+}
+
 // Mapping : nom de formulaire ou tag systeme.io → thématique Brevo
 // Personnalise ces valeurs selon le nom exact de tes 8 formulaires
 const THEMATIQUE_MAP = {
@@ -62,14 +87,38 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Méthode non autorisée' });
   }
 
-  // 1. Vérification du secret systeme.io (sécurité)
-  const receivedSecret = req.headers['x-webhook-secret'] || req.body?.secret;
-  if (process.env.SYSTEMEIO_SECRET && receivedSecret !== process.env.SYSTEMEIO_SECRET) {
-    console.warn('Webhook refusé : secret invalide');
-    return res.status(401).json({ error: 'Secret invalide' });
+  // Lecture du body brut (nécessaire pour HMAC)
+  const rawBody = await readRawBody(req);
+
+  // 1. Vérification de la signature HMAC systeme.io
+  // systeme.io envoie la signature dans un de ces headers selon les versions
+  const signature =
+    req.headers['x-webhook-signature'] ||
+    req.headers['x-systemeio-signature'] ||
+    req.headers['x-hub-signature-256']?.replace('sha256=', '') ||
+    req.headers['x-webhook-secret'];
+
+  const secret = process.env.SYSTEMEIO_SECRET;
+
+  if (secret) {
+    const validSignature = verifySignature(rawBody, signature, secret);
+    const plainMatch = signature === secret; // fallback si le secret est envoyé en clair
+    if (!validSignature && !plainMatch) {
+      console.warn('Webhook refusé : signature invalide', {
+        received: signature ? signature.slice(0, 12) + '...' : 'aucune',
+        headers: Object.keys(req.headers)
+      });
+      return res.status(401).json({ error: 'Signature invalide' });
+    }
   }
 
-  const payload = req.body || {};
+  // Parse du JSON
+  let payload = {};
+  try {
+    payload = JSON.parse(rawBody);
+  } catch (e) {
+    return res.status(400).json({ error: 'JSON invalide' });
+  }
   console.log('Webhook reçu :', JSON.stringify(payload).slice(0, 500));
 
   // 2. Extraction des données contact
