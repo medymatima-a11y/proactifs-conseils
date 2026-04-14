@@ -1854,6 +1854,12 @@ const flows = {
   declaration: {
     name:"Déclarer mes impôts",
     steps:[
+      { q:"Quelle est votre tranche marginale d'imposition\u00a0?", sub:"Cela nous permet d'évaluer les optimisations possibles pour votre déclaration.", opts:[
+        {l:"0 – 11 %", d:"Revenus < 27\u202f000 €/an"},
+        {l:"30 %", d:"Revenus 27\u202f000 – 78\u202f000 €/an"},
+        {l:"41 %", d:"Revenus 78\u202f000 – 168\u202f000 €/an"},
+        {l:"45 %", d:"Revenus > 168\u202f000 €/an"}
+      ]},
       { q:"Quels types de revenus devez-vous déclarer\u00a0?", sub:"", opts:[
         {l:"Salaires uniquement", d:"Déclaration standard"},
         {l:"Revenus fonciers", d:"Location nue"},
@@ -1963,7 +1969,18 @@ function renderWizStep() {
   document.getElementById('wizQFooter').style.display='flex';
   document.getElementById('wizContact').style.display='none';
   document.getElementById('wizThanks').style.display='none';
-  document.getElementById('wizNext').textContent = wizStep===flows[wizService].steps.length-1 ? 'Voir mes résultats →' : 'Continuer →';
+  const lastStepLabels = {
+    impots:       'Recevoir mes recommandations →',
+    immo:         'Recevoir mon étude personnalisée →',
+    retraite:     'Préparer mon bilan retraite →',
+    epargne:      'Recevoir ma stratégie d\'épargne →',
+    transmission: 'Préparer mon bilan transmission →',
+    cession:      'Recevoir mon analyse de cession →',
+    credit:       'Étudier mon financement →',
+    declaration:  'Optimiser ma déclaration →',
+  };
+  const isLast = wizStep === flows[wizService].steps.length - 1;
+  document.getElementById('wizNext').textContent = isLast ? (lastStepLabels[wizService] || 'Finaliser ma demande →') : 'Continuer →';
 }
 function selectOpt(i) {
   wizAnswers[wizStep] = i;
