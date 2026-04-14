@@ -50,7 +50,7 @@ module.exports = async (req, res) => {
   const tagName       = TAG_MAP[service]   || 'site-web';
   const preoccupation = LABEL_MAP[service] || service;
   const prenomNom     = `${prenom} ${nom || ''}`.trim();
-  const nowDate       = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+  const nowDate       = new Date().toISOString(); // YYYY-MM-DDTHH:mm:ss.sssZ
 
   // ── 1. Systeme.io ──────────────────────────────────────────
   if (systemeKey) {
