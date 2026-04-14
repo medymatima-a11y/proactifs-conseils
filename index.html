@@ -704,8 +704,8 @@ footer {
   display:flex; flex-direction:column; gap:10px;
   position:relative; overflow:hidden;
   opacity:0;
-  transform: translateY(28px);
-  transition: all .25s cubic-bezier(.4,0,.2,1);
+  transform: translateY(-28px);
+  transition: opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1);
 }
 /* Une fois visible (classe ajoutée par JS) */
 .lead-card.card-visible {
@@ -2069,7 +2069,7 @@ setTimeout(triggerHeroAnims, 100);
       if (entry.isIntersecting) {
         const card = entry.target;
         const idx  = Array.from(cards).indexOf(card);
-        setTimeout(() => card.classList.add('card-visible'), idx * 120);
+        setTimeout(() => card.classList.add('card-visible'), idx * 200);
         observer.unobserve(card);
       }
     });
