@@ -2070,88 +2070,79 @@ if (document.readyState === 'loading') {
 // Fallback: force visible after 100ms no matter what
 setTimeout(triggerHeroAnims, 100);
 
-// ── Animation lettre par lettre sur le titre ─────────────────
+// ── Titre lettre par lettre → puis cartes en cascade ──────────
 (function() {
   const title = document.querySelector('.lead-title');
+  const cards = document.querySelectorAll('.lead-card');
   if (!title) return;
 
-  // Collecte les segments (texte normal + <em>)
+  // ── 1. Prépare les spans de lettres ──
   const segments = [];
   title.childNodes.forEach(node => {
-    if (node.nodeType === Node.TEXT_NODE) {
-      segments.push({ text: node.textContent, isEm: false });
-    } else if (node.nodeName === 'EM') {
-      segments.push({ text: node.textContent, isEm: true });
-    }
+    if (node.nodeType === Node.TEXT_NODE) segments.push({ text: node.textContent, isEm: false });
+    else if (node.nodeName === 'EM')      segments.push({ text: node.textContent, isEm: true });
   });
 
-  // Reconstitue le texte complet avec info isEm par caractère
   const allChars = [];
-  segments.forEach(({ text, isEm }) => {
-    [...text].forEach(ch => allChars.push({ ch, isEm }));
-  });
+  segments.forEach(({ text, isEm }) => [...text].forEach(ch => allChars.push({ ch, isEm })));
 
-  // Découpe en mots (séquences entre espaces)
   title.innerHTML = '';
   const chars = [];
   let wordSpan = null;
 
   allChars.forEach(({ ch, isEm }) => {
     if (ch === ' ' || ch === '\u00a0') {
-      // Espace entre mots : on ferme le mot courant et ajoute un espace invisible
       wordSpan = null;
       const sp = document.createElement('span');
-      sp.className = 'char char-space char-visible'; // espaces toujours visibles
+      sp.className = 'char char-space char-visible';
       sp.innerHTML = '&nbsp;';
       title.appendChild(sp);
     } else {
-      // Si on n'a pas encore de conteneur de mot, on en crée un
       if (!wordSpan) {
         wordSpan = document.createElement('span');
-        wordSpan.style.whiteSpace = 'nowrap'; // empêche la coupure au milieu d'un mot
-        wordSpan.style.display = 'inline';
+        wordSpan.style.cssText = 'white-space:nowrap;display:inline';
         title.appendChild(wordSpan);
       }
       const span = document.createElement('span');
       span.className = 'char';
       span.textContent = ch;
-      if (isEm) {
-        span.style.color = 'var(--gold-light)';
-        span.style.fontStyle = 'italic';
-      }
+      if (isEm) { span.style.color = 'var(--gold-light)'; span.style.fontStyle = 'italic'; }
       wordSpan.appendChild(span);
       chars.push(span);
     }
   });
 
-  // Déclenche lettre par lettre avec 38ms entre chaque
-  let i = 0;
-  function nextChar() {
-    if (i >= chars.length) return;
-    chars[i].classList.add('char-visible');
-    i++;
-    setTimeout(nextChar, 38);
+  // ── 2. Lance le défilement lettre par lettre, puis les cartes ──
+  function animateTitle(onDone) {
+    let i = 0;
+    function nextChar() {
+      if (i >= chars.length) { onDone && onDone(); return; }
+      chars[i].classList.add('char-visible');
+      i++;
+      setTimeout(nextChar, 38);
+    }
+    setTimeout(nextChar, 300);
   }
-  setTimeout(nextChar, 300);
-})();
 
-// ── Scroll-triggered cascade sur les cartes ──────────────────
-(function() {
-  const cards = document.querySelectorAll('.lead-card');
-  if (!cards.length) return;
+  function animateCards() {
+    cards.forEach((card, idx) => {
+      setTimeout(() => card.classList.add('card-visible'), idx * 180);
+    });
+  }
 
-  const observer = new IntersectionObserver((entries) => {
+  // ── 3. Déclenche tout via IntersectionObserver sur le titre ──
+  let triggered = false;
+  const obs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const card = entry.target;
-        const idx  = Array.from(cards).indexOf(card);
-        setTimeout(() => card.classList.add('card-visible'), idx * 200);
-        observer.unobserve(card);
+      if (entry.isIntersecting && !triggered) {
+        triggered = true;
+        animateTitle(() => animateCards());
+        obs.disconnect();
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.4 });
 
-  cards.forEach(card => observer.observe(card));
+  obs.observe(title);
 })();
 
 </script>
