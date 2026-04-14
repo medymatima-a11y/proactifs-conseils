@@ -649,6 +649,17 @@ footer {
   font-weight: 700; color: #fff; line-height:1.1; margin-bottom:16px;
 }
 .lead-title em { color: var(--gold-light); font-style:italic; }
+.lead-title .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .25s ease, transform .25s ease;
+}
+.lead-title .char.char-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.lead-title .char-space { display: inline-block; width: .28em; }
 .lead-sub {
   color: rgba(255,255,255,.85);
   font-size: clamp(17px, 2.2vw, 22px);
@@ -2058,6 +2069,55 @@ if (document.readyState === 'loading') {
 }
 // Fallback: force visible after 100ms no matter what
 setTimeout(triggerHeroAnims, 100);
+
+// ── Animation lettre par lettre sur le titre ─────────────────
+(function() {
+  const title = document.querySelector('.lead-title');
+  if (!title) return;
+
+  // Décompose le contenu en préservant le <em>
+  const segments = [];
+  title.childNodes.forEach(node => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      segments.push({ text: node.textContent, isEm: false });
+    } else if (node.nodeName === 'EM') {
+      segments.push({ text: node.textContent, isEm: true });
+    }
+  });
+
+  title.innerHTML = '';
+  const chars = [];
+
+  segments.forEach(({ text, isEm }) => {
+    [...text].forEach(ch => {
+      const span = document.createElement('span');
+      if (ch === ' ' || ch === '\u00a0') {
+        span.className = 'char char-space';
+        span.innerHTML = '&nbsp;';
+      } else {
+        span.className = 'char';
+        span.textContent = ch;
+        if (isEm) {
+          span.style.color = 'var(--gold-light)';
+          span.style.fontStyle = 'italic';
+        }
+      }
+      title.appendChild(span);
+      chars.push(span);
+    });
+  });
+
+  // Déclenche lettre par lettre avec 38ms entre chaque
+  let i = 0;
+  function nextChar() {
+    if (i >= chars.length) return;
+    chars[i].classList.add('char-visible');
+    i++;
+    setTimeout(nextChar, 38);
+  }
+  // Démarre après 300ms (laisse la page s'installer)
+  setTimeout(nextChar, 300);
+})();
 
 // ── Scroll-triggered cascade sur les cartes ──────────────────
 (function() {
