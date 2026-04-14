@@ -2075,7 +2075,7 @@ setTimeout(triggerHeroAnims, 100);
   const title = document.querySelector('.lead-title');
   if (!title) return;
 
-  // Décompose le contenu en préservant le <em>
+  // Collecte les segments (texte normal + <em>)
   const segments = [];
   title.childNodes.forEach(node => {
     if (node.nodeType === Node.TEXT_NODE) {
@@ -2085,26 +2085,43 @@ setTimeout(triggerHeroAnims, 100);
     }
   });
 
+  // Reconstitue le texte complet avec info isEm par caractère
+  const allChars = [];
+  segments.forEach(({ text, isEm }) => {
+    [...text].forEach(ch => allChars.push({ ch, isEm }));
+  });
+
+  // Découpe en mots (séquences entre espaces)
   title.innerHTML = '';
   const chars = [];
+  let wordSpan = null;
 
-  segments.forEach(({ text, isEm }) => {
-    [...text].forEach(ch => {
-      const span = document.createElement('span');
-      if (ch === ' ' || ch === '\u00a0') {
-        span.className = 'char char-space';
-        span.innerHTML = '&nbsp;';
-      } else {
-        span.className = 'char';
-        span.textContent = ch;
-        if (isEm) {
-          span.style.color = 'var(--gold-light)';
-          span.style.fontStyle = 'italic';
-        }
+  allChars.forEach(({ ch, isEm }) => {
+    if (ch === ' ' || ch === '\u00a0') {
+      // Espace entre mots : on ferme le mot courant et ajoute un espace invisible
+      wordSpan = null;
+      const sp = document.createElement('span');
+      sp.className = 'char char-space char-visible'; // espaces toujours visibles
+      sp.innerHTML = '&nbsp;';
+      title.appendChild(sp);
+    } else {
+      // Si on n'a pas encore de conteneur de mot, on en crée un
+      if (!wordSpan) {
+        wordSpan = document.createElement('span');
+        wordSpan.style.whiteSpace = 'nowrap'; // empêche la coupure au milieu d'un mot
+        wordSpan.style.display = 'inline';
+        title.appendChild(wordSpan);
       }
-      title.appendChild(span);
+      const span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = ch;
+      if (isEm) {
+        span.style.color = 'var(--gold-light)';
+        span.style.fontStyle = 'italic';
+      }
+      wordSpan.appendChild(span);
       chars.push(span);
-    });
+    }
   });
 
   // Déclenche lettre par lettre avec 38ms entre chaque
@@ -2115,7 +2132,6 @@ setTimeout(triggerHeroAnims, 100);
     i++;
     setTimeout(nextChar, 38);
   }
-  // Démarre après 300ms (laisse la page s'installer)
   setTimeout(nextChar, 300);
 })();
 
