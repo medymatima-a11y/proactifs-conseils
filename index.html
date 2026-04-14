@@ -649,7 +649,34 @@ footer {
   font-weight: 700; color: #fff; line-height:1.1; margin-bottom:16px;
 }
 .lead-title em { color: var(--gold-light); font-style:italic; }
-.lead-sub { color: rgba(255,255,255,.55); font-size:16px; margin-bottom:24px; }
+.lead-sub {
+  color: rgba(255,255,255,.85);
+  font-size: clamp(17px, 2.2vw, 22px);
+  margin-bottom: 12px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+.lead-cta-hint {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  color: var(--gold-light);
+  font-size: clamp(14px, 1.6vw, 17px);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  animation: pulse-hint 2s ease-in-out infinite;
+}
+.lead-cta-hint svg {
+  animation: bounce-down 1.4s ease-in-out infinite;
+}
+@keyframes bounce-down {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(5px); }
+}
+@keyframes pulse-hint {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.65; }
+}
 .lead-trust-row {
   display: flex; align-items:center; justify-content:center; gap:20px;
   color: rgba(255,255,255,.4); font-size:13px;
@@ -957,6 +984,10 @@ footer {
       <div class="lead-badge">✦ Analyse personnalisée</div>
       <h2 class="lead-title">Qu'est-ce qui vous <em>préoccupe</em> en ce moment&nbsp;?</h2>
       <p class="lead-sub">Dites-nous ce que vous cherchez à accomplir — nous vous apportons une analyse sur mesure.</p>
+      <div class="lead-cta-hint">
+        Choisissez votre situation ci-dessous
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </div>
       <div class="lead-trust-row">
         <span>⏱ 2 minutes</span>
         <span class="lead-trust-dot">·</span>
