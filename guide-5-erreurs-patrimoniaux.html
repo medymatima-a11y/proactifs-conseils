@@ -1012,13 +1012,30 @@
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
 
-  // Redirect to Systeme.io with pre-filled fields
-  function redirectToSysteme(form) {
-    const email = form.querySelector('input[type="email"]')?.value || '';
-    const firstName = form.querySelector('input[type="text"]')?.value || '';
-    if (!email) { form.querySelector('input[type="email"]').focus(); return; }
+  // Capture le lead puis redirige vers Systeme.io
+  async function redirectToSysteme(form) {
+    const emailInput = form.querySelector('input[type="email"]');
+    const textInput  = form.querySelector('input[type="text"]');
+    const email      = emailInput?.value?.trim() || '';
+    const firstName  = textInput?.value?.trim()  || '';
+    if (!email) { emailInput?.focus(); return; }
+
+    // Désactive le bouton pendant l'envoi
+    const btn = form.querySelector('button, input[type="submit"]');
+    if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
+
+    // Enregistrement en arrière-plan (Airtable + Systeme.io)
+    try {
+      await fetch('/api/subscribe-guide', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prenom: firstName, email }),
+      });
+    } catch(e) { console.warn('subscribe-guide error:', e); }
+
+    // Redirection vers Systeme.io
     const url = new URL('https://www.proactifsconseils.com/guide-5-erreurs');
-    if (email) url.searchParams.set('email', email);
+    url.searchParams.set('email', email);
     if (firstName) url.searchParams.set('first_name', firstName);
     window.location.href = url.toString();
   }
