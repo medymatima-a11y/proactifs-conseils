@@ -895,7 +895,7 @@
     <h2>Votre guide vous attend.<br><em>Recevez-le en 30 secondes.</em></h2>
     <p>Entrez simplement votre email — le guide arrive instantanément.</p>
   </div>
-  <a href="https://www.proactifsconseils.com/guide-5-erreurs" class="btn-cta-sm" style="text-decoration:none;">
+  <a href="#final-form" class="btn-cta-sm" style="text-decoration:none;">
     Recevoir le guide →
   </a>
 </div>
@@ -1048,7 +1048,7 @@
     } catch(e) { console.warn('subscribe-guide error:', e); }
 
     // Redirection vers Systeme.io
-    const url = new URL('https://www.proactifsconseils.com/guide-5-erreurs');
+    const url = new URL('https://www.proactifsconseils.com/merci-guide');
     url.searchParams.set('email', email);
     if (firstName) url.searchParams.set('first_name', firstName);
     window.location.href = url.toString();
