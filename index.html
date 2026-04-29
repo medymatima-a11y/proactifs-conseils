@@ -2087,6 +2087,14 @@ if (document.readyState === 'loading') {
 }
 // Fallback: force visible after 100ms no matter what
 setTimeout(triggerHeroAnims, 100);
+   // ── Ouverture wizard par URL param ──
+// Permet d'ouvrir le wizard directement via ?service=declaration (ou autre thématique)
+(function(){
+  var map={'declaration':'Déclarer mes impôts','reduction':'Réduire mes impôts','immobilier':'Investir dans l\'immobilier','retraite':'Préparer ma retraite','epargne':'Placer mon épargne','transmission':'Transmettre à mes proches','cession':'Céder mon entreprise','credit':'Obtenir un crédit immobilier'};
+  var p=new URLSearchParams(window.location.search);
+  var s=p.get('service');
+  if(s&&map[s]){setTimeout(function(){openModal(map[s]);},600);}
+})();
 
 // ── Titre lettre par lettre → puis cartes en cascade ──────────
 (function() {
