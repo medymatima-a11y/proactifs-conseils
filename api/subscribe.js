@@ -76,9 +76,9 @@ const CONFIRM_MAP = {
   },
   declaration: {
     subject: 'Votre déclaration d\'impôts — Proactifs Conseils',
-    intro: 'Vous avez bien fait de nous solliciter. Les erreurs de déclaration sont fréquentes, surtout avec des revenus fonciers ou des situations atypiques, et elles coûtent souvent plusieurs milliers d\'euros.',
+    intro: 'Vous avez bien fait de nous solliciter. Chaque année, nous corrigeons des déclarations qui contenaient des erreurs de plusieurs milliers d\'euros, souvent sur des points que la notice fiscale n\'explique pas clairement.',
     title: 'Ce que nous allons vérifier :',
-    detail: 'Le bon régime fiscal (réel vs micro), l\'ensemble des charges déductibles, les revenus fonciers, LMNP ou plus-values éventuelles, et toutes les cases souvent oubliées qui peuvent réduire votre impôt.',
+    detail: 'L\'ensemble de votre déclaration ligne par ligne : le choix du bon régime fiscal, les charges et déductions auxquelles vous avez droit, les formulaires complémentaires éventuels, et les cases souvent oubliées qui peuvent réduire significativement votre impôt.',
   },
   _default: {
     subject: 'Votre demande — Proactifs Conseils',
@@ -224,7 +224,7 @@ module.exports = async (req, res) => {
           <p style="margin:0 0 16px">Un conseiller vous contactera <strong>dans les 24 heures</strong> pour convenir d'un échange, en présentiel à Colombes ou en visio selon votre préférence.</p>
           <p style="margin:0 0 8px">En attendant, n'hésitez pas à nous joindre directement :</p>
           <p style="margin:0 0 4px">01 84 78 28 30</p>
-          <p style="margin:0 0 20px"><a href="https://calendly.com/gestionnairedepatrimoine/point-conseils-web" style="color:#1B3A2D;font-weight:600">Ou réservez un créneau en ligne</a></p>
+          <p style="margin:0 0 20px"><a href="https://calendly.com/gestionnairedepatrimoine/decouverte" style="color:#1B3A2D;font-weight:600">Ou réservez un créneau en ligne</a></p>
           <p style="margin:0 0 4px">Bien cordialement,</p>
           <p style="margin:0 0 0;font-weight:600;color:#1B3A2D">Medy Matima</p>
           <p style="margin:0;font-size:13px;color:#888">Conseiller en Gestion de Patrimoine<br>Proactifs Conseils — Colombes (92)</p>
