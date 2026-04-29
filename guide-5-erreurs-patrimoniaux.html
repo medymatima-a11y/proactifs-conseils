@@ -778,15 +778,25 @@
       </div>
     </div>
 
-    <div class="hero-form">
-      <a href="https://www.proactifsconseils.com/guide-5-erreurs" class="btn-cta" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:10px;">
+    <form class="hero-form" onsubmit="event.preventDefault(); redirectToSysteme(this);">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="hero-prenom">Prénom</label>
+          <input id="hero-prenom" type="text" name="prenom" placeholder="Votre prénom" autocomplete="given-name">
+        </div>
+        <div class="form-field">
+          <label for="hero-email">Email</label>
+          <input id="hero-email" type="email" name="email" placeholder="vous@exemple.fr" autocomplete="email" required>
+        </div>
+      </div>
+      <button type="submit" class="btn-cta">
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
         Recevoir le guide maintenant
-      </a>
+      </button>
       <p class="form-note">
         Vos données sont protégées. Aucun spam. Désinscription en un clic.
       </p>
-    </div>
+    </form>
   </div>
 
   <div class="hero-right">
@@ -980,13 +990,17 @@
       Recevez les 5 erreurs et leurs solutions en détail.<br>
       Lecture en 15 minutes. Résultats potentiels : des années d'optimisation.
     </p>
-    <div class="final-form">
-      <a href="https://www.proactifsconseils.com/guide-5-erreurs" class="btn-cta" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:10px;">
+    <form class="final-form" onsubmit="event.preventDefault(); redirectToSysteme(this);">
+      <div class="final-form-row">
+        <input type="text" name="prenom" placeholder="Votre prénom" autocomplete="given-name">
+        <input type="email" name="email" placeholder="vous@exemple.fr" autocomplete="email" required>
+      </div>
+      <button type="submit" class="btn-cta">
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
         Télécharger le guide maintenant
-      </a>
+      </button>
       <p class="final-note">Confidentialité garantie · Aucun spam · Désinscription immédiate</p>
-    </div>
+    </form>
   </div>
 </section>
 
