@@ -17,6 +17,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P53RQGXJZX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-P53RQGXJZX');
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 /* ══════════════════════════════════════════════
@@ -2063,6 +2071,15 @@ async function wizSubmit() {
     console.warn('Subscribe error:', e);
   }
 
+  // ── Google Analytics / Ads conversion tracking ──
+  if (typeof gtag === 'function') {
+    gtag('event', 'generate_lead', {
+      event_category: 'wizard',
+      event_label: wizService,
+      value: 1
+    });
+  }
+
   document.getElementById('wizContact').style.display = 'none';
   document.getElementById('wizThanks').style.display  = 'block';
   document.getElementById('wizFill').style.width = '100%';
@@ -2097,12 +2114,12 @@ setTimeout(triggerHeroAnims, 100);
 })();
 
 // ── Ouverture wizard par URL param ──
-// Permet d'ouvrir le wizard directement via ?service=declaration (ou autre thématique)
+// Ex: ?service=declaration ouvre directement le wizard déclaration
 (function(){
-  var map={'declaration':'Déclarer mes impôts','reduction':'Réduire mes impôts','immobilier':'Investir dans l\'immobilier','retraite':'Préparer ma retraite','epargne':'Placer mon épargne','transmission':'Transmettre à mes proches','cession':'Céder mon entreprise','credit':'Obtenir un crédit immobilier'};
+  var valid=['impots','immo','retraite','epargne','transmission','cession','credit','declaration'];
   var p=new URLSearchParams(window.location.search);
   var s=p.get('service');
-  if(s&&map[s]){setTimeout(function(){openModal(map[s]);},600);}
+  if(s&&valid.indexOf(s)!==-1){setTimeout(function(){openWizard(s);},600);}
 })();
 
 // ── Titre lettre par lettre → puis cartes en cascade ──────────
