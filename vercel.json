@@ -32,8 +32,6 @@
     { "source": "/credit-immobilier",    "destination": "/courtage-credit-immobilier",          "permanent": true },
     { "source": "/succession",           "destination": "/transmission",                        "permanent": true },
     { "source": "/transmission-succession","destination": "/transmission",                      "permanent": true },
-    { "source": "/blog",                 "destination": "/",                                    "permanent": true },
-    { "source": "/blog/:path*",          "destination": "/",                                    "permanent": true },
     { "source": "/wp-admin",             "destination": "/",                                    "permanent": true },
     { "source": "/wp-content/:path*",    "destination": "/",                                    "permanent": true }
   ],
