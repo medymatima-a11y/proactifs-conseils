@@ -2201,4 +2201,16 @@ setTimeout(triggerHeroAnims, 100);
   obs.observe(title);
 })();
 
+// ── Cartes services entièrement cliquables ──
+document.querySelectorAll('.svc-card').forEach(card => {
+  const link = card.querySelector('.svc-link');
+  if (link) {
+    card.addEventListener('click', (e) => {
+      if (!e.target.closest('a')) {
+        window.location.href = link.href;
+      }
+    });
+  }
+});
+
 </script>
