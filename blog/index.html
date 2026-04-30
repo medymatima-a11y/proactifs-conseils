@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <title>Blog patrimoine – Conseils & Stratégies | Proactifs Conseils</title>
+  <meta name="description" content="Fiscalité, immobilier, retraite, transmission : analyses et stratégies patrimoniales par Medy Matima, CGP à Colombes (92).">
+  <link rel="canonical" href="https://www.proactifsconseils.fr/blog">
+  <meta property="og:title" content="Blog patrimoine – Conseils & Stratégies | Proactifs Conseils">
+  <meta property="og:description" content="Analyses, actualités et stratégies patrimoniales pour optimiser votre situation.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.proactifsconseils.fr/blog">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Blog Proactifs Conseils",
+    "url": "https://www.proactifsconseils.fr/blog",
+    "description": "Conseils patrimoniaux, fiscalité et stratégies d'investissement par Medy Matima, CGP.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Proactifs Conseils",
+      "url": "https://www.proactifsconseils.fr"
+    }
+  }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ivory: #FAFAF7;
+      --sand: #F3F1EB;
+      --forest: #132D1E;
+      --forest-mid: #1C3D28;
+      --ink: #111827;
+      --ink-soft: #374151;
+      --gold: #C4973A;
+      --gold-light: #E8C97A;
+      --gold-pale: #FBF4E3;
+      --teal: #1E7A6E;
+      --slate: #6B7280;
+      --border: #E5E2DA;
+      --white: #FFFFFF;
+      --muted: #6B7280;
+      --shadow-sm: 0 1px 3px rgba(17,24,39,.06);
+      --shadow-md: 0 4px 16px rgba(17,24,39,.08);
+      --r-sm: 10px;
+      --r-md: 16px;
+      --r-lg: 24px;
+      --r-xl: 32px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--white); line-height: 1.6; }
+
+    /* ── NAV ── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; height: 72px;
+      background: transparent; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 40px; z-index: 100;
+      transition: all 0.3s ease;
+    }
+    #nav.scrolled { background: rgba(250,250,247,.98); box-shadow: var(--shadow-md); height: 68px; }
+    .nav-logo img { height: 40px; transition: all 0.3s ease; }
+    .nav-links { display: flex; list-style: none; gap: 40px; flex: 1; margin-left: 60px; }
+    .nav-links a { text-decoration: none; color: var(--ink); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a.active { color: var(--gold); }
+    #nav:not(.scrolled) .nav-links a { color: var(--white); }
+    #nav:not(.scrolled) .nav-links a:hover { color: var(--gold-light); }
+    #nav:not(.scrolled) .nav-links a.active { color: var(--gold-light); }
+    .nav-cta-btn {
+      background: var(--gold); color: var(--ink); padding: 10px 24px;
+      border-radius: var(--r-md); text-decoration: none; font-weight: 600;
+      font-size: 13px; transition: all 0.2s; white-space: nowrap;
+    }
+    .nav-cta-btn:hover { background: var(--gold-light); box-shadow: var(--shadow-md); }
+    .hamburger { display: none; flex-direction: column; background: none; border: none; cursor: pointer; gap: 6px; margin-left: auto; }
+    .hamburger span { width: 24px; height: 2px; background: var(--ink); transition: all 0.3s; }
+    #nav:not(.scrolled) .hamburger span { background: var(--white); }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(8px,8px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(7px,-7px); }
+    .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; background: var(--white); flex-direction: column; padding: 20px; gap: 12px; z-index: 99; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { padding: 12px 16px; text-decoration: none; color: var(--ink); font-weight: 500; border-radius: var(--r-sm); transition: all 0.2s; }
+    .mobile-menu a:hover { background: var(--sand); color: var(--gold); }
+
+    /* ── HERO ── */
+    .blog-hero {
+      background: linear-gradient(135deg, #0a1f14 0%, var(--forest) 60%, #1a4030 100%);
+      padding: 120px 40px 80px;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .blog-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0; height: 60px;
+      background: var(--ivory);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .blog-hero .container { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(196,151,58,.2); border: 1px solid rgba(196,151,58,.4);
+      color: var(--gold-light); padding: 6px 18px; border-radius: 40px;
+      font-size: 12px; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .08em;
+      margin-bottom: 24px;
+    }
+    .blog-hero h1 {
+      font-family: 'Fraunces', serif; font-size: 52px; font-weight: 700;
+      line-height: 1.15; margin-bottom: 20px;
+    }
+    .blog-hero h1 em { color: var(--gold-light); font-style: italic; }
+    .blog-hero p { font-size: 18px; color: rgba(255,255,255,.8); line-height: 1.7; }
+
+    /* ── MAIN ── */
+    .blog-main { background: var(--ivory); padding: 64px 40px 80px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    /* ── FILTERS ── */
+    .blog-filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
+    .filter-btn {
+      padding: 8px 18px; border-radius: 40px; border: 1.5px solid var(--border);
+      background: var(--white); color: var(--ink-soft); font-size: 13px; font-weight: 500;
+      cursor: pointer; transition: all .2s;
+    }
+    .filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .filter-btn.active { background: var(--forest); border-color: var(--forest); color: var(--white); }
+
+    /* ── FEATURED ARTICLE ── */
+    .blog-featured {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--r-xl);
+      overflow: hidden; margin-bottom: 40px;
+      text-decoration: none; color: inherit;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .blog-featured:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,.1); }
+    .featured-visual {
+      background: linear-gradient(135deg, var(--forest) 0%, #2a5840 100%);
+      display: flex; align-items: center; justify-content: center;
+      min-height: 280px; font-size: 80px;
+    }
+    .featured-body { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+    .featured-tag {
+      font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--gold); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .featured-tag::before { content: '★'; font-size: 10px; }
+    .featured-body h2 {
+      font-family: 'Fraunces', serif; font-size: 28px; font-weight: 700;
+      line-height: 1.3; color: var(--ink); margin-bottom: 14px;
+    }
+    .featured-body p { font-size: 15px; color: var(--muted); line-height: 1.65; margin-bottom: 24px; }
+    .featured-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .meta-date { font-size: 12px; color: var(--muted); }
+    .read-link { font-size: 13px; font-weight: 600; color: var(--gold); display: flex; align-items: center; gap: 4px; }
+
+    /* ── GRID ARTICLES ── */
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .blog-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg);
+      overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .blog-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.09); }
+    .card-visual {
+      background: linear-gradient(135deg, var(--forest) 0%, #2a5840 100%);
+      height: 160px; display: flex; align-items: center; justify-content: center;
+      font-size: 52px;
+    }
+    .card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .card-tag { font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--gold); margin-bottom: 10px; }
+    .card-body h3 { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; line-height: 1.35; color: var(--ink); margin-bottom: 10px; }
+    .card-body p { font-size: 13px; color: var(--muted); line-height: 1.6; flex: 1; }
+    .card-footer { margin-top: 16px; display: flex; align-items: center; justify-content: space-between; }
+    .card-date { font-size: 11px; color: var(--muted); }
+    .card-link { font-size: 12px; font-weight: 600; color: var(--gold); }
+
+    /* ── NEWSLETTER CTA ── */
+    .newsletter-cta {
+      background: linear-gradient(135deg, var(--forest), #1a4030);
+      border-radius: var(--r-xl); padding: 48px; margin-top: 56px;
+      display: flex; align-items: center; justify-content: space-between; gap: 32px;
+      flex-wrap: wrap;
+    }
+    .newsletter-text h3 { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .newsletter-text p { font-size: 15px; color: rgba(255,255,255,.7); max-width: 420px; }
+    .newsletter-action { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-gold {
+      background: var(--gold); color: var(--ink); padding: 14px 28px;
+      border-radius: var(--r-md); text-decoration: none; font-weight: 600;
+      font-size: 14px; white-space: nowrap; transition: all .2s;
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent; color: rgba(255,255,255,.8);
+      border: 1px solid rgba(255,255,255,.3);
+      padding: 14px 28px; border-radius: var(--r-md);
+      text-decoration: none; font-size: 14px; font-weight: 500;
+      white-space: nowrap; transition: all .2s;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,.6); color: var(--white); }
+
+    /* ── FOOTER ── */
+    footer { background: #080C10; padding: 48px 80px 28px; color: rgba(255,255,255,.55); }
+    .footer-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr; gap: 40px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .footer-brand img { height: 40px; opacity: .85; margin-bottom: 16px; display: block; }
+    .footer-brand p { font-size: 13px; line-height: 1.7; max-width: 280px; }
+    .footer-col h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.35); margin-bottom: 16px; font-family: 'DM Mono', monospace; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col a { color: rgba(255,255,255,.55); text-decoration: none; font-size: 13px; transition: color .2s; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom { padding-top: 24px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; }
+    .footer-bottom a { color: rgba(255,255,255,.4); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .blog-hero h1 { font-size: 36px; }
+      .blog-hero { padding: 100px 24px 60px; }
+      .blog-main { padding: 40px 24px 60px; }
+      .blog-featured { grid-template-columns: 1fr; }
+      .featured-visual { min-height: 180px; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .newsletter-cta { flex-direction: column; padding: 36px 24px; }
+      #nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-cta-btn { display: none; }
+      .hamburger { display: flex; }
+      footer { padding: 40px 24px 24px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:48px;width:auto;display:block;opacity:.9">
+  </a>
+  <ul class="nav-links">
+    <li><a href="/#services">Nos services</a></li>
+    <li><a href="/#simulateurs">Simulateurs</a></li>
+    <li><a href="/#approche">Notre approche</a></li>
+    <li><a href="/#temoignages">Témoignages</a></li>
+    <li><a href="/#contact">Contact</a></li>
+    <li><a href="/blog" class="active">Blog</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <a href="/bilan-patrimonial-gratuit" class="nav-cta-btn">Prendre rendez-vous</a>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/#services">Nos services</a>
+  <a href="/#simulateurs">Simulateurs</a>
+  <a href="/#approche">Notre approche</a>
+  <a href="/#temoignages">Témoignages</a>
+  <a href="/#contact">Contact</a>
+  <a href="/blog" style="color:var(--gold)">Blog</a>
+  <a href="/bilan-patrimonial-gratuit" style="background:var(--gold);color:var(--ink);border-radius:8px;text-align:center">Prendre rendez-vous</a>
+</div>
+
+<!-- HERO -->
+<section class="blog-hero">
+  <div class="container">
+    <div class="hero-badge">Ressources & Analyses</div>
+    <h1>Le blog <em>patrimoine</em></h1>
+    <p>Fiscalité, immobilier, retraite, transmission : des analyses concrètes pour prendre les bonnes décisions patrimoniales en 2026.</p>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="blog-main">
+  <div class="container">
+
+    <!-- Filtres -->
+    <div class="blog-filters">
+      <button class="filter-btn active" onclick="filterArticles('all', this)">Tous</button>
+      <button class="filter-btn" onclick="filterArticles('epargne', this)">Épargne retraite</button>
+      <button class="filter-btn" onclick="filterArticles('fiscalite', this)">Fiscalité</button>
+      <button class="filter-btn" onclick="filterArticles('immobilier', this)">Immobilier</button>
+    </div>
+
+    <!-- Article à la une -->
+    <a class="blog-featured" href="/blog/per-vs-assurance-vie-2026" data-cat="epargne">
+      <div class="featured-visual">⚖️</div>
+      <div class="featured-body">
+        <div class="featured-tag">Épargne retraite · À la une</div>
+        <h2>PER ou Assurance Vie en 2026 : lequel choisir selon votre situation&nbsp;?</h2>
+        <p>Comparatif complet des deux enveloppes fiscales — fiscalité à l'entrée et à la sortie, liquidité, transmission, plafonds. On vous dit lequel privilégier selon votre profil et votre horizon.</p>
+        <div class="featured-meta">
+          <span class="meta-date">30 avril 2026 · 12 min de lecture</span>
+          <span class="read-link">Lire l'article →</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Grille articles -->
+    <div class="blog-grid" id="blogGrid">
+
+      <a class="blog-card" href="/blog/reduire-impots-2026" data-cat="fiscalite">
+        <div class="card-visual">💡</div>
+        <div class="card-body">
+          <div class="card-tag">Fiscalité</div>
+          <h3>Réduire ses impôts en 2026 : les 7 leviers à activer avant le 31 décembre</h3>
+          <p>PER, déficit foncier, FCPI, dons… Tour d'horizon des dispositifs encore accessibles et des erreurs à éviter pour maximiser votre économie d'impôt.</p>
+          <div class="card-footer">
+            <span class="card-date">30 avril 2026 · 9 min</span>
+            <span class="card-link">Lire →</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="blog-card" href="/blog/lmnp-2026" data-cat="immobilier">
+        <div class="card-visual">🏠</div>
+        <div class="card-body">
+          <div class="card-tag">Immobilier</div>
+          <h3>LMNP 2026 : ce qui change après la réforme et comment s'adapter</h3>
+          <p>La réforme fiscale du LMNP modifie en profondeur les règles du jeu. Ce qu'il faut savoir si vous êtes propriétaire ou envisagez d'investir en location meublée.</p>
+          <div class="card-footer">
+            <span class="card-date">30 avril 2026 · 10 min</span>
+            <span class="card-link">Lire →</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="newsletter-cta">
+      <div class="newsletter-text">
+        <h3>Votre situation mérite une analyse sur-mesure</h3>
+        <p>Les articles donnent le cadre général. Ce qui compte, c'est l'adapter à votre patrimoine, votre tranche d'imposition, vos objectifs.</p>
+      </div>
+      <div class="newsletter-action">
+        <a href="/?service=impots" class="btn-gold">Démarrer mon bilan</a>
+        <a href="/#contact" class="btn-outline">Nous contacter</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="/images/proactifs-logo.png" alt="Proactifs Conseils">
+        <p>Cabinet de conseil en gestion de patrimoine indépendant. Colombes (92) — Île-de-France.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a></li>
+          <li><a href="/investissement-scpi-hauts-de-seine">Investissement immobilier</a></li>
+          <li><a href="/preparation-retraite">Préparer ma retraite</a></li>
+          <li><a href="/courtage-credit-immobilier">Courtage crédit</a></li>
+          <li><a href="/transmission">Transmission</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Blog</h4>
+        <ul>
+          <li><a href="/blog/per-vs-assurance-vie-2026">PER vs Assurance Vie 2026</a></li>
+          <li><a href="/blog/reduire-impots-2026">Réduire ses impôts 2026</a></li>
+          <li><a href="/blog/lmnp-2026">LMNP 2026 : la réforme</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Proactifs Conseils · Medy Matima, CGP</span>
+      <div style="display:flex;gap:20px">
+        <a href="/bilan-patrimonial-gratuit">Mentions légales</a>
+        <a href="/bilan-patrimonial-gratuit">Politique de confidentialité</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  // Filtres
+  function filterArticles(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const featured = document.querySelector('.blog-featured');
+    const cards = document.querySelectorAll('.blog-card');
+
+    if (cat === 'all') {
+      featured.style.display = '';
+      cards.forEach(c => c.style.display = '');
+    } else {
+      featured.style.display = featured.dataset.cat === cat ? '' : 'none';
+      cards.forEach(c => {
+        c.style.display = c.dataset.cat === cat ? '' : 'none';
+      });
+    }
+  }
+</script>
+</body>
+</html>
