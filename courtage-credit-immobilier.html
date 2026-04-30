@@ -153,21 +153,47 @@
     .sec.forest .sec-title { color:var(--white); }
 
     .cards-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; }
+    .cards-grid-4 { grid-template-columns:repeat(4,1fr); }
     .why-card {
-      background:var(--white); border:1px solid var(--border); padding:40px;
+      background:var(--white); border:1px solid var(--border); padding:32px;
       border-radius:var(--r-lg); box-shadow:var(--shadow-sm); transition:all .3s;
     }
     .why-card:hover { box-shadow:var(--shadow-md); transform:translateY(-4px); }
+    .why-icon { font-size:28px; margin-bottom:16px; }
     .why-card-number {
       font-family:'Fraunces',serif; font-size:36px; font-weight:700; color:var(--gold);
       margin-bottom:16px;
     }
-    .why-card h3 { font-size:20px; font-weight:600; margin-bottom:12px; color:var(--ink); }
-    .why-card p { font-size:15px; color:var(--ink-soft); line-height:1.6; }
+    .why-card h3 { font-size:18px; font-weight:600; margin-bottom:12px; color:var(--ink); }
+    .why-card p { font-size:14px; color:var(--ink-soft); line-height:1.6; }
+    .why-card-gold { border-color:var(--gold); border-width:2px; background:var(--gold-pale); }
+    .why-card-gold h3 { color:var(--forest); }
 
     .sec.forest .why-card { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.15); }
     .sec.forest .why-card h3 { color:var(--white); }
     .sec.forest .why-card p { color:rgba(255,255,255,.85); }
+
+    /* Section intro text */
+    .sec-intro { font-size:17px; color:var(--ink-soft); line-height:1.75; max-width:720px; margin-bottom:48px; }
+
+    /* Financements spécifiques */
+    .specifics-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:48px; }
+    .specific-card {
+      display:flex; gap:16px; align-items:flex-start;
+      background:var(--sand); border:1px solid var(--border); border-radius:var(--r-lg);
+      padding:24px; transition:all .3s;
+    }
+    .specific-card:hover { box-shadow:var(--shadow-md); transform:translateY(-3px); background:var(--white); }
+    .specific-icon { font-size:24px; flex-shrink:0; margin-top:2px; }
+    .specific-body h3 { font-size:16px; font-weight:600; color:var(--ink); margin-bottom:8px; }
+    .specific-body p { font-size:14px; color:var(--ink-soft); line-height:1.6; }
+    .specifics-cta {
+      background:linear-gradient(135deg,var(--forest),#1a4030);
+      border-radius:var(--r-xl); padding:40px 48px; display:flex;
+      align-items:center; justify-content:space-between; gap:32px; flex-wrap:wrap;
+    }
+    .specifics-cta p { font-size:18px; color:rgba(255,255,255,.9); font-weight:500; margin:0; }
+    .specifics-cta .btn-primary { white-space:nowrap; flex-shrink:0; }
 
     .simulator {
       background:var(--white); border:1px solid var(--border); padding:48px;
@@ -274,6 +300,9 @@
     @media (max-width:900px) {
       .sec { padding:64px 40px; }
       .cards-grid { grid-template-columns:1fr; }
+      .cards-grid-4 { grid-template-columns:1fr 1fr; }
+      .specifics-grid { grid-template-columns:1fr; }
+      .specifics-cta { flex-direction:column; text-align:center; padding:32px 24px; }
       .hero-stats { grid-template-columns:1fr; }
       .process-grid { grid-template-columns:repeat(2,1fr); }
       .footer-grid { grid-template-columns:repeat(2,1fr); gap:32px; }
@@ -342,21 +371,93 @@
 
   <section class="sec sand reveal">
     <div class="container">
-      <p class="sec-label">3 raisons</p>
-      <h2 class="sec-title">3 raisons de nous confier<br>votre financement</h2>
-      <div class="cards-grid">
+      <p class="sec-label">Pourquoi nous choisir</p>
+      <h2 class="sec-title">Ce qui nous distingue<br>d'un courtier classique</h2>
+      <div class="cards-grid cards-grid-4">
         <div class="why-card reveal">
+          <div class="why-icon">📉</div>
           <h3>Meilleur taux du marché</h3>
-          <p>Accès aux meilleures offres du marché grâce à notre réseau de +20 banques partenaires. Notre négociation professionnelle vous garantit les taux réservés aux courtiers, souvent inférieurs à 0,45% aux offres publiques.</p>
+          <p>Accès aux meilleures offres grâce à notre réseau de +20 banques partenaires. Taux réservés aux courtiers, souvent inférieurs de 0,45% aux offres publiques.</p>
         </div>
         <div class="why-card reveal">
+          <div class="why-icon">⏱</div>
           <h3>Gain de temps</h3>
-          <p>Nous gérons l'intégralité de votre dossier de demande de crédit, de la simulation à la signature. Vous n'avez qu'à nous fournir les documents nécessaires. Nous nous chargeons du reste auprès des banques.</p>
+          <p>Nous gérons l'intégralité de votre dossier, de la simulation à la signature. Vous n'avez qu'à nous fournir les documents — nous nous chargeons du reste.</p>
         </div>
         <div class="why-card reveal">
+          <div class="why-icon">🛡</div>
           <h3>Assurance emprunteur optimisée</h3>
-          <p>Délégation d'assurance jusqu'à 40% moins chère que la banque. Garanties équivalentes, tarifs négociés. Changez d'assurance à tout moment et adaptez votre couverture à votre situation.</p>
+          <p>Délégation d'assurance jusqu'à 40% moins chère que la banque. Garanties équivalentes, tarifs négociés. Changez d'assurance à tout moment.</p>
         </div>
+        <div class="why-card reveal why-card-gold">
+          <div class="why-icon">🏛</div>
+          <h3>Expertise patrimoniale intégrée</h3>
+          <p>Votre financement n'est pas isolé — il s'inscrit dans votre stratégie globale. En tant que CGP, nous intégrons fiscalité, transmission et optimisation du montage dès la conception du crédit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Financements spécifiques -->
+  <section class="sec white reveal">
+    <div class="container">
+      <p class="sec-label">Cas complexes</p>
+      <h2 class="sec-title">Financements spécifiques &<br><em>situations hors-standard</em></h2>
+      <p class="sec-intro">Là où la plupart des courtiers s'arrêtent, nous continuons. Notre double expertise courtage + gestion de patrimoine nous permet de structurer des financements que les banques refusent souvent en direct.</p>
+      <div class="specifics-grid">
+        <div class="specific-card reveal">
+          <div class="specific-icon">🏗</div>
+          <div class="specific-body">
+            <h3>Marchands de biens & promoteurs</h3>
+            <p>Financement de portefeuilles immobiliers, lignes de crédit court terme, structuration des flux entre acquisition et revente.</p>
+          </div>
+        </div>
+        <div class="specific-card reveal">
+          <div class="specific-icon">🌆</div>
+          <div class="specific-body">
+            <h3>Aménageurs & opérations foncières</h3>
+            <p>Accompagnement sur les montages de financement de terrains, divisions parcellaires et opérations de promotion.</p>
+          </div>
+        </div>
+        <div class="specific-card reveal">
+          <div class="specific-icon">📦</div>
+          <div class="specific-body">
+            <h3>SCPI à crédit</h3>
+            <p>Financement de parts de SCPI par emprunt pour optimiser l'effet de levier et déduire les intérêts des revenus fonciers.</p>
+          </div>
+        </div>
+        <div class="specific-card reveal">
+          <div class="specific-icon">🏠</div>
+          <div class="specific-body">
+            <h3>Prêt de trésorerie hypothécaire</h3>
+            <p>Mobiliser la valeur d'un bien détenu en pleine propriété pour financer un projet sans vendre — solution pour les patrimoines constitués.</p>
+          </div>
+        </div>
+        <div class="specific-card reveal">
+          <div class="specific-icon">⚖️</div>
+          <div class="specific-body">
+            <h3>Financement de succession</h3>
+            <p>Prêts pour régler les droits de succession ou racheter la quote-part d'un cohéritier, sans liquider le patrimoine familial.</p>
+          </div>
+        </div>
+        <div class="specific-card reveal">
+          <div class="specific-icon">🔄</div>
+          <div class="specific-body">
+            <h3>Prêt viager hypothécaire</h3>
+            <p>Solution pour les seniors souhaitant dégager des liquidités en mobilisant leur résidence principale, sans rembourser de leur vivant.</p>
+          </div>
+        </div>
+        <div class="specific-card reveal">
+          <div class="specific-icon">📊</div>
+          <div class="specific-body">
+            <h3>Regroupement de crédits</h3>
+            <p>Consolidation de plusieurs prêts en un seul pour réduire les mensualités et simplifier la gestion de votre endettement.</p>
+          </div>
+        </div>
+      </div>
+      <div class="specifics-cta">
+        <p>Votre situation ne rentre pas dans les cases ? C'est exactement notre spécialité.</p>
+        <a href="/bilan-patrimonial-gratuit" class="btn-primary">Étudier mon cas →</a>
       </div>
     </div>
   </section>
