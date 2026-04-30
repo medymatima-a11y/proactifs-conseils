@@ -135,4 +135,25 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://www.proactifsconseils.fr/blog/donation-vivant-2026</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.proactifsconseils.fr/blog/sci-familiale-2026</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.proactifsconseils.fr/blog/scpi-2026</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>

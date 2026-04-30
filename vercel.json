@@ -18,7 +18,10 @@
     { "source": "/blog",                                    "destination": "/blog/index.html" },
     { "source": "/blog/per-vs-assurance-vie-2026",         "destination": "/blog/per-vs-assurance-vie-2026.html" },
     { "source": "/blog/reduire-impots-2026",               "destination": "/blog/reduire-impots-2026.html" },
-    { "source": "/blog/lmnp-2026",                         "destination": "/blog/lmnp-2026.html" }
+    { "source": "/blog/lmnp-2026",                         "destination": "/blog/lmnp-2026.html" },
+    { "source": "/blog/donation-vivant-2026",              "destination": "/blog/donation-vivant-2026.html" },
+    { "source": "/blog/sci-familiale-2026",                "destination": "/blog/sci-familiale-2026.html" },
+    { "source": "/blog/scpi-2026",                         "destination": "/blog/scpi-2026.html" }
   ],
   "redirects": [
     { "source": "/conseiller-gestion-patrimoine-colombes", "destination": "/page-conseiller-patrimoine-colombes", "permanent": true },
