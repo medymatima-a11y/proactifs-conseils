@@ -7,911 +7,743 @@
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
   <title>Conseiller Patrimoine Levallois-Perret (92) | Proactifs Conseils</title>
-  <meta name="description" content="Conseiller en gestion de patrimoine à Levallois-Perret (92). Optimisation fiscale cadres sup, placements financiers, SCPI, retraite. Cabinet Colombes, 8 min.">
+  <meta name="description" content="Conseiller en gestion de patrimoine à Levallois-Perret (92). Optimisation fiscale, SCPI, retraite, cession d'entreprise. Cabinet Hauts-de-Seine. RDV gratuit →">
   <meta name="canonical" content="https://www.proactifsconseils.fr/conseiller-patrimoine-levallois">
-  <meta property="og:title" content="Conseiller Patrimoine Levallois-Perret (92) | Proactifs Conseils">
-  <meta property="og:description" content="Gestion de patrimoine à Levallois-Perret. Optimisation fiscale, SCPI, retraite. Bilan gratuit.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.proactifsconseils.fr/conseiller-patrimoine-levallois">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Proactifs Conseils",
-    "image": "https://www.proactifsconseils.fr/images/proactifs-logo.png",
-    "description": "Cabinet de conseil en gestion de patrimoine à Colombes (92), intervenant à Levallois-Perret",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "54 Rue du Bournard",
-      "addressLocality": "Colombes",
-      "postalCode": "92700",
-      "addressCountry": "FR"
-    },
-    "telephone": "+33184782830",
-    "email": "contact@proactifsconseils.fr",
-    "areaServed": "Levallois-Perret",
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      "opens": "09:00",
-      "closes": "19:00"
-    }
-  }
-  </script>
   <style>
     :root {
-      --ivory: #FAFAF7;
-      --sand: #F3F1EB;
-      --forest: #132D1E;
-      --forest-mid: #1C3D28;
-      --ink: #111827;
-      --ink-soft: #374151;
-      --gold: #C4973A;
-      --gold-light: #E8C97A;
-      --gold-pale: #FBF4E3;
-      --teal: #1E7A6E;
-      --teal-light: #2A9D8F;
-      --teal-pale: #E6F4F2;
-      --slate: #6B7280;
-      --border: #E5E2DA;
-      --white: #FFFFFF;
-      --shadow-sm: 0 1px 3px rgba(17,24,39,.06), 0 1px 2px rgba(17,24,39,.04);
-      --shadow-md: 0 4px 16px rgba(17,24,39,.08), 0 2px 6px rgba(17,24,39,.04);
-      --shadow-lg: 0 12px 40px rgba(17,24,39,.1), 0 4px 12px rgba(17,24,39,.06);
-      --r-sm: 10px;
-      --r-md: 16px;
-      --r-lg: 24px;
-      --r-xl: 32px;
+      --ivory:#FAFAF7; --sand:#F3F1EB; --forest:#132D1E; --forest-mid:#1C3D28;
+      --ink:#111827; --ink-soft:#374151; --gold:#C4973A; --gold-light:#E8C97A; --gold-pale:#FBF4E3;
+      --teal:#1E7A6E; --teal-light:#2A9D8F; --teal-pale:#E6F4F2; --slate:#6B7280; --border:#E5E2DA;
+      --white:#FFFFFF; --r-sm:10px; --r-md:16px; --r-lg:24px; --r-xl:32px;
+      --shadow-sm:0 1px 3px rgba(17,24,39,.06); --shadow-md:0 4px 16px rgba(17,24,39,.08);
+      --shadow-lg:0 12px 40px rgba(17,24,39,.1);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
-      color: var(--ink);
-      background: var(--ivory);
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
+      font-family:'DM Sans',sans-serif;
+      color:var(--ink);
+      background:var(--ivory);
+      line-height:1.6;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color:inherit; text-decoration:none; }
+
+    em { color:var(--gold); font-style:italic; }
 
     /* NAV */
     nav#nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 80px;
-      background: transparent;
-      z-index: 999;
-      transition: all 0.3s ease;
+      position:fixed;
+      top:0;
+      width:100%;
+      height:68px;
+      background:transparent;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 80px;
+      z-index:1000;
+      transition:all .3s ease;
     }
 
     nav#nav.scrolled {
-      background: var(--ivory);
-      box-shadow: var(--shadow-sm);
+      background:var(--ivory);
+      box-shadow:var(--shadow-md);
     }
 
     .nav-logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      z-index: 1000;
+      display:flex;
+      align-items:center;
+      background:#fff;
+      padding:4px 8px;
+      border-radius:8px;
     }
 
     .nav-logo img {
-      height: 52px;
+      height:54px;
+      width:auto;
     }
 
     .nav-links {
-      display: flex;
-      list-style: none;
-      gap: 40px;
-      align-items: center;
+      display:flex;
+      list-style:none;
+      gap:40px;
     }
 
     .nav-links a {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--ink);
-      transition: color 0.2s;
+      font-size:14px;
+      font-weight:500;
+      color:var(--ink);
+      transition:color .3s;
     }
 
     .nav-links a:hover {
-      color: var(--gold);
+      color:var(--gold);
     }
 
     .nav-cta-btn {
-      padding: 12px 24px;
-      background: var(--gold);
-      color: var(--white);
-      border-radius: var(--r-sm);
-      font-size: 13px;
-      font-weight: 600;
-      transition: background 0.2s, box-shadow 0.2s;
-      white-space: nowrap;
+      background:var(--gold);
+      color:var(--white);
+      padding:10px 24px;
+      border-radius:var(--r-md);
+      font-size:14px;
+      font-weight:600;
+      transition:all .3s;
     }
 
     .nav-cta-btn:hover {
-      background: #a67e2e;
-      box-shadow: var(--shadow-md);
+      background:var(--gold-light);
     }
 
     .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      z-index: 1000;
+      display:none;
+      flex-direction:column;
+      gap:6px;
+      background:none;
+      border:none;
+      cursor:pointer;
+      padding:8px;
     }
 
     .hamburger span {
-      width: 24px;
-      height: 2px;
-      background: var(--ink);
-      transition: all 0.3s;
+      width:24px;
+      height:2px;
+      background:var(--ink);
+      transition:all .3s;
     }
 
-    .hamburger.open span:nth-child(1) {
-      transform: rotate(45deg) translate(10px, 10px);
-    }
-
-    .hamburger.open span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.open span:nth-child(3) {
-      transform: rotate(-45deg) translate(8px, -8px);
-    }
+    .hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(8px,8px); }
+    .hamburger.open span:nth-child(2) { opacity:0; }
+    .hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(7px,-7px); }
 
     .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 68px;
-      left: 0;
-      right: 0;
-      background: var(--ivory);
-      flex-direction: column;
-      padding: 20px;
-      gap: 16px;
-      z-index: 998;
+      display:none;
+      position:fixed;
+      top:68px;
+      left:0;
+      width:100%;
+      background:var(--ivory);
+      flex-direction:column;
+      gap:0;
+      z-index:999;
     }
 
-    .mobile-menu.open {
-      display: flex;
-    }
+    .mobile-menu.open { display:flex; }
 
     .mobile-menu a {
-      padding: 12px;
-      font-size: 14px;
-      color: var(--ink);
-      border-bottom: 1px solid var(--border);
+      padding:16px 80px;
+      border-bottom:1px solid var(--border);
+      font-size:14px;
+      font-weight:500;
+      color:var(--ink);
     }
 
     /* BREADCRUMB */
     .breadcrumb-bar {
-      background: var(--sand);
-      padding: 16px 0;
-      margin-top: 68px;
+      background:var(--sand);
+      padding:10px 80px;
+      border-bottom:1px solid var(--border);
+      margin-top:68px;
     }
 
     .breadcrumb-bar small {
-      font-size: 12px;
-      color: var(--slate);
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      font-size:12px;
+      color:var(--ink-soft);
     }
 
     .breadcrumb-bar a {
-      color: var(--teal);
-      transition: color 0.2s;
+      color:var(--ink);
+      transition:color .3s;
     }
 
     .breadcrumb-bar a:hover {
-      color: var(--teal-light);
+      color:var(--gold);
     }
 
-    /* HERO */
-    .city-hero {
-      min-height: 62vh;
-      background: linear-gradient(135deg, #071510 0%, #0d2218 50%, #132D1E 100%);
-      display: flex;
-      align-items: center;
-      padding: 120px 80px 80px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .city-hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 60% 80% at 85% 50%, rgba(196, 151, 58, .06) 0%, transparent 60%),
-                  radial-gradient(ellipse 50% 70% at 15% 80%, rgba(30, 122, 110, .08) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    .city-hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 700px;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      padding: 8px 16px;
-      background: rgba(196, 151, 58, .15);
-      border: 1px solid rgba(196, 151, 58, .3);
-      border-radius: 24px;
-      font-size: 11px;
-      font-family: 'DM Mono', monospace;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 24px;
-    }
-
-    .city-hero h1 {
-      font-family: 'Fraunces', serif;
-      font-size: clamp(32px, 4vw, 52px);
-      color: var(--white);
-      line-height: 1.15;
-      margin-bottom: 20px;
-      font-weight: 600;
-    }
-
-    .city-hero h1 em {
-      color: var(--gold);
-      font-style: italic;
-      font-weight: 600;
-    }
-
-    .city-hero p {
-      font-size: 16px;
-      color: rgba(255, 255, 255, .85);
-      line-height: 1.6;
-      margin-bottom: 32px;
-      max-width: 600px;
-    }
-
-    .hero-stats {
-      display: flex;
-      gap: 32px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .stat-value {
-      font-family: 'Fraunces', serif;
-      font-size: 24px;
-      color: var(--gold);
-      font-weight: 600;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: rgba(255, 255, 255, .65);
-      font-family: 'DM Mono', monospace;
-    }
-
-    .hero-cta {
-      display: inline-flex;
-      gap: 16px;
-    }
-
-    .btn-primary {
-      padding: 14px 28px;
-      background: var(--gold);
-      color: var(--white);
-      border-radius: var(--r-sm);
-      font-size: 14px;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .btn-primary:hover {
-      background: #a67e2e;
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-      padding: 14px 28px;
-      background: transparent;
-      color: var(--white);
-      border: 1.5px solid rgba(255, 255, 255, .3);
-      border-radius: var(--r-sm);
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-    }
-
-    /* SECTIONS */
-    .sec {
-      padding: 96px 80px;
-    }
-
-    .sec-sand {
-      background: var(--sand);
-    }
-
-    .sec-white {
-      background: var(--white);
-    }
-
-    .sec-forest {
-      background: var(--forest);
-      color: var(--white);
-    }
-
+    /* CONTAINER & SECTIONS */
     .container {
-      max-width: 1200px;
-      margin: 0 auto;
+      max-width:1200px;
+      margin:0 auto;
+    }
+
+    .sec {
+      padding:96px 80px;
     }
 
     .sec-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: var(--teal);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 16px;
+      font-family:'DM Mono',monospace;
+      font-size:11px;
+      color:var(--teal);
+      text-transform:uppercase;
+      letter-spacing:2px;
+      margin-bottom:16px;
+      display:flex;
+      align-items:center;
+      gap:12px;
     }
 
     .sec-label::before {
-      content: '';
-      width: 24px;
-      height: 1px;
-      background: var(--teal);
+      content:'';
+      width:20px;
+      height:1.5px;
+      background:var(--teal);
     }
 
     .sec-title {
-      font-family: 'Fraunces', serif;
-      font-size: clamp(28px, 3.5vw, 44px);
-      color: var(--ink);
-      line-height: 1.2;
-      margin-bottom: 24px;
-      font-weight: 600;
-    }
-
-    .sec-forest .sec-title {
-      color: var(--white);
-    }
-
-    .sec-title em {
-      color: var(--gold);
-      font-style: italic;
+      font-family:'Fraunces',serif;
+      font-size:clamp(28px,3.5vw,44px);
+      line-height:1.2;
+      margin-bottom:24px;
+      color:var(--ink);
     }
 
     .sec-subtitle {
-      font-size: 16px;
-      color: var(--ink-soft);
-      line-height: 1.6;
-      margin-bottom: 48px;
-      max-width: 650px;
+      font-size:16px;
+      color:var(--ink-soft);
+      margin-bottom:48px;
+      max-width:600px;
+      line-height:1.8;
     }
 
-    .sec-forest .sec-subtitle {
-      color: rgba(255, 255, 255, .8);
+    /* SERVICE HERO */
+    .svc-hero {
+      margin-top:68px;
+      padding:120px 80px;
+      background:linear-gradient(135deg,#0a1f14 0%,#132D1E 60%,#1a3a1a 100%);
+      background-image:url('/images/optimisation-fiscale.jpg');
+      background-size:cover;
+      background-position:center;
+      background-blend-mode:overlay;
+      position:relative;
+      color:var(--white);
+    }
+
+    .svc-hero::before {
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      background:rgba(19,45,30,.88);
+      z-index:0;
+    }
+
+    .svc-hero .container {
+      position:relative;
+      z-index:1;
+    }
+
+    .svc-hero .sec-label {
+      color:var(--teal-light);
+    }
+
+    .svc-hero .sec-label::before {
+      background:var(--teal-light);
+    }
+
+    .svc-hero h1 {
+      font-family:'Fraunces',serif;
+      font-size:clamp(36px,5vw,56px);
+      line-height:1.1;
+      margin-bottom:24px;
+      color:var(--white);
+    }
+
+    .svc-hero em {
+      color:var(--gold-light);
+    }
+
+    .svc-hero .sec-subtitle {
+      color:rgba(250,250,247,.85);
+      max-width:560px;
+    }
+
+    .svc-hero-stats {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:40px;
+      margin-top:80px;
+      padding-top:80px;
+      border-top:1px solid rgba(196,151,58,.3);
+    }
+
+    .stat-item {
+      text-align:left;
+    }
+
+    .stat-number {
+      font-family:'Fraunces',serif;
+      font-size:36px;
+      font-weight:700;
+      color:var(--gold-light);
+      line-height:1;
+      margin-bottom:8px;
+    }
+
+    .stat-label {
+      font-size:13px;
+      color:rgba(250,250,247,.7);
+      text-transform:uppercase;
+      letter-spacing:1px;
     }
 
     /* SERVICES GRID */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 32px;
-      margin-bottom: 0;
+    .services-cards {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:32px;
+      margin-top:48px;
     }
 
-    .svc-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--r-md);
-      padding: 32px;
-      transition: all 0.3s;
+    .service-card {
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:var(--r-lg);
+      padding:40px 32px;
+      display:flex;
+      flex-direction:column;
+      transition:all .3s;
     }
 
-    .svc-card:hover {
-      box-shadow: var(--shadow-lg);
-      transform: translateY(-4px);
-      border-color: var(--gold);
+    .service-card:hover {
+      border-color:var(--gold);
+      box-shadow:var(--shadow-lg);
+      transform:translateY(-4px);
     }
 
-    .svc-icon {
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 16px;
+    .service-card h3 {
+      font-family:'Fraunces',serif;
+      font-size:20px;
+      color:var(--forest);
+      margin-bottom:12px;
+      margin-top:12px;
     }
 
-    .svc-icon svg {
-      width: 100%;
-      height: 100%;
-      color: var(--gold);
+    .service-card p {
+      font-size:14px;
+      color:var(--ink-soft);
+      line-height:1.7;
+      margin-bottom:20px;
+      flex-grow:1;
     }
 
-    .svc-card h3 {
-      font-family: 'Fraunces', serif;
-      font-size: 18px;
-      color: var(--ink);
-      margin-bottom: 12px;
-      font-weight: 600;
+    .service-card a {
+      color:var(--gold);
+      font-weight:600;
+      font-size:14px;
+      transition:color .3s;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
     }
 
-    .svc-card p {
-      font-size: 14px;
-      color: var(--ink-soft);
-      line-height: 1.6;
-      margin-bottom: 16px;
+    .service-card a:hover {
+      color:var(--gold-light);
     }
 
-    .svc-card a {
-      font-size: 13px;
-      color: var(--teal);
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-
-    .svc-card a:hover {
-      color: var(--teal-light);
-    }
-
-    /* PROFILE CARDS */
-    .profiles-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 32px;
+    /* WHY CARDS */
+    .why-cards {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:32px;
+      margin-top:48px;
     }
 
     .why-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-      padding: 36px;
-      position: relative;
-      transition: all 0.3s;
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:var(--r-lg);
+      padding:40px;
+      position:relative;
+      overflow:hidden;
+      transition:all .3s;
+    }
+
+    .why-card::before {
+      content:attr(data-number);
+      position:absolute;
+      top:-20px;
+      right:-20px;
+      font-family:'Fraunces',serif;
+      font-size:120px;
+      font-weight:700;
+      color:var(--forest);
+      opacity:.08;
+      line-height:1;
     }
 
     .why-card:hover {
-      box-shadow: var(--shadow-md);
-    }
-
-    .why-num {
-      font-family: 'Fraunces', serif;
-      font-size: 48px;
-      color: var(--gold);
-      opacity: .25;
-      margin-bottom: 12px;
-      font-weight: 600;
+      border-color:var(--gold);
+      box-shadow:var(--shadow-lg);
     }
 
     .why-card h3 {
-      font-family: 'Fraunces', serif;
-      font-size: 18px;
-      color: var(--ink);
-      margin-bottom: 12px;
-      font-weight: 600;
+      font-family:'Fraunces',serif;
+      font-size:18px;
+      color:var(--forest);
+      margin-bottom:12px;
+      position:relative;
+      z-index:1;
     }
 
     .why-card p {
-      font-size: 14px;
-      color: var(--ink-soft);
-      line-height: 1.6;
+      font-size:14px;
+      color:var(--ink-soft);
+      line-height:1.7;
+      position:relative;
+      z-index:1;
     }
 
-    /* PROCESS STEPS */
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 40px;
+    /* ZONE SECTION */
+    .zone-section {
+      background:var(--forest);
+      color:var(--white);
     }
 
-    .process-step {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+    .zone-section .sec-title,
+    .zone-section .sec-subtitle {
+      color:var(--white);
     }
 
-    .process-step-num {
-      font-family: 'Fraunces', serif;
-      font-size: 32px;
-      color: var(--gold);
-      font-weight: 600;
+    .zone-list {
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(196,151,58,.3);
+      border-radius:var(--r-lg);
+      padding:40px;
+      margin-top:32px;
     }
 
-    .process-step h3 {
-      font-family: 'Fraunces', serif;
-      font-size: 18px;
-      color: var(--white);
-      font-weight: 600;
+    .zone-list p {
+      font-size:15px;
+      color:rgba(250,250,247,.85);
+      line-height:1.8;
+      margin-bottom:24px;
     }
 
-    .process-step p {
-      font-size: 14px;
-      color: rgba(255, 255, 255, .8);
-      line-height: 1.6;
+    .zone-list ul {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:16px;
+      list-style:none;
     }
 
-    /* INTERVENTION ZONE */
-    .intervention-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+    .zone-list li {
+      font-size:14px;
+      color:rgba(250,250,247,.8);
+      padding:8px 0;
+      padding-left:20px;
+      position:relative;
     }
 
-    .pill {
-      padding: 10px 18px;
-      border: 1.5px solid var(--border);
-      border-radius: 24px;
-      font-size: 13px;
-      color: var(--ink);
-      background: transparent;
-      transition: all 0.2s;
-      cursor: default;
-    }
-
-    .pill:hover {
-      border-color: var(--teal);
-      color: var(--teal);
+    .zone-list li::before {
+      content:'→';
+      position:absolute;
+      left:0;
+      color:var(--gold-light);
+      font-weight:700;
     }
 
     /* TESTIMONIALS */
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 32px;
+    .testimonial-cards {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:32px;
+      margin-top:48px;
     }
 
     .testimonial-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--r-md);
-      padding: 32px;
-      transition: all 0.3s;
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:var(--r-lg);
+      padding:32px;
+      position:relative;
     }
 
-    .testimonial-card:hover {
-      box-shadow: var(--shadow-md);
+    .testimonial-card::before {
+      content:'"';
+      position:absolute;
+      top:12px;
+      left:20px;
+      font-family:'Fraunces',serif;
+      font-size:48px;
+      color:var(--gold);
+      opacity:.3;
+      line-height:1;
     }
 
     .testimonial-text {
-      font-size: 14px;
-      color: var(--ink-soft);
-      line-height: 1.7;
-      margin-bottom: 20px;
-      font-style: italic;
+      font-size:15px;
+      color:var(--ink);
+      line-height:1.8;
+      margin-bottom:20px;
+      font-style:italic;
+      position:relative;
+      z-index:1;
     }
 
     .testimonial-author {
-      font-family: 'Fraunces', serif;
-      font-size: 14px;
-      color: var(--ink);
-      font-weight: 600;
+      font-size:13px;
+      font-weight:600;
+      color:var(--forest);
     }
 
     .testimonial-role {
-      font-size: 12px;
-      color: var(--slate);
-      margin-top: 4px;
+      font-size:12px;
+      color:var(--ink-soft);
+      font-weight:400;
+    }
+
+    /* BUTTONS */
+    .btn-primary {
+      background:var(--gold);
+      color:var(--white);
+      padding:14px 32px;
+      border-radius:var(--r-md);
+      font-weight:600;
+      border:none;
+      cursor:pointer;
+      transition:all .3s;
+      font-size:14px;
+      display:inline-block;
+    }
+
+    .btn-primary:hover {
+      background:var(--gold-light);
+      transform:translateY(-2px);
+      box-shadow:var(--shadow-lg);
     }
 
     /* CTA BAND */
     #cta-band {
-      background: linear-gradient(135deg, var(--forest) 0%, var(--forest-mid) 100%);
-      color: var(--white);
-      padding: 64px 80px;
-      text-align: center;
+      background:linear-gradient(135deg,var(--forest) 0%,var(--forest-mid) 100%);
+      color:var(--white);
+      padding:60px 80px;
+      text-align:center;
     }
 
     #cta-band h2 {
-      font-family: 'Fraunces', serif;
-      font-size: clamp(28px, 3.5vw, 40px);
-      margin-bottom: 24px;
-      font-weight: 600;
+      font-family:'Fraunces',serif;
+      font-size:clamp(28px,3vw,40px);
+      margin-bottom:24px;
+      line-height:1.2;
     }
 
-    #cta-band p {
-      font-size: 16px;
-      margin-bottom: 32px;
-      opacity: .9;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+    #cta-band .btn-primary {
+      margin-top:24px;
     }
 
     /* FOOTER */
     footer#contact {
-      background: #080C10;
-      color: var(--white);
-      padding: 64px 80px 32px;
+      background:#080C10;
+      color:var(--white);
+      padding:60px 80px 20px;
     }
 
     .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 40px;
-      margin-bottom: 40px;
-    }
-
-    .footer-brand img {
-      height: 48px;
-      width: auto;
-      display: block;
-      opacity: .9;
-      margin-bottom: 16px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:48px;
+      margin-bottom:40px;
     }
 
     .footer-brand p {
-      font-size: 13px;
-      color: rgba(255, 255, 255, .65);
-      line-height: 1.6;
+      font-size:13px;
+      color:rgba(250,250,247,.7);
+      line-height:1.7;
+      margin-top:16px;
     }
 
     .footer-col h4 {
-      font-family: 'Fraunces', serif;
-      font-size: 14px;
-      color: var(--white);
-      margin-bottom: 16px;
-      font-weight: 600;
+      font-family:'Fraunces',serif;
+      font-size:14px;
+      font-weight:700;
+      margin-bottom:16px;
+      color:var(--gold);
     }
 
     .footer-col a {
-      display: block;
-      font-size: 13px;
-      color: rgba(255, 255, 255, .65);
-      margin-bottom: 12px;
-      transition: color 0.2s;
+      display:block;
+      font-size:13px;
+      color:rgba(250,250,247,.7);
+      margin-bottom:12px;
+      transition:color .3s;
     }
 
     .footer-col a:hover {
-      color: var(--gold);
+      color:var(--gold);
     }
 
     .footer-bottom {
-      border-top: 1px solid rgba(255, 255, 255, .1);
-      padding-top: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
+      border-top:1px solid rgba(196,151,58,.2);
+      padding-top:24px;
+      text-align:center;
+      font-size:12px;
+      color:rgba(250,250,247,.6);
     }
 
     .footer-bottom p {
-      font-size: 12px;
-      color: rgba(255, 255, 255, .5);
-    }
-
-    .footer-bottom a {
-      color: rgba(255, 255, 255, .5);
-      transition: color 0.2s;
-    }
-
-    .footer-bottom a:hover {
-      color: var(--gold);
+      margin-bottom:8px;
     }
 
     /* SCROLL TOP */
     .scroll-top {
-      position: fixed;
-      bottom: 32px;
-      right: 32px;
-      width: 44px;
-      height: 44px;
-      background: var(--gold);
-      color: var(--white);
-      border: none;
-      border-radius: 50%;
-      font-size: 20px;
-      cursor: pointer;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-      z-index: 900;
+      position:fixed;
+      bottom:30px;
+      right:30px;
+      width:44px;
+      height:44px;
+      background:var(--gold);
+      color:var(--white);
+      border:none;
+      border-radius:50%;
+      font-size:20px;
+      cursor:pointer;
+      opacity:0;
+      visibility:hidden;
+      transition:all .3s;
+      z-index:500;
     }
 
     .scroll-top.visible {
-      display: flex;
+      opacity:1;
+      visibility:visible;
     }
 
     .scroll-top:hover {
-      background: #a67e2e;
-      transform: translateY(-4px);
+      background:var(--gold-light);
+      transform:translateY(-4px);
     }
 
-    /* REVEAL ANIMATIONS */
+    /* REVEAL ANIMATION */
     .reveal {
-      opacity: 0;
-      transform: translateY(20px);
+      opacity:0;
+      transform:translateY(28px);
+      transition:all .6s ease-out;
     }
 
     .reveal.visible {
-      animation: slideUp 0.6s ease-out forwards;
-    }
-
-    .reveal.d1.visible {
-      animation-delay: 0.1s;
-    }
-
-    .reveal.d2.visible {
-      animation-delay: 0.2s;
-    }
-
-    .reveal.d3.visible {
-      animation-delay: 0.3s;
-    }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      opacity:1;
+      transform:translateY(0);
     }
 
     /* RESPONSIVE */
-    @media (max-width: 900px) {
+    @media (max-width:900px) {
       nav#nav {
-        padding: 0 40px;
+        padding:0 40px;
       }
 
       .nav-links {
-        display: none;
+        display:none;
       }
 
       .hamburger {
-        display: flex;
+        display:flex;
       }
 
       .sec {
-        padding: 64px 40px;
+        padding:64px 40px;
       }
 
-      .city-hero {
-        padding: 100px 40px 60px;
+      .breadcrumb-bar {
+        padding:10px 40px;
+      }
+
+      .svc-hero {
+        padding:80px 40px;
+      }
+
+      .svc-hero-stats {
+        grid-template-columns:1fr 1fr;
+      }
+
+      .services-cards {
+        grid-template-columns:repeat(2,1fr);
       }
 
       #cta-band {
-        padding: 48px 40px;
+        padding:40px;
       }
 
       footer#contact {
-        padding: 48px 40px 24px;
+        padding:40px;
       }
 
       .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .footer-bottom {
-        justify-content: center;
-      }
-
-      .hero-stats {
-        gap: 24px;
+        grid-template-columns:1fr;
       }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width:600px) {
       nav#nav {
-        padding: 0 20px;
+        padding:0 20px;
+      }
+
+      .nav-logo img {
+        height:40px;
+      }
+
+      .nav-cta-btn {
+        padding:8px 16px;
+        font-size:12px;
       }
 
       .sec {
-        padding: 48px 20px;
+        padding:48px 20px;
       }
 
-      .city-hero {
-        padding: 80px 20px 40px;
-        min-height: auto;
+      .breadcrumb-bar {
+        padding:10px 20px;
       }
 
-      .city-hero h1 {
-        font-size: clamp(24px, 5vw, 32px);
+      .svc-hero {
+        padding:60px 20px;
       }
 
-      .city-hero p {
-        font-size: 14px;
+      .svc-hero h1 {
+        font-size:28px;
       }
 
-      .hero-cta {
-        flex-direction: column;
-        width: 100%;
+      .svc-hero-stats {
+        grid-template-columns:1fr;
       }
 
-      .btn-primary,
-      .btn-secondary {
-        width: 100%;
-        text-align: center;
+      .services-cards {
+        grid-template-columns:1fr;
       }
 
-      .sec-title {
-        font-size: clamp(22px, 5vw, 32px);
-      }
-
-      .services-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .profiles-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .process-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
-
-      .footer-bottom {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .testimonials-grid {
-        grid-template-columns: 1fr;
+      .zone-list ul {
+        grid-template-columns:1fr;
       }
 
       #cta-band {
-        padding: 40px 20px;
+        padding:30px 20px;
       }
 
-      .scroll-top {
-        bottom: 16px;
-        right: 16px;
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
+      footer#contact {
+        padding:30px 20px;
+      }
+
+      .mobile-menu a {
+        padding:12px 20px;
+        font-size:13px;
       }
     }
   </style>
   <script src="/popup.js" defer></script>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.proactifsconseils.fr/conseiller-patrimoine-levallois">
+  <meta property="og:title" content="Conseiller Patrimoine Colombes (92) | Proactifs Conseils">
+  <meta property="og:description" content="Conseiller en gestion de patrimoine à Colombes (92). Optimisation fiscale, SCPI, retraite, cession d'entreprise. Cabinet expert Hauts-de-Seine. RDV gratuit">
+  <meta property="og:image" content="https://www.proactifsconseils.fr/images/optimisation-fiscale.jpg">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Proactifs Conseils">
 </head>
 <body>
 
-<!-- NAV -->
+<!-- NAVIGATION -->
 <nav id="nav">
   <a href="/" class="nav-logo"><img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:48px;width:auto;display:block;opacity:.9"></a>
   <ul class="nav-links">
@@ -924,6 +756,7 @@
   <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   <a href="/bilan-patrimonial-gratuit" class="nav-cta-btn">Prendre rendez-vous</a>
 </nav>
+
 <div class="mobile-menu" id="mobileMenu">
   <a href="/">Accueil</a>
   <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
@@ -936,186 +769,157 @@
 <!-- BREADCRUMB -->
 <div class="breadcrumb-bar">
   <div class="container">
-    <small><a href="/">Accueil</a> › <span>Conseiller patrimoine Levallois-Perret</span></small>
+    <small><a href="/">Accueil</a> › <a href="/page-conseiller-patrimoine-colombes">Conseiller Patrimoine</a> › <span>Levallois-Perret</span></small>
   </div>
 </div>
 
 <!-- HERO -->
-<section class="city-hero">
-  <div class="city-hero-content">
-    <div class="hero-badge">Conseiller patrimonial · Levallois-Perret (92)</div>
-    <h1>Votre conseiller patrimoine<br>à <em>Levallois-Perret</em></h1>
-    <p>À 8 minutes de Colombes, Proactifs Conseils accompagne les cadres supérieurs et entrepreneurs de Levallois dans l'optimisation fiscale, les placements et la préparation de leur retraite.</p>
-    <div class="hero-stats">
+<section class="svc-hero">
+  <div class="container">
+    <div class="sec-label">Cabinet conseil · Levallois-Perret (92)</div>
+    <h1>Votre <em>conseiller en gestion<br>de patrimoine</em> à Levallois-Perret (92)</h1>
+    <p class="sec-subtitle">Proactifs Conseils accompagne les particuliers et dirigeants de Levallois-Perret dans l'optimisation fiscale, la préparation retraite et la transmission patrimoniale. Levallois concentre une forte proportion de hauts revenus — nous sommes habitués à ces profils exigeants.</p>
+
+    <div class="svc-hero-stats">
       <div class="stat-item">
-        <div class="stat-value">8 min</div>
-        <div class="stat-label">de Colombes</div>
+        <div class="stat-number">+400</div>
+        <div class="stat-label">Clients accompagnés</div>
       </div>
       <div class="stat-item">
-        <div class="stat-value">41-45%</div>
-        <div class="stat-label">TMI typique</div>
+        <div class="stat-number">10 ans</div>
+        <div class="stat-label">Expérience</div>
       </div>
       <div class="stat-item">
-        <div class="stat-value">Visio</div>
-        <div class="stat-label">ou présentiel</div>
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Dédié à vos intérêts</div>
       </div>
-    </div>
-    <div class="hero-cta">
-      <button class="btn-primary">Prendre rendez-vous</button>
-      <button class="btn-secondary">En savoir plus</button>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section class="sec sec-sand">
-  <div class="container">
-    <div class="sec-label">Nos services</div>
-    <h2 class="sec-title">Nos services à <em>Levallois-Perret</em></h2>
-    <p class="sec-subtitle">Secteur médias, tech et finance : les actifs de Levallois ont des besoins patrimoniaux spécifiques que nous maîtrisons parfaitement.</p>
-    <div class="services-grid">
-      <div class="svc-card reveal d1">
-        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20m8-8h-16"/></svg></div>
+<!-- SECTION 1: SERVICES -->
+<section class="sec" style="background:var(--sand);">
+  <div class="container reveal">
+    <div class="sec-label">Notre expertise</div>
+    <h2 class="sec-title">Nos <em>services</em></h2>
+    <p class="sec-subtitle">Accompagnement complet dans tous les domaines de la gestion de patrimoine.</p>
+
+    <div class="services-cards">
+      <div class="service-card reveal">
         <h3>Optimisation fiscale</h3>
-        <p>Cadre supérieur avec TMI 41% ou 45% ? PER, SCPI fiscales, déficit foncier : nous réduisons votre impôt de plusieurs milliers d'euros.</p>
+        <p>Réduction d'impôt légale, dispositifs Pinel, déficit foncier, démembrement. Stratégies personnalisées selon votre profil.</p>
         <a href="/optimisation-fiscale-ile-de-france">En savoir plus →</a>
       </div>
-      <div class="svc-card reveal d2">
-        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 20.627 0 14 5.373 2 12 2z"/></svg></div>
-        <h3>Placements financiers / SCPI</h3>
-        <p>Diversifiez votre épargne au-delà du Livret A avec des SCPI de rendement (~5%) ou des solutions d'assurance vie performantes.</p>
+      <div class="service-card reveal">
+        <h3>Investissement SCPI</h3>
+        <p>Sélection des meilleures SCPI, de rendement ou fiscales. Simulation personnalisée et suivi continu de vos placements.</p>
         <a href="/investissement-scpi-hauts-de-seine">En savoir plus →</a>
       </div>
-      <div class="svc-card reveal d3">
-        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <div class="service-card reveal">
         <h3>Préparation retraite</h3>
-        <p>Vous êtes encore loin de la retraite mais c'est maintenant qu'il faut agir. PER défiscalisant + assurance vie = stratégie gagnante.</p>
+        <p>Estimation de votre retraite, plans d'action pour combler le gap. Optimisation des dispositifs de retraite.</p>
         <a href="/preparation-retraite">En savoir plus →</a>
       </div>
-      <div class="svc-card reveal d1">
-        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M6 6h12M6 18h12"/></svg></div>
-        <h3>Cession d'entreprise</h3>
-        <p>Start-up, scale-up, PME levalloisienne : anticipez votre exit avec un apport-cession pour réinvestir le produit brut de cession.</p>
-        <a href="/cession-entreprise">En savoir plus →</a>
-      </div>
-      <div class="svc-card reveal d2">
-        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/></svg></div>
-        <h3>Transmission</h3>
-        <p>Constituez et transmettez votre patrimoine à vos proches en profitant des abattements fiscaux : donation, assurance vie, SCI.</p>
+      <div class="service-card reveal">
+        <h3>Transmission & succession</h3>
+        <p>Organisation successorale optimale. Donations, démembrement, trusts. Protection de votre patrimoine familial.</p>
         <a href="/transmission">En savoir plus →</a>
       </div>
-      <div class="svc-card reveal d3">
-        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
-        <h3>Déclaration d'impôts</h3>
-        <p>Stock-options, BSPCE, revenus étrangers, AGA : votre déclaration est complexe, nous la sécurisons et l'optimisons.</p>
-        <a href="/declaration-impots-ile-de-france">En savoir plus →</a>
+      <div class="service-card reveal">
+        <h3>Cession d'entreprise</h3>
+        <p>Préparation et optimisation fiscale de la vente. Valorisation, structuration, impact personnel.</p>
+        <a href="/cession-entreprise">En savoir plus →</a>
+      </div>
+      <div class="service-card reveal">
+        <h3>Courtage en crédit</h3>
+        <p>Financement immobilier optimisé. Négociation des meilleurs taux. Montage complet du dossier.</p>
+        <a href="/courtage-credit-immobilier">En savoir plus →</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROFILES -->
-<section class="sec sec-white">
-  <div class="container">
-    <div class="sec-label">Profil clients</div>
-    <h2 class="sec-title">Les profils que nous accompagnons à <em>Levallois</em></h2>
-    <div class="profiles-grid">
-      <div class="why-card reveal d1">
-        <div class="why-num">01</div>
-        <h3>Cadre supérieur médias/tech</h3>
-        <p>Salarié grands médias ou startups, TMI 41-45%, BSPCE ou stock-options, revenus variables. Enjeux : défiscaliser, diversifier les actions, préparer la retraite.</p>
+<!-- SECTION 2: WHY US -->
+<section class="sec" style="background:var(--white);">
+  <div class="container reveal">
+    <div class="sec-label">Notre valeur ajoutée</div>
+    <h2 class="sec-title">Pourquoi nous <em>choisir</em> ?</h2>
+    <p class="sec-subtitle">Des raisons concrètes de faire confiance à Proactifs Conseils.</p>
+
+    <div class="why-cards">
+      <div class="why-card reveal" data-number="1">
+        <h3>Conseil objectif</h3>
+        <p>Entièrement dédié à vos intérêts, nos recommandations sont guidées par votre situation et vos objectifs — pas par des produits à placer ni des partenariats commerciaux.</p>
       </div>
-      <div class="why-card reveal d2">
-        <div class="why-num">02</div>
-        <h3>Entrepreneur / fondateur</h3>
-        <p>Fondateur de startup ou dirigeant d'agence. Exit potentiel dans 2-5 ans. Enjeux : préparer l'exit fiscal, structurer la holding, réinvestir post-cession.</p>
+      <div class="why-card reveal" data-number="2">
+        <h3>Sur-mesure 100%</h3>
+        <p>Pas de solutions génériques. Chaque situation est unique et mérite une stratégie personnalisée adaptée à vos objectifs et votre profil.</p>
       </div>
-      <div class="why-card reveal d3">
-        <div class="why-num">03</div>
-        <h3>Double actif sans enfant</h3>
-        <p>Couple DINK à fort revenu, TMI élevée, patrimoine en constitution. Enjeux : PER double, SCPI, diversification internationale, première acquisition locative.</p>
+      <div class="why-card reveal" data-number="3">
+        <h3>Expert local</h3>
+        <p>Levallois-Perret compte parmi les villes les plus aisées des Hauts-de-Seine. Nous y accompagnons des profils à hauts revenus, des dirigeants et des professions libérales avec des stratégies adaptées.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROCESS -->
-<section class="sec sec-forest">
+<!-- SECTION 3: ZONE D'INTERVENTION -->
+<section class="sec zone-section reveal">
   <div class="container">
-    <div class="sec-label" style="color: var(--gold); opacity: .8;">Notre accompagnement</div>
-    <h2 class="sec-title">Comment nous travaillons</h2>
-    <div class="process-grid">
-      <div class="process-step reveal d1">
-        <div class="process-step-num">01</div>
-        <h3>Diagnostic sur mesure</h3>
-        <p>Bilan patrimonial, analyse TMI, objectifs 5-10 ans. Nous comprenons votre situation complète.</p>
-      </div>
-      <div class="process-step reveal d2">
-        <div class="process-step-num">02</div>
-        <h3>Stratégie sur mesure</h3>
-        <p>PER, placements, immobilier, transmission. Nous proposons un plan adapté à vos besoins.</p>
-      </div>
-      <div class="process-step reveal d3">
-        <div class="process-step-num">03</div>
-        <h3>Pilotage & reporting</h3>
-        <p>Suivi de performance, ajustements annuels, fiscalité en temps réel. Accompagnement durable.</p>
-      </div>
+    <div class="sec-label" style="color:var(--teal-light);">Couverture géographique</div>
+    <h2 class="sec-title">Notre zone d'<em>intervention</em></h2>
+    <p class="sec-subtitle">Nous couvrons l'ensemble des Hauts-de-Seine avec expertise locale.</p>
+
+    <div class="zone-list">
+      <p>Basés à Colombes, nous accompagnons les clients des principales communes des Hauts-de-Seine. Notre connaissance approfondie des spécificités fiscales et patrimoniales locales est un atout pour optimiser votre situation.</p>
+      
+      <ul>
+        <li>Colombes</li>
+        <li>Courbevoie</li>
+        <li>Asnières-sur-Seine</li>
+        <li>Levallois-Perret</li>
+        <li>Nanterre</li>
+        <li>Gennevilliers</li>
+        <li>Bois-Colombes</li>
+        <li>La Garenne-Colombes</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<!-- INTERVENTION ZONE -->
-<section class="sec sec-sand">
-  <div class="container">
-    <div class="sec-label">Zone d'intervention</div>
-    <h2 class="sec-title">Nous intervenons dans tous les <em>Hauts-de-Seine</em></h2>
-    <p class="sec-subtitle">À Levallois-Perret et dans les communes environnantes : consultations en présentiel ou en visio.</p>
-    <div class="intervention-pills">
-      <div class="pill">Levallois-Perret</div>
-      <div class="pill">Neuilly-sur-Seine</div>
-      <div class="pill">Clichy</div>
-      <div class="pill">Courbevoie</div>
-      <div class="pill">Puteaux</div>
-      <div class="pill">Colombes</div>
-      <div class="pill">Bois-Colombes</div>
-      <div class="pill">La Garenne-Colombes</div>
-      <div class="pill">Asnières-sur-Seine</div>
-      <div class="pill">Paris 17e</div>
-    </div>
-  </div>
-</section>
+<!-- SECTION 4: TESTIMONIALS -->
+<section class="sec" style="background:var(--sand);">
+  <div class="container reveal">
+    <div class="sec-label">Nos clients témoignent</div>
+    <h2 class="sec-title">Des résultats qui <em>parlent</em></h2>
+    <p class="sec-subtitle">La satisfaction de nos clients est notre meilleure recommandation.</p>
 
-<!-- TESTIMONIALS -->
-<section class="sec sec-white">
-  <div class="container">
-    <div class="sec-label">Témoignages</div>
-    <h2 class="sec-title">Ce que disent nos clients à <em>Levallois</em></h2>
-    <div class="testimonials-grid">
-      <div class="testimonial-card reveal d1">
-        <p class="testimonial-text">« J'avais des BSPCE que je ne savais pas comment traiter fiscalement. L'équipe a tout géré et optimisé ma déclaration de A à Z. »</p>
-        <p class="testimonial-author">Thomas G.</p>
-        <p class="testimonial-role">Ingénieur senior, Levallois</p>
+    <div class="testimonial-cards">
+      <div class="testimonial-card reveal">
+        <p class="testimonial-text">Conseil haut de gamme pour une situation patrimoniale complexe. Stratégie claire, bien expliquée, résultats au rendez-vous.</p>
+        <div class="testimonial-author">Alexandre P.</div>
+        <div class="testimonial-role">Avocat associé, Levallois-Perret</div>
       </div>
-      <div class="testimonial-card reveal d2">
-        <p class="testimonial-text">« Mise en place d'un PER et d'une stratégie SCPI en 3 mois. Économie fiscale de 11 000€ la première année. Impeccable. »</p>
-        <p class="testimonial-author">Caroline B.</p>
-        <p class="testimonial-role">Directrice marketing, Levallois</p>
+      <div class="testimonial-card reveal">
+        <p class="testimonial-text">J'ai enfin compris comment optimiser mon épargne salariale et mes stock-options. Un gain fiscal considérable sur 3 ans.</p>
+        <div class="testimonial-author">Marie-Claire F.</div>
+        <div class="testimonial-role">Directrice marketing, Levallois-Perret</div>
       </div>
-      <div class="testimonial-card reveal d3">
-        <p class="testimonial-text">« Proactifs Conseils nous a aidés à structurer notre patrimoine avant la vente de notre startup. Accompagnement top. »</p>
-        <p class="testimonial-author">Alexandre & Julie M.</p>
-        <p class="testimonial-role">Co-fondateurs, Levallois</p>
+      <div class="testimonial-card reveal">
+        <p class="testimonial-text">Accompagnement exemplaire pour la vente de ma startup. Apport-cession bien structuré, fiscalité maîtrisée. Merci !</p>
+        <div class="testimonial-author">Thomas G.</div>
+        <div class="testimonial-role">Entrepreneur, Levallois-Perret</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CTA BAND -->
-<section id="cta-band">
+<section id="cta-band" class="reveal">
   <div class="container">
-    <h2>Optimisez votre patrimoine depuis Levallois</h2>
-    <p>Bilan patrimonial sur mesure, sans engagement. Consultations en présentiel ou en visio.</p>
-    <button class="btn-primary">Prendre rendez-vous</button>
+    <h2>Prenez rendez-vous avec votre <em>conseiller</em></h2>
+    <p style="font-size:16px; margin-bottom:0; color:rgba(250,250,247,.85);">Bilan patrimonial sur mesure, sans engagement</p>
+    <a href="/bilan-patrimonial-gratuit" class="btn-primary">Demander votre bilan patrimonial</a>
   </div>
 </section>
 
@@ -1124,8 +928,8 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand" style="align-items:flex-start">
-        <img src="/images/proactifs-logo.png" style="height:48px;width:auto;display:block;opacity:.9" alt="Proactifs Conseils">
-        <p>Cabinet de conseil en gestion de patrimoine à Colombes (92). Nous accompagnons les particuliers et chefs d'entreprise en Île-de-France.</p>
+        <img src="/images/proactifs-logo.png" style="height:48px;width:auto;display:block;opacity:.9" alt="Proactifs Conseils" style="height:48px;opacity:.9">
+        <p>Cabinet de conseil en gestion de patrimoine indépendant à Colombes (92). Nous accompagnons les particuliers et chefs d'entreprise en Île-de-France.</p>
       </div>
       <div class="footer-col">
         <h4>Services</h4>
@@ -1138,12 +942,9 @@
         <a href="/declaration-impots-ile-de-france">Déclaration impôts</a>
       </div>
       <div class="footer-col">
-        <h4>Villes</h4>
-        <a href="/conseiller-patrimoine-courbevoie">Courbevoie</a>
-        <a href="/conseiller-patrimoine-asnieres">Asnières-sur-Seine</a>
-        <a href="/conseiller-patrimoine-levallois">Levallois-Perret</a>
-        <a href="/conseiller-patrimoine-nanterre">Nanterre</a>
-        <a href="/page-conseiller-patrimoine-colombes">Colombes</a>
+        <h4>Cabinet</h4>
+        <a href="/bilan-patrimonial-gratuit">Bilan patrimonial sur mesure</a>
+        <a href="/page-conseiller-patrimoine-colombes">Notre conseiller</a>
       </div>
       <div class="footer-col">
         <h4>Contact</h4>
@@ -1155,28 +956,66 @@
     </div>
     <div class="footer-bottom">
       <p>© 2026 Proactifs Conseils – Tous droits réservés · CIF enregistré AMF</p>
-      <p><a href="#">Mentions légales</a> · <a href="#">Politique de confidentialité</a></p>
+      <p>Mentions légales · Politique de confidentialité</p>
     </div>
   </div>
 </footer>
 
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
+<!-- SCHEMA.ORG -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Proactifs Conseils",
+  "description": "Cabinet de gestion de patrimoine - conseiller à Levallois-Perret",
+  "url": "https://www.proactifsconseils.fr/conseiller-patrimoine-levallois",
+  "telephone": "+33184782830",
+  "email": "contact@proactifsconseils.fr",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "54 Rue du Bournard",
+    "addressLocality": "Colombes",
+    "postalCode": "92700",
+    "addressCountry": "FR"
+  },
+  "areaServed": ["Hauts-de-Seine", "Île-de-France"],
+  "foundingYear": "2016",
+  "priceRange": "Gratuit"
+}
+</script>
+
 <script>
+// NAV SCROLL
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 20);
   document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
 });
+
+// HAMBURGER MENU
 document.getElementById('hamburger').addEventListener('click', function() {
   document.getElementById('mobileMenu').classList.toggle('open');
   this.classList.toggle('open');
 });
+
+// REVEAL ON SCROLL
 const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Comment optimiser la fiscalité des stock-options et actions gratuites ?","acceptedAnswer":{"@type":"Answer","text":"Les actions gratuites (AGA) et stock-options sont soumis à des régimes fiscaux spécifiques. Le moment de la cession, la nature des titres et le recours à un PEA sont des variables clés. Un conseiller patrimonial peut modéliser différents scénarios pour minimiser la charge fiscale globale."}},
+    {"@type":"Question","name":"Quels placements pour un profil à haute tranche marginale d'imposition ?","acceptedAnswer":{"@type":"Answer","text":"Pour une TMI de 41 ou 45%, les solutions prioritaires sont : le PER (déduction immédiate au taux marginal), les FCPI/FIP (réduction IR de 25%), et l'assurance vie pour la transmission et la capitalisation à long terme."}},
+    {"@type":"Question","name":"Comment transmettre un patrimoine important à ses héritiers ?","acceptedAnswer":{"@type":"Answer","text":"La stratégie combine : donations régulières (abattement 100k€ par enfant tous les 15 ans), démembrement de propriété, assurance vie (clause bénéficiaire optimisée) et SCI familiale pour l'immobilier."}}
+]}
+</script>
 </body>
 </html>
