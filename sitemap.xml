@@ -112,4 +112,27 @@
     <priority>0.7</priority>
   </url>
 
+
+  <!-- Articles blog -->
+  <url>
+    <loc>https://www.proactifsconseils.fr/blog/per-vs-assurance-vie-2026</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.proactifsconseils.fr/blog/reduire-impots-2026</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.proactifsconseils.fr/blog/lmnp-2026</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
