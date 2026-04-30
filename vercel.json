@@ -14,10 +14,7 @@
     { "source": "/conseiller-patrimoine-courbevoie",    "destination": "/conseiller-patrimoine-courbevoie.html" },
     { "source": "/conseiller-patrimoine-asnieres",      "destination": "/conseiller-patrimoine-asnieres.html" },
     { "source": "/conseiller-patrimoine-levallois",     "destination": "/conseiller-patrimoine-levallois.html" },
-    { "source": "/conseiller-patrimoine-nanterre",          "destination": "/conseiller-patrimoine-nanterre.html" },
-    { "source": "/blog/per-vs-assurance-vie-2026",          "destination": "/blog-per-vs-assurance-vie-2026.html" },
-    { "source": "/blog/reduire-impots-2026",                "destination": "/blog-reduire-impots-2026.html" },
-    { "source": "/blog/lmnp-2026",                          "destination": "/blog-lmnp-2026.html" }
+    { "source": "/conseiller-patrimoine-nanterre",          "destination": "/conseiller-patrimoine-nanterre.html" }
   ],
   "redirects": [
     { "source": "/conseiller-gestion-patrimoine-colombes", "destination": "/page-conseiller-patrimoine-colombes", "permanent": true },
