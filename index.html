@@ -1245,7 +1245,7 @@ footer {
           </select>
         </div>
         <p class="wiz-gdpr">🔒 Vos données sont confidentielles et ne seront jamais revendues. En soumettant ce formulaire, vous acceptez d'être contacté par Proactifs Conseils.</p>
-        <button class="wiz-submit-btn" onclick="wizSubmit()">Recevoir mon analyse personnalisée →</button>
+        <button class="wiz-submit-btn" onclick="wizSubmit()">Envoyer ma demande →</button>
       </div>
     </div>
 
@@ -2021,7 +2021,8 @@ const flows = {
         {l:"Salaires uniquement", d:"Déclaration standard"},
         {l:"Revenus fonciers", d:"Location nue"},
         {l:"LMNP – Location meublée", d:"Régime réel ou micro-BIC"},
-        {l:"Plus-values immobilières ou mobilières", d:""}
+        {l:"Plus-values immobilières ou mobilières", d:""},
+        {l:"Autres", d:"SCI, BNC, revenus étrangers, cryptomonnaies…"}
       ]},
       { q:"Êtes-vous actuellement accompagné(e)\u00a0?", sub:"", opts:[
         {l:"Non, je gère seul(e)", d:""},
@@ -2177,7 +2178,7 @@ function renderWizStep() {
     transmission: 'Préparer mon bilan transmission →',
     cession:      'Recevoir mon analyse de cession →',
     credit:       'Étudier mon financement →',
-    declaration:  'Optimiser ma déclaration →',
+    declaration:  'Faire vérifier ma déclaration →',
   };
   const isLast = wizStep === flows[wizService].steps.length - 1;
   document.getElementById('wizNext').textContent = isLast ? (lastStepLabels[wizService] || 'Finaliser ma demande →') : 'Continuer →';
