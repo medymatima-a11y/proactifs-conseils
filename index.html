@@ -929,6 +929,41 @@ footer {
 }
 .wiz-submit-btn:hover { background:#B8882E; }
 
+/* Intro screen */
+.wiz-intro-body {
+  padding:36px 28px 28px; text-align:center;
+}
+.wiz-intro-icon {
+  font-size:40px; margin-bottom:16px;
+}
+.wiz-intro-title {
+  font-family:'Fraunces',serif; font-size:24px; color:var(--ink); margin-bottom:10px; line-height:1.3;
+}
+.wiz-intro-desc {
+  font-size:14.5px; color:var(--slate); line-height:1.7; max-width:400px; margin:0 auto 24px;
+}
+.wiz-intro-points {
+  text-align:left; max-width:340px; margin:0 auto 28px;
+  display:flex; flex-direction:column; gap:14px;
+}
+.wiz-intro-point {
+  display:flex; align-items:center; gap:12px; font-size:14px; color:var(--ink);
+}
+.wiz-intro-point-icon {
+  font-size:18px; flex-shrink:0; width:28px; text-align:center;
+}
+.wiz-intro-cta {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--forest); color:#fff; padding:14px 32px;
+  border:none; border-radius:8px; font-size:15px; font-weight:600;
+  cursor:pointer; transition:background .2s, transform .15s;
+  font-family:inherit;
+}
+.wiz-intro-cta:hover { background:#244a38; transform:translateY(-1px); }
+.wiz-intro-free {
+  font-size:12.5px; color:var(--slate); margin-top:14px; letter-spacing:0.3px;
+}
+
 /* Thank you */
 .wiz-thanks-body {
   padding:48px 28px; text-align:center;
@@ -1162,13 +1197,27 @@ footer {
       <div class="wiz-progress-track"><div class="wiz-progress-fill" id="wizFill" style="width:25%"></div></div>
     </div>
 
+    <!-- INTRO SCREEN -->
+    <div id="wizIntro" class="wiz-intro-body">
+      <div class="wiz-intro-icon" id="wizIntroIcon">🎯</div>
+      <h3 class="wiz-intro-title" id="wizIntroTitle">Votre diagnostic personnalisé</h3>
+      <p class="wiz-intro-desc" id="wizIntroDesc">Répondez à quelques questions rapides pour que nous puissions analyser votre situation et vous proposer les solutions les plus adaptées.</p>
+      <div class="wiz-intro-points">
+        <div class="wiz-intro-point"><span class="wiz-intro-point-icon">⏱</span><span>3 questions rapides — moins de 2 minutes</span></div>
+        <div class="wiz-intro-point"><span class="wiz-intro-point-icon">🔒</span><span>Vos données restent strictement confidentielles</span></div>
+        <div class="wiz-intro-point"><span class="wiz-intro-point-icon">📞</span><span>Un conseiller vous rappelle sous 24h</span></div>
+      </div>
+      <button class="wiz-intro-cta" onclick="startWizQuestions()">Commencer mon diagnostic →</button>
+      <p class="wiz-intro-free">100% gratuit · Sans engagement</p>
+    </div>
+
     <!-- QUESTION STEPS -->
-    <div id="wizQBody" class="wiz-body">
+    <div id="wizQBody" class="wiz-body" style="display:none">
       <div class="wiz-q" id="wizQ"></div>
       <div class="wiz-sub" id="wizSub"></div>
       <div class="wiz-options" id="wizOpts"></div>
     </div>
-    <div class="wiz-footer" id="wizQFooter">
+    <div class="wiz-footer" id="wizQFooter" style="display:none">
       <button class="wiz-back-btn" id="wizBack" onclick="wizPrev()">← Retour</button>
       <button class="wiz-next-btn" id="wizNext" onclick="wizNext()">Continuer <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
     </div>
@@ -2004,22 +2053,59 @@ const flows = {
 
 let wizService='', wizStep=0, wizAnswers=[];
 
+const wizIntros = {
+  impots:       { icon:'💰', title:'Payez-vous trop d\'impôts ?',       desc:'Découvrez en quelques questions les leviers d\'optimisation fiscale adaptés à votre situation.' },
+  immo:         { icon:'🏠', title:'Votre projet immobilier sur mesure',    desc:'Quelques questions pour identifier le montage le plus rentable et fiscalement optimal pour vous.' },
+  retraite:     { icon:'🌅', title:'Anticipez sereinement votre retraite',  desc:'Évaluons ensemble votre situation pour construire une stratégie de revenus complémentaires.' },
+  epargne:      { icon:'📈', title:'Faites fructifier votre épargne',       desc:'Quelques questions pour vous proposer une allocation sur mesure, adaptée à vos objectifs.' },
+  transmission: { icon:'👨‍👩‍👧‍👦', title:'Protégez vos proches',                 desc:'Anticipez la transmission de votre patrimoine pour protéger vos proches et optimiser la fiscalité.' },
+  cession:      { icon:'🏢', title:'Préparez la cession de votre entreprise', desc:'Le montage en amont fait toute la différence. Évaluons ensemble les options pour votre cession.' },
+  credit:       { icon:'🏦', title:'Obtenez les meilleures conditions',     desc:'En tant que courtier, nous négocions pour vous auprès de nos partenaires bancaires.' },
+  declaration:  { icon:'📋', title:'Votre déclaration, vérifiée et optimisée', desc:'Chaque année, nous identifions des erreurs qui coûtent en moyenne plusieurs milliers d\'euros.' },
+};
+
 function openWizard(service) {
   wizService = service;
   wizStep = 0;
   wizAnswers = [];
   document.getElementById('wiz-overlay').classList.add('open');
   document.body.style.overflow='hidden';
+
+  // Show intro screen
+  const intro = wizIntros[service] || { icon:'🎯', title:'Votre diagnostic personnalisé', desc:'Répondez à quelques questions pour une analyse adaptée à votre situation.' };
+  document.getElementById('wizIntroIcon').textContent = intro.icon;
+  document.getElementById('wizIntroTitle').textContent = intro.title;
+  document.getElementById('wizIntroDesc').textContent = intro.desc;
+
+  const flow = flows[wizService];
+  document.getElementById('wizBadgeName').textContent = flow.name;
+
+  document.getElementById('wizIntro').style.display = 'block';
+  document.getElementById('wizQBody').style.display = 'none';
+  document.getElementById('wizQFooter').style.display = 'none';
+  document.getElementById('wizContact').style.display = 'none';
+  document.getElementById('wizThanks').style.display = 'none';
+
+  // Hide progress on intro
+  document.querySelector('.wiz-progress-wrap').style.display = 'none';
+}
+
+function startWizQuestions() {
+  document.getElementById('wizIntro').style.display = 'none';
+  document.querySelector('.wiz-progress-wrap').style.display = 'block';
   renderWizStep();
 }
+
 function closeWizard() {
   document.getElementById('wiz-overlay').classList.remove('open');
   document.body.style.overflow='';
   // Reset
-  document.getElementById('wizQBody').style.display='block';
-  document.getElementById('wizQFooter').style.display='flex';
-  document.getElementById('wizContact').style.display='none';
-  document.getElementById('wizThanks').style.display='none';
+  document.getElementById('wizIntro').style.display = 'none';
+  document.getElementById('wizQBody').style.display = 'block';
+  document.getElementById('wizQFooter').style.display = 'flex';
+  document.getElementById('wizContact').style.display = 'none';
+  document.getElementById('wizThanks').style.display = 'none';
+  document.querySelector('.wiz-progress-wrap').style.display = 'block';
 }
 function renderWizStep() {
   const flow = flows[wizService];
@@ -2062,7 +2148,7 @@ function renderWizStep() {
   }
 
   // Back button
-  document.getElementById('wizBack').style.visibility = wizStep===0 ? 'hidden' : 'visible';
+  document.getElementById('wizBack').style.visibility = 'visible';
   // Next button state
   const nextBtn = document.getElementById('wizNext');
   const step2 = flow.steps[wizStep];
@@ -2128,7 +2214,14 @@ function wizNext() {
   }
 }
 function wizPrev() {
-  if(wizStep===0) return;
+  if(wizStep===0) {
+    // Retour à l'écran d'intro
+    document.getElementById('wizQBody').style.display = 'none';
+    document.getElementById('wizQFooter').style.display = 'none';
+    document.getElementById('wizIntro').style.display = 'block';
+    document.querySelector('.wiz-progress-wrap').style.display = 'none';
+    return;
+  }
   wizStep--;
   renderWizStep();
 }
