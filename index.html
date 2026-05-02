@@ -2279,6 +2279,12 @@ async function wizSubmit() {
       event_label: wizService,
       value: 1
     });
+    // Google Ads conversion
+    gtag('event', 'conversion', {
+      send_to: 'AW-835423035/N_4XCMuSu6YcELuWro4D',
+      value: 30.0,
+      currency: 'EUR'
+    });
   }
 
   document.getElementById('wizContact').style.display = 'none';
