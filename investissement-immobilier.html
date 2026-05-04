@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+  <meta name="description" content="Construisez votre patrimoine immobilier à Colombes (92). SCPI, LMNP, SCI IS, locatif classique, Pinel : nous sélectionnons la stratégie qui maximise votre rendement net.">
+  <title>Investissement Immobilier Colombes (92) | SCPI, LMNP, SCI | Proactifs Conseils</title>
+  <link rel="canonical" href="https://www.proactifsconseils.fr/investissement-immobilier">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Service","name":"Investissement Immobilier","provider":{"@type":"FinancialService","name":"Proactifs Conseils","address":{"@type":"PostalAddress","streetAddress":"54 Rue du Bournard","addressLocality":"Colombes","postalCode":"92700","addressCountry":"FR"},"telephone":"+33184782830"},"description":"Investissement immobilier sur mesure : SCPI, LMNP, SCI IS, locatif classique, dispositifs fiscaux. Sélection de la stratégie adaptée à votre profil et vos objectifs patrimoniaux.","areaServed":["Colombes","Hauts-de-Seine","Île-de-France"]}
+  </script>
+  <style>
+    :root {
+      --ivory: #FAFAF7;
+      --sand: #F3F1EB;
+      --forest: #132D1E;
+      --forest-mid: #1C3D28;
+      --ink: #111827;
+      --ink-soft: #374151;
+      --gold: #C4973A;
+      --gold-light: #E8C97A;
+      --gold-pale: #FBF4E3;
+      --teal: #1E7A6E;
+      --teal-light: #2A9D8F;
+      --teal-pale: #E6F4F2;
+      --slate: #6B7280;
+      --border: #E5E2DA;
+      --white: #FFFFFF;
+      --shadow-sm: 0 1px 3px rgba(17,24,39,.06), 0 1px 2px rgba(17,24,39,.04);
+      --shadow-md: 0 4px 16px rgba(17,24,39,.08), 0 2px 6px rgba(17,24,39,.04);
+      --shadow-lg: 0 12px 40px rgba(17,24,39,.1), 0 4px 12px rgba(17,24,39,.06);
+      --r-sm: 10px;
+      --r-md: 16px;
+      --r-lg: 24px;
+      --r-xl: 32px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+    #nav.scrolled {
+      background: rgba(250, 250, 247, 0.98);
+      box-shadow: var(--shadow-md);
+      height: 68px;
+    }
+    .nav-logo img {
+      height: 40px;
+      transition: all 0.3s ease;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 40px;
+      flex: 1;
+      margin-left: 60px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+    #nav:not(.scrolled) .nav-links a {
+      color: var(--white);
+    }
+    #nav:not(.scrolled) .nav-links a:hover {
+      color: var(--gold-light);
+    }
+    .nav-cta-btn {
+      background: var(--gold);
+      color: var(--ink);
+      padding: 10px 24px;
+      border-radius: var(--r-md);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-cta-btn:hover {
+      background: var(--gold-light);
+      box-shadow: var(--shadow-md);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      background: none;
+      border: none;
+      cursor: pointer;
+      gap: 6px;
+      margin-left: auto;
+    }
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: var(--ink);
+      transition: all 0.3s ease;
+    }
+    #nav:not(.scrolled) .hamburger span {
+      background: var(--white);
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      flex-direction: column;
+      padding: 20px;
+      gap: 12px;
+      z-index: 99;
+    }
+    .mobile-menu.open {
+      display: flex;
+    }
+    .mobile-menu a {
+      padding: 12px 16px;
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 500;
+      border-radius: var(--r-sm);
+      transition: all 0.2s ease;
+    }
+    .mobile-menu a:hover {
+      background: var(--sand);
+      color: var(--gold);
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      background: var(--sand);
+      padding: 12px 40px;
+      font-size: 13px;
+      color: var(--slate);
+      margin-top: 72px;
+    }
+    .breadcrumb a {
+      color: var(--teal);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .breadcrumb a:hover {
+      color: var(--gold);
+    }
+
+    /* Hero */
+    .svc-hero {
+      background: linear-gradient(135deg, #0a1f14 0%, var(--forest) 100%);
+      padding: 120px 40px;
+      margin-top: 72px;
+      position: relative;
+      overflow: hidden;
+      color: var(--white);
+    }
+    .svc-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: url('/images/investissement-immobilier.jpg') right center / cover;
+      opacity: 0.15;
+      z-index: 0;
+    }
+    .svc-hero > * {
+      position: relative;
+      z-index: 1;
+    }
+    .svc-hero .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(232, 201, 122, 0.2);
+      border: 1px solid rgba(232, 201, 122, 0.4);
+      color: var(--gold-light);
+      padding: 8px 16px;
+      border-radius: var(--r-sm);
+      font-size: 12px;
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .svc-hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      max-width: 700px;
+    }
+    .svc-hero h1 em {
+      color: var(--gold-light);
+      font-style: italic;
+      font-weight: 600;
+    }
+    .svc-hero > .container > p {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin-bottom: 60px;
+      line-height: 1.7;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: 900px;
+    }
+    .hero-stat {
+      border-right: 1px solid rgba(232, 201, 122, 0.3);
+    }
+    .hero-stat:last-child {
+      border-right: none;
+    }
+    .hero-stat-value {
+      font-family: 'Fraunces', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 4px;
+    }
+    .hero-stat-label {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+      text-transform: uppercase;
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* Sections */
+    .sec {
+      padding: 96px 40px;
+    }
+    .sec-sand { background: var(--sand); }
+    .sec-white { background: var(--white); }
+    .sec-forest { background: var(--forest); color: var(--white); }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .sec-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      display: inline-block;
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .sec-label::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 1px;
+      background: var(--teal);
+    }
+    .sec-forest .sec-label {
+      color: var(--gold-light);
+    }
+    .sec-forest .sec-label::before {
+      background: var(--gold-light);
+    }
+    .sec-title {
+      font-family: 'Fraunces', serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 40px;
+      max-width: 900px;
+    }
+    .sec-forest .sec-title {
+      color: var(--white);
+    }
+    .sec-title em {
+      color: var(--gold);
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: var(--gold);
+      color: var(--ink);
+      padding: 12px 32px;
+      border: none;
+      border-radius: var(--r-md);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background: var(--gold-light);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Dispositif Cards - Wide */
+    .dispositif-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-bottom: 60px;
+    }
+    .dispositif-card {
+      background: var(--white);
+      border-radius: var(--r-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+      border-left: 6px solid var(--gold);
+    }
+    .dispositif-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+    .dispositif-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--ink);
+    }
+    .dispositif-card p {
+      font-size: 15px;
+      color: var(--ink-soft);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .dispositif-highlight {
+      background: var(--gold-pale);
+      border-left: 4px solid var(--gold);
+      padding: 16px;
+      border-radius: var(--r-sm);
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    /* Why Cards */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+    .why-card {
+      background: var(--white);
+      border-radius: var(--r-lg);
+      padding: 48px 40px;
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .why-card::before {
+      content: attr(data-number);
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-family: 'Fraunces', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--forest);
+      opacity: 0.15;
+    }
+    .why-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+    .why-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--ink);
+    }
+    .why-card p {
+      font-size: 14px;
+      color: var(--slate);
+      line-height: 1.7;
+    }
+
+    /* Process Steps */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 48px;
+    }
+    .process-step {
+      position: relative;
+      padding-left: 60px;
+    }
+    .process-step::before {
+      content: attr(data-step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 48px;
+      height: 48px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .sec-forest .process-step::before {
+      background: var(--gold-light);
+    }
+    .process-step h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--white);
+    }
+    .sec-forest .process-step p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* CTA Band */
+    #cta-band {
+      background: linear-gradient(135deg, var(--forest-mid) 0%, var(--forest) 100%);
+      color: var(--white);
+      padding: 80px 40px;
+      text-align: center;
+    }
+    #cta-band .container {
+      max-width: 800px;
+    }
+    #cta-band h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+    #cta-band p {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Footer */
+    footer {
+      background: #080C10;
+      color: rgba(255, 255, 255, 0.8);
+      padding: 60px 40px 30px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr 1.4fr;
+      gap: 40px;
+      margin-bottom: 40px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer-brand p {
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 16px 0;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .footer-col h4 {
+      font-family: 'Fraunces', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      margin-bottom: 12px;
+      transition: color 0.2s ease;
+      line-height: 1.6;
+    }
+    .footer-col a:hover {
+      color: var(--gold-light);
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer-bottom p {
+      margin-bottom: 8px;
+    }
+
+    /* Scroll to Top */
+    .scroll-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 48px;
+      height: 48px;
+      background: var(--gold);
+      color: var(--ink);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: 700;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 50;
+    }
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .scroll-top:hover {
+      background: var(--gold-light);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .nav-cta-btn {
+        display: none;
+      }
+      .svc-hero {
+        padding: 80px 24px;
+      }
+      .svc-hero h1 {
+        font-size: 40px;
+      }
+      .svc-hero > .container > p {
+        font-size: 16px;
+      }
+      .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+      .process-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .sec {
+        padding: 60px 24px;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+      .sec-title {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      #nav {
+        padding: 0 20px;
+        height: 64px;
+      }
+      .breadcrumb {
+        padding: 12px 20px;
+        font-size: 12px;
+      }
+      .svc-hero {
+        padding: 60px 20px;
+        margin-top: 64px;
+      }
+      .svc-hero h1 {
+        font-size: 28px;
+        margin-bottom: 16px;
+      }
+      .svc-hero > .container > p {
+        font-size: 14px;
+        margin-bottom: 40px;
+      }
+      .hero-stats {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .hero-stat {
+        border-right: none;
+        border-bottom: 1px solid rgba(232, 201, 122, 0.3);
+        padding-bottom: 16px;
+      }
+      .hero-stat:last-child {
+        border-bottom: none;
+      }
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+      .sec {
+        padding: 48px 20px;
+      }
+      .sec-title {
+        font-size: 26px;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      #cta-band {
+        padding: 60px 20px;
+      }
+      #cta-band h2 {
+        font-size: 28px;
+      }
+    }
+  </style>
+  <script src="/popup.js" defer></script>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.proactifsconseils.fr/investissement-immobilier">
+  <meta property="og:title" content="Investissement Immobilier Colombes (92) | SCPI, LMNP, SCI | Proactifs Conseils">
+  <meta property="og:description" content="Construisez votre patrimoine immobilier à Colombes (92). SCPI, LMNP, SCI IS, locatif classique, Pinel : nous sélectionnons la stratégie qui maximise votre rendement net.">
+  <meta property="og:image" content="https://www.proactifsconseils.fr/images/investissement-immobilier.jpg">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Proactifs Conseils">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Quelle différence entre SCPI et LMNP pour investir dans l’immobilier ?",
+          "acceptedAnswer": {"@type": "Answer", "text": "La SCPI est un placement collectif : vous achetez des parts d’un portefeuille immobilier géré par une société de gestion, sans contrainte locative. Le LMNP est un investissement direct dans un bien meublé que vous détenez en propre, avec un avantage fiscal lié à l’amortissement comptable. La SCPI offre plus de liquidité et de diversification, le LMNP davantage de contrôle et d’optimisation fiscale."}
+        },
+        {
+          "@type": "Question",
+          "name": "Quels sont les avantages d’une SCI à l’IS pour investir dans l’immobilier ?",
+          "acceptedAnswer": {"@type": "Answer", "text": "La SCI à l’impôt sur les sociétés permet d’amortir le bien immobilier, réduisant ainsi le bénéfice imposable. Le taux d’IS est de 15 % jusqu’à 42 500 € de bénéfice, puis 25 % au-delà. Elle facilite également la transmission et permet d’investir à plusieurs (famille, associés). En revanche, la plus-value à la revente est calculée sur la valeur nette comptable, ce qui peut augmenter la fiscalité de sortie."}
+        },
+        {
+          "@type": "Question",
+          "name": "Quel budget minimum pour commencer à investir dans l’immobilier ?",
+          "acceptedAnswer": {"@type": "Answer", "text": "En SCPI, il est possible d’investir dès 1 000 €, voire moins sur certaines plateformes. Pour un investissement locatif en direct (LMNP ou nu), un apport de 10 à 20 % du prix du bien est généralement demandé par les banques, soit environ 20 000 à 40 000 € pour un studio en région parisienne. Le crédit immobilier permet de bénéficier de l’effet de levier."}
+        }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <nav id="nav">
+  <a href="/" class="nav-logo"><img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:48px;width:auto;display:block;opacity:.9"></a>
+  <ul class="nav-links">
+    <li><a href="/#services">Nos services</a></li>
+    <li><a href="/#simulateurs">Simulateurs</a></li>
+    <li><a href="/#approche">Notre approche</a></li>
+    <li><a href="/#temoignages">Témoignages</a></li>
+    <li><a href="/#contact">Contact</a></li>
+    <li><a href="/blog">Blog</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <a href="/bilan-patrimonial-gratuit" class="nav-cta-btn">Prendre rendez-vous</a>
+</nav>
+  <div class="mobile-menu" id="mobileMenu">
+  <a href="/#services">Nos services</a>
+  <a href="/#simulateurs">Simulateurs</a>
+  <a href="/#approche">Notre approche</a>
+  <a href="/#temoignages">Témoignages</a>
+  <a href="/#contact">Contact</a>
+  <a href="/blog">Blog</a>
+  <a href="/bilan-patrimonial-gratuit">Prendre rendez-vous</a>
+</div>
+
+  <div class="breadcrumb">
+    <a href="/">Accueil</a> › Investissement immobilier
+  </div>
+
+  <section class="svc-hero">
+    <div class="container">
+      <div class="hero-badge">Investissement immobilier · Île-de-France</div>
+      <h1>Investissez dans l’immobilier<br>avec une <em>stratégie sur mesure</em></h1>
+      <p>SCPI, LMNP, SCI IS, locatif classique ou dispositifs fiscaux : chaque véhicule a ses atouts. Nous vous aidons à choisir celui qui correspond à vos objectifs, votre fiscalité et votre horizon de placement.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-value">5 stratégies</div>
+          <div class="hero-stat-label">Véhicules d’investissement</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">4-7%</div>
+          <div class="hero-stat-label">Rendement net cible</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">10 ans</div>
+          <div class="hero-stat-label">D’expertise patrimoniale</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec-sand reveal">
+    <div class="container">
+      <div class="sec-label">Les stratégies</div>
+      <h2 class="sec-title">5 véhicules pour <em>investir dans l’immobilier</em></h2>
+      <div class="dispositif-grid">
+        <div class="dispositif-card reveal">
+          <h3>SCPI — Pierre-papier</h3>
+          <p>Investissez dans l’immobilier professionnel sans contrainte de gestion. Rendement moyen 4,5 à 6 %, ticket d’entrée dès 1 000 €, revenus trimestriels versés automatiquement.</p>
+          <div class="dispositif-highlight">Rendement moyen 2024 : 4,52 % (ASPIM)</div>
+        </div>
+        <div class="dispositif-card reveal">
+          <h3>LMNP — Location meublée</h3>
+          <p>Le statut LMNP permet d’amortir le bien et le mobilier, réduisant fortement l’imposition sur les loyers. En régime réel, de nombreux investisseurs ne paient aucun impôt sur leurs revenus locatifs pendant 8 à 12 ans.</p>
+          <div class="dispositif-highlight">Amortissement comptable = revenus peu ou pas imposés</div>
+        </div>
+        <div class="dispositif-card reveal">
+          <h3>SCI à l’IS — Structure patrimoniale</h3>
+          <p>La SCI à l’impôt sur les sociétés permet d’investir à plusieurs, d’amortir le bien comme en LMNP, et de maîtriser la fiscalité à la sortie. Idéale pour les projets familiaux ou entre associés.</p>
+          <div class="dispositif-highlight">Taux IS 15 % jusqu’à 42 500 € de bénéfice</div>
+        </div>
+        <div class="dispositif-card reveal">
+          <h3>Locatif classique — Investissement direct</h3>
+          <p>L’achat en direct reste le socle de tout patrimoine immobilier. Résidence locative, colocation, immeuble de rapport : nous analysons le marché local et le rendement net après fiscalité pour valider chaque opération.</p>
+          <div class="dispositif-highlight">Effet de levier du crédit + valorisation du bien</div>
+        </div>
+        <div class="dispositif-card reveal">
+          <h3>Dispositifs fiscaux — Pinel, Malraux, Déficit foncier</h3>
+          <p>Certains dispositifs permettent de réduire directement votre impôt sur le revenu en contrepartie d’un engagement locatif. Nous vérifions que l’économie fiscale justifie réellement l’investissement, au-delà de l’argument commercial.</p>
+          <div class="dispositif-highlight">Réduction d’impôt de 9 % à 30 % selon le dispositif</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec-forest reveal">
+    <div class="container">
+      <div class="sec-label">Notre accompagnement</div>
+      <h2 class="sec-title">4 étapes pour <em>sécuriser votre investissement</em></h2>
+      <div class="process-grid">
+        <div class="process-step reveal" data-step="1">
+          <h3>Diagnostic patrimonial</h3>
+          <p>Analyse de votre situation fiscale, capacité d’emprunt, objectifs patrimoniaux et horizon de placement.</p>
+        </div>
+        <div class="process-step reveal" data-step="2">
+          <h3>Sélection de la stratégie</h3>
+          <p>Comparaison des véhicules (SCPI, LMNP, SCI, locatif direct) selon votre profil. Simulation chiffrée de chaque scénario.</p>
+        </div>
+        <div class="process-step reveal" data-step="3">
+          <h3>Mise en œuvre</h3>
+          <p>Sélection des supports, montage du financement, structuration juridique si nécessaire. Coordination avec notaire et banquier.</p>
+        </div>
+        <div class="process-step reveal" data-step="4">
+          <h3>Suivi et arbitrages</h3>
+          <p>Pilotage annuel de votre portefeuille immobilier. Réallocation si le marché ou votre situation évolue.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec-white reveal">
+    <div class="container">
+      <div class="sec-label">Pourquoi nous</div>
+      <h2 class="sec-title">Ce qui change avec un <em>conseil indépendant</em></h2>
+      <div class="why-grid">
+        <div class="why-card reveal" data-number="1">
+          <h3>100 % indépendant</h3>
+          <p>Aucune commission de promoteur, aucun partenariat exclusif. Nous recommandons ce qui vous convient, pas ce qui nous rapporte.</p>
+        </div>
+        <div class="why-card reveal" data-number="2">
+          <h3>Vision patrimoniale globale</h3>
+          <p>Votre investissement immobilier s’inscrit dans une stratégie d’ensemble : fiscalité, crédit, transmission, épargne financière. Pas de décision isolée.</p>
+        </div>
+        <div class="why-card reveal" data-number="3">
+          <h3>Expertise locale Hauts-de-Seine</h3>
+          <p>Basés à Colombes, nous connaissons le marché immobilier francilien, les prix au m², les quartiers porteurs et les dynamiques locales.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta-band">
+    <div class="container">
+      <h2>Construisons ensemble votre <em>stratégie immobilière</em></h2>
+      <p>Bilan patrimonial gratuit et sans engagement.</p>
+      <a href="/bilan-patrimonial-gratuit" class="btn-primary">Demander mon bilan</a>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:48px;width:auto;display:block;opacity:.9">
+          <p>Cabinet de conseil en gestion de patrimoine indépendant à Colombes (92). Nous accompagnons les particuliers et chefs d’entreprise en Île-de-France.</p>
+          <div style="display:flex;gap:12px">
+            <a href="https://www.linkedin.com/company/proactifs-conseils/" target="_blank" rel="noopener" style="color:rgba(255,255,255,.4);transition:color .2s" onmouseover="this.style.color='#E8C97A'" onmouseout="this.style.color='rgba(255,255,255,.4)'">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
+          <a href="/investissement-scpi-hauts-de-seine">Investissement SCPI</a>
+          <a href="/preparation-retraite">Préparation retraite</a>
+          <a href="/transmission">Transmission</a>
+          <a href="/cession-entreprise">Cession d’entreprise</a>
+          <a href="/courtage-credit-immobilier">Courtage crédit</a>
+          <a href="/declaration-impots-ile-de-france">Déclaration impôts</a>
+          <a href="/investissement-immobilier">Investissement immobilier</a>
+          <a href="/placements-financiers">Placements financiers</a>
+        </div>
+        <div class="footer-col">
+          <h4>Cabinet</h4>
+          <a href="/bilan-patrimonial-gratuit">Bilan patrimonial sur mesure</a>
+          <a href="/page-conseiller-patrimoine-colombes">Notre conseiller</a>
+          <a href="/#approche">Notre approche</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="tel:+33184782830">01 84 78 28 30</a>
+          <a href="mailto:contact@proactifsconseils.fr">contact@proactifsconseils.fr</a>
+          <a>54 Rue du Bournard<br>92700 Colombes</a>
+          <a>Lun–Ven 9h–19h</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Proactifs Conseils – Tous droits réservés · CIF enregistré AMF</p>
+        <p>Mentions légales · Politique de confidentialité</p>
+      </div>
+    </div>
+  </footer>
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+      document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+    });
+    document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+      this.classList.toggle('open');
+    });
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
