@@ -1424,6 +1424,10 @@ footer {
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:5px"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg>
         Rendement SCPI
       </button>
+      <button class="sim-tab" onclick="switchSim('retraite')">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:5px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Retraite
+      </button>
     </div>
     <div class="sim-panels">
       <!-- CRÉDIT -->
@@ -1524,6 +1528,46 @@ footer {
           <div class="result-card"><div class="r-label">Capital projeté à terme</div><div class="r-val" id="r-scpi-cap">—</div></div>
           <div class="chart-wrap"><canvas id="chartScpi"></canvas></div>
           <p class="result-note">Performances passées ne préjugent pas des performances futures. Investissement à risque de perte en capital.</p>
+        </div>
+      </div>
+      <!-- RETRAITE -->
+      <div class="sim-panel" id="panel-retraite">
+        <div class="sim-form">
+          <h3>Simulateur retraite</h3>
+          <div class="field">
+            <label>Votre âge actuel</label>
+            <div class="range-row"><span>Âge</span><span class="range-val" id="rv-age">40 ans</span></div>
+            <input type="range" min="25" max="60" step="1" value="40" oninput="updateRange('rage',this.value,false,' ans');calcRetraite()">
+          </div>
+          <div class="field">
+            <label>Âge de départ souhaité</label>
+            <div class="range-row"><span>Départ</span><span class="range-val" id="rv-depart">64 ans</span></div>
+            <input type="range" min="60" max="70" step="1" value="64" oninput="updateRange('rdepart',this.value,false,' ans');calcRetraite()">
+          </div>
+          <div class="field">
+            <label>Épargne actuelle dédiée retraite</label>
+            <div class="range-row"><span>Capital</span><span class="range-val" id="rv-capital">30 000 €</span></div>
+            <input type="range" min="0" max="500000" step="5000" value="30000" oninput="updateRange('rcapital',this.value,true,'€');calcRetraite()">
+          </div>
+          <div class="field">
+            <label>Effort d'épargne mensuel</label>
+            <div class="range-row"><span>Mensuel</span><span class="range-val" id="rv-effort">500 €</span></div>
+            <input type="range" min="100" max="5000" step="50" value="500" oninput="updateRange('reffort',this.value,true,'€');calcRetraite()">
+          </div>
+          <div class="field">
+            <label>Rendement annuel espéré (%)</label>
+            <div class="range-row"><span>Rendement</span><span class="range-val" id="rv-rdt">4 %</span></div>
+            <input type="range" min="1" max="8" step="0.5" value="4" oninput="updateRange('rrdt',this.value,false,' %');calcRetraite()">
+          </div>
+          <button class="sim-btn" onclick="calcRetraite()">Estimer ma retraite</button>
+        </div>
+        <div class="sim-results">
+          <h3>Votre projection retraite</h3>
+          <div class="result-card"><div class="r-label">Capital estimé au départ</div><div class="r-val" id="r-ret-capital">—</div></div>
+          <div class="result-card"><div class="r-label">Complément mensuel sur 25 ans</div><div class="r-val" id="r-ret-mensuel">—</div><div class="r-sub">Rente estimée après départ</div></div>
+          <div class="result-card"><div class="r-label">Total versé par vous</div><div class="r-val" id="r-ret-verse">—</div></div>
+          <div class="chart-wrap"><canvas id="chartRetraite"></canvas></div>
+          <p class="result-note">Projection indicative hors inflation et fiscalité. Prenez rendez-vous pour un bilan retraite personnalisé.</p>
         </div>
       </div>
     </div>
@@ -1756,22 +1800,23 @@ function closeModal() {
 
 /* ════════ SIMULATEURS ════════ */
 function switchSim(name) {
-  document.querySelectorAll('.sim-tab').forEach((t,i) => t.classList.toggle('active', ['credit','fiscal','scpi'][i]===name));
+  document.querySelectorAll('.sim-tab').forEach((t,i) => t.classList.toggle('active', ['credit','fiscal','scpi','retraite'][i]===name));
   document.querySelectorAll('.sim-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panel-'+name).classList.add('active');
   if(name==='credit') calcCredit();
   if(name==='fiscal') calcFiscal();
   if(name==='scpi') calcScpi();
+  if(name==='retraite') calcRetraite();
 }
 function fmtEur(n) { return new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n); }
 function updateRange(id, val, isMoney, suffix) {
-  const el = document.getElementById('cv-'+id) || document.getElementById('fv-'+id) || document.getElementById('sv-'+id);
+  const el = document.getElementById('cv-'+id) || document.getElementById('fv-'+id) || document.getElementById('sv-'+id) || document.getElementById('rv-'+id);
   if(!el) return;
   if(isMoney) { el.textContent = new Intl.NumberFormat('fr-FR').format(val) + ' ' + suffix; }
   else { el.textContent = parseFloat(val).toLocaleString('fr-FR') + suffix; }
 }
 
-let chartCredit, chartFiscal, chartScpi;
+let chartCredit, chartFiscal, chartScpi, chartRetraite;
 function calcCredit() {
   const prix   = +document.querySelector('#panel-credit input[oninput*="prix"]').value;
   const apport = +document.querySelector('#panel-credit input[oninput*="apport"]').value;
@@ -1840,6 +1885,45 @@ function calcScpi() {
     type:'line',
     data:{labels:years.map(y=>'Année '+y),datasets:[{data:vals,borderColor:'#C4973A',backgroundColor:'rgba(196,151,58,.08)',fill:true,tension:.4,pointRadius:2}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>fmtEur(v)},grid:{color:'rgba(0,0,0,.05)'}},x:{grid:{display:false}}}}
+  });
+}
+
+function calcRetraite() {
+  const age = +document.querySelector('#panel-retraite input[oninput*="rage"]').value;
+  const depart = +document.querySelector('#panel-retraite input[oninput*="rdepart"]').value;
+  const capital = +document.querySelector('#panel-retraite input[oninput*="rcapital"]').value;
+  const effort = +document.querySelector('#panel-retraite input[oninput*="reffort"]').value;
+  const rdt = +document.querySelector('#panel-retraite input[oninput*="rrdt"]').value / 100;
+  const annees = Math.max(1, depart - age);
+  const mois = annees * 12;
+  const rm = rdt / 12;
+  // Capital final = capital initial composé + versements mensuels composés
+  const capitalFinal = capital * Math.pow(1 + rm, mois) + effort * (Math.pow(1 + rm, mois) - 1) / rm;
+  const totalVerse = capital + effort * mois;
+  // Rente mensuelle sur 25 ans (300 mois) avec le même taux
+  const moisRente = 300;
+  const mensuelRente = rm === 0 ? capitalFinal / moisRente : capitalFinal * rm * Math.pow(1 + rm, moisRente) / (Math.pow(1 + rm, moisRente) - 1);
+  document.getElementById('r-ret-capital').textContent = fmtEur(capitalFinal);
+  document.getElementById('r-ret-mensuel').textContent = fmtEur(mensuelRente);
+  document.getElementById('r-ret-verse').textContent = fmtEur(totalVerse);
+  const ctx = document.getElementById('chartRetraite').getContext('2d');
+  const years = Array.from({length: annees + 1}, (_, i) => i);
+  const valsCapital = years.map(y => {
+    const m = y * 12;
+    return Math.round(capital * Math.pow(1 + rm, m) + (rm > 0 ? effort * (Math.pow(1 + rm, m) - 1) / rm : effort * m));
+  });
+  const valsVerse = years.map(y => Math.round(capital + effort * y * 12));
+  if(chartRetraite) chartRetraite.destroy();
+  chartRetraite = new Chart(ctx, {
+    type:'line',
+    data:{
+      labels: years.map(y => age + y + ' ans'),
+      datasets:[
+        {label:'Capital projeté', data:valsCapital, borderColor:'#1E7A6E', backgroundColor:'rgba(30,122,110,.08)', fill:true, tension:.4, pointRadius:2},
+        {label:'Total versé', data:valsVerse, borderColor:'#C4973A', backgroundColor:'rgba(196,151,58,.08)', fill:true, tension:.1, pointRadius:2, borderDash:[5,5]}
+      ]
+    },
+    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom',labels:{color:'#6B7280',font:{size:12}}}}, scales:{y:{ticks:{callback:v=>fmtEur(v)},grid:{color:'rgba(0,0,0,.05)'}},x:{grid:{display:false}}}}
   });
 }
 
