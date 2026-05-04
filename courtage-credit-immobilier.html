@@ -265,23 +265,58 @@
     }
     .btn-primary:hover { background:var(--gold-light); }
 
-    footer#contact {
-      background:var(--ink); color:var(--white); padding:80px;
+    /* Footer */
+    footer {
+      background: #080C10;
+      color: rgba(255, 255, 255, 0.8);
+      padding: 60px 40px 30px;
     }
     .footer-grid {
-      display:grid; grid-template-columns:repeat(4,1fr); gap:48px; margin-bottom:48px;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr 1.4fr;
+      gap: 40px;
+      margin-bottom: 40px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    .footer-brand p { font-size:14px; margin-top:16px; opacity:.8; line-height:1.6; }
-    .footer-col h4 { font-size:14px; font-weight:600; margin-bottom:16px; }
+    .footer-brand p {
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 16px 0;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .footer-col h4 {
+      font-family: 'Fraunces', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
     .footer-col a {
-      display:block; font-size:14px; color:rgba(255,255,255,.7); margin-bottom:10px;
-      transition:color .3s;
+      display: block;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      margin-bottom: 12px;
+      transition: color 0.2s ease;
+      line-height: 1.6;
     }
-    .footer-col a:hover { color:var(--gold); }
+    .footer-col a:hover {
+      color: var(--gold-light);
+    }
     .footer-bottom {
-      border-top:1px solid rgba(255,255,255,.1); padding-top:24px;
-      display:flex; justify-content:space-between; align-items:center;
-      font-size:12px; color:rgba(255,255,255,.6);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer-bottom p {
+      margin-bottom: 8px;
     }
     .scroll-top {
       position:fixed; bottom:32px; right:32px; width:48px; height:48px;
@@ -305,9 +340,11 @@
       .specifics-cta { flex-direction:column; text-align:center; padding:32px 24px; }
       .hero-stats { grid-template-columns:1fr; }
       .process-grid { grid-template-columns:repeat(2,1fr); }
-      .footer-grid { grid-template-columns:repeat(2,1fr); gap:32px; }
-      .footer-bottom { flex-direction:column; gap:12px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
       .simulator { padding:32px 24px; }
+    }
+    @media (max-width:600px) {
+      .footer-grid { grid-template-columns: 1fr; }
     }
   </style>
   <script src="/popup.js" defer></script>
@@ -539,24 +576,34 @@
         <div class="footer-brand">
           <img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:48px;width:auto;display:block;opacity:.9">
           <p>Cabinet de conseil en gestion de patrimoine indépendant à Colombes (92). Nous accompagnons les particuliers et chefs d'entreprise en Île-de-France.</p>
+          <div style="display:flex;gap:12px">
+            <a href="https://www.linkedin.com/company/proactifs-conseils/" target="_blank" rel="noopener" style="color:rgba(255,255,255,.4);transition:color .2s" onmouseover="this.style.color='#E8C97A'" onmouseout="this.style.color='rgba(255,255,255,.4)'">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </div>
         </div>
-        <div class="footer-col"><h4>Services</h4>
+        <div class="footer-col">
+          <h4>Services</h4>
           <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
           <a href="/investissement-scpi-hauts-de-seine">Investissement SCPI</a>
+          <a href="/placements-financiers">Placements financiers</a>
           <a href="/preparation-retraite">Préparation retraite</a>
           <a href="/transmission">Transmission</a>
           <a href="/cession-entreprise">Cession d'entreprise</a>
           <a href="/courtage-credit-immobilier">Courtage crédit</a>
           <a href="/declaration-impots-ile-de-france">Déclaration impôts</a>
         </div>
-        <div class="footer-col"><h4>Cabinet</h4>
+        <div class="footer-col">
+          <h4>Cabinet</h4>
           <a href="/bilan-patrimonial-gratuit">Bilan patrimonial sur mesure</a>
           <a href="/page-conseiller-patrimoine-colombes">Notre conseiller</a>
+          <a href="/#approche">Notre approche</a>
         </div>
-        <div class="footer-col"><h4>Contact</h4>
+        <div class="footer-col">
+          <h4>Contact</h4>
           <a href="tel:+33184782830">01 84 78 28 30</a>
           <a href="mailto:contact@proactifsconseils.fr">contact@proactifsconseils.fr</a>
-          <a>54 Rue du Bournard, 92700 Colombes</a>
+          <a>54 Rue du Bournard<br>92700 Colombes</a>
           <a>Lun–Ven 9h–19h</a>
         </div>
       </div>
