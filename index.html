@@ -1537,27 +1537,27 @@ footer {
           <div class="field">
             <label>Votre âge actuel</label>
             <div class="range-row"><span>Âge</span><span class="range-val" id="rv-age">40 ans</span></div>
-            <input type="range" min="25" max="60" step="1" value="40" oninput="updateRange('rage',this.value,false,' ans');calcRetraite()">
+            <input type="range" min="25" max="60" step="1" value="40" oninput="updateRange('age',this.value,false,' ans');calcRetraite()">
           </div>
           <div class="field">
             <label>Âge de départ souhaité</label>
             <div class="range-row"><span>Départ</span><span class="range-val" id="rv-depart">64 ans</span></div>
-            <input type="range" min="60" max="70" step="1" value="64" oninput="updateRange('rdepart',this.value,false,' ans');calcRetraite()">
+            <input type="range" min="60" max="70" step="1" value="64" oninput="updateRange('depart',this.value,false,' ans');calcRetraite()">
           </div>
           <div class="field">
             <label>Épargne actuelle dédiée retraite</label>
             <div class="range-row"><span>Capital</span><span class="range-val" id="rv-capital">30 000 €</span></div>
-            <input type="range" min="0" max="500000" step="5000" value="30000" oninput="updateRange('rcapital',this.value,true,'€');calcRetraite()">
+            <input type="range" min="0" max="500000" step="5000" value="30000" oninput="updateRange('capital',this.value,true,'€');calcRetraite()">
           </div>
           <div class="field">
             <label>Effort d'épargne mensuel</label>
             <div class="range-row"><span>Mensuel</span><span class="range-val" id="rv-effort">500 €</span></div>
-            <input type="range" min="100" max="5000" step="50" value="500" oninput="updateRange('reffort',this.value,true,'€');calcRetraite()">
+            <input type="range" min="100" max="5000" step="50" value="500" oninput="updateRange('effort',this.value,true,'€');calcRetraite()">
           </div>
           <div class="field">
             <label>Rendement annuel espéré (%)</label>
             <div class="range-row"><span>Rendement</span><span class="range-val" id="rv-rdt">4 %</span></div>
-            <input type="range" min="1" max="8" step="0.5" value="4" oninput="updateRange('rrdt',this.value,false,' %');calcRetraite()">
+            <input type="range" min="1" max="8" step="0.5" value="4" oninput="updateRange('rdt',this.value,false,' %');calcRetraite()">
           </div>
           <button class="sim-btn" onclick="calcRetraite()">Estimer ma retraite</button>
         </div>
@@ -1889,11 +1889,11 @@ function calcScpi() {
 }
 
 function calcRetraite() {
-  const age = +document.querySelector('#panel-retraite input[oninput*="rage"]').value;
-  const depart = +document.querySelector('#panel-retraite input[oninput*="rdepart"]').value;
-  const capital = +document.querySelector('#panel-retraite input[oninput*="rcapital"]').value;
-  const effort = +document.querySelector('#panel-retraite input[oninput*="reffort"]').value;
-  const rdt = +document.querySelector('#panel-retraite input[oninput*="rrdt"]').value / 100;
+  const age = +document.querySelector('#panel-retraite input[oninput*="\'age\'"]').value;
+  const depart = +document.querySelector('#panel-retraite input[oninput*="\'depart\'"]').value;
+  const capital = +document.querySelector('#panel-retraite input[oninput*="\'capital\'"]').value;
+  const effort = +document.querySelector('#panel-retraite input[oninput*="\'effort\'"]').value;
+  const rdt = +document.querySelector('#panel-retraite input[oninput*="\'rdt\'"]').value / 100;
   const annees = Math.max(1, depart - age);
   const mois = annees * 12;
   const rm = rdt / 12;
