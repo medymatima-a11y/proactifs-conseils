@@ -5,6 +5,7 @@
     { "source": "/bilan-patrimonial-gratuit",           "destination": "/bilan-patrimonial-gratuit.html" },
     { "source": "/optimisation-fiscale-ile-de-france",  "destination": "/optimisation-fiscale-ile-de-france.html" },
     { "source": "/investissement-scpi-hauts-de-seine",  "destination": "/investissement-scpi-hauts-de-seine.html" },
+    { "source": "/placements-financiers",                 "destination": "/placements-financiers.html" },
     { "source": "/courtage-credit-immobilier",          "destination": "/courtage-credit-immobilier.html" },
     { "source": "/declaration-impots-ile-de-france",    "destination": "/declaration-impots-ile-de-france.html" },
     { "source": "/preparation-retraite",                "destination": "/preparation-retraite.html" },
