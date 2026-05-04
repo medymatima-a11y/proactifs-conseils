@@ -6,250 +6,685 @@
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
-  <title>Déclaration d'Impôts Île-de-France | Proactifs Conseils</title>
   <meta name="description" content="Déclaration d'impôts optimisée en Île-de-France. Revenus fonciers, LMNP, plus-values, expatriés. Cabinet patrimonial à Colombes (92). Bilan fiscal sur-mesure →">
+  <title>Déclaration d'Impôts Île-de-France | Proactifs Conseils</title>
   <link rel="canonical" href="https://www.proactifsconseils.fr/declaration-impots-ile-de-france">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Déclaration d'Impôts et Optimisation Fiscale",
-    "provider": {
-      "@type": "Organization",
-      "name": "Proactifs Conseils",
-      "url": "https://www.proactifsconseils.fr",
-      "telephone": "+33184782830",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "54 Rue du Bournard",
-        "addressLocality": "Colombes",
-        "postalCode": "92700",
-        "addressCountry": "FR"
-      }
-    },
-    "areaServed": {
-      "@type": "State",
-      "name": "Île-de-France"
-    },
-    "description": "Service complet de déclaration d'impôts et optimisation fiscale pour situations complexes"
-  }
+  {"@context":"https://schema.org","@type":"Service","name":"Déclaration d'Impôts et Optimisation Fiscale","provider":{"@type":"FinancialService","name":"Proactifs Conseils","address":{"@type":"PostalAddress","streetAddress":"54 Rue du Bournard","addressLocality":"Colombes","postalCode":"92700","addressCountry":"FR"},"telephone":"+33184782830"},"description":"Service complet de déclaration d'impôts et optimisation fiscale pour situations complexes en Île-de-France.","areaServed":["Colombes","Hauts-de-Seine","Île-de-France"]}
   </script>
-
   <style>
     :root {
-      --ivory:#FAFAF7; --sand:#F3F1EB; --forest:#132D1E; --forest-mid:#1C3D28;
-      --ink:#111827; --ink-soft:#374151; --gold:#C4973A; --gold-light:#E8C97A; --gold-pale:#FBF4E3;
-      --teal:#1E7A6E; --teal-light:#2A9D8F; --teal-pale:#E6F4F2; --slate:#6B7280; --border:#E5E2DA;
-      --white:#FFFFFF; --r-sm:10px; --r-md:16px; --r-lg:24px; --r-xl:32px;
-      --shadow-sm:0 1px 3px rgba(17,24,39,.06),0 1px 2px rgba(17,24,39,.04);
-      --shadow-md:0 4px 16px rgba(17,24,39,.08),0 2px 6px rgba(17,24,39,.04);
-      --shadow-lg:0 12px 40px rgba(17,24,39,.1),0 4px 12px rgba(17,24,39,.06);
+      --ivory: #FAFAF7;
+      --sand: #F3F1EB;
+      --forest: #132D1E;
+      --forest-mid: #1C3D28;
+      --ink: #111827;
+      --ink-soft: #374151;
+      --gold: #C4973A;
+      --gold-light: #E8C97A;
+      --gold-pale: #FBF4E3;
+      --teal: #1E7A6E;
+      --teal-light: #2A9D8F;
+      --teal-pale: #E6F4F2;
+      --slate: #6B7280;
+      --border: #E5E2DA;
+      --white: #FFFFFF;
+      --shadow-sm: 0 1px 3px rgba(17,24,39,.06), 0 1px 2px rgba(17,24,39,.04);
+      --shadow-md: 0 4px 16px rgba(17,24,39,.08), 0 2px 6px rgba(17,24,39,.04);
+      --shadow-lg: 0 12px 40px rgba(17,24,39,.1), 0 4px 12px rgba(17,24,39,.06);
+      --r-sm: 10px;
+      --r-md: 16px;
+      --r-lg: 24px;
+      --r-xl: 32px;
     }
 
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body { font-family:'DM Sans',sans-serif; color:var(--ink); line-height:1.6; }
-    img { max-width:100%; height:auto; display:block; }
-    a { text-decoration:none; color:inherit; }
-
-    .container { max-width:1200px; margin:0 auto; padding:0 40px; }
-
-    nav#nav {
-      position:fixed; top:0; width:100%; height:68px; background:var(--ivory);
-      display:flex; align-items:center; justify-content:space-between; padding:0 40px;
-      z-index:1000; transition:box-shadow .3s;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
+      background: var(--white);
+      line-height: 1.6;
     }
-    nav#nav.scrolled { box-shadow:var(--shadow-md); }
-    .nav-logo { display:flex; align-items:center; }
-    .nav-logo img { height:54px; background:var(--white); padding:4px 12px; border-radius:var(--r-sm); }
-    .nav-links { display:flex; list-style:none; gap:32px; }
-    .nav-links a { font-size:14px; color:var(--ink); transition:color .3s; }
-    .nav-links a:hover { color:var(--gold); }
-    .hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; }
-    .hamburger span { width:20px; height:2px; background:var(--ink); transition:.3s; }
-    .hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(8px,8px); }
-    .hamburger.open span:nth-child(2) { opacity:0; }
-    .hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(8px,-8px); }
-    .mobile-menu { display:none; flex-direction:column; gap:16px; padding:20px 40px; background:var(--ivory); }
-    .mobile-menu.open { display:flex; }
+
+    /* Navigation */
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+    #nav.scrolled {
+      background: rgba(250, 250, 247, 0.98);
+      box-shadow: var(--shadow-md);
+      height: 68px;
+    }
+    .nav-logo img {
+      height: 40px;
+      transition: all 0.3s ease;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 40px;
+      flex: 1;
+      margin-left: 60px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+    #nav:not(.scrolled) .nav-links a {
+      color: var(--white);
+    }
+    #nav:not(.scrolled) .nav-links a:hover {
+      color: var(--gold-light);
+    }
     .nav-cta-btn {
-      background:var(--gold); color:var(--white); padding:10px 24px; border-radius:var(--r-md);
-      font-size:14px; font-weight:600; transition:background .3s;
+      background: var(--gold);
+      color: var(--ink);
+      padding: 10px 24px;
+      border-radius: var(--r-md);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
     }
-    .nav-cta-btn:hover { background:var(--gold-light); }
+    .nav-cta-btn:hover {
+      background: var(--gold-light);
+      box-shadow: var(--shadow-md);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      background: none;
+      border: none;
+      cursor: pointer;
+      gap: 6px;
+      margin-left: auto;
+    }
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: var(--ink);
+      transition: all 0.3s ease;
+    }
+    #nav:not(.scrolled) .hamburger span {
+      background: var(--white);
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      flex-direction: column;
+      padding: 20px;
+      gap: 12px;
+      z-index: 99;
+    }
+    .mobile-menu.open {
+      display: flex;
+    }
+    .mobile-menu a {
+      padding: 12px 16px;
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 500;
+      border-radius: var(--r-sm);
+      transition: all 0.2s ease;
+    }
+    .mobile-menu a:hover {
+      background: var(--sand);
+      color: var(--gold);
+    }
 
-    @media (max-width:900px) {
-      nav#nav { padding:0 20px; }
-      .nav-links { display:none; }
-      .hamburger { display:flex; }
-      .mobile-menu { display:none; position:absolute; top:68px; left:0; width:100%; border-top:1px solid var(--border); }
-      .nav-cta-btn { display:none; }
-      .container { padding:0 20px; }
+    /* Breadcrumb */
+    .breadcrumb {
+      background: var(--sand);
+      padding: 12px 40px;
+      font-size: 13px;
+      color: var(--slate);
+      margin-top: 72px;
+    }
+    .breadcrumb a {
+      color: var(--teal);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .breadcrumb a:hover {
+      color: var(--gold);
     }
 
-    .breadcrumb-bar {
-      background:var(--ivory); border-bottom:1px solid var(--border);
-      padding:16px 0; margin-top:68px; font-size:13px;
+    /* Hero */
+    .svc-hero {
+      background: linear-gradient(135deg, #0a1f14 0%, var(--forest) 100%);
+      padding: 120px 40px;
+      margin-top: 72px;
+      position: relative;
+      overflow: hidden;
+      color: var(--white);
     }
-    .breadcrumb-bar a { color:var(--teal); transition:color .3s; }
-    .breadcrumb-bar a:hover { color:var(--gold); }
-    .breadcrumb-bar span { color:var(--ink-soft); }
-
-    .hero {
-      margin-top:68px; padding:120px 80px; background:linear-gradient(135deg,#0a1f14 0%,#132D1E 60%,#1a3a1a 100%);
-      color:var(--white); position:relative; overflow:hidden;
+    .svc-hero::before {
+      content: \'\';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: url(\'/images/declaration-impots.jpg\') right center / cover;
+      opacity: 0.15;
+      z-index: 0;
     }
-    .hero::before {
-      content:''; position:absolute; inset:0; background-image:url(/images/declaration-impot.jpg);
-      background-size:cover; background-position:center; opacity:.15; z-index:0;
+    .svc-hero > * {
+      position: relative;
+      z-index: 1;
     }
-    .hero-content { position:relative; z-index:1; }
+    .svc-hero .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
     .hero-badge {
-      font-family:'DM Mono',monospace; font-size:11px; color:var(--teal-light);
-      text-transform:uppercase; letter-spacing:2px; margin-bottom:24px;
+      display: inline-block;
+      background: rgba(232, 201, 122, 0.2);
+      border: 1px solid rgba(232, 201, 122, 0.4);
+      color: var(--gold-light);
+      padding: 8px 16px;
+      border-radius: var(--r-sm);
+      font-size: 12px;
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      text-transform: uppercase;
+      margin-bottom: 24px;
     }
-    .hero-badge::before { content:''; display:inline-block; width:8px; height:1px; background:var(--teal-light); margin-right:12px; }
-    .hero h1 {
-      font-family:'Fraunces',serif; font-size:clamp(28px,5vw,56px); font-weight:700;
-      line-height:1.2; margin-bottom:24px;
+    .svc-hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      max-width: 700px;
     }
-    .hero h1 em { color:var(--gold); font-style:italic; font-weight:600; }
-    .hero-sub { font-size:18px; max-width:600px; margin-bottom:80px; opacity:.95; line-height:1.7; }
+    .svc-hero h1 em {
+      color: var(--gold-light);
+      font-style: italic;
+      font-weight: 600;
+    }
+    .svc-hero > .container > p {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin-bottom: 60px;
+      line-height: 1.7;
+    }
     .hero-stats {
-      display:grid; grid-template-columns:repeat(3,1fr); gap:40px; margin-top:60px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: 900px;
     }
-    .hero-stat { border-right:1px solid rgba(255,255,255,.2); }
-    .hero-stat:last-child { border-right:none; }
-    .hero-stat-value { font-size:clamp(24px,3vw,32px); font-weight:700; color:var(--gold); margin-bottom:8px; }
-    .hero-stat-label { font-size:13px; opacity:.85; }
-
-    @media (max-width:900px) {
-      .hero { padding:80px 40px; }
-      .hero-stats { grid-template-columns:1fr; gap:24px; }
-      .hero-stat { border-right:none; border-bottom:1px solid rgba(255,255,255,.2); padding-bottom:24px; }
-      .hero-stat:last-child { border-bottom:none; }
+    .hero-stat {
+      border-right: 1px solid rgba(232, 201, 122, 0.3);
+    }
+    .hero-stat:last-child {
+      border-right: none;
+    }
+    .hero-stat-value {
+      font-family: 'Fraunces', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 4px;
+    }
+    .hero-stat-label {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+      text-transform: uppercase;
+      font-family: 'DM Mono', monospace;
     }
 
-    .sec { padding:96px 80px; }
-    .sec.sand { background:var(--sand); }
-    .sec.forest { background:var(--forest); color:var(--white); }
-    .sec.white { background:var(--white); }
-
+    /* Sections */
+    .sec {
+      padding: 96px 40px;
+    }
+    .sec-sand { background: var(--sand); }
+    .sec-white { background: var(--white); }
+    .sec-forest { background: var(--forest); color: var(--white); }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
     .sec-label {
-      font-family:'DM Mono',monospace; font-size:11px; color:var(--teal); text-transform:uppercase;
-      letter-spacing:2px; margin-bottom:16px; display:inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      display: inline-block;
+      padding-left: 20px;
+      margin-bottom: 16px;
     }
-    .sec-label::before { content:''; display:inline-block; width:8px; height:1px; background:var(--teal); margin-right:12px; }
-    .sec.forest .sec-label { color:var(--gold-light); }
-    .sec.forest .sec-label::before { background:var(--gold-light); }
-
+    .sec-label::before {
+      content: \'\';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 1px;
+      background: var(--teal);
+    }
+    .sec-forest .sec-label {
+      color: var(--gold-light);
+    }
+    .sec-forest .sec-label::before {
+      background: var(--gold-light);
+    }
     .sec-title {
-      font-family:'Fraunces',serif; font-size:clamp(28px,3.5vw,44px); font-weight:700;
-      line-height:1.2; margin-bottom:48px;
+      font-family: 'Fraunces', serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 40px;
+      max-width: 900px;
     }
-    .sec-title em { color:var(--gold); font-style:italic; }
-    .sec.forest .sec-title { color:var(--white); }
+    .sec-forest .sec-title {
+      color: var(--white);
+    }
+    .sec-title em {
+      color: var(--gold);
+      font-style: italic;
+      font-weight: 600;
+    }
 
-    .cards-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; }
-    .cards-grid.six-col { grid-template-columns:repeat(3,1fr); }
+    /* Buttons */
+    .btn-primary {
+      background: var(--gold);
+      color: var(--ink);
+      padding: 12px 32px;
+      border: none;
+      border-radius: var(--r-md);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background: var(--gold-light);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Situation Cards */
+    .situation-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-bottom: 60px;
+    }
+    .situation-card {
+      background: var(--white);
+      border-radius: var(--r-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+      border-left: 6px solid var(--gold);
+    }
+    .situation-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+    .situation-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--ink);
+    }
+    .situation-card p {
+      font-size: 15px;
+      color: var(--ink-soft);
+      line-height: 1.8;
+    }
+
+    /* Why Cards */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
     .why-card {
-      background:var(--white); border:1px solid var(--border); padding:40px;
-      border-radius:var(--r-lg); box-shadow:var(--shadow-sm); transition:all .3s;
+      background: var(--white);
+      border-radius: var(--r-lg);
+      padding: 48px 40px;
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
     }
-    .why-card:hover { box-shadow:var(--shadow-md); transform:translateY(-4px); }
-    .why-card h3 { font-size:20px; font-weight:600; margin-bottom:12px; color:var(--ink); }
-    .why-card p { font-size:15px; color:var(--ink-soft); line-height:1.6; }
+    .why-card::before {
+      content: attr(data-number);
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-family: 'Fraunces', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--forest);
+      opacity: 0.15;
+    }
+    .why-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+    .why-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--ink);
+    }
+    .why-card p {
+      font-size: 14px;
+      color: var(--slate);
+      line-height: 1.7;
+    }
 
-    .sec.white .why-card { background:var(--sand); border:1px solid var(--border); }
-
-    .process-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; }
+    /* Process Steps */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
     .process-step {
-      text-align:center;
+      position: relative;
+      padding-left: 60px;
     }
-    .process-num {
-      display:inline-flex; align-items:center; justify-content:center;
-      width:56px; height:56px; background:var(--gold); color:var(--white);
-      border-radius:50%; font-family:'Fraunces',serif; font-size:24px; font-weight:700;
-      margin-bottom:16px;
+    .process-step::before {
+      content: attr(data-step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 48px;
+      height: 48px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink);
     }
-    .process-step h3 { font-size:18px; font-weight:600; margin-bottom:12px; }
-    .process-step p { font-size:14px; color:var(--ink-soft); line-height:1.6; }
+    .sec-forest .process-step::before {
+      background: var(--gold-light);
+    }
+    .process-step h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--white);
+    }
+    .sec-forest .process-step p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 14px;
+      line-height: 1.7;
+    }
 
-    .sec.forest .process-step h3 { color:var(--white); }
-    .sec.forest .process-step p { color:rgba(255,255,255,.8); }
-
+    /* CTA Band */
     #cta-band {
-      background:linear-gradient(135deg,var(--forest) 0%,var(--forest-mid) 100%);
-      color:var(--white); padding:80px; text-align:center; margin:96px 0 0;
+      background: linear-gradient(135deg, var(--forest-mid) 0%, var(--forest) 100%);
+      color: var(--white);
+      padding: 80px 40px;
+      text-align: center;
+    }
+    #cta-band .container {
+      max-width: 800px;
     }
     #cta-band h2 {
-      font-family:'Fraunces',serif; font-size:clamp(24px,3vw,40px);
-      font-weight:700; margin-bottom:32px; line-height:1.3;
+      font-family: 'Fraunces', serif;
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 24px;
     }
-    #cta-band .btn-primary {
-      background:var(--gold); color:var(--white); padding:16px 40px;
-      border-radius:var(--r-md); font-weight:600; font-size:16px;
-      border:none; cursor:pointer; transition:background .3s;
+    #cta-band p {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 32px;
+      line-height: 1.7;
     }
-    #cta-band .btn-primary:hover { background:var(--gold-light); }
 
-    .btn-primary {
-      background:var(--gold); color:var(--white); padding:14px 32px;
-      border-radius:var(--r-md); font-weight:600; font-size:15px;
-      border:none; cursor:pointer; display:inline-block; transition:background .3s;
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .btn-primary:hover { background:var(--gold-light); }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-    footer#contact {
-      background:var(--ink); color:var(--white); padding:80px;
+    /* Footer */
+    footer {
+      background: #080C10;
+      color: rgba(255, 255, 255, 0.8);
+      padding: 60px 40px 30px;
     }
     .footer-grid {
-      display:grid; grid-template-columns:repeat(4,1fr); gap:48px; margin-bottom:48px;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr 1.4fr;
+      gap: 40px;
+      margin-bottom: 40px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    .footer-brand p { font-size:14px; margin-top:16px; opacity:.8; line-height:1.6; }
-    .footer-col h4 { font-size:14px; font-weight:600; margin-bottom:16px; }
+    .footer-brand p {
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 16px 0;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .footer-col h4 {
+      font-family: 'Fraunces', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
     .footer-col a {
-      display:block; font-size:14px; color:rgba(255,255,255,.7); margin-bottom:10px;
-      transition:color .3s;
+      display: block;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      margin-bottom: 12px;
+      transition: color 0.2s ease;
+      line-height: 1.6;
     }
-    .footer-col a:hover { color:var(--gold); }
+    .footer-col a:hover {
+      color: var(--gold-light);
+    }
     .footer-bottom {
-      border-top:1px solid rgba(255,255,255,.1); padding-top:24px;
-      display:flex; justify-content:space-between; align-items:center;
-      font-size:12px; color:rgba(255,255,255,.6);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
     }
+    .footer-bottom p {
+      margin-bottom: 8px;
+    }
+
+    /* Scroll to Top */
     .scroll-top {
-      position:fixed; bottom:32px; right:32px; width:48px; height:48px;
-      background:var(--gold); color:var(--white); border:none; border-radius:50%;
-      font-size:20px; cursor:pointer; opacity:0; visibility:hidden; transition:.3s;
-      box-shadow:var(--shadow-md);
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 48px;
+      height: 48px;
+      background: var(--gold);
+      color: var(--ink);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: 700;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 50;
     }
-    .scroll-top.visible { opacity:1; visibility:visible; }
-    .scroll-top:hover { background:var(--gold-light); }
-
-    .reveal {
-      opacity:0; transform:translateY(28px); transition:all .6s ease-out;
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
     }
-    .reveal.visible { opacity:1; transform:translateY(0); }
+    .scroll-top:hover {
+      background: var(--gold-light);
+      box-shadow: var(--shadow-md);
+    }
 
-    @media (max-width:900px) {
-      .sec { padding:64px 40px; }
-      .cards-grid { grid-template-columns:1fr; }
-      .cards-grid.six-col { grid-template-columns:1fr; }
-      .hero-stats { grid-template-columns:1fr; }
-      .process-grid { grid-template-columns:1fr; }
-      .footer-grid { grid-template-columns:repeat(2,1fr); gap:32px; }
-      .footer-bottom { flex-direction:column; gap:12px; }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .nav-cta-btn {
+        display: none;
+      }
+      .svc-hero {
+        padding: 80px 24px;
+      }
+      .svc-hero h1 {
+        font-size: 40px;
+      }
+      .svc-hero > .container > p {
+        font-size: 16px;
+      }
+      .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+      .process-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .situation-grid {
+        grid-template-columns: 1fr;
+      }
+      .sec {
+        padding: 60px 24px;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+      .sec-title {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      #nav {
+        padding: 0 20px;
+        height: 64px;
+      }
+      .breadcrumb {
+        padding: 12px 20px;
+        font-size: 12px;
+      }
+      .svc-hero {
+        padding: 60px 20px;
+        margin-top: 64px;
+      }
+      .svc-hero h1 {
+        font-size: 28px;
+        margin-bottom: 16px;
+      }
+      .svc-hero > .container > p {
+        font-size: 14px;
+        margin-bottom: 40px;
+      }
+      .hero-stats {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .hero-stat {
+        border-right: none;
+        border-bottom: 1px solid rgba(232, 201, 122, 0.3);
+        padding-bottom: 16px;
+      }
+      .hero-stat:last-child {
+        border-bottom: none;
+      }
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+      .sec {
+        padding: 48px 20px;
+      }
+      .sec-title {
+        font-size: 26px;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      #cta-band {
+        padding: 60px 20px;
+      }
+      #cta-band h2 {
+        font-size: 28px;
+      }
     }
   </style>
   <script src="/popup.js" defer></script>
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.proactifsconseils.fr/declaration-impots-ile-de-france">
-  <meta property="og:title" content="Déclaration d'Impôts Île-de-France | Proactifs Conseils">
-  <meta property="og:description" content="Déclaration d'impôts optimisée en Île-de-France. Revenus fonciers, LMNP, plus-values, expatriés. Cabinet patrimonial à Colombes (92). Bilan fiscal sur-mesure ">
-  <meta property="og:image" content="https://www.proactifsconseils.fr/images/declaration-impot.jpg">
+  <meta property="og:title" content="Déclaration d\&#39;Impôts Île-de-France | Proactifs Conseils">
+  <meta property="og:description" content="Déclaration d'impôts optimisée en Île-de-France. Revenus fonciers, LMNP, plus-values, expatriés. Cabinet patrimonial à Colombes (92). Bilan fiscal sur-mesure">
+  <meta property="og:image" content="https://www.proactifsconseils.fr/images/declaration-impots.jpg">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:site_name" content="Proactifs Conseils">
   <script type="application/ld+json">
@@ -300,11 +735,15 @@
   <a href="/bilan-patrimonial-gratuit">Prendre rendez-vous</a>
 </div>
 
-  <div class="hero">
-    <div class="hero-content">
-      <p class="hero-badge">Déclaration d'impôts · Île-de-France</p>
+  <div class="breadcrumb">
+    <a href="/">Accueil</a> › Déclaration d'impôts
+  </div>
+
+  <section class="svc-hero">
+    <div class="container">
+      <div class="hero-badge">Déclaration d'impôts · Île-de-France</div>
       <h1>Votre déclaration d'impôts<br><em>optimisée</em> et sans erreur</h1>
-      <p class="hero-sub">Revenus fonciers, LMNP, plus-values immobilières, revenus étrangers, cession d'entreprise… Notre accompagnement va bien au-delà du simple remplissage de formulaire : nous optimisons chaque ligne.</p>
+      <p>Revenus fonciers, LMNP, plus-values immobilières, revenus étrangers, cession d'entreprise… Notre accompagnement va bien au-delà du simple remplissage de formulaire : nous optimisons chaque ligne.</p>
       <div class="hero-stats">
         <div class="hero-stat">
           <div class="hero-stat-value">0€</div>
@@ -320,40 +759,34 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="breadcrumb-bar">
+  <section class="sec sec-sand reveal">
     <div class="container">
-      <a href="/">Accueil</a> › <span>Déclaration d'impôts</span>
-    </div>
-  </div>
-
-  <section class="sec sand reveal">
-    <div class="container">
-      <p class="sec-label">Situations complexes</p>
-      <h2 class="sec-title">Les situations complexes<br>que nous maîtrisons</h2>
-      <div class="cards-grid six-col">
-        <div class="why-card reveal">
+      <div class="sec-label">Situations complexes</div>
+      <h2 class="sec-title">Les situations complexes<br>que nous <em>maîtrisons</em></h2>
+      <div class="situation-grid">
+        <div class="situation-card reveal">
           <h3>Cession d'entreprise</h3>
           <p>Plus-value de cession, abattement dirigeant retraite, apport-cession (Art. 150-0 D ter). Optimisation du régime d'imposition et des exonérations applicables.</p>
         </div>
-        <div class="why-card reveal">
+        <div class="situation-card reveal">
           <h3>Stock-options & AGA</h3>
           <p>Attribution gratuite d'actions, BSPCE, levée d'options. Calcul des plus-values, étalement d'imposition, optimisation du calendrier de réalisation.</p>
         </div>
-        <div class="why-card reveal">
+        <div class="situation-card reveal">
           <h3>Revenus fonciers</h3>
           <p>Régime réel, déficit foncier, location meublée (LMNP/LMP). Déductibilité des charges, imputation des déficits, optimisation du régime d'imposition.</p>
         </div>
-        <div class="why-card reveal">
+        <div class="situation-card reveal">
           <h3>Revenus étrangers</h3>
           <p>Conventions fiscales, crédit d'impôt, détachement international. Déclaration auprès de l'administration, conformité aux obligations déclaratives.</p>
         </div>
-        <div class="why-card reveal">
+        <div class="situation-card reveal">
           <h3>Plus-values immobilières</h3>
           <p>Calcul des abattements pour durée de détention, exonérations (résidence principale, droits de mutation). Optimisation de la fiscalité à la cession.</p>
         </div>
-        <div class="why-card reveal">
+        <div class="situation-card reveal">
           <h3>SCI & sociétés</h3>
           <p>Régime IR ou IS, rémunération du gérant, dividendes, quote-parts. Restructuration, optimisation de la structure juridique et fiscale.</p>
         </div>
@@ -361,55 +794,55 @@
     </div>
   </section>
 
-  <section class="sec forest reveal">
+  <section class="sec sec-forest reveal">
     <div class="container">
-      <p class="sec-label">Processus</p>
-      <h2 class="sec-title">Notre accompagnement<br>déclaratif</h2>
+      <div class="sec-label">Notre accompagnement</div>
+      <h2 class="sec-title">3 étapes pour <em>sécuriser votre déclaration</em></h2>
       <div class="process-grid">
-        <div class="process-step reveal">
-          <div class="process-num">1</div>
-          <h3>Collecte & analyse<br>des documents</h3>
+        <div class="process-step reveal" data-step="1">
+          <h3>Collecte & analyse des documents</h3>
           <p>Rassemblement de tous vos documents fiscaux, comptables et justificatifs. Analyse approfondie de votre situation et identification des opportunités d'optimisation.</p>
         </div>
-        <div class="process-step reveal">
-          <div class="process-num">2</div>
-          <h3>Optimisation<br>de la déclaration</h3>
+        <div class="process-step reveal" data-step="2">
+          <h3>Optimisation de la déclaration</h3>
           <p>Remplissage complet de votre déclaration avec optimisation fiscale. Intégration des abattements, exonérations, et réductions applicables à votre situation.</p>
         </div>
-        <div class="process-step reveal">
-          <div class="process-num">3</div>
-          <h3>Transmission &<br>accompagnement</h3>
+        <div class="process-step reveal" data-step="3">
+          <h3>Transmission & accompagnement</h3>
           <p>Envoi de la déclaration auprès des autorités. En cas de contrôle, nous vous assistons et représentons auprès de l'administration fiscale.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="sec white reveal">
+  <section class="sec sec-white reveal">
     <div class="container">
-      <p class="sec-label">Pourquoi nous</p>
-      <h2 class="sec-title">Nos avantages</h2>
-      <div class="cards-grid" style="grid-template-columns: repeat(3, 1fr);">
-        <div class="why-card reveal">
-          <h3>Vision patrimoniale<br>intégrée</h3>
-          <p>Nous ne déclarons pas les impôts isolément. Votre déclaration s'inscrit dans une stratégie patrimoniale globale optimisant votre fiscalité globale.</p>
+      <div class="sec-label">Pourquoi nous</div>
+      <h2 class="sec-title">Nos avantages <em>et vision globale</em></h2>
+      <div class="why-grid">
+        <div class="why-card reveal" data-number="1">
+          <h3>Vision patrimoniale intégrée</h3>
+          <p>Nous ne déclarons pas les impôts isolément. Votre déclaration s'inscrit dans une stratégie patrimoniale globale optimisant votre fiscalité.</p>
         </div>
-        <div class="why-card reveal">
-          <h3>Accompagnement<br>continu</h3>
-          <p>Au-delà de la déclaration, nous assurez un suivi annuel. Anticipation des changements législatifs et ajustement de votre stratégie fiscale.</p>
+        <div class="why-card reveal" data-number="2">
+          <h3>Accompagnement continu</h3>
+          <p>Au-delà de la déclaration, nous assurons un suivi annuel. Anticipation des changements législatifs et ajustement de votre stratégie fiscale.</p>
         </div>
-        <div class="why-card reveal">
-          <h3>Expert déclarations<br>complexes</h3>
+        <div class="why-card reveal" data-number="3">
+          <h3>Expert déclarations complexes</h3>
           <p>Situations non standard, revenus multiples, patrimoine important. Nous gérons les dossiers compliqués avec expertise et sérénité.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <div id="cta-band">
-    <h2>Faites vérifier votre déclaration<br>par un expert</h2>
-    <button class="btn-primary" onclick="window.location.href='/bilan-patrimonial-gratuit'">Demander une consultation</button>
-  </div>
+  <section id="cta-band">
+    <div class="container">
+      <h2>Faites vérifier votre déclaration par un <em>expert</em></h2>
+      <p>Bilan fiscal entièrement confidentiel. Aucune obligation d'engagement.</p>
+      <a href="/bilan-patrimonial-gratuit" class="btn-primary">Demander une consultation</a>
+    </div>
+  </section>
 
   <footer id="contact">
     <div class="container">
@@ -417,24 +850,34 @@
         <div class="footer-brand">
           <img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:48px;width:auto;display:block;opacity:.9">
           <p>Cabinet de conseil en gestion de patrimoine indépendant à Colombes (92). Nous accompagnons les particuliers et chefs d'entreprise en Île-de-France.</p>
+          <div style="display:flex;gap:12px">
+            <a href="https://www.linkedin.com/company/proactifs-conseils/" target="_blank" rel="noopener" style="color:rgba(255,255,255,.4);transition:color .2s" onmouseover="this.style.color='#E8C97A'" onmouseout="this.style.color='rgba(255,255,255,.4)'">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </div>
         </div>
-        <div class="footer-col"><h4>Services</h4>
+        <div class="footer-col">
+          <h4>Services</h4>
           <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
           <a href="/investissement-scpi-hauts-de-seine">Investissement SCPI</a>
+          <a href="/placements-financiers">Placements financiers</a>
           <a href="/preparation-retraite">Préparation retraite</a>
           <a href="/transmission">Transmission</a>
           <a href="/cession-entreprise">Cession d'entreprise</a>
           <a href="/courtage-credit-immobilier">Courtage crédit</a>
           <a href="/declaration-impots-ile-de-france">Déclaration impôts</a>
         </div>
-        <div class="footer-col"><h4>Cabinet</h4>
+        <div class="footer-col">
+          <h4>Cabinet</h4>
           <a href="/bilan-patrimonial-gratuit">Bilan patrimonial sur mesure</a>
           <a href="/page-conseiller-patrimoine-colombes">Notre conseiller</a>
+          <a href="/#approche">Notre approche</a>
         </div>
-        <div class="footer-col"><h4>Contact</h4>
+        <div class="footer-col">
+          <h4>Contact</h4>
           <a href="tel:+33184782830">01 84 78 28 30</a>
           <a href="mailto:contact@proactifsconseils.fr">contact@proactifsconseils.fr</a>
-          <a>54 Rue du Bournard, 92700 Colombes</a>
+          <a>54 Rue du Bournard<br>92700 Colombes</a>
           <a>Lun–Ven 9h–19h</a>
         </div>
       </div>
