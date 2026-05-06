@@ -511,6 +511,87 @@
       line-height: 1.7;
     }
 
+    /* ── Multi-step Wizard ── */
+    .wz-wrap{max-width:720px;margin:0 auto}
+    .wz-progress{display:flex;align-items:center;gap:0;margin-bottom:40px;position:relative}
+    .wz-progress-step{flex:1;text-align:center;position:relative;z-index:1}
+    .wz-progress-dot{width:36px;height:36px;border-radius:50%;background:var(--border);display:inline-flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:14px;font-weight:700;color:var(--slate);transition:all .3s;margin:0 auto}
+    .wz-progress-step.active .wz-progress-dot,.wz-progress-step.done .wz-progress-dot{background:var(--gold);color:var(--ink)}
+    .wz-progress-step.done .wz-progress-dot{background:var(--teal);color:var(--white)}
+    .wz-progress-label{font-size:11px;color:var(--slate);margin-top:6px;display:none}
+    .wz-progress-bar{position:absolute;top:18px;left:0;right:0;height:3px;background:var(--border);z-index:0}
+    .wz-progress-fill{height:100%;background:var(--gold);transition:width .4s ease;width:0}
+    .wz-step{display:none;animation:wzFadeIn .35s ease}
+    .wz-step.active{display:block}
+    @keyframes wzFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .wz-question{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.3}
+    .wz-hint{font-size:14px;color:var(--slate);margin-bottom:28px}
+    .wz-options{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .wz-options.wz-col3{grid-template-columns:repeat(3,1fr)}
+    .wz-options.wz-col5{grid-template-columns:repeat(5,1fr)}
+    .wz-opt{background:var(--white);border:2px solid var(--border);border-radius:var(--r-md);padding:20px 16px;text-align:center;cursor:pointer;transition:all .25s;position:relative}
+    .wz-opt:hover{border-color:var(--gold);box-shadow:var(--shadow-sm)}
+    .wz-opt.selected{border-color:var(--gold);background:var(--gold-pale);box-shadow:0 0 0 3px rgba(196,151,58,.15)}
+    .wz-opt-icon{font-size:28px;margin-bottom:8px;display:block}
+    .wz-opt-label{font-weight:600;font-size:14px;color:var(--ink);display:block}
+    .wz-opt-desc{font-size:12px;color:var(--slate);margin-top:4px;display:block}
+    .wz-fields{display:grid;grid-template-columns:1fr;gap:20px}
+    .wz-fields.wz-fields-2{grid-template-columns:1fr 1fr}
+    .wz-field label{display:block;font-weight:600;font-size:14px;color:var(--ink);margin-bottom:8px}
+    .wz-field label .wz-unit{font-weight:400;color:var(--slate)}
+    .wz-field input,.wz-field select{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:var(--r-md);font-family:'DM Sans',sans-serif;font-size:16px;transition:border-color .2s}
+    .wz-field input:focus,.wz-field select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(196,151,58,.1)}
+    .wz-field .wz-range-row{display:flex;align-items:center;gap:16px}
+    .wz-field .wz-range-row input[type=range]{flex:1;accent-color:var(--gold)}
+    .wz-field .wz-range-val{font-family:'DM Mono',monospace;font-size:16px;font-weight:600;color:var(--gold);min-width:80px;text-align:right}
+    .wz-toggle{display:flex;gap:12px;margin-top:4px}
+    .wz-toggle-btn{flex:1;padding:12px;border:2px solid var(--border);border-radius:var(--r-md);background:var(--white);text-align:center;font-weight:600;font-size:14px;cursor:pointer;transition:all .2s}
+    .wz-toggle-btn.selected{border-color:var(--gold);background:var(--gold-pale);color:var(--ink)}
+    .wz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:36px;gap:16px}
+    .wz-btn{padding:14px 32px;border:none;border-radius:var(--r-md);font-family:'DM Sans',sans-serif;font-weight:600;font-size:15px;cursor:pointer;transition:all .2s}
+    .wz-btn-back{background:transparent;color:var(--slate);border:1px solid var(--border)}
+    .wz-btn-back:hover{background:var(--sand);color:var(--ink)}
+    .wz-btn-next{background:var(--gold);color:var(--ink);margin-left:auto}
+    .wz-btn-next:hover{background:var(--gold-light);box-shadow:var(--shadow-md)}
+    .wz-btn-next:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+    .wz-btn-submit{background:var(--forest);color:var(--white);margin-left:auto;padding:14px 40px}
+    .wz-btn-submit:hover{background:var(--forest-mid)}
+    /* Result */
+    .wz-result{text-align:center;padding:20px 0}
+    .wz-result-badge{display:inline-block;background:var(--teal-pale);color:var(--teal);padding:6px 16px;border-radius:var(--r-sm);font-size:12px;font-family:'DM Mono',monospace;font-weight:500;text-transform:uppercase;margin-bottom:16px}
+    .wz-result-amount{font-family:'Fraunces',serif;font-size:52px;font-weight:700;color:var(--forest);margin-bottom:8px}
+    .wz-result-sub{font-size:15px;color:var(--slate);margin-bottom:32px}
+    .wz-result-details{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px}
+    .wz-result-card{background:var(--sand);border-radius:var(--r-md);padding:20px 16px;text-align:center}
+    .wz-result-card-val{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--gold);margin-bottom:4px}
+    .wz-result-card-lbl{font-size:12px;color:var(--slate);text-transform:uppercase;font-family:'DM Mono',monospace}
+    .wz-form-sep{width:100%;height:1px;background:var(--border);margin:0 0 28px}
+    .wz-form-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:6px;text-align:center}
+    .wz-form-hint{font-size:14px;color:var(--slate);margin-bottom:24px;text-align:center}
+    .wz-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+    .wz-form-grid .wz-field:first-child{grid-column:1/-1}
+    .wz-msg{padding:16px;border-radius:var(--r-md);text-align:center;font-weight:600;font-size:14px;margin-top:16px}
+    .wz-msg-ok{background:var(--teal-pale);color:var(--teal)}
+    .wz-msg-err{background:#FEE;color:#C00}
+
+    @media(max-width:900px){
+      .wz-options.wz-col5{grid-template-columns:repeat(3,1fr)}
+      .wz-result-details{grid-template-columns:1fr}
+      .wz-fields.wz-fields-2{grid-template-columns:1fr}
+      .wz-form-grid{grid-template-columns:1fr}
+      .wz-question{font-size:24px}
+      .wz-result-amount{font-size:40px}
+    }
+    @media(max-width:600px){
+      .wz-options{grid-template-columns:1fr}
+      .wz-options.wz-col3{grid-template-columns:1fr}
+      .wz-options.wz-col5{grid-template-columns:repeat(2,1fr)}
+      .wz-progress-dot{width:28px;height:28px;font-size:12px}
+      .wz-progress-bar{top:14px}
+      .wz-question{font-size:20px}
+      .wz-result-amount{font-size:32px}
+    }
+
     /* Reveal Animation */
     .reveal {
       opacity: 0;
@@ -871,36 +952,229 @@
     </div>
   </section>
 
-  <section class="sec sec-white reveal">
+  <section class="sec sec-sand reveal" id="simulateur">
     <div class="container">
       <div class="sec-label">Simulateur</div>
-      <h2 class="sec-title" style="text-align:center; margin-bottom:48px;">Estimez votre mensualité</h2>
-      <div class="simulator">
-        <div class="form-group">
-          <label for="montant">Montant emprunté (€)</label>
-          <input type="number" id="montant" value="300000" min="50000" max="2000000" step="10000">
+      <h2 class="sec-title" style="text-align:center;margin-bottom:12px">Calculez votre <em>capacité d’emprunt</em></h2>
+      <p style="text-align:center;color:var(--slate);font-size:15px;margin-bottom:48px;max-width:560px;margin-left:auto;margin-right:auto">Répondez à quelques questions pour obtenir une estimation personnalisée en 2 minutes.</p>
+      <div class="wz-wrap" id="wizCredit">
+        <!-- Progress -->
+        <div class="wz-progress">
+          <div class="wz-progress-bar"><div class="wz-progress-fill" id="wzFill"></div></div>
+          <div class="wz-progress-step active" data-s="1"><div class="wz-progress-dot">1</div></div>
+          <div class="wz-progress-step" data-s="2"><div class="wz-progress-dot">2</div></div>
+          <div class="wz-progress-step" data-s="3"><div class="wz-progress-dot">3</div></div>
+          <div class="wz-progress-step" data-s="4"><div class="wz-progress-dot">4</div></div>
+          <div class="wz-progress-step" data-s="5"><div class="wz-progress-dot">5</div></div>
+          <div class="wz-progress-step" data-s="6"><div class="wz-progress-dot">6</div></div>
+          <div class="wz-progress-step" data-s="7"><div class="wz-progress-dot">7</div></div>
         </div>
-        <div class="form-group">
-          <label for="taux">Taux d’intérêt: <span id="tauxValue">3.5</span>%</label>
-          <input type="range" id="taux" min="2.5" max="5" step="0.1" value="3.5">
+
+        <!-- Step 1 : Type de projet -->
+        <div class="wz-step active" data-step="1">
+          <div class="wz-question">Quel est votre projet ?</div>
+          <div class="wz-hint">Sélectionnez le type d’acquisition envisagé</div>
+          <div class="wz-options">
+            <div class="wz-opt" data-val="Résidence principale" onclick="wzSelect(this)">
+              <span class="wz-opt-icon">🏠</span>
+              <span class="wz-opt-label">Résidence principale</span>
+            </div>
+            <div class="wz-opt" data-val="Investissement locatif" onclick="wzSelect(this)">
+              <span class="wz-opt-icon">🏗</span>
+              <span class="wz-opt-label">Investissement locatif</span>
+            </div>
+            <div class="wz-opt" data-val="Résidence secondaire" onclick="wzSelect(this)">
+              <span class="wz-opt-icon">🌴</span>
+              <span class="wz-opt-label">Résidence secondaire</span>
+            </div>
+            <div class="wz-opt" data-val="Rachat de crédit" onclick="wzSelect(this)">
+              <span class="wz-opt-icon">🔄</span>
+              <span class="wz-opt-label">Rachat de crédit</span>
+            </div>
+          </div>
+          <div class="wz-nav">
+            <div></div>
+            <button class="wz-btn wz-btn-next" disabled onclick="wzNext()">Continuer →</button>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="duree">Durée: <span id="dureeValue">20</span> ans</label>
-          <input type="range" id="duree" min="10" max="25" step="1" value="20">
+
+        <!-- Step 2 : Situation pro -->
+        <div class="wz-step" data-step="2">
+          <div class="wz-question">Quelle est votre situation professionnelle ?</div>
+          <div class="wz-hint">Les banques évaluent votre stabilité de revenus</div>
+          <div class="wz-options wz-col3">
+            <div class="wz-opt" data-val="Salarié CDI" onclick="wzSelect(this)">
+              <span class="wz-opt-icon">💼</span>
+              <span class="wz-opt-label">Salarié CDI</span>
+            </div>
+            <div class="wz-opt" data-val="Fonctionnaire" onclick="wzSelect(this)">
+              <span class="wz-opt-icon">🏛</span>
+              <span class="wz-opt-label">Fonctionnaire</span>
+            </div>
+            <div class="wz-opt" data-val="Indépendant / TNS" onclick="wzSelect(this)">
+              <span class="wz-opt-icon">🧑‍💻</span>
+              <span class="wz-opt-label">Indépendant / TNS</span>
+            </div>
+            <div class="wz-opt" data-val="Profession libérale" onclick="wzSelect(this)">
+              <span class="wz-opt-icon">⚕️</span>
+              <span class="wz-opt-label">Profession libérale</span>
+            </div>
+            <div class="wz-opt" data-val="CDD / Intérim" onclick="wzSelect(this)">
+              <span class="wz-opt-icon">📋</span>
+              <span class="wz-opt-label">CDD / Intérim</span>
+            </div>
+            <div class="wz-opt" data-val="Retraité" onclick="wzSelect(this)">
+              <span class="wz-opt-icon">🌅</span>
+              <span class="wz-opt-label">Retraité</span>
+            </div>
+          </div>
+          <div class="wz-nav">
+            <button class="wz-btn wz-btn-back" onclick="wzPrev()">← Précédent</button>
+            <button class="wz-btn wz-btn-next" disabled onclick="wzNext()">Continuer →</button>
+          </div>
         </div>
-        <div class="simulator-output">
-          <div class="output-row">
-            <span class="output-label">Mensualité</span>
-            <span class="output-value" id="mensualite">1 515€</span>
+
+        <!-- Step 3 : Revenus -->
+        <div class="wz-step" data-step="3">
+          <div class="wz-question">Vos revenus mensuels nets</div>
+          <div class="wz-hint">Incluez salaire, pensions, revenus locatifs</div>
+          <div class="wz-fields">
+            <div class="wz-field">
+              <label>Revenus nets mensuels <span class="wz-unit">(€/mois)</span></label>
+              <input type="number" id="wz-revenu" placeholder="Ex : 3 500" min="0" step="100" oninput="wzCheckFields3()">
+            </div>
+            <div class="wz-field">
+              <label>Empruntez-vous à deux ?</label>
+              <div class="wz-toggle">
+                <div class="wz-toggle-btn" data-val="non" onclick="wzToggle(this,’wz-coempr’)">Non, seul(e)</div>
+                <div class="wz-toggle-btn" data-val="oui" onclick="wzToggle(this,’wz-coempr’)">Oui, à deux</div>
+              </div>
+            </div>
+            <div class="wz-field" id="wz-coempr-field" style="display:none">
+              <label>Revenus du co-emprunteur <span class="wz-unit">(€/mois)</span></label>
+              <input type="number" id="wz-revenu2" placeholder="Ex : 2 800" min="0" step="100" oninput="wzCheckFields3()">
+            </div>
           </div>
-          <div class="output-row">
-            <span class="output-label">Coût total du crédit</span>
-            <span class="output-value" id="coutTotal">363 600€</span>
+          <div class="wz-nav">
+            <button class="wz-btn wz-btn-back" onclick="wzPrev()">← Précédent</button>
+            <button class="wz-btn wz-btn-next" disabled onclick="wzNext()">Continuer →</button>
           </div>
-          <div class="output-row">
-            <span class="output-label">Coût des intérêts</span>
-            <span class="output-value" id="coutInteret">63 600€</span>
+        </div>
+
+        <!-- Step 4 : Charges -->
+        <div class="wz-step" data-step="4">
+          <div class="wz-question">Vos charges mensuelles</div>
+          <div class="wz-hint">Crédits en cours, pensions alimentaires…</div>
+          <div class="wz-fields wz-fields-2">
+            <div class="wz-field">
+              <label>Crédits en cours <span class="wz-unit">(€/mois)</span></label>
+              <input type="number" id="wz-credits" placeholder="0" min="0" step="50" value="0" oninput="wzCheckFields4()">
+            </div>
+            <div class="wz-field">
+              <label>Loyer actuel <span class="wz-unit">(€/mois)</span></label>
+              <input type="number" id="wz-loyer" placeholder="0" min="0" step="50" value="0" oninput="wzCheckFields4()">
+            </div>
           </div>
+          <div class="wz-nav">
+            <button class="wz-btn wz-btn-back" onclick="wzPrev()">← Précédent</button>
+            <button class="wz-btn wz-btn-next" onclick="wzNext()">Continuer →</button>
+          </div>
+        </div>
+
+        <!-- Step 5 : Apport & durée -->
+        <div class="wz-step" data-step="5">
+          <div class="wz-question">Apport et durée souhaitée</div>
+          <div class="wz-hint">L’apport n’est pas obligatoire mais améliore les conditions</div>
+          <div class="wz-fields">
+            <div class="wz-field">
+              <label>Apport personnel <span class="wz-unit">(€)</span></label>
+              <input type="number" id="wz-apport" placeholder="Ex : 30 000" min="0" step="5000" value="0">
+            </div>
+            <div class="wz-field">
+              <label>Durée souhaitée : <strong id="wz-duree-val">20 ans</strong></label>
+              <div class="wz-range-row">
+                <input type="range" id="wz-duree" min="7" max="25" step="1" value="20" oninput="document.getElementById(‘wz-duree-val’).textContent=this.value+’ ans’">
+              </div>
+            </div>
+          </div>
+          <div class="wz-nav">
+            <button class="wz-btn wz-btn-back" onclick="wzPrev()">← Précédent</button>
+            <button class="wz-btn wz-btn-next" onclick="wzNext()">Continuer →</button>
+          </div>
+        </div>
+
+        <!-- Step 6 : Avancement du projet -->
+        <div class="wz-step" data-step="6">
+          <div class="wz-question">Où en êtes-vous dans votre projet ?</div>
+          <div class="wz-hint">Cela nous aide à calibrer notre accompagnement</div>
+          <div class="wz-options wz-col5">
+            <div class="wz-opt" data-val="Je recherche encore un bien" onclick="wzSelect(this)">
+              <span class="wz-opt-icon">🔍</span>
+              <span class="wz-opt-label">Je recherche un bien</span>
+            </div>
+            <div class="wz-opt" data-val="J’ai trouvé et pense faire une offre" onclick="wzSelect(this)">
+              <span class="wz-opt-icon">🎯</span>
+              <span class="wz-opt-label">J’ai trouvé, offre à venir</span>
+            </div>
+            <div class="wz-opt" data-val="J’ai fait une offre au vendeur" onclick="wzSelect(this)">
+              <span class="wz-opt-icon">📝</span>
+              <span class="wz-opt-label">Offre faite</span>
+            </div>
+            <div class="wz-opt" data-val="Je pense signer un compromis bientôt" onclick="wzSelect(this)">
+              <span class="wz-opt-icon">🤝</span>
+              <span class="wz-opt-label">Compromis bientôt</span>
+            </div>
+            <div class="wz-opt" data-val="J’ai signé un compromis / une promesse" onclick="wzSelect(this)">
+              <span class="wz-opt-icon">✅</span>
+              <span class="wz-opt-label">Compromis signé</span>
+            </div>
+          </div>
+          <div class="wz-nav">
+            <button class="wz-btn wz-btn-back" onclick="wzPrev()">← Précédent</button>
+            <button class="wz-btn wz-btn-next" disabled onclick="wzNext()">Voir mon résultat →</button>
+          </div>
+        </div>
+
+        <!-- Step 7 : Résultat + Formulaire -->
+        <div class="wz-step" data-step="7">
+          <div class="wz-result">
+            <div class="wz-result-badge">Estimation personnalisée</div>
+            <div class="wz-result-amount" id="wz-res-amount">—</div>
+            <div class="wz-result-sub">Capacité d’emprunt estimée <span id="wz-res-apport-note"></span></div>
+            <div class="wz-result-details">
+              <div class="wz-result-card">
+                <div class="wz-result-card-val" id="wz-res-mens">—</div>
+                <div class="wz-result-card-lbl">Mensualité max</div>
+              </div>
+              <div class="wz-result-card">
+                <div class="wz-result-card-val" id="wz-res-taux">—</div>
+                <div class="wz-result-card-lbl">Taux estimé</div>
+              </div>
+              <div class="wz-result-card">
+                <div class="wz-result-card-val" id="wz-res-duree">—</div>
+                <div class="wz-result-card-lbl">Durée</div>
+              </div>
+            </div>
+          </div>
+          <div class="wz-form-sep"></div>
+          <div class="wz-form-title">Recevez une étude détaillée</div>
+          <div class="wz-form-hint">Un courtier vous recontacte sous 24h pour affiner votre simulation</div>
+          <div class="wz-form-grid">
+            <div class="wz-field">
+              <input type="text" id="wz-prenom" placeholder="Prénom *" required>
+            </div>
+            <div class="wz-field">
+              <input type="email" id="wz-email" placeholder="Email *" required>
+            </div>
+            <div class="wz-field">
+              <input type="tel" id="wz-tel" placeholder="Téléphone *" required>
+            </div>
+          </div>
+          <div class="wz-nav">
+            <button class="wz-btn wz-btn-back" onclick="wzPrev()">← Modifier mes réponses</button>
+            <button class="wz-btn wz-btn-submit" id="wz-submit" onclick="wzSubmit()">Envoyer ma demande</button>
+          </div>
+          <div id="wz-msg"></div>
         </div>
       </div>
     </div>
@@ -999,27 +1273,157 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    function updateSimulation() {
-      const montant = parseFloat(document.getElementById('montant').value) || 0;
-      const taux = parseFloat(document.getElementById('taux').value) / 100;
-      const duree = parseFloat(document.getElementById('duree').value);
-      document.getElementById('tauxValue').textContent = parseFloat(document.getElementById('taux').value).toFixed(1);
-      document.getElementById('dureeValue').textContent = duree;
-      if (montant > 0 && taux > 0 && duree > 0) {
-        const nbMois = duree * 12;
-        const tauxMensuel = taux / 12;
-        const mensualite = montant * (tauxMensuel * Math.pow(1 + tauxMensuel, nbMois)) / (Math.pow(1 + tauxMensuel, nbMois) - 1);
-        const coutTotal = mensualite * nbMois;
-        const coutInteret = coutTotal - montant;
-        document.getElementById('mensualite').textContent = Math.round(mensualite).toLocaleString('fr-FR') + '€';
-        document.getElementById('coutTotal').textContent = Math.round(coutTotal).toLocaleString('fr-FR') + '€';
-        document.getElementById('coutInteret').textContent = Math.round(coutInteret).toLocaleString('fr-FR') + '€';
+    /* ── Multi-step credit wizard ── */
+    let wzCur = 1;
+    const wzTotal = 7;
+    const wzData = {};
+
+    function wzSelect(el) {
+      el.parentElement.querySelectorAll('.wz-opt').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      const step = el.closest('.wz-step').dataset.step;
+      wzData['step' + step] = el.dataset.val;
+      el.closest('.wz-step').querySelector('.wz-btn-next').disabled = false;
+    }
+
+    function wzToggle(btn, key) {
+      btn.parentElement.querySelectorAll('.wz-toggle-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      wzData[key] = btn.dataset.val;
+      const field2 = document.getElementById('wz-coempr-field');
+      if (key === 'wz-coempr') {
+        field2.style.display = btn.dataset.val === 'oui' ? 'block' : 'none';
+        if (btn.dataset.val === 'non') document.getElementById('wz-revenu2').value = '';
+      }
+      wzCheckFields3();
+    }
+
+    function wzCheckFields3() {
+      const r = parseFloat(document.getElementById('wz-revenu').value) || 0;
+      const step = document.querySelector('.wz-step[data-step="3"]');
+      step.querySelector('.wz-btn-next').disabled = r <= 0;
+    }
+    function wzCheckFields4() {
+      /* charges are always valid (can be 0) */
+    }
+
+    function wzGo(n) {
+      wzCur = n;
+      document.querySelectorAll('#wizCredit .wz-step').forEach(s => s.classList.remove('active'));
+      document.querySelector('#wizCredit .wz-step[data-step="' + n + '"]').classList.add('active');
+      /* progress */
+      document.querySelectorAll('#wizCredit .wz-progress-step').forEach(p => {
+        const s = parseInt(p.dataset.s);
+        p.classList.remove('active', 'done');
+        if (s < n) p.classList.add('done');
+        if (s === n) p.classList.add('active');
+      });
+      document.getElementById('wzFill').style.width = ((n - 1) / (wzTotal - 1) * 100) + '%';
+      /* scroll to top of section */
+      document.getElementById('simulateur').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      /* compute result at step 7 */
+      if (n === 7) wzCompute();
+    }
+
+    function wzNext() {
+      if (wzCur < wzTotal) wzGo(wzCur + 1);
+    }
+    function wzPrev() {
+      if (wzCur > 1) wzGo(wzCur - 1);
+    }
+
+    /* Taux estimés par durée (indicatifs 2026) */
+    function wzTaux(duree) {
+      if (duree <= 10) return 3.10;
+      if (duree <= 15) return 3.30;
+      if (duree <= 20) return 3.45;
+      return 3.60;
+    }
+
+    function wzCompute() {
+      const revenu1 = parseFloat(document.getElementById('wz-revenu').value) || 0;
+      const revenu2 = parseFloat(document.getElementById('wz-revenu2').value) || 0;
+      const credits = parseFloat(document.getElementById('wz-credits').value) || 0;
+      const apport  = parseFloat(document.getElementById('wz-apport').value) || 0;
+      const duree   = parseInt(document.getElementById('wz-duree').value) || 20;
+
+      const revenus = revenu1 + revenu2;
+      const mensMax = Math.max(0, revenus * 0.35 - credits);
+      const taux = wzTaux(duree);
+      const tm = taux / 100 / 12;
+      const nbMois = duree * 12;
+      const facteur = (1 - Math.pow(1 + tm, -nbMois)) / tm;
+      const capacite = Math.round(mensMax * facteur);
+      const total = capacite + apport;
+
+      const fmt = v => v.toLocaleString('fr-FR');
+      document.getElementById('wz-res-amount').textContent = fmt(total) + ' €';
+      document.getElementById('wz-res-mens').textContent = fmt(Math.round(mensMax)) + ' €';
+      document.getElementById('wz-res-taux').textContent = taux.toFixed(2) + ' %';
+      document.getElementById('wz-res-duree').textContent = duree + ' ans';
+      document.getElementById('wz-res-apport-note').textContent = apport > 0 ? '(dont ' + fmt(apport) + ' € d\'apport)' : '';
+
+      wzData.capacite = total;
+      wzData.mensMax = Math.round(mensMax);
+      wzData.tauxEstime = taux;
+      wzData.duree = duree;
+      wzData.apport = apport;
+    }
+
+    async function wzSubmit() {
+      const prenom = document.getElementById('wz-prenom').value.trim();
+      const email  = document.getElementById('wz-email').value.trim();
+      const tel    = document.getElementById('wz-tel').value.trim();
+      const msgEl  = document.getElementById('wz-msg');
+
+      if (!prenom || !email || !tel) {
+        msgEl.className = 'wz-msg wz-msg-err';
+        msgEl.textContent = 'Merci de remplir tous les champs.';
+        return;
+      }
+
+      const btn = document.getElementById('wz-submit');
+      btn.disabled = true;
+      btn.textContent = 'Envoi en cours…';
+
+      const answers = [
+        'Projet : ' + (wzData.step1 || '-'),
+        'Situation : ' + (wzData.step2 || '-'),
+        'Revenus : ' + (document.getElementById('wz-revenu').value || '0') + ' €/mois' + (wzData['wz-coempr'] === 'oui' ? ' + co-emprunteur ' + (document.getElementById('wz-revenu2').value || '0') + ' €/mois' : ''),
+        'Charges : crédits ' + (document.getElementById('wz-credits').value || '0') + ' € + loyer ' + (document.getElementById('wz-loyer').value || '0') + ' €',
+        'Apport : ' + (wzData.apport || 0).toLocaleString('fr-FR') + ' € — Durée : ' + (wzData.duree || 20) + ' ans',
+        'Avancement : ' + (wzData.step6 || '-'),
+        'Capacité estimée : ' + (wzData.capacite || 0).toLocaleString('fr-FR') + ' € (mensualité max ' + (wzData.mensMax || 0).toLocaleString('fr-FR') + ' €, taux ' + (wzData.tauxEstime || '-') + ' %)',
+      ];
+
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            prenom,
+            nom: '',
+            email,
+            tel,
+            situation: wzData.step2 || '',
+            service: 'credit',
+            answers,
+          }),
+        });
+        if (res.ok) {
+          msgEl.className = 'wz-msg wz-msg-ok';
+          msgEl.textContent = '✓ Demande envoyée ! Un courtier vous recontacte sous 24h.';
+          btn.textContent = 'Envoyé ✓';
+        } else {
+          throw new Error('Erreur serveur');
+        }
+      } catch (e) {
+        msgEl.className = 'wz-msg wz-msg-err';
+        msgEl.textContent = 'Une erreur est survenue. Réessayez ou appelez-nous au 01 84 78 28 30.';
+        btn.disabled = false;
+        btn.textContent = 'Envoyer ma demande';
       }
     }
-    document.getElementById('montant').addEventListener('input', updateSimulation);
-    document.getElementById('taux').addEventListener('input', updateSimulation);
-    document.getElementById('duree').addEventListener('input', updateSimulation);
-    updateSimulation();
   </script>
 </body>
 </html>
