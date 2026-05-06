@@ -311,11 +311,17 @@
     .wz-options{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
     .wz-options.wz-col3{grid-template-columns:repeat(3,1fr)}
     .wz-options.wz-col5{grid-template-columns:repeat(5,1fr)}
-    .wz-opt{background:var(--white);border:2px solid var(--border);border-radius:var(--r-md);padding:20px 16px;text-align:center;cursor:pointer;transition:all .25s;position:relative}
-    .wz-opt:hover{border-color:var(--gold);box-shadow:var(--shadow-sm)}
-    .wz-opt.selected{border-color:var(--gold);background:var(--gold-pale);box-shadow:0 0 0 3px rgba(196,151,58,.15)}
-    .wz-opt-icon{font-size:28px;margin-bottom:8px;display:block}
-    .wz-opt-label{font-weight:600;font-size:14px;color:var(--ink);display:block}
+    .wz-opt{background:var(--white);border-radius:20px;padding:20px 14px 16px;text-align:center;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;position:relative;box-shadow:rgba(17,24,39,.08) 0 0 0 1px}
+    .wz-opt:hover{transform:scale(1.05);box-shadow:rgba(196,151,58,.4) 0 0 0 2px}
+    .wz-opt:active{transform:scale(0.97)}
+    .wz-opt.selected{box-shadow:rgba(196,151,58,.5) 0 0 0 2.5px;background:var(--gold-pale)}
+    .wz-opt-icon{width:52px;height:52px;border-radius:16px;display:inline-flex;align-items:center;justify-content:center;margin:0 auto 10px}
+    .wz-opt-icon svg{width:26px;height:26px;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+    .wz-opt-icon.pill-forest{background:var(--forest)}
+    .wz-opt-icon.pill-forest svg{stroke:var(--gold-light)}
+    .wz-opt-icon.pill-teal{background:var(--teal-pale)}
+    .wz-opt-icon.pill-teal svg{stroke:var(--teal)}
+    .wz-opt-label{font-weight:600;font-size:13px;color:var(--ink);display:block;line-height:1.3}
     .wz-fields{display:grid;grid-template-columns:1fr;gap:20px}
     .wz-fields.wz-fields-2{grid-template-columns:1fr 1fr}
     .wz-field label{display:block;font-weight:600;font-size:14px;color:var(--ink);margin-bottom:8px}
@@ -514,19 +520,19 @@
           <div class="wz-hint">Sélectionnez le type d'acquisition envisagé</div>
           <div class="wz-options">
             <div class="wz-opt" data-val="Résidence principale" onclick="wzSelect(this)">
-              <span class="wz-opt-icon">🏠</span>
+              <div class="wz-opt-icon pill-forest"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 4l9 6.5"/><path d="M5 9.5V19a1 1 0 001 1h12a1 1 0 001-1V9.5"/><path d="M10 20v-6h4v6"/></svg></div>
               <span class="wz-opt-label">Résidence principale</span>
             </div>
             <div class="wz-opt" data-val="Investissement locatif" onclick="wzSelect(this)">
-              <span class="wz-opt-icon">🏗</span>
+              <div class="wz-opt-icon pill-forest"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="15" rx="1.5"/><path d="M3 11h18"/><path d="M10 6v15"/><path d="M3 16h7"/><path d="M7 6V3.5"/><path d="M17 6V3.5"/></svg></div>
               <span class="wz-opt-label">Investissement locatif</span>
             </div>
             <div class="wz-opt" data-val="Résidence secondaire" onclick="wzSelect(this)">
-              <span class="wz-opt-icon">🌴</span>
+              <div class="wz-opt-icon pill-forest"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 010 20"/><path d="M12 2a15 15 0 000 20"/></svg></div>
               <span class="wz-opt-label">Résidence secondaire</span>
             </div>
             <div class="wz-opt" data-val="Rachat de crédit" onclick="wzSelect(this)">
-              <span class="wz-opt-icon">🔄</span>
+              <div class="wz-opt-icon pill-forest"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg></div>
               <span class="wz-opt-label">Rachat de crédit</span>
             </div>
           </div>
@@ -540,12 +546,30 @@
           <div class="wz-question">Quelle est votre situation professionnelle ?</div>
           <div class="wz-hint">Les banques évaluent votre stabilité de revenus</div>
           <div class="wz-options wz-col3">
-            <div class="wz-opt" data-val="Salarié CDI" onclick="wzSelect(this)"><span class="wz-opt-icon">💼</span><span class="wz-opt-label">Salarié CDI</span></div>
-            <div class="wz-opt" data-val="Fonctionnaire" onclick="wzSelect(this)"><span class="wz-opt-icon">🏛</span><span class="wz-opt-label">Fonctionnaire</span></div>
-            <div class="wz-opt" data-val="Indépendant / TNS" onclick="wzSelect(this)"><span class="wz-opt-icon">🧑‍💻</span><span class="wz-opt-label">Indépendant / TNS</span></div>
-            <div class="wz-opt" data-val="Profession libérale" onclick="wzSelect(this)"><span class="wz-opt-icon">⚕️</span><span class="wz-opt-label">Profession libérale</span></div>
-            <div class="wz-opt" data-val="CDD / Intérim" onclick="wzSelect(this)"><span class="wz-opt-icon">📋</span><span class="wz-opt-label">CDD / Intérim</span></div>
-            <div class="wz-opt" data-val="Retraité" onclick="wzSelect(this)"><span class="wz-opt-icon">🌅</span><span class="wz-opt-label">Retraité</span></div>
+            <div class="wz-opt" data-val="Salarié CDI" onclick="wzSelect(this)">
+              <div class="wz-opt-icon pill-forest"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
+              <span class="wz-opt-label">Salarié CDI</span>
+            </div>
+            <div class="wz-opt" data-val="Fonctionnaire" onclick="wzSelect(this)">
+              <div class="wz-opt-icon pill-forest"><svg viewBox="0 0 24 24"><path d="M2 20h20"/><path d="M5 20V9l7-5 7 5v11"/><path d="M9 20v-5h6v5"/><path d="M9 11h6"/></svg></div>
+              <span class="wz-opt-label">Fonctionnaire</span>
+            </div>
+            <div class="wz-opt" data-val="Indépendant / TNS" onclick="wzSelect(this)">
+              <div class="wz-opt-icon pill-forest"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><polyline points="8 10 10.5 12.5 16 7"/></svg></div>
+              <span class="wz-opt-label">Indépendant / TNS</span>
+            </div>
+            <div class="wz-opt" data-val="Profession libérale" onclick="wzSelect(this)">
+              <div class="wz-opt-icon pill-forest"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+              <span class="wz-opt-label">Profession libérale</span>
+            </div>
+            <div class="wz-opt" data-val="CDD / Intérim" onclick="wzSelect(this)">
+              <div class="wz-opt-icon pill-forest"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/></svg></div>
+              <span class="wz-opt-label">CDD / Intérim</span>
+            </div>
+            <div class="wz-opt" data-val="Retraité" onclick="wzSelect(this)">
+              <div class="wz-opt-icon pill-forest"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+              <span class="wz-opt-label">Retraité</span>
+            </div>
           </div>
           <div class="wz-nav">
             <button class="wz-btn wz-btn-back" onclick="wzPrev()">← Précédent</button>
@@ -623,11 +647,26 @@
           <div class="wz-question">Où en êtes-vous dans votre projet ?</div>
           <div class="wz-hint">Cela nous aide à calibrer notre accompagnement</div>
           <div class="wz-options wz-col5">
-            <div class="wz-opt" data-val="Je recherche encore un bien" onclick="wzSelect(this)"><span class="wz-opt-icon">🔍</span><span class="wz-opt-label">Je recherche un bien</span></div>
-            <div class="wz-opt" data-val="J'ai trouvé et pense faire une offre" onclick="wzSelect(this)"><span class="wz-opt-icon">🎯</span><span class="wz-opt-label">J'ai trouvé, offre à venir</span></div>
-            <div class="wz-opt" data-val="J'ai fait une offre au vendeur" onclick="wzSelect(this)"><span class="wz-opt-icon">📝</span><span class="wz-opt-label">Offre faite</span></div>
-            <div class="wz-opt" data-val="Je pense signer un compromis bientôt" onclick="wzSelect(this)"><span class="wz-opt-icon">🤝</span><span class="wz-opt-label">Compromis bientôt</span></div>
-            <div class="wz-opt" data-val="J'ai signé un compromis / une promesse" onclick="wzSelect(this)"><span class="wz-opt-icon">✅</span><span class="wz-opt-label">Compromis signé</span></div>
+            <div class="wz-opt" data-val="Je recherche encore un bien" onclick="wzSelect(this)">
+              <div class="wz-opt-icon pill-teal"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+              <span class="wz-opt-label">Je recherche un bien</span>
+            </div>
+            <div class="wz-opt" data-val="J'ai trouvé et pense faire une offre" onclick="wzSelect(this)">
+              <div class="wz-opt-icon pill-teal"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+              <span class="wz-opt-label">J'ai trouvé, offre à venir</span>
+            </div>
+            <div class="wz-opt" data-val="J'ai fait une offre au vendeur" onclick="wzSelect(this)">
+              <div class="wz-opt-icon pill-teal"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+              <span class="wz-opt-label">Offre faite</span>
+            </div>
+            <div class="wz-opt" data-val="Je pense signer un compromis bientôt" onclick="wzSelect(this)">
+              <div class="wz-opt-icon pill-teal"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg></div>
+              <span class="wz-opt-label">Compromis bientôt</span>
+            </div>
+            <div class="wz-opt" data-val="J'ai signé un compromis / une promesse" onclick="wzSelect(this)">
+              <div class="wz-opt-icon pill-teal"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+              <span class="wz-opt-label">Compromis signé</span>
+            </div>
           </div>
           <div class="wz-nav">
             <button class="wz-btn wz-btn-back" onclick="wzPrev()">← Précédent</button>
