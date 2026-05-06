@@ -376,7 +376,8 @@
       border-radius: var(--r-lg); box-shadow: var(--shadow-sm); transition: all .3s;
     }
     .why-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
-    .why-icon { font-size: 28px; margin-bottom: 16px; }
+    .why-icon{width:48px;height:48px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;background:var(--forest)}
+    .why-icon svg{width:24px;height:24px;fill:none;stroke:var(--gold-light);stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
     .why-card-number {
       font-family: 'Fraunces', serif; font-size: 36px; font-weight: 700; color: var(--gold);
       margin-bottom: 16px;
@@ -401,7 +402,8 @@
       padding: 24px; transition: all .3s;
     }
     .specific-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); background: var(--white); }
-    .specific-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+    .specific-icon{width:44px;height:44px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;background:var(--teal-pale)}
+    .specific-icon svg{width:22px;height:22px;fill:none;stroke:var(--teal);stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
     .specific-body h3 { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
     .specific-body p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
     .specifics-cta {
@@ -871,22 +873,22 @@
       <h2 class="sec-title">Ce qui nous distingue<br>d’un courtier classique</h2>
       <div class="cards-grid cards-grid-4">
         <div class="why-card reveal">
-          <div class="why-icon">📉</div>
+          <div class="why-icon"><svg viewBox="0 0 24 24"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg></div>
           <h3>Meilleur taux du marché</h3>
           <p>Accès aux meilleures offres grâce à notre réseau de +20 banques partenaires. Taux réservés aux courtiers, souvent inférieurs de 0,45% aux offres publiques.</p>
         </div>
         <div class="why-card reveal">
-          <div class="why-icon">⏱</div>
+          <div class="why-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
           <h3>Gain de temps</h3>
           <p>Nous gérons l’intégralité de votre dossier, de la simulation à la signature. Vous n’avez qu’à nous fournir les documents — nous nous chargeons du reste.</p>
         </div>
         <div class="why-card reveal">
-          <div class="why-icon">🛡</div>
+          <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
           <h3>Assurance emprunteur optimisée</h3>
           <p>Délégation d’assurance jusqu’à 40% moins chère que la banque. Garanties équivalentes, tarifs négociés. Changez d’assurance à tout moment.</p>
         </div>
         <div class="why-card reveal why-card-gold">
-          <div class="why-icon">🏛</div>
+          <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M2 20h20"/><path d="M5 20V9l7-5 7 5v11"/><path d="M9 20v-5h6v5"/><path d="M9 11h6"/></svg></div>
           <h3>Expertise patrimoniale intégrée</h3>
           <p>Votre financement n’est pas isolé — il s’inscrit dans votre stratégie globale. En tant que CGP, nous intégrons fiscalité, transmission et optimisation du montage dès la conception du crédit.</p>
         </div>
@@ -902,49 +904,49 @@
       <p class="sec-intro">Là où la plupart des courtiers s’arrêtent, nous continuons. Notre double expertise courtage + gestion de patrimoine nous permet de structurer des financements que les banques refusent souvent en direct.</p>
       <div class="specifics-grid">
         <div class="specific-card reveal">
-          <div class="specific-icon">🏗</div>
+          <div class="specific-icon"><svg viewBox="0 0 24 24"><rect x="1" y="12" width="6" height="10" rx="1"/><rect x="9" y="6" width="6" height="16" rx="1"/><rect x="17" y="2" width="6" height="20" rx="1"/></svg></div>
           <div class="specific-body">
             <h3>Marchands de biens & promoteurs</h3>
             <p>Financement de portefeuilles immobiliers, lignes de crédit court terme, structuration des flux entre acquisition et revente.</p>
           </div>
         </div>
         <div class="specific-card reveal">
-          <div class="specific-icon">🌆</div>
+          <div class="specific-icon"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l5-4v18"/><path d="M19 21V11l-5-2v12"/><path d="M9 9h1"/><path d="M9 13h1"/><path d="M14 13h1"/></svg></div>
           <div class="specific-body">
             <h3>Aménageurs & opérations foncières</h3>
             <p>Accompagnement sur les montages de financement de terrains, divisions parcellaires et opérations de promotion.</p>
           </div>
         </div>
         <div class="specific-card reveal">
-          <div class="specific-icon">📦</div>
+          <div class="specific-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
           <div class="specific-body">
             <h3>SCPI à crédit</h3>
             <p>Financement de parts de SCPI par emprunt pour optimiser l’effet de levier et déduire les intérêts des revenus fonciers.</p>
           </div>
         </div>
         <div class="specific-card reveal">
-          <div class="specific-icon">🏠</div>
+          <div class="specific-icon"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 4l9 6.5"/><path d="M5 9.5V19a1 1 0 001 1h12a1 1 0 001-1V9.5"/><path d="M10 20v-6h4v6"/></svg></div>
           <div class="specific-body">
             <h3>Prêt de trésorerie hypothécaire</h3>
             <p>Mobiliser la valeur d’un bien détenu en pleine propriété pour financer un projet sans vendre — solution pour les patrimoines constitués.</p>
           </div>
         </div>
         <div class="specific-card reveal">
-          <div class="specific-icon">⚖️</div>
+          <div class="specific-icon"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 7l7-4 7 4"/><path d="M3 17l4-2V9"/><path d="M21 17l-4-2V9"/><circle cx="3" cy="17" r="1"/><circle cx="21" cy="17" r="1"/></svg></div>
           <div class="specific-body">
             <h3>Financement de succession</h3>
             <p>Prêts pour régler les droits de succession ou racheter la quote-part d’un cohéritier, sans liquider le patrimoine familial.</p>
           </div>
         </div>
         <div class="specific-card reveal">
-          <div class="specific-icon">🔄</div>
+          <div class="specific-icon"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10"/><path d="M20.49 15a9 9 0 01-14.85 3.36L1 14"/></svg></div>
           <div class="specific-body">
             <h3>Prêt viager hypothécaire</h3>
             <p>Solution pour les seniors souhaitant dégager des liquidités en mobilisant leur résidence principale, sans rembourser de leur vivant.</p>
           </div>
         </div>
         <div class="specific-card reveal">
-          <div class="specific-icon">📊</div>
+          <div class="specific-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
           <div class="specific-body">
             <h3>Regroupement de crédits</h3>
             <p>Consolidation de plusieurs prêts en un seul pour réduire les mensualités et simplifier la gestion de votre endettement.</p>
