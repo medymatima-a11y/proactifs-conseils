@@ -17,6 +17,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P53RQGXJZX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-P53RQGXJZX');
+  gtag('config', 'AW-835423035');
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 /* ══════════════════════════════════════════════
@@ -484,6 +493,37 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:18px; h
 .btn-cta-outline:hover { border-color:rgba(255,255,255,.6); background:rgba(255,255,255,.06); }
 
 /* ══════════════════════════════════════════════
+   BLOG SECTION
+══════════════════════════════════════════════ */
+.blog-section { background:var(--sand); padding:80px 0; }
+.blog-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:48px; }
+.blog-card {
+  background:var(--ivory); border:1px solid var(--border); border-radius:var(--r-lg);
+  overflow:hidden; text-decoration:none; color:inherit;
+  display:flex; flex-direction:column;
+  transition:transform .25s, box-shadow .25s;
+  cursor:pointer;
+}
+.blog-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(0,0,0,.09); }
+.blog-card-img {
+  width:100%; height:180px; object-fit:cover;
+  background:linear-gradient(135deg,var(--forest) 0%,#2a5840 100%);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.blog-card-img-inner { font-size:48px; }
+.blog-card-body { padding:24px; display:flex; flex-direction:column; flex:1; }
+.blog-card-tag { font-family:'DM Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--gold); margin-bottom:10px; }
+.blog-card-title { font-family:'Fraunces',serif; font-size:20px; font-weight:600; color:var(--ink); line-height:1.35; margin-bottom:10px; }
+.blog-card-desc { font-size:14px; color:var(--muted); line-height:1.6; flex:1; }
+.blog-card-footer { margin-top:16px; display:flex; align-items:center; justify-content:space-between; }
+.blog-card-date { font-size:12px; color:var(--muted); }
+.blog-card-link { font-size:13px; font-weight:600; color:var(--gold); text-decoration:none; display:flex; align-items:center; gap:4px; }
+.blog-see-all { text-align:center; margin-top:36px; }
+@media(max-width:900px){ .blog-grid { grid-template-columns:1fr; } }
+
+/*
+══════════════════════════════════════════════
    FOOTER
 ══════════════════════════════════════════════ */
 footer {
@@ -646,8 +686,8 @@ footer {
 }
 .lead-title {
   font-family: 'Fraunces', serif;
-  font-size: clamp(30px, 4vw, 52px);
-  font-weight: 700; color: #fff; line-height:1.1; margin-bottom:16px;
+  font-size: clamp(26px, 3.4vw, 44px);
+  font-weight: 700; color: #fff; line-height:1.15; margin-bottom:16px;
 }
 .lead-title em { color: var(--gold-light); font-style:italic; }
 .lead-title .char {
@@ -890,6 +930,41 @@ footer {
 }
 .wiz-submit-btn:hover { background:#B8882E; }
 
+/* Intro screen */
+.wiz-intro-body {
+  padding:36px 28px 28px; text-align:center;
+}
+.wiz-intro-icon {
+  font-size:40px; margin-bottom:16px;
+}
+.wiz-intro-title {
+  font-family:'Fraunces',serif; font-size:24px; color:var(--ink); margin-bottom:10px; line-height:1.3;
+}
+.wiz-intro-desc {
+  font-size:14.5px; color:var(--slate); line-height:1.7; max-width:400px; margin:0 auto 24px;
+}
+.wiz-intro-points {
+  text-align:left; max-width:340px; margin:0 auto 28px;
+  display:flex; flex-direction:column; gap:14px;
+}
+.wiz-intro-point {
+  display:flex; align-items:center; gap:12px; font-size:14px; color:var(--ink);
+}
+.wiz-intro-point-icon {
+  font-size:18px; flex-shrink:0; width:28px; text-align:center;
+}
+.wiz-intro-cta {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--forest); color:#fff; padding:14px 32px;
+  border:none; border-radius:8px; font-size:15px; font-weight:600;
+  cursor:pointer; transition:background .2s, transform .15s;
+  font-family:inherit;
+}
+.wiz-intro-cta:hover { background:#244a38; transform:translateY(-1px); }
+.wiz-intro-free {
+  font-size:12.5px; color:var(--slate); margin-top:14px; letter-spacing:0.3px;
+}
+
 /* Thank you */
 .wiz-thanks-body {
   padding:48px 28px; text-align:center;
@@ -939,6 +1014,7 @@ footer {
     <li><a href="#approche">Notre approche</a></li>
     <li><a href="#temoignages">Témoignages</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="/blog">Blog</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -951,6 +1027,7 @@ footer {
   <a href="#approche">Notre approche</a>
   <a href="#temoignages">Témoignages</a>
   <a href="#contact">Contact</a>
+  <a href="/blog">Blog</a>
   <a href="#" onclick="openModal(null);return false">Bilan patrimonial sur mesure</a>
 </div>
 
@@ -1006,7 +1083,7 @@ footer {
 <div id="trust">
   <div class="trust-item"><strong>+400</strong> clients accompagnés</div>
   <div class="trust-sep"></div>
-  <div class="trust-item"><strong>100%</strong> indépendant</div>
+  <div class="trust-item"><strong>100%</strong> Dédié à vos intérêts</div>
   <div class="trust-sep"></div>
   <div class="trust-item"><strong>10 ans</strong> d'expertise</div>
   <div class="trust-sep"></div>
@@ -1121,13 +1198,27 @@ footer {
       <div class="wiz-progress-track"><div class="wiz-progress-fill" id="wizFill" style="width:25%"></div></div>
     </div>
 
+    <!-- INTRO SCREEN -->
+    <div id="wizIntro" class="wiz-intro-body">
+      <div class="wiz-intro-icon" id="wizIntroIcon">🎯</div>
+      <h3 class="wiz-intro-title" id="wizIntroTitle">Votre diagnostic personnalisé</h3>
+      <p class="wiz-intro-desc" id="wizIntroDesc">Répondez à quelques questions rapides pour que nous puissions analyser votre situation et vous proposer les solutions les plus adaptées.</p>
+      <div class="wiz-intro-points">
+        <div class="wiz-intro-point"><span class="wiz-intro-point-icon">⏱</span><span>3 questions rapides — moins de 2 minutes</span></div>
+        <div class="wiz-intro-point"><span class="wiz-intro-point-icon">🔒</span><span>Vos données restent strictement confidentielles</span></div>
+        <div class="wiz-intro-point"><span class="wiz-intro-point-icon">📞</span><span>Un conseiller vous rappelle sous 24h</span></div>
+      </div>
+      <button class="wiz-intro-cta" onclick="startWizQuestions()">Commencer mon diagnostic →</button>
+      <p class="wiz-intro-free">100% gratuit · Sans engagement</p>
+    </div>
+
     <!-- QUESTION STEPS -->
-    <div id="wizQBody" class="wiz-body">
+    <div id="wizQBody" class="wiz-body" style="display:none">
       <div class="wiz-q" id="wizQ"></div>
       <div class="wiz-sub" id="wizSub"></div>
       <div class="wiz-options" id="wizOpts"></div>
     </div>
-    <div class="wiz-footer" id="wizQFooter">
+    <div class="wiz-footer" id="wizQFooter" style="display:none">
       <button class="wiz-back-btn" id="wizBack" onclick="wizPrev()">← Retour</button>
       <button class="wiz-next-btn" id="wizNext" onclick="wizNext()">Continuer <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
     </div>
@@ -1155,7 +1246,7 @@ footer {
           </select>
         </div>
         <p class="wiz-gdpr">🔒 Vos données sont confidentielles et ne seront jamais revendues. En soumettant ce formulaire, vous acceptez d'être contacté par Proactifs Conseils.</p>
-        <button class="wiz-submit-btn" onclick="wizSubmit()">Recevoir mon analyse personnalisée →</button>
+        <button class="wiz-submit-btn" onclick="wizSubmit()">Envoyer ma demande →</button>
       </div>
     </div>
 
@@ -1195,7 +1286,7 @@ footer {
           <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
           <div class="svc-title">Investissement immobilier</div>
           <p class="svc-desc">SCPI, LMNP, SCI IS… Nous construisons la stratégie qui maximise votre rendement net.</p>
-          <a class="svc-link" href="/investissement-scpi-hauts-de-seine">En savoir plus <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a class="svc-link" href="/investissement-immobilier">En savoir plus <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
       </div>
       <div class="svc-card reveal d3">
@@ -1204,7 +1295,7 @@ footer {
           <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
           <div class="svc-title">Placements financiers</div>
           <p class="svc-desc">Assurance vie, PEA, produits structurés… Les meilleurs supports selon votre profil de risque.</p>
-          <a class="svc-link" href="/bilan-patrimonial-gratuit">En savoir plus <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a class="svc-link" href="/placements-financiers">En savoir plus <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
       </div>
       <div class="svc-card reveal d4">
@@ -1226,7 +1317,7 @@ footer {
         </div>
       </div>
       <div class="svc-card reveal d2">
-        <img class="svc-img" src="/images/cession-entreprise.jpg" alt="Cession entreprise">
+        <img class="svc-img" src="/images/cession-entreprise.jpg" alt="Cession entreprise" style="object-position: center 15%;">
         <div class="svc-body">
           <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
           <div class="svc-title">Cession d'entreprise</div>
@@ -1333,6 +1424,10 @@ footer {
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:5px"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg>
         Rendement SCPI
       </button>
+      <button class="sim-tab" onclick="switchSim('retraite')">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:5px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Retraite
+      </button>
     </div>
     <div class="sim-panels">
       <!-- CRÉDIT -->
@@ -1435,6 +1530,108 @@ footer {
           <p class="result-note">Performances passées ne préjugent pas des performances futures. Investissement à risque de perte en capital.</p>
         </div>
       </div>
+      <!-- RETRAITE -->
+      <div class="sim-panel" id="panel-retraite">
+        <div class="sim-form">
+          <h3>Simulateur retraite</h3>
+          <div class="field">
+            <label>Votre âge actuel</label>
+            <div class="range-row"><span>Âge</span><span class="range-val" id="rv-age">40 ans</span></div>
+            <input type="range" min="25" max="60" step="1" value="40" oninput="updateRange('age',this.value,false,' ans');calcRetraite()">
+          </div>
+          <div class="field">
+            <label>Âge de départ souhaité</label>
+            <div class="range-row"><span>Départ</span><span class="range-val" id="rv-depart">64 ans</span></div>
+            <input type="range" min="60" max="70" step="1" value="64" oninput="updateRange('depart',this.value,false,' ans');calcRetraite()">
+          </div>
+          <div class="field">
+            <label>Épargne actuelle dédiée retraite</label>
+            <div class="range-row"><span>Capital</span><span class="range-val" id="rv-capital">30 000 €</span></div>
+            <input type="range" min="0" max="500000" step="5000" value="30000" oninput="updateRange('capital',this.value,true,'€');calcRetraite()">
+          </div>
+          <div class="field">
+            <label>Effort d'épargne mensuel</label>
+            <div class="range-row"><span>Mensuel</span><span class="range-val" id="rv-effort">500 €</span></div>
+            <input type="range" min="100" max="5000" step="50" value="500" oninput="updateRange('effort',this.value,true,'€');calcRetraite()">
+          </div>
+          <div class="field">
+            <label>Rendement annuel espéré (%)</label>
+            <div class="range-row"><span>Rendement</span><span class="range-val" id="rv-rdt">4 %</span></div>
+            <input type="range" min="1" max="8" step="0.5" value="4" oninput="updateRange('rdt',this.value,false,' %');calcRetraite()">
+          </div>
+          <button class="sim-btn" onclick="calcRetraite()">Estimer ma retraite</button>
+        </div>
+        <div class="sim-results">
+          <h3>Votre projection retraite</h3>
+          <div class="result-card"><div class="r-label">Capital estimé au départ</div><div class="r-val" id="r-ret-capital">—</div></div>
+          <div class="result-card"><div class="r-label">Complément mensuel sur 25 ans</div><div class="r-val" id="r-ret-mensuel">—</div><div class="r-sub">Rente estimée après départ</div></div>
+          <div class="result-card"><div class="r-label">Total versé par vous</div><div class="r-val" id="r-ret-verse">—</div></div>
+          <div class="chart-wrap"><canvas id="chartRetraite"></canvas></div>
+          <p class="result-note">Projection indicative hors inflation et fiscalité. Prenez rendez-vous pour un bilan retraite personnalisé.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ BLOG ════════════ -->
+<section class="blog-section">
+  <div class="container">
+    <div class="sec-header">
+      <div class="sec-label">Ressources</div>
+      <h2 class="sec-title">Nos derniers articles</h2>
+      <p class="sec-sub">Analyses, stratégies et actualités patrimoniales pour vous aider à décider.</p>
+    </div>
+    <div class="blog-grid">
+
+      <a class="blog-card reveal" href="/blog/per-vs-assurance-vie-2026">
+        <div class="blog-card-img" style="position:relative;overflow:hidden;background:#0a1f14;">
+          <span style="font-family:'Fraunces',Georgia,serif;font-size:80px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-3px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">PER</span>
+          <span style="font-family:'Fraunces',Georgia,serif;font-size:17px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Épargne</span>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-tag">Épargne retraite</div>
+          <div class="blog-card-title">PER vs Assurance Vie 2026 : lequel choisir pour votre épargne&nbsp;?</div>
+          <p class="blog-card-desc">Comparatif complet des deux enveloppes fiscales — fiscalité, liquidité, transmission. On vous dit lequel privilégier selon votre profil.</p>
+          <div class="blog-card-footer">
+            <span class="blog-card-date">Avril 2026</span>
+            <span class="blog-card-link">Lire l'article →</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="blog-card reveal d1" href="/blog/reduire-impots-2026">
+        <div class="blog-card-img" style="position:relative;overflow:hidden;background:#0a1f14;">
+          <span style="font-family:'Fraunces',Georgia,serif;font-size:80px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">TMI</span>
+          <span style="font-family:'Fraunces',Georgia,serif;font-size:17px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Fiscalité</span>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-tag">Fiscalité</div>
+          <div class="blog-card-title">Réduire ses impôts en 2026 : les 7 leviers à activer avant le 31 décembre</div>
+          <p class="blog-card-desc">PER, déficit foncier, FCPI, dons… Tour d'horizon des dispositifs encore accessibles et des erreurs à éviter.</p>
+          <div class="blog-card-footer">
+            <span class="blog-card-date">Avril 2026</span>
+            <span class="blog-card-link">Lire l'article →</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="blog-card reveal d2" href="/blog/lmnp-2026">
+        <div class="blog-card-img" style="position:relative;overflow:hidden;background:#0a1f14;">
+          <span style="font-family:'Fraunces',Georgia,serif;font-size:68px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">LMNP</span>
+          <span style="font-family:'Fraunces',Georgia,serif;font-size:17px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Immobilier</span>
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-tag">Immobilier</div>
+          <div class="blog-card-title">LMNP 2026 : ce qui change après la réforme et comment s'adapter</div>
+          <p class="blog-card-desc">La réforme fiscale du LMNP modifie en profondeur les règles. Ce qu'il faut savoir si vous êtes propriétaire ou envisagez d'investir.</p>
+          <div class="blog-card-footer">
+            <span class="blog-card-date">Avril 2026</span>
+            <span class="blog-card-link">Lire l'article →</span>
+          </div>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>
@@ -1486,7 +1683,8 @@ footer {
 </section>
 
 <!-- ════════════ FOOTER ════════════ -->
-<footer id="contact">
+<div id="contact" style="scroll-margin-top:80px"></div>
+<footer id="footer-bottom">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand" style="align-items:flex-start">
@@ -1514,6 +1712,10 @@ footer {
         <a href="/page-conseiller-patrimoine-colombes">Notre conseiller</a>
         <a href="#approche">Notre approche</a>
         <a href="#temoignages">Témoignages</a>
+        <a href="/conseiller-patrimoine-courbevoie">Courbevoie</a>
+        <a href="/conseiller-patrimoine-asnieres">Asnières-sur-Seine</a>
+        <a href="/conseiller-patrimoine-levallois">Levallois-Perret</a>
+        <a href="/conseiller-patrimoine-nanterre">Nanterre</a>
       </div>
       <div class="footer-col">
         <h4>Contact</h4>
@@ -1524,7 +1726,7 @@ footer {
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 Proactifs Conseils – Tous droits réservés · CIF enregistré AMF</p>
+      <p>© 2026 Proactifs Conseils – Tous droits réservés · CIF enregistré AMF</p>
       <p>Mentions légales · Politique de confidentialité</p>
     </div>
   </div>
@@ -1598,22 +1800,23 @@ function closeModal() {
 
 /* ════════ SIMULATEURS ════════ */
 function switchSim(name) {
-  document.querySelectorAll('.sim-tab').forEach((t,i) => t.classList.toggle('active', ['credit','fiscal','scpi'][i]===name));
+  document.querySelectorAll('.sim-tab').forEach((t,i) => t.classList.toggle('active', ['credit','fiscal','scpi','retraite'][i]===name));
   document.querySelectorAll('.sim-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panel-'+name).classList.add('active');
   if(name==='credit') calcCredit();
   if(name==='fiscal') calcFiscal();
   if(name==='scpi') calcScpi();
+  if(name==='retraite') calcRetraite();
 }
 function fmtEur(n) { return new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n); }
 function updateRange(id, val, isMoney, suffix) {
-  const el = document.getElementById('cv-'+id) || document.getElementById('fv-'+id) || document.getElementById('sv-'+id);
+  const el = document.getElementById('cv-'+id) || document.getElementById('fv-'+id) || document.getElementById('sv-'+id) || document.getElementById('rv-'+id);
   if(!el) return;
   if(isMoney) { el.textContent = new Intl.NumberFormat('fr-FR').format(val) + ' ' + suffix; }
   else { el.textContent = parseFloat(val).toLocaleString('fr-FR') + suffix; }
 }
 
-let chartCredit, chartFiscal, chartScpi;
+let chartCredit, chartFiscal, chartScpi, chartRetraite;
 function calcCredit() {
   const prix   = +document.querySelector('#panel-credit input[oninput*="prix"]').value;
   const apport = +document.querySelector('#panel-credit input[oninput*="apport"]').value;
@@ -1682,6 +1885,45 @@ function calcScpi() {
     type:'line',
     data:{labels:years.map(y=>'Année '+y),datasets:[{data:vals,borderColor:'#C4973A',backgroundColor:'rgba(196,151,58,.08)',fill:true,tension:.4,pointRadius:2}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>fmtEur(v)},grid:{color:'rgba(0,0,0,.05)'}},x:{grid:{display:false}}}}
+  });
+}
+
+function calcRetraite() {
+  const age = +document.querySelector('#panel-retraite input[oninput*="\'age\'"]').value;
+  const depart = +document.querySelector('#panel-retraite input[oninput*="\'depart\'"]').value;
+  const capital = +document.querySelector('#panel-retraite input[oninput*="\'capital\'"]').value;
+  const effort = +document.querySelector('#panel-retraite input[oninput*="\'effort\'"]').value;
+  const rdt = +document.querySelector('#panel-retraite input[oninput*="\'rdt\'"]').value / 100;
+  const annees = Math.max(1, depart - age);
+  const mois = annees * 12;
+  const rm = rdt / 12;
+  // Capital final = capital initial composé + versements mensuels composés
+  const capitalFinal = capital * Math.pow(1 + rm, mois) + effort * (Math.pow(1 + rm, mois) - 1) / rm;
+  const totalVerse = capital + effort * mois;
+  // Rente mensuelle sur 25 ans (300 mois) avec le même taux
+  const moisRente = 300;
+  const mensuelRente = rm === 0 ? capitalFinal / moisRente : capitalFinal * rm * Math.pow(1 + rm, moisRente) / (Math.pow(1 + rm, moisRente) - 1);
+  document.getElementById('r-ret-capital').textContent = fmtEur(capitalFinal);
+  document.getElementById('r-ret-mensuel').textContent = fmtEur(mensuelRente);
+  document.getElementById('r-ret-verse').textContent = fmtEur(totalVerse);
+  const ctx = document.getElementById('chartRetraite').getContext('2d');
+  const years = Array.from({length: annees + 1}, (_, i) => i);
+  const valsCapital = years.map(y => {
+    const m = y * 12;
+    return Math.round(capital * Math.pow(1 + rm, m) + (rm > 0 ? effort * (Math.pow(1 + rm, m) - 1) / rm : effort * m));
+  });
+  const valsVerse = years.map(y => Math.round(capital + effort * y * 12));
+  if(chartRetraite) chartRetraite.destroy();
+  chartRetraite = new Chart(ctx, {
+    type:'line',
+    data:{
+      labels: years.map(y => age + y + ' ans'),
+      datasets:[
+        {label:'Capital projeté', data:valsCapital, borderColor:'#1E7A6E', backgroundColor:'rgba(30,122,110,.08)', fill:true, tension:.4, pointRadius:2},
+        {label:'Total versé', data:valsVerse, borderColor:'#C4973A', backgroundColor:'rgba(196,151,58,.08)', fill:true, tension:.1, pointRadius:2, borderDash:[5,5]}
+      ]
+    },
+    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom',labels:{color:'#6B7280',font:{size:12}}}}, scales:{y:{ticks:{callback:v=>fmtEur(v)},grid:{color:'rgba(0,0,0,.05)'}},x:{grid:{display:false}}}}
   });
 }
 
@@ -1864,7 +2106,8 @@ const flows = {
         {l:"Salaires uniquement", d:"Déclaration standard"},
         {l:"Revenus fonciers", d:"Location nue"},
         {l:"LMNP – Location meublée", d:"Régime réel ou micro-BIC"},
-        {l:"Plus-values immobilières ou mobilières", d:""}
+        {l:"Plus-values immobilières ou mobilières", d:""},
+        {l:"Autres", d:"SCI, BNC, revenus étrangers, cryptomonnaies…"}
       ]},
       { q:"Êtes-vous actuellement accompagné(e)\u00a0?", sub:"", opts:[
         {l:"Non, je gère seul(e)", d:""},
@@ -1878,11 +2121,17 @@ const flows = {
         {l:"Oui, j'ai eu un redressement", d:"Je veux sécuriser mes futures déclarations"},
         {l:"Je ne sais pas si tout était juste", d:""}
       ]},
-      { q:"Quel est votre principal objectif fiscal\u00a0?", sub:"Cela nous permettra d'orienter notre accompagnement.", opts:[
-        {l:"Réduire mon impôt sur le revenu", d:"Optimiser ma TMI et mes déductions"},
-        {l:"Optimiser ma déclaration de revenus fonciers / LMNP", d:"Régime réel, amortissements, charges"},
-        {l:"Régulariser une situation passée", d:"Corriger une erreur ou un oubli"},
-        {l:"Anticiper les impôts de l'année prochaine", d:"Préparer dès maintenant"}
+      { q:"Quelles difficultés rencontrez-vous actuellement\u00a0?", sub:"Sélectionnez celle qui vous concerne le plus.", opts:[
+        {l:"Choix du régime fiscal", d:"Micro-foncier, réel, micro-BIC… je ne sais pas lequel choisir"},
+        {l:"Cases et formulaires complexes", d:"2044, 2042-C, annexes… je m'y perds"},
+        {l:"Calcul des charges déductibles", d:"Travaux, intérêts, assurance… qu'est-ce que je peux déduire ?"},
+        {l:"Pas de difficulté particulière", d:"Je veux juste m'assurer de ne rien oublier"}
+      ]},
+      { q:"Qu'attendez-vous de notre accompagnement\u00a0?", sub:"Cela nous permet de préparer au mieux votre premier échange.", opts:[
+        {l:"Vérifier ma déclaration avant envoi", d:"Relecture complète pour éviter les erreurs"},
+        {l:"La remplir entièrement pour moi", d:"Prise en charge complète de la déclaration"},
+        {l:"Corriger une déclaration déjà envoyée", d:"Déclaration rectificative si nécessaire"},
+        {l:"Un bilan fiscal global", d:"Déclaration + stratégie d'optimisation"}
       ]},
       { q:"Quand souhaitez-vous débuter la préparation\u00a0?", sub:"", opts:[
         {l:"Cette semaine", d:"Je souhaite démarrer rapidement"},
@@ -1896,22 +2145,59 @@ const flows = {
 
 let wizService='', wizStep=0, wizAnswers=[];
 
+const wizIntros = {
+  impots:       { icon:'💰', title:'Payez-vous trop d\'impôts ?',       desc:'Découvrez en quelques questions les leviers d\'optimisation fiscale adaptés à votre situation.' },
+  immo:         { icon:'🏠', title:'Votre projet immobilier sur mesure',    desc:'Quelques questions pour identifier le montage le plus rentable et fiscalement optimal pour vous.' },
+  retraite:     { icon:'🌅', title:'Anticipez sereinement votre retraite',  desc:'Évaluons ensemble votre situation pour construire une stratégie de revenus complémentaires.' },
+  epargne:      { icon:'📈', title:'Faites fructifier votre épargne',       desc:'Quelques questions pour vous proposer une allocation sur mesure, adaptée à vos objectifs.' },
+  transmission: { icon:'👨‍👩‍👧‍👦', title:'Protégez vos proches',                 desc:'Anticipez la transmission de votre patrimoine pour protéger vos proches et optimiser la fiscalité.' },
+  cession:      { icon:'🏢', title:'Préparez la cession de votre entreprise', desc:'Le montage en amont fait toute la différence. Évaluons ensemble les options pour votre cession.' },
+  credit:       { icon:'🏦', title:'Obtenez les meilleures conditions',     desc:'En tant que courtier, nous négocions pour vous auprès de nos partenaires bancaires.' },
+  declaration:  { icon:'📋', title:'Votre déclaration, vérifiée et optimisée', desc:'Chaque année, nous identifions des erreurs qui coûtent en moyenne plusieurs milliers d\'euros.' },
+};
+
 function openWizard(service) {
   wizService = service;
   wizStep = 0;
   wizAnswers = [];
   document.getElementById('wiz-overlay').classList.add('open');
   document.body.style.overflow='hidden';
+
+  // Show intro screen
+  const intro = wizIntros[service] || { icon:'🎯', title:'Votre diagnostic personnalisé', desc:'Répondez à quelques questions pour une analyse adaptée à votre situation.' };
+  document.getElementById('wizIntroIcon').textContent = intro.icon;
+  document.getElementById('wizIntroTitle').textContent = intro.title;
+  document.getElementById('wizIntroDesc').textContent = intro.desc;
+
+  const flow = flows[wizService];
+  document.getElementById('wizBadgeName').textContent = flow.name;
+
+  document.getElementById('wizIntro').style.display = 'block';
+  document.getElementById('wizQBody').style.display = 'none';
+  document.getElementById('wizQFooter').style.display = 'none';
+  document.getElementById('wizContact').style.display = 'none';
+  document.getElementById('wizThanks').style.display = 'none';
+
+  // Hide progress on intro
+  document.querySelector('.wiz-progress-wrap').style.display = 'none';
+}
+
+function startWizQuestions() {
+  document.getElementById('wizIntro').style.display = 'none';
+  document.querySelector('.wiz-progress-wrap').style.display = 'block';
   renderWizStep();
 }
+
 function closeWizard() {
   document.getElementById('wiz-overlay').classList.remove('open');
   document.body.style.overflow='';
   // Reset
-  document.getElementById('wizQBody').style.display='block';
-  document.getElementById('wizQFooter').style.display='flex';
-  document.getElementById('wizContact').style.display='none';
-  document.getElementById('wizThanks').style.display='none';
+  document.getElementById('wizIntro').style.display = 'none';
+  document.getElementById('wizQBody').style.display = 'block';
+  document.getElementById('wizQFooter').style.display = 'flex';
+  document.getElementById('wizContact').style.display = 'none';
+  document.getElementById('wizThanks').style.display = 'none';
+  document.querySelector('.wiz-progress-wrap').style.display = 'block';
 }
 function renderWizStep() {
   const flow = flows[wizService];
@@ -1954,7 +2240,7 @@ function renderWizStep() {
   }
 
   // Back button
-  document.getElementById('wizBack').style.visibility = wizStep===0 ? 'hidden' : 'visible';
+  document.getElementById('wizBack').style.visibility = 'visible';
   // Next button state
   const nextBtn = document.getElementById('wizNext');
   const step2 = flow.steps[wizStep];
@@ -1977,7 +2263,7 @@ function renderWizStep() {
     transmission: 'Préparer mon bilan transmission →',
     cession:      'Recevoir mon analyse de cession →',
     credit:       'Étudier mon financement →',
-    declaration:  'Optimiser ma déclaration →',
+    declaration:  'Faire vérifier ma déclaration →',
   };
   const isLast = wizStep === flows[wizService].steps.length - 1;
   document.getElementById('wizNext').textContent = isLast ? (lastStepLabels[wizService] || 'Finaliser ma demande →') : 'Continuer →';
@@ -2020,7 +2306,14 @@ function wizNext() {
   }
 }
 function wizPrev() {
-  if(wizStep===0) return;
+  if(wizStep===0) {
+    // Retour à l'écran d'intro
+    document.getElementById('wizQBody').style.display = 'none';
+    document.getElementById('wizQFooter').style.display = 'none';
+    document.getElementById('wizIntro').style.display = 'block';
+    document.querySelector('.wiz-progress-wrap').style.display = 'none';
+    return;
+  }
   wizStep--;
   renderWizStep();
 }
@@ -2063,6 +2356,21 @@ async function wizSubmit() {
     console.warn('Subscribe error:', e);
   }
 
+  // ── Google Analytics / Ads conversion tracking ──
+  if (typeof gtag === 'function') {
+    gtag('event', 'generate_lead', {
+      event_category: 'wizard',
+      event_label: wizService,
+      value: 1
+    });
+    // Google Ads conversion
+    gtag('event', 'conversion', {
+      send_to: 'AW-835423035/N_4XCMuSu6YcELuWro4D',
+      value: 30.0,
+      currency: 'EUR'
+    });
+  }
+
   document.getElementById('wizContact').style.display = 'none';
   document.getElementById('wizThanks').style.display  = 'block';
   document.getElementById('wizFill').style.width = '100%';
@@ -2088,6 +2396,15 @@ if (document.readyState === 'loading') {
 // Fallback: force visible after 100ms no matter what
 setTimeout(triggerHeroAnims, 100);
    // ── Ouverture wizard par URL param ──
+// Ex: ?service=declaration ouvre directement le wizard déclaration
+(function(){
+  var valid=['impots','immo','retraite','epargne','transmission','cession','credit','declaration'];
+  var p=new URLSearchParams(window.location.search);
+  var s=p.get('service');
+  if(s&&valid.indexOf(s)!==-1){setTimeout(function(){openWizard(s);},600);}
+})();
+
+// ── Ouverture wizard par URL param ──
 // Ex: ?service=declaration ouvre directement le wizard déclaration
 (function(){
   var valid=['impots','immo','retraite','epargne','transmission','cession','credit','declaration'];
@@ -2170,5 +2487,17 @@ setTimeout(triggerHeroAnims, 100);
 
   obs.observe(title);
 })();
+
+// ── Cartes services entièrement cliquables ──
+document.querySelectorAll('.svc-card').forEach(card => {
+  const link = card.querySelector('.svc-link');
+  if (link) {
+    card.addEventListener('click', (e) => {
+      if (!e.target.closest('a')) {
+        window.location.href = link.href;
+      }
+    });
+  }
+});
 
 </script>

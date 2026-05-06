@@ -6,12 +6,12 @@
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
-  <meta name="description" content="Optimisez votre cession d'entreprise. Apport-cession 150-0 B ter, abattement dirigeant retraite 500k€, structuration post-cession. À Colombes (92). Bilan patrimonial →">
-  <title>Cession d'Entreprise | Fiscalité Dirigeant | Colombes</title>
-  <link rel="canonical" href="https://www.proactifsconseils.fr/cession-entreprise">
+  <meta name="description" content="Placements financiers sur mesure à Colombes (92). Assurance vie, PEA, SCPI, produits structurés. Allocation adaptée à votre profil de risque. Cabinet indépendant →">
+  <title>Placements Financiers Colombes (92) | Proactifs Conseils</title>
+  <link rel="canonical" href="https://www.proactifsconseils.fr/placements-financiers">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Service","name":"Cession d'Entreprise","provider":{"@type":"FinancialService","name":"Proactifs Conseils","address":{"@type":"PostalAddress","streetAddress":"54 Rue du Bournard","addressLocality":"Colombes","postalCode":"92700","addressCountry":"FR"},"telephone":"+33184782830"},"description":"Cession d'entreprise optimisée : apport-cession, abattement dirigeant retraite, structuration post-cession, diversification patrimoine.","areaServed":["Colombes","Hauts-de-Seine","Île-de-France"]}
+  {"@context":"https://schema.org","@type":"Service","name":"Placements Financiers","provider":{"@type":"FinancialService","name":"Proactifs Conseils","address":{"@type":"PostalAddress","streetAddress":"54 Rue du Bournard","addressLocality":"Colombes","postalCode":"92700","addressCountry":"FR"},"telephone":"+33184782830"},"description":"Placements financiers sur mesure : assurance vie, PEA, SCPI, produits structurés, private equity. Allocation adaptée à votre profil de risque.","areaServed":["Colombes","Hauts-de-Seine","Île-de-France"]}
   </script>
   <style>
     :root {
@@ -198,7 +198,7 @@
       right: 0;
       width: 50%;
       height: 100%;
-      background: url('/images/cession-entreprise.jpg') right center / cover;
+      background: url('/images/placement-financier.jpg') right center / cover;
       opacity: 0.15;
       z-index: 0;
     }
@@ -245,9 +245,9 @@
     }
     .hero-stats {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 40px;
-      max-width: 900px;
+      max-width: 700px;
     }
     .hero-stat {
       border-right: 1px solid rgba(232, 201, 122, 0.3);
@@ -343,46 +343,74 @@
       background: var(--gold-light);
       box-shadow: var(--shadow-md);
     }
+    .btn-secondary {
+      background: transparent;
+      color: var(--teal);
+      padding: 12px 32px;
+      border: 1px solid var(--teal);
+      border-radius: var(--r-md);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-secondary:hover {
+      background: var(--teal-pale);
+      color: var(--teal);
+    }
 
-    /* Dispositif Cards - Wide */
-    .dispositif-grid {
+    /* Levier Cards Grid */
+    .levier-grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 32px;
       margin-bottom: 60px;
     }
-    .dispositif-card {
+    .levier-card {
       background: var(--white);
       border-radius: var(--r-lg);
       padding: 40px;
       box-shadow: var(--shadow-sm);
       transition: all 0.3s ease;
-      border-left: 6px solid var(--gold);
     }
-    .dispositif-card:hover {
+    .levier-card:hover {
       box-shadow: var(--shadow-lg);
       transform: translateY(-4px);
     }
-    .dispositif-card h3 {
+    .levier-tag {
+      display: inline-block;
+      background: var(--teal-pale);
+      color: var(--teal);
+      padding: 6px 12px;
+      border-radius: var(--r-sm);
+      font-size: 11px;
+      font-weight: 600;
+      font-family: 'DM Mono', monospace;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .levier-card h3 {
       font-family: 'Fraunces', serif;
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 700;
       margin-bottom: 12px;
       color: var(--ink);
     }
-    .dispositif-card p {
-      font-size: 15px;
+    .levier-card p {
+      font-size: 14px;
       color: var(--ink-soft);
-      line-height: 1.8;
-      margin-bottom: 16px;
+      line-height: 1.7;
+      margin-bottom: 20px;
     }
-    .dispositif-highlight {
+    .levier-gain {
       background: var(--gold-pale);
       border-left: 4px solid var(--gold);
-      padding: 16px;
+      padding: 12px 16px;
       border-radius: var(--r-sm);
       font-weight: 600;
-      font-size: 15px;
+      font-size: 14px;
       color: var(--ink);
     }
 
@@ -432,7 +460,7 @@
     /* Process Steps */
     .process-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 48px;
     }
     .process-step {
@@ -612,8 +640,11 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 24px;
       }
-      .process-grid {
+      .levier-grid {
         grid-template-columns: repeat(2, 1fr);
+      }
+      .process-grid {
+        grid-template-columns: 1fr;
       }
       .why-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -663,10 +694,10 @@
       .hero-stat:last-child {
         border-bottom: none;
       }
-      .why-grid {
+      .levier-grid {
         grid-template-columns: 1fr;
       }
-      .process-grid {
+      .why-grid {
         grid-template-columns: 1fr;
       }
       .sec {
@@ -688,10 +719,10 @@
   </style>
   <script src="/popup.js" defer></script>
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.proactifsconseils.fr/cession-entreprise">
-  <meta property="og:title" content="Cession d'Entreprise – Fiscalité Dirigeant | Proactifs Conse">
-  <meta property="og:description" content="Optimisez votre cession d'entreprise. Apport-cession 150-0 B ter, abattement dirigeant retraite 500k€, structuration post-cession. À Colombes (92). Bilan g">
-  <meta property="og:image" content="https://www.proactifsconseils.fr/images/cession-entreprise.jpg">
+  <meta property="og:url" content="https://www.proactifsconseils.fr/optimisation-fiscale-ile-de-france">
+  <meta property="og:title" content="Optimisation Fiscale Particuliers & Entreprises | Colombes (">
+  <meta property="og:description" content="Placements financiers sur mesure à Colombes (92). Assurance vie, PEA, SCPI, produits structurés. Allocation adaptée à votre profil de risque. Cabinet indépendant →">
+  <meta property="og:image" content="https://www.proactifsconseils.fr/images/optimisation-fiscale.jpg">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:site_name" content="Proactifs Conseils">
   <script type="application/ld+json">
@@ -701,18 +732,18 @@
     "mainEntity": [
         {
           "@type": "Question",
-          "name": "Qu'est-ce que l'apport-cession (article 150-0 B ter) ?",
-          "acceptedAnswer": {"@type": "Answer", "text": "L'apport-cession permet de reporter la plus-value lors de la vente de votre entreprise en apportant vos titres à une holding avant la cession. Le report d'imposition est maintenu si au moins 60% du produit est réinvesti dans des activités économiques."}
+          "name": "Quels sont les meilleurs dispositifs de défiscalisation en 2026 ?",
+          "acceptedAnswer": {"@type": "Answer", "text": "En 2026, les principaux dispositifs sont le PER (Plan Épargne Retraite) qui permet de déduire les versements du revenu imposable, le dispositif Denormandie pour l'immobilier ancien réhabilité, et les FCPI/FIP pour réduire l'impôt sur le revenu jusqu'à 25% des sommes investies."}
         },
         {
           "@type": "Question",
-          "name": "Quel est l'abattement pour départ en retraite du dirigeant ?",
-          "acceptedAnswer": {"@type": "Answer", "text": "Un dirigeant partant à la retraite peut bénéficier d'un abattement fixe de 500 000 € sur la plus-value de cession, sous conditions : avoir exercé en tant que dirigeant pendant au moins 5 ans et céder dans les 2 ans suivant le départ en retraite."}
+          "name": "Comment fonctionne le PER pour réduire ses impôts ?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Les versements sur un PER sont déductibles du revenu imposable dans la limite de 10% des revenus professionnels (plafond 2025 : 35 194 €). Pour une TMI de 41%, chaque 1000 € versé génère 410 € d'économie d'impôt immédiate."}
         },
         {
           "@type": "Question",
-          "name": "Comment optimiser la fiscalité post-cession ?",
-          "acceptedAnswer": {"@type": "Answer", "text": "Après une cession, plusieurs stratégies permettent d'optimiser la fiscalité : investissement dans un PER pour déduire des revenus, placement en assurance vie pour capitaliser en franchise d'impôt, ou investissement dans des FCPI/FIP pour bénéficier de réductions d'impôt."}
+          "name": "Peut-on cumuler plusieurs dispositifs de défiscalisation ?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Oui, il est possible de cumuler plusieurs dispositifs, chacun ayant ses propres plafonds et conditions. Un conseiller patrimonial peut vous aider à construire une stratégie globale optimisant l'ensemble de votre fiscalité sans dépasser les plafonds légaux."}
         }
     ]
   }
@@ -743,54 +774,72 @@
 </div>
 
   <div class="breadcrumb">
-    <a href="/">Accueil</a> › Cession d'entreprise
+    <a href="/">Accueil</a> › Optimisation fiscale
   </div>
 
   <section class="svc-hero">
     <div class="container">
-      <div class="hero-badge">Cession d'entreprise · Hauts-de-Seine</div>
-      <h1>Cédez votre entreprise<br>en <em>optimisant chaque euro</em></h1>
-      <p>La cession d'entreprise est souvent l'événement patrimonial le plus important de votre vie. Sans préparation, la fiscalité peut absorber jusqu'à 30% du prix de cession.</p>
+      <div class="hero-badge">Placements financiers · Colombes (92)</div>
+      <h1>Faites fructifier votre épargne avec une <em>stratégie sur mesure</em></h1>
+      <p>Assurance vie, PEA, SCPI, produits structurés… Nous construisons une allocation adaptée à vos objectifs, votre horizon et votre profil de risque. 100% indépendant, 100% dans votre intérêt.</p>
       <div class="hero-stats">
         <div class="hero-stat">
-          <div class="hero-stat-value">30%</div>
-          <div class="hero-stat-label">Fiscalité sans optimisation</div>
+          <div class="hero-stat-value">+200</div>
+          <div class="hero-stat-label">Supports analysés</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-value">~12%</div>
-          <div class="hero-stat-label">Avec apport-cession</div>
+          <div class="hero-stat-value">10 ans</div>
+          <div class="hero-stat-label">D'expérience patrimoniale</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-value">500k€</div>
-          <div class="hero-stat-label">Abattement dirigeant</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-value">24 mois</div>
-          <div class="hero-stat-label">Délai idéal d'anticipation</div>
+          <div class="hero-stat-value">100%</div>
+          <div class="hero-stat-label">Conseil indépendant</div>
         </div>
       </div>
     </div>
   </section>
 
+
   <section class="sec sec-sand reveal">
     <div class="container">
-      <div class="sec-label">Les dispositifs</div>
-      <h2 class="sec-title">3 leviers pour <em>optimiser votre cession</em></h2>
-      <div class="dispositif-grid">
-        <div class="dispositif-card reveal">
-          <h3>Apport-cession (Art. 150-0 B ter)</h3>
-          <p>Report d'imposition sur les plus-values lors de l'apport des titres à une holding. Permet un réinvestissement 100% de la plus-value au lieu de seulement 70% après prélèvement à la source.</p>
-          <div class="dispositif-highlight">Économie potentielle : jusqu'à 200 000€ en TMI 45%</div>
+      <div class="sec-label">Les supports</div>
+      <h2 class="sec-title">6 solutions pour <em>placer votre épargne</em></h2>
+      <div class="levier-grid">
+        <div class="levier-card reveal">
+          <div class="levier-tag">Épargne</div>
+          <h3>Assurance vie</h3>
+          <p>Le couteau suisse du patrimoine : fonds euros sécurisés, unités de compte performantes, fiscalité allégée après 8 ans.</p>
+          <div class="levier-gain">Fiscalité optimisée après 8 ans</div>
         </div>
-        <div class="dispositif-card reveal">
-          <h3>Abattement dirigeant retraite (Art. 150-0 D ter)</h3>
-          <p>Abattement spécifique de 500 000€ fixe pour le dirigeant qui se retire de l'entreprise. Accessible si vous êtes à la retraite 2 ans après la cession ou immédiatement à 60 ans.</p>
-          <div class="dispositif-highlight">Économie jusqu'à 150 000€ en TMI 30%</div>
+        <div class="levier-card reveal">
+          <div class="levier-tag" style="background: #F3E8FF; color: #7C3AED;">Bourse</div>
+          <h3>PEA</h3>
+          <p>Plan d\'Épargne en Actions : exonération d\'impôt sur les plus-values après 5 ans, accès aux marchés européens.</p>
+          <div class="levier-gain">Exonération IR après 5 ans</div>
         </div>
-        <div class="dispositif-card reveal">
-          <h3>Structuration post-cession</h3>
-          <p>Réinvestissement intelligent dans SCPI, assurance-vie, PER, portefeuille diversifié. Nous vous guidons dans l'allocation optimale de votre capital pour maintenir votre niveau de vie à la retraite.</p>
-          <div class="dispositif-highlight">Diversification patrimoniale et revenus complémentaires</div>
+        <div class="levier-card reveal">
+          <div class="levier-tag" style="background: #FEE2E2; color: #DC2626;">Immobilier</div>
+          <h3>SCPI</h3>
+          <p>Pierre-papier accessible dès 1 000€. Revenus locatifs réguliers sans contrainte de gestion, diversification géographique.</p>
+          <div class="levier-gain">Rendement moyen 4 à 6%/an</div>
+        </div>
+        <div class="levier-card reveal">
+          <div class="levier-tag" style="background: #E0F2FE; color: #0369A1;">Structuré</div>
+          <h3>Produits structurés</h3>
+          <p>Capital partiellement ou totalement protégé avec un rendement conditionnel lié à un indice boursier. Idéal en complément.</p>
+          <div class="levier-gain">Protection du capital + rendement</div>
+        </div>
+        <div class="levier-card reveal">
+          <div class="levier-tag" style="background: #F9E7DC; color: #B45309;">Retraite</div>
+          <h3>PER</h3>
+          <p>Plan Épargne Retraite : versements déductibles du revenu imposable, sortie en capital ou rente à la retraite.</p>
+          <div class="levier-gain">Déduction fiscale immédiate</div>
+        </div>
+        <div class="levier-card reveal">
+          <div class="levier-tag" style="background: #DBEAFE; color: #1E40AF;">Dynamique</div>
+          <h3>Private equity</h3>
+          <p>Investissement dans des entreprises non cotées via FCPR ou fonds de private equity. Potentiel de rendement élevé sur le long terme.</p>
+          <div class="levier-gain">Rendement potentiel supérieur</div>
         </div>
       </div>
     </div>
@@ -798,24 +847,20 @@
 
   <section class="sec sec-forest reveal">
     <div class="container">
-      <div class="sec-label">Notre accompagnement</div>
-      <h2 class="sec-title">4 étapes pour <em>sécuriser votre cession</em></h2>
+      <div class="sec-label">Notre méthode</div>
+      <h2 class="sec-title">Votre allocation en <em>3 étapes</em></h2>
       <div class="process-grid">
         <div class="process-step reveal" data-step="1">
-          <h3>Diagnostic fiscal & structurel</h3>
-          <p>Analyse complète : valeur de l'entreprise, plus-values attendues, structures fiscales optimales, calendrier stratégique.</p>
+          <h3>Bilan patrimonial</h3>
+          <p>Nous analysons votre situation globale : revenus, épargne existante, objectifs, horizon de placement et tolérance au risque.</p>
         </div>
         <div class="process-step reveal" data-step="2">
-          <h3>Structuration de la cession</h3>
-          <p>Mise en place de l'apport-cession, création d'une holding si nécessaire, préparation des documents, optimisation TMI.</p>
+          <h3>Allocation sur mesure</h3>
+          <p>Nous construisons une répartition optimale entre les différents supports en fonction de votre profil et de la fiscalité applicable.</p>
         </div>
         <div class="process-step reveal" data-step="3">
-          <h3>Accompagnement pendant la cession</h3>
-          <p>Coordination avec notaire, banquier, expert-comptable. Suivi des aspects fiscaux et patrimoniaux tout au long du processus.</p>
-        </div>
-        <div class="process-step reveal" data-step="4">
-          <h3>Allocation post-cession</h3>
-          <p>Stratégie de diversification, investissements complémentaires, structure retraite optimisée pour le long terme.</p>
+          <h3>Suivi & arbitrages</h3>
+          <p>Nous assurons le suivi régulier de vos placements et réalisons les arbitrages nécessaires en fonction des marchés et de vos projets.</p>
         </div>
       </div>
     </div>
@@ -824,19 +869,19 @@
   <section class="sec sec-white reveal">
     <div class="container">
       <div class="sec-label">Pourquoi nous</div>
-      <h2 class="sec-title">Expertise cession <em>et vision globale</em></h2>
+      <h2 class="sec-title">Un conseil <em>indépendant</em> à Colombes</h2>
       <div class="why-grid">
         <div class="why-card reveal" data-number="1">
-          <h3>Expertise cession</h3>
-          <p>Accompagnement de plus de 50 cessions d'entreprise. Maîtrise complète des structures juridiques et fiscales optimales.</p>
+          <h3>100% indépendant</h3>
+          <p>Aucun lien capitalistique avec les compagnies. Nous sélectionnons les meilleurs contrats du marché, uniquement dans votre intérêt.</p>
         </div>
         <div class="why-card reveal" data-number="2">
-          <h3>Confidentialité totale</h3>
-          <p>Vos projets de cession restent confidentiels. Travail discret et professionnel, respect absolu de votre situation.</p>
+          <h3>Architecture ouverte</h3>
+          <p>Accès à plus de 200 supports d\'investissement auprès de multiples partenaires : pas de produit maison, que du meilleur.</p>
         </div>
         <div class="why-card reveal" data-number="3">
-          <h3>Vision patrimoniale globale</h3>
-          <p>Nous pensons au-delà de la cession : structure retraite, transmission, diversification, pérennité financière.</p>
+          <h3>Suivi personnalisé</h3>
+          <p>Un point régulier sur vos placements, des arbitrages réactifs et une adaptation continue à vos projets de vie.</p>
         </div>
       </div>
     </div>
@@ -844,9 +889,9 @@
 
   <section id="cta-band">
     <div class="container">
-      <h2>Analysez votre cession en toute <em>confidentialité</em></h2>
-      <p>Bilan cession entièrement confidentiel. Aucune obligation d'engagement.</p>
-      <a href="/bilan-patrimonial-gratuit" class="btn-primary">Demander une analyse</a>
+      <h2>Optimisez vos <em>placements</em></h2>
+      <p>Bilan patrimonial confidentiel et sans engagement. Découvrez comment faire mieux avec votre épargne.</p>
+      <a href="/?service=epargne" class="btn-primary">Commencer mon diagnostic</a>
     </div>
   </section>
 
@@ -866,6 +911,7 @@
           <h4>Services</h4>
           <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
           <a href="/investissement-scpi-hauts-de-seine">Investissement SCPI</a>
+          <a href="/placements-financiers">Placements financiers</a>
           <a href="/preparation-retraite">Préparation retraite</a>
           <a href="/transmission">Transmission</a>
           <a href="/cession-entreprise">Cession d'entreprise</a>

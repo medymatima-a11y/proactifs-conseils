@@ -6,1079 +6,1137 @@
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
+  <meta name="description" content="Investissez en SCPI dans les Hauts-de-Seine. Taux de distribution ~5%, sans gestion locative. Conseiller patrimonial à Colombes (92). Simulation sur-mesure →">
   <title>Investir en SCPI Hauts-de-Seine (92) | Proactifs Conseils</title>
-  <meta name="description" content="Investissez en SCPI avec un conseiller indépendant dans les Hauts-de-Seine. Taux de distribution ~5%, sans gestion locative. Simulation gratuite.">
-  <meta name="canonical" content="https://www.proactifsconseils.fr/investissement-scpi-hauts-de-seine">
+  <link rel="canonical" href="https://www.proactifsconseils.fr/investissement-scpi-hauts-de-seine">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Service","name":"Investissement SCPI","provider":{"@type":"FinancialService","name":"Proactifs Conseils","address":{"@type":"PostalAddress","streetAddress":"54 Rue du Bournard","addressLocality":"Colombes","postalCode":"92700","addressCountry":"FR"},"telephone":"+33184782830"},"description":"Investissement SCPI : sélection indépendante, diversification immobilière, revenus complémentaires, fiscalité optimisée.","areaServed":["Colombes","Hauts-de-Seine","Île-de-France"]}
+  </script>
   <style>
     :root {
-      --ivory:#FAFAF7; --sand:#F3F1EB; --forest:#132D1E; --forest-mid:#1C3D28;
-      --ink:#111827; --ink-soft:#374151; --gold:#C4973A; --gold-light:#E8C97A; --gold-pale:#FBF4E3;
-      --teal:#1E7A6E; --teal-light:#2A9D8F; --teal-pale:#E6F4F2; --slate:#6B7280; --border:#E5E2DA;
-      --white:#FFFFFF; --r-sm:10px; --r-md:16px; --r-lg:24px; --r-xl:32px;
-      --shadow-sm:0 1px 3px rgba(17,24,39,.06); --shadow-md:0 4px 16px rgba(17,24,39,.08);
-      --shadow-lg:0 12px 40px rgba(17,24,39,.1);
+      --ivory: #FAFAF7;
+      --sand: #F3F1EB;
+      --forest: #132D1E;
+      --forest-mid: #1C3D28;
+      --ink: #111827;
+      --ink-soft: #374151;
+      --gold: #C4973A;
+      --gold-light: #E8C97A;
+      --gold-pale: #FBF4E3;
+      --teal: #1E7A6E;
+      --teal-light: #2A9D8F;
+      --teal-pale: #E6F4F2;
+      --slate: #6B7280;
+      --border: #E5E2DA;
+      --white: #FFFFFF;
+      --shadow-sm: 0 1px 3px rgba(17,24,39,.06), 0 1px 2px rgba(17,24,39,.04);
+      --shadow-md: 0 4px 16px rgba(17,24,39,.08), 0 2px 6px rgba(17,24,39,.04);
+      --shadow-lg: 0 12px 40px rgba(17,24,39,.1), 0 4px 12px rgba(17,24,39,.06);
+      --r-sm: 10px;
+      --r-md: 16px;
+      --r-lg: 24px;
+      --r-xl: 32px;
     }
 
-    * { margin:0; padding:0; box-sizing:border-box; }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family:'DM Sans',sans-serif;
-      color:var(--ink);
-      background:var(--ivory);
-      line-height:1.6;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
+      background: var(--white);
+      line-height: 1.6;
     }
 
-    a { color:inherit; text-decoration:none; }
-
-    em { color:var(--gold); font-style:italic; }
-
-    /* NAV */
-    nav#nav {
-      position:fixed;
-      top:0;
-      width:100%;
-      height:68px;
-      background:transparent;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:0 80px;
-      z-index:1000;
-      transition:all .3s ease;
+    /* Navigation */
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      z-index: 100;
+      transition: all 0.3s ease;
     }
-
-    nav#nav.scrolled {
-      background:var(--ivory);
-      box-shadow:var(--shadow-md);
+    #nav.scrolled {
+      background: rgba(250, 250, 247, 0.98);
+      box-shadow: var(--shadow-md);
+      height: 68px;
     }
-
-    .nav-logo {
-      display:flex;
-      align-items:center;
-      background:#fff;
-      padding:4px 8px;
-      border-radius:8px;
-    }
-
     .nav-logo img {
-      height:54px;
-      width:auto;
+      height: 40px;
+      transition: all 0.3s ease;
     }
-
     .nav-links {
-      display:flex;
-      list-style:none;
-      gap:40px;
+      display: flex;
+      list-style: none;
+      gap: 40px;
+      flex: 1;
+      margin-left: 60px;
     }
-
     .nav-links a {
-      font-size:14px;
-      font-weight:500;
-      color:var(--ink);
-      transition:color .3s;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s ease;
     }
-
     .nav-links a:hover {
-      color:var(--gold);
+      color: var(--gold);
     }
-
+    #nav:not(.scrolled) .nav-links a {
+      color: var(--white);
+    }
+    #nav:not(.scrolled) .nav-links a:hover {
+      color: var(--gold-light);
+    }
     .nav-cta-btn {
-      background:var(--gold);
-      color:var(--white);
-      padding:10px 24px;
-      border-radius:var(--r-md);
-      font-size:14px;
-      font-weight:600;
-      transition:all .3s;
+      background: var(--gold);
+      color: var(--ink);
+      padding: 10px 24px;
+      border-radius: var(--r-md);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
     }
-
     .nav-cta-btn:hover {
-      background:var(--gold-light);
+      background: var(--gold-light);
+      box-shadow: var(--shadow-md);
     }
-
     .hamburger {
-      display:none;
-      flex-direction:column;
-      gap:6px;
-      background:none;
-      border:none;
-      cursor:pointer;
-      padding:8px;
+      display: none;
+      flex-direction: column;
+      background: none;
+      border: none;
+      cursor: pointer;
+      gap: 6px;
+      margin-left: auto;
     }
-
     .hamburger span {
-      width:24px;
-      height:2px;
-      background:var(--ink);
-      transition:all .3s;
+      width: 24px;
+      height: 2px;
+      background: var(--ink);
+      transition: all 0.3s ease;
     }
-
-    .hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(8px,8px); }
-    .hamburger.open span:nth-child(2) { opacity:0; }
-    .hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(7px,-7px); }
-
+    #nav:not(.scrolled) .hamburger span {
+      background: var(--white);
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
     .mobile-menu {
-      display:none;
-      position:fixed;
-      top:68px;
-      left:0;
-      width:100%;
-      background:var(--ivory);
-      flex-direction:column;
-      gap:0;
-      z-index:999;
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      flex-direction: column;
+      padding: 20px;
+      gap: 12px;
+      z-index: 99;
     }
-
-    .mobile-menu.open { display:flex; }
-
+    .mobile-menu.open {
+      display: flex;
+    }
     .mobile-menu a {
-      padding:16px 80px;
-      border-bottom:1px solid var(--border);
-      font-size:14px;
-      font-weight:500;
-      color:var(--ink);
+      padding: 12px 16px;
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 500;
+      border-radius: var(--r-sm);
+      transition: all 0.2s ease;
+    }
+    .mobile-menu a:hover {
+      background: var(--sand);
+      color: var(--gold);
     }
 
-    /* BREADCRUMB */
-    .breadcrumb-bar {
-      background:var(--sand);
-      padding:10px 80px;
-      border-bottom:1px solid var(--border);
-      margin-top:68px;
+    /* Breadcrumb */
+    .breadcrumb {
+      background: var(--sand);
+      padding: 12px 40px;
+      font-size: 13px;
+      color: var(--slate);
+      margin-top: 72px;
+    }
+    .breadcrumb a {
+      color: var(--teal);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .breadcrumb a:hover {
+      color: var(--gold);
     }
 
-    .breadcrumb-bar small {
-      font-size:12px;
-      color:var(--ink-soft);
-    }
-
-    .breadcrumb-bar a {
-      color:var(--ink);
-      transition:color .3s;
-    }
-
-    .breadcrumb-bar a:hover {
-      color:var(--gold);
-    }
-
-    /* CONTAINER & SECTIONS */
-    .container {
-      max-width:1200px;
-      margin:0 auto;
-    }
-
-    .sec {
-      padding:96px 80px;
-    }
-
-    .sec-label {
-      font-family:'DM Mono',monospace;
-      font-size:11px;
-      color:var(--teal);
-      text-transform:uppercase;
-      letter-spacing:2px;
-      margin-bottom:16px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-
-    .sec-label::before {
-      content:'';
-      width:20px;
-      height:1.5px;
-      background:var(--teal);
-    }
-
-    .sec-title {
-      font-family:'Fraunces',serif;
-      font-size:clamp(28px,3.5vw,44px);
-      line-height:1.2;
-      margin-bottom:24px;
-      color:var(--ink);
-    }
-
-    .sec-subtitle {
-      font-size:16px;
-      color:var(--ink-soft);
-      margin-bottom:48px;
-      max-width:600px;
-      line-height:1.8;
-    }
-
-    /* SERVICE HERO */
+    /* Hero */
     .svc-hero {
-      margin-top:68px;
-      padding:120px 80px;
-      background:linear-gradient(135deg,#0a1f14 0%,#132D1E 60%,#1a3a1a 100%);
-      background-image:url('/images/investissement-immobilier.jpg');
-      background-size:cover;
-      background-position:center;
-      background-blend-mode:overlay;
-      position:relative;
-      color:var(--white);
+      background: linear-gradient(135deg, #0a1f14 0%, var(--forest) 100%);
+      padding: 120px 40px;
+      margin-top: 72px;
+      position: relative;
+      overflow: hidden;
+      color: var(--white);
     }
-
     .svc-hero::before {
-      content:'';
-      position:absolute;
-      top:0;
-      left:0;
-      right:0;
-      bottom:0;
-      background:rgba(19,45,30,.88);
-      z-index:0;
+      content: \'\';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: url(\'/images/scpi-investissement.jpg\') right center / cover;
+      opacity: 0.15;
+      z-index: 0;
     }
-
+    .svc-hero > * {
+      position: relative;
+      z-index: 1;
+    }
     .svc-hero .container {
-      position:relative;
-      z-index:1;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-
-    .svc-hero .sec-label {
-      color:var(--teal-light);
+    .hero-badge {
+      display: inline-block;
+      background: rgba(232, 201, 122, 0.2);
+      border: 1px solid rgba(232, 201, 122, 0.4);
+      color: var(--gold-light);
+      padding: 8px 16px;
+      border-radius: var(--r-sm);
+      font-size: 12px;
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      text-transform: uppercase;
+      margin-bottom: 24px;
     }
-
-    .svc-hero .sec-label::before {
-      background:var(--teal-light);
-    }
-
     .svc-hero h1 {
-      font-family:'Fraunces',serif;
-      font-size:clamp(36px,5vw,56px);
-      line-height:1.1;
-      margin-bottom:24px;
-      color:var(--white);
+      font-family: 'Fraunces', serif;
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      max-width: 700px;
+    }
+    .svc-hero h1 em {
+      color: var(--gold-light);
+      font-style: italic;
+      font-weight: 600;
+    }
+    .svc-hero > .container > p {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin-bottom: 60px;
+      line-height: 1.7;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: 900px;
+    }
+    .hero-stat {
+      border-right: 1px solid rgba(232, 201, 122, 0.3);
+    }
+    .hero-stat:last-child {
+      border-right: none;
+    }
+    .hero-stat-value {
+      font-family: 'Fraunces', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 4px;
+    }
+    .hero-stat-label {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+      text-transform: uppercase;
+      font-family: 'DM Mono', monospace;
     }
 
-    .svc-hero em {
-      color:var(--gold-light);
+    /* Sections */
+    .sec {
+      padding: 96px 40px;
+    }
+    .sec-sand { background: var(--sand); }
+    .sec-white { background: var(--white); }
+    .sec-forest { background: var(--forest); color: var(--white); }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .sec-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      display: inline-block;
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .sec-label::before {
+      content: \'\';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 1px;
+      background: var(--teal);
+    }
+    .sec-forest .sec-label {
+      color: var(--gold-light);
+    }
+    .sec-forest .sec-label::before {
+      background: var(--gold-light);
+    }
+    .sec-title {
+      font-family: 'Fraunces', serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 40px;
+      max-width: 900px;
+    }
+    .sec-forest .sec-title {
+      color: var(--white);
+    }
+    .sec-title em {
+      color: var(--gold);
+      font-style: italic;
+      font-weight: 600;
     }
 
-    .svc-hero .sec-subtitle {
-      color:rgba(250,250,247,.85);
-      max-width:560px;
-    }
-
-    .svc-hero-stats {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-      gap:40px;
-      margin-top:80px;
-      padding-top:80px;
-      border-top:1px solid rgba(196,151,58,.3);
-    }
-
-    .stat-item {
-      text-align:left;
-    }
-
-    .stat-number {
-      font-family:'Fraunces',serif;
-      font-size:36px;
-      font-weight:700;
-      color:var(--gold-light);
-      line-height:1;
-      margin-bottom:8px;
-    }
-
-    .stat-label {
-      font-size:13px;
-      color:rgba(250,250,247,.7);
-      text-transform:uppercase;
-      letter-spacing:1px;
-    }
-
-    /* BUTTONS */
+    /* Buttons */
     .btn-primary {
-      background:var(--gold);
-      color:var(--white);
-      padding:14px 32px;
-      border-radius:var(--r-md);
-      font-weight:600;
-      border:none;
-      cursor:pointer;
-      transition:all .3s;
-      font-size:14px;
-      display:inline-block;
+      background: var(--gold);
+      color: var(--ink);
+      padding: 12px 32px;
+      border: none;
+      border-radius: var(--r-md);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
     }
-
     .btn-primary:hover {
-      background:var(--gold-light);
-      transform:translateY(-2px);
-      box-shadow:var(--shadow-lg);
+      background: var(--gold-light);
+      box-shadow: var(--shadow-md);
     }
 
-    .btn-secondary {
-      background:transparent;
-      color:var(--ink);
-      border:1px solid var(--border);
-      padding:14px 32px;
-      border-radius:var(--r-md);
-      font-weight:600;
-      cursor:pointer;
-      transition:all .3s;
-      font-size:14px;
-    }
-
-    .btn-secondary:hover {
-      border-color:var(--gold);
-      color:var(--gold);
-    }
-
-    /* TYPE CARDS GRID */
+    /* Type Cards (SCPI-specific) */
     .type-cards {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:32px;
-      margin-top:48px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-top: 48px;
     }
-
     .type-card {
-      background:var(--white);
-      border:1px solid var(--border);
-      border-radius:var(--r-lg);
-      padding:32px;
-      transition:all .3s;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 32px;
+      transition: all 0.3s ease;
     }
-
     .type-card:hover {
-      border-color:var(--gold);
-      box-shadow:var(--shadow-lg);
-      transform:translateY(-4px);
+      border-color: var(--gold);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
     }
-
     .type-card h3 {
-      font-family:'Fraunces',serif;
-      font-size:20px;
-      color:var(--forest);
-      margin-bottom:12px;
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      color: var(--forest);
+      margin-bottom: 12px;
     }
-
     .type-card p {
-      font-size:14px;
-      color:var(--ink-soft);
-      line-height:1.7;
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.7;
     }
 
-    /* COMPARISON TABLE */
+    /* Comparison Table (SCPI-specific) */
     .comparison-table {
-      width:100%;
-      border-collapse:collapse;
-      margin-top:32px;
-      background:var(--white);
-      border:1px solid var(--border);
-      border-radius:var(--r-lg);
-      overflow:hidden;
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 32px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
     }
-
     .comparison-table th {
-      background:var(--forest);
-      color:var(--white);
-      padding:16px;
-      text-align:left;
-      font-weight:600;
-      font-size:13px;
+      background: var(--forest);
+      color: var(--white);
+      padding: 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 13px;
     }
-
     .comparison-table td {
-      padding:16px;
-      border-top:1px solid var(--border);
-      font-size:14px;
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 14px;
     }
-
     .comparison-table tr:nth-child(even) {
-      background:var(--sand);
+      background: var(--sand);
     }
-
     .comparison-table tr:hover {
-      background:var(--gold-pale);
+      background: var(--gold-pale);
     }
 
-    /* SIMULATOR SECTION */
-    .simulator-section {
-      background:var(--forest);
-      color:var(--white);
-    }
-
-    .simulator-section .sec-title,
-    .simulator-section .sec-subtitle {
-      color:var(--white);
-    }
-
+    /* Simulator (SCPI-specific) */
     .simulator-container {
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(196,151,58,.3);
-      border-radius:var(--r-lg);
-      padding:40px;
-      margin-top:32px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(196,151,58,.3);
+      border-radius: var(--r-lg);
+      padding: 40px;
+      margin-top: 32px;
     }
-
     .sim-row {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:32px;
-      margin-bottom:32px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 32px;
+      margin-bottom: 32px;
     }
-
     .sim-group {
-      display:flex;
-      flex-direction:column;
+      display: flex;
+      flex-direction: column;
     }
-
     .sim-group label {
-      font-size:13px;
-      text-transform:uppercase;
-      letter-spacing:1px;
-      margin-bottom:12px;
-      color:var(--gold-light);
-      font-weight:600;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      color: var(--gold-light);
+      font-weight: 600;
     }
-
     .sim-group select,
     .sim-group input[type="range"] {
-      padding:12px 16px;
-      border:1px solid rgba(196,151,58,.5);
-      border-radius:var(--r-md);
-      background:rgba(255,255,255,.08);
-      color:var(--white);
-      font-size:14px;
-      font-family:'DM Sans',sans-serif;
+      padding: 12px 16px;
+      border: 1px solid rgba(196,151,58,.5);
+      border-radius: var(--r-md);
+      background: rgba(255,255,255,.08);
+      color: var(--white);
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
     }
-
     .sim-group input[type="range"] {
-      padding:0;
-      height:6px;
-      cursor:pointer;
+      padding: 0;
+      height: 6px;
+      cursor: pointer;
     }
-
     .sim-range-value {
-      font-size:12px;
-      color:var(--gold-light);
-      margin-top:4px;
+      font-size: 12px;
+      color: var(--gold-light);
+      margin-top: 4px;
     }
-
     .sim-results {
-      background:rgba(28,61,40,.5);
-      border:1px solid rgba(196,151,58,.3);
-      border-radius:var(--r-md);
-      padding:32px;
-      margin-top:32px;
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-      gap:24px;
+      background: rgba(28,61,40,.5);
+      border: 1px solid rgba(196,151,58,.3);
+      border-radius: var(--r-md);
+      padding: 32px;
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 24px;
     }
-
     .sim-result-item {
-      text-align:center;
+      text-align: center;
     }
-
     .sim-result-label {
-      font-size:12px;
-      color:rgba(250,250,247,.7);
-      text-transform:uppercase;
-      letter-spacing:1px;
-      margin-bottom:8px;
+      font-size: 12px;
+      color: rgba(250,250,247,.7);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
     }
-
     .sim-result-value {
-      font-family:'Fraunces',serif;
-      font-size:28px;
-      font-weight:700;
-      color:var(--gold-light);
+      font-family: 'Fraunces', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gold-light);
     }
 
-    /* WHY CARDS */
-    .why-cards {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-      gap:32px;
-      margin-top:48px;
+    /* Why Cards */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
     }
-
     .why-card {
-      background:var(--white);
-      border:1px solid var(--border);
-      border-radius:var(--r-lg);
-      padding:40px;
-      position:relative;
-      overflow:hidden;
-      transition:all .3s;
+      background: var(--white);
+      border-radius: var(--r-lg);
+      padding: 48px 40px;
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
     }
-
     .why-card::before {
-      content:attr(data-number);
-      position:absolute;
-      top:-20px;
-      right:-20px;
-      font-family:'Fraunces',serif;
-      font-size:120px;
-      font-weight:700;
-      color:var(--forest);
-      opacity:.08;
-      line-height:1;
+      content: attr(data-number);
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-family: 'Fraunces', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--forest);
+      opacity: 0.15;
     }
-
     .why-card:hover {
-      border-color:var(--gold);
-      box-shadow:var(--shadow-lg);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
     }
-
     .why-card h3 {
-      font-family:'Fraunces',serif;
-      font-size:18px;
-      color:var(--forest);
-      margin-bottom:12px;
-      position:relative;
-      z-index:1;
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--ink);
     }
-
     .why-card p {
-      font-size:14px;
-      color:var(--ink-soft);
-      line-height:1.7;
-      position:relative;
-      z-index:1;
+      font-size: 14px;
+      color: var(--slate);
+      line-height: 1.7;
     }
 
-    /* CTA BAND */
+    /* Process Steps */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 48px;
+    }
+    .process-step {
+      position: relative;
+      padding-left: 60px;
+    }
+    .process-step::before {
+      content: attr(data-step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 48px;
+      height: 48px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .sec-forest .process-step::before {
+      background: var(--gold-light);
+    }
+    .process-step h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--white);
+    }
+    .sec-forest .process-step p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* CTA Band */
     #cta-band {
-      background:linear-gradient(135deg,var(--forest) 0%,var(--forest-mid) 100%);
-      color:var(--white);
-      padding:60px 80px;
-      text-align:center;
+      background: linear-gradient(135deg, var(--forest-mid) 0%, var(--forest) 100%);
+      color: var(--white);
+      padding: 80px 40px;
+      text-align: center;
     }
-
+    #cta-band .container {
+      max-width: 800px;
+    }
     #cta-band h2 {
-      font-family:'Fraunces',serif;
-      font-size:clamp(28px,3vw,40px);
-      margin-bottom:24px;
-      line-height:1.2;
+      font-family: 'Fraunces', serif;
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+    #cta-band p {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 32px;
+      line-height: 1.7;
     }
 
-    #cta-band em {
-      color:var(--gold-light);
-    }
-
-    #cta-band .btn-primary {
-      margin-top:24px;
-    }
-
-    /* FOOTER */
-    footer#contact {
-      background:#080C10;
-      color:var(--white);
-      padding:60px 80px 20px;
-    }
-
-    .footer-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:48px;
-      margin-bottom:40px;
-    }
-
-    .footer-brand p {
-      font-size:13px;
-      color:rgba(250,250,247,.7);
-      line-height:1.7;
-      margin-top:16px;
-    }
-
-    .footer-col h4 {
-      font-family:'Fraunces',serif;
-      font-size:14px;
-      font-weight:700;
-      margin-bottom:16px;
-      color:var(--gold);
-    }
-
-    .footer-col a {
-      display:block;
-      font-size:13px;
-      color:rgba(250,250,247,.7);
-      margin-bottom:12px;
-      transition:color .3s;
-    }
-
-    .footer-col a:hover {
-      color:var(--gold);
-    }
-
-    .footer-bottom {
-      border-top:1px solid rgba(196,151,58,.2);
-      padding-top:24px;
-      text-align:center;
-      font-size:12px;
-      color:rgba(250,250,247,.6);
-    }
-
-    .footer-bottom p {
-      margin-bottom:8px;
-    }
-
-    /* SCROLL TOP */
-    .scroll-top {
-      position:fixed;
-      bottom:30px;
-      right:30px;
-      width:44px;
-      height:44px;
-      background:var(--gold);
-      color:var(--white);
-      border:none;
-      border-radius:50%;
-      font-size:20px;
-      cursor:pointer;
-      opacity:0;
-      visibility:hidden;
-      transition:all .3s;
-      z-index:500;
-    }
-
-    .scroll-top.visible {
-      opacity:1;
-      visibility:visible;
-    }
-
-    .scroll-top:hover {
-      background:var(--gold-light);
-      transform:translateY(-4px);
-    }
-
-    /* REVEAL ANIMATION */
+    /* Reveal Animation */
     .reveal {
-      opacity:0;
-      transform:translateY(28px);
-      transition:all .6s ease-out;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
     .reveal.visible {
-      opacity:1;
-      transform:translateY(0);
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    /* RESPONSIVE */
-    @media (max-width:900px) {
-      nav#nav {
-        padding:0 40px;
-      }
+    /* Footer */
+    footer {
+      background: #080C10;
+      color: rgba(255, 255, 255, 0.8);
+      padding: 60px 40px 30px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1.2fr 1.4fr;
+      gap: 40px;
+      margin-bottom: 40px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer-brand p {
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 16px 0;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .footer-col h4 {
+      font-family: 'Fraunces', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      margin-bottom: 12px;
+      transition: color 0.2s ease;
+      line-height: 1.6;
+    }
+    .footer-col a:hover {
+      color: var(--gold-light);
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer-bottom p {
+      margin-bottom: 8px;
+    }
 
+    /* Scroll to Top */
+    .scroll-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 48px;
+      height: 48px;
+      background: var(--gold);
+      color: var(--ink);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: 700;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 50;
+    }
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .scroll-top:hover {
+      background: var(--gold-light);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
       .nav-links {
-        display:none;
+        display: none;
       }
-
       .hamburger {
-        display:flex;
+        display: flex;
       }
-
-      .sec {
-        padding:64px 40px;
+      .nav-cta-btn {
+        display: none;
       }
-
-      .breadcrumb-bar {
-        padding:10px 40px;
-      }
-
       .svc-hero {
-        padding:80px 40px;
+        padding: 80px 24px;
       }
-
-      .svc-hero-stats {
-        grid-template-columns:1fr 1fr;
+      .svc-hero h1 {
+        font-size: 40px;
       }
-
-      #cta-band {
-        padding:40px;
+      .svc-hero > .container > p {
+        font-size: 16px;
       }
-
-      footer#contact {
-        padding:40px;
+      .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
       }
-
+      .process-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .type-cards {
+        grid-template-columns: 1fr;
+      }
+      .sec {
+        padding: 60px 24px;
+      }
       .footer-grid {
-        grid-template-columns:1fr;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+      .sec-title {
+        font-size: 32px;
       }
     }
 
-    @media (max-width:600px) {
-      nav#nav {
-        padding:0 20px;
+    @media (max-width: 600px) {
+      #nav {
+        padding: 0 20px;
+        height: 64px;
       }
-
-      .nav-logo img {
-        height:40px;
+      .breadcrumb {
+        padding: 12px 20px;
+        font-size: 12px;
       }
-
-      .nav-cta-btn {
-        padding:8px 16px;
-        font-size:12px;
-      }
-
-      .sec {
-        padding:48px 20px;
-      }
-
-      .breadcrumb-bar {
-        padding:10px 20px;
-      }
-
       .svc-hero {
-        padding:60px 20px;
+        padding: 60px 20px;
+        margin-top: 64px;
       }
-
       .svc-hero h1 {
-        font-size:28px;
+        font-size: 28px;
+        margin-bottom: 16px;
       }
-
-      .svc-hero-stats {
-        grid-template-columns:1fr;
+      .svc-hero > .container > p {
+        font-size: 14px;
+        margin-bottom: 40px;
       }
-
+      .hero-stats {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .hero-stat {
+        border-right: none;
+        border-bottom: 1px solid rgba(232, 201, 122, 0.3);
+        padding-bottom: 16px;
+      }
+      .hero-stat:last-child {
+        border-bottom: none;
+      }
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
       .type-cards {
-        grid-template-columns:1fr;
+        grid-template-columns: 1fr;
       }
-
+      .sec {
+        padding: 48px 20px;
+      }
+      .sec-title {
+        font-size: 26px;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
       #cta-band {
-        padding:30px 20px;
+        padding: 60px 20px;
       }
-
-      footer#contact {
-        padding:30px 20px;
-      }
-
-      .mobile-menu a {
-        padding:12px 20px;
-        font-size:13px;
+      #cta-band h2 {
+        font-size: 28px;
       }
     }
   </style>
   <script src="/popup.js" defer></script>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.proactifsconseils.fr/investissement-scpi-hauts-de-seine">
+  <meta property="og:title" content="Investir en SCPI Hauts-de-Seine (92) | Proactifs Conseils">
+  <meta property="og:description" content="Investissez en SCPI dans les Hauts-de-Seine. Taux de distribution ~5%, sans gestion locative. Conseiller patrimonial à Colombes (92). Simulation sur-mesure →">
+  <meta property="og:image" content="https://www.proactifsconseils.fr/images/scpi-investissement.jpg">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Proactifs Conseils">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Qu'est-ce qu'une SCPI ?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Une SCPI (Société Civile de Placement Immobilier) est un véhicule d'investissement collectif qui permet d'investir dans l'immobilier professionnel (bureaux, commerces, logistique) sans les contraintes de la gestion locative directe."}
+        },
+        {
+          "@type": "Question",
+          "name": "Quel est le rendement moyen d'une SCPI en 2026 ?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Le taux de distribution moyen des SCPI est d'environ 5% en 2026. Certaines SCPI européennes ou thématiques peuvent atteindre 5,5 à 6%. Le rendement dépend du type de SCPI et de la stratégie d'investissement."}
+        },
+        {
+          "@type": "Question",
+          "name": "Comment investir en SCPI dans les Hauts-de-Seine ?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Notre cabinet à Colombes (92) vous accompagne dans la sélection des meilleures SCPI selon votre profil : en direct, via assurance-vie, ou à crédit. Nous réalisons une simulation personnalisée gratuite pour optimiser votre investissement."}
+        }
+    ]
+  }
+  </script>
 </head>
 <body>
-
-<!-- NAVIGATION -->
-<nav id="nav">
+  <nav id="nav">
   <a href="/" class="nav-logo"><img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:48px;width:auto;display:block;opacity:.9"></a>
   <ul class="nav-links">
-    <li><a href="/">Accueil</a></li>
-    <li><a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a></li>
-    <li><a href="/investissement-scpi-hauts-de-seine">SCPI</a></li>
-    <li><a href="/preparation-retraite">Retraite</a></li>
+    <li><a href="/#services">Nos services</a></li>
+    <li><a href="/#simulateurs">Simulateurs</a></li>
+    <li><a href="/#approche">Notre approche</a></li>
+    <li><a href="/#temoignages">Témoignages</a></li>
     <li><a href="/#contact">Contact</a></li>
+    <li><a href="/blog">Blog</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   <a href="/bilan-patrimonial-gratuit" class="nav-cta-btn">Prendre rendez-vous</a>
 </nav>
-
-<div class="mobile-menu" id="mobileMenu">
-  <a href="/">Accueil</a>
-  <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
-  <a href="/investissement-scpi-hauts-de-seine">SCPI</a>
-  <a href="/preparation-retraite">Retraite</a>
+  <div class="mobile-menu" id="mobileMenu">
+  <a href="/#services">Nos services</a>
+  <a href="/#simulateurs">Simulateurs</a>
+  <a href="/#approche">Notre approche</a>
+  <a href="/#temoignages">Témoignages</a>
   <a href="/#contact">Contact</a>
-  <a href="/bilan-patrimonial-gratuit">Bilan patrimonial sur mesure</a>
+  <a href="/blog">Blog</a>
+  <a href="/bilan-patrimonial-gratuit">Prendre rendez-vous</a>
 </div>
 
-<!-- BREADCRUMB -->
-<div class="breadcrumb-bar">
-  <div class="container">
-    <small><a href="/">Accueil</a> › <span>Investissement SCPI</span></small>
+  <div class="breadcrumb">
+    <a href="/">Accueil</a> › Investissement SCPI
   </div>
-</div>
 
-<!-- HERO -->
-<section class="svc-hero">
-  <div class="container">
-    <div class="sec-label">Investissement SCPI · Hauts-de-Seine</div>
-    <h1>Investir en <em>SCPI</em> :<br>l'immobilier sans les contraintes</h1>
-    <p class="sec-subtitle">Les SCPI permettent d'investir dans l'immobilier professionnel à partir de quelques milliers d'euros, sans gestion locative. Nos conseillers vous accompagnent dans la sélection des meilleures SCPI.</p>
-
-    <div class="svc-hero-stats">
-      <div class="stat-item">
-        <div class="stat-number">~5%</div>
-        <div class="stat-label">Taux de distribution 2026</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">1 000€</div>
-        <div class="stat-label">Investissement minimum</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">+700</div>
-        <div class="stat-label">SCPI disponibles</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 1: TYPES DE SCPI -->
-<section class="sec" style="background:var(--sand);">
-  <div class="container reveal">
-    <div class="sec-label">Diversité des placements</div>
-    <h2 class="sec-title">Les types de <em>SCPI</em></h2>
-    <p class="sec-subtitle">Chaque profil d'investisseur peut trouver la SCPI adaptée à ses objectifs et sa fiscalité.</p>
-
-    <div class="type-cards">
-      <div class="type-card reveal">
-        <h3>SCPI de rendement</h3>
-        <p>Spécialisées dans les bureaux, commerces et logistique. Génèrent des revenus trimestriels avec un rendement de 4-6%. Idéal pour compléter vos revenus réguliers.</p>
-      </div>
-      <div class="type-card reveal">
-        <h3>SCPI fiscales</h3>
-        <p>Pinel, Malraux, déficit foncier. Combinent une réduction d'impôt immédiate avec des revenus futurs. Parfait pour les contribuables en tranche 30%+.</p>
-      </div>
-      <div class="type-card reveal">
-        <h3>SCPI européennes</h3>
-        <p>Diversification géographique au-delà des frontières françaises. Fiscalité avantageuse avec crédit d'impôt étranger. Rendement 4.5-5.5%.</p>
-      </div>
-      <div class="type-card reveal">
-        <h3>SCPI sur assurance vie</h3>
-        <p>Frais réduits et liquidité améliorée. Fiscalité de l'assurance vie au dénouement. Parfait pour les investissements long terme.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 2: COMPARATIF -->
-<section class="sec" style="background:var(--white);">
-  <div class="container reveal">
-    <div class="sec-label">Analyse comparative</div>
-    <h2 class="sec-title">SCPI vs autres <em>placements</em></h2>
-    <p class="sec-subtitle">Comparez les rendements, risques et liquidité des différentes options d'investissement.</p>
-
-    <table class="comparison-table">
-      <thead>
-        <tr>
-          <th>Placement</th>
-          <th>Rendement</th>
-          <th>Risque</th>
-          <th>Liquidité</th>
-          <th>Gestion</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Livret A</td>
-          <td>3%</td>
-          <td>Nul</td>
-          <td>Immédiate</td>
-          <td>Aucune</td>
-        </tr>
-        <tr>
-          <td><strong>SCPI</strong></td>
-          <td><strong>~5%</strong></td>
-          <td><strong>Faible</strong></td>
-          <td><strong>3-6 mois</strong></td>
-          <td><strong>Déléguée</strong></td>
-        </tr>
-        <tr>
-          <td>Immobilier direct</td>
-          <td>3-4%</td>
-          <td>Modéré</td>
-          <td>3-12 mois</td>
-          <td>Active</td>
-        </tr>
-        <tr>
-          <td>Actions</td>
-          <td>6-8%</td>
-          <td>Élevé</td>
-          <td>Immédiate</td>
-          <td>Active</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- SECTION 3: SIMULATOR -->
-<section class="sec simulator-section reveal">
-  <div class="container">
-    <div class="sec-label" style="color:var(--teal-light);">Outil de simulation</div>
-    <h2 class="sec-title">Combien rapporte votre <em>investissement</em> ?</h2>
-    <p class="sec-subtitle">Simulez en temps réel vos revenus potentiels selon vos paramètres.</p>
-
-    <div class="simulator-container">
-      <div class="sim-row">
-        <div class="sim-group">
-          <label for="montant">Montant investi</label>
-          <select id="montant" onchange="updateSimulator()">
-            <option value="5000">5 000€</option>
-            <option value="10000">10 000€</option>
-            <option value="20000">20 000€</option>
-            <option value="50000">50 000€</option>
-            <option value="100000">100 000€</option>
-          </select>
+  <section class="svc-hero">
+    <div class="container">
+      <div class="hero-badge">Investissement SCPI · Hauts-de-Seine</div>
+      <h1>Investir en <em>SCPI</em> :<br>l’immobilier sans les contraintes</h1>
+      <p>Les SCPI permettent d’investir dans l’immobilier professionnel à partir de quelques milliers d’euros, sans gestion locative. Nos conseillers vous accompagnent dans la sélection des meilleures SCPI.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-value">~5%</div>
+          <div class="hero-stat-label">Taux de distribution 2026</div>
         </div>
-        <div class="sim-group">
-          <label for="taux">Taux de distribution</label>
-          <input type="range" id="taux" min="3.5" max="7" step="0.1" value="5" onchange="updateSimulator()">
-          <div class="sim-range-value"><span id="tauxValue">5</span>%</div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">1 000€</div>
+          <div class="hero-stat-label">Investissement minimum</div>
         </div>
-        <div class="sim-group">
-          <label for="duree">Durée de détention</label>
-          <input type="range" id="duree" min="5" max="20" step="1" value="10" onchange="updateSimulator()">
-          <div class="sim-range-value"><span id="dureeValue">10</span> ans</div>
-        </div>
-      </div>
-
-      <div class="sim-results">
-        <div class="sim-result-item">
-          <div class="sim-result-label">Revenu annuel</div>
-          <div class="sim-result-value" id="revenuAnnuel">250€</div>
-        </div>
-        <div class="sim-result-item">
-          <div class="sim-result-label">Revenu mensuel</div>
-          <div class="sim-result-value" id="revenuMensuel">21€</div>
-        </div>
-        <div class="sim-result-item">
-          <div class="sim-result-label">Total perçu</div>
-          <div class="sim-result-value" id="totalPercu">2 500€</div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">+700</div>
+          <div class="hero-stat-label">SCPI disponibles</div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- SECTION 4: WHY US -->
-<section class="sec" style="background:var(--sand);">
-  <div class="container reveal">
-    <div class="sec-label">Pourquoi nous choisir</div>
-    <h2 class="sec-title">Votre avantage avec <em>Proactifs</em></h2>
-    <p class="sec-subtitle">Un accompagnement expert pour optimiser votre investissement immobilier.</p>
-
-    <div class="why-cards">
-      <div class="why-card reveal" data-number="1">
-        <h3>Sélection indépendante</h3>
-        <p>Nous vous proposons les meilleures SCPI du marché, sans contrainte commerciale. Analyse approfondie de chaque support selon vos objectifs.</p>
-      </div>
-      <div class="why-card reveal" data-number="2">
-        <h3>Accompagnement fiscal</h3>
-        <p>Optimisation de votre fiscalité grâce à l'investissement en SCPI. Maximisez vos avantages fiscaux selon votre profil.</p>
-      </div>
-      <div class="why-card reveal" data-number="3">
-        <h3>Suivi permanent</h3>
-        <p>Suivi régulier de votre portefeuille SCPI. Conseil continu pour adapter votre stratégie à l'évolution du marché.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA BAND -->
-<section id="cta-band" class="reveal">
-  <div class="container">
-    <h2>Démarrez votre investissement <em>SCPI</em></h2>
-    <p style="font-size:16px; margin-bottom:0; color:rgba(250,250,247,.85);">Prenez rendez-vous avec l'un de nos conseillers indépendants</p>
-    <a href="/bilan-patrimonial-gratuit" class="btn-primary">Demander une simulation gratuite</a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer id="contact">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand" style="align-items:flex-start">
-        <img src="/images/proactifs-logo.png" style="height:48px;width:auto;display:block;opacity:.9" alt="Proactifs Conseils" style="height:48px;opacity:.9">
-        <p>Cabinet de conseil en gestion de patrimoine indépendant à Colombes (92). Nous accompagnons les particuliers et chefs d'entreprise en Île-de-France.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Services</h4>
-        <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
-        <a href="/investissement-scpi-hauts-de-seine">Investissement SCPI</a>
-        <a href="/preparation-retraite">Préparation retraite</a>
-        <a href="/transmission">Transmission</a>
-        <a href="/cession-entreprise">Cession d'entreprise</a>
-        <a href="/courtage-credit-immobilier">Courtage crédit</a>
-        <a href="/declaration-impots-ile-de-france">Déclaration impôts</a>
-      </div>
-      <div class="footer-col">
-        <h4>Cabinet</h4>
-        <a href="/bilan-patrimonial-gratuit">Bilan patrimonial sur mesure</a>
-        <a href="/page-conseiller-patrimoine-colombes">Notre conseiller</a>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <a href="tel:+33184782830">01 84 78 28 30</a>
-        <a href="mailto:contact@proactifsconseils.fr">contact@proactifsconseils.fr</a>
-        <a>54 Rue du Bournard, 92700 Colombes</a>
-        <a>Lun–Ven 9h–19h</a>
+  <section class="sec sec-sand reveal">
+    <div class="container">
+      <div class="sec-label">Diversité des placements</div>
+      <h2 class="sec-title">Les types de <em>SCPI</em></h2>
+      <div class="type-cards">
+        <div class="type-card reveal">
+          <h3>SCPI de rendement</h3>
+          <p>Spécialisées dans les bureaux, commerces et logistique. Génèrent des revenus trimestriels avec un rendement de 4-6%. Idéal pour compléter vos revenus réguliers.</p>
+        </div>
+        <div class="type-card reveal">
+          <h3>SCPI fiscales</h3>
+          <p>Pinel, Malraux, déficit foncier. Combinent une réduction d’impôt immédiate avec des revenus futurs. Parfait pour les contribuables en tranche 30%+.</p>
+        </div>
+        <div class="type-card reveal">
+          <h3>SCPI européennes</h3>
+          <p>Diversification géographique au-delà des frontières françaises. Fiscalité avantageuse avec crédit d’impôt étranger. Rendement 4.5-5.5%.</p>
+        </div>
+        <div class="type-card reveal">
+          <h3>SCPI sur assurance vie</h3>
+          <p>Frais réduits et liquidité améliorée. Fiscalité de l’assurance vie au dénouement. Parfait pour les investissements long terme.</p>
+        </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>© 2026 Proactifs Conseils – Tous droits réservés · CIF enregistré AMF</p>
-      <p>Mentions légales · Politique de confidentialité</p>
+  </section>
+
+  <section class="sec sec-white reveal">
+    <div class="container">
+      <div class="sec-label">Analyse comparative</div>
+      <h2 class="sec-title">SCPI vs autres <em>placements</em></h2>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Placement</th>
+            <th>Rendement</th>
+            <th>Risque</th>
+            <th>Liquidité</th>
+            <th>Gestion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Livret A</td>
+            <td>3%</td>
+            <td>Nul</td>
+            <td>Immédiate</td>
+            <td>Aucune</td>
+          </tr>
+          <tr>
+            <td><strong>SCPI</strong></td>
+            <td><strong>~5%</strong></td>
+            <td><strong>Faible</strong></td>
+            <td><strong>3-6 mois</strong></td>
+            <td><strong>Déléguée</strong></td>
+          </tr>
+          <tr>
+            <td>Immobilier direct</td>
+            <td>3-4%</td>
+            <td>Modéré</td>
+            <td>3-12 mois</td>
+            <td>Active</td>
+          </tr>
+          <tr>
+            <td>Actions</td>
+            <td>6-8%</td>
+            <td>Élevé</td>
+            <td>Immédiate</td>
+            <td>Active</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </div>
-</footer>
+  </section>
 
-<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+  <section class="sec sec-forest reveal">
+    <div class="container">
+      <div class="sec-label">Outil de simulation</div>
+      <h2 class="sec-title">Combien rapporte votre <em>investissement</em> ?</h2>
+      <div class="simulator-container">
+        <div class="sim-row">
+          <div class="sim-group">
+            <label for="montant">Montant investi</label>
+            <select id="montant" onchange="updateSimulator()">
+              <option value="5000">5 000€</option>
+              <option value="10000">10 000€</option>
+              <option value="20000">20 000€</option>
+              <option value="50000">50 000€</option>
+              <option value="100000">100 000€</option>
+            </select>
+          </div>
+          <div class="sim-group">
+            <label for="taux">Taux de distribution</label>
+            <input type="range" id="taux" min="3.5" max="7" step="0.1" value="5" onchange="updateSimulator()">
+            <div class="sim-range-value"><span id="tauxValue">5</span>%</div>
+          </div>
+          <div class="sim-group">
+            <label for="duree">Durée de détention</label>
+            <input type="range" id="duree" min="5" max="20" step="1" value="10" onchange="updateSimulator()">
+            <div class="sim-range-value"><span id="dureeValue">10</span> ans</div>
+          </div>
+        </div>
+        <div class="sim-results">
+          <div class="sim-result-item">
+            <div class="sim-result-label">Revenu annuel</div>
+            <div class="sim-result-value" id="revenuAnnuel">250€</div>
+          </div>
+          <div class="sim-result-item">
+            <div class="sim-result-label">Revenu mensuel</div>
+            <div class="sim-result-value" id="revenuMensuel">21€</div>
+          </div>
+          <div class="sim-result-item">
+            <div class="sim-result-label">Total perçu</div>
+            <div class="sim-result-value" id="totalPercu">2 500€</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- SCHEMA.ORG -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Proactifs Conseils",
-  "description": "Cabinet de conseil en gestion de patrimoine indépendant spécialisé en SCPI",
-  "url": "https://www.proactifsconseils.fr/investissement-scpi-hauts-de-seine",
-  "telephone": "+33184782830",
-  "email": "contact@proactifsconseils.fr",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "54 Rue du Bournard",
-    "addressLocality": "Colombes",
-    "postalCode": "92700",
-    "addressCountry": "FR"
-  },
-  "areaServed": ["Hauts-de-Seine", "Île-de-France"],
-  "knowsAbout": ["SCPI", "Investissement immobilier", "Gestion de patrimoine", "Optimisation fiscale"]
-}
-</script>
+  <section class="sec sec-forest reveal">
+    <div class="container">
+      <div class="sec-label">Notre accompagnement</div>
+      <h2 class="sec-title">4 étapes pour <em>investir sereinement</em></h2>
+      <div class="process-grid">
+        <div class="process-step reveal" data-step="1">
+          <h3>Analyse de votre profil</h3>
+          <p>Diagnostic patrimonial complet : objectifs, horizon, fiscalité, capacité d’épargne. Définition de votre stratégie SCPI.</p>
+        </div>
+        <div class="process-step reveal" data-step="2">
+          <h3>Sélection des SCPI</h3>
+          <p>Choix indépendant parmi +700 SCPI. Analyse des rendements, du patrimoine, de la gestion et des perspectives.</p>
+        </div>
+        <div class="process-step reveal" data-step="3">
+          <h3>Souscription optimisée</h3>
+          <p>Mise en place : direct, assurance-vie ou à crédit. Optimisation fiscale selon votre situation personnelle.</p>
+        </div>
+        <div class="process-step reveal" data-step="4">
+          <h3>Suivi & arbitrage</h3>
+          <p>Reporting régulier, suivi des distributions, arbitrages si nécessaire. Accompagnement dans la durée.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script>
-// NAV SCROLL
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 20);
-  document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
-});
+  <section class="sec sec-sand reveal">
+    <div class="container">
+      <div class="sec-label">Pourquoi nous</div>
+      <h2 class="sec-title">Votre avantage avec <em>Proactifs</em></h2>
+      <div class="why-grid">
+        <div class="why-card reveal" data-number="1">
+          <h3>Sélection indépendante</h3>
+          <p>Nous vous proposons les meilleures SCPI du marché, sans contrainte commerciale. Analyse approfondie de chaque support selon vos objectifs.</p>
+        </div>
+        <div class="why-card reveal" data-number="2">
+          <h3>Accompagnement fiscal</h3>
+          <p>Optimisation de votre fiscalité grâce à l’investissement en SCPI. Maximisez vos avantages fiscaux selon votre profil.</p>
+        </div>
+        <div class="why-card reveal" data-number="3">
+          <h3>Suivi permanent</h3>
+          <p>Suivi régulier de votre portefeuille SCPI. Conseil continu pour adapter votre stratégie à l’évolution du marché.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-// HAMBURGER MENU
-document.getElementById('hamburger').addEventListener('click', function() {
-  document.getElementById('mobileMenu').classList.toggle('open');
-  this.classList.toggle('open');
-});
+  <section id="cta-band">
+    <div class="container">
+      <h2>Démarrez votre investissement <em>SCPI</em></h2>
+      <p>Prenez rendez-vous avec l’un de nos conseillers indépendants. Simulation gratuite et sans engagement.</p>
+      <a href="/bilan-patrimonial-gratuit" class="btn-primary">Demander une simulation gratuite</a>
+    </div>
+  </section>
 
-// REVEAL ON SCROLL
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(e.isIntersecting) e.target.classList.add('visible');
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:48px;width:auto;display:block;opacity:.9">
+          <p>Cabinet de conseil en gestion de patrimoine indépendant à Colombes (92). Nous accompagnons les particuliers et chefs d’entreprise en Île-de-France.</p>
+          <div style="display:flex;gap:12px">
+            <a href="https://www.linkedin.com/company/proactifs-conseils/" target="_blank" rel="noopener" style="color:rgba(255,255,255,.4);transition:color .2s" onmouseover="this.style.color='#E8C97A'" onmouseout="this.style.color='rgba(255,255,255,.4)'">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
+          <a href="/investissement-scpi-hauts-de-seine">Investissement SCPI</a>
+          <a href="/placements-financiers-hauts-de-seine">Placements financiers</a>
+          <a href="/preparation-retraite">Préparation retraite</a>
+          <a href="/transmission">Transmission</a>
+          <a href="/cession-entreprise">Cession d’entreprise</a>
+          <a href="/courtage-credit-immobilier">Courtage crédit</a>
+          <a href="/declaration-impots-ile-de-france">Déclaration impôts</a>
+        </div>
+        <div class="footer-col">
+          <h4>Cabinet</h4>
+          <a href="/bilan-patrimonial-gratuit">Bilan patrimonial sur mesure</a>
+          <a href="/page-conseiller-patrimoine-colombes">Notre conseiller</a>
+          <a href="/#approche">Notre approche</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="tel:+33184782830">01 84 78 28 30</a>
+          <a href="mailto:contact@proactifsconseils.fr">contact@proactifsconseils.fr</a>
+          <a>54 Rue du Bournard<br>92700 Colombes</a>
+          <a>Lun–Ven 9h–19h</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Proactifs Conseils – Tous droits réservés · CIF enregistré AMF</p>
+        <p>Mentions légales · Politique de confidentialité</p>
+      </div>
+    </div>
+  </footer>
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Proactifs Conseils",
+    "description": "Cabinet de conseil en gestion de patrimoine indépendant spécialisé en SCPI",
+    "url": "https://www.proactifsconseils.fr/investissement-scpi-hauts-de-seine",
+    "telephone": "+33184782830",
+    "email": "contact@proactifsconseils.fr",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "54 Rue du Bournard",
+      "addressLocality": "Colombes",
+      "postalCode": "92700",
+      "addressCountry": "FR"
+    },
+    "areaServed": ["Hauts-de-Seine", "Île-de-France"],
+    "knowsAbout": ["SCPI", "Investissement immobilier", "Gestion de patrimoine", "Optimisation fiscale"]
+  }
+  </script>
 
-// SIMULATOR
-function updateSimulator() {
-  const montant = parseFloat(document.getElementById('montant').value);
-  const taux = parseFloat(document.getElementById('taux').value);
-  const duree = parseFloat(document.getElementById('duree').value);
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+      document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+    });
+    document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+      this.classList.toggle('open');
+    });
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  document.getElementById('tauxValue').textContent = taux.toFixed(1);
-  document.getElementById('dureeValue').textContent = Math.round(duree);
+    // SIMULATOR
+    function updateSimulator() {
+      const montant = parseFloat(document.getElementById('montant').value);
+      const taux = parseFloat(document.getElementById('taux').value);
+      const duree = parseFloat(document.getElementById('duree').value);
 
-  const revenuAnnuel = Math.round(montant * (taux / 100));
-  const revenuMensuel = Math.round(revenuAnnuel / 12);
-  const totalPercu = Math.round(revenuAnnuel * duree);
+      document.getElementById('tauxValue').textContent = taux.toFixed(1);
+      document.getElementById('dureeValue').textContent = Math.round(duree);
 
-  document.getElementById('revenuAnnuel').textContent = revenuAnnuel.toLocaleString('fr-FR') + '€';
-  document.getElementById('revenuMensuel').textContent = revenuMensuel.toLocaleString('fr-FR') + '€';
-  document.getElementById('totalPercu').textContent = totalPercu.toLocaleString('fr-FR') + '€';
-}
+      const revenuAnnuel = Math.round(montant * (taux / 100));
+      const revenuMensuel = Math.round(revenuAnnuel / 12);
+      const totalPercu = Math.round(revenuAnnuel * duree);
 
-// Initialize simulator
-updateSimulator();
-</script>
-
+      document.getElementById('revenuAnnuel').textContent = revenuAnnuel.toLocaleString('fr-FR') + '€';
+      document.getElementById('revenuMensuel').textContent = revenuMensuel.toLocaleString('fr-FR') + '€';
+      document.getElementById('totalPercu').textContent = totalPercu.toLocaleString('fr-FR') + '€';
+    }
+    updateSimulator();
+  </script>
 </body>
 </html>

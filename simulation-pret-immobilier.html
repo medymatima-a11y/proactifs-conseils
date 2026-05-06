@@ -3,19 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
-  <title>Courtier Crédit Immobilier Colombes (92) | Proactifs Conseils</title>
-  <meta name="description" content="Obtenez le meilleur taux immobilier à Colombes (92). Comparaison 20+ banques, assurance optimisée. Courtier patrimonial dédié à vos intérêts. Simulation sur-mesure →">
-  <link rel="canonical" href="https://www.proactifsconseils.fr/courtage-credit-immobilier">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <title>Simulation Prêt Immobilier Gratuite 2026 | Capacité d'Emprunt | Proactifs Conseils</title>
+  <meta name="description" content="Calculez votre capacité d'emprunt immobilier en 2 minutes. Simulateur gratuit et personnalisé : revenus, charges, apport, taux 2026. Réponse courtier sous 24h.">
+  <link rel="canonical" href="https://www.proactifsconseils.fr/simulation-pret-immobilier">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Courtage en Crédit Immobilier",
+    "@type": "WebApplication",
+    "name": "Simulateur de prêt immobilier",
+    "url": "https://www.proactifsconseils.fr/simulation-pret-immobilier",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
     "provider": {
       "@type": "Organization",
       "name": "Proactifs Conseils",
@@ -28,12 +36,56 @@
         "postalCode": "92700",
         "addressCountry": "FR"
       }
-    },
-    "areaServed": {
-      "@type": "State",
-      "name": "Île-de-France"
-    },
-    "description": "Service de courtage en crédit immobilier avec comparaison de taux et assurance emprunteur"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Comment calculer sa capacité d'emprunt immobilier ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "La capacité d'emprunt se calcule à partir de vos revenus nets mensuels, en appliquant le taux d'endettement maximum de 35 % fixé par le HCSF. On soustrait vos charges de crédit existantes pour obtenir la mensualité maximale, puis on applique un facteur d'annuité basé sur le taux et la durée du prêt."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quel est le taux d'endettement maximum autorisé en 2026 ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Le Haut Conseil de Stabilité Financière (HCSF) maintient le plafond à 35 % des revenus nets, assurance emprunteur incluse. Ce taux s'applique à l'ensemble des crédits du ménage. Certaines banques acceptent des dérogations pour les profils à revenus élevés ou avec un reste-à-vivre confortable."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quelle durée maximale pour un prêt immobilier ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "La durée maximale recommandée par le HCSF est de 25 ans, avec une tolérance de 27 ans pour l'achat dans le neuf (VEFA) ou avec travaux représentant plus de 25 % du montant de l'opération. Au-delà, les banques ne prêtent généralement pas."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "L'apport personnel est-il obligatoire ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "L'apport n'est pas légalement obligatoire, mais la plupart des banques exigent au minimum les frais de notaire et de garantie, soit environ 8 à 10 % du prix dans l'ancien et 3 à 4 % dans le neuf. Un apport plus important améliore le taux proposé et facilite l'acceptation du dossier."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Pourquoi passer par un courtier pour son prêt immobilier ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Un courtier compare les offres de dizaines de banques partenaires, négocie les taux et conditions, et optimise votre dossier pour maximiser vos chances d'acceptation. Il accède à des grilles tarifaires réservées aux professionnels, souvent inférieures de 0,3 à 0,5 % aux taux affichés en agence."
+        }
+      }
+    ]
   }
   </script>
 
@@ -74,444 +126,173 @@
 
     /* Navigation */
     #nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 72px;
-      background: transparent;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 40px;
-      z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; height: 72px;
+      background: transparent; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 40px; z-index: 100;
       transition: all 0.3s ease;
     }
     #nav.scrolled {
       background: rgba(250, 250, 247, 0.98);
-      box-shadow: var(--shadow-md);
-      height: 68px;
+      box-shadow: var(--shadow-md); height: 68px;
     }
-    .nav-logo img {
-      height: 40px;
-      transition: all 0.3s ease;
-    }
+    .nav-logo img { height: 40px; transition: all 0.3s ease; }
     .nav-links {
-      display: flex;
-      list-style: none;
-      gap: 40px;
-      flex: 1;
-      margin-left: 60px;
+      display: flex; list-style: none; gap: 40px; flex: 1; margin-left: 60px;
     }
     .nav-links a {
-      text-decoration: none;
-      color: var(--ink);
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 0.2s ease;
+      text-decoration: none; color: var(--ink); font-size: 14px;
+      font-weight: 500; transition: color 0.2s ease;
     }
-    .nav-links a:hover {
-      color: var(--gold);
-    }
-    #nav:not(.scrolled) .nav-links a {
-      color: var(--white);
-    }
-    #nav:not(.scrolled) .nav-links a:hover {
-      color: var(--gold-light);
-    }
+    .nav-links a:hover { color: var(--gold); }
+    #nav:not(.scrolled) .nav-links a { color: var(--white); }
+    #nav:not(.scrolled) .nav-links a:hover { color: var(--gold-light); }
     .nav-cta-btn {
-      background: var(--gold);
-      color: var(--ink);
-      padding: 10px 24px;
-      border-radius: var(--r-md);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 13px;
-      transition: all 0.2s ease;
-      white-space: nowrap;
+      background: var(--gold); color: var(--ink); padding: 10px 24px;
+      border-radius: var(--r-md); text-decoration: none; font-weight: 600;
+      font-size: 13px; transition: all 0.2s ease; white-space: nowrap;
     }
-    .nav-cta-btn:hover {
-      background: var(--gold-light);
-      box-shadow: var(--shadow-md);
-    }
+    .nav-cta-btn:hover { background: var(--gold-light); box-shadow: var(--shadow-md); }
     .hamburger {
-      display: none;
-      flex-direction: column;
-      background: none;
-      border: none;
-      cursor: pointer;
-      gap: 6px;
-      margin-left: auto;
+      display: none; flex-direction: column; background: none; border: none;
+      cursor: pointer; gap: 6px; margin-left: auto;
     }
-    .hamburger span {
-      width: 24px;
-      height: 2px;
-      background: var(--ink);
-      transition: all 0.3s ease;
-    }
-    #nav:not(.scrolled) .hamburger span {
-      background: var(--white);
-    }
-    .hamburger.open span:nth-child(1) {
-      transform: rotate(45deg) translate(8px, 8px);
-    }
-    .hamburger.open span:nth-child(2) {
-      opacity: 0;
-    }
-    .hamburger.open span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
-    }
+    .hamburger span { width: 24px; height: 2px; background: var(--ink); transition: all 0.3s ease; }
+    #nav:not(.scrolled) .hamburger span { background: var(--white); }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
     .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 72px;
-      left: 0;
-      right: 0;
-      background: var(--white);
-      flex-direction: column;
-      padding: 20px;
-      gap: 12px;
-      z-index: 99;
+      display: none; position: fixed; top: 72px; left: 0; right: 0;
+      background: var(--white); flex-direction: column; padding: 20px; gap: 12px; z-index: 99;
     }
-    .mobile-menu.open {
-      display: flex;
-    }
+    .mobile-menu.open { display: flex; }
     .mobile-menu a {
-      padding: 12px 16px;
-      text-decoration: none;
-      color: var(--ink);
-      font-weight: 500;
-      border-radius: var(--r-sm);
-      transition: all 0.2s ease;
+      padding: 12px 16px; text-decoration: none; color: var(--ink);
+      font-weight: 500; border-radius: var(--r-sm); transition: all 0.2s ease;
     }
-    .mobile-menu a:hover {
-      background: var(--sand);
-      color: var(--gold);
-    }
+    .mobile-menu a:hover { background: var(--sand); color: var(--gold); }
 
     /* Breadcrumb */
     .breadcrumb {
-      background: var(--sand);
-      padding: 12px 40px;
-      font-size: 13px;
-      color: var(--slate);
-      margin-top: 72px;
+      background: var(--sand); padding: 12px 40px; font-size: 13px;
+      color: var(--slate); margin-top: 72px;
     }
-    .breadcrumb a {
-      color: var(--teal);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-    .breadcrumb a:hover {
-      color: var(--gold);
-    }
+    .breadcrumb a { color: var(--teal); text-decoration: none; transition: color 0.2s ease; }
+    .breadcrumb a:hover { color: var(--gold); }
 
     /* Hero */
     .svc-hero {
       background: linear-gradient(135deg, #0a1f14 0%, var(--forest) 100%);
-      padding: 120px 40px;
-      margin-top: 72px;
-      position: relative;
-      overflow: hidden;
-      color: var(--white);
+      padding: 100px 40px 80px; margin-top: 72px; position: relative;
+      overflow: hidden; color: var(--white);
     }
     .svc-hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 50%;
-      height: 100%;
+      content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%;
       background: url('/images/courtier-credit.jpg') right center / cover;
-      opacity: 0.15;
-      z-index: 0;
+      opacity: 0.12; z-index: 0;
     }
-    .svc-hero > * {
-      position: relative;
-      z-index: 1;
-    }
-    .svc-hero .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+    .svc-hero > * { position: relative; z-index: 1; }
+    .svc-hero .container { max-width: 1200px; margin: 0 auto; }
     .hero-badge {
-      display: inline-block;
-      background: rgba(232, 201, 122, 0.2);
-      border: 1px solid rgba(232, 201, 122, 0.4);
-      color: var(--gold-light);
-      padding: 8px 16px;
-      border-radius: var(--r-sm);
-      font-size: 12px;
-      font-family: 'DM Mono', monospace;
-      font-weight: 500;
-      text-transform: uppercase;
-      margin-bottom: 24px;
+      display: inline-block; background: rgba(232,201,122,.2);
+      border: 1px solid rgba(232,201,122,.4); color: var(--gold-light);
+      padding: 8px 16px; border-radius: var(--r-sm); font-size: 12px;
+      font-family: 'DM Mono', monospace; font-weight: 500;
+      text-transform: uppercase; margin-bottom: 24px;
     }
     .svc-hero h1 {
-      font-family: 'Fraunces', serif;
-      font-size: 56px;
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 20px;
-      max-width: 700px;
+      font-family: 'Fraunces', serif; font-size: 48px; font-weight: 700;
+      line-height: 1.2; margin-bottom: 20px; max-width: 750px;
     }
-    .svc-hero h1 em {
-      color: var(--gold-light);
-      font-style: italic;
-      font-weight: 600;
-    }
+    .svc-hero h1 em { color: var(--gold-light); font-style: italic; font-weight: 600; }
     .svc-hero > .container > p {
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.9);
-      max-width: 600px;
-      margin-bottom: 60px;
-      line-height: 1.7;
+      font-size: 17px; color: rgba(255,255,255,.9); max-width: 620px;
+      margin-bottom: 40px; line-height: 1.7;
     }
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-      max-width: 900px;
-    }
-    .hero-stat {
-      border-right: 1px solid rgba(232, 201, 122, 0.3);
-    }
-    .hero-stat:last-child {
-      border-right: none;
-    }
+    .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 900px; }
+    .hero-stat { border-right: 1px solid rgba(232,201,122,.3); }
+    .hero-stat:last-child { border-right: none; }
     .hero-stat-value {
-      font-family: 'Fraunces', serif;
-      font-size: 36px;
-      font-weight: 700;
-      color: var(--gold-light);
-      margin-bottom: 4px;
+      font-family: 'Fraunces', serif; font-size: 36px; font-weight: 700;
+      color: var(--gold-light); margin-bottom: 4px;
     }
     .hero-stat-label {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.7);
-      text-transform: uppercase;
+      font-size: 13px; color: rgba(255,255,255,.7); text-transform: uppercase;
       font-family: 'DM Mono', monospace;
     }
 
     /* Sections */
-    .sec {
-      padding: 96px 40px;
-    }
+    .sec { padding: 96px 40px; }
     .sec-sand { background: var(--sand); }
     .sec-white { background: var(--white); }
     .sec-forest { background: var(--forest); color: var(--white); }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+    .container { max-width: 1200px; margin: 0 auto; }
     .sec-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--teal);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      position: relative;
-      display: inline-block;
-      padding-left: 20px;
-      margin-bottom: 16px;
+      font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500;
+      color: var(--teal); text-transform: uppercase; letter-spacing: 1px;
+      position: relative; display: inline-block; padding-left: 20px; margin-bottom: 16px;
     }
     .sec-label::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 12px;
-      height: 1px;
-      background: var(--teal);
+      content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+      width: 12px; height: 1px; background: var(--teal);
     }
-    .sec-forest .sec-label {
-      color: var(--gold-light);
-    }
-    .sec-forest .sec-label::before {
-      background: var(--gold-light);
-    }
+    .sec-forest .sec-label { color: var(--gold-light); }
+    .sec-forest .sec-label::before { background: var(--gold-light); }
     .sec-title {
-      font-family: 'Fraunces', serif;
-      font-size: 44px;
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 40px;
-      max-width: 900px;
+      font-family: 'Fraunces', serif; font-size: 44px; font-weight: 700;
+      line-height: 1.2; margin-bottom: 40px; max-width: 900px;
     }
-    .sec-forest .sec-title {
-      color: var(--white);
-    }
-    .sec-title em {
-      color: var(--gold);
-      font-style: italic;
-      font-weight: 600;
-    }
+    .sec-title em { color: var(--gold); font-style: italic; font-weight: 600; }
+    .sec-forest .sec-title { color: var(--white); }
 
     /* Buttons */
     .btn-primary {
-      background: var(--gold);
-      color: var(--ink);
-      padding: 12px 32px;
-      border: none;
-      border-radius: var(--r-md);
-      font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-decoration: none;
-      display: inline-block;
+      background: var(--gold); color: var(--ink); padding: 12px 32px;
+      border: none; border-radius: var(--r-md); font-weight: 600; font-size: 14px;
+      cursor: pointer; transition: all 0.2s ease; text-decoration: none; display: inline-block;
     }
-    .btn-primary:hover {
-      background: var(--gold-light);
-      box-shadow: var(--shadow-md);
-    }
+    .btn-primary:hover { background: var(--gold-light); box-shadow: var(--shadow-md); }
 
-    /* Why Cards */
-    .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-    .cards-grid-4 { grid-template-columns: repeat(4, 1fr); }
-    .why-card {
-      background: var(--white); border: 1px solid var(--border); padding: 32px;
-      border-radius: var(--r-lg); box-shadow: var(--shadow-sm); transition: all .3s;
+    /* SEO content */
+    .seo-content { max-width: 780px; margin: 0 auto; }
+    .seo-content h2 {
+      font-family: 'Fraunces', serif; font-size: 32px; font-weight: 700;
+      color: var(--ink); margin-bottom: 20px; line-height: 1.3;
     }
-    .why-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
-    .why-icon{width:48px;height:48px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;background:var(--forest)}
-    .why-icon svg{width:24px;height:24px;fill:none;stroke:var(--gold-light);stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
-    .why-card-number {
-      font-family: 'Fraunces', serif; font-size: 36px; font-weight: 700; color: var(--gold);
-      margin-bottom: 16px;
+    .seo-content h2 em { color: var(--gold); font-style: italic; font-weight: 600; }
+    .seo-content p {
+      font-size: 16px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 20px;
     }
-    .why-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 12px; color: var(--ink); }
-    .why-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
-    .why-card-gold { border-color: var(--gold); border-width: 2px; background: var(--gold-pale); }
-    .why-card-gold h3 { color: var(--forest); }
+    .seo-content strong { color: var(--ink); }
 
-    .sec-forest .why-card { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.15); }
-    .sec-forest .why-card h3 { color: var(--white); }
-    .sec-forest .why-card p { color: rgba(255,255,255,.85); }
-
-    /* Section intro text */
-    .sec-intro { font-size: 17px; color: var(--ink-soft); line-height: 1.75; max-width: 720px; margin-bottom: 48px; }
-
-    /* Financements spécifiques */
-    .specifics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 48px; }
-    .specific-card {
-      display: flex; gap: 16px; align-items: flex-start;
-      background: var(--sand); border: 1px solid var(--border); border-radius: var(--r-lg);
-      padding: 24px; transition: all .3s;
+    /* FAQ */
+    .faq-list { max-width: 780px; margin: 0 auto; }
+    .faq-item {
+      border-bottom: 1px solid var(--border); padding: 24px 0;
     }
-    .specific-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); background: var(--white); }
-    .specific-icon{width:44px;height:44px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;background:var(--teal-pale)}
-    .specific-icon svg{width:22px;height:22px;fill:none;stroke:var(--teal);stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
-    .specific-body h3 { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
-    .specific-body p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
-    .specifics-cta {
-      background: linear-gradient(135deg, var(--forest), #1a4030);
-      border-radius: var(--r-xl); padding: 40px 48px; display: flex;
-      align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;
+    .faq-q {
+      font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600;
+      color: var(--ink); cursor: pointer; display: flex; justify-content: space-between;
+      align-items: center; gap: 16px;
     }
-    .specifics-cta p { font-size: 18px; color: rgba(255,255,255,.9); font-weight: 500; margin: 0; }
-    .specifics-cta .btn-primary { white-space: nowrap; flex-shrink: 0; }
-
-    /* Simulator */
-    .simulator {
-      background: var(--white); border: 1px solid var(--border); padding: 48px;
-      border-radius: var(--r-lg); box-shadow: var(--shadow-sm); max-width: 600px; margin: 0 auto;
+    .faq-q::after { content: '+'; font-size: 24px; color: var(--gold); flex-shrink: 0; transition: transform .2s; }
+    .faq-item.open .faq-q::after { content: '−'; }
+    .faq-a {
+      max-height: 0; overflow: hidden; transition: max-height .3s ease;
+      font-size: 15px; color: var(--ink-soft); line-height: 1.7;
     }
-    .form-group {
-      margin-bottom: 24px;
-    }
-    .form-group label {
-      display: block; font-weight: 600; margin-bottom: 8px; color: var(--ink);
-      font-size: 14px;
-    }
-    .form-group input,
-    .form-group select {
-      width: 100%; padding: 12px 16px; border: 1px solid var(--border);
-      border-radius: var(--r-md); font-family: 'DM Sans', sans-serif; font-size: 15px;
-    }
-    .form-group input:focus,
-    .form-group select:focus {
-      outline: none; border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(196,151,58,.1);
-    }
-    .simulator-output {
-      background: var(--sand); padding: 24px; border-radius: var(--r-md); margin-top: 32px;
-    }
-    .output-row {
-      display: flex; justify-content: space-between; padding: 12px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .output-row:last-child { border-bottom: none; }
-    .output-label { color: var(--ink-soft); font-weight: 500; }
-    .output-value { font-weight: 700; color: var(--gold); }
-
-    /* Process Steps */
-    .process-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 48px;
-    }
-    .process-step {
-      position: relative;
-      padding-left: 60px;
-    }
-    .process-step::before {
-      content: attr(data-step);
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 48px;
-      height: 48px;
-      background: var(--gold);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Fraunces', serif;
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--ink);
-    }
-    .sec-forest .process-step::before {
-      background: var(--gold-light);
-    }
-    .process-step h3 {
-      font-family: 'Fraunces', serif;
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--white);
-    }
-    .sec-forest .process-step p {
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 14px;
-      line-height: 1.7;
-    }
+    .faq-item.open .faq-a { max-height: 300px; padding-top: 16px; }
 
     /* CTA Band */
     #cta-band {
       background: linear-gradient(135deg, var(--forest-mid) 0%, var(--forest) 100%);
-      color: var(--white);
-      padding: 80px 40px;
-      text-align: center;
+      color: var(--white); padding: 80px 40px; text-align: center;
     }
-    #cta-band .container {
-      max-width: 800px;
-    }
+    #cta-band .container { max-width: 800px; }
     #cta-band h2 {
-      font-family: 'Fraunces', serif;
-      font-size: 40px;
-      font-weight: 700;
-      margin-bottom: 24px;
+      font-family: 'Fraunces', serif; font-size: 40px; font-weight: 700; margin-bottom: 24px;
     }
-    #cta-band p {
-      font-size: 16px;
-      color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 32px;
-      line-height: 1.7;
-    }
+    #cta-band p { font-size: 16px; color: rgba(255,255,255,.9); margin-bottom: 32px; line-height: 1.7; }
 
     /* ── Multi-step Wizard ── */
     .wz-wrap{max-width:720px;margin:0 auto}
@@ -520,7 +301,6 @@
     .wz-progress-dot{width:36px;height:36px;border-radius:50%;background:var(--border);display:inline-flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:14px;font-weight:700;color:var(--slate);transition:all .3s;margin:0 auto}
     .wz-progress-step.active .wz-progress-dot,.wz-progress-step.done .wz-progress-dot{background:var(--gold);color:var(--ink)}
     .wz-progress-step.done .wz-progress-dot{background:var(--teal);color:var(--white)}
-    .wz-progress-label{font-size:11px;color:var(--slate);margin-top:6px;display:none}
     .wz-progress-bar{position:absolute;top:18px;left:0;right:0;height:3px;background:var(--border);z-index:0}
     .wz-progress-fill{height:100%;background:var(--gold);transition:width .4s ease;width:0}
     .wz-step{display:none;animation:wzFadeIn .35s ease}
@@ -542,16 +322,12 @@
     .wz-opt-icon.pill-teal{background:var(--teal-pale)}
     .wz-opt-icon.pill-teal svg{stroke:var(--teal)}
     .wz-opt-label{font-weight:600;font-size:13px;color:var(--ink);display:block;line-height:1.3}
-    .wz-opt-desc{font-size:12px;color:var(--slate);margin-top:4px;display:block}
     .wz-fields{display:grid;grid-template-columns:1fr;gap:20px}
     .wz-fields.wz-fields-2{grid-template-columns:1fr 1fr}
     .wz-field label{display:block;font-weight:600;font-size:14px;color:var(--ink);margin-bottom:8px}
     .wz-field label .wz-unit{font-weight:400;color:var(--slate)}
     .wz-field input,.wz-field select{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:var(--r-md);font-family:'DM Sans',sans-serif;font-size:16px;transition:border-color .2s}
     .wz-field input:focus,.wz-field select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(196,151,58,.1)}
-    .wz-field .wz-range-row{display:flex;align-items:center;gap:16px}
-    .wz-field .wz-range-row input[type=range]{flex:1;accent-color:var(--gold)}
-    .wz-field .wz-range-val{font-family:'DM Mono',monospace;font-size:16px;font-weight:600;color:var(--gold);min-width:80px;text-align:right}
     .wz-toggle{display:flex;gap:12px;margin-top:4px}
     .wz-toggle-btn{flex:1;padding:12px;border:2px solid var(--border);border-radius:var(--r-md);background:var(--white);text-align:center;font-weight:600;font-size:14px;cursor:pointer;transition:all .2s}
     .wz-toggle-btn.selected{border-color:var(--gold);background:var(--gold-pale);color:var(--ink)}
@@ -564,7 +340,6 @@
     .wz-btn-next:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
     .wz-btn-submit{background:var(--forest);color:var(--white);margin-left:auto;padding:14px 40px}
     .wz-btn-submit:hover{background:var(--forest-mid)}
-    /* Result */
     .wz-result{text-align:center;padding:20px 0}
     .wz-result-badge{display:inline-block;background:var(--teal-pale);color:var(--teal);padding:6px 16px;border-radius:var(--r-sm);font-size:12px;font-family:'DM Mono',monospace;font-weight:500;text-transform:uppercase;margin-bottom:16px}
     .wz-result-amount{font-family:'Fraunces',serif;font-size:52px;font-weight:700;color:var(--forest);margin-bottom:8px}
@@ -582,391 +357,153 @@
     .wz-msg-ok{background:var(--teal-pale);color:var(--teal)}
     .wz-msg-err{background:#FEE;color:#C00}
 
-    @media(max-width:900px){
-      .wz-options.wz-col5{grid-template-columns:repeat(3,1fr)}
-      .wz-result-details{grid-template-columns:1fr}
-      .wz-fields.wz-fields-2{grid-template-columns:1fr}
-      .wz-form-grid{grid-template-columns:1fr}
-      .wz-question{font-size:24px}
-      .wz-result-amount{font-size:40px}
-    }
-    @media(max-width:600px){
-      .wz-options{grid-template-columns:1fr}
-      .wz-options.wz-col3{grid-template-columns:1fr}
-      .wz-options.wz-col5{grid-template-columns:repeat(2,1fr)}
-      .wz-progress-dot{width:28px;height:28px;font-size:12px}
-      .wz-progress-bar{top:14px}
-      .wz-question{font-size:20px}
-      .wz-result-amount{font-size:32px}
-    }
-
-    /* Reveal Animation */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* Footer */
     footer {
-      background: #080C10;
-      color: rgba(255, 255, 255, 0.8);
-      padding: 60px 40px 30px;
+      background: #080C10; color: rgba(255,255,255,.8); padding: 60px 40px 30px;
     }
     .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1.2fr 1.2fr 1.4fr;
-      gap: 40px;
-      margin-bottom: 40px;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
+      display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1.4fr;
+      gap: 40px; margin-bottom: 40px; max-width: 1200px; margin-left: auto; margin-right: auto;
     }
-    .footer-brand p {
-      font-size: 13px;
-      line-height: 1.7;
-      margin: 16px 0;
-      color: rgba(255, 255, 255, 0.6);
-    }
+    .footer-brand p { font-size: 13px; line-height: 1.7; margin: 16px 0; color: rgba(255,255,255,.6); }
     .footer-col h4 {
-      font-family: 'Fraunces', serif;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 16px;
+      font-family: 'Fraunces', serif; font-size: 16px; font-weight: 700;
+      color: var(--white); margin-bottom: 16px;
     }
     .footer-col a {
-      display: block;
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.6);
-      text-decoration: none;
-      margin-bottom: 12px;
-      transition: color 0.2s ease;
-      line-height: 1.6;
+      display: block; font-size: 13px; color: rgba(255,255,255,.6);
+      text-decoration: none; margin-bottom: 12px; transition: color 0.2s ease; line-height: 1.6;
     }
-    .footer-col a:hover {
-      color: var(--gold-light);
-    }
+    .footer-col a:hover { color: var(--gold-light); }
     .footer-bottom {
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 20px;
-      text-align: center;
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.5);
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
+      border-top: 1px solid rgba(255,255,255,.1); padding-top: 20px;
+      text-align: center; font-size: 12px; color: rgba(255,255,255,.5);
+      max-width: 1200px; margin-left: auto; margin-right: auto;
     }
-    .footer-bottom p {
-      margin-bottom: 8px;
-    }
+    .footer-bottom p { margin-bottom: 8px; }
 
     /* Scroll to Top */
     .scroll-top {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 48px;
-      height: 48px;
-      background: var(--gold);
-      color: var(--ink);
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 20px;
-      font-weight: 700;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 50;
+      position: fixed; bottom: 20px; right: 20px; width: 48px; height: 48px;
+      background: var(--gold); color: var(--ink); border: none; border-radius: 50%;
+      cursor: pointer; font-size: 20px; font-weight: 700; opacity: 0;
+      visibility: hidden; transition: all 0.3s ease; z-index: 50;
     }
-    .scroll-top.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-    .scroll-top:hover {
-      background: var(--gold-light);
-      box-shadow: var(--shadow-md);
-    }
+    .scroll-top.visible { opacity: 1; visibility: visible; }
+    .scroll-top:hover { background: var(--gold-light); box-shadow: var(--shadow-md); }
 
     /* Responsive */
     @media (max-width: 900px) {
-      .nav-links {
-        display: none;
-      }
-      .hamburger {
-        display: flex;
-      }
-      .nav-cta-btn {
-        display: none;
-      }
-      .svc-hero {
-        padding: 80px 24px;
-      }
-      .svc-hero h1 {
-        font-size: 40px;
-      }
-      .svc-hero > .container > p {
-        font-size: 16px;
-      }
-      .hero-stats {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
-      }
-      .process-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .cards-grid {
-        grid-template-columns: 1fr;
-      }
-      .cards-grid-4 {
-        grid-template-columns: 1fr 1fr;
-      }
-      .specifics-grid {
-        grid-template-columns: 1fr;
-      }
-      .specifics-cta {
-        flex-direction: column;
-        text-align: center;
-        padding: 32px 24px;
-      }
-      .sec {
-        padding: 60px 24px;
-      }
-      .footer-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 32px;
-      }
-      .sec-title {
-        font-size: 32px;
-      }
-      .simulator {
-        padding: 32px 24px;
-      }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-cta-btn { display: none; }
+      .svc-hero { padding: 80px 24px; }
+      .svc-hero h1 { font-size: 36px; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .sec { padding: 60px 24px; }
+      .sec-title { font-size: 32px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .wz-options.wz-col5 { grid-template-columns: repeat(3, 1fr); }
+      .wz-result-details { grid-template-columns: 1fr; }
+      .wz-fields.wz-fields-2 { grid-template-columns: 1fr; }
+      .wz-form-grid { grid-template-columns: 1fr; }
+      .wz-question { font-size: 24px; }
+      .wz-result-amount { font-size: 40px; }
+      .seo-content h2 { font-size: 26px; }
     }
-
     @media (max-width: 600px) {
-      #nav {
-        padding: 0 20px;
-        height: 64px;
-      }
-      .breadcrumb {
-        padding: 12px 20px;
-        font-size: 12px;
-      }
-      .svc-hero {
-        padding: 60px 20px;
-        margin-top: 64px;
-      }
-      .svc-hero h1 {
-        font-size: 28px;
-        margin-bottom: 16px;
-      }
-      .svc-hero > .container > p {
-        font-size: 14px;
-        margin-bottom: 40px;
-      }
-      .hero-stats {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-      .hero-stat {
-        border-right: none;
-        border-bottom: 1px solid rgba(232, 201, 122, 0.3);
-        padding-bottom: 16px;
-      }
-      .hero-stat:last-child {
-        border-bottom: none;
-      }
-      .cards-grid, .cards-grid-4 {
-        grid-template-columns: 1fr;
-      }
-      .specifics-grid {
-        grid-template-columns: 1fr;
-      }
-      .process-grid {
-        grid-template-columns: 1fr;
-      }
-      .sec {
-        padding: 48px 20px;
-      }
-      .sec-title {
-        font-size: 26px;
-      }
-      .footer-grid {
-        grid-template-columns: 1fr;
-      }
-      #cta-band {
-        padding: 60px 20px;
-      }
-      #cta-band h2 {
-        font-size: 28px;
-      }
+      #nav { padding: 0 20px; height: 64px; }
+      .breadcrumb { padding: 12px 20px; font-size: 12px; }
+      .svc-hero { padding: 60px 20px; margin-top: 64px; }
+      .svc-hero h1 { font-size: 26px; margin-bottom: 16px; }
+      .svc-hero > .container > p { font-size: 14px; margin-bottom: 30px; }
+      .hero-stats { grid-template-columns: 1fr; gap: 16px; }
+      .hero-stat { border-right: none; border-bottom: 1px solid rgba(232,201,122,.3); padding-bottom: 16px; }
+      .hero-stat:last-child { border-bottom: none; }
+      .wz-options { grid-template-columns: 1fr; }
+      .wz-options.wz-col3 { grid-template-columns: 1fr; }
+      .wz-options.wz-col5 { grid-template-columns: repeat(2, 1fr); }
+      .wz-progress-dot { width: 28px; height: 28px; font-size: 12px; }
+      .wz-progress-bar { top: 14px; }
+      .wz-question { font-size: 20px; }
+      .wz-result-amount { font-size: 32px; }
+      .sec { padding: 48px 20px; }
+      .sec-title { font-size: 26px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      #cta-band { padding: 60px 20px; }
+      #cta-band h2 { font-size: 28px; }
     }
   </style>
   <script src="/popup.js" defer></script>
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.proactifsconseils.fr/courtage-credit-immobilier">
-  <meta property="og:title" content="Courtier Crédit Immobilier Colombes (92) | Proactifs Conseil">
-  <meta property="og:description" content="Obtenez le meilleur taux immobilier à Colombes (92). Comparaison 20+ banques, assurance optimisée. Courtier patrimonial dédié à vos intérêts. Simulation gr">
+  <meta property="og:url" content="https://www.proactifsconseils.fr/simulation-pret-immobilier">
+  <meta property="og:title" content="Simulation Prêt Immobilier Gratuite 2026 | Capacité d'Emprunt">
+  <meta property="og:description" content="Calculez votre capacité d'emprunt immobilier en 2 minutes. Simulateur gratuit : revenus, charges, apport, taux 2026.">
   <meta property="og:image" content="https://www.proactifsconseils.fr/images/courtier-credit.jpg">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:site_name" content="Proactifs Conseils">
 </head>
 <body>
   <nav id="nav">
-  <a href="/" class="nav-logo"><img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:48px;width:auto;display:block;opacity:.9"></a>
-  <ul class="nav-links">
-    <li><a href="/#services">Nos services</a></li>
-    <li><a href="/#simulateurs">Simulateurs</a></li>
-    <li><a href="/#approche">Notre approche</a></li>
-    <li><a href="/#temoignages">Témoignages</a></li>
-    <li><a href="/#contact">Contact</a></li>
-    <li><a href="/blog">Blog</a></li>
-  </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-  <a href="/bilan-patrimonial-gratuit" class="nav-cta-btn">Prendre rendez-vous</a>
-</nav>
+    <a href="/" class="nav-logo"><img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:48px;width:auto;display:block;opacity:.9"></a>
+    <ul class="nav-links">
+      <li><a href="/#services">Nos services</a></li>
+      <li><a href="/#simulateurs">Simulateurs</a></li>
+      <li><a href="/#approche">Notre approche</a></li>
+      <li><a href="/#temoignages">Témoignages</a></li>
+      <li><a href="/#contact">Contact</a></li>
+      <li><a href="/blog">Blog</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <a href="/bilan-patrimonial-gratuit" class="nav-cta-btn">Prendre rendez-vous</a>
+  </nav>
   <div class="mobile-menu" id="mobileMenu">
-  <a href="/#services">Nos services</a>
-  <a href="/#simulateurs">Simulateurs</a>
-  <a href="/#approche">Notre approche</a>
-  <a href="/#temoignages">Témoignages</a>
-  <a href="/#contact">Contact</a>
-  <a href="/blog">Blog</a>
-  <a href="/bilan-patrimonial-gratuit">Prendre rendez-vous</a>
-</div>
+    <a href="/#services">Nos services</a>
+    <a href="/#simulateurs">Simulateurs</a>
+    <a href="/#approche">Notre approche</a>
+    <a href="/#temoignages">Témoignages</a>
+    <a href="/#contact">Contact</a>
+    <a href="/blog">Blog</a>
+    <a href="/bilan-patrimonial-gratuit">Prendre rendez-vous</a>
+  </div>
 
   <div class="breadcrumb">
-    <a href="/">Accueil</a> › Courtage crédit immobilier
+    <a href="/">Accueil</a> › <a href="/courtage-credit-immobilier">Courtage crédit</a> › Simulation prêt immobilier
   </div>
 
   <section class="svc-hero">
     <div class="container">
-      <div class="hero-badge">Courtage en crédit · Île-de-France</div>
-      <h1>Obtenez le <em>meilleur taux</em><br>pour votre prêt immobilier</h1>
-      <p>En tant que courtier indépendant à Colombes, nous comparons les offres de plus de 20 banques partenaires pour vous obtenir le taux le plus bas, les meilleures garanties et l’assurance emprunteur la plus compétitive.</p>
+      <div class="hero-badge">Simulateur gratuit · 2 minutes</div>
+      <h1>Simulation de <em>prêt immobilier</em><br>gratuite et personnalisée</h1>
+      <p>Calculez votre capacité d'emprunt en quelques clics. Notre simulateur intègre les critères réels des banques pour vous donner une estimation fiable, puis un courtier affine votre dossier gratuitement.</p>
       <div class="hero-stats">
         <div class="hero-stat">
-          <div class="hero-stat-value">-0,45%</div>
-          <div class="hero-stat-label">Gain moyen sur le taux</div>
+          <div class="hero-stat-value">2 min</div>
+          <div class="hero-stat-label">Pour simuler</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-value">+20</div>
-          <div class="hero-stat-label">Banques comparées</div>
+          <div class="hero-stat-value">35%</div>
+          <div class="hero-stat-label">Taux d'endettement HCSF</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-value">Sur-mesure</div>
-          <div class="hero-stat-label">Notre accompagnement</div>
+          <div class="hero-stat-value">24h</div>
+          <div class="hero-stat-label">Réponse courtier</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="sec sec-sand reveal">
-    <div class="container">
-      <div class="sec-label">Pourquoi nous choisir</div>
-      <h2 class="sec-title">Ce qui nous distingue<br>d’un courtier classique</h2>
-      <div class="cards-grid cards-grid-4">
-        <div class="why-card reveal">
-          <div class="why-icon"><svg viewBox="0 0 24 24"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></svg></div>
-          <h3>Meilleur taux du marché</h3>
-          <p>Accès aux meilleures offres grâce à notre réseau de +20 banques partenaires. Taux réservés aux courtiers, souvent inférieurs de 0,45% aux offres publiques.</p>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <h3>Gain de temps</h3>
-          <p>Nous gérons l’intégralité de votre dossier, de la simulation à la signature. Vous n’avez qu’à nous fournir les documents — nous nous chargeons du reste.</p>
-        </div>
-        <div class="why-card reveal">
-          <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <h3>Assurance emprunteur optimisée</h3>
-          <p>Délégation d’assurance jusqu’à 40% moins chère que la banque. Garanties équivalentes, tarifs négociés. Changez d’assurance à tout moment.</p>
-        </div>
-        <div class="why-card reveal why-card-gold">
-          <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M2 20h20"/><path d="M5 20V9l7-5 7 5v11"/><path d="M9 20v-5h6v5"/><path d="M9 11h6"/></svg></div>
-          <h3>Expertise patrimoniale intégrée</h3>
-          <p>Votre financement n’est pas isolé — il s’inscrit dans votre stratégie globale. En tant que CGP, nous intégrons fiscalité, transmission et optimisation du montage dès la conception du crédit.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Financements spécifiques -->
-  <section class="sec sec-white reveal">
-    <div class="container">
-      <div class="sec-label">Cas complexes</div>
-      <h2 class="sec-title">Financements spécifiques &<br><em>situations hors-standard</em></h2>
-      <p class="sec-intro">Là où la plupart des courtiers s’arrêtent, nous continuons. Notre double expertise courtage + gestion de patrimoine nous permet de structurer des financements que les banques refusent souvent en direct.</p>
-      <div class="specifics-grid">
-        <div class="specific-card reveal">
-          <div class="specific-icon"><svg viewBox="0 0 24 24"><rect x="1" y="12" width="6" height="10" rx="1"/><rect x="9" y="6" width="6" height="16" rx="1"/><rect x="17" y="2" width="6" height="20" rx="1"/></svg></div>
-          <div class="specific-body">
-            <h3>Marchands de biens & promoteurs</h3>
-            <p>Financement de portefeuilles immobiliers, lignes de crédit court terme, structuration des flux entre acquisition et revente.</p>
-          </div>
-        </div>
-        <div class="specific-card reveal">
-          <div class="specific-icon"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l5-4v18"/><path d="M19 21V11l-5-2v12"/><path d="M9 9h1"/><path d="M9 13h1"/><path d="M14 13h1"/></svg></div>
-          <div class="specific-body">
-            <h3>Aménageurs & opérations foncières</h3>
-            <p>Accompagnement sur les montages de financement de terrains, divisions parcellaires et opérations de promotion.</p>
-          </div>
-        </div>
-        <div class="specific-card reveal">
-          <div class="specific-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
-          <div class="specific-body">
-            <h3>SCPI à crédit</h3>
-            <p>Financement de parts de SCPI par emprunt pour optimiser l’effet de levier et déduire les intérêts des revenus fonciers.</p>
-          </div>
-        </div>
-        <div class="specific-card reveal">
-          <div class="specific-icon"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 4l9 6.5"/><path d="M5 9.5V19a1 1 0 001 1h12a1 1 0 001-1V9.5"/><path d="M10 20v-6h4v6"/></svg></div>
-          <div class="specific-body">
-            <h3>Prêt de trésorerie hypothécaire</h3>
-            <p>Mobiliser la valeur d’un bien détenu en pleine propriété pour financer un projet sans vendre — solution pour les patrimoines constitués.</p>
-          </div>
-        </div>
-        <div class="specific-card reveal">
-          <div class="specific-icon"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 7l7-4 7 4"/><path d="M3 17l4-2V9"/><path d="M21 17l-4-2V9"/><circle cx="3" cy="17" r="1"/><circle cx="21" cy="17" r="1"/></svg></div>
-          <div class="specific-body">
-            <h3>Financement de succession</h3>
-            <p>Prêts pour régler les droits de succession ou racheter la quote-part d’un cohéritier, sans liquider le patrimoine familial.</p>
-          </div>
-        </div>
-        <div class="specific-card reveal">
-          <div class="specific-icon"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10"/><path d="M20.49 15a9 9 0 01-14.85 3.36L1 14"/></svg></div>
-          <div class="specific-body">
-            <h3>Prêt viager hypothécaire</h3>
-            <p>Solution pour les seniors souhaitant dégager des liquidités en mobilisant leur résidence principale, sans rembourser de leur vivant.</p>
-          </div>
-        </div>
-        <div class="specific-card reveal">
-          <div class="specific-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-          <div class="specific-body">
-            <h3>Regroupement de crédits</h3>
-            <p>Consolidation de plusieurs prêts en un seul pour réduire les mensualités et simplifier la gestion de votre endettement.</p>
-          </div>
-        </div>
-      </div>
-      <div class="specifics-cta">
-        <p>Votre situation ne rentre pas dans les cases ? C’est exactement notre spécialité.</p>
-        <a href="/?service=credit" class="btn-primary">Étudier mon cas →</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec sec-sand reveal" id="simulateur">
+  <!-- Wizard -->
+  <section class="sec sec-sand" id="simulateur">
     <div class="container">
       <div class="sec-label">Simulateur</div>
-      <h2 class="sec-title" style="text-align:center;margin-bottom:12px">Calculez votre <em>capacité d’emprunt</em></h2>
-      <p style="text-align:center;color:var(--slate);font-size:15px;margin-bottom:48px;max-width:560px;margin-left:auto;margin-right:auto">Répondez à quelques questions pour obtenir une estimation personnalisée en 2 minutes.</p>
+      <h2 class="sec-title" style="text-align:center;margin-bottom:12px">Calculez votre <em>capacité d'emprunt</em></h2>
+      <p style="text-align:center;color:var(--slate);font-size:15px;margin-bottom:48px;max-width:560px;margin-left:auto;margin-right:auto">Répondez à quelques questions pour obtenir une estimation personnalisée.</p>
       <div class="wz-wrap" id="wizCredit">
-        <!-- Progress -->
         <div class="wz-progress">
           <div class="wz-progress-bar"><div class="wz-progress-fill" id="wzFill"></div></div>
           <div class="wz-progress-step active" data-s="1"><div class="wz-progress-dot">1</div></div>
@@ -978,10 +515,9 @@
           <div class="wz-progress-step" data-s="7"><div class="wz-progress-dot">7</div></div>
         </div>
 
-        <!-- Step 1 : Type de projet -->
         <div class="wz-step active" data-step="1">
           <div class="wz-question">Quel est votre projet ?</div>
-          <div class="wz-hint">Sélectionnez le type d’acquisition envisagé</div>
+          <div class="wz-hint">Sélectionnez le type d'acquisition envisagé</div>
           <div class="wz-options">
             <div class="wz-opt" data-val="Résidence principale" onclick="wzSelect(this)">
               <div class="wz-opt-icon pill-forest"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 4l9 6.5"/><path d="M5 9.5V19a1 1 0 001 1h12a1 1 0 001-1V9.5"/><path d="M10 20v-6h4v6"/></svg></div>
@@ -1006,7 +542,6 @@
           </div>
         </div>
 
-        <!-- Step 2 : Situation pro -->
         <div class="wz-step" data-step="2">
           <div class="wz-question">Quelle est votre situation professionnelle ?</div>
           <div class="wz-hint">Les banques évaluent votre stabilité de revenus</div>
@@ -1042,7 +577,6 @@
           </div>
         </div>
 
-        <!-- Step 3 : Revenus -->
         <div class="wz-step" data-step="3">
           <div class="wz-question">Vos revenus mensuels nets</div>
           <div class="wz-hint">Incluez salaire, pensions, revenus locatifs</div>
@@ -1069,18 +603,17 @@
           </div>
         </div>
 
-        <!-- Step 4 : Charges -->
         <div class="wz-step" data-step="4">
           <div class="wz-question">Vos charges mensuelles</div>
           <div class="wz-hint">Crédits en cours, pensions alimentaires…</div>
           <div class="wz-fields wz-fields-2">
             <div class="wz-field">
               <label>Crédits en cours <span class="wz-unit">(€/mois)</span></label>
-              <input type="number" id="wz-credits" placeholder="0" min="0" step="50" value="0" oninput="wzCheckFields4()">
+              <input type="number" id="wz-credits" placeholder="0" min="0" step="50" value="0">
             </div>
             <div class="wz-field">
               <label>Loyer actuel <span class="wz-unit">(€/mois)</span></label>
-              <input type="number" id="wz-loyer" placeholder="0" min="0" step="50" value="0" oninput="wzCheckFields4()">
+              <input type="number" id="wz-loyer" placeholder="0" min="0" step="50" value="0">
             </div>
           </div>
           <div class="wz-nav">
@@ -1089,10 +622,9 @@
           </div>
         </div>
 
-        <!-- Step 5 : Apport & durée -->
         <div class="wz-step" data-step="5">
           <div class="wz-question">Apport et durée souhaitée</div>
-          <div class="wz-hint">L’apport n’est pas obligatoire mais améliore les conditions</div>
+          <div class="wz-hint">L'apport n'est pas obligatoire mais améliore les conditions</div>
           <div class="wz-fields">
             <div class="wz-field">
               <label>Apport personnel <span class="wz-unit">(€)</span></label>
@@ -1101,7 +633,7 @@
             <div class="wz-field">
               <label>Durée souhaitée : <strong id="wz-duree-val">20 ans</strong></label>
               <div class="wz-range-row">
-                <input type="range" id="wz-duree" min="7" max="25" step="1" value="20" oninput="document.getElementById(‘wz-duree-val’).textContent=this.value+’ ans’">
+                <input type="range" id="wz-duree" min="7" max="25" step="1" value="20" oninput="document.getElementById('wz-duree-val').textContent=this.value+' ans'">
               </div>
             </div>
           </div>
@@ -1111,7 +643,6 @@
           </div>
         </div>
 
-        <!-- Step 6 : Avancement du projet -->
         <div class="wz-step" data-step="6">
           <div class="wz-question">Où en êtes-vous dans votre projet ?</div>
           <div class="wz-hint">Cela nous aide à calibrer notre accompagnement</div>
@@ -1120,11 +651,11 @@
               <div class="wz-opt-icon pill-teal"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
               <span class="wz-opt-label">Je recherche un bien</span>
             </div>
-            <div class="wz-opt" data-val="J’ai trouvé et pense faire une offre" onclick="wzSelect(this)">
+            <div class="wz-opt" data-val="J'ai trouvé et pense faire une offre" onclick="wzSelect(this)">
               <div class="wz-opt-icon pill-teal"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
-              <span class="wz-opt-label">J’ai trouvé, offre à venir</span>
+              <span class="wz-opt-label">J'ai trouvé, offre à venir</span>
             </div>
-            <div class="wz-opt" data-val="J’ai fait une offre au vendeur" onclick="wzSelect(this)">
+            <div class="wz-opt" data-val="J'ai fait une offre au vendeur" onclick="wzSelect(this)">
               <div class="wz-opt-icon pill-teal"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
               <span class="wz-opt-label">Offre faite</span>
             </div>
@@ -1132,7 +663,7 @@
               <div class="wz-opt-icon pill-teal"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/></svg></div>
               <span class="wz-opt-label">Compromis bientôt</span>
             </div>
-            <div class="wz-opt" data-val="J’ai signé un compromis / une promesse" onclick="wzSelect(this)">
+            <div class="wz-opt" data-val="J'ai signé un compromis / une promesse" onclick="wzSelect(this)">
               <div class="wz-opt-icon pill-teal"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
               <span class="wz-opt-label">Compromis signé</span>
             </div>
@@ -1143,12 +674,11 @@
           </div>
         </div>
 
-        <!-- Step 7 : Résultat + Formulaire -->
         <div class="wz-step" data-step="7">
           <div class="wz-result">
             <div class="wz-result-badge">Estimation personnalisée</div>
             <div class="wz-result-amount" id="wz-res-amount">—</div>
-            <div class="wz-result-sub">Capacité d’emprunt estimée <span id="wz-res-apport-note"></span></div>
+            <div class="wz-result-sub">Capacité d'emprunt estimée <span id="wz-res-apport-note"></span></div>
             <div class="wz-result-details">
               <div class="wz-result-card">
                 <div class="wz-result-card-val" id="wz-res-mens">—</div>
@@ -1188,36 +718,59 @@
     </div>
   </section>
 
-  <section class="sec sec-forest reveal">
+  <!-- SEO Content -->
+  <section class="sec sec-white reveal">
     <div class="container">
-      <div class="sec-label">Processus</div>
-      <h2 class="sec-title">De la simulation<br>à la signature</h2>
-      <div class="process-grid">
-        <div class="process-step reveal" data-step="1" style="padding-left:60px">
-          <h3>Simulation &<br>estimation</h3>
-          <p>Évaluation de votre capacité d’emprunt, simulation de mensualité selon votre apport et votre situation financière.</p>
+      <div class="seo-content">
+        <h2>Comment fonctionne le calcul de votre <em>capacité d'emprunt</em> ?</h2>
+        <p>Votre capacité d'emprunt dépend de trois éléments principaux : vos revenus nets mensuels, vos charges de crédit existantes, et la durée de remboursement que vous ciblez. La règle du HCSF (Haut Conseil de Stabilité Financière) fixe le taux d'endettement maximum à <strong>35 % de vos revenus nets</strong>, assurance comprise.</p>
+        <p>Concrètement, si votre foyer perçoit 5 000 € nets par mois sans crédit en cours, votre mensualité maximale s'élève à 1 750 €. Sur 20 ans au taux de 3,45 %, cela représente une capacité d'emprunt d'environ 296 000 €. Ajoutez votre apport personnel, et vous obtenez le budget total de votre projet.</p>
+        <p>Notre simulateur applique ces mêmes règles. Il intègre les taux indicatifs du marché actualisés pour 2026, ajustés selon la durée choisie. Le résultat est une estimation : votre courtier affinera ensuite le calcul en tenant compte de votre profil bancaire complet, du reste-à-vivre, et des marges de flexibilité propres à chaque établissement.</p>
+
+        <h2 style="margin-top:48px">Ce que les banques regardent <em>au-delà du taux d'endettement</em></h2>
+        <p>Le ratio de 35 % n'est pas le seul critère. Les banques évaluent aussi votre <strong>reste-à-vivre</strong> (ce qu'il vous reste après le paiement de toutes vos charges), la régularité de vos revenus sur les deux à trois dernières années, et la gestion de vos comptes bancaires. Un découvert fréquent ou des rejets de prélèvement peuvent peser autant qu'un taux d'endettement trop élevé.</p>
+        <p>L'apport personnel joue également un rôle décisif. Les banques attendent généralement que vous couvriez au minimum les frais de notaire et de garantie, soit 8 à 10 % du prix du bien dans l'ancien. Un apport plus conséquent vous donne accès à de meilleures conditions de taux et renforce votre dossier face aux profils concurrents.</p>
+        <p>C'est précisément là qu'intervient un courtier : en connaissant les critères spécifiques de chaque banque, il oriente votre dossier vers les établissements les plus susceptibles de vous accorder les meilleures conditions. Ce travail de ciblage fait souvent la différence entre un refus et une offre compétitive.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec sec-sand reveal">
+    <div class="container">
+      <div class="sec-label">Questions fréquentes</div>
+      <h2 class="sec-title" style="text-align:center;margin-left:auto;margin-right:auto">Tout comprendre sur la <em>simulation de prêt</em></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Comment calculer sa capacité d'emprunt immobilier ?</div>
+          <div class="faq-a">La capacité d'emprunt se calcule à partir de vos revenus nets mensuels, en appliquant le taux d'endettement maximum de 35 % fixé par le HCSF. On soustrait vos charges de crédit existantes pour obtenir la mensualité maximale, puis on applique un facteur d'annuité basé sur le taux et la durée du prêt.</div>
         </div>
-        <div class="process-step reveal" data-step="2" style="padding-left:60px">
-          <h3>Constitution<br>du dossier</h3>
-          <p>Rassemblement de vos documents (bulletins de paie, avis d’imposition, relevés bancaires). Nous vous guidons sur les pièces à fournir.</p>
+        <div class="faq-item">
+          <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Quel est le taux d'endettement maximum autorisé en 2026 ?</div>
+          <div class="faq-a">Le Haut Conseil de Stabilité Financière (HCSF) maintient le plafond à 35 % des revenus nets, assurance emprunteur incluse. Ce taux s'applique à l'ensemble des crédits du ménage. Certaines banques acceptent des dérogations pour les profils à revenus élevés ou avec un reste-à-vivre confortable.</div>
         </div>
-        <div class="process-step reveal" data-step="3" style="padding-left:60px">
-          <h3>Présentation<br>aux banques</h3>
-          <p>Nous présentons votre dossier aux meilleures banques et négocions les taux et conditions en votre faveur.</p>
+        <div class="faq-item">
+          <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Quelle durée maximale pour un prêt immobilier ?</div>
+          <div class="faq-a">La durée maximale recommandée par le HCSF est de 25 ans, avec une tolérance de 27 ans pour l'achat dans le neuf (VEFA) ou avec travaux représentant plus de 25 % du montant de l'opération. Au-delà, les banques ne prêtent généralement pas.</div>
         </div>
-        <div class="process-step reveal" data-step="4" style="padding-left:60px">
-          <h3>Offre de prêt<br>& signature</h3>
-          <p>Sélection de la meilleure offre, signature chez le notaire. Nous assurons un suivi jusqu’au déblocage des fonds.</p>
+        <div class="faq-item">
+          <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">L'apport personnel est-il obligatoire ?</div>
+          <div class="faq-a">L'apport n'est pas légalement obligatoire, mais la plupart des banques exigent au minimum les frais de notaire et de garantie, soit environ 8 à 10 % du prix dans l'ancien et 3 à 4 % dans le neuf. Un apport plus important améliore le taux proposé et facilite l'acceptation du dossier.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Pourquoi passer par un courtier pour son prêt immobilier ?</div>
+          <div class="faq-a">Un courtier compare les offres de dizaines de banques partenaires, négocie les taux et conditions, et optimise votre dossier pour maximiser vos chances d'acceptation. Il accède à des grilles tarifaires réservées aux professionnels, souvent inférieures de 0,3 à 0,5 % aux taux affichés en agence.</div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- CTA -->
   <section id="cta-band">
     <div class="container">
-      <h2>Obtenez votre simulation<br>de prêt personnalisée</h2>
-      <p>Simulation gratuite et sans engagement. Réponse sous 48h.</p>
-      <a href="/?service=credit" class="btn-primary">Demander ma simulation crédit</a>
+      <h2>Besoin d'aller plus loin ?</h2>
+      <p>Notre courtier analyse votre dossier complet et négocie les meilleures conditions auprès de nos banques partenaires. Simulation gratuite, réponse sous 24h.</p>
+      <a href="/courtage-credit-immobilier" class="btn-primary">Découvrir notre service courtage →</a>
     </div>
   </section>
 
@@ -1226,7 +779,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:48px;width:auto;display:block;opacity:.9">
-          <p>Cabinet de conseil en gestion de patrimoine indépendant à Colombes (92). Nous accompagnons les particuliers et chefs d’entreprise en Île-de-France.</p>
+          <p>Cabinet de conseil en gestion de patrimoine indépendant à Colombes (92). Nous accompagnons les particuliers et chefs d'entreprise en Île-de-France.</p>
           <div style="display:flex;gap:12px">
             <a href="https://www.linkedin.com/company/proactifs-conseils/" target="_blank" rel="noopener" style="color:rgba(255,255,255,.4);transition:color .2s" onmouseover="this.style.color='#E8C97A'" onmouseout="this.style.color='rgba(255,255,255,.4)'">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
@@ -1239,7 +792,7 @@
           <a href="/investissement-scpi-hauts-de-seine">Investissement SCPI</a>
           <a href="/preparation-retraite">Préparation retraite</a>
           <a href="/transmission">Transmission</a>
-          <a href="/cession-entreprise">Cession d’entreprise</a>
+          <a href="/cession-entreprise">Cession d'entreprise</a>
           <a href="/courtage-credit-immobilier">Courtage crédit</a>
           <a href="/placements-financiers">Placements financiers</a>
           <a href="/declaration-impots-ile-de-france">Déclaration impôts</a>
@@ -1311,15 +864,11 @@
       const step = document.querySelector('.wz-step[data-step="3"]');
       step.querySelector('.wz-btn-next').disabled = r <= 0;
     }
-    function wzCheckFields4() {
-      /* charges are always valid (can be 0) */
-    }
 
     function wzGo(n) {
       wzCur = n;
       document.querySelectorAll('#wizCredit .wz-step').forEach(s => s.classList.remove('active'));
       document.querySelector('#wizCredit .wz-step[data-step="' + n + '"]').classList.add('active');
-      /* progress */
       document.querySelectorAll('#wizCredit .wz-progress-step').forEach(p => {
         const s = parseInt(p.dataset.s);
         p.classList.remove('active', 'done');
@@ -1327,20 +876,13 @@
         if (s === n) p.classList.add('active');
       });
       document.getElementById('wzFill').style.width = ((n - 1) / (wzTotal - 1) * 100) + '%';
-      /* scroll to top of section */
       document.getElementById('simulateur').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      /* compute result at step 7 */
       if (n === 7) wzCompute();
     }
 
-    function wzNext() {
-      if (wzCur < wzTotal) wzGo(wzCur + 1);
-    }
-    function wzPrev() {
-      if (wzCur > 1) wzGo(wzCur - 1);
-    }
+    function wzNext() { if (wzCur < wzTotal) wzGo(wzCur + 1); }
+    function wzPrev() { if (wzCur > 1) wzGo(wzCur - 1); }
 
-    /* Taux estimés par durée (indicatifs 2026) */
     function wzTaux(duree) {
       if (duree <= 10) return 3.10;
       if (duree <= 15) return 3.30;
@@ -1354,7 +896,6 @@
       const credits = parseFloat(document.getElementById('wz-credits').value) || 0;
       const apport  = parseFloat(document.getElementById('wz-apport').value) || 0;
       const duree   = parseInt(document.getElementById('wz-duree').value) || 20;
-
       const revenus = revenu1 + revenu2;
       const mensMax = Math.max(0, revenus * 0.35 - credits);
       const taux = wzTaux(duree);
@@ -1363,14 +904,12 @@
       const facteur = (1 - Math.pow(1 + tm, -nbMois)) / tm;
       const capacite = Math.round(mensMax * facteur);
       const total = capacite + apport;
-
       const fmt = v => v.toLocaleString('fr-FR');
       document.getElementById('wz-res-amount').textContent = fmt(total) + ' €';
       document.getElementById('wz-res-mens').textContent = fmt(Math.round(mensMax)) + ' €';
       document.getElementById('wz-res-taux').textContent = taux.toFixed(2) + ' %';
       document.getElementById('wz-res-duree').textContent = duree + ' ans';
       document.getElementById('wz-res-apport-note').textContent = apport > 0 ? '(dont ' + fmt(apport) + ' € d\'apport)' : '';
-
       wzData.capacite = total;
       wzData.mensMax = Math.round(mensMax);
       wzData.tauxEstime = taux;
@@ -1383,17 +922,14 @@
       const email  = document.getElementById('wz-email').value.trim();
       const tel    = document.getElementById('wz-tel').value.trim();
       const msgEl  = document.getElementById('wz-msg');
-
       if (!prenom || !email || !tel) {
         msgEl.className = 'wz-msg wz-msg-err';
         msgEl.textContent = 'Merci de remplir tous les champs.';
         return;
       }
-
       const btn = document.getElementById('wz-submit');
       btn.disabled = true;
       btn.textContent = 'Envoi en cours…';
-
       const answers = [
         'Projet : ' + (wzData.step1 || '-'),
         'Situation : ' + (wzData.step2 || '-'),
@@ -1403,28 +939,17 @@
         'Avancement : ' + (wzData.step6 || '-'),
         'Capacité estimée : ' + (wzData.capacite || 0).toLocaleString('fr-FR') + ' € (mensualité max ' + (wzData.mensMax || 0).toLocaleString('fr-FR') + ' €, taux ' + (wzData.tauxEstime || '-') + ' %)',
       ];
-
       try {
         const res = await fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            prenom,
-            nom: '',
-            email,
-            tel,
-            situation: wzData.step2 || '',
-            service: 'credit',
-            answers,
-          }),
+          body: JSON.stringify({ prenom, nom: '', email, tel, situation: wzData.step2 || '', service: 'credit', answers }),
         });
         if (res.ok) {
           msgEl.className = 'wz-msg wz-msg-ok';
           msgEl.textContent = '✓ Demande envoyée ! Un courtier vous recontacte sous 24h.';
           btn.textContent = 'Envoyé ✓';
-        } else {
-          throw new Error('Erreur serveur');
-        }
+        } else { throw new Error('err'); }
       } catch (e) {
         msgEl.className = 'wz-msg wz-msg-err';
         msgEl.textContent = 'Une erreur est survenue. Réessayez ou appelez-nous au 01 84 78 28 30.';
