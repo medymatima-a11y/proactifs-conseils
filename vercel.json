@@ -2,7 +2,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/bilan-patrimonial-gratuit",           "destination": "/bilan-patrimonial-gratuit.html" },
+    { "source": "/bilan-patrimonial",                   "destination": "/bilan-patrimonial.html" },
     { "source": "/optimisation-fiscale-ile-de-france",  "destination": "/optimisation-fiscale-ile-de-france.html" },
     { "source": "/investissement-scpi-hauts-de-seine",  "destination": "/investissement-scpi-hauts-de-seine.html" },
     { "source": "/courtage-credit-immobilier",          "destination": "/courtage-credit-immobilier.html" },
@@ -13,6 +13,7 @@
     { "source": "/page-conseiller-patrimoine-colombes", "destination": "/page-conseiller-patrimoine-colombes.html" }
   ],
   "redirects": [
+    { "source": "/bilan-patrimonial-gratuit",             "destination": "/bilan-patrimonial",                   "permanent": true },
     { "source": "/conseiller-gestion-patrimoine-colombes", "destination": "/page-conseiller-patrimoine-colombes", "permanent": true },
     { "source": "/nos-services",          "destination": "/",                                    "permanent": true },
     { "source": "/services",             "destination": "/",                                    "permanent": true },
