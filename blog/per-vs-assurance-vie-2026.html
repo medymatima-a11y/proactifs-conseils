@@ -50,7 +50,7 @@
       {
         "@type": "Question",
         "name": "Quel est le plafond de déduction du PER en 2026 ?",
-        "acceptedAnswer": {"@type": "Answer", "text": "Le plafond de déduction PER en 2026 est de 10% de vos revenus professionnels nets de l'année précédente, dans la limite de 8 fois le PASS (Plafond Annuel de la Sécurité Sociale), soit environ 35 000 € pour un salarié. Les travailleurs non-salariés bénéficient d'un plafond plus élevé. Les plafonds non utilisés des 3 dernières années sont reportables."}
+        "acceptedAnswer": {"@type": "Answer", "text": "Le plafond de déduction PER en 2026 est de 10 % de vos revenus professionnels nets de l'année précédente, dans la limite de 8 fois le PASS (soit environ 35 000 € pour un salarié). Les travailleurs non-salariés bénéficient d'un plafond majoré sur le PER individuel : 10 % du bénéfice imposable plus 15 % de la fraction comprise entre 1 et 8 PASS, ce qui peut porter la déduction au-delà de 85 000 €. Le contrat Madelin n'est plus commercialisé depuis octobre 2020 (loi Pacte) : les anciens contrats peuvent encore recevoir des versements, mais les nouvelles ouvertures se font sur PER individuel. Les plafonds non utilisés des trois dernières années sont reportables et cumulables."}
       },
       {
         "@type": "Question",
@@ -636,7 +636,7 @@
           Quel est le plafond de déduction du PER en 2026 ?
           <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
-        <div class="faq-answer">Le plafond de déduction PER en 2026 est de 10% de vos revenus professionnels nets de l'année précédente, dans la limite de 8 fois le PASS, soit environ 35 000 € pour un salarié. Les travailleurs non-salariés bénéficient d'un plafond plus élevé (Madelin). Important : les plafonds non utilisés des 3 dernières années sont reportables et cumulables.</div>
+        <div class="faq-answer">Le plafond de déduction PER en 2026 est de 10 % de vos revenus professionnels nets de l'année précédente, dans la limite de 8 fois le PASS (soit environ 35 000 € pour un salarié). Les travailleurs non-salariés bénéficient d'un plafond majoré sur le PER individuel : 10 % du bénéfice imposable (jusqu'à 8 PASS) + 15 % de la fraction comprise entre 1 et 8 PASS, ce qui peut porter la déduction au-delà de 85 000 € pour les hauts revenus. Le contrat Madelin n'est plus commercialisé depuis octobre 2020 (loi Pacte) : les anciens contrats peuvent encore recevoir des versements, mais les nouvelles ouvertures se font sur PER individuel. Bon à savoir : les plafonds non utilisés des trois dernières années sont reportables et cumulables.</div>
       </div>
 
       <div class="faq-item">
@@ -746,26 +746,4 @@
   // Nav scroll
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 20);
-    document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
-  });
-
-  // Hamburger
-  document.getElementById('hamburger').addEventListener('click', function() {
-    this.classList.toggle('open');
-    document.getElementById('mobileMenu').classList.toggle('open');
-  });
-
-  // FAQ accordion
-  document.querySelectorAll('.faq-question').forEach(q => {
-    q.addEventListener('click', () => {
-      const item = q.closest('.faq-item');
-      const wasOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-      if (!wasOpen) item.classList.add('open');
-    });
-  });
-</script>
-
-</body>
-</html>
+    nav.classList.toggle('scrolled', window.scr
