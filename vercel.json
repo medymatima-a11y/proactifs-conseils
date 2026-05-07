@@ -13,7 +13,7 @@
     { "source": "/preparation-retraite",                "destination": "/preparation-retraite.html" },
     { "source": "/cession-entreprise",                  "destination": "/cession-entreprise.html" },
     { "source": "/transmission",                        "destination": "/transmission.html" },
-    { "source": "/page-conseiller-patrimoine-colombes", "destination": "/page-conseiller-patrimoine-colombes.html" },
+    { "source": "/conseiller-patrimoine-colombes", "destination": "/conseiller-patrimoine-colombes.html" },
     { "source": "/conseiller-patrimoine-courbevoie",    "destination": "/conseiller-patrimoine-courbevoie.html" },
     { "source": "/conseiller-patrimoine-asnieres",      "destination": "/conseiller-patrimoine-asnieres.html" },
     { "source": "/conseiller-patrimoine-levallois",     "destination": "/conseiller-patrimoine-levallois.html" },
@@ -27,13 +27,15 @@
     { "source": "/blog/scpi-2026",                         "destination": "/blog/scpi-2026.html" }
   ],
   "redirects": [
+
+    { "source": "/page-conseiller-patrimoine-colombes", "destination": "/conseiller-patrimoine-colombes", "permanent": true },
     { "source": "/bilan-patrimonial-gratuit",             "destination": "/bilan-patrimonial",                   "permanent": true },
-    { "source": "/conseiller-gestion-patrimoine-colombes", "destination": "/page-conseiller-patrimoine-colombes", "permanent": true },
+    { "source": "/conseiller-gestion-patrimoine-colombes", "destination": "/conseiller-patrimoine-colombes", "permanent": true },
     { "source": "/nos-services",          "destination": "/",                                    "permanent": true },
     { "source": "/services",             "destination": "/",                                    "permanent": true },
     { "source": "/contact",              "destination": "/",                                    "permanent": true },
-    { "source": "/a-propos",             "destination": "/page-conseiller-patrimoine-colombes", "permanent": true },
-    { "source": "/qui-sommes-nous",      "destination": "/page-conseiller-patrimoine-colombes", "permanent": true },
+    { "source": "/a-propos",             "destination": "/conseiller-patrimoine-colombes", "permanent": true },
+    { "source": "/qui-sommes-nous",      "destination": "/conseiller-patrimoine-colombes", "permanent": true },
     { "source": "/fiscalite",            "destination": "/optimisation-fiscale-ile-de-france",  "permanent": true },
     { "source": "/retraite",             "destination": "/preparation-retraite",                "permanent": true },
     { "source": "/immobilier",           "destination": "/investissement-immobilier",            "permanent": true },
