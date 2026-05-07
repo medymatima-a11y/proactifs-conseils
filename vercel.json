@@ -28,6 +28,9 @@
   ],
   "redirects": [
 
+    { "source": "/assurance-vie",   "destination": "/placements-financiers", "permanent": true },
+    { "source": "/assurance-vie/",  "destination": "/placements-financiers", "permanent": true },
+
     { "source": "/page-conseiller-patrimoine-colombes", "destination": "/conseiller-patrimoine-colombes", "permanent": true },
     { "source": "/bilan-patrimonial-gratuit",             "destination": "/bilan-patrimonial",                   "permanent": true },
     { "source": "/conseiller-gestion-patrimoine-colombes", "destination": "/conseiller-patrimoine-colombes", "permanent": true },
