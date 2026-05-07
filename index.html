@@ -398,7 +398,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
    SIMULATEURS
 ══════════════════════════════════════════════ */
 .sim-tabs {
-  display:flex; gap:4px; background:var(--sand);
+  display:flex; flex-wrap:wrap; gap:4px; background:var(--sand);
   border-radius:var(--r-sm); padding:4px; width:fit-content;
   margin: 40px 0 0;
 }
@@ -1489,6 +1489,10 @@ footer {
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:5px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         Retraite
       </button>
+      <button class="sim-tab" onclick="switchSim('capacite')">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:5px"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        Capacité d'emprunt
+      </button>
     </div>
     <div class="sim-panels">
       <!-- CRÉDIT -->
@@ -1625,6 +1629,47 @@ footer {
         <div class="sim-results">
           <h3>Votre projection retraite</h3>
           <div class="result-card"><div class="r-label">Capital estimé au départ</div><div class="r-val" id="r-ret-capital">—</div></div>
+      <!-- CAPACITE D'EMPRUNT -->
+      <div class="sim-panel" id="panel-capacite">
+        <div class="sim-form">
+          <h3>Combien puis-je emprunter ?</h3>
+          <div class="field">
+            <label>Revenus nets mensuels du foyer</label>
+            <div class="range-row"><span>Revenus</span><span class="range-val" id="cv-revenus">5 000 €</span></div>
+            <input type="range" min="1500" max="30000" step="100" value="5000" oninput="updateRange('revenus',this.value,true,'€');calcCapacite()">
+          </div>
+          <div class="field">
+            <label>Charges mensuelles fixes</label>
+            <div class="range-row"><span>Crédits, pensions...</span><span class="range-val" id="cv-charges">200 €</span></div>
+            <input type="range" min="0" max="5000" step="50" value="200" oninput="updateRange('charges',this.value,true,'€');calcCapacite()">
+          </div>
+          <div class="field">
+            <label>Apport personnel</label>
+            <div class="range-row"><span>Apport</span><span class="range-val" id="cv-cap-apport">30 000 €</span></div>
+            <input type="range" min="0" max="500000" step="5000" value="30000" oninput="updateRange('cap-apport',this.value,true,'€');calcCapacite()">
+          </div>
+          <div class="field">
+            <label>Durée du prêt</label>
+            <div class="range-row"><span>Années</span><span class="range-val" id="cv-cap-duree">20 ans</span></div>
+            <input type="range" min="5" max="30" step="1" value="20" oninput="updateRange('cap-duree',this.value,false,' ans');calcCapacite()">
+          </div>
+          <div class="field">
+            <label>Taux d'intérêt annuel</label>
+            <div class="range-row"><span>Taux</span><span class="range-val" id="cv-cap-taux">3,5 %</span></div>
+            <input type="range" min="2" max="6" step="0.1" value="3.5" oninput="updateRange('cap-taux',this.value,false,' %');calcCapacite()">
+          </div>
+          <button class="sim-btn" onclick="calcCapacite()">Calculer ma capacité</button>
+        </div>
+        <div class="sim-results">
+          <h3>Votre capacité</h3>
+          <div class="result-card"><div class="r-label">Mensualité maximale</div><div class="r-val" id="r-cap-mensualite">—</div><div class="r-sub">Taux d'endettement HCSF 35 %</div></div>
+          <div class="result-card"><div class="r-label">Capacité d'emprunt</div><div class="r-val" id="r-cap-emprunt">—</div></div>
+          <div class="result-card"><div class="r-label">Budget total avec apport</div><div class="r-val" id="r-cap-budget">—</div><div class="r-sub">Capacité + apport</div></div>
+          <div class="chart-wrap"><canvas id="chartCapacite"></canvas></div>
+          <p class="result-note">Estimation rapide à partir du taux d'endettement HCSF (35 %). Pour une analyse complète prenant en compte votre situation pro, vos charges détaillées et le type de projet, <a href="/courtage-credit-immobilier#simulateur" style="color:var(--gold);font-weight:600;text-decoration:underline;">utilisez notre simulateur détaillé →</a></p>
+        </div>
+      </div>
+
           <div class="result-card"><div class="r-label">Complément mensuel sur 25 ans</div><div class="r-val" id="r-ret-mensuel">—</div><div class="r-sub">Rente estimée après départ</div></div>
           <div class="result-card"><div class="r-label">Total versé par vous</div><div class="r-val" id="r-ret-verse">—</div></div>
           <div class="chart-wrap"><canvas id="chartRetraite"></canvas></div>
@@ -1861,13 +1906,14 @@ function closeModal() {
 
 /* ════════ SIMULATEURS ════════ */
 function switchSim(name) {
-  document.querySelectorAll('.sim-tab').forEach((t,i) => t.classList.toggle('active', ['credit','fiscal','scpi','retraite'][i]===name));
+  document.querySelectorAll('.sim-tab').forEach((t,i) => t.classList.toggle('active', ['credit','fiscal','scpi','retraite','capacite'][i]===name));
   document.querySelectorAll('.sim-panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panel-'+name).classList.add('active');
   if(name==='credit') calcCredit();
   if(name==='fiscal') calcFiscal();
   if(name==='scpi') calcScpi();
   if(name==='retraite') calcRetraite();
+  if(name==='capacite') calcCapacite();
 }
 function fmtEur(n) { return new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n); }
 function updateRange(id, val, isMoney, suffix) {
@@ -1987,6 +2033,30 @@ function calcRetraite() {
     options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom',labels:{color:'#6B7280',font:{size:12}}}}, scales:{y:{ticks:{callback:v=>fmtEur(v)},grid:{color:'rgba(0,0,0,.05)'}},x:{grid:{display:false}}}}
   });
 }
+let chartCapacite;
+function calcCapacite() {
+  const revenus = +document.querySelector('#panel-capacite input[oninput*="revenus"]').value;
+  const charges = +document.querySelector('#panel-capacite input[oninput*="charges"]').value;
+  const apport  = +document.querySelector('#panel-capacite input[oninput*="cap-apport"]').value;
+  const duree   = +document.querySelector('#panel-capacite input[oninput*="cap-duree"]').value;
+  const taux    = +document.querySelector('#panel-capacite input[oninput*="cap-taux"]').value / 100;
+  const mensualiteMax = Math.max(0, (revenus - charges) * 0.35);
+  const n = duree * 12;
+  const r = taux / 12;
+  const capacite = r === 0 ? mensualiteMax * n : mensualiteMax * (1 - Math.pow(1 + r, -n)) / r;
+  const budget = capacite + apport;
+  document.getElementById('r-cap-mensualite').textContent = fmtEur(mensualiteMax);
+  document.getElementById('r-cap-emprunt').textContent = fmtEur(capacite);
+  document.getElementById('r-cap-budget').textContent = fmtEur(budget);
+  const ctx = document.getElementById('chartCapacite').getContext('2d');
+  if (chartCapacite) chartCapacite.destroy();
+  chartCapacite = new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels: ['Apport personnel', 'Emprunt'], datasets: [{ data: [apport, capacite], backgroundColor: ['#C4973A', '#1E7A6E'], borderWidth: 0 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#6B7280', font: { size: 12 } } } } }
+  });
+}
+
 
 /* Init simulators */
 calcCredit(); calcFiscal(); calcScpi();
