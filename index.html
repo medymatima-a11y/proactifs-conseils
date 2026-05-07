@@ -38,7 +38,7 @@
   gtag('config', 'G-P53RQGXJZX');
   gtag('config', 'AW-835423035');
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<!-- Chart.js : lazy-load via JS quand #simulateurs entre dans le viewport -->
 <style>
 /* ══════════════════════════════════════════════
    DESIGN SYSTEM
@@ -1934,6 +1934,7 @@ function updateRange(id, val, isMoney, suffix) {
 
 let chartCredit, chartFiscal, chartScpi, chartRetraite;
 function calcCredit() {
+  if (typeof Chart === 'undefined') return;
   const prix   = +document.querySelector('#panel-credit input[oninput*="prix"]').value;
   const apport = +document.querySelector('#panel-credit input[oninput*="apport"]').value;
   const duree  = +document.querySelector('#panel-credit input[oninput*="duree"]').value;
@@ -1956,6 +1957,7 @@ function calcCredit() {
   });
 }
 function calcFiscal() {
+  if (typeof Chart === 'undefined') return;
   const rev = +document.querySelector('#panel-fiscal input[oninput*="frev"]').value;
   const parts = +document.getElementById('f-foyer').value;
   const per = +document.querySelector('#panel-fiscal input[oninput*="fper"]').value;
@@ -1984,6 +1986,7 @@ function calcFiscal() {
   });
 }
 function calcScpi() {
+  if (typeof Chart === 'undefined') return;
   const montant = +document.querySelector('#panel-scpi input[oninput*="smontant"]').value;
   const taux = +document.querySelector('#panel-scpi input[oninput*="staux"]').value / 100;
   const horizon = +document.querySelector('#panel-scpi input[oninput*="shorizon"]').value;
@@ -2005,6 +2008,7 @@ function calcScpi() {
 }
 
 function calcRetraite() {
+  if (typeof Chart === 'undefined') return;
   const age = +document.querySelector('#panel-retraite input[oninput*="\'age\'"]').value;
   const depart = +document.querySelector('#panel-retraite input[oninput*="\'depart\'"]').value;
   const capital = +document.querySelector('#panel-retraite input[oninput*="\'capital\'"]').value;
@@ -2044,6 +2048,7 @@ function calcRetraite() {
 }
 let chartCapacite;
 function calcCapacite() {
+  if (typeof Chart === 'undefined') return;
   const revenus = +document.querySelector('#panel-capacite input[oninput*="revenus"]').value;
   const charges = +document.querySelector('#panel-capacite input[oninput*="charges"]').value;
   const apport  = +document.querySelector('#panel-capacite input[oninput*="cap-apport"]').value;
@@ -2067,8 +2072,42 @@ function calcCapacite() {
 }
 
 
-/* Init simulators */
-calcCredit(); calcFiscal(); calcScpi();
+/* ════════ LAZY-LOAD CHART.JS ════════
+   Charge Chart.js seulement quand le simulateur entre dans le viewport.
+   Avantage : Chart.js (~150 Ko) ne bloque plus le rendu initial. */
+let chartJsLoaded = false;
+let chartJsLoading = null;
+function loadChartJs() {
+  if (chartJsLoaded) return Promise.resolve();
+  if (chartJsLoading) return chartJsLoading;
+  chartJsLoading = new Promise((resolve) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js';
+    s.async = true;
+    s.onload = () => { chartJsLoaded = true; resolve(); };
+    s.onerror = () => { console.warn('Chart.js failed to load'); resolve(); };
+    document.head.appendChild(s);
+  });
+  return chartJsLoading;
+}
+
+const simulSection = document.getElementById('simulateurs');
+if (simulSection) {
+  const simulObs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      loadChartJs().then(() => {
+        // Une fois Chart chargé, initialiser le panel actif
+        const activeTab = document.querySelector('.sim-tab.active');
+        if (activeTab) {
+          const m = activeTab.getAttribute('onclick')?.match(/'(\w+)'/);
+          if (m && typeof switchSim === 'function') switchSim(m[1]);
+        }
+      });
+      simulObs.disconnect();
+    }
+  }, { rootMargin: '300px' }); // Pré-charge 300px avant entrée dans le viewport
+  simulObs.observe(simulSection);
+}
 
 /* ════════ WIZARD ENGINE ════════ */
 const flows = {
