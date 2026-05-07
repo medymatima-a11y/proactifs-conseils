@@ -38,7 +38,7 @@
   gtag('config', 'G-P53RQGXJZX');
   gtag('config', 'AW-835423035');
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
 <style>
 /* ══════════════════════════════════════════════
    DESIGN SYSTEM
@@ -1061,6 +1061,8 @@ footer {
   ]
 }
   </script>
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=85&fit=crop&crop=center" fetchpriority="high">
 </head>
 <body>
 
@@ -1093,6 +1095,7 @@ footer {
 </div>
 
 <!-- ════════════ HERO ════════════ -->
+<main id="main-content">
 <section id="hero">
   <div class="hero-left">
     <div class="hero-badge">Cabinet conseil · Colombes (92)</div>
@@ -1500,24 +1503,24 @@ footer {
         <div class="sim-form">
           <h3>Simulateur crédit immobilier</h3>
           <div class="field">
-            <label>Prix du bien</label>
+            <label for="r-prix">Prix du bien</label>
             <div class="range-row"><span>Montant</span><span class="range-val" id="cv-prix">300 000 €</span></div>
-            <input type="range" min="50000" max="2000000" step="10000" value="300000" oninput="updateRange('prix',this.value,true,'€');calcCredit()">
+            <input type="range" id="r-prix" min="50000" max="2000000" step="10000" value="300000" oninput="updateRange('prix',this.value,true,'€');calcCredit()">
           </div>
           <div class="field">
-            <label>Apport personnel</label>
+            <label for="r-apport">Apport personnel</label>
             <div class="range-row"><span>Apport</span><span class="range-val" id="cv-apport">60 000 €</span></div>
-            <input type="range" min="0" max="500000" step="5000" value="60000" oninput="updateRange('apport',this.value,true,'€');calcCredit()">
+            <input type="range" id="r-apport" min="0" max="500000" step="5000" value="60000" oninput="updateRange('apport',this.value,true,'€');calcCredit()">
           </div>
           <div class="field">
-            <label>Durée du prêt</label>
+            <label for="r-duree">Durée du prêt</label>
             <div class="range-row"><span>Années</span><span class="range-val" id="cv-duree">20 ans</span></div>
-            <input type="range" min="5" max="30" step="1" value="20" oninput="updateRange('duree',this.value,false,' ans');calcCredit()">
+            <input type="range" id="r-duree" min="5" max="30" step="1" value="20" oninput="updateRange('duree',this.value,false,' ans');calcCredit()">
           </div>
           <div class="field">
-            <label>Taux d'intérêt annuel (%)</label>
+            <label for="r-taux">Taux d'intérêt annuel (%)</label>
             <div class="range-row"><span>Taux</span><span class="range-val" id="cv-taux">3,5 %</span></div>
-            <input type="range" min="1" max="7" step="0.1" value="3.5" oninput="updateRange('taux',this.value,false,' %');calcCredit()">
+            <input type="range" id="r-taux" min="1" max="7" step="0.1" value="3.5" oninput="updateRange('taux',this.value,false,' %');calcCredit()">
           </div>
           <button class="sim-btn" onclick="calcCredit()">Calculer ma mensualité</button>
         </div>
@@ -1535,29 +1538,29 @@ footer {
         <div class="sim-form">
           <h3>Combien puis-je emprunter ?</h3>
           <div class="field">
-            <label>Revenus nets mensuels du foyer</label>
+            <label for="r-revenus">Revenus nets mensuels du foyer</label>
             <div class="range-row"><span>Revenus</span><span class="range-val" id="cv-revenus">5 000 €</span></div>
-            <input type="range" min="1500" max="30000" step="100" value="5000" oninput="updateRange('revenus',this.value,true,'€');calcCapacite()">
+            <input type="range" id="r-revenus" min="1500" max="30000" step="100" value="5000" oninput="updateRange('revenus',this.value,true,'€');calcCapacite()">
           </div>
           <div class="field">
-            <label>Charges mensuelles fixes</label>
+            <label for="r-charges">Charges mensuelles fixes</label>
             <div class="range-row"><span>Crédits, pensions...</span><span class="range-val" id="cv-charges">200 €</span></div>
-            <input type="range" min="0" max="5000" step="50" value="200" oninput="updateRange('charges',this.value,true,'€');calcCapacite()">
+            <input type="range" id="r-charges" min="0" max="5000" step="50" value="200" oninput="updateRange('charges',this.value,true,'€');calcCapacite()">
           </div>
           <div class="field">
-            <label>Apport personnel</label>
+            <label for="r-cap-apport">Apport personnel</label>
             <div class="range-row"><span>Apport</span><span class="range-val" id="cv-cap-apport">30 000 €</span></div>
-            <input type="range" min="0" max="500000" step="5000" value="30000" oninput="updateRange('cap-apport',this.value,true,'€');calcCapacite()">
+            <input type="range" id="r-cap-apport" min="0" max="500000" step="5000" value="30000" oninput="updateRange('cap-apport',this.value,true,'€');calcCapacite()">
           </div>
           <div class="field">
-            <label>Durée du prêt</label>
+            <label for="r-cap-duree">Durée du prêt</label>
             <div class="range-row"><span>Années</span><span class="range-val" id="cv-cap-duree">20 ans</span></div>
-            <input type="range" min="5" max="30" step="1" value="20" oninput="updateRange('cap-duree',this.value,false,' ans');calcCapacite()">
+            <input type="range" id="r-cap-duree" min="5" max="30" step="1" value="20" oninput="updateRange('cap-duree',this.value,false,' ans');calcCapacite()">
           </div>
           <div class="field">
-            <label>Taux d'intérêt annuel</label>
+            <label for="r-cap-taux">Taux d'intérêt annuel</label>
             <div class="range-row"><span>Taux</span><span class="range-val" id="cv-cap-taux">3,5 %</span></div>
-            <input type="range" min="2" max="6" step="0.1" value="3.5" oninput="updateRange('cap-taux',this.value,false,' %');calcCapacite()">
+            <input type="range" id="r-cap-taux" min="2" max="6" step="0.1" value="3.5" oninput="updateRange('cap-taux',this.value,false,' %');calcCapacite()">
           </div>
           <button class="sim-btn" onclick="calcCapacite()">Calculer ma capacité</button>
         </div>
@@ -1582,9 +1585,9 @@ footer {
         <div class="sim-form">
           <h3>Simulateur économies fiscales</h3>
           <div class="field">
-            <label>Revenus annuels imposables</label>
+            <label for="r-frev">Revenus annuels imposables</label>
             <div class="range-row"><span>Revenus</span><span class="range-val" id="fv-rev">80 000 €</span></div>
-            <input type="range" min="20000" max="500000" step="5000" value="80000" oninput="updateRange('frev',this.value,true,'€');calcFiscal()">
+            <input type="range" id="r-frev" min="20000" max="500000" step="5000" value="80000" oninput="updateRange('frev',this.value,true,'€');calcFiscal()">
           </div>
           <div class="field">
             <label>Situation familiale</label>
@@ -1597,9 +1600,9 @@ footer {
             </select>
           </div>
           <div class="field">
-            <label>Investissement PER annuel</label>
+            <label for="r-fper">Investissement PER annuel</label>
             <div class="range-row"><span>PER</span><span class="range-val" id="fv-per">5 000 €</span></div>
-            <input type="range" min="0" max="50000" step="500" value="5000" oninput="updateRange('fper',this.value,true,'€');calcFiscal()">
+            <input type="range" id="r-fper" min="0" max="50000" step="500" value="5000" oninput="updateRange('fper',this.value,true,'€');calcFiscal()">
           </div>
           <button class="sim-btn" onclick="calcFiscal()">Calculer mes économies</button>
         </div>
@@ -1617,19 +1620,19 @@ footer {
         <div class="sim-form">
           <h3>Simulateur rendement SCPI</h3>
           <div class="field">
-            <label>Montant investi</label>
+            <label for="r-smontant">Montant investi</label>
             <div class="range-row"><span>Investissement</span><span class="range-val" id="sv-montant">50 000 €</span></div>
-            <input type="range" min="5000" max="500000" step="5000" value="50000" oninput="updateRange('smontant',this.value,true,'€');calcScpi()">
+            <input type="range" id="r-smontant" min="5000" max="500000" step="5000" value="50000" oninput="updateRange('smontant',this.value,true,'€');calcScpi()">
           </div>
           <div class="field">
-            <label>Taux de distribution (%)</label>
+            <label for="r-staux">Taux de distribution (%)</label>
             <div class="range-row"><span>Taux</span><span class="range-val" id="sv-taux">5 %</span></div>
-            <input type="range" min="3" max="8" step="0.1" value="5" oninput="updateRange('staux',this.value,false,' %');calcScpi()">
+            <input type="range" id="r-staux" min="3" max="8" step="0.1" value="5" oninput="updateRange('staux',this.value,false,' %');calcScpi()">
           </div>
           <div class="field">
-            <label>Horizon de placement</label>
+            <label for="r-shorizon">Horizon de placement</label>
             <div class="range-row"><span>Années</span><span class="range-val" id="sv-horizon">10 ans</span></div>
-            <input type="range" min="3" max="30" step="1" value="10" oninput="updateRange('shorizon',this.value,false,' ans');calcScpi()">
+            <input type="range" id="r-shorizon" min="3" max="30" step="1" value="10" oninput="updateRange('shorizon',this.value,false,' ans');calcScpi()">
           </div>
           <button class="sim-btn" onclick="calcScpi()">Calculer mon rendement</button>
         </div>
@@ -1647,29 +1650,29 @@ footer {
         <div class="sim-form">
           <h3>Simulateur retraite</h3>
           <div class="field">
-            <label>Votre âge actuel</label>
+            <label for="r-age">Votre âge actuel</label>
             <div class="range-row"><span>Âge</span><span class="range-val" id="rv-age">40 ans</span></div>
-            <input type="range" min="25" max="60" step="1" value="40" oninput="updateRange('age',this.value,false,' ans');calcRetraite()">
+            <input type="range" id="r-age" min="25" max="60" step="1" value="40" oninput="updateRange('age',this.value,false,' ans');calcRetraite()">
           </div>
           <div class="field">
-            <label>Âge de départ souhaité</label>
+            <label for="r-depart">Âge de départ souhaité</label>
             <div class="range-row"><span>Départ</span><span class="range-val" id="rv-depart">64 ans</span></div>
-            <input type="range" min="60" max="70" step="1" value="64" oninput="updateRange('depart',this.value,false,' ans');calcRetraite()">
+            <input type="range" id="r-depart" min="60" max="70" step="1" value="64" oninput="updateRange('depart',this.value,false,' ans');calcRetraite()">
           </div>
           <div class="field">
-            <label>Épargne actuelle dédiée retraite</label>
+            <label for="r-capital">Épargne actuelle dédiée retraite</label>
             <div class="range-row"><span>Capital</span><span class="range-val" id="rv-capital">30 000 €</span></div>
-            <input type="range" min="0" max="500000" step="5000" value="30000" oninput="updateRange('capital',this.value,true,'€');calcRetraite()">
+            <input type="range" id="r-capital" min="0" max="500000" step="5000" value="30000" oninput="updateRange('capital',this.value,true,'€');calcRetraite()">
           </div>
           <div class="field">
-            <label>Effort d'épargne mensuel</label>
+            <label for="r-effort">Effort d'épargne mensuel</label>
             <div class="range-row"><span>Mensuel</span><span class="range-val" id="rv-effort">500 €</span></div>
-            <input type="range" min="100" max="5000" step="50" value="500" oninput="updateRange('effort',this.value,true,'€');calcRetraite()">
+            <input type="range" id="r-effort" min="100" max="5000" step="50" value="500" oninput="updateRange('effort',this.value,true,'€');calcRetraite()">
           </div>
           <div class="field">
-            <label>Rendement annuel espéré (%)</label>
+            <label for="r-rdt">Rendement annuel espéré (%)</label>
             <div class="range-row"><span>Rendement</span><span class="range-val" id="rv-rdt">4 %</span></div>
-            <input type="range" min="1" max="8" step="0.5" value="4" oninput="updateRange('rdt',this.value,false,' %');calcRetraite()">
+            <input type="range" id="r-rdt" min="1" max="8" step="0.5" value="4" oninput="updateRange('rdt',this.value,false,' %');calcRetraite()">
           </div>
           <button class="sim-btn" onclick="calcRetraite()">Estimer ma retraite</button>
         </div>
@@ -1796,6 +1799,7 @@ footer {
 
 <!-- ════════════ FOOTER ════════════ -->
 <div id="contact" style="scroll-margin-top:80px"></div>
+</main>
 <footer id="footer-bottom">
   <div class="container">
     <div class="footer-grid">
