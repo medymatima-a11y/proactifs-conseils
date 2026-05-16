@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow:
 
-Sitemap: https://www.proactifsconseils.fr/sitemap.xml
+Sitemap: https://proactifsconseils.fr/sitemap.xml
