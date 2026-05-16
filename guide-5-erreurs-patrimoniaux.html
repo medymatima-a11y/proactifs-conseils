@@ -8,14 +8,14 @@
 <link rel="apple-touch-icon" href="/favicon.png">
 <title>5 Erreurs Patrimoniales à Éviter | Guide Proactifs Conseils</title>
 <meta name="description" content="Découvrez les 5 erreurs patrimoniales les plus fréquentes chez les cadres et chefs d'entreprise en Île-de-France. Guide PDF à télécharger.">
-<link rel="canonical" href="https://www.proactifsconseils.fr/guide-5-erreurs-patrimoniaux">
+<link rel="canonical" href="https://proactifsconseils.fr/guide-5-erreurs-patrimoniaux">
 <meta name="robots" content="index, follow">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Les 5 erreurs patrimoniales qui coûtent cher aux cadres">
 <meta name="twitter:description" content="Guide PDF offert : les 5 erreurs patrimoniales les plus fréquentes chez les cadres et dirigeants d'Île-de-France.">
 <meta property="og:title" content="Les 5 erreurs patrimoniales qui coûtent cher aux cadres">
 <meta property="og:description" content="Guide PDF offert : les 5 erreurs patrimoniales les plus fréquentes chez les cadres et dirigeants d'Île-de-France.">
-<meta property="og:url" content="https://www.proactifsconseils.fr/guide-5-erreurs-patrimoniaux">
+<meta property="og:url" content="https://proactifsconseils.fr/guide-5-erreurs-patrimoniaux">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -1109,31 +1109,4 @@
   // Capture le lead puis redirige vers Systeme.io
   async function redirectToSysteme(form) {
     const emailInput = form.querySelector('input[type="email"]');
-    const textInput  = form.querySelector('input[type="text"]');
-    const email      = emailInput?.value?.trim() || '';
-    const firstName  = textInput?.value?.trim()  || '';
-    if (!email) { emailInput?.focus(); return; }
-
-    // Désactive le bouton pendant l'envoi
-    const btn = form.querySelector('button, input[type="submit"]');
-    if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
-
-    // Enregistrement en arrière-plan (Airtable + Systeme.io)
-    try {
-      await fetch('/api/subscribe-guide', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prenom: firstName, email }),
-      });
-    } catch(e) { console.warn('subscribe-guide error:', e); }
-
-    // Redirection vers Systeme.io
-    const url = new URL('https://www.proactifsconseils.com/merci-guide');
-    url.searchParams.set('email', email);
-    if (firstName) url.searchParams.set('first_name', firstName);
-    window.location.href = url.toString();
-  }
-</script>
-</body>
-</html>
-                    
+    

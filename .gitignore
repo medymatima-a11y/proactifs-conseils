@@ -1,0 +1,3 @@
+# Internal SEO backups (ne pas committer)
+.backup-canonicals-*/
+.backup-cleanup-*/

@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" href="/favicon.png">
   <title>Simulation Prêt Immobilier Gratuite | Proactifs Conseils</title>
   <meta name="description" content="Calculez votre capacité d'emprunt immobilier en 2 minutes. Simulateur gratuit et personnalisé : revenus, charges, apport, taux 2026. Réponse courtier sous 24h.">
-  <link rel="canonical" href="https://www.proactifsconseils.fr/simulation-pret-immobilier">
+  <link rel="canonical" href="https://proactifsconseils.fr/simulation-pret-immobilier">
 <meta name="robots" content="index, follow">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Simulation Prêt Immobilier Gratuite 2026 | Capacité d'Emprunt">
@@ -20,7 +20,7 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Simulateur de prêt immobilier",
-    "url": "https://www.proactifsconseils.fr/simulation-pret-immobilier",
+    "url": "https://proactifsconseils.fr/simulation-pret-immobilier",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Web",
     "offers": {
@@ -31,7 +31,7 @@
     "provider": {
       "@type": "Organization",
       "name": "Proactifs Conseils",
-      "url": "https://www.proactifsconseils.fr",
+      "url": "https://proactifsconseils.fr",
       "telephone": "+33184782830",
       "address": {
         "@type": "PostalAddress",
@@ -444,10 +444,10 @@
   </style>
   <script src="/popup.js" defer></script>
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.proactifsconseils.fr/simulation-pret-immobilier">
+  <meta property="og:url" content="https://proactifsconseils.fr/simulation-pret-immobilier">
   <meta property="og:title" content="Simulation Prêt Immobilier Gratuite 2026 | Capacité d'Emprunt">
   <meta property="og:description" content="Calculez votre capacité d'emprunt immobilier en 2 minutes. Simulateur gratuit : revenus, charges, apport, taux 2026.">
-  <meta property="og:image" content="https://www.proactifsconseils.fr/images/courtier-credit.webp">
+  <meta property="og:image" content="https://proactifsconseils.fr/images/courtier-credit.webp">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:site_name" content="Proactifs Conseils">
 <!-- Google tag (gtag.js) -->
@@ -951,26 +951,4 @@
         'Charges : crédits ' + (document.getElementById('wz-credits').value || '0') + ' € + loyer ' + (document.getElementById('wz-loyer').value || '0') + ' €',
         'Apport : ' + (wzData.apport || 0).toLocaleString('fr-FR') + ' € — Durée : ' + (wzData.duree || 20) + ' ans',
         'Avancement : ' + (wzData.step6 || '-'),
-        'Capacité estimée : ' + (wzData.capacite || 0).toLocaleString('fr-FR') + ' € (mensualité max ' + (wzData.mensMax || 0).toLocaleString('fr-FR') + ' €, taux ' + (wzData.tauxEstime || '-') + ' %)',
-      ];
-      try {
-        const res = await fetch('/api/subscribe', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prenom, nom: '', email, tel, situation: wzData.step2 || '', service: 'credit', answers }),
-        });
-        if (res.ok) {
-          msgEl.className = 'wz-msg wz-msg-ok';
-          msgEl.textContent = '✓ Demande envoyée ! Un courtier vous recontacte sous 24h.';
-          btn.textContent = 'Envoyé ✓';
-        } else { throw new Error('err'); }
-      } catch (e) {
-        msgEl.className = 'wz-msg wz-msg-err';
-        msgEl.textContent = 'Une erreur est survenue. Réessayez ou appelez-nous au 01 84 78 28 30.';
-        btn.disabled = false;
-        btn.textContent = 'Envoyer ma demande';
-      }
-    }
-  </script>
-</body>
-</html>                       
+        'Capacité estimée : ' + (wzData.capacite || 0).toLocaleString('fr-FR') + ' € (m

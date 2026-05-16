@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" href="/favicon.png">
   <title>Blog patrimoine – Conseils & Stratégies | Proactifs Conseils</title>
   <meta name="description" content="Fiscalité, immobilier, retraite, transmission : analyses et stratégies patrimoniales par Medy Matima, CGP à Colombes (92).">
-  <link rel="canonical" href="https://www.proactifsconseils.fr/blog">
+  <link rel="canonical" href="https://proactifsconseils.fr/blog">
 <meta name="robots" content="index, follow">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Blog patrimoine – Conseils & Stratégies | Proactifs Conseils">
@@ -16,19 +16,19 @@
   <meta property="og:title" content="Blog patrimoine – Conseils & Stratégies | Proactifs Conseils">
   <meta property="og:description" content="Analyses, actualités et stratégies patrimoniales pour optimiser votre situation.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.proactifsconseils.fr/blog">
+  <meta property="og:url" content="https://proactifsconseils.fr/blog">
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Blog",
     "name": "Blog Proactifs Conseils",
-    "url": "https://www.proactifsconseils.fr/blog",
+    "url": "https://proactifsconseils.fr/blog",
     "description": "Conseils patrimoniaux, fiscalité et stratégies d'investissement par Medy Matima, CGP.",
     "publisher": {
       "@type": "Organization",
       "name": "Proactifs Conseils",
-      "url": "https://www.proactifsconseils.fr"
+      "url": "https://proactifsconseils.fr"
     }
   }
   </script>
@@ -482,22 +482,4 @@
 
   // Filtres
   function filterArticles(cat, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    const featured = document.querySelector('.blog-featured');
-    const cards = document.querySelectorAll('.blog-card');
-
-    if (cat === 'all') {
-      featured.style.display = '';
-      cards.forEach(c => c.style.display = '');
-    } else {
-      featured.style.display = featured.dataset.cat === cat ? '' : 'none';
-      cards.forEach(c => {
-        c.style.display = c.dataset.cat === cat ? '' : 'none';
-      });
-    }
-  }
-</script>
-</body>
-</html>
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('act
