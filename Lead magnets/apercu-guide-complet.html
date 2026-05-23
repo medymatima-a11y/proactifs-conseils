@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aperçu complet — Guide Proactifs Conseils (8 pages)</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --forest:#1B3A2D;--forest2:#152E23;--forest3:#0F2A1E;
+  --gold:#C9A84C;--gold-l:#E2C47A;--ivory:#FAFAF7;
+  --grey-l:#CBD5C0;--grey-d:#9CA39A;--green-mid:#3A5A4A;
+}
+body{background:#1a1a1a;font-family:'DM Sans',sans-serif;padding:40px 20px;display:flex;flex-direction:column;align-items:center;gap:48px}
+h2.page-label{color:#666;font-size:11px;letter-spacing:.15em;text-transform:uppercase;align-self:flex-start;max-width:794px;width:100%;font-weight:400;padding-left:4px}
+
+/* A4 */
+.page{width:794px;min-height:1123px;position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.7);flex-shrink:0}
+
+/* ── FOOTER BAR ── */
+.footer-bar{position:absolute;bottom:0;left:0;right:0;height:26px;background:var(--forest);display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.footer-bar span{font-size:8px;color:rgba(201,168,76,.55);letter-spacing:.08em}
+
+/* ══════════════════════════════════
+   PAGE 1 — COUVERTURE
+══════════════════════════════════ */
+.p1{background:var(--forest2);display:grid;grid-template-columns:55% 45%}
+.p1-left{background:var(--forest);padding:48px 40px 40px;display:flex;flex-direction:column;justify-content:space-between;position:relative}
+.p1-left::after{content:'';position:absolute;right:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,transparent,var(--gold),transparent)}
+.p1-logo{display:flex;flex-direction:column;gap:6px}
+.p1-logo img{height:44px;width:auto;object-fit:contain;object-position:left}
+.p1-logo-text{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.p1-tag{display:inline-block;background:var(--gold);color:var(--forest);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:2px;width:fit-content;margin-bottom:6px}
+.p1-title-block{flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;padding:28px 0}
+.p1-eyebrow{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-l);font-weight:400}
+.p1-title{font-family:'Fraunces',serif;font-size:38px;font-weight:900;line-height:1.05;color:#fff}
+.p1-title em{font-style:italic;color:var(--gold)}
+.p1-sub{font-size:12px;line-height:1.75;color:var(--grey-l);font-weight:300}
+.p1-pills{display:flex;flex-direction:column;gap:8px}
+.p1-pill{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--grey-l)}
+.p1-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.p1-author{border-top:1px solid rgba(201,168,76,.25);padding-top:18px;display:flex;flex-direction:column;gap:3px}
+.p1-author-name{font-family:'Fraunces',serif;font-size:15px;color:#fff;font-weight:700}
+.p1-author-role{font-size:10px;color:var(--gold-l)}
+.p1-right{position:relative;overflow:hidden}
+.p1-photo{width:100%;height:100%;background:linear-gradient(160deg,rgba(27,58,45,.5),rgba(15,42,30,.3)),url('https://proactifsconseils.fr/images/couverture.jpg') center/cover no-repeat}
+.p1-watermark{position:absolute;bottom:20px;right:10px;font-family:'Fraunces',serif;font-size:180px;font-weight:900;color:rgba(201,168,76,.08);line-height:1;user-select:none}
+.p1-badge{position:absolute;top:40px;right:24px;background:rgba(27,58,45,.85);border:1px solid rgba(201,168,76,.3);border-radius:4px;padding:14px 18px;text-align:center;backdrop-filter:blur(4px)}
+.p1-badge-num{font-family:'Fraunces',serif;font-size:36px;font-weight:900;color:var(--gold);line-height:1}
+.p1-badge-label{font-size:9px;color:var(--grey-l);letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+
+/* ══════════════════════════════════
+   PAGE 2 — INTRODUCTION
+══════════════════════════════════ */
+.p2{background:var(--forest2);padding:56px 48px 40px}
+.section-badge{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px}
+.p2-title{font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:#fff;margin-bottom:6px}
+.gold-rule{height:2px;background:linear-gradient(90deg,var(--gold),transparent);width:100%;margin:16px 0 24px}
+.p2-body{font-size:12.5px;color:var(--grey-l);line-height:1.8;font-weight:300;margin-bottom:14px;text-align:justify}
+.p2-box{background:var(--forest3);border-top:2px solid var(--gold);padding:20px 22px;border-radius:0 0 3px 3px;margin:24px 0}
+.p2-box-title{font-family:'Fraunces',serif;font-size:14px;color:var(--gold);font-weight:700;margin-bottom:12px}
+.p2-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.p2-list li{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--grey-l);line-height:1.6}
+.p2-list-dot{color:var(--gold);font-weight:700;margin-top:2px;flex-shrink:0}
+.p2-note{font-family:'Fraunces',serif;font-style:italic;font-size:12px;color:var(--grey-d);line-height:1.7;margin-top:20px}
+.p2-toc{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+.p2-toc-item{background:var(--forest);border-radius:3px;padding:12px 14px;display:flex;align-items:center;gap:10px}
+.p2-toc-num{font-family:'Fraunces',serif;font-size:20px;font-weight:900;color:rgba(201,168,76,.4);line-height:1}
+.p2-toc-text{font-size:10.5px;color:var(--grey-l);line-height:1.4}
+
+/* ══════════════════════════════════
+   PAGES 3-7 — ERREURS
+══════════════════════════════════ */
+.erreur-page{background:var(--forest2);display:flex;flex-direction:column}
+.err-header{background:var(--forest);padding:28px 48px 0;display:flex;align-items:flex-end;gap:20px}
+.err-num-bg{font-family:'Fraunces',serif;font-size:110px;font-weight:900;color:rgba(201,168,76,.12);line-height:.85;user-select:none;flex-shrink:0;width:90px}
+.err-header-content{padding-bottom:24px;flex:1}
+.err-badge{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:6px}
+.err-title{font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:#fff;line-height:1.25}
+.err-bar{height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin:0 48px}
+.err-body{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:0;padding-bottom:30px}
+.err-left{padding:28px 24px 0 48px;display:flex;flex-direction:column;gap:16px}
+.err-intro{font-size:13.5px;font-weight:600;color:#fff;line-height:1.65}
+.err-detail{font-size:11.5px;color:var(--grey-l);line-height:1.75;font-weight:300;text-align:justify}
+.err-conseil{background:rgba(0,0,0,.3);border-top:2px solid var(--gold);padding:14px 16px;border-radius:0 0 3px 3px}
+.err-conseil-label{font-size:8px;letter-spacing:.2em;color:var(--gold);font-weight:700;text-transform:uppercase;margin-bottom:6px}
+.err-conseil-text{font-size:11px;color:var(--grey-l);line-height:1.65}
+.err-right{padding:28px 48px 0 20px;display:flex;flex-direction:column;gap:16px}
+.err-photo{width:100%;height:180px;border-radius:3px;object-fit:cover;background:var(--forest) center/cover no-repeat}
+.err-photo.p2{background:url('https://proactifsconseils.fr/images/erreur01.jpg') center/cover no-repeat}
+.err-photo.p3{background:url('https://proactifsconseils.fr/images/erreur02.jpg') center/cover no-repeat}
+.err-photo.p4{background:url('https://proactifsconseils.fr/images/erreur03.jpg') center/cover no-repeat}
+.err-photo.p5{background:url('https://proactifsconseils.fr/images/erreur04.jpg') center/cover no-repeat}
+.err-stats{display:flex;gap:8px}
+.stat-c{flex:1;background:var(--forest);border-radius:3px;padding:12px 8px;text-align:center;border:1px solid rgba(201,168,76,.12)}
+.stat-n{font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:var(--gold);line-height:1}
+.stat-l{font-size:9px;color:var(--grey-l);margin-top:5px;line-height:1.4}
+.err-quote{background:rgba(201,168,76,.06);border-left:3px solid var(--gold);padding:12px 14px;border-radius:0 3px 3px 0}
+.err-quote-text{font-family:'Fraunces',serif;font-size:12px;font-style:italic;color:var(--gold-l);line-height:1.6}
+.err-progress{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 0 0}
+.prog-dot{width:8px;height:8px;border-radius:50%;background:var(--green-mid)}
+.prog-dot.active{background:var(--gold);transform:scale(1.25)}
+
+/* ══════════════════════════════════
+   PAGE 8 — CTA
+══════════════════════════════════ */
+.p8{background:var(--forest2);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 80px;position:relative;overflow:hidden}
+.p8::before{content:'';position:absolute;top:-120px;right:-120px;width:550px;height:550px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 70%)}
+.p8::after{content:'';position:absolute;bottom:-100px;left:-100px;width:450px;height:450px;border-radius:50%;background:radial-gradient(circle,rgba(27,58,45,.9) 0%,transparent 70%)}
+.p8-inner{position:relative;z-index:1;text-align:center;display:flex;flex-direction:column;align-items:center;gap:24px;max-width:520px}
+.p8-pill{display:inline-block;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);color:var(--gold);font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:5px 16px;border-radius:100px}
+.p8-title{font-family:'Fraunces',serif;font-size:48px;font-weight:900;color:#fff;line-height:1.05}
+.p8-title em{font-style:italic;color:var(--gold)}
+.p8-sub{font-size:13px;color:var(--grey-l);line-height:1.8;font-weight:300}
+.p8-divider{width:40px;height:2px;background:var(--gold)}
+.p8-btn{background:var(--gold);color:var(--forest);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;padding:16px 44px;border-radius:2px;letter-spacing:.04em;display:inline-block;text-decoration:none}
+.p8-url{font-size:11px;color:var(--gold-l);letter-spacing:.08em}
+.p8-author{display:flex;flex-direction:column;align-items:center;gap:3px;margin-top:4px}
+.p8-author-name{font-family:'Fraunces',serif;font-size:15px;color:#fff;font-weight:700}
+.p8-author-role{font-size:10px;color:var(--gold-l)}
+.p8-logo{height:36px;width:auto;opacity:.7}
+</style>
+</head>
+<body>
+
+<!-- ── PAGE 1 ── -->
+<h2 class="page-label">Page 1 — Couverture</h2>
+<div class="page p1">
+  <div class="p1-left">
+    <div class="p1-logo">
+      <img src="https://www.proactifsconseils.fr/images/logo-full.png" alt="Proactifs Conseils" onerror="this.style.display='none'">
+    </div>
+    <div class="p1-title-block">
+      <span class="p1-tag">Guide pratique · 2025</span>
+      <p class="p1-eyebrow">Pour les cadres &amp; chefs d'entreprise</p>
+      <h1 class="p1-title">Les 5 erreurs qui coûtent cher à votre <em>patrimoine</em></h1>
+      <p class="p1-sub">Ce que personne ne vous a dit — et comment les éviter dès maintenant.</p>
+    </div>
+    <div class="p1-pills">
+      <div class="p1-pill"><span class="p1-dot"></span>Lecture 15 min · Conseils actionnables</div>
+      <div class="p1-pill"><span class="p1-dot"></span>Fiscalité · Épargne · Retraite · Transmission</div>
+    </div>
+    <div class="p1-author">
+      <span class="p1-author-name">Medy Matima</span>
+      <span class="p1-author-role">Conseiller en Gestion de Patrimoine</span>
+    </div>
+  </div>
+  <div class="p1-right">
+    <div class="p1-photo"></div>
+    <div class="p1-watermark">5</div>
+    <div class="p1-badge"><div class="p1-badge-num">5</div><div class="p1-badge-label">erreurs à éviter</div></div>
+  </div>
+</div>
+
+<!-- ── PAGE 2 ── -->
+<h2 class="page-label">Page 2 — Introduction</h2>
+<div class="page p2">
+  <div class="section-badge">Introduction</div>
+  <div class="p2-title">Pourquoi ce guide ?</div>
+  <div class="gold-rule"></div>
+  <p class="p2-body">Vous êtes cadre supérieur ou chef d'entreprise. Votre TMI dépasse 30 ou 41 %. Vous travaillez dur, vous gagnez bien votre vie — et pourtant, chaque année, une partie significative de vos revenus et de votre patrimoine s'échappe, sans que vous le sachiez vraiment.</p>
+  <p class="p2-body">Ce n'est pas une question de malchance. C'est une question de préparation. Les cinq erreurs décrites dans ce guide sont les plus fréquemment constatées lors des bilans patrimoniaux réalisés avec des profils comme le vôtre. Elles sont toutes évitables — à condition d'agir au bon moment.</p>
+  <div class="p2-box">
+    <div class="p2-box-title">Ce guide est fait pour vous si…</div>
+    <ul class="p2-list">
+      <li><span class="p2-list-dot">→</span>Vous êtes cadre, dirigeant, profession libérale ou chef d'entreprise</li>
+      <li><span class="p2-list-dot">→</span>Votre TMI est de 30 % ou plus</li>
+      <li><span class="p2-list-dot">→</span>Vous n'avez pas de stratégie patrimoniale formalisée</li>
+      <li><span class="p2-list-dot">→</span>Vous avez plus de 35 ans et pensez à votre retraite ou votre succession</li>
+      <li><span class="p2-list-dot">→</span>Vous souhaitez optimiser votre situation sans changer de style de vie</li>
+    </ul>
+  </div>
+  <p class="p2-note">"Bonne lecture — et si une de ces erreurs vous parle, vous saurez quoi faire à la fin de ce guide."</p>
+  <div class="p2-toc">
+    <div class="p2-toc-item"><span class="p2-toc-num">01</span><span class="p2-toc-text">Attendre la déclaration pour penser à ses impôts</span></div>
+    <div class="p2-toc-item"><span class="p2-toc-num">02</span><span class="p2-toc-text">Confondre épargne et investissement</span></div>
+    <div class="p2-toc-item"><span class="p2-toc-num">03</span><span class="p2-toc-text">Négliger la retraite avant 50 ans</span></div>
+    <div class="p2-toc-item"><span class="p2-toc-num">04</span><span class="p2-toc-text">Oublier de protéger son conjoint et ses proches</span></div>
+    <div class="p2-toc-item"><span class="p2-toc-num" style="color:rgba(201,168,76,.3)">05</span><span class="p2-toc-text">Ne pas anticiper la transmission de son patrimoine</span></div>
+  </div>
+  <div class="footer-bar"><span>Proactifs Conseils · Gestion de Patrimoine · proactifsconseils.fr</span><span>Introduction</span></div>
+</div>
+
+<!-- ── PAGE 3 ── -->
+<h2 class="page-label">Page 3 — Erreur 01</h2>
+<div class="page erreur-page">
+  <div class="err-header">
+    <div class="err-num-bg">01</div>
+    <div class="err-header-content">
+      <div class="err-badge">Erreur n° 01</div>
+      <h2 class="err-title">Attendre la déclaration<br>pour penser à ses impôts</h2>
+    </div>
+  </div>
+  <div class="err-bar"></div>
+  <div class="err-body">
+    <div class="err-left">
+      <p class="err-intro">La plupart des cadres et dirigeants découvrent leur imposition en mai — quand il est trop tard pour agir. La fiscalité se pilote toute l'année, pas après coup.</p>
+      <p class="err-detail">Le PER, les déficits fonciers, la déduction des frais réels, l'apport-cession pour les cédants... autant de leviers qui se préparent avant le 31 décembre. Un cadre au TMI de 41 % peut économiser entre 3 000 € et 15 000 € d'impôts par an avec une stratégie bien calibrée.</p>
+      <div class="err-conseil">
+        <div class="err-conseil-label">Conseil</div>
+        <p class="err-conseil-text">Réalisez un point fiscal chaque automne. Les décisions patrimoniales prises entre septembre et décembre ont souvent le plus grand impact sur votre imposition annuelle.</p>
+      </div>
+    </div>
+    <div class="err-right">
+      <div class="err-photo p2"></div>
+      <div class="err-stats">
+        <div class="stat-c"><div class="stat-n">41%</div><div class="stat-l">TMI cadre supérieur</div></div>
+        <div class="stat-c"><div class="stat-n">15k€</div><div class="stat-l">Économie possible / an</div></div>
+        <div class="stat-c"><div class="stat-n">Déc.</div><div class="stat-l">Deadline fiscale clé</div></div>
+      </div>
+      <div class="err-quote"><p class="err-quote-text">"La fiscalité ne se subit pas — elle se pilote. Mais uniquement si vous agissez avant le 31 décembre."</p></div>
+      <div class="err-progress">
+        <div class="prog-dot active"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar"><span>Proactifs Conseils · Gestion de Patrimoine · proactifsconseils.fr</span><span>Erreur 01 / 05</span></div>
+</div>
+
+<!-- ── PAGE 4 ── -->
+<h2 class="page-label">Page 4 — Erreur 02</h2>
+<div class="page erreur-page">
+  <div class="err-header">
+    <div class="err-num-bg">02</div>
+    <div class="err-header-content">
+      <div class="err-badge">Erreur n° 02</div>
+      <h2 class="err-title">Confondre épargne<br>et investissement</h2>
+    </div>
+  </div>
+  <div class="err-bar"></div>
+  <div class="err-body">
+    <div class="err-left">
+      <p class="err-intro">Un livret A à 3 %, un compte courant qui dort, une assurance vie en fonds euros... Beaucoup de cadres pensent épargner. En réalité, ils perdent du pouvoir d'achat.</p>
+      <p class="err-detail">Avec une inflation structurelle autour de 2-3 %, un capital non investi se déprécie silencieusement. Les SCPI (rendement moyen 4-5 % net), les unités de compte en assurance vie, ou l'investissement locatif optimisé peuvent transformer une épargne dormante en patrimoine productif.</p>
+      <div class="err-conseil">
+        <div class="err-conseil-label">Conseil</div>
+        <p class="err-conseil-text">Quelle part de votre patrimoine travaille vraiment ? L'objectif est un taux d'investissement adapté à votre horizon de temps et votre TMI.</p>
+      </div>
+    </div>
+    <div class="err-right">
+      <div class="err-photo p3"></div>
+      <div class="err-stats">
+        <div class="stat-c"><div class="stat-n">3%</div><div class="stat-l">Livret A net apparent</div></div>
+        <div class="stat-c"><div class="stat-n">-1%</div><div class="stat-l">Rendement réel / inflation</div></div>
+        <div class="stat-c"><div class="stat-n">5%</div><div class="stat-l">SCPI rendement moyen</div></div>
+      </div>
+      <div class="err-quote"><p class="err-quote-text">"La plupart de mes clients pensaient être prudents. Ils étaient en train de perdre en silence."</p></div>
+      <div class="err-progress">
+        <div class="prog-dot"></div><div class="prog-dot active"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar"><span>Proactifs Conseils · Gestion de Patrimoine · proactifsconseils.fr</span><span>Erreur 02 / 05</span></div>
+</div>
+
+<!-- ── PAGE 5 ── -->
+<h2 class="page-label">Page 5 — Erreur 03</h2>
+<div class="page erreur-page">
+  <div class="err-header">
+    <div class="err-num-bg">03</div>
+    <div class="err-header-content">
+      <div class="err-badge">Erreur n° 03</div>
+      <h2 class="err-title">Négliger la retraite<br>avant 50 ans</h2>
+    </div>
+  </div>
+  <div class="err-bar"></div>
+  <div class="err-body">
+    <div class="err-left">
+      <p class="err-intro">"J'ai le temps." C'est la phrase que nous entendons le plus souvent — et c'est la plus coûteuse. Chaque année de retard représente des milliers d'euros de rente en moins.</p>
+      <p class="err-detail">Un cadre qui commence à alimenter un PER à 40 ans capitalise sur 25 ans d'intérêts composés. Le même effort à 55 ans donne un résultat 3 fois inférieur. Pour un chef d'entreprise, la question est encore plus aiguë : il ne bénéficie pas des cotisations retraite proportionnelles à ses revenus réels.</p>
+      <div class="err-conseil">
+        <div class="err-conseil-label">Conseil</div>
+        <p class="err-conseil-text">Simulez dès maintenant votre taux de remplacement retraite. Pour la plupart des cadres supérieurs, il se situe entre 30 et 50 % du dernier salaire — une chute brutale sans préparation.</p>
+      </div>
+    </div>
+    <div class="err-right">
+      <div class="err-photo p4"></div>
+      <div class="err-stats">
+        <div class="stat-c"><div class="stat-n">3×</div><div class="stat-l">Écart entre 40 et 55 ans</div></div>
+        <div class="stat-c"><div class="stat-n">35%</div><div class="stat-l">Taux remplacement moyen</div></div>
+        <div class="stat-c"><div class="stat-n">25 ans</div><div class="stat-l">Capitalisation PER à 40 ans</div></div>
+      </div>
+      <div class="err-quote"><p class="err-quote-text">"Commencer à 40 ans plutôt qu'à 55 ans, c'est un résultat 3 fois supérieur pour le même effort d'épargne mensuel."</p></div>
+      <div class="err-progress">
+        <div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot active"></div><div class="prog-dot"></div><div class="prog-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar"><span>Proactifs Conseils · Gestion de Patrimoine · proactifsconseils.fr</span><span>Erreur 03 / 05</span></div>
+</div>
+
+<!-- ── PAGE 6 ── -->
+<h2 class="page-label">Page 6 — Erreur 04</h2>
+<div class="page erreur-page">
+  <div class="err-header">
+    <div class="err-num-bg">04</div>
+    <div class="err-header-content">
+      <div class="err-badge">Erreur n° 04</div>
+      <h2 class="err-title">Oublier de protéger<br>son conjoint et ses proches</h2>
+    </div>
+  </div>
+  <div class="err-bar"></div>
+  <div class="err-body">
+    <div class="err-left">
+      <p class="err-intro">Un décès prématuré, une séparation, une incapacité prolongée... Ces événements peuvent réduire à néant des années de construction patrimoniale si rien n'a été anticipé.</p>
+      <p class="err-detail">Le régime matrimonial, la clause bénéficiaire de l'assurance vie, la prévoyance, la SCI familiale : chacun de ces outils joue un rôle précis. Pour un chef d'entreprise, la transmission de l'entreprise en cas d'événement grave est souvent le risque le plus sous-estimé.</p>
+      <div class="err-conseil">
+        <div class="err-conseil-label">Conseil</div>
+        <p class="err-conseil-text">Vérifiez régulièrement vos clauses bénéficiaires — elles sont rarement mises à jour après un divorce, un remariage ou la naissance d'un enfant. Une erreur ici peut avoir des conséquences fiscales et familiales majeures.</p>
+      </div>
+    </div>
+    <div class="err-right">
+      <div class="err-photo p5" style="background:url('https://proactifsconseils.fr/images/erreur04.jpg') center/cover no-repeat"></div>
+      <div class="err-stats">
+        <div class="stat-c"><div class="stat-n">SCI</div><div class="stat-l">Outil protection familiale</div></div>
+        <div class="stat-c"><div class="stat-n">AV</div><div class="stat-l">Clause bénéficiaire clé</div></div>
+        <div class="stat-c"><div class="stat-n">15 ans</div><div class="stat-l">Délai réforme abattements</div></div>
+      </div>
+      <div class="err-quote"><p class="err-quote-text">"Le risque n'est pas d'échouer dans sa carrière. C'est d'oublier de protéger ce qu'on a construit."</p></div>
+      <div class="err-progress">
+        <div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot active"></div><div class="prog-dot"></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar"><span>Proactifs Conseils · Gestion de Patrimoine · proactifsconseils.fr</span><span>Erreur 04 / 05</span></div>
+</div>
+
+<!-- ── PAGE 7 ── -->
+<h2 class="page-label">Page 7 — Erreur 05</h2>
+<div class="page erreur-page">
+  <div class="err-header">
+    <div class="err-num-bg">05</div>
+    <div class="err-header-content">
+      <div class="err-badge">Erreur n° 05</div>
+      <h2 class="err-title">Ne pas anticiper la transmission<br>de son patrimoine</h2>
+    </div>
+  </div>
+  <div class="err-bar"></div>
+  <div class="err-body">
+    <div class="err-left">
+      <p class="err-intro">La transmission patrimoniale se prépare des années à l'avance. Attendre pour y penser, c'est souvent laisser 20 à 30 % de son patrimoine à l'État plutôt qu'à ses enfants.</p>
+      <p class="err-detail">Les abattements en ligne directe (100 000 € par parent et par enfant, renouvelables tous les 15 ans) permettent des donations progressives sans fiscalité. Pour un chef d'entreprise, le Pacte Dutreil permet de transmettre son entreprise avec une exonération de 75 % de sa valeur.</p>
+      <div class="err-conseil">
+        <div class="err-conseil-label">Conseil</div>
+        <p class="err-conseil-text">Si vous avez plus de 45 ans et un patrimoine supérieur à 500 000 €, une stratégie de transmission doit figurer dans votre plan patrimonial. Chaque année compte.</p>
+      </div>
+    </div>
+    <div class="err-right">
+      <div class="err-photo" style="background:url('https://proactifsconseils.fr/images/erreur05.jpg') center/cover no-repeat"></div>
+      <div class="err-stats">
+        <div class="stat-c"><div class="stat-n">75%</div><div class="stat-l">Exo. Pacte Dutreil</div></div>
+        <div class="stat-c"><div class="stat-n">100k€</div><div class="stat-l">Abattement / enfant</div></div>
+        <div class="stat-c"><div class="stat-n">30%</div><div class="stat-l">Perdu sans anticipation</div></div>
+      </div>
+      <div class="err-quote"><p class="err-quote-text">"Transmettre coûte cher quand on attend. Transmettre tôt, c'est choisir à qui profite son patrimoine."</p></div>
+      <div class="err-progress">
+        <div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot active"></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar"><span>Proactifs Conseils · Gestion de Patrimoine · proactifsconseils.fr</span><span>Erreur 05 / 05</span></div>
+</div>
+
+<!-- ── PAGE 8 ── -->
+<h2 class="page-label">Page 8 — Appel à l'action</h2>
+<div class="page p8">
+  <div class="p8-inner">
+    <img class="p8-logo" src="https://www.proactifsconseils.fr/images/logo-full.png" alt="Proactifs Conseils" onerror="this.style.display='none'">
+    <span class="p8-pill">Proactifs Conseils · Patrimoine</span>
+    <h2 class="p8-title">Votre situation mérite une analyse <em>sur mesure.</em></h2>
+    <p class="p8-sub">Ces 5 erreurs sont les plus fréquentes — mais votre situation est unique. Un bilan patrimonial personnalisé permet d'identifier précisément les leviers qui s'appliquent à votre cas.</p>
+    <div class="p8-divider"></div>
+    <a class="p8-btn" href="#">Réserver mon bilan patrimonial</a>
+    <span class="p8-url">proactifsconseils.fr</span>
+    <div class="p8-author">
+      <span class="p8-author-name">Medy Matima</span>
+      <span class="p8-author-role">Conseiller en Gestion de Patrimoine</span>
+    </div>
+  </div>
+  <div class="footer-bar"><span>Proactifs Conseils · Gestion de Patrimoine · proactifsconseils.fr</span><span>© 2025</span></div>
+</div>
+
+</body>
+</html>

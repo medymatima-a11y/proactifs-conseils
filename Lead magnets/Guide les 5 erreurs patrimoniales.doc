@@ -1,0 +1,1119 @@
+{\rtf1\ansi\ansicpg1252{\fonttbl{\f0\fbidis\froman\fcharset0 Times New Roman;}{\f1\fbidis\fswiss\fcharset0 Arial;}{\f2\fbidis\fswiss\fcharset0 Arial;}{\f3\fbidis\fswiss\fcharset0 Arial;}}{\colortbl ;\red0 \green0 \blue0;\red8 \green12 \blue15;\red26 \green58 \blue45;\red200 \green168 \blue75;\red226 \green195 \blue121;\red107 \green114 \blue128;\red156 \green163 \blue154;\red255 \green255 \blue255;}{\stylesheet{\fs22\f1\sqformat\spriority1 Normal}{\s1\f1\fs21\sbasedon0\sqformat\spriority1 Body Text}{\s2\li1120\fi-1021\sb1\outlinelevel0\f2\fs32\b1\sbasedon0\sqformat\spriority1 Heading 1}{\s3\li100\ri118\qj\sb215\outlinelevel1\f2\fs23\b1\sbasedon0\sqformat\spriority1 Heading 2}{\s4\li662\ri1019\qc\f2\fs64\b1\sbasedon0\sqformat\spriority1 Title}{\s5\li1120\fi-1021\sb1\f2\sbasedon0\sqformat\spriority1 List Paragraph}{\s6\sbasedon0\sqformat\spriority1 Table Paragraph}}{\*\listtable{\list\listtemplateid2181{\listlevel\levelnfc23\leveljc0\li402\fi-123{\leveltext\'01\'B7;}{\levelnumbers;}\f1\fs20\b0\i0\charscalex100\cf2}{\listlevel\levelnfc23\leveljc0\li1244\fi-123{\leveltext\'01\'95;}{\levelnumbers;}}{\listlevel\levelnfc23\leveljc0\li2088\fi-123{\leveltext\'01\'95;}{\levelnumbers;}}{\listlevel\levelnfc23\leveljc0\li2933\fi-123{\leveltext\'01\'95;}{\levelnumbers;}}{\listlevel\levelnfc23\leveljc0\li3777\fi-123{\leveltext\'01\'95;}{\levelnumbers;}}{\listlevel\levelnfc23\leveljc0\li4622\fi-123{\leveltext\'01\'95;}{\levelnumbers;}}{\listlevel\levelnfc23\leveljc0\li5466\fi-123{\leveltext\'01\'95;}{\levelnumbers;}}{\listlevel\levelnfc23\leveljc0\li6310\fi-123{\leveltext\'01\'95;}{\levelnumbers;}}{\listlevel\levelnfc23\leveljc0\li7155\fi-123{\leveltext\'01\'95;}{\levelnumbers;}}\listid1026}{\list\listtemplateid2182{\listlevel\levelnfc22\levelstartat1\leveljc0\li1120\fi-1021{\leveltext\'01\'00;}{\levelnumbers\'01;}\f2\fs72\b1\i0\dn22\charscalex100\cf4}{\listlevel\levelnfc23\leveljc0\li2050\fi-1021{\leveltext\'01\'95;}{\levelnumbers;}}{\listlevel\levelnfc23\leveljc0\li2981\fi-1021{\leveltext\'01\'95;}{\levelnumbers;}}{\listlevel\levelnfc23\leveljc0\li3911\fi-1021{\leveltext\'01\'95;}{\levelnumbers;}}{\listlevel\levelnfc23\leveljc0\li4842\fi-1021{\leveltext\'01\'95;}{\levelnumbers;}}{\listlevel\levelnfc23\leveljc0\li5772\fi-1021{\leveltext\'01\'95;}{\levelnumbers;}}{\listlevel\levelnfc23\leveljc0\li6703\fi-1021{\leveltext\'01\'95;}{\levelnumbers;}}{\listlevel\levelnfc23\leveljc0\li7633\fi-1021{\leveltext\'01\'95;}{\levelnumbers;}}{\listlevel\levelnfc23\leveljc0\li8564\fi-1021{\leveltext\'01\'95;}{\levelnumbers;}}\listid1027}}{\*\listoverridetable{\listoverride\listoverridecount0\listid1027\ls2}{\listoverride\listoverridecount0\listid1026\ls1}}{\info{\author (anonymous)}{\creatim\yr2026\mo4\dy10\hr12\min19\sec49}{\revtim\yr2026\mo4\dy11\hr15\min23\sec48}{\subject (unspecified)}{\title (anonymous)}}{\*\userprops {\propname Creator}\proptype30{\staticval (unspecified)}}\jexpand\dntblnsbdb\viewkind1\noxlattoyen\nospaceforul\useltbaln\paperw11910\paperh16840\margl920\margr560\margt0\margb280\noindnmbrts\sectd\sbknone
+{\shp{\*\shpinst
+\shpleft0\shptop0\shpright11906\shpbottom16837
+\shpfhdr0\shpwr3\shpwrk0\shplid60\shpz3
+\shpbxpage\shpbypage\shpwr3\shpfblwtxt1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 11906}}
+{\sp{\sn geoBottom}{\sv 16837}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(11905,0);(0,0);(0,16837);(11905,16837);(11905,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 2963994}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst
+\shpleft0\shptop0\shpright11906\shpbottom4535
+\shpfhdr0\shpwr3\shpwrk0\shplid61\shpz4
+\shpbxpage\shpbypage\shpwr3\shpfblwtxt1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 11906}}
+{\sp{\sn geoBottom}{\sv 4535}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(11905,0);(0,0);(0,4535);(11905,4535);(11905,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 3095331}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f0\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f0\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f0\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f0\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f0\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f0\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f0\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f0\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f0\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f0\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f0\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f0\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb4\f0\fs22\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li671\ri1019\qc\sl240\slmult1\sb94\f1\fs18\b0\expnd0\expndtw0\charscalex100\cf4 PROACTIFS CONSEILS \'B7 \expnd0\expndtw-2 PATRIMOINE\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par
+{\shp{\*\shpinst
+\shpleft3231\shptop292\shpright8674\shpbottom293
+\shpfhdr0\shpwr3\shpwrk0\shplid38\shpz0
+\shpbxpage\shpbypara\shpwr1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn dxWrapDistLeft}{\sv 0}}{\sp{\sn dxWrapDistRight}{\sv 0}}{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 5443}}
+{\sp{\sn geoBottom}{\sv 1}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;2;(0,0);(5442,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;5;16384;45824;1;45824;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn lineWidth}{\sv 12700}}
+{\sp{\sn lineColor}{\sv 4958408}}
+{\sp{\sn fLine}{\sv 1}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb4\f1\fs23\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb3\f1\fs25\b0\i0\par
+{\shp{\*\shpinst
+\shpleft1133\shptop489\shpright10771\shpbottom490
+\shpfhdr0\shpwr3\shpwrk0\shplid62\shpz5
+\shpbxpage\shpbypara\shpwr3\shpfblwtxt1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 9638}}
+{\sp{\sn geoBottom}{\sv 1}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;2;(0,0);(9637,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;5;16384;45824;1;45824;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn lineWidth}{\sv 25400}}
+{\sp{\sn lineColor}{\sv 4958408}}
+{\sp{\sn fLine}{\sv 1}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+\pard\plain\s4\nooverflow\nocwrap\lnbrkrule\li662\ri1019\qc\sl261\slmult1\sb79\f2\fs64\b1\expnd0\expndtw0\charscalex100\cf8 Les\expnd-2\expndtw-11  \expnd0\expndtw0 5\expnd-2\expndtw-11  \expnd0\expndtw0 erreurs\expnd-2\expndtw-11  \expnd0\expndtw0 patrimoniales qui co\'FBtent\par\pard\plain\s4\nooverflow\nocwrap\lnbrkrule\li1472\ri1830\qc\sl261\slmult1\f2\fs64\b1\expnd0\expndtw0\charscalex100\cf8 cher\expnd-2\expndtw-12  \expnd0\expndtw0 aux\expnd-2\expndtw-12  \expnd0\expndtw0 cadres\expnd-2\expndtw-12  \expnd0\expndtw0 et chefs d'entreprise\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li662\ri1019\qc\sl240\slmult1\sb469\f1\fs28\b0\expnd0\expndtw0\charscalex100\cf5 Guide pratique pour optimiser, \expnd0\expndtw-2 prot\'E9ger\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li662\ri1019\qc\sl240\slmult1\sb118\f1\fs28\b0\expnd0\expndtw0\charscalex100\cf5 et transmettre votre patrimoine en \'CEle-de-\expnd0\expndtw-2 France\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par
+{\shp{\*\shpinst\shpleft1984\shpright9921\shptop322\shpbottom962\shpbxpage\shpbypara\shpwr1\shpz1\shplid47{\sp{\sn dxWrapDistLeft}{\sv 0}}{\sp{\sn dxWrapDistRight}{\sv 0}}
+{\sp{\sn shapeType}{\sv 202}}{\sp{\sn fFlipH}{\sv 0}}{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn txflTextFlow}{\sv 0}}
+{\sp{\sn fFilled}{\sv 1}}{\sp{\sn fillColor}{\sv 3095331}}{\sp{\sn fillOpacity}{\sv 65536}}
+{\sp{\sn fLine}{\sv 0}}
+{\sp{\sn dxTextLeft}{\sv 0}}{\sp{\sn dxTextRight}{\sv 0}}{\sp{\sn dyTextTop}{\sv 0}}{\sp{\sn dyTextBottom}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\shptxt\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb4\f1\fs18\b0\i0\cf1\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li727\sl240\slmult1\f1\fs18\b0\expnd0\expndtw0\charscalex100\cf5 R\'E9duire vos imp\'F4ts\expnd10\expndtw50  \expnd0\expndtw0 \'B7\expnd10\expndtw50  \expnd0\expndtw0 Pr\'E9parer votre retraite\expnd10\expndtw50  \expnd0\expndtw0 \'B7\expnd10\expndtw50  \expnd0\expndtw0 Transmettre sans droits \expnd0\expndtw-2 excessifs\par}}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb10\f1\fs25\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par
+{\shp{\*\shpinst
+\shpleft4592\shptop257\shpright7314\shpbottom258
+\shpfhdr0\shpwr3\shpwrk0\shplid56\shpz2
+\shpbxpage\shpbypara\shpwr1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn dxWrapDistLeft}{\sv 0}}{\sp{\sn dxWrapDistRight}{\sv 0}}{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 2722}}
+{\sp{\sn geoBottom}{\sv 1}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;2;(0,0);(2721,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;5;16384;45824;1;45824;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn lineWidth}{\sv 12700}}
+{\sp{\sn lineColor}{\sv 4806970}}
+{\sp{\sn fLine}{\sv 1}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb3\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb7\f1\fs21\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li662\ri1019\qc\sl240\slmult1\sb94\f2\fs20\b1\expnd0\expndtw0\charscalex100\cf4 Medhy \expnd0\expndtw-2 Matima\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li672\ri1019\qc\sl240\slmult1\sb49\f1\fs18\b0\expnd0\expndtw0\charscalex100\cf7 Conseiller en Gestion de Patrimoine \'B7 Colombes \expnd-1\expndtw-4 (92)\par\sect\sectd\sbkpage
+{\shp{\*\shpinst
+\shpleft0\shptop0\shpright11906\shpbottom16837
+\shpfhdr0\shpwr3\shpwrk0\shplid104\shpz7
+\shpbxpage\shpbypage\shpwr3\shpfblwtxt1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 11906}}
+{\sp{\sn geoBottom}{\sv 16837}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(11905,0);(0,0);(0,16837);(11905,16837);(11905,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 2963994}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shpgrp{\*\shpinst\shplid105
+\shpleft0\shptop0\shpright11906\shpbottom4535\shpfhdr0
+\shpbxpage\shpbypage\shpwr3\shpwrk0\shpfblwtxt1\shpz8
+\shpwr3\shpfblwtxt1{\sp{\sn groupLeft}{\sv 0}}
+{\sp{\sn groupTop}{\sv 0}}
+{\sp{\sn groupRight}{\sv 11906}}
+{\sp{\sn groupBottom}{\sv 4535}}
+{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+
+{\shp{\*\shpinst\shplid106
+{\sp{\sn relLeft}{\sv 0}}
+{\sp{\sn relTop}{\sv 0}}
+{\sp{\sn relRight}{\sv 11906}}
+{\sp{\sn relBottom}{\sv 4535}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 11906}}
+{\sp{\sn geoBottom}{\sv 4535}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(11905,0);(0,0);(0,4535);(11905,4535);(11905,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 3095331}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst\shplid107
+{\sp{\sn relLeft}{\sv 1417}}
+{\sp{\sn relTop}{\sv 2567}}
+{\sp{\sn relRight}{\sv 10488}}
+{\sp{\sn relBottom}{\sv 2568}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 9071}}
+{\sp{\sn geoBottom}{\sv 1}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;2;(0,0);(9070,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;5;16384;45824;1;45824;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn lineWidth}{\sv 19050}}
+{\sp{\sn lineColor}{\sv 4958408}}
+{\sp{\sn fLine}{\sv 1}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst{\sp{\sn relLeft}{\sv 1417}}
+{\sp{\sn relTop}{\sv 1432}}
+{\sp{\sn relRight}{\sv 5666}}
+{\sp{\sn relBottom}{\sv 2271}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+{\sp{\sn shapeType}{\sv 202}}{\sp{\sn fFlipH}{\sv 0}}{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn txflTextFlow}{\sv 0}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn fLine}{\sv 0}}
+{\sp{\sn dxTextLeft}{\sv 0}}{\sp{\sn dxTextRight}{\sv 0}}{\sp{\sn dyTextTop}{\sv 0}}{\sp{\sn dyTextBottom}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\shptxt\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl-179\f2\fs16\b1\expnd0\expndtw-2\charscalex100\cf4 INTRODUCTION\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb153\f2\fs44\b1\expnd0\expndtw0\charscalex100\cf3 Pourquoi ce guide \expnd-2\expndtw-10 ?\par}}}
+
+{\shp{\*\shpinst{\sp{\sn relLeft}{\sv 1417}}
+{\sp{\sn relTop}{\sv 3041}}
+{\sp{\sn relRight}{\sv 10509}}
+{\sp{\sn relBottom}{\sv 4456}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+{\sp{\sn shapeType}{\sv 202}}{\sp{\sn fFlipH}{\sv 0}}{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn txflTextFlow}{\sv 0}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn fLine}{\sv 0}}
+{\sp{\sn dxTextLeft}{\sv 0}}{\sp{\sn dxTextRight}{\sv 0}}{\sp{\sn dyTextTop}{\sv 0}}{\sp{\sn dyTextBottom}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\shptxt\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\ri18\qj\sl338\slmult1\f1\fs21\b0\expnd0\expndtw0\charscalex100\cf2 Vous \'EAtes cadre sup\'E9rieur ou chef d'entreprise en \'CEle-de-France. Votre TMI d\'E9passe 30 ou 41 %. Vous travaillez dur, vous gagnez bien votre vie \'97 et pourtant, chaque ann\'E9e, une partie significative de vos revenus et de votre patrimoine s'\'E9chappe, sans que vous le sachiez \expnd0\expndtw-2 vraiment.\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\qj\sl240\slmult1\sb151\f1\fs21\b0\expnd0\expndtw0\charscalex100\cf2 Ce\expnd6\expndtw28  \expnd0\expndtw0 n'est\expnd6\expndtw28  \expnd0\expndtw0 pas\expnd6\expndtw28  \expnd0\expndtw0 une\expnd6\expndtw28  \expnd0\expndtw0 question\expnd6\expndtw28  \expnd0\expndtw0 de\expnd6\expndtw28  \expnd0\expndtw0 malchance.\expnd6\expndtw28  \expnd0\expndtw0 C'est\expnd6\expndtw28  \expnd0\expndtw0 une\expnd6\expndtw28  \expnd0\expndtw0 question\expnd6\expndtw28  \expnd0\expndtw0 de\expnd6\expndtw28  \expnd0\expndtw0 pr\'E9paration.\expnd6\expndtw28  \expnd0\expndtw0 Les\expnd6\expndtw28  \expnd0\expndtw0 cinq\expnd6\expndtw28  \expnd0\expndtw-2 erreurs\par}}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb4\f1\fs26\b0\i0\par
+{\shp{\*\shpinst
+\shpleft1530\shptop1466\shpright10375\shpbottom1506
+\shpfhdr0\shpwr3\shpwrk0\shplid118\shpz9
+\shpbxpage\shpbypara\shpwr3\shpfblwtxt0{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 8845}}
+{\sp{\sn geoBottom}{\sv 40}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(0,40);(8844,40);(8844,0);(0,0);(0,40)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 4958408}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li497\fi-284\ri571\sl338\slmult1\sb93\tx497\tx9851\f1\fs21\b0\expnd0\expndtw0\charscalex100\cf2{\strike \tab d\'E9crites\expnd8\expndtw40  \expnd0\expndtw0 dans\expnd8\expndtw40  \expnd0\expndtw0 ce\expnd8\expndtw40  \expnd0\expndtw0 guide\expnd8\expndtw40  \expnd0\expndtw0 sont\expnd8\expndtw40  \expnd0\expndtw0 les\expnd8\expndtw40  \expnd0\expndtw0 plus\expnd8\expndtw40  \expnd0\expndtw0 fr\'E9quemment\expnd8\expndtw40  \expnd0\expndtw0 constat\'E9es\expnd8\expndtw40  \expnd0\expndtw0 lors\expnd8\expndtw40  \expnd0\expndtw0 des\expnd8\expndtw40  \expnd0\expndtw0 bilans\expnd8\expndtw40  \expnd0\expndtw0 patrimoniaux\tab }\expnd8\expndtw40\expnd0\expndtw0\expnd8\expndtw40\expnd0\expndtw0\expnd8\expndtw40\expnd0\expndtw0\expnd8\expndtw40\expnd0\expndtw0\expnd8\expndtw40\expnd0\expndtw0\expnd8\expndtw40\expnd0\expndtw0\expnd8\expndtw40\expnd0\expndtw0\expnd8\expndtw40\expnd0\expndtw0\expnd8\expndtw40\expnd0\expndtw0\expnd8\expndtw40\expnd0\expndtw0\expnd8\expndtw40\expnd0\expndtw0\expnd8\expndtw40\expnd0\expndtw0  r\'E9alis\'E9s avec des profils comme le v\'F4tre. Elles sont toutes \'E9vitables \'97 \'E0 condition d'agir au bon \expnd0\expndtw-2 moment.\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par
+{\shpgrp{\*\shpinst\shplid87
+\shpleft1530\shptop162\shpright10375\shpbottom2962\shpfhdr0
+\shpbxpage\shpbypara\shpwr3\shpwrk0\shpfblwtxt1\shpz6
+\shpwr1{\sp{\sn groupLeft}{\sv 1530}}
+{\sp{\sn groupTop}{\sv 162}}
+{\sp{\sn groupRight}{\sv 10375}}
+{\sp{\sn groupBottom}{\sv 2962}}
+{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn dxWrapDistLeft}{\sv 0}}{\sp{\sn dxWrapDistRight}{\sv 0}}
+{\shp{\*\shpinst{\sp{\sn relLeft}{\sv 1531}}
+{\sp{\sn relTop}{\sv 863}}
+{\sp{\sn relRight}{\sv 10376}}
+{\sp{\sn relBottom}{\sv 2963}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+{\sp{\sn shapeType}{\sv 202}}{\sp{\sn fFlipH}{\sv 0}}{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn txflTextFlow}{\sv 0}}
+{\sp{\sn fFilled}{\sv 1}}{\sp{\sn fillColor}{\sv 15265780}}{\sp{\sn fillOpacity}{\sv 65536}}
+{\sp{\sn fLine}{\sv 0}}
+{\sp{\sn dxTextLeft}{\sv 0}}{\sp{\sn dxTextRight}{\sv 0}}{\sp{\sn dyTextTop}{\sv 0}}{\sp{\sn dyTextBottom}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\shptxt\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb5\f1\fs18\b0\i0\cf1\par\pard\plain\s1\ls1\ilvl0\nooverflow\nocwrap\lnbrkrule\li402\fi-123\sl240\slmult1\tx403\f1\fs20\b0\expnd0\expndtw0\charscalex100\cf2 Vous \'EAtes cadre, dirigeant, profession lib\'E9rale ou chef \expnd0\expndtw-2 d'entreprise\par\pard\plain\s1\ls1\ilvl0\nooverflow\nocwrap\lnbrkrule\li402\fi-123\sl240\slmult1\sb110\tx403\f1\fs20\b0\expnd0\expndtw0\charscalex100\cf2 Vous avez une TMI de 30 % ou \expnd-1\expndtw-4 plus\par\pard\plain\s1\ls1\ilvl0\nooverflow\nocwrap\lnbrkrule\li402\fi-123\sl240\slmult1\sb110\tx403\f1\fs20\b0\expnd0\expndtw0\charscalex100\cf2 Vous n'avez pas de strat\'E9gie patrimoniale \expnd0\expndtw-2 formalis\'E9e\par\pard\plain\s1\ls1\ilvl0\nooverflow\nocwrap\lnbrkrule\li402\fi-123\sl240\slmult1\sb110\tx403\f1\fs20\b0\expnd0\expndtw0\charscalex100\cf2 Vous avez plus de 35 ans et pensez \'E0 votre retraite ou \'E0 votre \expnd0\expndtw-2 succession\par\pard\plain\s1\ls1\ilvl0\nooverflow\nocwrap\lnbrkrule\li402\fi-123\sl240\slmult1\sb110\tx403\f1\fs20\b0\expnd0\expndtw0\charscalex100\cf2 Vous souhaitez comprendre comment optimiser votre situation sans changer de style de \expnd-1\expndtw-5 vie\par}}}
+
+{\shp{\*\shpinst{\sp{\sn relLeft}{\sv 1531}}
+{\sp{\sn relTop}{\sv 163}}
+{\sp{\sn relRight}{\sv 10376}}
+{\sp{\sn relBottom}{\sv 863}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+{\sp{\sn shapeType}{\sv 202}}{\sp{\sn fFlipH}{\sv 0}}{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn txflTextFlow}{\sv 0}}
+{\sp{\sn fFilled}{\sv 1}}{\sp{\sn fillColor}{\sv 14412013}}{\sp{\sn fillOpacity}{\sv 65536}}
+{\sp{\sn fLine}{\sv 0}}
+{\sp{\sn dxTextLeft}{\sv 0}}{\sp{\sn dxTextRight}{\sv 0}}{\sp{\sn dyTextTop}{\sv 0}}{\sp{\sn dyTextBottom}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\shptxt\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li280\sl240\slmult1\sb193\f2\fs22\b1\expnd0\expndtw0\charscalex100\cf3 Ce guide est fait pour vous \expnd0\expndtw-2 si...\par}}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs12\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb6\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li497\sl240\slmult1\f3\fs21\b0\i1\expnd0\expndtw0\charscalex100\cf6 Bonne lecture \'97 et si une de ces erreurs vous parle, vous saurez quoi faire \'E0 la fin de ce \expnd0\expndtw-2 guide.\par\sect\sectd\sbkpage\margtsxn720\margbsxn0
+{\shp{\*\shpinst
+\shpleft0\shptop0\shpright11906\shpbottom16837
+\shpfhdr0\shpwr3\shpwrk0\shplid183\shpz11
+\shpbxpage\shpbypage\shpwr3\shpfblwtxt1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 11906}}
+{\sp{\sn geoBottom}{\sv 16837}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(11905,0);(0,0);(0,16837);(11905,16837);(11905,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 16185849}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst
+\shpleft0\shptop0\shpright11906\shpbottom16838
+\shpfhdr0\shpwr3\shpwrk0\shplid184\shpz12
+\shpbxpage\shpbypage\shpwr3\shpfblwtxt1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 11906}}
+{\sp{\sn geoBottom}{\sv 16838}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;9;(11905,16044);(453,16044);(453,0);(0,0);(0,16044);(0,16837);(453,16837);(11905,16837);(11905,16044)}}
+{\sp{\sn pSegmentInfo}{\sv 2;20;16384;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 2963994}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li100\sl240\slmult1\sb66\f2\fs16\b1\expnd0\expndtw0\charscalex100\cf4 ERREUR N\'B0 \expnd-1\expndtw-5 01\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb7\f2\fs24\b1\i0\par
+{\shp{\*\shpinst
+\shpleft1020\shptop806\shpright11225\shpbottom807
+\shpfhdr0\shpwr3\shpwrk0\shplid185\shpz13
+\shpbxpage\shpbypara\shpwr3\shpfblwtxt0{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 10205}}
+{\sp{\sn geoBottom}{\sv 1}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;2;(0,0);(10204,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;5;16384;45824;1;45824;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn lineWidth}{\sv 19050}}
+{\sp{\sn lineColor}{\sv 4958408}}
+{\sp{\sn fLine}{\sv 1}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+}}
+\pard\plain\s2\ls2\ilvl0\nooverflow\nocwrap\lnbrkrule\li1120\fi-1021\sl240\slmult1\sb1\tx1121\f2\fs32\b1\expnd0\expndtw0\up0\charscalex100\cf3 Attendre la d\'E9claration pour penser \'E0 ses \expnd0\expndtw-2 imp\'F4ts\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f2\fs20\b1\i0\par\pard\plain\s3\nooverflow\nocwrap\lnbrkrule\li100\ri119\qj\sl326\slmult1\sb215\f2\fs23\b1\expnd0\expndtw0\charscalex100\cf3 La plupart des cadres et dirigeants d\'E9couvrent leur imposition en mai \'97 quand il est trop tard pour agir. La fiscalit\'E9 se pilote tout au long de l'ann\'E9e, pas apr\'E8s coup.\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li100\ri117\qj\sl338\slmult1\sb159\f1\fs21\b0\expnd0\expndtw0\charscalex100\cf2 Le PER (Plan d'\'C9pargne Retraite), les d\'E9ficits fonciers, la d\'E9duction des frais r\'E9els, l'apport-cession pour les c\'E9dants... autant de leviers qui se pr\'E9parent avant le 31 d\'E9cembre. Un cadre au TMI de 41 % peut \'E9conomiser entre 3 000 \'80 et 15 000 \'80 d'imp\'F4ts par an avec une strat\'E9gie bien calibr\'E9e.\par
+{\shpgrp{\*\shpinst\shplid128
+\shpleft1700\shptop126\shpright10545\shpbottom1866\shpfhdr0
+\shpbxpage\shpbypara\shpwr3\shpwrk0\shpfblwtxt1\shpz10
+\shpwr1{\sp{\sn groupLeft}{\sv 1700}}
+{\sp{\sn groupTop}{\sv 126}}
+{\sp{\sn groupRight}{\sv 10545}}
+{\sp{\sn groupBottom}{\sv 1866}}
+{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn dxWrapDistLeft}{\sv 0}}{\sp{\sn dxWrapDistRight}{\sv 0}}
+{\shp{\*\shpinst\shplid129
+{\sp{\sn relLeft}{\sv 1700}}
+{\sp{\sn relTop}{\sv 146}}
+{\sp{\sn relRight}{\sv 10545}}
+{\sp{\sn relBottom}{\sv 1866}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 8845}}
+{\sp{\sn geoBottom}{\sv 1720}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(8844,0);(0,0);(0,1720);(8844,1720);(8844,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 2963994}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst\shplid130
+{\sp{\sn relLeft}{\sv 1700}}
+{\sp{\sn relTop}{\sv 126}}
+{\sp{\sn relRight}{\sv 10545}}
+{\sp{\sn relBottom}{\sv 166}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 8845}}
+{\sp{\sn geoBottom}{\sv 40}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(0,40);(8844,40);(8844,0);(0,0);(0,40)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 4958408}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst{\sp{\sn relLeft}{\sv 1701}}
+{\sp{\sn relTop}{\sv 166}}
+{\sp{\sn relRight}{\sv 10546}}
+{\sp{\sn relBottom}{\sv 1866}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+{\sp{\sn shapeType}{\sv 202}}{\sp{\sn fFlipH}{\sv 0}}{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn txflTextFlow}{\sv 0}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn fLine}{\sv 0}}
+{\sp{\sn dxTextLeft}{\sv 0}}{\sp{\sn dxTextRight}{\sv 0}}{\sp{\sn dyTextTop}{\sv 0}}{\sp{\sn dyTextBottom}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\shptxt\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb5\f1\fs16\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li280\sl240\slmult1\sb1\f2\fs16\b1\expnd0\expndtw-2\charscalex100\cf4 CONSEIL\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f2\fs18\b1\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb10\f2\fs21\b1\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li280\sl338\slmult1\f1\fs21\b0\expnd0\expndtw0\charscalex100\cf8 R\'E9alisez\expnd8\expndtw40  \expnd0\expndtw0 un\expnd8\expndtw40  \expnd0\expndtw0 point\expnd8\expndtw40  \expnd0\expndtw0 fiscal\expnd8\expndtw40  \expnd0\expndtw0 chaque\expnd8\expndtw40  \expnd0\expndtw0 automne.\expnd8\expndtw40  \expnd0\expndtw0 Les\expnd8\expndtw40  \expnd0\expndtw0 d\'E9cisions\expnd8\expndtw40  \expnd0\expndtw0 patrimoniales\expnd8\expndtw40  \expnd0\expndtw0 prises\expnd8\expndtw40  \expnd0\expndtw0 entre\expnd8\expndtw40  \expnd0\expndtw0 septembre et d\'E9cembre ont souvent le plus d'impact sur votre imposition.\par}}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb10\f1\fs8\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb4\f1\fs22\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li853\ri834\qc\sl240\slmult1\sb94\f2\fs18\b1\expnd0\expndtw0\charscalex100\cf6 1 \f1\b0 \'B7 2 \'B7 3 \'B7 4 \'B7 \expnd-2\expndtw-10 5\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs21\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li213\sl240\slmult1\sb95\f1\fs16\b0\expnd0\expndtw0\charscalex100\cf4 Proactifs Conseils \'B7 Gestion de Patrimoine \'B7 Colombes (92) \'B7 \expnd0\expndtw-2 proactifsconseils.fr\par\sect\sectd\sbkpage\margtsxn720\margbsxn0
+{\shp{\*\shpinst
+\shpleft0\shptop0\shpright11906\shpbottom16837
+\shpfhdr0\shpwr3\shpwrk0\shplid250\shpz15
+\shpbxpage\shpbypage\shpwr3\shpfblwtxt1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 11906}}
+{\sp{\sn geoBottom}{\sv 16837}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(11905,0);(0,0);(0,16837);(11905,16837);(11905,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 16185849}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst
+\shpleft0\shptop0\shpright11906\shpbottom16838
+\shpfhdr0\shpwr3\shpwrk0\shplid251\shpz16
+\shpbxpage\shpbypage\shpwr3\shpfblwtxt1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 11906}}
+{\sp{\sn geoBottom}{\sv 16838}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;9;(11905,16044);(453,16044);(453,0);(0,0);(0,16044);(0,16837);(453,16837);(11905,16837);(11905,16044)}}
+{\sp{\sn pSegmentInfo}{\sv 2;20;16384;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 2963994}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li100\sl240\slmult1\sb66\f2\fs16\b1\expnd0\expndtw0\charscalex100\cf4 ERREUR N\'B0 \expnd-1\expndtw-5 02\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb7\f2\fs24\b1\i0\par
+{\shp{\*\shpinst
+\shpleft1020\shptop806\shpright11225\shpbottom807
+\shpfhdr0\shpwr3\shpwrk0\shplid252\shpz17
+\shpbxpage\shpbypara\shpwr3\shpfblwtxt0{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 10205}}
+{\sp{\sn geoBottom}{\sv 1}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;2;(0,0);(10204,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;5;16384;45824;1;45824;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn lineWidth}{\sv 19050}}
+{\sp{\sn lineColor}{\sv 4958408}}
+{\sp{\sn fLine}{\sv 1}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+}}
+\pard\plain\s2\ls2\ilvl0\nooverflow\nocwrap\lnbrkrule\li1120\fi-1021\sl240\slmult1\sb1\tx1121\f2\fs32\b1\expnd0\expndtw0\up0\charscalex100\cf3 Confondre \'E9pargne et \expnd0\expndtw-2 investissement\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f2\fs20\b1\i0\par\pard\plain\s3\nooverflow\nocwrap\lnbrkrule\li100\ri118\qj\sl326\slmult1\sb215\f2\fs23\b1\expnd0\expndtw0\charscalex100\cf3 Un\expnd-1\expndtw-4  \expnd0\expndtw0 livret\expnd-1\expndtw-4  \expnd0\expndtw0 A\expnd-1\expndtw-4  \expnd0\expndtw0 \'E0\expnd-1\expndtw-4  \expnd0\expndtw0 3\expnd-1\expndtw-4  \expnd0\expndtw0 %,\expnd-1\expndtw-4  \expnd0\expndtw0 un\expnd-1\expndtw-4  \expnd0\expndtw0 compte\expnd-1\expndtw-4  \expnd0\expndtw0 courant\expnd-1\expndtw-4  \expnd0\expndtw0 qui\expnd-1\expndtw-4  \expnd0\expndtw0 dort,\expnd-1\expndtw-4  \expnd0\expndtw0 une\expnd-1\expndtw-4  \expnd0\expndtw0 assurance\expnd-1\expndtw-4  \expnd0\expndtw0 vie\expnd-1\expndtw-4  \expnd0\expndtw0 en\expnd-1\expndtw-4  \expnd0\expndtw0 fonds\expnd-1\expndtw-4  \expnd0\expndtw0 euros\expnd-1\expndtw-4  \expnd0\expndtw0 achet\'E9e\expnd-1\expndtw-4  \expnd0\expndtw0 il\expnd-1\expndtw-4  \expnd0\expndtw0 y\expnd-1\expndtw-4  \expnd0\expndtw0 a 10 ans... Beaucoup de cadres pensent \'E9pargner. En r\'E9alit\'E9, ils perdent du pouvoir d'achat.\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li100\ri117\qj\sl338\slmult1\sb159\f1\fs21\b0\expnd0\expndtw0\charscalex100\cf2 Avec une inflation structurelle autour de 2-3 %, un capital non investi se d\'E9pr\'E9cie silencieusement. Les SCPI (rendement moyen 4-5 % net), les unit\'E9s de compte en assurance vie, ou l'investissement locatif optimis\'E9 peuvent transformer une \'E9pargne dormante en patrimoine productif.\par
+{\shpgrp{\*\shpinst\shplid195
+\shpleft1700\shptop126\shpright10545\shpbottom1866\shpfhdr0
+\shpbxpage\shpbypara\shpwr3\shpwrk0\shpfblwtxt1\shpz14
+\shpwr1{\sp{\sn groupLeft}{\sv 1700}}
+{\sp{\sn groupTop}{\sv 126}}
+{\sp{\sn groupRight}{\sv 10545}}
+{\sp{\sn groupBottom}{\sv 1866}}
+{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn dxWrapDistLeft}{\sv 0}}{\sp{\sn dxWrapDistRight}{\sv 0}}
+{\shp{\*\shpinst\shplid196
+{\sp{\sn relLeft}{\sv 1700}}
+{\sp{\sn relTop}{\sv 146}}
+{\sp{\sn relRight}{\sv 10545}}
+{\sp{\sn relBottom}{\sv 1866}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 8845}}
+{\sp{\sn geoBottom}{\sv 1720}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(8844,0);(0,0);(0,1720);(8844,1720);(8844,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 2963994}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst\shplid197
+{\sp{\sn relLeft}{\sv 1700}}
+{\sp{\sn relTop}{\sv 126}}
+{\sp{\sn relRight}{\sv 10545}}
+{\sp{\sn relBottom}{\sv 166}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 8845}}
+{\sp{\sn geoBottom}{\sv 40}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(0,40);(8844,40);(8844,0);(0,0);(0,40)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 4958408}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst{\sp{\sn relLeft}{\sv 1701}}
+{\sp{\sn relTop}{\sv 166}}
+{\sp{\sn relRight}{\sv 10546}}
+{\sp{\sn relBottom}{\sv 1866}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+{\sp{\sn shapeType}{\sv 202}}{\sp{\sn fFlipH}{\sv 0}}{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn txflTextFlow}{\sv 0}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn fLine}{\sv 0}}
+{\sp{\sn dxTextLeft}{\sv 0}}{\sp{\sn dxTextRight}{\sv 0}}{\sp{\sn dyTextTop}{\sv 0}}{\sp{\sn dyTextBottom}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\shptxt\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb5\f1\fs16\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li280\sl240\slmult1\sb1\f2\fs16\b1\expnd0\expndtw-2\charscalex100\cf4 CONSEIL\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f2\fs18\b1\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb10\f2\fs21\b1\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li280\sl338\slmult1\f1\fs21\b0\expnd0\expndtw0\charscalex100\cf8 Posez-vous la question : quelle part de votre patrimoine travaille vraiment ? L'objectif est d'avoir un taux d'investissement adapt\'E9 \'E0 votre horizon et votre TMI.\par}}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb10\f1\fs8\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb4\f1\fs22\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li853\ri834\qc\sl240\slmult1\sb94\f1\fs18\b0\expnd0\expndtw0\charscalex100\cf6 1 \'B7 \f2\b1 2 \f1\b0 \'B7 3 \'B7 4 \'B7 \expnd-2\expndtw-10 5\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs21\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li213\sl240\slmult1\sb95\f1\fs16\b0\expnd0\expndtw0\charscalex100\cf4 Proactifs Conseils \'B7 Gestion de Patrimoine \'B7 Colombes (92) \'B7 \expnd0\expndtw-2 proactifsconseils.fr\par\sect\sectd\sbkpage\margtsxn720\margbsxn0
+{\shp{\*\shpinst
+\shpleft0\shptop0\shpright11906\shpbottom16837
+\shpfhdr0\shpwr3\shpwrk0\shplid314\shpz19
+\shpbxpage\shpbypage\shpwr3\shpfblwtxt1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 11906}}
+{\sp{\sn geoBottom}{\sv 16837}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(11905,0);(0,0);(0,16837);(11905,16837);(11905,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 16185849}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst
+\shpleft0\shptop0\shpright11906\shpbottom16838
+\shpfhdr0\shpwr3\shpwrk0\shplid315\shpz20
+\shpbxpage\shpbypage\shpwr3\shpfblwtxt1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 11906}}
+{\sp{\sn geoBottom}{\sv 16838}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;9;(11905,16044);(453,16044);(453,0);(0,0);(0,16044);(0,16837);(453,16837);(11905,16837);(11905,16044)}}
+{\sp{\sn pSegmentInfo}{\sv 2;20;16384;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 2963994}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li100\sl240\slmult1\sb66\f2\fs16\b1\expnd0\expndtw0\charscalex100\cf4 ERREUR N\'B0 \expnd-1\expndtw-5 03\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb7\f2\fs24\b1\i0\par
+{\shp{\*\shpinst
+\shpleft1020\shptop806\shpright11225\shpbottom807
+\shpfhdr0\shpwr3\shpwrk0\shplid316\shpz21
+\shpbxpage\shpbypara\shpwr3\shpfblwtxt0{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 10205}}
+{\sp{\sn geoBottom}{\sv 1}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;2;(0,0);(10204,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;5;16384;45824;1;45824;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn lineWidth}{\sv 19050}}
+{\sp{\sn lineColor}{\sv 4958408}}
+{\sp{\sn fLine}{\sv 1}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+}}
+\pard\plain\s2\ls2\ilvl0\nooverflow\nocwrap\lnbrkrule\li1120\fi-1021\sl240\slmult1\sb1\tx1121\f2\fs32\b1\expnd0\expndtw0\up0\charscalex100\cf3 N\'E9gliger la retraite avant 50 \expnd-1\expndtw-5 ans\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f2\fs20\b1\i0\par\pard\plain\s3\nooverflow\nocwrap\lnbrkrule\li100\ri118\qj\sl326\slmult1\sb215\f2\fs23\b1\expnd0\expndtw0\charscalex100\cf3 "J'ai le temps." C'est la phrase que nous entendons le plus souvent \'97 et c'est la plus co\'FBteuse.\expnd-1\expndtw-6  \expnd0\expndtw0 Chaque\expnd-1\expndtw-6  \expnd0\expndtw0 ann\'E9e\expnd-1\expndtw-6  \expnd0\expndtw0 de\expnd-1\expndtw-6  \expnd0\expndtw0 retard\expnd-1\expndtw-6  \expnd0\expndtw0 dans\expnd-1\expndtw-6  \expnd0\expndtw0 la\expnd-1\expndtw-6  \expnd0\expndtw0 pr\'E9paration\expnd-1\expndtw-6  \expnd0\expndtw0 retraite\expnd-1\expndtw-6  \expnd0\expndtw0 repr\'E9sente\expnd-1\expndtw-6  \expnd0\expndtw0 des\expnd-1\expndtw-6  \expnd0\expndtw0 milliers\expnd-1\expndtw-6  \expnd0\expndtw0 d'euros de rente en moins.\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li100\ri117\qj\sl338\slmult1\sb160\f1\fs21\b0\expnd0\expndtw0\charscalex100\cf2 Un cadre qui commence \'E0 alimenter un PER \'E0 40 ans capitalise sur 25 ans d'int\'E9r\'EAts compos\'E9s. Le m\'EAme effort \'E0 55 ans donne un r\'E9sultat 3 fois inf\'E9rieur. Pour un chef d'entreprise, la question est encore plus aigu\'EB : contrairement au salari\'E9, il ne b\'E9n\'E9ficie pas de cotisations retraite proportionnelles \'E0 ses revenus r\'E9els.\par
+{\shpgrp{\*\shpinst\shplid262
+\shpleft1700\shptop125\shpright10545\shpbottom2205\shpfhdr0
+\shpbxpage\shpbypara\shpwr3\shpwrk0\shpfblwtxt1\shpz18
+\shpwr1{\sp{\sn groupLeft}{\sv 1700}}
+{\sp{\sn groupTop}{\sv 125}}
+{\sp{\sn groupRight}{\sv 10545}}
+{\sp{\sn groupBottom}{\sv 2205}}
+{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn dxWrapDistLeft}{\sv 0}}{\sp{\sn dxWrapDistRight}{\sv 0}}
+{\shp{\*\shpinst\shplid263
+{\sp{\sn relLeft}{\sv 1700}}
+{\sp{\sn relTop}{\sv 145}}
+{\sp{\sn relRight}{\sv 10545}}
+{\sp{\sn relBottom}{\sv 2205}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 8845}}
+{\sp{\sn geoBottom}{\sv 2060}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(8844,0);(0,0);(0,2060);(8844,2060);(8844,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 2963994}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst\shplid264
+{\sp{\sn relLeft}{\sv 1700}}
+{\sp{\sn relTop}{\sv 125}}
+{\sp{\sn relRight}{\sv 10545}}
+{\sp{\sn relBottom}{\sv 165}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 8845}}
+{\sp{\sn geoBottom}{\sv 40}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(0,40);(8844,40);(8844,0);(0,0);(0,40)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 4958408}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst{\sp{\sn relLeft}{\sv 1701}}
+{\sp{\sn relTop}{\sv 165}}
+{\sp{\sn relRight}{\sv 10546}}
+{\sp{\sn relBottom}{\sv 2205}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+{\sp{\sn shapeType}{\sv 202}}{\sp{\sn fFlipH}{\sv 0}}{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn txflTextFlow}{\sv 0}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn fLine}{\sv 0}}
+{\sp{\sn dxTextLeft}{\sv 0}}{\sp{\sn dxTextRight}{\sv 0}}{\sp{\sn dyTextTop}{\sv 0}}{\sp{\sn dyTextBottom}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\shptxt\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb5\f1\fs16\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li280\sl240\slmult1\sb1\f2\fs16\b1\expnd0\expndtw-2\charscalex100\cf4 CONSEIL\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f2\fs18\b1\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb10\f2\fs21\b1\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li280\ri277\qj\sl338\slmult1\f1\fs21\b0\expnd0\expndtw0\charscalex100\cf8 Simulez d\'E8s maintenant votre taux de remplacement retraite. Pour la plupart des cadres sup\'E9rieurs, il se situe entre 30 et 50 % du dernier salaire \'97 soit une chute de revenus brutale sans pr\'E9paration.\par}}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb9\f1\fs8\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb4\f1\fs22\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li853\ri834\qc\sl240\slmult1\sb94\f1\fs18\b0\expnd0\expndtw0\charscalex100\cf6 1 \'B7 2 \'B7 \f2\b1 3 \f1\b0 \'B7 4 \'B7 \expnd-2\expndtw-10 5\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li213\sl240\slmult1\sb95\f1\fs16\b0\expnd0\expndtw0\charscalex100\cf4 Proactifs Conseils \'B7 Gestion de Patrimoine \'B7 Colombes (92) \'B7 \expnd0\expndtw-2 proactifsconseils.fr\par\sect\sectd\sbkpage\margtsxn720\margbsxn0
+{\shp{\*\shpinst
+\shpleft0\shptop0\shpright11906\shpbottom16837
+\shpfhdr0\shpwr3\shpwrk0\shplid378\shpz23
+\shpbxpage\shpbypage\shpwr3\shpfblwtxt1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 11906}}
+{\sp{\sn geoBottom}{\sv 16837}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(11905,0);(0,0);(0,16837);(11905,16837);(11905,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 16185849}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst
+\shpleft0\shptop0\shpright11906\shpbottom16838
+\shpfhdr0\shpwr3\shpwrk0\shplid379\shpz24
+\shpbxpage\shpbypage\shpwr3\shpfblwtxt1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 11906}}
+{\sp{\sn geoBottom}{\sv 16838}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;9;(11905,16044);(453,16044);(453,0);(0,0);(0,16044);(0,16837);(453,16837);(11905,16837);(11905,16044)}}
+{\sp{\sn pSegmentInfo}{\sv 2;20;16384;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 2963994}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li100\sl240\slmult1\sb66\f2\fs16\b1\expnd0\expndtw0\charscalex100\cf4 ERREUR N\'B0 \expnd-1\expndtw-5 04\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb7\f2\fs24\b1\i0\par
+{\shp{\*\shpinst
+\shpleft1020\shptop806\shpright11225\shpbottom807
+\shpfhdr0\shpwr3\shpwrk0\shplid380\shpz25
+\shpbxpage\shpbypara\shpwr3\shpfblwtxt0{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 10205}}
+{\sp{\sn geoBottom}{\sv 1}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;2;(0,0);(10204,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;5;16384;45824;1;45824;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn lineWidth}{\sv 19050}}
+{\sp{\sn lineColor}{\sv 4958408}}
+{\sp{\sn fLine}{\sv 1}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+}}
+\pard\plain\s2\ls2\ilvl0\nooverflow\nocwrap\lnbrkrule\li1120\fi-1021\sl240\slmult1\sb1\tx1121\f2\fs32\b1\expnd0\expndtw0\up0\charscalex100\cf3 Oublier de prot\'E9ger son conjoint et ses \expnd0\expndtw-2 proches\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f2\fs20\b1\i0\par\pard\plain\s3\nooverflow\nocwrap\lnbrkrule\li100\ri118\qj\sl326\slmult1\sb215\f2\fs23\b1\expnd0\expndtw0\charscalex100\cf3 Un d\'E9c\'E8s pr\'E9matur\'E9, une s\'E9paration, une incapacit\'E9 de travail prolong\'E9e... Ces \'E9v\'E9nements peuvent r\'E9duire \'E0 n\'E9ant des ann\'E9es de construction patrimoniale si rien n'a \'E9t\'E9 anticip\'E9.\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li100\ri117\qj\sl338\slmult1\sb159\f1\fs21\b0\expnd0\expndtw0\charscalex100\cf2 Le r\'E9gime matrimonial, la clause b\'E9n\'E9ficiaire de l'assurance vie, la pr\'E9voyance professionnelle, la SCI familiale : chacun de ces outils joue un r\'F4le pr\'E9cis dans la protection des proches. Pour un chef d'entreprise, la question de la valorisation et de la transmission de l'entreprise en cas d'\'E9v\'E9nement grave est souvent le risque le plus sous-estim\'E9.\par
+{\shpgrp{\*\shpinst\shplid326
+\shpleft1700\shptop125\shpright10545\shpbottom2205\shpfhdr0
+\shpbxpage\shpbypara\shpwr3\shpwrk0\shpfblwtxt1\shpz22
+\shpwr1{\sp{\sn groupLeft}{\sv 1700}}
+{\sp{\sn groupTop}{\sv 125}}
+{\sp{\sn groupRight}{\sv 10545}}
+{\sp{\sn groupBottom}{\sv 2205}}
+{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn dxWrapDistLeft}{\sv 0}}{\sp{\sn dxWrapDistRight}{\sv 0}}
+{\shp{\*\shpinst\shplid327
+{\sp{\sn relLeft}{\sv 1700}}
+{\sp{\sn relTop}{\sv 145}}
+{\sp{\sn relRight}{\sv 10545}}
+{\sp{\sn relBottom}{\sv 2205}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 8845}}
+{\sp{\sn geoBottom}{\sv 2060}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(8844,0);(0,0);(0,2060);(8844,2060);(8844,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 2963994}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst\shplid328
+{\sp{\sn relLeft}{\sv 1700}}
+{\sp{\sn relTop}{\sv 125}}
+{\sp{\sn relRight}{\sv 10545}}
+{\sp{\sn relBottom}{\sv 165}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 8845}}
+{\sp{\sn geoBottom}{\sv 40}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(0,40);(8844,40);(8844,0);(0,0);(0,40)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 4958408}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst{\sp{\sn relLeft}{\sv 1701}}
+{\sp{\sn relTop}{\sv 166}}
+{\sp{\sn relRight}{\sv 10546}}
+{\sp{\sn relBottom}{\sv 2206}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+{\sp{\sn shapeType}{\sv 202}}{\sp{\sn fFlipH}{\sv 0}}{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn txflTextFlow}{\sv 0}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn fLine}{\sv 0}}
+{\sp{\sn dxTextLeft}{\sv 0}}{\sp{\sn dxTextRight}{\sv 0}}{\sp{\sn dyTextTop}{\sv 0}}{\sp{\sn dyTextBottom}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\shptxt\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb5\f1\fs16\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li280\sl240\slmult1\sb1\f2\fs16\b1\expnd0\expndtw-2\charscalex100\cf4 CONSEIL\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f2\fs18\b1\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb10\f2\fs21\b1\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li280\ri277\qj\sl338\slmult1\f1\fs21\b0\expnd0\expndtw0\charscalex100\cf8 V\'E9rifiez r\'E9guli\'E8rement vos clauses b\'E9n\'E9ficiaires \'97 elles sont rarement mises \'E0 jour\expnd8\expndtw40  \expnd0\expndtw0 apr\'E8s\expnd0\expndtw-2  \expnd0\expndtw0 un\expnd0\expndtw-2  \expnd0\expndtw0 divorce,\expnd0\expndtw-2  \expnd0\expndtw0 un\expnd0\expndtw-2  \expnd0\expndtw0 remariage\expnd0\expndtw-2  \expnd0\expndtw0 ou\expnd0\expndtw-2  \expnd0\expndtw0 la\expnd0\expndtw-2  \expnd0\expndtw0 naissance\expnd0\expndtw-2  \expnd0\expndtw0 d'un\expnd0\expndtw-2  \expnd0\expndtw0 enfant.\expnd0\expndtw-2  \expnd0\expndtw0 Une\expnd0\expndtw-2  \expnd0\expndtw0 erreur\expnd0\expndtw-2  \expnd0\expndtw0 ici\expnd0\expndtw-2  \expnd0\expndtw0 peut\expnd0\expndtw-2  \expnd0\expndtw0 avoir\expnd0\expndtw-2  \expnd0\expndtw0 des cons\'E9quences fiscales et familiales d\'E9sastreuses.\par}}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb9\f1\fs8\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb4\f1\fs22\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li853\ri834\qc\sl240\slmult1\sb94\f1\fs18\b0\expnd0\expndtw0\charscalex100\cf6 1 \'B7 2 \'B7 3 \'B7 \f2\b1 4 \f1\b0 \'B7 \expnd-2\expndtw-10 5\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb10\f1\fs21\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li213\sl240\slmult1\sb95\f1\fs16\b0\expnd0\expndtw0\charscalex100\cf4 Proactifs Conseils \'B7 Gestion de Patrimoine \'B7 Colombes (92) \'B7 \expnd0\expndtw-2 proactifsconseils.fr\par\sect\sectd\sbkpage\margtsxn720\margbsxn0
+{\shp{\*\shpinst
+\shpleft0\shptop0\shpright11906\shpbottom16837
+\shpfhdr0\shpwr3\shpwrk0\shplid444\shpz27
+\shpbxpage\shpbypage\shpwr3\shpfblwtxt1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 11906}}
+{\sp{\sn geoBottom}{\sv 16837}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(11905,0);(0,0);(0,16837);(11905,16837);(11905,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 16185849}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst
+\shpleft0\shptop0\shpright11906\shpbottom16838
+\shpfhdr0\shpwr3\shpwrk0\shplid445\shpz28
+\shpbxpage\shpbypage\shpwr3\shpfblwtxt1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 11906}}
+{\sp{\sn geoBottom}{\sv 16838}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;9;(11905,16044);(453,16044);(453,0);(0,0);(0,16044);(0,16837);(453,16837);(11905,16837);(11905,16044)}}
+{\sp{\sn pSegmentInfo}{\sv 2;20;16384;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 2963994}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li100\sl240\slmult1\sb66\f2\fs16\b1\expnd0\expndtw0\charscalex100\cf4 ERREUR N\'B0 \expnd-1\expndtw-5 05\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb7\f2\fs24\b1\i0\par
+{\shp{\*\shpinst
+\shpleft1020\shptop806\shpright11225\shpbottom807
+\shpfhdr0\shpwr3\shpwrk0\shplid446\shpz29
+\shpbxpage\shpbypara\shpwr3\shpfblwtxt0{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 10205}}
+{\sp{\sn geoBottom}{\sv 1}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;2;(0,0);(10204,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;5;16384;45824;1;45824;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn lineWidth}{\sv 19050}}
+{\sp{\sn lineColor}{\sv 4958408}}
+{\sp{\sn fLine}{\sv 1}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+}}
+\pard\plain\s2\ls2\ilvl0\nooverflow\nocwrap\lnbrkrule\li1120\fi-1021\sl240\slmult1\sb1\tx1121\f2\fs32\b1\expnd0\expndtw0\up0\charscalex100\cf3 Ne pas anticiper la transmission de son \expnd0\expndtw-2 patrimoine\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f2\fs20\b1\i0\par\pard\plain\s3\nooverflow\nocwrap\lnbrkrule\li100\ri118\qj\sl326\slmult1\sb215\f2\fs23\b1\expnd0\expndtw0\charscalex100\cf3 La transmission patrimoniale se pr\'E9pare des ann\'E9es \'E0 l'avance. Attendre "d'\'EAtre vieux" pour y penser, c'est souvent laisser 20 \'E0 30 % de son patrimoine \'E0 l'\'C9tat plut\'F4t qu'\'E0 ses enfants.\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li100\ri117\qj\sl338\slmult1\sb159\f1\fs21\b0\expnd0\expndtw0\charscalex100\cf2 Les abattements en ligne directe (100 000 \'80 par parent et par enfant, renouvelables tous les 15 ans) permettent des donations progressives sans fiscalit\'E9. Pour un chef d'entreprise, le Pacte Dutreil permet de transmettre son entreprise avec une exon\'E9ration de 75 % de sa valeur. Ces dispositifs ont une temporalit\'E9 \'97 ils doivent \'EAtre activ\'E9s bien en amont.\par
+{\shpgrp{\*\shpinst\shplid390
+\shpleft1700\shptop125\shpright10545\shpbottom1865\shpfhdr0
+\shpbxpage\shpbypara\shpwr3\shpwrk0\shpfblwtxt1\shpz26
+\shpwr1{\sp{\sn groupLeft}{\sv 1700}}
+{\sp{\sn groupTop}{\sv 125}}
+{\sp{\sn groupRight}{\sv 10545}}
+{\sp{\sn groupBottom}{\sv 1865}}
+{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn dxWrapDistLeft}{\sv 0}}{\sp{\sn dxWrapDistRight}{\sv 0}}
+{\shp{\*\shpinst\shplid391
+{\sp{\sn relLeft}{\sv 1700}}
+{\sp{\sn relTop}{\sv 145}}
+{\sp{\sn relRight}{\sv 10545}}
+{\sp{\sn relBottom}{\sv 1865}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 8845}}
+{\sp{\sn geoBottom}{\sv 1720}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(8844,0);(0,0);(0,1720);(8844,1720);(8844,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 2963994}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst\shplid392
+{\sp{\sn relLeft}{\sv 1700}}
+{\sp{\sn relTop}{\sv 125}}
+{\sp{\sn relRight}{\sv 10545}}
+{\sp{\sn relBottom}{\sv 165}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 8845}}
+{\sp{\sn geoBottom}{\sv 40}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(0,40);(8844,40);(8844,0);(0,0);(0,40)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 4958408}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst{\sp{\sn relLeft}{\sv 1701}}
+{\sp{\sn relTop}{\sv 166}}
+{\sp{\sn relRight}{\sv 10546}}
+{\sp{\sn relBottom}{\sv 1866}}
+{\sp{\sn fRelFlipH}{\sv 0}}
+{\sp{\sn fRelFlipV}{\sv 0}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+{\sp{\sn shapeType}{\sv 202}}{\sp{\sn fFlipH}{\sv 0}}{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn txflTextFlow}{\sv 0}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn fLine}{\sv 0}}
+{\sp{\sn dxTextLeft}{\sv 0}}{\sp{\sn dxTextRight}{\sv 0}}{\sp{\sn dyTextTop}{\sv 0}}{\sp{\sn dyTextBottom}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\shptxt\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb5\f1\fs16\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li280\sl240\slmult1\sb1\f2\fs16\b1\expnd0\expndtw-2\charscalex100\cf4 CONSEIL\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f2\fs18\b1\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb10\f2\fs21\b1\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li280\sl338\slmult1\f1\fs21\b0\expnd0\expndtw0\charscalex100\cf8 Si\expnd4\expndtw20  \expnd0\expndtw0 vous\expnd4\expndtw20  \expnd0\expndtw0 avez\expnd4\expndtw20  \expnd0\expndtw0 plus\expnd4\expndtw20  \expnd0\expndtw0 de\expnd4\expndtw20  \expnd0\expndtw0 45\expnd4\expndtw20  \expnd0\expndtw0 ans\expnd4\expndtw20  \expnd0\expndtw0 et\expnd4\expndtw20  \expnd0\expndtw0 un\expnd4\expndtw20  \expnd0\expndtw0 patrimoine\expnd4\expndtw20  \expnd0\expndtw0 sup\'E9rieur\expnd4\expndtw20  \expnd0\expndtw0 \'E0\expnd4\expndtw20  \expnd0\expndtw0 500\expnd4\expndtw20  \expnd0\expndtw0 000\expnd4\expndtw20  \expnd0\expndtw0 \'80,\expnd4\expndtw20  \expnd0\expndtw0 une\expnd4\expndtw20  \expnd0\expndtw0 strat\'E9gie\expnd4\expndtw20  \expnd0\expndtw0 de transmission doit figurer dans votre plan patrimonial. Chaque ann\'E9e compte.\par}}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb9\f1\fs8\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb11\f1\fs19\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li213\sl240\slmult1\sb95\f1\fs16\b0\expnd0\expndtw0\charscalex100\cf4 Proactifs Conseils \'B7 Gestion de Patrimoine \'B7 Colombes (92) \'B7 \expnd0\expndtw-2 proactifsconseils.fr\par\sect\sectd\sbkpage\margtsxn1280\margbsxn0
+{\shp{\*\shpinst
+\shpleft0\shptop0\shpright11906\shpbottom16837
+\shpfhdr0\shpwr3\shpwrk0\shplid500\shpz33
+\shpbxpage\shpbypage\shpwr3\shpfblwtxt1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 11906}}
+{\sp{\sn geoBottom}{\sv 16837}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;5;(11905,0);(0,0);(0,16837);(11905,16837);(11905,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;12;16384;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 16185849}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+
+{\shp{\*\shpinst
+\shpleft0\shptop0\shpright11906\shpbottom16838
+\shpfhdr0\shpwr3\shpwrk0\shplid501\shpz34
+\shpbxpage\shpbypage\shpwr3\shpfblwtxt1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 11906}}
+{\sp{\sn geoBottom}{\sv 16838}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;9;(11905,16044);(453,16044);(453,0);(0,0);(0,16044);(0,16837);(453,16837);(11905,16837);(11905,16044)}}
+{\sp{\sn pSegmentInfo}{\sv 2;20;16384;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;1;45824;24577;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 1}}
+{\sp{\sn fillColor}{\sv 2963994}}
+{\sp{\sn fLine}{\sv 0}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 1}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+{\sp{\sn fBehindDocument}{\sv 1}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li853\ri870\qc\sl240\slmult1\sb74\f1\fs18\b0\expnd0\expndtw0\charscalex100\cf4 PROACTIFS \expnd0\expndtw-2 CONSEILS\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par
+{\shp{\*\shpinst
+\shpleft4081\shptop292\shpright8163\shpbottom293
+\shpfhdr0\shpwr3\shpwrk0\shplid452\shpz30
+\shpbxpage\shpbypara\shpwr1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn dxWrapDistLeft}{\sv 0}}{\sp{\sn dxWrapDistRight}{\sv 0}}{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 4082}}
+{\sp{\sn geoBottom}{\sv 1}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;2;(0,0);(4081,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;5;16384;45824;1;45824;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn lineWidth}{\sv 12700}}
+{\sp{\sn lineColor}{\sv 4958408}}
+{\sp{\sn fLine}{\sv 1}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb3\f1\fs23\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb7\f1\fs24\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li2681\fi-1\ri2699\qc\sl268\slmult1\sb82\f2\fs56\b1\expnd0\expndtw0\charscalex100\cf8 Votre situation m\'E9rite\expnd-3\expndtw-17  \expnd0\expndtw0 une\expnd-3\expndtw-17  \expnd0\expndtw0 analyse \cf4 sur mesure.\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li853\ri870\qc\sl240\slmult1\sb444\f1\fs26\b0\expnd0\expndtw0\charscalex100\cf5 Ces 5 erreurs sont les plus fr\'E9quentes \'97 mais votre situation est \expnd0\expndtw-2 unique.\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li1472\ri1489\qc\sl321\slmult1\sb101\f1\fs26\b0\expnd0\expndtw0\charscalex100\cf5 Un\expnd-1\expndtw-6  \expnd0\expndtw0 bilan\expnd-1\expndtw-6  \expnd0\expndtw0 patrimonial\expnd-1\expndtw-6  \expnd0\expndtw0 personnalis\'E9\expnd-1\expndtw-6  \expnd0\expndtw0 permet\expnd-1\expndtw-6  \expnd0\expndtw0 d'identifier\expnd-1\expndtw-6  \expnd0\expndtw0 pr\'E9cis\'E9ment les leviers qui s'appliquent \'E0 votre cas.\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par
+{\shp{\*\shpinst\shpleft3572\shpright8675\shptop263\shpbottom1063\shpbxpage\shpbypara\shpwr1\shpz31\shplid460{\sp{\sn dxWrapDistLeft}{\sv 0}}{\sp{\sn dxWrapDistRight}{\sv 0}}
+{\sp{\sn shapeType}{\sv 202}}{\sp{\sn fFlipH}{\sv 0}}{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn txflTextFlow}{\sv 0}}
+{\sp{\sn fFilled}{\sv 1}}{\sp{\sn fillColor}{\sv 4958408}}{\sp{\sn fillOpacity}{\sv 65536}}
+{\sp{\sn fLine}{\sv 0}}
+{\sp{\sn dxTextLeft}{\sv 0}}{\sp{\sn dxTextRight}{\sv 0}}{\sp{\sn dyTextTop}{\sv 0}}{\sp{\sn dyTextBottom}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\shptxt\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb7\f1\fs25\b0\i0\cf1\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li757\sl240\slmult1\f2\fs24\b1\expnd0\expndtw0\charscalex100\cf3 R\'E9server mon bilan \expnd0\expndtw-2 patrimonial\par}}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb9\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb6\f1\fs22\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li853\ri870\qc\sl240\slmult1\sb93\f1\fs20\b0\expnd0\expndtw0\charscalex100\cf5 proactifsconseils.fr/bilan-\expnd0\expndtw-2 patrimonial\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par
+{\shp{\*\shpinst
+\shpleft4081\shptop341\shpright8163\shpbottom342
+\shpfhdr0\shpwr3\shpwrk0\shplid469\shpz32
+\shpbxpage\shpbypara\shpwr1{\sp{\sn fFlipH}{\sv 0}}
+{\sp{\sn fFlipV}{\sv 0}}
+{\sp{\sn dxWrapDistLeft}{\sv 0}}{\sp{\sn dxWrapDistRight}{\sv 0}}{\sp{\sn shapeType}{\sv 0}}
+{\sp{\sn rotation}{\sv 0}}
+{\sp{\sn geoRight}{\sv 4082}}
+{\sp{\sn geoBottom}{\sv 1}}
+{\sp{\sn shapePath}{\sv 4}}
+{\sp{\sn pVerticies}{\sv 8;2;(0,0);(4081,0)}}
+{\sp{\sn pSegmentInfo}{\sv 2;5;16384;45824;1;45824;32768}}
+{\sp{\sn fFillOK}{\sv 1}}
+{\sp{\sn fFilled}{\sv 0}}
+{\sp{\sn lineWidth}{\sv 12700}}
+{\sp{\sn lineColor}{\sv 4806970}}
+{\sp{\sn fLine}{\sv 1}}{\sp{\sn lineType}{\sv 0}}
+{\sp{\sn posrelh}{\sv 1}}
+{\sp{\sn posrelv}{\sv 2}}
+{\sp{\sn fArrowheadsOK}{\sv 1}}
+}}
+\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb7\f1\fs27\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\sb7\f1\fs21\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li2714\ri2721\qc\sl352\slmult1\sb94\f2\fs20\b1\expnd0\expndtw0\charscalex100\cf8 Medhy\expnd-1\expndtw-5  \expnd0\expndtw0 Matima\expnd-1\expndtw-5  \expnd0\expndtw0 \'B7\expnd-1\expndtw-5  \expnd0\expndtw0 Conseiller\expnd-1\expndtw-5  \expnd0\expndtw0 en\expnd-1\expndtw-5  \expnd0\expndtw0 Gestion\expnd-1\expndtw-5  \expnd0\expndtw0 de\expnd-1\expndtw-5  \expnd0\expndtw0 Patrimoine \f1\fs18\b0\cf7 54 Rue du Bournard, 92700 Colombes \'B7 01 84 78 28 30 {\field {\fldinst { HYPERLINK "mailto:contact@proactifsconseils.fr" }}{\fldrslt \expnd0\expndtw-2\cf5 contact@proactifsconseils.fr}}
+\expnd0\expndtw-2\cf5 \par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs20\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\sl240\slmult1\f1\fs26\b0\i0\par\pard\plain\s1\nooverflow\nocwrap\lnbrkrule\li213\sl240\slmult1\sb95\f1\fs16\b0\expnd0\expndtw0\charscalex100\cf4 Proactifs Conseils \'B7 Gestion de Patrimoine \'B7 Colombes (92) \'B7 \expnd0\expndtw-2 proactifsconseils.fr\par}

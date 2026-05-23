@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aperçu images — Proactifs Conseils</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #f4f6f9; color: #1a2540; }
+  header { background: #0d1f3c; color: white; padding: 24px 40px; display: flex; align-items: center; gap: 16px; }
+  header h1 { font-size: 20px; font-weight: 600; }
+  header p { font-size: 13px; color: rgba(255,255,255,.6); margin-top: 4px; }
+  .badge { background: #c9a84c; color: #0d1f3c; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+  main { padding: 32px 40px; max-width: 1200px; margin: 0 auto; }
+  .service-section { margin-bottom: 48px; }
+  .service-title { font-size: 16px; font-weight: 700; color: #0d1f3c; margin-bottom: 4px; display: flex; align-items: center; gap: 10px; }
+  .service-title span { font-weight: 400; color: #888; font-size: 13px; }
+  .service-title::before { content: ''; display: inline-block; width: 4px; height: 18px; background: #c9a84c; border-radius: 2px; }
+  .current-label { font-size: 11px; color: #999; margin-bottom: 12px; margin-top: 8px; }
+  .options-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .option-card { border-radius: 12px; overflow: hidden; background: white; box-shadow: 0 2px 12px rgba(0,0,0,.08); cursor: pointer; transition: all .2s; border: 3px solid transparent; position: relative; }
+  .option-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,.14); }
+  .option-card.selected { border-color: #c9a84c; box-shadow: 0 0 0 4px rgba(201,168,76,.2); }
+  .option-card.current-img { border-color: #d0d5dd; }
+  .option-card img { width: 100%; height: 180px; object-fit: cover; display: block; }
+  .option-card .card-info { padding: 10px 14px; font-size: 12px; }
+  .option-card .card-label { font-weight: 600; color: #1a2540; margin-bottom: 2px; }
+  .option-card .card-desc { color: #888; font-size: 11px; }
+  .badge-current { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,.55); color: white; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+  .badge-selected { position: absolute; top: 8px; right: 8px; background: #c9a84c; color: #0d1f3c; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 700; display: none; }
+  .option-card.selected .badge-selected { display: block; }
+  .divider { border: none; border-top: 1px solid #e8ecf2; margin: 16px 0 32px; }
+  .summary-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #0d1f3c; color: white; padding: 14px 40px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 -4px 20px rgba(0,0,0,.2); z-index: 100; }
+  .summary-bar p { font-size: 13px; color: rgba(255,255,255,.7); }
+  .summary-bar strong { color: #c9a84c; }
+  .btn-copy { background: #c9a84c; color: #0d1f3c; font-weight: 700; font-size: 13px; padding: 10px 24px; border: none; border-radius: 8px; cursor: pointer; transition: background .2s; }
+  .btn-copy:hover { background: #e8c96a; }
+  .selections-output { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; font-family: monospace; font-size: 11px; padding: 8px 14px; color: #c9a84c; max-width: 500px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  pb { display: block; height: 80px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Sélection d'images — Proactifs Conseils <span class="badge">8 services</span></h1>
+    <p>Cliquez sur votre image préférée pour chaque service · Les sélections s'affichent en bas</p>
+  </div>
+</header>
+
+<main>
+
+<!-- 1. OPTIMISATION FISCALE -->
+<div class="service-section">
+  <div class="service-title">Optimisation fiscale <span>Choisissez 1 image</span></div>
+  <div class="current-label">📷 Image actuelle : documents fiscaux / calculatrice</div>
+  <div class="options-grid" data-service="fiscalite">
+
+    <div class="option-card" data-id="photo-1554224154-26032ffc0d07" onclick="select(this)">
+      <span class="badge-current">Actuelle</span>
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=400&q=80&fit=crop" alt="Documents financiers bureau">
+      <div class="card-info"><div class="card-label">Bureau & documents financiers</div><div class="card-desc">Laptop + dossiers, ambiance bureau professionnel</div></div>
+    </div>
+
+    <div class="option-card" data-id="photo-1579621970795-87facc2f976d" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-1579621970795-87facc2f976d?w=400&q=80&fit=crop" alt="Analyse financière moderne">
+      <div class="card-info"><div class="card-label">Analyse financière</div><div class="card-desc">Graphiques & rapports sur bureau épuré</div></div>
+    </div>
+
+    <div class="option-card" data-id="photo-1450101499163-c8848c66ca85" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&q=80&fit=crop" alt="Signature contrat fiscal">
+      <div class="card-info"><div class="card-label">Signature & contrats</div><div class="card-desc">Stylo, documents fiscaux, acte professionnel</div></div>
+    </div>
+
+  </div>
+</div><hr class="divider">
+
+<!-- 2. INVESTISSEMENT IMMOBILIER -->
+<div class="service-section">
+  <div class="service-title">Investissement immobilier <span>Choisissez 1 image</span></div>
+  <div class="current-label">📷 Image actuelle : villa moderne avec piscine</div>
+  <div class="options-grid" data-service="immobilier">
+
+    <div class="option-card" data-id="KqrbNYj7QJQ" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-KqrbNYj7QJQ?w=400&q=80&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400&q=80&fit=crop'" alt="Maison moderne verdure">
+      <div class="card-info"><div class="card-label">Maison moderne — verdure</div><div class="card-desc">Architecture contemporaine entourée de nature</div></div>
+    </div>
+
+    <div class="option-card" data-id="photo-1613490493576-7fde63acd811" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400&q=80&fit=crop" alt="Appartement luxueux intérieur">
+      <div class="card-info"><div class="card-label">Appartement premium</div><div class="card-desc">Intérieur luxueux, design contemporain</div></div>
+    </div>
+
+    <div class="option-card" data-id="photo-1570129477492-45c003edd2be" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400&q=80&fit=crop" alt="Maison moderne extérieur">
+      <div class="card-info"><div class="card-label">Villa moderne — extérieur</div><div class="card-desc">Maison haut de gamme, architecture épurée</div></div>
+    </div>
+
+  </div>
+</div><hr class="divider">
+
+<!-- 3. PLACEMENTS FINANCIERS -->
+<div class="service-section">
+  <div class="service-title">Placements financiers <span>Choisissez 1 image</span></div>
+  <div class="current-label">📷 Image actuelle : plante qui pousse sur des pièces (cliché !)</div>
+  <div class="options-grid" data-service="placements">
+
+    <div class="option-card" data-id="photo-1611974789855-9c2a0a7236a3" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&q=80&fit=crop" alt="App trading smartphone">
+      <div class="card-info"><div class="card-label">App investissement mobile</div><div class="card-desc">Portfolio sur smartphone, interface fintech</div></div>
+    </div>
+
+    <div class="option-card" data-id="photo-1579621970563-ebec7560ff3e" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=400&q=80&fit=crop" alt="Écrans trading fintech">
+      <div class="card-info"><div class="card-label">Écrans trading & marchés</div><div class="card-desc">Graphiques boursiers, données en temps réel</div></div>
+    </div>
+
+    <div class="option-card" data-id="photo-1642790551116-18a150d7e5a5" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-1642790551116-18a150d7e5a5?w=400&q=80&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&q=80&fit=crop'" alt="Analyse portefeuille">
+      <div class="card-info"><div class="card-label">Analyse portefeuille</div><div class="card-desc">Dashboard investissement, visualisation données</div></div>
+    </div>
+
+  </div>
+</div><hr class="divider">
+
+<!-- 4. PRÉPARATION RETRAITE -->
+<div class="service-section">
+  <div class="service-title">Préparation retraite <span>Choisissez 1 image</span></div>
+  <div class="current-label">📷 Image actuelle : couple en forêt (déjà correcte après notre fix)</div>
+  <div class="options-grid" data-service="retraite">
+
+    <div class="option-card" data-id="photo-cecjTF4wb0E" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-cecjTF4wb0E?w=400&q=80&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1511632765153-994ad668debbe?w=400&q=80&fit=crop'" alt="Couple senior montagne">
+      <div class="card-info"><div class="card-label">Couple — montagne & horizon</div><div class="card-desc">Séniors actifs, main dans la main, liberté</div></div>
+    </div>
+
+    <div class="option-card" data-id="photo-v4Y8Mwn1vbQ" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-v4Y8Mwn1vbQ?w=400&q=80&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400&q=80&fit=crop'" alt="Retraite lifestyle maison">
+      <div class="card-info"><div class="card-label">Retraite — style de vie serein</div><div class="card-desc">Couple épanoui à domicile, ambiance chaleureuse</div></div>
+    </div>
+
+    <div class="option-card" data-id="photo-1511632765153-994ad668debbe" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-1511632765153-994ad668debbe?w=400&q=80&fit=crop" alt="Couple retraite heureux">
+      <div class="card-info"><div class="card-label">Couple heureux — retraite active</div><div class="card-desc">Bonheur, complicité, sourire — post-carrière</div></div>
+    </div>
+
+  </div>
+</div><hr class="divider">
+
+<!-- 5. TRANSMISSION & SUCCESSION -->
+<div class="service-section">
+  <div class="service-title">Transmission &amp; succession <span>Choisissez 1 image</span></div>
+  <div class="current-label">📷 Image actuelle : collègues qui se tapent dans la main (hors sujet !)</div>
+  <div class="options-grid" data-service="transmission">
+
+    <div class="option-card" data-id="photo-1600880292203-757bb62b4baf" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&q=80&fit=crop" alt="Réunion familiale conseiller">
+      <div class="card-info"><div class="card-label">Conseil patrimonial familial</div><div class="card-desc">Famille avec conseiller, transmission organisée</div></div>
+    </div>
+
+    <div class="option-card" data-id="photo-1568602471122-7832951cc4c5" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=400&q=80&fit=crop" alt="Signature acte notarié">
+      <div class="card-info"><div class="card-label">Signature acte — notaire</div><div class="card-desc">Acte officiel, héritage, formalités légales</div></div>
+    </div>
+
+    <div class="option-card" data-id="photo-1450101499163-c8848c66ca85" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&q=80&fit=crop" alt="Documents succession bureau">
+      <div class="card-info"><div class="card-label">Documents de succession</div><div class="card-desc">Stylo, contrats, atmosphère professionnelle sobre</div></div>
+    </div>
+
+  </div>
+</div><hr class="divider">
+
+<!-- 6. CESSION D'ENTREPRISE -->
+<div class="service-section">
+  <div class="service-title">Cession d'entreprise <span>Choisissez 1 image</span></div>
+  <div class="current-label">📷 Image actuelle : poignée de main (bien mais générique)</div>
+  <div class="options-grid" data-service="cession">
+
+    <div class="option-card" data-id="photo-JQaCvV46IXU" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-JQaCvV46IXU?w=400&q=80&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&q=80&fit=crop'" alt="Groupe dirigeants accord">
+      <div class="card-info"><div class="card-label">Table de négociation — accord</div><div class="card-desc">Vue aérienne, réunion dirigeants, accord signé</div></div>
+    </div>
+
+    <div class="option-card" data-id="photo-u1g8T9iB6aw" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-u1g8T9iB6aw?w=400&q=80&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1578574577315-3fbeb0cecdc2?w=400&q=80&fit=crop'" alt="Cession immobilière">
+      <div class="card-info"><div class="card-label">Transaction immobilière & deal</div><div class="card-desc">Handshake après signature contrat immobilier</div></div>
+    </div>
+
+    <div class="option-card" data-id="photo-1521791136064-7986c2920216" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&q=80&fit=crop" alt="Poignée de main premium">
+      <div class="card-info"><div class="card-label">Deal professionnel premium</div><div class="card-desc">Handshake en costume, bureau feutré, confiance</div></div>
+    </div>
+
+  </div>
+</div><hr class="divider">
+
+<!-- 7. COURTAGE EN CRÉDIT -->
+<div class="service-section">
+  <div class="service-title">Courtage en crédit <span>Choisissez 1 image</span></div>
+  <div class="current-label">📷 Image actuelle : petites maisons rouges en bois (hors sujet !)</div>
+  <div class="options-grid" data-service="courtage">
+
+    <div class="option-card" data-id="photo-Q8XOIWkRuCI" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-Q8XOIWkRuCI?w=400&q=80&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?w=400&q=80&fit=crop'" alt="Conseiller couple financier">
+      <div class="card-info"><div class="card-label">Conseiller & couple — bureau</div><div class="card-desc">Discussion rapports financiers, conseil personnalisé</div></div>
+    </div>
+
+    <div class="option-card" data-id="photo-CNuychs2KBk" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-CNuychs2KBk?w=400&q=80&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80&fit=crop'" alt="Couple signature prêt">
+      <div class="card-info"><div class="card-label">Couple — signature crédit</div><div class="card-desc">Contrat de prêt, accord final avec conseiller</div></div>
+    </div>
+
+    <div class="option-card" data-id="photo-1560520031-3a4dc4e9de0c" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?w=400&q=80&fit=crop" alt="Agent immobilier couple">
+      <div class="card-info"><div class="card-label">Agent & clients — projet immo</div><div class="card-desc">Couple avec conseiller, projet d'acquisition</div></div>
+    </div>
+
+  </div>
+</div><hr class="divider">
+
+<!-- 8. DÉCLARATION D'IMPÔTS -->
+<div class="service-section">
+  <div class="service-title">Déclaration d'impôts <span>Choisissez 1 image</span></div>
+  <div class="current-label">📷 Image actuelle : presse-papier avec CV et laptop (hors sujet !)</div>
+  <div class="options-grid" data-service="declaration">
+
+    <div class="option-card" data-id="photo-hn6k00wZxr8" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-hn6k00wZxr8?w=400&q=80&fit=crop" onerror="this.src='https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400&q=80&fit=crop'" alt="Lunettes formulaire fiscal laptop">
+      <div class="card-info"><div class="card-label">Formulaire fiscal &amp; laptop</div><div class="card-desc">Lunettes, stylo, déclaration impôts, bureau</div></div>
+    </div>
+
+    <div class="option-card" data-id="photo-1586281380349-632531db7ed4" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=400&q=80&fit=crop" alt="Comptable laptop documents">
+      <div class="card-info"><div class="card-label">Comptable &amp; documents fiscaux</div><div class="card-desc">Laptop, papiers officiels, environnement fiscal</div></div>
+    </div>
+
+    <div class="option-card" data-id="photo-1554224154-26032ffc0d07" onclick="select(this)">
+      <span class="badge-selected">✓ Sélectionné</span>
+      <img src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=400&q=80&fit=crop" alt="Bureau fiscal professionnel">
+      <div class="card-info"><div class="card-label">Bureau professionnel fiscal</div><div class="card-desc">Documents financiers, cadre épuré et sérieux</div></div>
+    </div>
+
+  </div>
+</div>
+
+<pb></pb>
+</main>
+
+<!-- BARRE RÉSUMÉ FIXE -->
+<div class="summary-bar">
+  <div>
+    <p>Vos sélections : <strong id="selection-count">0 / 8</strong> services choisis</p>
+    <div class="selections-output" id="selections-text">Cliquez sur les images pour les sélectionner...</div>
+  </div>
+  <button class="btn-copy" onclick="copySelections()">📋 Copier les IDs sélectionnés</button>
+</div>
+
+<script>
+const selections = {};
+
+function select(card) {
+  const grid = card.closest('[data-service]');
+  const service = grid.dataset.service;
+  // Deselect others in same group
+  grid.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  selections[service] = card.dataset.id;
+  updateSummary();
+}
+
+function updateSummary() {
+  const count = Object.keys(selections).length;
+  document.getElementById('selection-count').textContent = count + ' / 8';
+  if (count === 0) {
+    document.getElementById('selections-text').textContent = 'Cliquez sur les images pour les sélectionner...';
+  } else {
+    const text = Object.entries(selections).map(([k,v]) => k + ': ' + v).join(' | ');
+    document.getElementById('selections-text').textContent = text;
+  }
+}
+
+function copySelections() {
+  const text = JSON.stringify(selections, null, 2);
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.btn-copy');
+    btn.textContent = '✅ Copié !';
+    setTimeout(() => btn.textContent = '📋 Copier les IDs sélectionnés', 2000);
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aperçu — Nouveau design guide Proactifs Conseils</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --forest: #1B3A2D;
+  --forest2: #152E23;
+  --gold: #C9A84C;
+  --gold-l: #E2C47A;
+  --ivory: #FAFAF7;
+  --grey-l: #CBD5C0;
+}
+
+body {
+  background: #2a2a2a;
+  font-family: 'DM Sans', sans-serif;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+
+.label {
+  color: #888;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: -40px;
+  align-self: flex-start;
+  max-width: 794px;
+  width: 100%;
+}
+
+/* A4 page simulation */
+.page {
+  width: 794px;
+  height: 1123px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  flex-shrink: 0;
+}
+
+/* ─── PAGE 1 : COUVERTURE ─── */
+.cover {
+  background: var(--forest2);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.cover-left {
+  background: var(--forest);
+  padding: 56px 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.cover-left::after {
+  content: '';
+  position: absolute;
+  right: -1px; top: 0; bottom: 0; width: 3px;
+  background: var(--gold);
+}
+
+.cover-logo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cover-logo img {
+  width: 52px; height: 52px; object-fit: contain;
+}
+
+.cover-brand {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.cover-tag {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--forest);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 2px;
+  width: fit-content;
+}
+
+.cover-title-block { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 32px 0; }
+
+.cover-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-l);
+  font-weight: 400;
+}
+
+.cover-title {
+  font-family: 'Fraunces', serif;
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1.05;
+  color: white;
+}
+
+.cover-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.cover-sub {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--grey-l);
+  font-weight: 300;
+  max-width: 280px;
+}
+
+.cover-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  color: var(--grey-l);
+}
+
+.pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+.cover-author {
+  border-top: 1px solid rgba(201,168,76,0.3);
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cover-author-name {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  color: white;
+  font-weight: 700;
+}
+
+.cover-author-role {
+  font-size: 10px;
+  color: var(--gold-l);
+  letter-spacing: 0.05em;
+}
+
+/* Right side — image/visual */
+.cover-right {
+  position: relative;
+  background: var(--forest2);
+  overflow: hidden;
+}
+
+.cover-right-photo {
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(135deg, rgba(27,58,45,0.6) 0%, rgba(15,42,30,0.2) 100%),
+    url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80') center/cover no-repeat;
+}
+
+.cover-big-number {
+  position: absolute;
+  bottom: 40px;
+  right: 24px;
+  font-family: 'Fraunces', serif;
+  font-size: 160px;
+  font-weight: 900;
+  color: rgba(201,168,76,0.12);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  user-select: none;
+}
+
+.cover-stat {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.cover-stat-num {
+  font-family: 'Fraunces', serif;
+  font-size: 64px;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.cover-stat-label {
+  font-size: 12px;
+  color: white;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ─── PAGE 2 : ERREUR ─── */
+.erreur-page {
+  background: var(--forest2);
+  display: flex;
+  flex-direction: column;
+}
+
+.erreur-header {
+  background: var(--forest);
+  padding: 32px 48px 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  position: relative;
+}
+
+.erreur-num-big {
+  font-family: 'Fraunces', serif;
+  font-size: 120px;
+  font-weight: 900;
+  color: rgba(201,168,76,0.15);
+  line-height: 0.85;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.erreur-header-content {
+  padding-bottom: 28px;
+  flex: 1;
+}
+
+.erreur-badge {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.erreur-title {
+  font-family: 'Fraunces', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.25;
+}
+
+.erreur-header-bar {
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  margin: 0 48px;
+}
+
+.erreur-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.erreur-body-left {
+  padding: 36px 32px 36px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.erreur-intro {
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.65;
+}
+
+.erreur-detail {
+  font-size: 12.5px;
+  color: var(--grey-l);
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+.erreur-conseil-box {
+  background: rgba(0,0,0,0.3);
+  border-top: 2px solid var(--gold);
+  padding: 16px 18px;
+  border-radius: 0 0 4px 4px;
+}
+
+.erreur-conseil-label {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.erreur-conseil-text {
+  font-size: 11.5px;
+  color: var(--grey-l);
+  line-height: 1.65;
+}
+
+.erreur-body-right {
+  padding: 36px 48px 36px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.erreur-photo {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  background:
+    url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80') center/cover no-repeat;
+}
+
+.erreur-stat-row {
+  display: flex;
+  gap: 12px;
+}
+
+.stat-card {
+  flex: 1;
+  background: var(--forest);
+  border-radius: 4px;
+  padding: 16px 12px;
+  text-align: center;
+  border: 1px solid rgba(201,168,76,0.15);
+}
+
+.stat-card-num {
+  font-family: 'Fraunces', serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.stat-card-label {
+  font-size: 9.5px;
+  color: var(--grey-l);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+.erreur-quote {
+  background: rgba(201,168,76,0.06);
+  border-left: 3px solid var(--gold);
+  padding: 14px 16px;
+  border-radius: 0 4px 4px 0;
+}
+
+.erreur-quote-text {
+  font-family: 'Fraunces', serif;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--gold-l);
+  line-height: 1.6;
+}
+
+/* ─── PAGE 3 : CTA ─── */
+.cta-page {
+  background: var(--forest2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-page::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+}
+
+.cta-page::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(27,58,45,0.8) 0%, transparent 70%);
+}
+
+.cta-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.cta-tag {
+  display: inline-block;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.35);
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 100px;
+}
+
+.cta-title {
+  font-family: 'Fraunces', serif;
+  font-size: 52px;
+  font-weight: 900;
+  color: white;
+  line-height: 1.05;
+  max-width: 500px;
+}
+
+.cta-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.cta-sub {
+  font-size: 14px;
+  color: var(--grey-l);
+  line-height: 1.75;
+  max-width: 420px;
+  font-weight: 300;
+}
+
+.cta-divider {
+  width: 48px;
+  height: 2px;
+  background: var(--gold);
+}
+
+.cta-btn {
+  background: var(--gold);
+  color: var(--forest);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 18px 48px;
+  border-radius: 3px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.cta-url {
+  font-size: 11px;
+  color: var(--gold-l);
+  letter-spacing: 0.08em;
+}
+
+.cta-author-block {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.cta-author-name {
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  color: white;
+  font-weight: 700;
+}
+
+.cta-author-role {
+  font-size: 11px;
+  color: var(--gold-l);
+}
+
+/* Footer bar on all inner pages */
+.page-footer {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 28px;
+  background: var(--forest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-footer span {
+  font-size: 8px;
+  color: rgba(201,168,76,0.6);
+  letter-spacing: 0.1em;
+}
+
+/* Annotation badges */
+.annotation {
+  position: absolute;
+  background: #F59E0B;
+  color: #1a1a1a;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 100px;
+  white-space: nowrap;
+  font-family: 'DM Sans', sans-serif;
+  z-index: 10;
+}
+.annotation::before {
+  content: '👉 ';
+}
+</style>
+</head>
+<body>
+
+<div class="label">PAGE 1 — COUVERTURE</div>
+
+<!-- ── COVER ── -->
+<div class="page cover">
+  <div class="cover-left">
+    <div class="cover-logo">
+      <img src="https://www.proactifsconseils.fr/images/logo-proactifs.png" alt="logo" onerror="this.style.display='none'">
+      <span class="cover-brand">Proactifs Conseils · Patrimoine</span>
+    </div>
+
+    <div class="cover-title-block">
+      <span class="cover-tag">Guide pratique · 2025</span>
+      <p class="cover-eyebrow">Pour les cadres & chefs d'entreprise</p>
+      <h1 class="cover-title">Les 5 erreurs qui coûtent cher à votre <em>patrimoine</em></h1>
+      <p class="cover-sub">Ce que personne ne vous a dit — et comment les éviter dès maintenant.</p>
+    </div>
+
+    <div class="cover-pills">
+      <div class="pill"><span class="pill-dot"></span>Lecture 15 min · Conseils actionnables</div>
+      <div class="pill"><span class="pill-dot"></span>Fiscalité · Épargne · Retraite · Transmission</div>
+    </div>
+
+    <div class="cover-author">
+      <span class="cover-author-name">Medy Matima</span>
+      <span class="cover-author-role">Conseiller en Gestion de Patrimoine</span>
+    </div>
+  </div>
+
+  <div class="cover-right">
+    <div class="cover-right-photo"></div>
+    <div class="cover-stat">
+      <div class="cover-stat-num">5</div>
+      <div class="cover-stat-label">erreurs à éviter</div>
+    </div>
+    <div class="cover-big-number">5</div>
+  </div>
+
+  <!-- Annotations -->
+  <div class="annotation" style="top:32px; right: 20px;">Layout 2 colonnes — photo + contenu</div>
+  <div class="annotation" style="bottom:220px; right: 20px;">Chiffre en watermark</div>
+</div>
+
+<div class="label">PAGE 2 — ERREUR (exemple)</div>
+
+<!-- ── ERREUR PAGE ── -->
+<div class="page erreur-page">
+  <div class="erreur-header">
+    <div class="erreur-num-big">02</div>
+    <div class="erreur-header-content">
+      <div class="erreur-badge">Erreur n° 02</div>
+      <h2 class="erreur-title">Confondre épargne<br>et investissement</h2>
+    </div>
+  </div>
+  <div class="erreur-header-bar"></div>
+
+  <div class="erreur-body">
+    <div class="erreur-body-left">
+      <p class="erreur-intro">
+        Un livret A à 3 %, un compte courant qui dort, une assurance vie en fonds euros... Beaucoup de cadres pensent épargner. En réalité, ils perdent du pouvoir d'achat.
+      </p>
+      <p class="erreur-detail">
+        Avec une inflation structurelle autour de 2-3 %, un capital non investi se déprécie silencieusement. Les SCPI (rendement moyen 4-5 % net), les unités de compte en assurance vie, ou l'investissement locatif optimisé peuvent transformer une épargne dormante en patrimoine productif.
+      </p>
+      <div class="erreur-conseil-box">
+        <div class="erreur-conseil-label">Conseil</div>
+        <p class="erreur-conseil-text">Quelle part de votre patrimoine travaille vraiment ? L'objectif est un taux d'investissement adapté à votre horizon de temps et votre TMI.</p>
+      </div>
+    </div>
+
+    <div class="erreur-body-right">
+      <div class="erreur-photo"></div>
+
+      <div class="erreur-stat-row">
+        <div class="stat-card">
+          <div class="stat-card-num">3%</div>
+          <div class="stat-card-label">Livret A — rendement apparent</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-num">-1%</div>
+          <div class="stat-card-label">Rendement réel après inflation</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-num">5%</div>
+          <div class="stat-card-label">SCPI — rendement moyen net</div>
+        </div>
+      </div>
+
+      <div class="erreur-quote">
+        <p class="erreur-quote-text">"La plupart de mes clients pensaient être prudents. Ils étaient en réalité en train de perdre."</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Proactifs Conseils · Gestion de Patrimoine · proactifsconseils.fr</span>
+  </div>
+
+  <div class="annotation" style="top: 200px; right: 20px;">Photo illustrative par erreur</div>
+  <div class="annotation" style="bottom: 200px; right: 20px;">Stat cards avec chiffres clés</div>
+  <div class="annotation" style="bottom: 120px; left: 20px;">Citation de Medy</div>
+</div>
+
+<div class="label">PAGE 3 — APPEL À L'ACTION (dernière page)</div>
+
+<!-- ── CTA PAGE ── -->
+<div class="page cta-page">
+  <div class="cta-inner">
+    <span class="cta-tag">Proactifs Conseils</span>
+    <h2 class="cta-title">Votre situation mérite une analyse <em>sur mesure.</em></h2>
+    <p class="cta-sub">Ces 5 erreurs sont les plus fréquentes — mais votre situation est unique. Un bilan patrimonial personnalisé permet d'identifier précisément les leviers qui s'appliquent à votre cas.</p>
+    <div class="cta-divider"></div>
+    <a class="cta-btn" href="#">Réserver mon bilan patrimonial</a>
+    <span class="cta-url">proactifsconseils.fr</span>
+    <div class="cta-author-block">
+      <span class="cta-author-name">Medy Matima</span>
+      <span class="cta-author-role">Conseiller en Gestion de Patrimoine</span>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Proactifs Conseils · Gestion de Patrimoine · proactifsconseils.fr</span>
+  </div>
+
+  <div class="annotation" style="top: 80px; right: 40px;">Fond avec halo doré</div>
+  <div class="annotation" style="bottom: 300px; right: 40px;">CTA bouton or bien visible</div>
+</div>
+
+</body>
+</html>

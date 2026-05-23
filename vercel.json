@@ -24,7 +24,9 @@
     { "source": "/blog/lmnp-2026",                         "destination": "/blog/lmnp-2026.html" },
     { "source": "/blog/donation-vivant-2026",              "destination": "/blog/donation-vivant-2026.html" },
     { "source": "/blog/sci-familiale-2026",                "destination": "/blog/sci-familiale-2026.html" },
-    { "source": "/blog/scpi-2026",                         "destination": "/blog/scpi-2026.html" }
+    { "source": "/blog/scpi-2026",                         "destination": "/blog/scpi-2026.html" },
+    { "source": "/donation-vivant-patrimoine",             "destination": "/donation-vivant-patrimoine.html" },
+    { "source": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "destination": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026.html" }
   ],
   "redirects": [
 
