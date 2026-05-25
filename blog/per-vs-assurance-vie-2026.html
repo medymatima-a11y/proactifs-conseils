@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -103,7 +103,6 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--white); line-height: 1.6; }
 
-    /* ── NAV ── */
     #nav {
       position: fixed; top: 0; left: 0; right: 0; height: 72px;
       background: transparent; display: flex; align-items: center;
@@ -134,12 +133,10 @@
     .mobile-menu a { padding: 12px 16px; text-decoration: none; color: var(--ink); font-weight: 500; border-radius: var(--r-sm); transition: all 0.2s; }
     .mobile-menu a:hover { background: var(--sand); color: var(--gold); }
 
-    /* ── BREADCRUMB ── */
     .breadcrumb { background: var(--sand); padding: 12px 40px; font-size: 13px; color: var(--slate); margin-top: 72px; }
     .breadcrumb a { color: var(--teal); text-decoration: none; transition: color 0.2s; }
     .breadcrumb a:hover { color: var(--gold); }
 
-    /* ── ARTICLE HERO ── */
     .article-hero {
       background: linear-gradient(135deg, #0a1f14 0%, var(--forest) 60%, #1a4030 100%);
       padding: 80px 40px 100px;
@@ -171,12 +168,10 @@
     .article-hero h1 em { color: var(--gold-light); font-style: italic; }
     .article-hero .intro { font-size: 18px; color: rgba(255,255,255,.85); line-height: 1.75; max-width: 720px; }
 
-    /* ── LAYOUT ARTICLE ── */
     .article-body { max-width: 1200px; margin: 0 auto; padding: 64px 40px; display: grid; grid-template-columns: 1fr 320px; gap: 64px; align-items: start; }
     .article-content { min-width: 0; }
     .article-sidebar { position: sticky; top: 92px; }
 
-    /* ── SIDEBAR ── */
     .sidebar-toc {
       background: var(--sand); border-radius: var(--r-lg); padding: 28px;
       margin-bottom: 24px;
@@ -219,7 +214,6 @@
     .author-info strong { display: block; font-size: 14px; color: var(--white); }
     .author-info span { font-size: 12px; color: rgba(255,255,255,.55); }
 
-    /* ── CONTENT STYLES ── */
     .article-content h2 {
       font-family: 'Fraunces', serif; font-size: 32px; font-weight: 700;
       color: var(--forest); margin: 56px 0 20px; line-height: 1.2;
@@ -229,7 +223,6 @@
     .article-content p { font-size: 16px; line-height: 1.8; color: var(--ink-soft); margin-bottom: 20px; }
     .article-content p strong { color: var(--ink); }
 
-    /* ── INTRO CALLOUT ── */
     .callout-intro {
       background: var(--teal-pale); border-left: 4px solid var(--teal);
       border-radius: 0 var(--r-md) var(--r-md) 0; padding: 20px 24px;
@@ -237,7 +230,6 @@
     }
     .callout-intro strong { color: var(--teal); }
 
-    /* ── COMPARISON TABLE ── */
     .comparison-wrap { overflow-x: auto; margin: 32px 0 48px; border-radius: var(--r-lg); box-shadow: var(--shadow-md); }
     .comparison-table { width: 100%; border-collapse: collapse; background: var(--white); }
     .comparison-table thead { background: var(--forest); color: var(--white); }
@@ -254,7 +246,6 @@
     .badge-no { display: inline-flex; align-items: center; gap: 5px; background: #FEE2E2; color: #991B1B; padding: 3px 10px; border-radius: 40px; font-size: 12px; font-weight: 600; }
     .badge-neutral { display: inline-flex; align-items: center; gap: 5px; background: #FEF3C7; color: #92400E; padding: 3px 10px; border-radius: 40px; font-size: 12px; font-weight: 600; }
 
-    /* ── KEY NUMBER BOXES ── */
     .key-numbers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 32px 0; }
     .key-num-card {
       background: var(--sand); border-radius: var(--r-md); padding: 24px 20px; text-align: center;
@@ -263,7 +254,6 @@
     .key-num-value { font-family: 'Fraunces', serif; font-size: 36px; font-weight: 700; color: var(--forest); line-height: 1; margin-bottom: 8px; }
     .key-num-label { font-size: 13px; color: var(--slate); line-height: 1.4; }
 
-    /* ── PROFILE CARDS ── */
     .profiles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 32px 0; }
     .profile-card {
       border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden;
@@ -296,7 +286,6 @@
     .reco-av { background: #DBEAFE; color: #1E40AF; }
     .reco-both { background: var(--gold-pale); color: #92400E; }
 
-    /* ── HIGHLIGHT BOX ── */
     .highlight-box {
       background: var(--gold-pale); border: 1px solid rgba(196,151,58,.3);
       border-radius: var(--r-md); padding: 24px 28px; margin: 32px 0;
@@ -307,7 +296,6 @@
     .highlight-box li:last-child { border-bottom: none; }
     .highlight-box li::before { content: '→'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
 
-    /* ── FAQ ── */
     .faq-section { margin: 48px 0; }
     .faq-item { border: 1px solid var(--border); border-radius: var(--r-md); margin-bottom: 12px; overflow: hidden; }
     .faq-question {
@@ -321,7 +309,6 @@
     .faq-answer { display: none; padding: 0 24px 20px; font-size: 15px; color: var(--ink-soft); line-height: 1.7; border-top: 1px solid var(--border); padding-top: 16px; }
     .faq-item.open .faq-answer { display: block; }
 
-    /* ── CTA SECTION ── */
     .article-cta {
       background: linear-gradient(135deg, var(--forest), #1a4030);
       border-radius: var(--r-xl); padding: 56px 48px; margin: 56px 0 0;
@@ -343,7 +330,6 @@
     }
     .cta-btn-secondary:hover { background: rgba(255,255,255,.15); }
 
-    /* ── FOOTER ── */
     footer { background: var(--forest); color: var(--white); padding: 64px 40px 32px; margin-top: 0; }
     .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
     .footer-brand p { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.7; margin: 16px 0; }
@@ -353,12 +339,10 @@
     .footer-col a:hover { color: var(--gold-light); }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 20px; text-align: center; font-size: 12px; color: rgba(255,255,255,.5); max-width: 1200px; margin-left: auto; margin-right: auto; }
 
-    /* ── SCROLL TOP ── */
     .scroll-top { position: fixed; bottom: 20px; right: 20px; width: 48px; height: 48px; background: var(--gold); color: var(--ink); border: none; border-radius: 50%; cursor: pointer; font-size: 20px; font-weight: 700; opacity: 0; visibility: hidden; transition: all 0.3s; z-index: 50; }
     .scroll-top.visible { opacity: 1; visibility: visible; }
     .scroll-top:hover { background: var(--gold-light); box-shadow: var(--shadow-md); }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 1024px) {
       .article-body { grid-template-columns: 1fr; gap: 40px; }
       .article-sidebar { position: static; }
@@ -387,14 +371,9 @@
   gtag('config', 'G-P53RQGXJZX');
   gtag('config', 'AW-835423035');
 </script>
-
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Organization","name":"Proactifs Conseils","alternateName":"Proactifs Conseils Patrimoine","url":"https://proactifsconseils.fr","logo":"https://proactifsconseils.fr/images/proactifs-logo.png","foundingDate":"2017","founder":{"@type":"Person","name":"Medy Matima"},"address":{"@type":"PostalAddress","streetAddress":"54 Rue du Bournard","addressLocality":"Colombes","postalCode":"92700","addressRegion":"Île-de-France","addressCountry":"FR"},"telephone":"+33184782830","email":"contact@proactifsconseils.fr","areaServed":[{"@type":"City","name":"Colombes"},{"@type":"City","name":"Courbevoie"},{"@type":"City","name":"Asnières-sur-Seine"},{"@type":"City","name":"Levallois-Perret"},{"@type":"City","name":"Nanterre"},{"@type":"AdministrativeArea","name":"Hauts-de-Seine"},{"@type":"AdministrativeArea","name":"Île-de-France"}],"sameAs":["https://www.linkedin.com/company/proactifs-conseils/","https://www.linkedin.com/in/medy-matima"],"knowsAbout":["Optimisation fiscale","Préparation retraite","Investissement immobilier","SCPI","PER","Assurance vie","Transmission","Cession d'entreprise","Pacte Dutreil","LMNP","Démembrement","Courtage en crédit immobilier"]}
-  </script>
 </head>
 <body>
 
-<!-- ═══════════════ NAVIGATION ═══════════════ -->
 <nav id="nav">
   <a href="/" class="nav-logo"><img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:48px;width:auto;display:block;opacity:.9"></a>
   <ul class="nav-links">
@@ -418,12 +397,10 @@
   <a href="/bilan-patrimonial-gratuit">Prendre rendez-vous</a>
 </div>
 
-<!-- ═══════════════ BREADCRUMB ═══════════════ -->
 <div class="breadcrumb">
   <a href="/">Accueil</a> &rsaquo; <a href="/">Blog</a> &rsaquo; PER ou Assurance Vie en 2026
 </div>
 
-<!-- ═══════════════ ARTICLE HERO ═══════════════ -->
 <header class="article-hero">
   <div class="container">
     <div class="article-meta">
@@ -439,17 +416,14 @@
   </div>
 </header>
 
-<!-- ═══════════════ ARTICLE BODY ═══════════════ -->
 <div class="article-body">
 
-  <!-- ── CONTENT ── -->
   <main class="article-content">
 
     <div class="callout-intro">
       <strong>À retenir :</strong> Il n'existe pas de réponse universelle entre PER et assurance vie. La bonne stratégie combine souvent les deux — mais dans le bon ordre et avec les bons montants selon votre TMI actuelle et future.
     </div>
 
-    <!-- ─ SECTION 1 : Mécanismes ─ -->
     <h2 id="mecanismes">Les mécanismes en un coup d'œil</h2>
 
     <p>Le <strong>Plan d'Épargne Retraite (PER)</strong>, créé par la loi PACTE en 2019, permet de déduire les versements de votre revenu imposable. C'est son avantage majeur : chaque euro versé réduit immédiatement votre impôt sur le revenu. En contrepartie, la sortie (à la retraite ou pour l'achat de la résidence principale) est fiscalisée à votre TMI future.</p>
@@ -471,7 +445,6 @@
       </div>
     </div>
 
-    <!-- ─ SECTION 2 : Tableau comparatif ─ -->
     <h2 id="comparatif">Comparatif détaillé 2026</h2>
 
     <p>Le tableau ci-dessous synthétise les points clés à comparer pour orienter votre choix :</p>
@@ -530,12 +503,10 @@
       </table>
     </div>
 
-    <!-- ─ SECTION 3 : Profils ─ -->
     <h2 id="profils">4 profils types : quelle enveloppe privilégier ?</h2>
     <p>La bonne réponse dépend de votre situation personnelle. Voici quatre profils courants et la recommandation adaptée à chacun :</p>
 
     <div class="profiles-grid">
-
       <div class="profile-card">
         <div class="profile-header per">
           <div class="profile-icon">👔</div>
@@ -545,7 +516,7 @@
           </div>
         </div>
         <div class="profile-body">
-          <p class="profile-situation">Revenu net imposable supérieur à 85 000€/an. Chaque euro économisé en impôt est précieux. La retraite est dans 25 ans.</p>
+          <p class="profile-situation">Revenu net imposable supérieur à 85 000€/an. Chaque euro économé en impôt est précieux. La retraite est dans 25 ans.</p>
           <div class="profile-reco">
             <span class="reco-tag reco-per">→ Priorité PER</span>
             <strong>Recommandation</strong>
@@ -607,7 +578,6 @@
           </div>
         </div>
       </div>
-
     </div>
 
     <div class="highlight-box">
@@ -621,7 +591,6 @@
       </ul>
     </div>
 
-    <!-- ─ SECTION 4 : Et si on cumule les deux ? ─ -->
     <h2 id="cumul">La vraie bonne stratégie : les cumuler intelligemment</h2>
 
     <p>Dans la grande majorité des cas, la question n'est pas "l'un ou l'autre" mais "comment allouer entre les deux". Une approche en deux temps est souvent optimale :</p>
@@ -632,7 +601,6 @@
 
     <p>Cette architecture dépend de paramètres propres à votre situation : votre TMI actuelle et future, la structure de vos revenus, la composition de votre patrimoine. C'est précisément l'objet d'un bilan patrimonial sur-mesure.</p>
 
-    <!-- ─ FAQ ─ -->
     <h2 id="faq">Questions fréquentes</h2>
     <div class="faq-section">
 
@@ -678,7 +646,6 @@
 
     </div>
 
-    <!-- ─ CTA ─ -->
     <div class="article-cta">
       <h2>Votre situation mérite une analyse sur-mesure</h2>
       <p>PER, assurance vie, SCPI, TMI, plafonds reportables… Chaque paramètre compte. Un entretien d'1h30 suffit pour clarifier votre stratégie et chiffrer le gain potentiel.</p>
@@ -690,7 +657,6 @@
 
   </main>
 
-  <!-- ── SIDEBAR ── -->
   <aside class="article-sidebar">
     <div class="sidebar-toc">
       <h3>Dans cet article</h3>
@@ -715,9 +681,8 @@
     </div>
   </aside>
 
-</div><!-- .article-body -->
+</div>
 
-<!-- ═══════════════ FOOTER ═══════════════ -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
@@ -741,4 +706,33 @@
     </div>
     <div class="footer-col">
       <h4>Secteur</h4>
-      <a href="/conseiller-patrimoine-courbevoie">Courbevoie
+      <a href="/conseiller-patrimoine-courbevoie">Courbevoie</a>
+      <a href="/conseiller-patrimoine-asnieres">Asnières-sur-Seine</a>
+      <a href="/conseiller-patrimoine-levallois">Levallois-Perret</a>
+      <a href="/conseiller-patrimoine-nanterre">Nanterre</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Proactifs Conseils — 54 Rue du Bournard, 92700 Colombes — Tél. 01 84 78 28 30</p>
+    <p>Conseiller en Investissements Financiers (CIF) enregistré à l'ORIAS · <a href="/mentions-legales" style="color:inherit">Mentions légales</a></p>
+  </div>
+</footer>
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+    document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+  });
+  document.getElementById('hamburger').addEventListener('click', function() {
+    this.classList.toggle('open');
+    document.getElementById('mobileMenu').classList.toggle('open');
+  });
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      q.parentElement.classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>
