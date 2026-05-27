@@ -27,12 +27,9 @@
     { "source": "/blog/scpi-2026",                         "destination": "/blog/scpi-2026.html" },
     { "source": "/donation-vivant-patrimoine",             "destination": "/donation-vivant-patrimoine.html" },
     { "source": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "destination": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026.html" },
-    { "source": "/le-gestionnaire-de-patrimoine",          "destination": "/le-gestionnaire-de-patrimoine.html" },
-    { "source": "/investissement-immobilier-ancien",        "destination": "/investissement-immobilier-ancien.html" }
+    { "source": "/le-gestionnaire-de-patrimoine",          "destination": "/le-gestionnaire-de-patrimoine.html" }
   ],
   "redirects": [
-
-    { "source": "/:path*", "has": [{"type": "host", "value": "www.proactifsconseils.fr"}], "destination": "https://proactifsconseils.fr/:path*", "permanent": true },
 
     { "source": "/assurance-vie",   "destination": "/placements-financiers", "permanent": true },
     { "source": "/assurance-vie/",  "destination": "/placements-financiers", "permanent": true },
@@ -71,13 +68,7 @@
     { "source": "/feed/",                 "destination": "/blog",                               "permanent": true },
 
     { "source": "/wp-admin",             "destination": "/",                                    "permanent": true },
-    { "source": "/wp-content/:path*",    "destination": "/",                                    "permanent": true },
-
-    { "source": "/immobilier-ancien",    "destination": "/investissement-immobilier-ancien",     "permanent": true },
-    { "source": "/immobilier-ancien/",   "destination": "/investissement-immobilier-ancien",     "permanent": true },
-
-    { "source": "/gestion-de-patrimoine-de-lentreprise", "destination": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "permanent": true },
-    { "source": "/gestion-de-patrimoine-de-lentreprise/","destination": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "permanent": true }
+    { "source": "/wp-content/:path*",    "destination": "/",                                    "permanent": true }
   ],
   "headers": [
     {

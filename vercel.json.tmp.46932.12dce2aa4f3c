@@ -32,8 +32,6 @@
   ],
   "redirects": [
 
-    { "source": "/:path*", "has": [{"type": "host", "value": "www.proactifsconseils.fr"}], "destination": "https://proactifsconseils.fr/:path*", "permanent": true },
-
     { "source": "/assurance-vie",   "destination": "/placements-financiers", "permanent": true },
     { "source": "/assurance-vie/",  "destination": "/placements-financiers", "permanent": true },
 
@@ -73,8 +71,8 @@
     { "source": "/wp-admin",             "destination": "/",                                    "permanent": true },
     { "source": "/wp-content/:path*",    "destination": "/",                                    "permanent": true },
 
-    { "source": "/immobilier-ancien",    "destination": "/investissement-immobilier-ancien",     "permanent": true },
-    { "source": "/immobilier-ancien/",   "destination": "/investissement-immobilier-ancien",     "permanent": true },
+    { "source": "/immobilier-ancien",    "destination": "/investissement-immobilier",            "permanent": true },
+    { "source": "/immobilier-ancien/",   "destination": "/investissement-immobilier",            "permanent": true },
 
     { "source": "/gestion-de-patrimoine-de-lentreprise", "destination": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "permanent": true },
     { "source": "/gestion-de-patrimoine-de-lentreprise/","destination": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "permanent": true }
