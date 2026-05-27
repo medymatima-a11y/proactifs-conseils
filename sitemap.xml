@@ -13,6 +13,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://proactifsconseils.fr/blog/donation-vivant-patrimoine</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://proactifsconseils.fr/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026</loc>
     <lastmod>2026-05-27</lastmod>
     <changefreq>yearly</changefreq>
@@ -110,7 +116,7 @@
   </url>
   <url>
     <loc>https://proactifsconseils.fr/donation-vivant-patrimoine</loc>
-    <lastmod>2026-05-23</lastmod>
+    <lastmod>2026-05-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
