@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -143,7 +143,7 @@
     .article-content h2 { font-family:'Fraunces',serif; font-size:32px; font-weight:700; color:var(--forest); margin:56px 0 20px; line-height:1.2; }
     .article-content h2:first-child { margin-top:0; }
     .article-content h3 { font-size:20px; font-weight:600; color:var(--ink); margin:32px 0 12px; }
-    .article-content p { font-size:16px; line-height:1.8; color:var(--ink-soft); margin-bottom:20px; text-align:justify; }
+    .article-content p { font-size:16px; line-height:1.8; color:var(--ink-soft); margin-bottom:20px; }
     .article-content p strong { color:var(--ink); }
 
     .callout-intro { background:var(--teal-pale); border-left:4px solid var(--teal); border-radius:0 var(--r-md) var(--r-md) 0; padding:20px 24px; margin:0 0 40px; font-size:15px; line-height:1.7; color:var(--ink-soft); }
@@ -531,15 +531,4 @@
     nav.classList.toggle('scrolled', window.scrollY > 20);
     document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
   });
-  document.getElementById('hamburger').addEventListener('click', function() {
-    this.classList.toggle('open');
-    document.getElementById('mobileMenu').classList.toggle('open');
-  });
-  document.querySelectorAll('.faq-question').forEach(q => {
-    q.addEventListener('click', () => {
-      q.parentElement.classList.toggle('open');
-    });
-  });
-</script>
-</body>
-</html>
+  document.getElement

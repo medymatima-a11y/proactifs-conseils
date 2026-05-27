@@ -25,14 +25,11 @@
     { "source": "/blog/donation-vivant-2026",              "destination": "/blog/donation-vivant-2026.html" },
     { "source": "/blog/sci-familiale-2026",                "destination": "/blog/sci-familiale-2026.html" },
     { "source": "/blog/scpi-2026",                         "destination": "/blog/scpi-2026.html" },
-    { "source": "/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "destination": "/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026.html" },
     { "source": "/donation-vivant-patrimoine",             "destination": "/donation-vivant-patrimoine.html" },
+    { "source": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "destination": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026.html" },
     { "source": "/le-gestionnaire-de-patrimoine",          "destination": "/le-gestionnaire-de-patrimoine.html" }
   ],
   "redirects": [
-
-    { "source": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026",  "destination": "/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "permanent": true },
-    { "source": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026.html", "destination": "/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "permanent": true },
 
     { "source": "/assurance-vie",   "destination": "/placements-financiers", "permanent": true },
     { "source": "/assurance-vie/",  "destination": "/placements-financiers", "permanent": true },
