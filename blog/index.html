@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -140,6 +140,36 @@
     }
     .filter-btn:hover { border-color: var(--gold); color: var(--gold); }
     .filter-btn.active { background: var(--forest); border-color: var(--forest); color: var(--white); }
+
+    /* ── SEARCH ── */
+    .blog-search-wrap {
+      position: relative; margin-bottom: 20px;
+    }
+    .blog-search-input {
+      width: 100%; padding: 13px 44px 13px 46px;
+      border: 1.5px solid var(--border); border-radius: 40px;
+      background: var(--white); font-family: 'DM Sans', sans-serif;
+      font-size: 14px; color: var(--ink); outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .blog-search-input::placeholder { color: var(--muted); }
+    .blog-search-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(196,151,58,.12); }
+    .blog-search-icon {
+      position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+      color: var(--muted); pointer-events: none;
+    }
+    .blog-search-clear {
+      position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: var(--muted);
+      font-size: 15px; padding: 4px; line-height: 1; display: none; transition: color .2s;
+    }
+    .blog-search-clear:hover { color: var(--ink); }
+    .blog-search-clear.visible { display: block; }
+    .blog-no-results {
+      display: none; text-align: center; padding: 56px 24px;
+      color: var(--muted); font-size: 15px; grid-column: 1 / -1;
+    }
+    .blog-no-results p { margin-top: 8px; font-size: 13px; }
 
     /* ── FEATURED ARTICLE ── */
     .blog-featured {
@@ -305,13 +335,20 @@
 <main class="blog-main">
   <div class="container">
 
+    <!-- Recherche -->
+    <div class="blog-search-wrap">
+      <svg class="blog-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="blog-search-input" id="blogSearch" type="text" placeholder="Rechercher un article…" autocomplete="off" spellcheck="false">
+      <button class="blog-search-clear" id="blogSearchClear" aria-label="Effacer">✕</button>
+    </div>
+
     <!-- Filtres -->
     <div class="blog-filters">
-      <button class="filter-btn active" onclick="filterArticles('all', this)">Tous</button>
-      <button class="filter-btn" onclick="filterArticles('epargne', this)">Épargne retraite</button>
-      <button class="filter-btn" onclick="filterArticles('fiscalite', this)">Fiscalité</button>
-      <button class="filter-btn" onclick="filterArticles('immobilier', this)">Immobilier</button>
-      <button class="filter-btn" onclick="filterArticles('transmission', this)">Transmission</button>
+      <button class="filter-btn active" data-cat="all" onclick="filterArticles('all', this)">Tous</button>
+      <button class="filter-btn" data-cat="epargne" onclick="filterArticles('epargne', this)">Épargne retraite</button>
+      <button class="filter-btn" data-cat="fiscalite" onclick="filterArticles('fiscalite', this)">Fiscalité</button>
+      <button class="filter-btn" data-cat="immobilier" onclick="filterArticles('immobilier', this)">Immobilier</button>
+      <button class="filter-btn" data-cat="transmission" onclick="filterArticles('transmission', this)">Transmission</button>
     </div>
 
     <!-- Article à la une -->
@@ -414,6 +451,11 @@
         </div>
       </a>
 
+      <div class="blog-no-results" id="blogNoResults">
+        <span style="font-size:32px">🔍</span>
+        <p style="font-size:15px;color:var(--ink-soft);margin-top:12px;">Aucun article ne correspond à votre recherche.</p>
+        <p>Essayez un autre mot-clé ou <button onclick="document.getElementById('blogSearch').value='';applyFilters();" style="background:none;border:none;cursor:pointer;color:var(--gold);font-size:13px;font-weight:600;padding:0;">effacez la recherche</button>.</p>
+      </div>
     </div>
 
     <!-- CTA -->
@@ -483,6 +525,53 @@
     mobileMenu.classList.toggle('open');
   });
 
-  // Filtres
+  // Recherche + Filtres
+  const searchInput = document.getElementById('blogSearch');
+  const searchClear = document.getElementById('blogSearchClear');
+  const noResults   = document.getElementById('blogNoResults');
+
+  function applyFilters() {
+    const query = searchInput.value.trim().toLowerCase();
+    const activeBtn = document.querySelector('.filter-btn.active');
+    const activeCat = activeBtn ? (activeBtn.dataset.cat || 'all') : 'all';
+
+    let visible = 0;
+
+    // Featured
+    const featured = document.querySelector('.blog-featured');
+    if (featured) {
+      const catOk  = activeCat === 'all' || featured.dataset.cat === activeCat;
+      const textOk = !query || featured.textContent.toLowerCase().includes(query);
+      featured.style.display = (catOk && textOk) ? '' : 'none';
+      if (catOk && textOk) visible++;
+    }
+
+    // Cards
+    document.querySelectorAll('.blog-card').forEach(card => {
+      const catOk  = activeCat === 'all' || card.dataset.cat === activeCat;
+      const textOk = !query || card.textContent.toLowerCase().includes(query);
+      card.style.display = (catOk && textOk) ? '' : 'none';
+      if (catOk && textOk) visible++;
+    });
+
+    // Bouton clear
+    searchClear.classList.toggle('visible', query.length > 0);
+    // Message vide
+    noResults.classList.toggle('visible', visible === 0);
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    applyFilters();
+    searchInput.focus();
+  });
+
   function filterArticles(cat, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('act
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilters();
+  }
+</script>
+</body>
+</html>
