@@ -2558,13 +2558,34 @@ async function wizSubmit() {
   }).filter(Boolean);
 
   try {
-    await fetch('/api/subscribe', {
+    const _srcMap = {
+      impots:       'Quiz Fiscalité',
+      credit:       'Quiz Crédit',
+      retraite:     'Quiz Retraite',
+      immo:         'Quiz Immobilier',
+      epargne:      'Quiz Épargne',
+      transmission: 'Quiz Transmission',
+      cession:      'Quiz Cession entreprise',
+      declaration:  'Quiz Déclaration impôts',
+    };
+    const reponses = {};
+    answersLabels.forEach((a, i) => { reponses['q' + (i + 1)] = a; });
+    await fetch('https://ullnkylrixdvormohryl.supabase.co/rest/v1/leads', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbG5reWxyaXhkdm9ybW9ocnlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjUzNDgsImV4cCI6MjA5NDE0MTM0OH0.Fu5xc-VVA49qp1-WHgve8ZYpOB-QrciHzVeZx0GXmKk',
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
       body: JSON.stringify({
-        prenom, nom, email, tel, situation,
-        service: wizService,
-        answers: answersLabels,
+        prenom,
+        nom,
+        email,
+        telephone:     tel,
+        source:        _srcMap[wizService] || 'Quiz Homepage',
+        situation,
+        preoccupation: answersLabels[0] || '',
+        reponses,
       }),
     });
   } catch(e) {
