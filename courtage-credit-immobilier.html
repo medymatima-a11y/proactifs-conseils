@@ -1610,26 +1610,44 @@
         'Capacité estimée : ' + (wzData.capacite || 0).toLocaleString('fr-FR') + ' € (mensualité max ' + (wzData.mensMax || 0).toLocaleString('fr-FR') + ' €, taux ' + (wzData.tauxEstime || '-') + ' %)',
       ];
 
+      const _SB_URL = 'https://ullnkylrixdvormohryl.supabase.co';
+      const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbG5reWxyaXhkdm9ybW9ocnlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjUzNDgsImV4cCI6MjA5NDE0MTM0OH0.Fu5xc-VVA49qp1-WHgve8ZYpOB-QrciHzVeZx0GXmKk';
+      const reponses = {
+        projet:    wzData.step1    || '',
+        situation: wzData.step2    || '',
+        revenus:   document.getElementById('wz-revenu').value || '0',
+        co_emprunteur: wzData['wz-coempr'] === 'oui' ? document.getElementById('wz-revenu2').value || '0' : null,
+        credits:   document.getElementById('wz-credits').value || '0',
+        loyer:     document.getElementById('wz-loyer').value   || '0',
+        apport:    wzData.apport   || 0,
+        duree:     wzData.duree    || 20,
+        avancement: wzData.step6   || '',
+        capacite_estimee: wzData.capacite || 0,
+      };
       try {
-        const res = await fetch('/api/subscribe', {
+        const res = await fetch(_SB_URL + '/rest/v1/leads', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'apikey': _SB_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
           body: JSON.stringify({
             prenom,
-            nom: '',
             email,
-            tel,
-            situation: wzData.step2 || '',
-            service: 'credit',
-            answers,
-          }),
+            telephone:     tel,
+            source:        'Quiz Crédit',
+            situation:     wzData.step2 || '',
+            preoccupation: wzData.step1 || 'Obtenir un crédit immobilier',
+            reponses
+          })
         });
         if (res.ok) {
           msgEl.className = 'wz-msg wz-msg-ok';
           msgEl.textContent = '✓ Demande envoyée ! Un courtier vous recontacte sous 24h.';
           btn.textContent = 'Envoyé ✓';
         } else {
-          throw new Error('Erreur serveur');
+          throw new Error('Supabase ' + res.status);
         }
       } catch (e) {
         msgEl.className = 'wz-msg wz-msg-err';

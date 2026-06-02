@@ -1318,7 +1318,9 @@
   </script>
 
   <script>
-    /* ── Wizard fiscal — Airtable via /api/submit-quiz ── */
+    /* ── Wizard fiscal — Supabase leads ── */
+    const _SB_URL = 'https://ullnkylrixdvormohryl.supabase.co';
+    const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbG5reWxyaXhkdm9ybW9ocnlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjUzNDgsImV4cCI6MjA5NDE0MTM0OH0.Fu5xc-VVA49qp1-WHgve8ZYpOB-QrciHzVeZx0GXmKk';
     const fiscalSteps = [
       { q:"Quel est votre niveau d’imposition ?", sub:"Cela nous permet d’identifier les leviers les plus efficaces.", opts:[
         {l:"Je ne sais pas exactement"},
@@ -1465,27 +1467,31 @@
       }
       const btn = document.querySelector('#wizContact .wiz-submit-btn');
       if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
-      const resume = fiscalAnswers.map((ans, i) => {
+      const reponses = {};
+      fiscalAnswers.forEach((ans, i) => {
         const s = fiscalSteps[i];
-        return s && ans !== undefined ? s.q + ' : ' + s.opts[ans].l : null;
-      }).filter(Boolean).join(' | ');
-      const payload = { fields: {
-        "Prénom Nom":    prenom + ' ' + nom,
-        "Email":         email,
-        "Téléphone":     tel,
-        "Source":        "Quiz Impôts",
-        "Situation":     situation,
-        "Préoccupation": "Réduire mes impôts",
-        "Statut":        "Nouveau",
-        "Réponses":      resume
-      }};
+        if (s && ans !== undefined) reponses['q' + (i + 1)] = { question: s.q, reponse: s.opts[ans].l };
+      });
       try {
-        const res = await fetch('/api/submit-quiz', {
+        const res = await fetch(_SB_URL + '/rest/v1/leads', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          headers: {
+            'apikey': _SB_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({
+            prenom,
+            nom,
+            email,
+            telephone:     tel,
+            source:        'Quiz Fiscalité',
+            situation,
+            preoccupation: 'Réduire mes impôts',
+            reponses
+          })
         });
-        if (!res.ok) throw new Error('Airtable ' + res.status);
+        if (!res.ok) throw new Error('Supabase ' + res.status);
         document.getElementById('wizContact').style.display = 'none';
         document.getElementById('wizThanks').style.display = 'block';
         document.getElementById('wizProgressWrap').style.display = 'none';
