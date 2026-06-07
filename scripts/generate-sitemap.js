@@ -88,47 +88,6 @@ function findHtmlFiles(dir, base = '') {
   return results;
 }
 
-// --- TEMPORAIRE : grille 3 colonnes + image RSU (à retirer après exécution) ---
-function tempRsuAssets() {
-  try {
-    const touched = [];
-    const img = path.join(ROOT, 'images', 'stock-rsu.webp');
-    if (!fs.existsSync(img)) {
-      execSync('curl -fsSL -o "' + img + '" "https://ucecd2703b69f3f366e934b160b9.dl.dropboxusercontent.com/cd/0/get/DB9k7xI9tpHXRL75Wj7jwqa7F6guiof0a-wKLCFnqOSxmUDASAHtwRR39_yoCvVYtrPGBVswmmf1Mb4D_8PV2Zkh-gqcziGWK4Zg8lq8nuY2PEE8MRudJ8tDCCxMSufNbgytkThPVfVPzNKmtq3mxfZi0Uo40nX2DAnmiZIT9q9XoA/file"', { cwd: ROOT });
-      const sz = fs.statSync(img).size;
-      if (sz !== 64046) throw new Error('taille image inattendue: ' + sz);
-      touched.push('images/stock-rsu.webp');
-    }
-    const pIdx = path.join(ROOT, 'index.html');
-    let d = fs.readFileSync(pIdx, 'utf8');
-    const before = d;
-    d = d.replace('grid-template-columns: repeat(4, 1fr);', 'grid-template-columns: repeat(3, 1fr);');
-    d = d.replace('src="/images/placement-financier.webp" alt="Fiscalité RSU, stock-options et actions gratuites"', 'src="/images/stock-rsu.webp" alt="Fiscalité RSU, stock-options et actions gratuites"');
-    if (d !== before) {
-      fs.writeFileSync(pIdx, d, 'utf8');
-      touched.push('index.html');
-    }
-    const pPage = path.join(ROOT, 'fiscalite-rsu-stock-options.html');
-    let e = fs.readFileSync(pPage, 'utf8');
-    const beforeE = e;
-    e = e.replace("url('/images/retraite-couple.jpg')", "url('/images/stock-rsu.webp')");
-    if (e !== beforeE) {
-      fs.writeFileSync(pPage, e, 'utf8');
-      touched.push('fiscalite-rsu-stock-options.html');
-    }
-    if (touched.length) {
-      execSync('git config user.name "github-actions[bot]"', { cwd: ROOT });
-      execSync('git config user.email "41898282+github-actions[bot]@users.noreply.github.com"', { cwd: ROOT });
-      execSync('git add ' + touched.join(' '), { cwd: ROOT });
-      execSync('git commit -m "fix: grille services 3 colonnes + image dédiée stock-rsu.webp"', { cwd: ROOT });
-      execSync('git push', { cwd: ROOT });
-      console.log('[temp-rsu-assets] poussé :', touched.join(', '));
-    } else {
-      console.log('[temp-rsu-assets] rien à faire');
-    }
-  } catch (e) { console.error('[temp-rsu-assets] erreur', e.message); }
-}
-
 function buildSitemap() {
   const files = findHtmlFiles('.').sort();
   const urls = files.map((file) => {
@@ -164,7 +123,6 @@ function buildSitemap() {
 }
 
 if (require.main === module) {
-  tempRsuAssets();
   buildSitemap();
 }
 
