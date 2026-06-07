@@ -397,11 +397,11 @@
         <h3>Quelques informations pour préparer notre échange</h3>
         <p class="form-sub">Confidentiel &middot; Personnalisé &middot; Réponse sous 24 h</p>
         <div class="form-row">
-          <div class="fg"><label>Prénom</label><input id="f-prenom" type="text" placeholder="Jean"></div>
-          <div class="fg"><label>Nom</label><input id="f-nom" type="text" placeholder="Dupont"></div>
+          <div class="fg"><label>Prénom</label><input id="f-prenom" type="text" placeholder="Votre prénom"></div>
+          <div class="fg"><label>Nom</label><input id="f-nom" type="text" placeholder="Votre nom"></div>
         </div>
-        <div class="fg"><label>Email</label><input id="f-email" type="email" placeholder="jean.dupont@email.com"></div>
-        <div class="fg"><label>Téléphone</label><input id="f-tel" type="tel" placeholder="06 00 00 00 00"></div>
+        <div class="fg"><label>Email</label><input id="f-email" type="email" placeholder="Votre adresse email"></div>
+        <div class="fg"><label>Téléphone</label><input id="f-tel" type="tel" placeholder="Votre numéro de téléphone"></div>
         <div class="fg"><label>Votre situation</label>
           <select id="f-situation">
             <option>Salarié cadre</option>
@@ -565,4 +565,18 @@
     </div>
   </footer>
 
-  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+      document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+    });
+    document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+      this.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
