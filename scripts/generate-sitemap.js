@@ -88,28 +88,6 @@ function findHtmlFiles(dir, base = '') {
   return results;
 }
 
-// --- TEMPORAIRE : cartes services aérées/compactes (à retirer après exécution) ---
-function tempSvcCards() {
-  try {
-    const pIdx = path.join(ROOT, 'index.html');
-    let d = fs.readFileSync(pIdx, 'utf8');
-    const before = d;
-    d = d.replace('gap: 20px; margin-top: 48px;', 'gap: 32px; margin-top: 48px;');
-    d = d.replace('width:100%; height:140px; object-fit:cover;', 'width:100%; height:120px; object-fit:cover;');
-    if (d !== before) {
-      fs.writeFileSync(pIdx, d, 'utf8');
-      execSync('git config user.name "github-actions[bot]"', { cwd: ROOT });
-      execSync('git config user.email "41898282+github-actions[bot]@users.noreply.github.com"', { cwd: ROOT });
-      execSync('git add index.html', { cwd: ROOT });
-      execSync('git commit -m "fix: cartes services plus aérées (gap 32px) et plus compactes (images 120px)"', { cwd: ROOT });
-      execSync('git push', { cwd: ROOT });
-      console.log('[temp-svc-cards] poussé');
-    } else {
-      console.log('[temp-svc-cards] rien à faire');
-    }
-  } catch (e) { console.error('[temp-svc-cards] erreur', e.message); }
-}
-
 function buildSitemap() {
   const files = findHtmlFiles('.').sort();
   const urls = files.map((file) => {
@@ -145,7 +123,6 @@ function buildSitemap() {
 }
 
 if (require.main === module) {
-  tempSvcCards();
   buildSitemap();
 }
 
