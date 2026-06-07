@@ -1260,6 +1260,14 @@ footer {
         <div class="lead-card-desc">Revenus fonciers, LMNP, plus-values</div>
         <div class="lead-card-arrow">Commencer <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
+      <div class="lead-card" onclick="openWizard('rsu')">
+        <div class="lead-card-icon">
+          <svg width="20" height="20" fill="none" stroke="#C4973A" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+        </div>
+        <div class="lead-card-title">Optimiser mes RSU / stock-options</div>
+        <div class="lead-card-desc">RSU, BSPCE, actions gratuites, dividendes</div>
+        <div class="lead-card-arrow">Commencer <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
     </div>
   </div>
 </section>
@@ -1426,6 +1434,15 @@ footer {
           <p class="svc-desc">Accompagnement personnalisé pour votre déclaration annuelle : revenus fonciers, plus-values, LMNP.</p>
           <a class="svc-link" href="/declaration-impots-ile-de-france">En savoir plus <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
         </div>
+      <div class="svc-card reveal d1">
+        <img class="svc-img" src="/images/placement-financier.webp" alt="Fiscalité RSU, stock-options et actions gratuites">
+        <div class="svc-body">
+          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+          <div class="svc-title">Fiscalité RSU &amp; stock-options</div>
+          <p class="svc-desc">RSU, BSPCE, actions gratuites, ESPP… Déclarez sans erreur et transformez vos actions en patrimoine.</p>
+          <a class="svc-link" href="/fiscalite-rsu-stock-options">En savoir plus <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
       </div>
     </div>
 
@@ -1850,6 +1867,7 @@ footer {
         <h4>Services</h4>
         <a href="/bilan-patrimonial">Bilan patrimonial</a>
         <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
+        <a href="/fiscalite-rsu-stock-options">Fiscalité RSU &amp; stock-options</a>
         <a href="/investissement-scpi-hauts-de-seine">Investissement SCPI</a>
         <a href="/preparation-retraite">Préparation retraite</a>
         <a href="/transmission">Transmission</a>
@@ -2356,6 +2374,36 @@ const flows = {
       { q:"Informations complémentaires", sub:"Précisez votre situation ou vos questions si vous le souhaitez.", type:"textarea" }
     ]
   }
+  ,rsu: {
+    name:"Actionnariat salarié",
+    steps:[
+      { q:"Quel type de plan d'actionnariat possédez-vous\u00a0?", sub:"", opts:[
+        {l:"RSU (Restricted Stock Units)", d:"Actions débloquées au vesting"},
+        {l:"Stock-options ou BSPCE", d:"Options ou bons de souscription"},
+        {l:"Actions gratuites (AGA)", d:"Plan d'attribution français"},
+        {l:"ESPP", d:"Actions achetées à prix réduit"},
+        {l:"Plusieurs types", d:"RSU + ESPP, ou autre combinaison"}
+      ]},
+      { q:"Avez-vous vendu des actions cette année ou l'an dernier\u00a0?", sub:"", opts:[
+        {l:"Oui, j'ai vendu des actions", d:""},
+        {l:"Non, pas encore", d:""},
+        {l:"Sell-to-cover automatique au vesting", d:""}
+      ]},
+      { q:"Votre compte est-il détenu chez un courtier à l'étranger\u00a0?", sub:"Formulaire 3916 : déclaration obligatoire chaque année", opts:[
+        {l:"Oui, et je le déclare chaque année", d:""},
+        {l:"Oui, mais pas déclaré chaque année", d:""},
+        {l:"Non, compte en France", d:""},
+        {l:"Je ne sais pas", d:""}
+      ]},
+      { q:"Quelle part de votre patrimoine est investie dans les actions de votre entreprise\u00a0?", sub:"", opts:[
+        {l:"Moins de 10\u00a0%", d:""},
+        {l:"Entre 10 et 30\u00a0%", d:""},
+        {l:"Plus de 30\u00a0%", d:""},
+        {l:"Je ne sais pas exactement", d:""}
+      ]},
+      { q:"Informations complémentaires", sub:"Précisez votre situation ou vos questions si vous le souhaitez.", type:"textarea" }
+    ]
+  }
 };
 
 let wizService='', wizStep=0, wizAnswers=[];
@@ -2369,6 +2417,7 @@ const wizIntros = {
   cession:      { icon:'🏢', title:'Préparez la cession de votre entreprise', desc:'Le montage en amont fait toute la différence. Évaluons ensemble les options pour votre cession.' },
   credit:       { icon:'🏦', title:'Obtenez les meilleures conditions',     desc:'En tant que courtier, nous négocions pour vous auprès de nos partenaires bancaires.' },
   declaration:  { icon:'📋', title:'Votre déclaration, vérifiée et optimisée', desc:'Chaque année, nous identifions des erreurs qui coûtent en moyenne plusieurs milliers d\'euros.' },
+  rsu:          { icon:'📊', title:'Vos actions, bien déclarées et bien investies', desc:'Quelques questions pour évaluer la fiscalité de vos RSU, stock-options ou BSPCE.' },
 };
 
 function openWizard(service) {
@@ -2479,6 +2528,7 @@ function renderWizStep() {
     cession:      'Recevoir mon analyse de cession →',
     credit:       'Étudier mon financement →',
     declaration:  'Faire vérifier ma déclaration →',
+    rsu:          'Recevoir mon analyse actionnariat →',
   };
   const isLast = wizStep === flows[wizService].steps.length - 1;
   document.getElementById('wizNext').textContent = isLast ? (lastStepLabels[wizService] || 'Finaliser ma demande →') : 'Continuer →';
@@ -2567,6 +2617,7 @@ async function wizSubmit() {
       transmission: 'Quiz Transmission',
       cession:      'Quiz Cession entreprise',
       declaration:  'Quiz Déclaration impôts',
+      rsu:          'Quiz Actionnariat salarié',
     };
     const reponses = {};
     answersLabels.forEach((a, i) => { reponses['q' + (i + 1)] = a; });
