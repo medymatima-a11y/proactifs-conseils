@@ -88,44 +88,6 @@ function findHtmlFiles(dir, base = '') {
   return results;
 }
 
-// --- TEMPORAIRE : correction des placeholders de formulaires (à retirer après exécution) ---
-function tempFixPlaceholders() {
-  const enc = (s) => Buffer.from(s, 'utf8').toString('latin1');
-  const subs = [
-    ['placeholder="Jean"', enc('placeholder="Votre prénom"')],
-    ['placeholder="Dupont"', enc('placeholder="Votre nom"')],
-    ['placeholder="jean@exemple.fr"', enc('placeholder="Votre adresse email"')],
-    ['placeholder="06 00 00 00 00"', enc('placeholder="Votre numéro de téléphone"')],
-  ];
-  const targets = ['index.html', 'optimisation-fiscale-ile-de-france.html'];
-  const touched = [];
-  for (const f of targets) {
-    const p = path.join(ROOT, f);
-    if (!fs.existsSync(p)) continue;
-    let s = fs.readFileSync(p).toString('latin1');
-    const before = s;
-    for (const [o, n] of subs) s = s.split(o).join(n);
-    if (f === 'index.html') {
-      s = s.replace(/\x00+$/, '');
-      if (!/<\/html>\s*$/.test(s)) s += '</body>\r\n</html>\r\n';
-    }
-    if (s !== before) {
-      fs.writeFileSync(p, Buffer.from(s, 'latin1'));
-      touched.push(f);
-    }
-  }
-  if (touched.length) {
-    execSync('git config user.name "github-actions[bot]"', { cwd: ROOT });
-    execSync('git config user.email "41898282+github-actions[bot]@users.noreply.github.com"', { cwd: ROOT });
-    execSync(`git add ${touched.join(' ')}`, { cwd: ROOT });
-    execSync('git commit -m "UX: placeholders de formulaires lisibles (quiz + formulaire bilan) + restauration fin index.html"', { cwd: ROOT });
-    execSync('git push', { cwd: ROOT });
-    console.log('[temp-fix] fichiers corrigés et poussés :', touched.join(', '));
-  } else {
-    console.log('[temp-fix] rien à corriger');
-  }
-}
-
 function buildSitemap() {
   const files = findHtmlFiles('.').sort();
   const urls = files.map((file) => {
@@ -161,7 +123,6 @@ function buildSitemap() {
 }
 
 if (require.main === module) {
-  tempFixPlaceholders();
   buildSitemap();
 }
 
