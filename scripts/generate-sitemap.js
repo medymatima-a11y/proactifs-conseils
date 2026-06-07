@@ -88,6 +88,36 @@ function findHtmlFiles(dir, base = '') {
   return results;
 }
 
+// --- TEMPORAIRE : désimbrication carte RSU (à retirer après exécution) ---
+function tempFixNesting() {
+  try {
+    const pIdx = path.join(ROOT, 'index.html');
+    let d = fs.readFileSync(pIdx, 'utf8');
+    const before = d;
+    const a1 = '</a>\r\n        </div>\r\n      <div class="svc-card reveal d1">\r\n        <img class="svc-img" src="/images/stock-rsu.webp"';
+    const r1 = '</a>\r\n        </div>\r\n      </div>\r\n      <div class="svc-card reveal d1">\r\n        <img class="svc-img" src="/images/stock-rsu.webp"';
+    if (d.includes(a1)) {
+      d = d.replace(a1, r1);
+      const i = d.indexOf('fiscalite-rsu-stock-options">En savoir plus');
+      const a2 = '        </div>\r\n      </div>\r\n      </div>\r\n';
+      const j = d.indexOf(a2, i);
+      if (j === -1) throw new Error('ancre R2 introuvable');
+      d = d.slice(0, j) + '        </div>\r\n      </div>\r\n' + d.slice(j + a2.length);
+    }
+    if (d !== before) {
+      fs.writeFileSync(pIdx, d, 'utf8');
+      execSync('git config user.name "github-actions[bot]"', { cwd: ROOT });
+      execSync('git config user.email "41898282+github-actions[bot]@users.noreply.github.com"', { cwd: ROOT });
+      execSync('git add index.html', { cwd: ROOT });
+      execSync('git commit -m "fix: carte RSU sortie de la carte Déclaration (structure de la grille services)"', { cwd: ROOT });
+      execSync('git push', { cwd: ROOT });
+      console.log('[temp-fix-nesting] poussé');
+    } else {
+      console.log('[temp-fix-nesting] rien à faire');
+    }
+  } catch (e) { console.error('[temp-fix-nesting] erreur', e.message); }
+}
+
 function buildSitemap() {
   const files = findHtmlFiles('.').sort();
   const urls = files.map((file) => {
@@ -123,6 +153,7 @@ function buildSitemap() {
 }
 
 if (require.main === module) {
+  tempFixNesting();
   buildSitemap();
 }
 
