@@ -397,13 +397,13 @@
         <h3>Quelques informations pour préparer notre échange</h3>
         <p class="form-sub">Confidentiel &middot; Personnalisé &middot; Réponse sous 24 h</p>
         <div class="form-row">
-          <div class="fg"><label>Prénom</label><input type="text" placeholder="Jean"></div>
-          <div class="fg"><label>Nom</label><input type="text" placeholder="Dupont"></div>
+          <div class="fg"><label>Prénom</label><input id="f-prenom" type="text" placeholder="Jean"></div>
+          <div class="fg"><label>Nom</label><input id="f-nom" type="text" placeholder="Dupont"></div>
         </div>
-        <div class="fg"><label>Email</label><input type="email" placeholder="jean.dupont@email.com"></div>
-        <div class="fg"><label>Téléphone</label><input type="tel" placeholder="06 00 00 00 00"></div>
+        <div class="fg"><label>Email</label><input id="f-email" type="email" placeholder="jean.dupont@email.com"></div>
+        <div class="fg"><label>Téléphone</label><input id="f-tel" type="tel" placeholder="06 00 00 00 00"></div>
         <div class="fg"><label>Votre situation</label>
-          <select>
+          <select id="f-situation">
             <option>Salarié cadre</option>
             <option>Chef d'entreprise / TNS</option>
             <option>Retraité</option>
@@ -412,23 +412,79 @@
           </select>
         </div>
         <div class="fg"><label>Votre priorité patrimoniale</label>
-          <select>
-            <option>Réduire mes impôts</option>
-            <option>Préparer ma retraite</option>
-            <option>Investir dans l'immobilier</option>
-            <option>Placer mon épargne</option>
-            <option>Transmettre à mes proches</option>
-            <option>Céder mon entreprise</option>
-            <option>Obtenir un crédit immobilier</option>
-            <option>Aide à la déclaration d'impôts</option>
+          <select id="f-service">
+            <option value="impots">Réduire mes impôts</option>
+            <option value="retraite">Préparer ma retraite</option>
+            <option value="immo">Investir dans l'immobilier</option>
+            <option value="epargne">Placer mon épargne</option>
+            <option value="transmission">Transmettre à mes proches</option>
+            <option value="cession">Céder mon entreprise</option>
+            <option value="credit">Obtenir un crédit immobilier</option>
+            <option value="declaration">Aide à la déclaration d'impôts</option>
           </select>
         </div>
-        <div class="fg"><label>Message (optionnel)</label><textarea placeholder="Décrivez votre situation en quelques mots..."></textarea></div>
-        <button class="submit-btn" onclick="alert('Merci ! Nous vous contactons sous 24h.')">Prendre rendez-vous</button>
+        <div class="fg"><label>Message (optionnel)</label><textarea id="f-message" placeholder="Décrivez votre situation en quelques mots..."></textarea></div>
+        <button id="submit-btn" class="submit-btn" onclick="handleBilanSubmit(event)">Prendre rendez-vous</button>
+        <div id="form-feedback" style="display:none; margin-top:16px; padding:16px 20px; border-radius:12px; font-size:14px; line-height:1.6;"></div>
         <p class="form-guarantee">Vos données restent strictement confidentielles et ne sont jamais revendues.</p>
       </div>
     </div>
   </section>
+
+  <script>
+  async function handleBilanSubmit(e) {
+    e.preventDefault();
+    var btn      = document.getElementById('submit-btn');
+    var feedback = document.getElementById('form-feedback');
+
+    var prenom    = document.getElementById('f-prenom').value.trim();
+    var nom       = document.getElementById('f-nom').value.trim();
+    var email     = document.getElementById('f-email').value.trim();
+    var tel       = document.getElementById('f-tel').value.trim();
+    var situation = document.getElementById('f-situation').value;
+    var service   = document.getElementById('f-service').value;
+    var message   = document.getElementById('f-message').value.trim();
+
+    if (!prenom || !email || !service) {
+      feedback.style.cssText = 'display:block; margin-top:16px; padding:16px 20px; border-radius:12px; font-size:14px; line-height:1.6; background:#FEE2E2; color:#DC2626; border:1px solid #FECACA;';
+      feedback.textContent = 'Merci de renseigner au minimum votre prénom, votre email et votre priorité patrimoniale.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Envoi en cours…';
+    btn.style.opacity = '0.7';
+    feedback.style.display = 'none';
+
+    var answers = message ? ['Informations complémentaires : ' + message] : [];
+
+    try {
+      var res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prenom: prenom, nom: nom, email: email, tel: tel, situation: situation, service: service, answers: answers })
+      });
+
+      if (res.ok) {
+        feedback.style.cssText = 'display:block; margin-top:16px; padding:20px 24px; border-radius:12px; font-size:14px; line-height:1.7; background:#E6F4F2; color:#1B5E52; border:1px solid #A7D7D0;';
+        feedback.innerHTML = '<strong style="font-size:15px;">✓ Votre demande a bien été reçue !</strong><br>Un email de confirmation vous a été envoyé. Un conseiller vous contactera <strong>sous 24h</strong> pour convenir d\'un échange.';
+        btn.style.display = 'none';
+        ['f-prenom','f-nom','f-email','f-tel','f-message'].forEach(function(id) {
+          document.getElementById(id).value = '';
+        });
+      } else {
+        throw new Error('Erreur serveur ' + res.status);
+      }
+    } catch(err) {
+      console.error('Submit error:', err);
+      feedback.style.cssText = 'display:block; margin-top:16px; padding:16px 20px; border-radius:12px; font-size:14px; line-height:1.6; background:#FEF3C7; color:#92400E; border:1px solid #FDE68A;';
+      feedback.textContent = 'Une erreur est survenue. Veuillez réessayer ou nous contacter directement au 01 84 78 28 30.';
+      btn.disabled = false;
+      btn.textContent = 'Prendre rendez-vous';
+      btn.style.opacity = '1';
+    }
+  }
+  </script>
 
   <section class="sec sec-sand">
     <div class="container">

@@ -28,7 +28,9 @@
     { "source": "/donation-vivant-patrimoine",             "destination": "/donation-vivant-patrimoine.html" },
     { "source": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "destination": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026.html" },
     { "source": "/le-gestionnaire-de-patrimoine",          "destination": "/le-gestionnaire-de-patrimoine.html" },
-    { "source": "/investissement-immobilier-ancien",        "destination": "/investissement-immobilier-ancien.html" }
+    { "source": "/investissement-immobilier-ancien",        "destination": "/investissement-immobilier-ancien.html" },
+    { "source": "/declaration-rsu-espp-france",            "destination": "/declaration-rsu-espp-france.html" },
+    { "source": "/merci-avis",                             "destination": "/merci-avis.html" }
   ],
   "redirects": [
 
