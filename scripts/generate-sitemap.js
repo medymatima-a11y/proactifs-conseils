@@ -88,24 +88,6 @@ function findHtmlFiles(dir, base = '') {
   return results;
 }
 
-// --- TEMPORAIRE : intégration service RSU (à retirer après exécution) ---
-function tempIntegrationRsu() {
-  try {
-    execSync('python3 "' + path.join(__dirname, 'temp-rsu-integration.py') + '"', { cwd: ROOT, stdio: 'inherit' });
-    const st = execSync('git status --porcelain -- index.html bilan-patrimonial.html vercel.json', { cwd: ROOT, encoding: 'utf8' }).trim();
-    if (st) {
-      execSync('git config user.name "github-actions[bot]"', { cwd: ROOT });
-      execSync('git config user.email "41898282+github-actions[bot]@users.noreply.github.com"', { cwd: ROOT });
-      execSync('git add index.html bilan-patrimonial.html vercel.json', { cwd: ROOT });
-      execSync('git commit -m "feat: intégration service Fiscalité RSU (homepage, quiz, formulaire bilan, rewrite Vercel)"', { cwd: ROOT });
-      execSync('git push', { cwd: ROOT });
-      console.log('[temp-rsu] intégration poussée');
-    } else {
-      console.log('[temp-rsu] rien à pousser');
-    }
-  } catch (e) { console.error('[temp-rsu] erreur', e.message); }
-}
-
 function buildSitemap() {
   const files = findHtmlFiles('.').sort();
   const urls = files.map((file) => {
@@ -141,7 +123,6 @@ function buildSitemap() {
 }
 
 if (require.main === module) {
-  tempIntegrationRsu();
   buildSitemap();
 }
 
