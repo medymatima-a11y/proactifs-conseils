@@ -88,27 +88,6 @@ function findHtmlFiles(dir, base = '') {
   return results;
 }
 
-// --- TEMPORAIRE : grille quiz 3 colonnes (à retirer après exécution) ---
-function tempQuizGrid() {
-  try {
-    const pIdx = path.join(ROOT, 'index.html');
-    let d = fs.readFileSync(pIdx, 'utf8');
-    const before = d;
-    d = d.replace('grid-template-columns: repeat(4,1fr); gap:14px;', 'grid-template-columns: repeat(3,1fr); gap:18px;');
-    if (d !== before) {
-      fs.writeFileSync(pIdx, d, 'utf8');
-      execSync('git config user.name "github-actions[bot]"', { cwd: ROOT });
-      execSync('git config user.email "41898282+github-actions[bot]@users.noreply.github.com"', { cwd: ROOT });
-      execSync('git add index.html', { cwd: ROOT });
-      execSync('git commit -m "fix: grille quiz en 3 colonnes (3 rangées équilibrées)"', { cwd: ROOT });
-      execSync('git push', { cwd: ROOT });
-      console.log('[temp-quiz-grid] poussé');
-    } else {
-      console.log('[temp-quiz-grid] rien à faire');
-    }
-  } catch (e) { console.error('[temp-quiz-grid] erreur', e.message); }
-}
-
 function buildSitemap() {
   const files = findHtmlFiles('.').sort();
   const urls = files.map((file) => {
@@ -144,7 +123,6 @@ function buildSitemap() {
 }
 
 if (require.main === module) {
-  tempQuizGrid();
   buildSitemap();
 }
 
