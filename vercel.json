@@ -2,6 +2,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/", "has": [{"type": "host", "value": "pret-immobilier.proactifsconseils.fr"}], "destination": "/pret-immobilier-index.html" },
     { "source": "/bilan-patrimonial",                   "destination": "/bilan-patrimonial.html" },
     { "source": "/optimisation-fiscale-ile-de-france",  "destination": "/optimisation-fiscale-ile-de-france.html" },
     { "source": "/fiscalite-rsu-stock-options",       "destination": "/fiscalite-rsu-stock-options.html" },
