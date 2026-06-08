@@ -88,6 +88,38 @@ function findHtmlFiles(dir, base = '') {
   return results;
 }
 
+// --- TEMPORAIRE : titre CTA page RSU sur une ligne (à retirer après exécution) ---
+function tempCtaTitle() {
+  try {
+    const pPage = path.join(ROOT, 'fiscalite-rsu-stock-options.html');
+    let d = fs.readFileSync(pPage, 'utf8');
+    const before = d;
+    d = d.replace(
+      "#cta-band .container { max-width: 800px; }",
+      "#cta-band .container { max-width: 1040px; }"
+    );
+    d = d.replace(
+      "#cta-band h2 { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 700; margin-bottom: 20px; color: var(--white); }",
+      "#cta-band h2 { font-family: 'Fraunces', serif; font-size: clamp(22px, 3.3vw, 38px); font-weight: 700; margin-bottom: 20px; color: var(--white); white-space: nowrap; }"
+    );
+    d = d.replace(
+      "#cta-band h2 { font-size: 28px; }",
+      "#cta-band h2 { font-size: 26px; white-space: normal; }"
+    );
+    if (d !== before) {
+      fs.writeFileSync(pPage, d, 'utf8');
+      execSync('git config user.name "github-actions[bot]"', { cwd: ROOT });
+      execSync('git config user.email "41898282+github-actions[bot]@users.noreply.github.com"', { cwd: ROOT });
+      execSync('git add fiscalite-rsu-stock-options.html', { cwd: ROOT });
+      execSync('git commit -m "fix: titre CTA page RSU sur une ligne (clamp, nowrap desktop)"', { cwd: ROOT });
+      execSync('git push', { cwd: ROOT });
+      console.log('[temp-cta-title] poussé');
+    } else {
+      console.log('[temp-cta-title] rien à faire');
+    }
+  } catch (e) { console.error('[temp-cta-title] erreur', e.message); }
+}
+
 function buildSitemap() {
   const files = findHtmlFiles('.').sort();
   const urls = files.map((file) => {
@@ -123,6 +155,7 @@ function buildSitemap() {
 }
 
 if (require.main === module) {
+  tempCtaTitle();
   buildSitemap();
 }
 
