@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, follow">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <title>Merci pour votre retour | Proactifs Conseils</title>
+  <meta name="description" content="Merci d'avoir donné votre avis sur le nouveau site Proactifs Conseils.">
+  <link rel="canonical" href="https://www.proactifsconseils.fr/merci-avis">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P53RQGXJZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P53RQGXJZX');
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ivory:#FAFAF7; --sand:#F3F1EB; --forest:#132D1E; --forest-mid:#1C3D28;
+      --ink:#111827; --ink-soft:#374151; --gold:#C4973A; --gold-light:#E8C97A;
+      --gold-pale:#FBF4E3; --teal:#1E7A6E; --teal-pale:#E6F4F2; --slate:#6B7280;
+      --border:#E5E2DA; --white:#FFFFFF;
+      --shadow-md:0 4px 16px rgba(17,24,39,.08), 0 2px 6px rgba(17,24,39,.04);
+      --r-sm:10px; --r-md:16px; --r-lg:24px;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'DM Sans',sans-serif; background:var(--forest); color:var(--white); min-height:100vh; display:flex; flex-direction:column; }
+    .wrap { flex:1; display:flex; align-items:center; justify-content:center; padding:48px 24px;
+      background:linear-gradient(135deg,#0a1f14 0%,var(--forest) 60%,#1a4030 100%); }
+    .card { max-width:560px; width:100%; margin:0 auto; text-align:center;
+      display:flex; flex-direction:column; align-items:center; }
+    .logo-link { display:inline-block; margin-bottom:40px; text-decoration:none;
+      color:var(--white); font-family:'Fraunces',serif; font-size:22px; font-weight:600; letter-spacing:.3px; }
+    .logo { height:46px; opacity:.95; display:block; }
+    .sec-label {
+      font-family:'DM Mono',monospace; font-size:12px; font-weight:500; color:var(--gold-light);
+      text-transform:uppercase; letter-spacing:1px; margin-bottom:18px; display:inline-block;
+    }
+    h1 { font-family:'Fraunces',serif; font-size:38px; font-weight:700; line-height:1.2; margin:0 auto 20px; max-width:460px; }
+    h1 em { color:var(--gold-light); font-style:italic; }
+    p.lead { font-size:18px; color:rgba(255,255,255,.85); line-height:1.7; max-width:520px; margin:0 auto 32px; }
+    .stars { font-size:34px; letter-spacing:6px; padding-left:6px; margin-bottom:28px; text-align:center; }
+    .stars .on { color:var(--gold-light); }
+    .stars .off { color:rgba(255,255,255,.22); }
+    .btn-gold {
+      display:inline-block; background:var(--gold); color:var(--ink);
+      padding:15px 36px; border-radius:var(--r-md); font-weight:600; font-size:16px;
+      text-decoration:none; transition:all .2s;
+    }
+    .btn-gold:hover { background:var(--gold-light); box-shadow:var(--shadow-md); }
+    .sub { font-size:14px; color:rgba(255,255,255,.6); margin-top:24px; line-height:1.7; text-align:center; }
+    .sub a { color:var(--gold-light); }
+    footer { background:#080C10; color:rgba(255,255,255,.45); padding:24px; font-size:12px; line-height:1.8; }
+    footer .foot-inner { max-width:480px; margin:0 auto; text-align:justify; text-align-last:center; }
+    footer a { color:rgba(255,255,255,.6); text-decoration:none; }
+    @media (max-width:600px){ h1{font-size:30px;} p.lead{font-size:16px;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <a href="/" class="logo-link"><img src="/images/proactifs-logo.png" alt="Proactifs Conseils" class="logo"></a>
+      <div class="sec-label" id="label">Votre avis</div>
+      <div class="stars" id="stars"></div>
+      <h1 id="title">Merci pour votre retour.</h1>
+      <p class="lead" id="lead">Votre retour nous aide à améliorer le cabinet <span style="white-space:nowrap;">jour après jour.</span></p>
+      <div id="cta"></div>
+      <p class="sub" id="sub"></p>
+    </div>
+  </div>
+  <footer>
+    <div class="foot-inner">Proactifs Conseils · 54 Rue du Bournard, 92700 Colombes · 01 84 78 28 30 · <a href="/">proactifsconseils.fr</a></div>
+  </footer>
+
+  <script>
+    (function(){
+      var params = new URLSearchParams(window.location.search);
+      var raw = params.get('note');
+      var note = parseInt(raw, 10);
+      if (isNaN(note) || note < 1 || note > 5) note = 0;
+
+      // Étoiles
+      if (note > 0) {
+        var s = '';
+        for (var i = 1; i <= 5; i++) {
+          s += '<span class="' + (i <= note ? 'on' : 'off') + '">★</span>';
+        }
+        document.getElementById('stars').innerHTML = s;
+      } else {
+        document.getElementById('stars').style.display = 'none';
+      }
+
+      var title = document.getElementById('title');
+      var lead = document.getElementById('lead');
+      var cta = document.getElementById('cta');
+      var sub = document.getElementById('sub');
+
+      if (note >= 4) {
+        title.innerHTML = 'Merci, ça nous <em>touche</em>.';
+        lead.textContent = "Votre satisfaction est notre plus belle récompense. Si vous avez 30 secondes, partagez-la : un avis Google aide énormément le cabinet.";
+        cta.innerHTML = '<a class="btn-gold" href="https://g.page/r/CWxnwzIxzBfIEBM/review" target="_blank" rel="noopener">Laisser un avis Google</a>';
+        sub.innerHTML = 'Merci du fond du cœur. <a href="/">Retour au site</a>';
+      } else if (note >= 1) {
+        title.innerHTML = 'Merci pour votre <em>franchise</em>.';
+        lead.textContent = "C'est en sachant ce qui vous a gêné que je peux faire mieux. Dites-moi en deux mots ce qui mériterait d'être amélioré, je lis chaque message personnellement.";
+        cta.innerHTML = '<a class="btn-gold" href="mailto:medymatima@proactifsconseils.fr?subject=Mon%20retour%20sur%20le%20nouveau%20site&body=Voici%20ce%20qui%20mériterait%20d\'être%20amélioré%20:%0A%0A">Donner mon avis</a>';
+        sub.innerHTML = 'Ou par téléphone au <a href="tel:+33184782830">01 84 78 28 30</a>. <a href="/">Retour au site</a>';
+      } else {
+        title.innerHTML = 'Merci pour votre <em>retour</em>.';
+        lead.textContent = "Votre avis compte et nous aide à progresser.";
+        cta.innerHTML = '<a class="btn-gold" href="/">Découvrir le site</a>';
+        sub.innerHTML = '';
+      }
+    })();
+  </script>
+</body>
+</html>
