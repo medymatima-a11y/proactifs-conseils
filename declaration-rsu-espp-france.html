@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <meta name="description" content="Cabinet CGP Colombes (92) spécialisé RSU, ESPP et stock-options pour salariés d'entreprises américaines. Calcul plus-values EUR, formulaire 2074, case 3VG, compte 3916. Bilan →">
+  <title>Déclaration RSU, ESPP & Stock-Options France | CGP Colombes 92</title>
+  <link rel="canonical" href="https://proactifsconseils.fr/declaration-rsu-espp-france">
+  <meta name="robots" content="index, follow">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Déclaration RSU, ESPP & Stock-Options France | CGP Colombes 92">
+  <meta name="twitter:description" content="Proactifs Conseils accompagne les salariés d'entreprises américaines en France pour la déclaration de leurs RSU, ESPP et stock-options. Formulaire 2074, case 3VG, 3916.">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Service","name":"Déclaration RSU, ESPP et Stock-Options en France","provider":{"@type":"FinancialService","name":"Proactifs Conseils","address":{"@type":"PostalAddress","streetAddress":"54 Rue du Bournard","addressLocality":"Colombes","postalCode":"92700","addressCountry":"FR"},"telephone":"+33184782830","priceRange":"€€","image":"https://proactifsconseils.fr/images/proactifs-logo.png"},"description":"Accompagnement fiscal complet pour les salariés d'entreprises américaines : analyse G&L, calcul plus-values EUR, formulaire 2074, case 3VG, formulaire 3916.","areaServed":["Colombes","Courbevoie","La Défense","Hauts-de-Seine","Île-de-France"]}
+  </script>
+
+  <style>
+    :root {
+      --ivory: #FAFAF7;
+      --sand: #F3F1EB;
+      --forest: #132D1E;
+      --forest-mid: #1C3D28;
+      --ink: #111827;
+      --ink-soft: #374151;
+      --gold: #C4973A;
+      --gold-light: #E8C97A;
+      --gold-pale: #FBF4E3;
+      --teal: #1E7A6E;
+      --teal-light: #2A9D8F;
+      --teal-pale: #E6F4F2;
+      --slate: #6B7280;
+      --border: #E5E2DA;
+      --white: #FFFFFF;
+      --shadow-sm: 0 1px 3px rgba(17,24,39,.06), 0 1px 2px rgba(17,24,39,.04);
+      --shadow-md: 0 4px 16px rgba(17,24,39,.08), 0 2px 6px rgba(17,24,39,.04);
+      --shadow-lg: 0 12px 40px rgba(17,24,39,.1), 0 4px 12px rgba(17,24,39,.06);
+      --r-sm: 10px;
+      --r-md: 16px;
+      --r-lg: 24px;
+      --r-xl: 32px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--white); line-height: 1.6; }
+
+    #nav { position: fixed; top: 0; left: 0; right: 0; height: 72px; background: transparent; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; z-index: 100; transition: all 0.3s ease; }
+    #nav.scrolled { background: rgba(250,250,247,.98); box-shadow: var(--shadow-md); height: 68px; }
+    .nav-logo img { height: 40px; transition: all 0.3s ease; }
+    .nav-links { display: flex; list-style: none; gap: 40px; flex: 1; margin-left: 60px; }
+    .nav-links a { text-decoration: none; color: var(--ink); font-size: 14px; font-weight: 500; transition: color 0.2s ease; }
+    .nav-links a:hover { color: var(--gold); }
+    #nav:not(.scrolled) .nav-links a { color: var(--white); }
+    #nav:not(.scrolled) .nav-links a:hover { color: var(--gold-light); }
+    .nav-cta-btn { background: var(--gold); color: var(--ink); padding: 10px 24px; border-radius: var(--r-md); text-decoration: none; font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; }
+    .nav-cta-btn:hover { background: var(--gold-light); box-shadow: var(--shadow-md); }
+    .hamburger { display: none; flex-direction: column; background: none; border: none; cursor: pointer; gap: 6px; margin-left: auto; }
+    .hamburger span { width: 24px; height: 2px; background: var(--ink); transition: all 0.3s ease; }
+    #nav:not(.scrolled) .hamburger span { background: var(--white); }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(8px,8px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(7px,-7px); }
+    .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; background: var(--white); flex-direction: column; padding: 20px; gap: 12px; z-index: 99; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { padding: 12px 16px; text-decoration: none; color: var(--ink); font-weight: 500; border-radius: var(--r-sm); transition: all 0.2s ease; }
+    .mobile-menu a:hover { background: var(--sand); color: var(--gold); }
+
+    .breadcrumb { background: var(--sand); padding: 12px 40px; font-size: 13px; color: var(--slate); margin-top: 72px; }
+    .breadcrumb a { color: var(--teal); text-decoration: none; transition: color 0.2s ease; }
+    .breadcrumb a:hover { color: var(--gold); }
+
+    .svc-hero { background: linear-gradient(135deg, #0a1f14 0%, var(--forest) 100%); padding: 80px 40px; position: relative; overflow: hidden; color: var(--white); }
+    .svc-hero::before { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: url('/images/optimisation-fiscale.webp') center center / cover; opacity: 0.1; z-index: 0; }
+    .svc-hero > * { position: relative; z-index: 1; }
+    .svc-hero .container { max-width: 1200px; margin: 0 auto; }
+    .hero-badge { display: inline-block; background: rgba(232,201,122,.2); border: 1px solid rgba(232,201,122,.4); color: var(--gold-light); padding: 8px 16px; border-radius: var(--r-sm); font-size: 12px; font-family: 'DM Mono', monospace; font-weight: 500; text-transform: uppercase; margin-bottom: 24px; }
+    .svc-hero h1 { font-family: 'Fraunces', serif; font-size: 56px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; max-width: 800px; }
+    .svc-hero h1 em { color: var(--gold-light); font-style: italic; font-weight: 600; }
+    .svc-hero > .container > p { font-size: 18px; color: rgba(255,255,255,.9); max-width: 600px; margin-bottom: 32px; line-height: 1.7; }
+    .hero-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 40px; max-width: 700px; }
+    .hero-stat { border-right: 1px solid rgba(232,201,122,.3); }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-value { font-family: 'Fraunces', serif; font-size: 36px; font-weight: 700; color: var(--gold-light); margin-bottom: 4px; }
+    .hero-stat-label { font-size: 13px; color: rgba(255,255,255,.7); text-transform: uppercase; font-family: 'DM Mono', monospace; }
+
+    .sec { padding: 96px 40px; }
+    .sec-sand { background: var(--sand); }
+    .sec-white { background: var(--white); }
+    .sec-forest { background: var(--forest); color: var(--white); }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .sec-label { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; color: var(--teal); text-transform: uppercase; letter-spacing: 1px; position: relative; display: inline-block; padding-left: 20px; margin-bottom: 16px; }
+    .sec-label::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 12px; height: 1px; background: var(--teal); }
+    .sec-forest .sec-label { color: var(--gold-light); }
+    .sec-forest .sec-label::before { background: var(--gold-light); }
+    .sec-title { font-family: 'Fraunces', serif; font-size: 44px; font-weight: 700; line-height: 1.2; margin-bottom: 40px; max-width: 900px; }
+    .sec-forest .sec-title { color: var(--white); }
+    .sec-title em { color: var(--gold); font-style: italic; font-weight: 600; }
+    .sec-forest .sec-title em { color: var(--gold-light); }
+
+    .btn-primary { background: var(--gold); color: var(--ink); padding: 12px 32px; border: none; border-radius: var(--r-md); font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s ease; text-decoration: none; display: inline-block; }
+    .btn-primary:hover { background: var(--gold-light); box-shadow: var(--shadow-md); }
+    .btn-secondary { background: transparent; color: var(--teal); padding: 12px 32px; border: 1px solid var(--teal); border-radius: var(--r-md); font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s ease; text-decoration: none; display: inline-block; }
+    .btn-secondary:hover { background: var(--teal-pale); color: var(--teal); }
+
+    .levier-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; margin-bottom: 60px; }
+    .levier-card { background: var(--white); border-radius: var(--r-lg); padding: 40px; box-shadow: var(--shadow-sm); transition: all 0.3s ease; }
+    .levier-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .levier-tag { display: inline-block; background: var(--teal-pale); color: var(--teal); padding: 6px 12px; border-radius: var(--r-sm); font-size: 11px; font-weight: 600; font-family: 'DM Mono', monospace; text-transform: uppercase; margin-bottom: 16px; }
+    .levier-card h3 { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--ink); }
+    .levier-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 20px; }
+    .levier-gain { background: var(--gold-pale); border-left: 4px solid var(--gold); padding: 12px 16px; border-radius: var(--r-sm); font-weight: 600; font-size: 14px; color: var(--ink); }
+
+    .why-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 40px; }
+    .why-card { background: var(--white); border-radius: var(--r-lg); padding: 48px 40px; box-shadow: var(--shadow-sm); text-align: center; transition: all 0.3s ease; position: relative; }
+    .why-card::before { content: attr(data-number); position: absolute; top: 20px; right: 24px; font-family: 'Fraunces', serif; font-size: 48px; font-weight: 700; color: var(--forest); opacity: 0.15; }
+    .why-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .why-card h3 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; margin-bottom: 16px; color: var(--ink); }
+    .why-card p { font-size: 14px; color: var(--slate); line-height: 1.7; }
+
+    .process-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 48px; }
+    .process-step { position: relative; padding-left: 60px; }
+    .process-step::before { content: attr(data-step); position: absolute; left: 0; top: 0; width: 48px; height: 48px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700; color: var(--ink); }
+    .sec-forest .process-step::before { background: var(--gold-light); }
+    .process-step h3 { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--white); }
+    .sec-forest .process-step p { color: rgba(255,255,255,.85); font-size: 14px; line-height: 1.7; }
+
+    .solution-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; }
+    .solution-card { background: var(--white); border-radius: var(--r-lg); padding: 40px; box-shadow: var(--shadow-sm); transition: all 0.3s ease; }
+    .solution-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .solution-tag { display: inline-block; background: var(--teal-pale); color: var(--teal); padding: 6px 12px; border-radius: var(--r-sm); font-size: 11px; font-weight: 600; font-family: 'DM Mono', monospace; text-transform: uppercase; margin-bottom: 16px; }
+    .solution-card h3 { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+    .solution-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
+
+    #cta-band { background: linear-gradient(135deg, var(--forest-mid) 0%, var(--forest) 100%); color: var(--white); padding: 80px 40px; text-align: center; }
+    #cta-band .container { max-width: 800px; }
+    #cta-band h2 { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 700; margin-bottom: 24px; }
+    #cta-band p { font-size: 16px; color: rgba(255,255,255,.9); margin-bottom: 32px; line-height: 1.7; }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    footer { background: #080C10; color: rgba(255,255,255,.8); padding: 60px 40px 30px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1.2fr 1.2fr 1.4fr; gap: 40px; margin-bottom: 40px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+    .footer-brand p { font-size: 13px; line-height: 1.7; margin: 16px 0; color: rgba(255,255,255,.6); }
+    .footer-col h4 { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 16px; }
+    .footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,.6); text-decoration: none; margin-bottom: 12px; transition: color 0.2s ease; line-height: 1.6; }
+    .footer-col a:hover { color: var(--gold-light); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 20px; text-align: center; font-size: 12px; color: rgba(255,255,255,.5); max-width: 1200px; margin-left: auto; margin-right: auto; }
+    .footer-bottom p { margin-bottom: 8px; }
+
+    .scroll-top { position: fixed; bottom: 20px; right: 20px; width: 48px; height: 48px; background: var(--gold); color: var(--ink); border: none; border-radius: 50%; cursor: pointer; font-size: 20px; font-weight: 700; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 50; }
+    .scroll-top.visible { opacity: 1; visibility: visible; }
+    .scroll-top:hover { background: var(--gold-light); box-shadow: var(--shadow-md); }
+
+    /* Quiz trigger */
+    #quiz-trigger { background: var(--forest); padding: 80px 20px; text-align: center; }
+    .qt-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 12px; opacity: .8; }
+    .qt-title { font-family: 'Fraunces', serif; font-size: clamp(26px,4vw,36px); font-weight: 700; color: var(--white); margin-bottom: 12px; line-height: 1.25; }
+    .qt-title em { color: var(--gold-light); font-style: italic; }
+    .qt-sub { font-size: 15px; color: rgba(255,255,255,.72); margin-bottom: 36px; line-height: 1.6; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .btn-open-quiz { display: inline-flex; align-items: center; gap: 10px; background: var(--gold); color: var(--ink); padding: 16px 40px; border: none; border-radius: var(--r-sm); font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .2s; }
+    .btn-open-quiz:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .qt-meta { display: flex; justify-content: center; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+    .qt-meta span { font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(255,255,255,.5); }
+
+    /* Wizard */
+    #wiz-overlay { display:none; position:fixed; inset:0; z-index:600; background:rgba(10,15,20,.75); backdrop-filter:blur(10px); align-items:center; justify-content:center; padding:20px; }
+    #wiz-overlay.open { display:flex; }
+    #wizard { background:#fff; border-radius:24px; width:100%; max-width:580px; box-shadow:0 40px 80px rgba(0,0,0,.25); overflow:hidden; animation:wizIn .3s cubic-bezier(.34,1.56,.64,1); max-height:90vh; overflow-y:auto; }
+    @keyframes wizIn { from{opacity:0;transform:scale(.94) translateY(16px)} to{opacity:1;transform:none} }
+    .wiz-top { padding:22px 28px 0; display:flex; align-items:center; justify-content:space-between; }
+    .wiz-service-badge { display:flex; align-items:center; gap:10px; background:var(--teal-pale); padding:7px 14px; border-radius:100px; }
+    .wiz-service-badge span { font-size:13px; font-weight:600; color:var(--teal); }
+    .wiz-close-btn { width:32px; height:32px; border-radius:50%; background:var(--sand); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:16px; color:var(--slate); transition:all .2s; }
+    .wiz-close-btn:hover { background:var(--border); color:var(--ink); }
+    .wiz-progress-wrap { padding:20px 28px 0; }
+    .wiz-progress-labels { display:flex; justify-content:space-between; margin-bottom:8px; }
+    .wiz-step-label { font-size:11.5px; font-family:'DM Mono',monospace; color:var(--slate); letter-spacing:.5px; }
+    .wiz-progress-track { height:5px; background:var(--border); border-radius:3px; overflow:hidden; }
+    .wiz-progress-fill { height:100%; background:linear-gradient(90deg,var(--teal),var(--gold)); border-radius:3px; transition:width .4s ease; }
+    .wiz-body { padding:32px 28px 24px; min-height:300px; }
+    .wiz-q { font-family:'Fraunces',serif; font-size:22px; font-weight:700; color:var(--ink); line-height:1.3; margin-bottom:8px; }
+    .wiz-sub { font-size:14px; color:var(--slate); margin-bottom:26px; line-height:1.5; }
+    .wiz-options { display:flex; flex-direction:column; gap:10px; }
+    .wiz-opt { display:flex; align-items:center; gap:14px; padding:14px 18px; border-radius:12px; border:1.5px solid var(--border); cursor:pointer; transition:all .2s; background:var(--ivory); }
+    .wiz-opt:hover { border-color:var(--teal); background:var(--teal-pale); }
+    .wiz-opt.selected { border-color:var(--gold); background:var(--gold-pale); }
+    .wiz-opt.selected .wiz-opt-check { border-color:var(--gold); background:var(--gold); }
+    .wiz-opt.selected .wiz-opt-check::after { opacity:1; }
+    .wiz-opt-check { width:20px; height:20px; border-radius:50%; border:2px solid var(--border); flex-shrink:0; position:relative; transition:all .2s; }
+    .wiz-opt-check::after { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:8px; height:8px; border-radius:50%; background:#fff; opacity:0; transition:opacity .2s; }
+    .wiz-opt-label { font-size:14.5px; font-weight:500; color:var(--ink); }
+    .wiz-opt-desc { font-size:12px; color:var(--slate); margin-top:1px; }
+    .wiz-footer { padding:0 28px 24px; display:flex; align-items:center; justify-content:space-between; }
+    .wiz-back-btn { font-size:14px; font-weight:500; color:var(--slate); background:none; border:none; cursor:pointer; padding:8px 0; transition:color .2s; }
+    .wiz-back-btn:hover { color:var(--ink); }
+    .wiz-next-btn { background:var(--teal); color:#fff; padding:13px 28px; border-radius:10px; font-size:15px; font-weight:600; border:none; cursor:pointer; transition:all .2s; display:flex; align-items:center; gap:8px; opacity:.4; pointer-events:none; }
+    .wiz-next-btn.ready { opacity:1; pointer-events:all; }
+    .wiz-next-btn.ready:hover { background:var(--teal-light); transform:translateX(2px); }
+    .wiz-contact-body { padding:28px; }
+    .wiz-contact-body h3 { font-family:'Fraunces',serif; font-size:20px; color:var(--ink); margin-bottom:6px; }
+    .wiz-contact-body p { font-size:14px; color:var(--slate); margin-bottom:22px; }
+    .wiz-form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; }
+    .wiz-field { display:flex; flex-direction:column; gap:5px; margin-bottom:12px; }
+    .wiz-field label { font-size:11px; font-weight:600; color:var(--teal); letter-spacing:.5px; text-transform:uppercase; font-family:'DM Mono',monospace; }
+    .wiz-field input, .wiz-field select { border:1.5px solid var(--border); border-radius:8px; padding:11px 13px; font-size:14px; font-family:'DM Sans',sans-serif; color:var(--ink); background:var(--ivory); outline:none; transition:border .2s; }
+    .wiz-field input:focus, .wiz-field select:focus { border-color:var(--gold); }
+    .wiz-gdpr { font-size:11.5px; color:var(--slate); line-height:1.5; margin:12px 0 16px; }
+    .wiz-submit-btn { width:100%; padding:15px; background:var(--gold); color:#fff; border-radius:10px; font-size:15px; font-weight:700; border:none; cursor:pointer; transition:all .2s; }
+    .wiz-submit-btn:hover { background:#B8882E; }
+    .wiz-intro-body { padding:36px 28px 28px; text-align:center; }
+    .wiz-intro-icon { font-size:40px; margin-bottom:16px; }
+    .wiz-intro-title { font-family:'Fraunces',serif; font-size:24px; color:var(--ink); margin-bottom:10px; line-height:1.3; }
+    .wiz-intro-desc { font-size:14.5px; color:var(--slate); line-height:1.7; max-width:400px; margin:0 auto 24px; }
+    .wiz-intro-points { text-align:left; max-width:340px; margin:0 auto 28px; display:flex; flex-direction:column; gap:14px; }
+    .wiz-intro-point { display:flex; align-items:center; gap:12px; font-size:14px; color:var(--ink); }
+    .wiz-intro-point-icon { font-size:18px; flex-shrink:0; width:28px; text-align:center; }
+    .wiz-intro-cta { display:inline-flex; align-items:center; gap:8px; background:var(--forest); color:#fff; padding:14px 32px; border:none; border-radius:8px; font-size:15px; font-weight:600; cursor:pointer; transition:background .2s,transform .15s; font-family:inherit; }
+    .wiz-intro-cta:hover { background:#244a38; transform:translateY(-1px); }
+    .wiz-intro-free { font-size:12.5px; color:var(--slate); margin-top:14px; }
+    .wiz-thanks-body { padding:48px 28px; text-align:center; }
+    .wiz-thanks-icon { width:72px; height:72px; border-radius:50%; background:rgba(30,122,110,.1); display:flex; align-items:center; justify-content:center; margin:0 auto 24px; font-size:32px; }
+    .wiz-thanks-body h3 { font-family:'Fraunces',serif; font-size:26px; color:var(--ink); margin-bottom:12px; }
+    .wiz-thanks-body p { font-size:15px; color:var(--slate); line-height:1.7; max-width:380px; margin:0 auto 28px; }
+    .wiz-thanks-cta { display:inline-flex; align-items:center; gap:8px; background:var(--teal); color:#fff; padding:13px 28px; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; border:none; transition:background .2s; }
+    .wiz-thanks-cta:hover { background:var(--teal-light); }
+    @media(max-width:600px) { .wiz-form-row{grid-template-columns:1fr} #wizard{border-radius:16px} }
+
+    @media (max-width: 900px) {
+      .nav-links, .nav-cta-btn { display: none; }
+      .hamburger { display: flex; }
+      .svc-hero { padding: 80px 24px; }
+      .svc-hero h1 { font-size: 40px; }
+      .levier-grid { grid-template-columns: repeat(2,1fr); }
+      .process-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: repeat(2,1fr); }
+      .solution-grid { grid-template-columns: repeat(2,1fr); }
+      .sec { padding: 60px 24px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .sec-title { font-size: 32px; }
+    }
+    @media (max-width: 600px) {
+      #nav { padding: 0 20px; height: 64px; }
+      .breadcrumb { padding: 12px 20px; font-size: 12px; }
+      .svc-hero { padding: 60px 20px; margin-top: 64px; }
+      .svc-hero h1 { font-size: 28px; margin-bottom: 16px; }
+      .svc-hero > .container > p { font-size: 14px; margin-bottom: 40px; }
+      .hero-stats { grid-template-columns: 1fr; gap: 16px; }
+      .hero-stat { border-right: none; border-bottom: 1px solid rgba(232,201,122,.3); padding-bottom: 16px; }
+      .hero-stat:last-child { border-bottom: none; }
+      .levier-grid, .why-grid, .solution-grid { grid-template-columns: 1fr; }
+      .sec { padding: 48px 20px; }
+      .sec-title { font-size: 26px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      #cta-band { padding: 60px 20px; }
+      #cta-band h2 { font-size: 28px; }
+    }
+  
+/* ── Dropdown nav ── */
+.nav-dropdown { position: relative; }
+.dropdown-toggle { display: flex !important; align-items: center; gap: 5px; }
+.chevron { font-size: 9px; transition: transform .2s; line-height: 1; pointer-events: none; }
+.nav-dropdown:hover .chevron,
+.nav-dropdown:focus-within .chevron { transform: rotate(180deg); }
+.dropdown-menu {
+  display: none;
+  position: absolute; top: calc(100% + 10px); left: 50%;
+  transform: translateX(-50%);
+  background: #FFFFFF; border: 1px solid #E5E2DA;
+  border-radius: 16px; padding: 6px;
+  min-width: 260px;
+  box-shadow: 0 12px 40px rgba(17,24,39,.1), 0 4px 12px rgba(17,24,39,.06);
+  list-style: none; z-index: 300;
+}
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown:focus-within .dropdown-menu { display: block; }
+.dropdown-menu li a {
+  display: block !important; padding: 9px 14px !important;
+  font-size: 13.5px !important; font-weight: 500 !important;
+  color: #374151 !important;
+  border-radius: 10px; transition: background .15s, color .15s !important;
+  white-space: nowrap; text-decoration: none;
+}
+.dropdown-menu li a::after { display: none !important; }
+.dropdown-menu li a:hover { background: #FBF4E3; color: #C4973A !important; }
+</style>
+  <script src="/popup.js" defer></script>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://proactifsconseils.fr/declaration-rsu-espp-france">
+  <meta property="og:title" content="Déclaration RSU, ESPP & Stock-Options France | CGP Colombes 92">
+  <meta property="og:description" content="Proactifs Conseils accompagne les salariés d'entreprises américaines en France pour la déclaration fiscale de leurs RSU, ESPP et stock-options.">
+  <meta property="og:image" content="https://proactifsconseils.fr/images/optimisation-fiscale.webp">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Proactifs Conseils">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"Comment déclarer des RSU en France ?","acceptedAnswer":{"@type":"Answer","text":"Pour déclarer des RSU en France, remplissez le formulaire 2074 pour chaque lot cédé. La base d'acquisition (case 520) est la valeur marchande (FMV) au vesting, convertie en euros au taux BCE du mois de vesting. Le produit de cession (case 514) est le prix de vente en euros au taux BCE de la date de cession. La plus-value nette (case 524) est reportée case 3VG de la 2042C, soumise à la flat tax de 30 % (12,8 % IR + 17,2 % prélèvements sociaux)."}},
+      {"@type":"Question","name":"Faut-il déclarer un ESPP Disqualifying Disposition différemment ?","acceptedAnswer":{"@type":"Answer","text":"Non, le traitement dans le formulaire 2074 est identique. La distinction Qualifying/Disqualifying est une notion américaine. Pour la France, on utilise toujours l'Adjusted Cost Basis comme base. Attention : en Disqualifying Disposition, l'effet de change peut transformer un gain en dollars en moins-value en euros si l'euro s'est apprécié entre l'achat et la vente."}},
+      {"@type":"Question","name":"Peut-on imputer une moins-value ESPP sur des gains RSU ?","acceptedAnswer":{"@type":"Answer","text":"Oui. En section 11 du formulaire 2074, colonne A : somme des plus-values, colonne B : somme des moins-values. Le solde net (colonne E) est reporté case 3VG. Si le solde est négatif, il est reporté case 3VH et imputable sur les plus-values des 10 années suivantes."}},
+      {"@type":"Question","name":"Quel taux de change utiliser pour convertir les dollars en euros ?","acceptedAnswer":{"@type":"Answer","text":"Utiliser les taux officiels de la Banque de France / BCE pour le mois de chaque transaction. Deux taux sont nécessaires par lot : le taux du mois d'acquisition (vesting pour RSU, achat pour ESPP) et le taux du mois de cession. Disponibles sur banque-france.fr."}},
+      {"@type":"Question","name":"Doit-on déclarer son compte Schwab ou Fidelity en France ?","acceptedAnswer":{"@type":"Answer","text":"Oui, tout compte ouvert auprès d'un courtier étranger (Schwab, Fidelity, E*Trade, Morgan Stanley, UBS…) doit être déclaré chaque année via le formulaire 3916. L'amende est de 1 500 € par compte non déclaré, même sans mouvement sur le compte dans l'année."}},
+      {"@type":"Question","name":"Y a-t-il un crédit d'impôt si j'ai payé des impôts aux États-Unis ?","acceptedAnswer":{"@type":"Answer","text":"La convention fiscale France-États-Unis prévoit des mécanismes pour éviter la double imposition. Si des retenues à la source américaines ont été prélevées (Form 1099-B, case Federal income tax withheld), elles peuvent être créditées contre l'impôt français, à déclarer case 2CK de la 2042."}}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Organization","name":"Proactifs Conseils","url":"https://proactifsconseils.fr","logo":"https://proactifsconseils.fr/images/proactifs-logo.png","foundingDate":"2017","founder":{"@type":"Person","name":"Medy Matima"},"address":{"@type":"PostalAddress","streetAddress":"54 Rue du Bournard","addressLocality":"Colombes","postalCode":"92700","addressRegion":"Île-de-France","addressCountry":"FR"},"telephone":"+33184782830","email":"contact@proactifsconseils.fr","areaServed":[{"@type":"City","name":"Colombes"},{"@type":"City","name":"Courbevoie"},{"@type":"AdministrativeArea","name":"Hauts-de-Seine"},{"@type":"AdministrativeArea","name":"Île-de-France"}]}
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P53RQGXJZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P53RQGXJZX');
+    gtag('config', 'AW-835423035');
+  </script>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="/" class="nav-logo"><img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:48px;width:auto;display:block;opacity:.9"></a>
+  <ul class="nav-links">
+    <li class="nav-dropdown">
+      <a href="/#services" class="dropdown-toggle">Nos services <span class="chevron">▾</span></a>
+      <ul class="dropdown-menu">
+        <li><a href="/bilan-patrimonial">Bilan patrimonial</a></li>
+        <li><a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a></li>
+        <li><a href="/preparation-retraite">Préparation retraite</a></li>
+        <li><a href="/transmission">Transmission de patrimoine</a></li>
+        <li><a href="/cession-entreprise">Cession d'entreprise</a></li>
+        <li><a href="/investissement-immobilier">Investissement immobilier</a></li>
+        <li><a href="/investissement-scpi-hauts-de-seine">SCPI Hauts-de-Seine</a></li>
+      </ul>
+    </li>
+    <li><a href="/#simulateurs">Simulateurs</a></li>
+    <li><a href="/#approche">Notre approche</a></li>
+    <li><a href="/#temoignages">Témoignages</a></li>
+    <li><a href="/#contact">Contact</a></li>
+    <li><a href="/blog">Blog</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <a href="/bilan-patrimonial" class="nav-cta-btn">Prendre rendez-vous</a>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/bilan-patrimonial">Bilan patrimonial</a>
+  <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
+  <a href="/preparation-retraite">Préparation retraite</a>
+  <a href="/transmission">Transmission de patrimoine</a>
+  <a href="/cession-entreprise">Cession d'entreprise</a>
+  <a href="/investissement-immobilier">Investissement immobilier</a>
+  <a href="/investissement-scpi-hauts-de-seine">SCPI Hauts-de-Seine</a>
+  <a href="/#simulateurs">Simulateurs</a>
+  <a href="/#approche">Notre approche</a>
+  <a href="/#temoignages">Témoignages</a>
+  <a href="/#contact">Contact</a>
+  <a href="/blog">Blog</a>
+  <a href="/bilan-patrimonial">Prendre rendez-vous</a>
+</div>
+
+<div class="breadcrumb">
+  <a href="/">Accueil</a> › <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a> › Déclaration RSU, ESPP &amp; stock-options
+</div>
+
+<section class="svc-hero">
+  <div class="container">
+    <div class="hero-badge">Actionnariat Salarié · Hauts-de-Seine</div>
+    <h1>Déclaration <em>RSU, ESPP</em><br>et stock-options en France</h1>
+    <p>Vous êtes salarié d'une entreprise américaine cotée et possédez des actions via un plan d'actionnariat ? Proactifs Conseils calcule vos plus-values en euros, prépare votre formulaire 2074 et vous guide jusqu'à la case 3VG.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-value">480K+</div>
+        <div class="hero-stat-label">Salariés d'entreprises US en France</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">30&nbsp;%</div>
+        <div class="hero-stat-label">Flat tax sur les plus-values (PFU)</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">1&nbsp;500&nbsp;€</div>
+        <div class="hero-stat-label">Amende compte étranger non déclaré</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Plans couverts -->
+<section class="sec sec-sand reveal">
+  <div class="container">
+    <div class="sec-label">Les plans couverts</div>
+    <h2 class="sec-title">Tous les plans d'actionnariat <em>américains</em></h2>
+    <div class="levier-grid">
+      <div class="levier-card reveal">
+        <div class="levier-tag">ESPP</div>
+        <h3>Employee Stock Purchase Plan</h3>
+        <p>Plan d'achat d'actions à prix réduit (rabais typique 15 %). La déclaration distingue le rabais (salaire) de la plus-value de cession, chacun converti au taux BCE de sa date respective.</p>
+        <div class="levier-gain">Qualifying &amp; Disqualifying Disposition traités</div>
+      </div>
+      <div class="levier-card reveal">
+        <div class="levier-tag" style="background:var(--gold-pale);color:#8B6820;">RSU</div>
+        <h3>Restricted Stock Units</h3>
+        <p>Actions gratuites débloquées progressivement au vesting. La FMV au vesting constitue la base d'acquisition. Plusieurs lots = plusieurs taux BCE à appliquer.</p>
+        <div class="levier-gain">Avantage en nature au vesting vérifié</div>
+      </div>
+      <div class="levier-card reveal">
+        <div class="levier-tag" style="background:rgba(19,45,30,.08);color:var(--forest);">Stock-Options</div>
+        <h3>NSO &amp; ISO</h3>
+        <p>Le spread à l'exercice est imposé comme salaire. La plus-value de cession est la différence entre le prix de vente et la FMV à l'exercice, en euros. ISO et NSO traités identiquement pour résidents français.</p>
+        <div class="levier-gain">Exercise-and-sell ou conservation analysés</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Processus -->
+<section class="sec sec-forest reveal">
+  <div class="container">
+    <div class="sec-label">Notre méthode</div>
+    <h2 class="sec-title">De votre fichier G&amp;L au rapport <em>prêt à déclarer</em></h2>
+    <div class="process-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="process-step reveal" data-step="1">
+        <h3>Lecture du fichier courtier</h3>
+        <p>Nous analysons votre Gain &amp; Loss Statement (Schwab, Fidelity, E*Trade, Morgan Stanley…) et identifions chaque lot, sa date et son type de plan.</p>
+      </div>
+      <div class="process-step reveal" data-step="2">
+        <h3>Calcul des plus-values en euros</h3>
+        <p>Chaque lot est converti en euros en appliquant les taux BCE officiels. Nous identifions les effets de change défavorables — un gain en dollars peut devenir une perte en euros.</p>
+      </div>
+      <div class="process-step reveal" data-step="3">
+        <h3>Formulaire 2074 &amp; case 3VG</h3>
+        <p>Nous préparons un tableau de saisie rapide avec les cases 511 à 524 pré-remplies, le récapitulatif section 11, et le montant net à reporter en case 3VG ou 3VH.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Cas pratiques -->
+<section class="sec sec-white reveal">
+  <div class="container">
+    <div class="sec-label">Cas pratiques</div>
+    <h2 class="sec-title">Deux situations <em>concrètes</em></h2>
+    <p style="font-size:16px;color:var(--ink-soft);max-width:760px;margin-bottom:48px;line-height:1.7;">Voici deux profils typiques que nous rencontrons fréquemment en Hauts-de-Seine. Les chiffres sont calculés sur la base des taux 2025. Chaque situation réelle nécessite un examen personnalisé.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;" class="case-grid">
+      <article style="background:var(--sand);border-radius:var(--r-lg);padding:36px;">
+        <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">Cas n°1 · 38 ans, cadre tech</div>
+        <h3 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:16px;">Sophie, ingénieure chez Gilead Sciences (GILD)</h3>
+        <p style="color:var(--ink-soft);margin-bottom:14px;">Sophie a vendu en mars 2025 ses 7 lots d'actions ESPP acquis entre 2017 et 2022. Le fichier G&amp;L Schwab indique un gain total de 48 091 $ — mais le calcul en euros selon les taux BCE donne <strong>37 454 €</strong> de plus-value imposable.</p>
+        <p style="color:var(--ink-soft);margin-bottom:14px;"><strong>Ce que nous avons fait.</strong> Lecture du fichier G&amp;L, application des 7 taux BCE (un par date d'acquisition), calcul du coût ajusté par lot, production d'un tableau saisie 2074 et d'un rapport client PDF.</p>
+        <p style="color:var(--ink-soft);margin-bottom:14px;">Flat tax à régler : <strong>11 236 €</strong>. Conseil patrimonial associé : versement PER avec le produit de cession pour récupérer jusqu'à 4 570 € d'impôt sur le revenu.</p>
+        <p style="font-size:12px;color:var(--slate);font-style:italic;margin-top:18px;padding-top:14px;border-top:1px solid var(--border);">Exemple à titre illustratif. Les performances passées ne préjugent pas des performances futures.</p>
+      </article>
+      <article style="background:var(--sand);border-radius:var(--r-lg);padding:36px;">
+        <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">Cas n°2 · 41 ans, dossier mixte RSU + ESPP</div>
+        <h3 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:16px;">Émilie, analyste dans une pharma américaine (Hauts-de-Seine)</h3>
+        <p style="color:var(--ink-soft);margin-bottom:14px;">Émilie a vendu en 2025 à la fois 15 lots de RSU (352 actions, vendues le 12/02) et 1 lot ESPP Disqualifying (148 actions, vendues le 11/06). La conversion EUR a révélé une <strong>moins-value de −464 €</strong> sur l'ESPP — alors que le gain USD était positif.</p>
+        <p style="color:var(--ink-soft);margin-bottom:14px;"><strong>Ce que nous avons fait.</strong> Traitement des deux types de plans séparément, identification de l'effet de change défavorable sur l'ESPP, imputation de la MV sur les PV RSU en section 11 du formulaire 2074.</p>
+        <p style="color:var(--ink-soft);margin-bottom:14px;">Résultat net déclaré case 3VG : <strong>9 787 €</strong>. Sans notre intervention, le client aurait déclaré 10 251 € (erreur de 464 €). Avantage en nature RSU (~25 778 €) vérifié sur fiche de paie.</p>
+        <p style="font-size:12px;color:var(--slate);font-style:italic;margin-top:18px;padding-top:14px;border-top:1px solid var(--border);">Exemple à titre illustratif. La fiscalité applicable dépend de chaque situation et est susceptible d'évoluer.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Pièges -->
+<section class="sec sec-sand reveal">
+  <div class="container">
+    <div class="sec-label">Les pièges à éviter</div>
+    <h2 class="sec-title">Quatre erreurs qui coûtent <em>cher</em></h2>
+    <div class="why-grid" style="grid-template-columns:repeat(2,1fr);">
+      <div class="why-card reveal" data-number="1">
+        <h3>Oublier le formulaire 3916</h3>
+        <p>Tout compte chez un courtier américain (Schwab, Fidelity, E*Trade…) doit être déclaré chaque année, même sans opération. L'amende est de 1 500 € par compte non déclaré et par année.</p>
+      </div>
+      <div class="why-card reveal" data-number="2">
+        <h3>Ignorer l'effet de change</h3>
+        <p>Un gain en dollars peut devenir une moins-value en euros si l'euro s'apprécie entre la date d'achat et la date de vente. C'est le résultat en euros qui est déclaré en France — pas le résultat USD du relevé courtier.</p>
+      </div>
+      <div class="why-card reveal" data-number="3">
+        <h3>Utiliser le mauvais Gain/Loss</h3>
+        <p>Le fichier G&amp;L contient deux colonnes. La plus-value imposable en France est toujours l'<em>Adjusted</em> Gain/Loss (après rabais ESPP ou FMV vesting). Le Gain/Loss brut est systématiquement incorrect pour la déclaration française.</p>
+      </div>
+      <div class="why-card reveal" data-number="4">
+        <h3>Double déclaration de l'avantage en nature</h3>
+        <p>Le rabais ESPP ou la valeur RSU au vesting figure souvent déjà sur la fiche de paie française. Le re-déclarer en case 1AJ génère une double imposition injustifiée pouvant représenter plusieurs milliers d'euros.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Expert local -->
+<section class="sec sec-white reveal" id="expert-rsu-colombes">
+  <div class="container">
+    <div class="sec-label">Expert local · Hauts-de-Seine</div>
+    <h2 class="sec-title">Votre cabinet <em>de proximité</em> en 92</h2>
+    <p style="font-size:16px;color:var(--ink-soft);max-width:760px;margin-bottom:32px;line-height:1.7;">Installé à Colombes (54 rue du Bournard, 92700), le cabinet Proactifs Conseils accompagne les salariés de multinationales américaines implantées en Hauts-de-Seine — La Défense, Courbevoie, Levallois-Perret, Nanterre, Gennevilliers. Sanofi, BNP, Société Générale, Total, Google, Microsoft, Amazon, Pfizer : autant d'employeurs dont les salariés reçoivent des RSU, ESPP ou options chaque année et doivent les déclarer en France.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-bottom:32px;">
+      <div style="background:var(--sand);border-radius:var(--r-lg);padding:24px;">
+        <h3 style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;margin-bottom:12px;">Pour qui ?</h3>
+        <p style="color:var(--ink-soft);line-height:1.7;margin-bottom:0;font-size:14px;">Cadres et ingénieurs salariés d'entreprises américaines, détachés ou résidents permanents en France, percevant des RSU, ESPP ou stock-options via un courtier US (Schwab, Fidelity, E*Trade, Morgan Stanley, UBS).</p>
+      </div>
+      <div style="background:var(--sand);border-radius:var(--r-lg);padding:24px;">
+        <h3 style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;margin-bottom:12px;">Ce que nous traitons</h3>
+        <p style="color:var(--ink-soft);line-height:1.7;margin-bottom:0;font-size:14px;">Fichiers G&amp;L Schwab, Fidelity, E*Trade, Morgan Stanley, Global Shares, Computershare. Calcul des plus-values en euros, formulaire 2074, case 3VG, formulaire 3916, vérification avantage en nature, crédit d'impôt France-USA.</p>
+      </div>
+      <div style="background:var(--sand);border-radius:var(--r-lg);padding:24px;">
+        <h3 style="font-family:'Fraunces',serif;font-size:18px;font-weight:700;margin-bottom:12px;">Et ensuite ?</h3>
+        <p style="color:var(--ink-soft);line-height:1.7;margin-bottom:0;font-size:14px;">Au-delà de la déclaration, nous conseillons sur l'utilisation des sommes libérées : PER pour réduire l'impôt, assurance-vie pour capitaliser, SCPI pour diversifier. La déclaration devient le point d'entrée d'une stratégie patrimoniale.</p>
+      </div>
+    </div>
+    <p style="color:var(--ink-soft);line-height:1.7;font-size:15px;">Pour aller plus loin : <a href="/optimisation-fiscale-ile-de-france" style="color:var(--teal);text-decoration:underline;">optimisation fiscale Île-de-France</a>, <a href="/declaration-impots-ile-de-france" style="color:var(--teal);text-decoration:underline;">accompagnement déclaration d'impôts</a>, ou <a href="/preparation-retraite" style="color:var(--teal);text-decoration:underline;">préparer sa retraite</a>. Nous intervenons à Colombes, Courbevoie, Asnières-sur-Seine, Levallois-Perret et Nanterre.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec sec-white reveal">
+  <div class="container">
+    <div class="sec-label">Questions fréquentes</div>
+    <h2 class="sec-title">Ce qu'on nous demande <em>le plus souvent</em></h2>
+    <div style="max-width:880px;">
+      <details style="background:var(--sand);border-radius:var(--r-md);padding:20px 24px;margin-bottom:14px;cursor:pointer;">
+        <summary style="font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--ink);list-style:none;">Comment déclarer des RSU en France aux impôts ?</summary>
+        <p style="margin-top:14px;color:var(--ink-soft);line-height:1.7;">Chaque lot vendu fait l'objet d'une ligne dans le <strong>formulaire 2074</strong>. La valeur unitaire d'acquisition (case&nbsp;520) est la FMV au vesting convertie en euros au taux BCE du mois de vesting. La valeur unitaire de cession (case&nbsp;514) est le prix de vente converti au taux BCE du mois de cession. Le résultat (case&nbsp;524) est la plus-value ou moins-value en euros, reporté en <strong>case&nbsp;3VG</strong> de la 2042C, soumis à la flat tax de 30&nbsp;%.</p>
+      </details>
+      <details style="background:var(--sand);border-radius:var(--r-md);padding:20px 24px;margin-bottom:14px;cursor:pointer;">
+        <summary style="font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--ink);list-style:none;">Faut-il déclarer un ESPP Disqualifying Disposition différemment ?</summary>
+        <p style="margin-top:14px;color:var(--ink-soft);line-height:1.7;">Non, le traitement dans le formulaire 2074 est identique. La distinction Qualifying/Disqualifying est une notion fiscale américaine. Pour la France, on utilise toujours l'<strong>Adjusted Cost Basis</strong> comme base d'acquisition dans les deux cas. La vigilance porte sur l'<strong>effet de change</strong> : avec une Disqualifying Disposition, les délais courts accentuent la fluctuation EUR/USD. Un gain en dollars peut devenir une moins-value en euros, déductible des autres plus-values.</p>
+      </details>
+      <details style="background:var(--sand);border-radius:var(--r-md);padding:20px 24px;margin-bottom:14px;cursor:pointer;">
+        <summary style="font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--ink);list-style:none;">Peut-on imputer une moins-value ESPP sur des gains RSU ?</summary>
+        <p style="margin-top:14px;color:var(--ink-soft);line-height:1.7;">Oui. Toutes les cessions de valeurs mobilières se compensent dans la <strong>section&nbsp;11 du formulaire 2074</strong> : colonne&nbsp;A (plus-values) moins colonne&nbsp;B (moins-values de l'année). Le solde net positif est reporté case&nbsp;3VG. Un solde négatif est reporté case&nbsp;3VH et imputable sur les plus-values des 10 années suivantes.</p>
+      </details>
+      <details style="background:var(--sand);border-radius:var(--r-md);padding:20px 24px;margin-bottom:14px;cursor:pointer;">
+        <summary style="font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--ink);list-style:none;">Quel taux de change utiliser pour convertir en euros ?</summary>
+        <p style="margin-top:14px;color:var(--ink-soft);line-height:1.7;">Les taux officiels à appliquer sont ceux publiés par la <strong>Banque de France / BCE</strong> pour le mois de chaque transaction. Pour chaque lot, deux taux sont nécessaires : le taux du <em>mois d'acquisition</em> (vesting pour RSU, achat ESPP) et le taux du <em>mois de cession</em>. Ces taux sont consultables sur <a href="https://www.banque-france.fr/statistiques/taux-et-cours/les-taux-de-change" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:underline;">banque-france.fr</a>.</p>
+      </details>
+      <details style="background:var(--sand);border-radius:var(--r-md);padding:20px 24px;margin-bottom:14px;cursor:pointer;">
+        <summary style="font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--ink);list-style:none;">Doit-on déclarer son compte Schwab ou Fidelity en France ?</summary>
+        <p style="margin-top:14px;color:var(--ink-soft);line-height:1.7;">Oui, tout compte détenu auprès d'un courtier étranger doit être déclaré chaque année via le <strong>formulaire 3916</strong>, même sans mouvement dans l'année. L'amende en cas d'oubli est de <strong>1&nbsp;500&nbsp;€ par compte et par année</strong>. Cela concerne Schwab, Fidelity, E*Trade, Morgan Stanley, UBS One Source, Global Shares, Computershare.</p>
+      </details>
+      <details style="background:var(--sand);border-radius:var(--r-md);padding:20px 24px;margin-bottom:14px;cursor:pointer;">
+        <summary style="font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--ink);list-style:none;">Y a-t-il un crédit d'impôt si j'ai payé des taxes aux États-Unis ?</summary>
+        <p style="margin-top:14px;color:var(--ink-soft);line-height:1.7;">La <strong>convention fiscale France–États-Unis</strong> prévoit des mécanismes pour éviter la double imposition. Si des retenues à la source américaines ont été prélevées sur vos cessions (visible sur le Form 1099-B), elles peuvent être créditées contre l'impôt français, à déclarer en <strong>case&nbsp;2CK</strong> de la 2042. Cette situation est moins fréquente pour les cessions d'actions ordinaires mais mérite vérification.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- Sujets liés -->
+<section class="sec sec-sand reveal">
+  <div class="container">
+    <div class="sec-label">Sujets liés</div>
+    <h2 class="sec-title">Pour aller <em>plus loin</em></h2>
+    <div class="solution-grid" style="grid-template-columns:repeat(4,1fr);">
+      <a href="/optimisation-fiscale-ile-de-france" class="solution-card" style="text-decoration:none;display:block;">
+        <div class="solution-tag">Fiscalité</div>
+        <h3>Optimisation fiscale</h3>
+        <p>La plus-value sur vos actions peut financer un versement PER et générer une déduction immédiate à votre TMI.</p>
+      </a>
+      <a href="/preparation-retraite" class="solution-card" style="text-decoration:none;display:block;">
+        <div class="solution-tag" style="background:var(--gold-pale);color:#8B6820;">Retraite</div>
+        <h3>Préparation retraite</h3>
+        <p>Réinvestir le produit de cession dans un PER ou une assurance-vie construit un capital retraite tout en réduisant l'IR.</p>
+      </a>
+      <a href="/declaration-impots-ile-de-france" class="solution-card" style="text-decoration:none;display:block;">
+        <div class="solution-tag" style="background:#E0F2FE;color:#0369A1;">Déclaration</div>
+        <h3>Déclaration d'impôts</h3>
+        <p>Accompagnement global pour votre déclaration annuelle : revenus, foncier, LMNP, plus-values et crédits d'impôt.</p>
+      </a>
+      <a href="/bilan-patrimonial" class="solution-card" style="text-decoration:none;display:block;">
+        <div class="solution-tag" style="background:#F3E8FF;color:#7C3AED;">Patrimoine</div>
+        <h3>Bilan patrimonial</h3>
+        <p>Un bilan complet pour définir comment valoriser et sécuriser les sommes libérées après la cession de vos actions.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Quiz trigger -->
+<section id="quiz-trigger">
+  <div class="qt-label">Diagnostic actionnariat · 5 questions · 2 min</div>
+  <h2 class="qt-title">Votre déclaration est-elle <em>complète ?</em></h2>
+  <p class="qt-sub">Quelques questions pour identifier les obligations déclaratives liées à vos plans d'actionnariat américains.</p>
+  <button class="btn-open-quiz" onclick="openActioWizard()">Faire le diagnostic &rarr;</button>
+  <div class="qt-meta">
+    <span>&#x23F1; Moins de 2 minutes</span>
+    <span>&#x1F512; Données confidentielles</span>
+    <span>&#x1F4DE; Rappel sous 24h</span>
+  </div>
+</section>
+
+<!-- Wizard actionnariat -->
+<div id="wiz-overlay" onclick="if(event.target===this)closeActioWizard()">
+  <div id="wizard">
+    <div class="wiz-top">
+      <div class="wiz-service-badge"><span>Actionnariat salarié</span></div>
+      <button class="wiz-close-btn" onclick="closeActioWizard()">&#x2715;</button>
+    </div>
+    <div class="wiz-progress-wrap" id="wizProgressWrap">
+      <div class="wiz-progress-labels">
+        <span class="wiz-step-label" id="wizStepLabel">&#xC9;tape 1 sur 6</span>
+        <span class="wiz-step-label" id="wizStepPct">17%</span>
+      </div>
+      <div class="wiz-progress-track"><div class="wiz-progress-fill" id="wizFill" style="width:17%"></div></div>
+    </div>
+    <div id="wizIntro" class="wiz-intro-body">
+      <div class="wiz-intro-icon">&#x1F4CA;</div>
+      <h3 class="wiz-intro-title">Votre déclaration est-elle complète&nbsp;?</h3>
+      <p class="wiz-intro-desc">5 questions pour vérifier que vos obligations déclaratives RSU, ESPP et stock-options sont bien couvertes.</p>
+      <div class="wiz-intro-points">
+        <div class="wiz-intro-point"><span class="wiz-intro-point-icon">&#x23F1;</span><span>Moins de 2 minutes</span></div>
+        <div class="wiz-intro-point"><span class="wiz-intro-point-icon">&#x1F512;</span><span>Vos données restent strictement confidentielles</span></div>
+        <div class="wiz-intro-point"><span class="wiz-intro-point-icon">&#x1F4DE;</span><span>Un conseiller vous rappelle sous 24h</span></div>
+      </div>
+      <button class="wiz-intro-cta" onclick="startActioQuestions()">Commencer &rarr;</button>
+      <p class="wiz-intro-free">100&nbsp;% &middot; Aucun engagement</p>
+    </div>
+    <div id="wizQBody" class="wiz-body" style="display:none">
+      <div class="wiz-q" id="wizQ"></div>
+      <div class="wiz-sub" id="wizSub"></div>
+      <div class="wiz-options" id="wizOpts"></div>
+    </div>
+    <div class="wiz-footer" id="wizQFooter" style="display:none">
+      <button class="wiz-back-btn" onclick="actioWizPrev()">&larr; Retour</button>
+      <button class="wiz-next-btn" id="wizNext" onclick="actioWizNext()">Continuer &rarr;</button>
+    </div>
+    <div id="wizContact" style="display:none">
+      <div class="wiz-contact-body">
+        <h3>Vous y &ecirc;tes presque&nbsp;!</h3>
+        <p>Laissez-nous vos coordonn&eacute;es pour recevoir votre analyse personnalis&eacute;e <strong>sous 24h</strong>.</p>
+        <div class="wiz-form-row">
+          <div class="wiz-field"><label>Pr&eacute;nom *</label><input type="text" id="wPrenom" placeholder="Votre prénom" required></div>
+          <div class="wiz-field"><label>Nom *</label><input type="text" id="wNom" placeholder="Votre nom" required></div>
+        </div>
+        <div class="wiz-field"><label>Email *</label><input type="email" id="wEmail" placeholder="Votre adresse email" required></div>
+        <div class="wiz-field"><label>T&eacute;l&eacute;phone *</label><input type="tel" id="wTel" placeholder="Votre numéro de téléphone" required></div>
+        <div class="wiz-field">
+          <label>Votre courtier *</label>
+          <select id="wSituation" required>
+            <option value="">S&eacute;lectionner&hellip;</option>
+            <option>Charles Schwab</option>
+            <option>Fidelity NetBenefits</option>
+            <option>E*Trade / Morgan Stanley</option>
+            <option>UBS One Source</option>
+            <option>Global Shares / Computershare</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <p class="wiz-gdpr">&#x1F512; Vos donn&eacute;es sont confidentielles et ne seront jamais revendues. En soumettant ce formulaire, vous acceptez d&rsquo;&ecirc;tre contact&eacute; par Proactifs Conseils.</p>
+        <button class="wiz-submit-btn" onclick="actioWizSubmit()">Envoyer ma demande &rarr;</button>
+      </div>
+    </div>
+    <div id="wizThanks" style="display:none">
+      <div class="wiz-thanks-body">
+        <div class="wiz-thanks-icon">&#x2713;</div>
+        <h3>C&rsquo;est not&eacute;.</h3>
+        <p>Un conseiller vous rappelle sous 24h pour analyser votre <strong>déclaration actionnariat</strong>.</p>
+        <button class="wiz-thanks-cta" onclick="closeActioWizard()">Retour &agrave; la page</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA band -->
+<section id="cta-band">
+  <div class="container">
+    <h2>Confiez-nous votre déclaration <em>d'actionnariat</em></h2>
+    <p>Bilan confidentiel et sans engagement. Un conseiller analyse votre fichier G&amp;L et vous guide jusqu'à la case 3VG.</p>
+    <a href="/bilan-patrimonial" class="btn-primary">Demander mon bilan</a>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:48px;width:auto;display:block;opacity:.9">
+        <p>Cabinet de conseil en gestion de patrimoine à Colombes (92). Accompagnement des salariés de multinationales américaines pour la déclaration de leurs RSU, ESPP et stock-options en France.</p>
+        <div style="display:flex;gap:12px">
+          <a href="https://www.linkedin.com/company/proactifs-conseils/" target="_blank" rel="noopener" style="color:rgba(255,255,255,.4);transition:color .2s" onmouseover="this.style.color='#E8C97A'" onmouseout="this.style.color='rgba(255,255,255,.4)'">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
+        <a href="/declaration-rsu-espp-france">RSU &amp; ESPP</a>
+        <a href="/preparation-retraite">Préparation retraite</a>
+        <a href="/investissement-immobilier">Investissement immobilier</a>
+        <a href="/placements-financiers">Placements financiers</a>
+        <a href="/declaration-impots-ile-de-france">Déclaration impôts</a>
+      </div>
+      <div class="footer-col">
+        <h4>Cabinet</h4>
+        <a href="/bilan-patrimonial">Bilan patrimonial sur mesure</a>
+        <a href="/conseiller-patrimoine-colombes">Notre conseiller</a>
+        <a href="/#approche">Notre approche</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+33184782830">01 84 78 28 30</a>
+        <a href="mailto:contact@proactifsconseils.fr">contact@proactifsconseils.fr</a>
+        <a>54 Rue du Bournard<br>92700 Colombes</a>
+        <a>Lun–Ven 9h–19h</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Proactifs Conseils – Tous droits réservés · CIF enregistré AMF</p>
+      <p>Mentions légales · Politique de confidentialité</p>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+    document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+  });
+  document.getElementById('hamburger').addEventListener('click', function() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+    this.classList.toggle('open');
+  });
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+<script>
+  const _SB_URL = 'https://ullnkylrixdvormohryl.supabase.co';
+  const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbG5reWxyaXhkdm9ybW9ocnlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjUzNDgsImV4cCI6MjA5NDE0MTM0OH0.Fu5xc-VVA49qp1-WHgve8ZYpOB-QrciHzVeZx0GXmKk';
+
+  const actioSteps = [
+    { q:"Quel type de plan d'actionnariat possédez-vous ?", sub:"", opts:[
+      {l:"RSU (Restricted Stock Units)", d:"Actions gratuites débloquées au vesting"},
+      {l:"ESPP (Employee Stock Purchase Plan)", d:"Actions achetées à prix réduit"},
+      {l:"Stock-options (NSO / ISO)", d:"Options d'achat d'actions"},
+      {l:"Plusieurs types", d:"RSU + ESPP, ou autre combinaison"}
+    ]},
+    { q:"Avez-vous cédé des actions en 2025 ?", sub:"", opts:[
+      {l:"Oui, j'ai vendu des actions"},
+      {l:"Non, je n'ai pas vendu"},
+      {l:"J'ai fait un sell-to-cover automatique au vesting"}
+    ]},
+    { q:"Avez-vous déclaré votre compte chez le courtier américain ?", sub:"Formulaire 3916 — obligatoire chaque année", opts:[
+      {l:"Oui, chaque année"},
+      {l:"J'ai oublié une ou plusieurs années"},
+      {l:"Je ne savais pas que c'était obligatoire"},
+      {l:"Non"}
+    ]},
+    { q:"Votre avantage en nature (RSU au vesting, rabais ESPP) figure-t-il sur vos fiches de paie françaises ?", sub:"", opts:[
+      {l:"Oui, il est bien intégré"},
+      {l:"Non, je n'ai qu'un W-2 américain"},
+      {l:"Je ne sais pas"}
+    ]},
+    { q:"Avez-vous converti vos gains en euros avec les taux BCE officiels ?", sub:"", opts:[
+      {l:"Oui, j'ai utilisé les taux Banque de France"},
+      {l:"J'ai utilisé le taux du jour de ma déclaration"},
+      {l:"Je n'ai pas encore converti"},
+      {l:"Je ne savais pas qu'il fallait convertir"}
+    ]}
+  ];
+
+  let actioStep = 0;
+  const actioAnswers = [];
+
+  function openActioWizard() {
+    actioStep = 0; actioAnswers.length = 0;
+    document.getElementById('wiz-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('wizIntro').style.display = 'block';
+    document.getElementById('wizQBody').style.display = 'none';
+    document.getElementById('wizQFooter').style.display = 'none';
+    document.getElementById('wizContact').style.display = 'none';
+    document.getElementById('wizThanks').style.display = 'none';
+    document.getElementById('wizProgressWrap').style.display = 'none';
+  }
+  function closeActioWizard() {
+    document.getElementById('wiz-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function startActioQuestions() {
+    document.getElementById('wizIntro').style.display = 'none';
+    document.getElementById('wizProgressWrap').style.display = 'block';
+    renderActioStep();
+  }
+  function renderActioStep() {
+    const total = actioSteps.length + 1;
+    const pct = Math.round((actioStep + 1) / total * 100);
+    document.getElementById('wizStepLabel').textContent = 'Étape ' + (actioStep + 1) + ' sur ' + total;
+    document.getElementById('wizStepPct').textContent = pct + '%';
+    document.getElementById('wizFill').style.width = pct + '%';
+    const step = actioSteps[actioStep];
+    document.getElementById('wizQ').textContent = step.q;
+    document.getElementById('wizSub').textContent = step.sub || '';
+    const optsEl = document.getElementById('wizOpts');
+    optsEl.innerHTML = '';
+    step.opts.forEach((o, i) => {
+      const div = document.createElement('div');
+      div.className = 'wiz-opt';
+      div.innerHTML = '<div class="wiz-opt-check"></div><div><div class="wiz-opt-label">' + o.l + '</div>' + (o.d ? '<div class="wiz-opt-desc">' + o.d + '</div>' : '') + '</div>';
+      div.onclick = () => {
+        optsEl.querySelectorAll('.wiz-opt').forEach(el => el.classList.remove('selected'));
+        div.classList.add('selected');
+        actioAnswers[actioStep] = o.l;
+        document.getElementById('wizNext').classList.add('ready');
+      };
+      optsEl.appendChild(div);
+    });
+    document.getElementById('wizQBody').style.display = 'block';
+    document.getElementById('wizQFooter').style.display = 'flex';
+    document.getElementById('wizNext').classList.remove('ready');
+  }
+  function actioWizNext() {
+    if (actioStep < actioSteps.length - 1) { actioStep++; renderActioStep(); }
+    else { showActioContact(); }
+  }
+  function actioWizPrev() {
+    if (actioStep > 0) { actioStep--; renderActioStep(); }
+  }
+  function showActioContact() {
+    document.getElementById('wizQBody').style.display = 'none';
+    document.getElementById('wizQFooter').style.display = 'none';
+    const total = actioSteps.length + 1;
+    document.getElementById('wizStepLabel').textContent = 'Étape ' + total + ' sur ' + total;
+    document.getElementById('wizStepPct').textContent = '100%';
+    document.getElementById('wizFill').style.width = '100%';
+    document.getElementById('wizContact').style.display = 'block';
+  }
+  async function actioWizSubmit() {
+    const prenom = document.getElementById('wPrenom').value.trim();
+    const nom = document.getElementById('wNom').value.trim();
+    const email = document.getElementById('wEmail').value.trim();
+    const tel = document.getElementById('wTel').value.trim();
+    const courtier = document.getElementById('wSituation').value;
+    if (!prenom || !nom || !email || !tel || !courtier) { alert('Veuillez remplir tous les champs.'); return; }
+    const payload = { prenom, nom, email, telephone: tel, source: 'wizard-actionnariat', answers: actioAnswers, page: 'declaration-rsu-espp-france', courtier };
+    try {
+      await fetch(_SB_URL + '/rest/v1/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': _SB_KEY, 'Authorization': 'Bearer ' + _SB_KEY, 'Prefer': 'return=minimal' },
+        body: JSON.stringify(payload)
+      });
+    } catch(e) { console.warn('Lead save error', e); }
+    document.getElementById('wizContact').style.display = 'none';
+    document.getElementById('wizThanks').style.display = 'block';
+    document.getElementById('wizProgressWrap').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
