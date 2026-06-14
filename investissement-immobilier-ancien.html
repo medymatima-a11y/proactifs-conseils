@@ -315,6 +315,8 @@
         <li><a href="/cession-entreprise">Cession d'entreprise</a></li>
         <li><a href="/investissement-immobilier">Investissement immobilier</a></li>
         <li><a href="/investissement-scpi-hauts-de-seine">SCPI Hauts-de-Seine</a></li>
+        <li><a href="/courtage-credit-immobilier">Crédit immobilier</a></li>
+        <li><a href="/declaration-impots-ile-de-france">Déclaration d'impôts</a></li>
       </ul>
     </li>
       <li><a href="/#simulateurs">Simulateurs</a></li>
@@ -572,16 +574,4 @@
     });
     // Hamburger
     document.getElementById('hamburger').addEventListener('click', function() {
-      this.classList.toggle('open');
-      document.getElementById('mobileMenu').classList.toggle('open');
-    });
-    // Scroll to top
-    document.getElementById('scrollTop').addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
-    // Reveal
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-    }, {threshold: 0.1});
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
-</body>
-</html>
+      th

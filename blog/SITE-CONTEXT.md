@@ -24,12 +24,32 @@
 | Page | Slug / fichier | Statut |
 |---|---|---|
 | Accueil | `/` → `index.html` | ✅ En ligne |
+| Bilan patrimonial | `/bilan-patrimonial` → `bilan-patrimonial.html` | ✅ En ligne |
 | Préparation retraite | `/preparation-retraite` → `preparation-retraite.html` | ✅ En ligne — **page de référence design** |
 | Optimisation fiscale IDF | `/optimisation-fiscale-ile-de-france` → `optimisation-fiscale-ile-de-france.html` | ✅ En ligne — **page de référence design** |
+| Transmission de patrimoine | `/transmission` → `transmission.html` | ✅ En ligne |
+| Cession d'entreprise | `/cession-entreprise` → `cession-entreprise.html` | ✅ En ligne |
+| Investissement immobilier | `/investissement-immobilier` → `investissement-immobilier.html` | ✅ En ligne |
+| Immobilier ancien | `/investissement-immobilier-ancien` → `investissement-immobilier-ancien.html` | ✅ En ligne |
+| SCPI Hauts-de-Seine | `/investissement-scpi-hauts-de-seine` → `investissement-scpi-hauts-de-seine.html` | ✅ En ligne |
+| Crédit immobilier | `/courtage-credit-immobilier` → `courtage-credit-immobilier.html` | ✅ En ligne |
+| Déclaration impôts IDF | `/declaration-impots-ile-de-france` → `declaration-impots-ile-de-france.html` | ✅ En ligne |
+| Fiscalité RSU & stock-options | `/fiscalite-rsu-stock-options` → `fiscalite-rsu-stock-options.html` | ✅ En ligne |
+| Déclaration RSU/ESPP | `/declaration-rsu-espp-france` → `declaration-rsu-espp-france.html` | ✅ En ligne |
+| Placements financiers | `/placements-financiers` → `placements-financiers.html` | ✅ En ligne |
+| Simulateur prêt immobilier | `/simulation-pret-immobilier` → `simulation-pret-immobilier.html` | ✅ En ligne |
+| Donation du vivant | `/donation-vivant-patrimoine` → `donation-vivant-patrimoine.html` | ✅ En ligne |
+| Gestion patrimoine dirigeants | `/gestion-patrimoine-entreprise-dirigeants-strategies-2026` → `gestion-patrimoine-entreprise-dirigeants-strategies-2026.html` | ✅ En ligne |
 | Contact | `/contact` | ✅ En ligne |
 
-### Pages villes (local SEO)
-*(À créer — non encore développées)*
+### Pages villes (SEO local)
+| Page | Slug / fichier | Statut |
+|---|---|---|
+| Conseiller patrimoine Colombes | `/conseiller-patrimoine-colombes` → `conseiller-patrimoine-colombes.html` | ✅ En ligne |
+| Conseiller patrimoine Asnières | `/conseiller-patrimoine-asnieres` → `conseiller-patrimoine-asnieres.html` | ✅ En ligne |
+| Conseiller patrimoine Courbevoie | `/conseiller-patrimoine-courbevoie` → `conseiller-patrimoine-courbevoie.html` | ✅ En ligne |
+| Conseiller patrimoine Levallois | `/conseiller-patrimoine-levallois` → `conseiller-patrimoine-levallois.html` | ✅ En ligne |
+| Conseiller patrimoine Nanterre | `/conseiller-patrimoine-nanterre` → `conseiller-patrimoine-nanterre.html` | ✅ En ligne |
 
 ### Articles de blog / SEO
 → Voir `SEO-ARTICLES-SUIVI.md` pour la liste complète.
@@ -130,4 +150,4 @@ Claude ira automatiquement :
 
 ---
 
-*Dernière mise à jour : 2026-05-23*
+*Dernière mise à jour : 2026-06-14*

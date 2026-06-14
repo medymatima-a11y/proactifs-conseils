@@ -408,6 +408,8 @@
         <li><a href="/cession-entreprise">Cession d'entreprise</a></li>
         <li><a href="/investissement-immobilier">Investissement immobilier</a></li>
         <li><a href="/investissement-scpi-hauts-de-seine">SCPI Hauts-de-Seine</a></li>
+        <li><a href="/courtage-credit-immobilier">Crédit immobilier</a></li>
+        <li><a href="/declaration-impots-ile-de-france">Déclaration d'impôts</a></li>
       </ul>
     </li>
       <li><a href="/#simulateurs">Simulateurs</a></li>
@@ -938,21 +940,4 @@
       const prenom = document.getElementById('wPrenom').value.trim();
       const nom = document.getElementById('wNom').value.trim();
       const email = document.getElementById('wEmail').value.trim();
-      const tel = document.getElementById('wTel').value.trim();
-      const courtier = document.getElementById('wSituation').value;
-      if (!prenom || !nom || !email || !tel || !courtier) { alert('Veuillez remplir tous les champs.'); return; }
-      const payload = { prenom, nom, email, telephone: tel, source: 'wizard-actionnariat', answers: actioAnswers, page: 'fiscalite-rsu-stock-options', courtier };
-      try {
-        await fetch(_SB_URL + '/rest/v1/leads', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'apikey': _SB_KEY, 'Authorization': 'Bearer ' + _SB_KEY, 'Prefer': 'return=minimal' },
-          body: JSON.stringify(payload)
-        });
-      } catch(e) { console.warn('Lead save error', e); }
-      document.getElementById('wizContact').style.display = 'none';
-      document.getElementById('wizThanks').style.display = 'block';
-      document.getElementById('wizProgressWrap').style.display = 'none';
-    }
-  </script>
-</body>
-</html>
+      const tel = document.getElementById('wTel').val

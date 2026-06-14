@@ -40,6 +40,21 @@ Tu es un agent SEO éditeur. Quand on te demande d'optimiser le SEO :
 | `investissement-scpi-hauts-de-seine.html` | /investissement-scpi-hauts-de-seine | SCPI |
 | `courtage-credit-immobilier.html` | /courtage-credit-immobilier | Crédit immobilier |
 | `declaration-impots-ile-de-france.html` | /declaration-impots-ile-de-france | Déclaration impôts |
+| `fiscalite-rsu-stock-options.html` | /fiscalite-rsu-stock-options | Fiscalité RSU & stock-options |
+| `declaration-rsu-espp-france.html` | /declaration-rsu-espp-france | Déclaration RSU/ESPP |
+| `placements-financiers.html` | /placements-financiers | Placements financiers |
+| `simulation-pret-immobilier.html` | /simulation-pret-immobilier | Simulateur prêt immobilier |
+| `donation-vivant-patrimoine.html` | /donation-vivant-patrimoine | Donation du vivant |
+| `gestion-patrimoine-entreprise-dirigeants-strategies-2026.html` | /gestion-patrimoine-entreprise-dirigeants-strategies-2026 | Gestion patrimoine dirigeants |
+
+### Pages villes (SEO local)
+| Fichier | URL | Ville |
+|---|---|---|
+| `conseiller-patrimoine-colombes.html` | /conseiller-patrimoine-colombes | Colombes |
+| `conseiller-patrimoine-asnieres.html` | /conseiller-patrimoine-asnieres | Asnières-sur-Seine |
+| `conseiller-patrimoine-courbevoie.html` | /conseiller-patrimoine-courbevoie | Courbevoie |
+| `conseiller-patrimoine-levallois.html` | /conseiller-patrimoine-levallois | Levallois-Perret |
+| `conseiller-patrimoine-nanterre.html` | /conseiller-patrimoine-nanterre | Nanterre |
 
 ### Blog (`blog/`)
 | Fichier | Sujet |
@@ -51,6 +66,9 @@ Tu es un agent SEO éditeur. Quand on te demande d'optimiser le SEO :
 | `blog/reduire-impots-2026.html` | Réduire ses impôts |
 | `blog/sci-familiale-2026.html` | SCI familiale |
 | `blog/scpi-2026.html` | SCPI 2026 |
+| `blog/investir-immobilier-ancien-ile-de-france-avantages-fiscaux-2026.html` | Immobilier ancien IDF 2026 |
+| `blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026.html` | Patrimoine dirigeants 2026 |
+| `blog/donation-vivant-patrimoine.html` | Donation vivant — stratégies patrimoniales |
 
 ## Mots-Clés Cibles
 
@@ -59,6 +77,7 @@ Tu es un agent SEO éditeur. Quand on te demande d'optimiser le SEO :
 - gestion de patrimoine 92 / Hauts-de-Seine
 - bilan patrimonial Colombes
 - cabinet patrimoine Colombes
+- conseiller patrimoine Asnières / Courbevoie / Levallois / Nanterre
 
 **Priorité moyenne (services)**
 - optimisation fiscale Île-de-France
@@ -67,12 +86,17 @@ Tu es un agent SEO éditeur. Quand on te demande d'optimiser le SEO :
 - préparation retraite cadres
 - transmission patrimoine
 - cession entreprise
+- fiscalité RSU stock-options France
+- déclaration RSU ESPP impôts
+- placements financiers conseiller
 
 **Longue traîne (blog)**
 - LMNP 2026 avantages
 - PER vs assurance vie comparatif
 - SCI familiale comment créer
 - donation vivant abattements
+- investir immobilier ancien avantages fiscaux 2026
+- gestion patrimoine dirigeants entreprise stratégies
 
 ## Règles de Conformité MIF2 — OBLIGATOIRES
 
@@ -139,7 +163,8 @@ Vercel déploie automatiquement en ~30 secondes.
 
 ## Ordre de Priorité des Optimisations
 
+Navigation dropdown "Nos services" ajoutée sur les 32 pages (juin 2026 — commit 3bcff23).
 Toutes les priorités urgentes et hautes ont été traitées (mai 2026). Prochaines actions :
-1. Publier les articles brouillons dans l'Agent SEO (donation vivant, gestion patrimoine dirigeants)
-2. Surveiller l'évolution du CTR sur `/investissement-immobilier-ancien` (nouvelle page)
-3. Enrichir le maillage interne depuis les nouveaux articles publiés vers `/bilan-patrimonial`
+1. Enrichir le maillage interne depuis les articles publiés (RSU, dirigeants, donation) vers `/bilan-patrimonial`
+2. Surveiller CTR sur `/investissement-immobilier-ancien` et `/fiscalite-rsu-stock-options`
+3. Créer articles RSU depuis la roadmap (10 articles prévus — voir mémoire `roadmap-articles-rsu.md`)
