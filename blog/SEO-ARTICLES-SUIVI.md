@@ -40,4 +40,36 @@
 - réduire impôts 2026
 - donation vivant abattements
 - immobilier ancien île-de-france avantages fiscaux
-- 
+- donation de son vivant 2026
+- abattements donation succession
+- gestion patrimoine entreprise dirigeants
+- fiscalité RSU stock-options France
+- déclaration RSU ESPP impôts
+
+---
+
+## Pages de service existantes (pour le maillage interne)
+
+| Page | URL | Usage dans les articles |
+|---|---|---|
+| Bilan patrimonial | `/bilan-patrimonial` | CTA systématique — "Prendre rendez-vous" dans chaque article |
+| Préparation retraite | `/preparation-retraite` | Lier quand l'article parle de retraite, transmission, succession |
+| Optimisation fiscale IDF | `/optimisation-fiscale-ile-de-france` | Lier quand l'article parle de fiscalité, impôts, défiscalisation |
+| Fiscalité RSU & stock-options | `/fiscalite-rsu-stock-options` | Lier quand l'article parle d'actionnariat salarié, RSU, ESPP |
+| Transmission de patrimoine | `/transmission` | Lier quand l'article parle de donation, succession, héritage |
+| Investissement immobilier | `/investissement-immobilier` | Lier quand l'article parle d'immobilier, SCPI, LMNP |
+| Placements financiers | `/placements-financiers` | Lier quand l'article parle d'épargne, PER, assurance-vie |
+
+---
+
+## Template de mise à jour
+
+Quand tu crées un article, ajoute une ligne dans le tableau "Articles publiés" :
+
+```
+| [Titre court] | `/slug-article` | mot-clé principal | AAAA-MM | ✅ Publié |
+```
+
+---
+
+*Dernière mise à jour : 2026-06-14*

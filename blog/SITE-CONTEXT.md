@@ -97,4 +97,57 @@ Claude ira automatiquement :
 | Élément | Convention |
 |---|---|
 | Fichier HTML | Même slug que l'URL, ex. `investir-immobilier-ancien-ile-de-france-avantages-fiscaux-2026.html` |
-| Slug URL | Kebab-case, en français, sans ac
+| Slug URL | Kebab-case, en français, sans accents, ex. `/gestion-patrimoine-entreprise` |
+| Route Vercel | À ajouter dans `vercel.json` : `{ "source": "/slug", "destination": "/slug.html" }` |
+
+---
+
+## 6. Maillage interne — règles
+
+- Chaque article doit pointer vers **au moins 2 pages de service existantes** (retraite, fiscal, etc.)
+- La sidebar doit contenir **2 articles liés** (consulter `SEO-ARTICLES-SUIVI.md` pour les slugs disponibles)
+- Éviter les doublons de mots-clés : vérifier `SEO-ARTICLES-SUIVI.md` avant de créer un article sur un topic proche
+
+---
+
+## 7. Convention icônes
+
+**Style choisi : SVG inline sur mesure (option A)**
+
+- Stroke personnalisé : `stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"`
+- Taille : 18px dans les cards, 24-28px dans les sidebar CTA
+- Pas de librairie externe — SVG écrit directement dans le HTML
+- Conteneurs colorés (classe utilitaire) :
+
+```css
+.ic-forest { background: rgba(19,45,30,.12); color: #132D1E; width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; }
+.ic-gold   { background: rgba(196,151,58,.12); color: #C4973A; width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; }
+.ic-teal   { background: rgba(30,122,110,.12); color: #1E7A6E; width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; }
+```
+
+- Exemple card stratégie :
+```html
+<div class="strat-card">
+  <div class="ic-teal">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 9h6M9 13h4"/></svg>
+  </div>
+  <div><strong>Donation-partage</strong><br><small>Répartition équitable</small></div>
+</div>
+```
+
+---
+
+## 8. Règles rédactionnelles — termes interdits
+
+| ❌ Interdit | ✅ À utiliser |
+|---|---|
+| "bilan offert" | "Prendre rendez-vous" |
+| "bilan patrimonial offert" | "Prendre rendez-vous" |
+| "demandez votre bilan" | "Prendre rendez-vous" |
+| "bilan gratuit" | "Prendre rendez-vous" |
+
+**Le mot "offert" est banni du site.** Le CTA unique est **"Prendre rendez-vous"** (lien vers `/bilan-patrimonial-gratuit`). Cette règle s'applique partout : boutons, sidebar, articles, exemples dans les visuels.
+
+---
+
+*Dernière mise à jour : 2026-06-14*

@@ -124,4 +124,47 @@ Ces règles s'appliquent à TOUT le contenu écrit ou modifié :
 <link rel="canonical" href="https://proactifsconseils.fr/[slug]">
 
 <!-- Open Graph -->
-<m
+<meta property="og:title" content="[Titre page]">
+<meta property="og:description" content="[Meta description]">
+<meta property="og:url" content="https://proactifsconseils.fr/[slug]">
+<meta property="og:image" content="https://proactifsconseils.fr/images/og-default.jpg">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+```
+
+### Schema.org par type de page
+- **Homepage + page locale :** `LocalBusiness` + `FinancialService`
+- **Pages services :** `Service` imbriqué dans `FinancialService`
+- **Articles de blog :** `Article` avec `author`, `datePublished`, `dateModified`
+- **FAQ (si présente) :** `FAQPage`
+
+### Canonicals
+- Toujours utiliser **non-www** : `https://proactifsconseils.fr/[slug]`
+- Le redirect www → non-www est configuré dans `vercel.json`
+
+### Images
+- Tout `<img>` doit avoir `alt="[description précise]"` — jamais vide, jamais juste le nom de fichier
+- Exemple correct : `alt="Medy, conseiller en gestion de patrimoine à Colombes"`
+
+### Maillage interne
+- Chaque page de service pointe vers `/bilan-patrimonial` (conversion)
+- Chaque article de blog pointe vers la page de service la plus proche
+- La homepage liste toutes les pages de services avec liens
+
+## Workflow Git
+
+Après modification des fichiers :
+```bash
+git add [fichiers modifiés]
+git commit -m "SEO: [description courte des changements]"
+git push origin main
+```
+Vercel déploie automatiquement en ~30 secondes.
+
+## Ordre de Priorité des Optimisations
+
+Navigation dropdown "Nos services" ajoutée sur les 32 pages (juin 2026 — commit 3bcff23).
+Toutes les priorités urgentes et hautes ont été traitées (mai 2026). Prochaines actions :
+1. Enrichir le maillage interne depuis les articles publiés (RSU, dirigeants, donation) vers `/bilan-patrimonial`
+2. Surveiller CTR sur `/investissement-immobilier-ancien` et `/fiscalite-rsu-stock-options`
+3. Créer articles RSU depuis la roadmap (10 articles prévus — voir mémoire `roadmap-articles-rsu.md`)
