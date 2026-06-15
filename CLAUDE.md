@@ -2,10 +2,11 @@
 
 ## Référence SEO
 
-Les standards appliqués par cet agent sont définis dans :
-**`Claude Antigravity skills/Top skill/SEO-audit.md`**
+Standards techniques détaillés : **`SEO-STANDARDS.md`** (à la racine du projet).
 
-Ce fichier contient : E-E-A-T pour sites financiers (YMYL), Core Web Vitals, SEO local Colombes/92, schema.org, Open Graph, maillage interne, checklist déploiement.
+Source éditoriale (liste pages, articles, mots-clés couverts) :
+- `blog/SITE-CONTEXT.md` — architecture des pages et workflow de production
+- `blog/SEO-ARTICLES-SUIVI.md` — articles publiés, mots-clés couverts, maillage
 
 ## Contexte
 
@@ -15,14 +16,40 @@ Déployé sur Vercel via GitHub (branche `main`). Chaque `git push` déclenche u
 **URL production :** https://proactifsconseils.fr  
 **Stack :** HTML/CSS/JS vanilla, pas de CMS, pas de build step
 
+## Skills à charger systématiquement
+
+**Avant toute création ou modification de page, charger les skills appropriés :**
+
+| Skill | Quand l'utiliser |
+|---|---|
+| `proactifs-design` | Avant TOUTE création ou refonte de page (variables CSS, patterns nav/hero/sections/footer, boilerplates SEO) |
+| `redaction-naturelle-fr` | Pour tout texte client de plus d'un paragraphe (email, page, article, post) |
+| `patrimoine-fiscal-fr` | Dès qu'un chiffre fiscal, abattement, article CGI ou règle patrimoniale est mentionné |
+| `seo-audit` / `seo-page` | Pour un audit ou une optimisation d'une page existante |
+| `seo-content-brief` | Avant de rédiger un nouvel article ou une nouvelle page |
+| `proactifs-email-brevo` | Si une campagne email accompagne une nouvelle page |
+
+Ne jamais créer ou modifier une page sans avoir lu `proactifs-design` au préalable.
+
+## Priorité business 2026
+
+**Objectif prioritaire des 3 prochains mois : SEO local Colombes / Hauts-de-Seine (92).**
+
+Toute nouvelle page ou optimisation doit renforcer ce positionnement :
+- Mention explicite des villes cibles (Colombes, Asnières, Courbevoie, Levallois, Nanterre)
+- Schema `LocalBusiness` avec `areaServed` étendu
+- Maillage renforcé entre pages villes et `/bilan-patrimonial`
+
 ## Rôle de l'Agent
 
 Tu es un agent SEO éditeur. Quand on te demande d'optimiser le SEO :
 1. Lis les fichiers HTML concernés
 2. Propose les modifications (titre, meta, OG, schema.org, alt, headings, maillage interne)
-3. Attends validation avant d'écrire
+3. **Attends validation explicite avant d'écrire** (préférence confirmée — juin 2026)
 4. Modifie directement les fichiers HTML
 5. Résume les changements pour le message de commit
+
+**Règle absolue : ne jamais écrire sans validation préalable, même pour les petites modifs.**
 
 ## Pages du Site
 
@@ -57,18 +84,15 @@ Tu es un agent SEO éditeur. Quand on te demande d'optimiser le SEO :
 | `conseiller-patrimoine-nanterre.html` | /conseiller-patrimoine-nanterre | Nanterre |
 
 ### Blog (`blog/`)
-| Fichier | Sujet |
-|---|---|
-| `blog/index.html` | Index du blog |
-| `blog/donation-vivant-2026.html` | Donation du vivant |
-| `blog/lmnp-2026.html` | LMNP 2026 |
-| `blog/per-vs-assurance-vie-2026.html` | PER vs assurance-vie |
-| `blog/reduire-impots-2026.html` | Réduire ses impôts |
-| `blog/sci-familiale-2026.html` | SCI familiale |
-| `blog/scpi-2026.html` | SCPI 2026 |
-| `blog/investir-immobilier-ancien-ile-de-france-avantages-fiscaux-2026.html` | Immobilier ancien IDF 2026 |
-| `blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026.html` | Patrimoine dirigeants 2026 |
-| `blog/donation-vivant-patrimoine.html` | Donation vivant — stratégies patrimoniales |
+La liste complète et à jour est maintenue dans `blog/SEO-ARTICLES-SUIVI.md`.
+Mettre à jour ce fichier à chaque article créé ou publié.
+
+## Projet annexe (hors périmètre)
+
+Le dossier `agent-seo-proactifs/` est une **application Next.js séparée** déployée sur agent-seo-proactifs-v2.vercel.app.
+
+**Ne pas le modifier dans le cadre des optimisations SEO du site principal.** 
+Stack différente (Next.js + TypeScript + Tailwind), workflow indépendant.
 
 ## Mots-Clés Cibles
 
@@ -114,49 +138,31 @@ Ces règles s'appliquent à TOUT le contenu écrit ou modifié :
 **CTA autorisés :** "Prendre rendez-vous", "Demander un bilan patrimonial", "Échanger avec Medy"  
 **CTA interdits :** toute formulation impliquant gratuité, indépendance ou promesse de rendement
 
-## Standard SEO à Appliquer
+## Standard SEO résumé
 
-### Chaque `<head>` doit contenir
-```html
-<title>[Mot-clé principal] | Proactifs Conseils</title>
-<meta name="description" content="[140–160 car. — bénéfice + localisation + CTA]">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://proactifsconseils.fr/[slug]">
+→ **Détail complet dans `SEO-STANDARDS.md`** (head, schema, canonicals, images, maillage, Core Web Vitals, E-E-A-T).
 
-<!-- Open Graph -->
-<meta property="og:title" content="[Titre page]">
-<meta property="og:description" content="[Meta description]">
-<meta property="og:url" content="https://proactifsconseils.fr/[slug]">
-<meta property="og:image" content="https://proactifsconseils.fr/images/og-default.jpg">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="fr_FR">
-```
+Rappels rapides :
+- Title 50-60 car., meta description 140-160 car., canonical non-www
+- Schema.org adapté (LocalBusiness / Service / Article / FAQPage)
+- Open Graph complet en `fr_FR`
+- `alt` descriptif sur toutes les images
+- Maillage : chaque page service → `/bilan-patrimonial`
 
-### Schema.org par type de page
-- **Homepage + page locale :** `LocalBusiness` + `FinancialService`
-- **Pages services :** `Service` imbriqué dans `FinancialService`
-- **Articles de blog :** `Article` avec `author`, `datePublished`, `dateModified`
-- **FAQ (si présente) :** `FAQPage`
+## Workflow Git + Checklist Pré-Commit
 
-### Canonicals
-- Toujours utiliser **non-www** : `https://proactifsconseils.fr/[slug]`
-- Le redirect www → non-www est configuré dans `vercel.json`
+**Avant chaque `git commit`, vérifier :**
+- [ ] Aucun terme MIF2 interdit (indépendant, gratuit, meilleur produit…)
+- [ ] Toutes les `<img>` ont un `alt` descriptif (pas vide, pas nom de fichier)
+- [ ] Canonical présent et en non-www
+- [ ] Schema.org adapté au type de page
+- [ ] Lien de maillage vers `/bilan-patrimonial` présent (sur page service)
+- [ ] Open Graph complet
+- [ ] Title et meta description respectent les longueurs cibles
 
-### Images
-- Tout `<img>` doit avoir `alt="[description précise]"` — jamais vide, jamais juste le nom de fichier
-- Exemple correct : `alt="Medy, conseiller en gestion de patrimoine à Colombes"`
-
-### Maillage interne
-- Chaque page de service pointe vers `/bilan-patrimonial` (conversion)
-- Chaque article de blog pointe vers la page de service la plus proche
-- La homepage liste toutes les pages de services avec liens
-
-## Workflow Git
-
-Après modification des fichiers :
 ```bash
 git add [fichiers modifiés]
-git commit -m "SEO: [description courte des changements]"
+git commit -m "SEO: [description courte]"
 git push origin main
 ```
 Vercel déploie automatiquement en ~30 secondes.
@@ -165,6 +171,7 @@ Vercel déploie automatiquement en ~30 secondes.
 
 Navigation dropdown "Nos services" ajoutée sur les 32 pages (juin 2026 — commit 3bcff23).
 Toutes les priorités urgentes et hautes ont été traitées (mai 2026). Prochaines actions :
-1. Enrichir le maillage interne depuis les articles publiés (RSU, dirigeants, donation) vers `/bilan-patrimonial`
-2. Surveiller CTR sur `/investissement-immobilier-ancien` et `/fiscalite-rsu-stock-options`
-3. Créer articles RSU depuis la roadmap (10 articles prévus — voir mémoire `roadmap-articles-rsu.md`)
+1. **Densifier le maillage local Colombes/92** depuis chaque page principale et chaque article
+2. **Renforcer le schema LocalBusiness** avec `areaServed` étendu sur pages villes et homepage
+3. **Articles RSU** depuis la roadmap (10 articles prévus — voir mémoire `roadmap-articles-rsu.md`)
+4. **Surveiller le CTR** sur `/investissement-immobilier-ancien` et `/fiscalite-rsu-stock-options` via Google Search Console
