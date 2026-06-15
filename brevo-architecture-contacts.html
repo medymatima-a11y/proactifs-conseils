@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Architecture Contacts Brevo — Proactifs Conseils</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 13px; color: #1a1a2e; background: #f8f9fb; padding: 24px; }
+
+  h1 { font-size: 20px; font-weight: 700; color: #111827; margin-bottom: 4px; }
+  .subtitle { color: #6b7280; font-size: 13px; margin-bottom: 24px; }
+
+  /* KPI row */
+  .kpi-row { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+  .kpi { background: #fff; border: 1.5px solid #e5e7eb; border-radius: 10px; padding: 12px 20px; text-align: center; flex: 1; min-width: 110px; }
+  .kpi .num { font-size: 26px; font-weight: 700; color: #2563eb; }
+  .kpi .label { font-size: 11px; color: #6b7280; margin-top: 3px; text-transform: uppercase; letter-spacing: .5px; }
+
+  /* Section titles */
+  .section-title { font-size: 14px; font-weight: 700; color: #374151; margin-bottom: 10px; padding-left: 2px; border-left: 3px solid #2563eb; padding-left: 8px; }
+
+  /* Folders grid */
+  .folders-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 24px; }
+
+  .folder { background: #fff; border: 1.5px solid #e5e7eb; border-radius: 10px; overflow: hidden; }
+  .folder-header { padding: 9px 14px; font-weight: 700; font-size: 12px; letter-spacing: .5px; text-transform: uppercase; display: flex; align-items: center; gap: 7px; }
+  .fh-clients  { background: #dbeafe; color: #1e40af; }
+  .fh-web      { background: #d1fae5; color: #065f46; }
+  .fh-conv     { background: #fef3c7; color: #92400e; }
+  .fh-other    { background: #f3f4f6; color: #4b5563; }
+
+  .list-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 14px; border-top: 1px solid #f3f4f6; }
+  .list-item:hover { background: #f9fafb; }
+  .list-name { color: #374151; }
+  .list-count { font-weight: 600; font-size: 12px; padding: 1px 8px; border-radius: 10px; background: #f3f4f6; color: #6b7280; }
+  .list-count.high { background: #dbeafe; color: #1d4ed8; }
+  .list-count.medium { background: #e0f2fe; color: #0369a1; }
+  .list-count.zero { background: #fef2f2; color: #dc2626; }
+
+  /* Bottom 3-col grid */
+  .bottom-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 24px; }
+
+  .card { background: #fff; border: 1.5px solid #e5e7eb; border-radius: 10px; overflow: hidden; }
+  .card-header { padding: 9px 14px; font-weight: 700; font-size: 12px; letter-spacing: .5px; text-transform: uppercase; }
+  .ch-seg  { background: #fdf4ff; color: #6b21a8; }
+  .ch-attr { background: #fff7ed; color: #9a3412; }
+  .ch-obs  { background: #fef9c3; color: #854d0e; }
+
+  .tag-grid { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 14px; }
+  .tag { font-size: 12px; padding: 3px 10px; border-radius: 20px; }
+  .tag-seg  { background: #f3e8ff; color: #7c3aed; }
+  .tag-attr { background: #ffedd5; color: #c2410c; }
+  .tag-attr.highlight { background: #fef08a; color: #713f12; font-weight: 700; }
+
+  /* Observations */
+  .obs-list { padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
+  .obs { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 1.5; color: #374151; }
+  .obs .badge { flex-shrink: 0; padding: 1px 7px; border-radius: 10px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+  .badge-warn  { background: #fef3c7; color: #92400e; }
+  .badge-info  { background: #dbeafe; color: #1e40af; }
+  .badge-ok    { background: #d1fae5; color: #065f46; }
+
+  /* Overlap table */
+  .overlap-section { margin-bottom: 24px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border: 1.5px solid #e5e7eb; border-radius: 10px; overflow: hidden; }
+  th { background: #f9fafb; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: #6b7280; padding: 8px 14px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+  td { padding: 7px 14px; border-bottom: 1px solid #f3f4f6; font-size: 12px; color: #374151; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #f9fafb; }
+  .status-overlap { color: #d97706; font-weight: 600; }
+  .status-ok      { color: #059669; font-weight: 600; }
+  .status-empty   { color: #dc2626; font-weight: 600; }
+
+  footer { font-size: 11px; color: #9ca3af; text-align: center; border-top: 1px solid #e5e7eb; padding-top: 12px; }
+</style>
+</head>
+<body>
+
+<h1>Architecture Contacts Brevo — Proactifs Conseils</h1>
+<p class="subtitle">Extrait le 11 juin 2026 · Compte Brevo medymatima@gmail.com</p>
+
+<!-- KPIs -->
+<div class="kpi-row">
+  <div class="kpi"><div class="num">1 034</div><div class="label">Contacts total</div></div>
+  <div class="kpi"><div class="num">4</div><div class="label">Dossiers</div></div>
+  <div class="kpi"><div class="num">19</div><div class="label">Listes</div></div>
+  <div class="kpi"><div class="num">10</div><div class="label">Segments</div></div>
+  <div class="kpi"><div class="num">16</div><div class="label">Attributs</div></div>
+</div>
+
+<!-- LISTES PAR DOSSIER -->
+<div class="section-title">Listes par dossier</div>
+<div class="folders-grid">
+
+  <div class="folder">
+    <div class="folder-header fh-clients">📁 Clients · 12 listes</div>
+    <div class="list-item"><span class="list-name">CRM Proactifs Conseils <em style="color:#9ca3af;font-size:11px;">(id 22)</em></span><span class="list-count high">380</span></div>
+    <div class="list-item"><span class="list-name">Prospects Gdpe <em style="color:#9ca3af;font-size:11px;">(id 6)</em></span><span class="list-count high">243</span></div>
+    <div class="list-item"><span class="list-name">Prospects Outlook <em style="color:#9ca3af;font-size:11px;">(id 5)</em></span><span class="list-count medium">114</span></div>
+    <div class="list-item"><span class="list-name">Mes clients <em style="color:#9ca3af;font-size:11px;">(id 16)</em></span><span class="list-count medium">109</span></div>
+    <div class="list-item"><span class="list-name">Prospects JDA <em style="color:#9ca3af;font-size:11px;">(id 10)</em></span><span class="list-count medium">92</span></div>
+    <div class="list-item"><span class="list-name">Mes clients prospects <em style="color:#9ca3af;font-size:11px;">(id 21)</em></span><span class="list-count">61</span></div>
+    <div class="list-item"><span class="list-name">Clients N.Charles <em style="color:#9ca3af;font-size:11px;">(id 17)</em></span><span class="list-count">61</span></div>
+    <div class="list-item"><span class="list-name">Prospects Colombes <em style="color:#9ca3af;font-size:11px;">(id 7)</em></span><span class="list-count">59</span></div>
+    <div class="list-item"><span class="list-name">Contact clients <em style="color:#9ca3af;font-size:11px;">(id 4)</em></span><span class="list-count">34</span></div>
+    <div class="list-item"><span class="list-name">Clients T.Ronald <em style="color:#9ca3af;font-size:11px;">(id 18)</em></span><span class="list-count">10</span></div>
+    <div class="list-item"><span class="list-name">Partenaires <em style="color:#9ca3af;font-size:11px;">(id 20)</em></span><span class="list-count">9</span></div>
+    <div class="list-item"><span class="list-name">Consultants <em style="color:#9ca3af;font-size:11px;">(id 19)</em></span><span class="list-count">9</span></div>
+  </div>
+
+  <div class="folder">
+    <div class="folder-header fh-web">📁 Web marketing · 5 listes</div>
+    <div class="list-item"><span class="list-name">Leads Bark <em style="color:#9ca3af;font-size:11px;">(id 15)</em></span><span class="list-count medium">103</span></div>
+    <div class="list-item"><span class="list-name">Leads site Proactifs Conseils <em style="color:#9ca3af;font-size:11px;">(id 14)</em></span><span class="list-count">3</span></div>
+    <div class="list-item"><span class="list-name">Leads Quiz <em style="color:#9ca3af;font-size:11px;">(id 23)</em></span><span class="list-count">1</span></div>
+    <div class="list-item"><span class="list-name">Contacts formulaire <em style="color:#9ca3af;font-size:11px;">(id 11)</em></span><span class="list-count zero">0</span></div>
+    <div class="list-item"><span class="list-name">identified_contacts <em style="color:#9ca3af;font-size:11px;">(id 9)</em></span><span class="list-count zero">0</span></div>
+
+    <div class="folder-header fh-conv" style="margin-top:12px;">💬 Conversations · 1 liste</div>
+    <div class="list-item"><span class="list-name">Contacts conversations <em style="color:#9ca3af;font-size:11px;">(id 13)</em></span><span class="list-count">1</span></div>
+
+    <div class="folder-header fh-other" style="margin-top:12px;">📁 Défaut · 1 liste</div>
+    <div class="list-item"><span class="list-name">Votre première liste <em style="color:#9ca3af;font-size:11px;">(id 2)</em></span><span class="list-count">5</span></div>
+  </div>
+
+</div>
+
+<!-- SEGMENTS + ATTRIBUTS + OBSERVATIONS -->
+<div class="section-title">Segments, Attributs &amp; Observations</div>
+<div class="bottom-grid">
+
+  <div class="card">
+    <div class="card-header ch-seg">🔍 Segments dynamiques (10)</div>
+    <div class="tag-grid">
+      <span class="tag tag-seg">Mes Clients <em style="font-size:10px;">#1</em></span>
+      <span class="tag tag-seg">Externe <em style="font-size:10px;">#2</em></span>
+      <span class="tag tag-seg">Consultant <em style="font-size:10px;">#3</em></span>
+      <span class="tag tag-seg">Partenaire <em style="font-size:10px;">#4</em></span>
+      <span class="tag tag-seg">Brassard <em style="font-size:10px;">#5</em></span>
+      <span class="tag tag-seg">JDA <em style="font-size:10px;">#6</em></span>
+      <span class="tag tag-seg">Prospect <em style="font-size:10px;">#7</em></span>
+      <span class="tag tag-seg">Nautique Gdpe <em style="font-size:10px;">#8</em></span>
+      <span class="tag tag-seg">Proscpects Outlook <em style="font-size:10px;">#9</em></span>
+      <span class="tag tag-seg">Non-ouverts Guide 5 erreurs <em style="font-size:10px;">#10</em></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header ch-attr">🏷️ Attributs de contact (16)</div>
+    <div class="tag-grid">
+      <span class="tag tag-attr">NOM</span>
+      <span class="tag tag-attr">PRENOM</span>
+      <span class="tag tag-attr highlight">BALISE</span>
+      <span class="tag tag-attr highlight">STATUT_LEAD</span>
+      <span class="tag tag-attr highlight">SEGMENT</span>
+      <span class="tag tag-attr highlight">SOURCE</span>
+      <span class="tag tag-attr">THEMATIQUE</span>
+      <span class="tag tag-attr">JOB_TITLE</span>
+      <span class="tag tag-attr">LINKEDIN</span>
+      <span class="tag tag-attr">DATE_DE_NAISSANCE</span>
+      <span class="tag tag-attr">OPT_IN</span>
+      <span class="tag tag-attr">DOUBLE_OPT-IN</span>
+      <span class="tag tag-attr">SMS</span>
+      <span class="tag tag-attr">WHATSAPP</span>
+      <span class="tag tag-attr">EXT_ID</span>
+      <span class="tag tag-attr">CONTACT_TIMEZONE</span>
+    </div>
+    <div style="padding:4px 14px 10px;font-size:11px;color:#9ca3af;">🟡 En surbrillance : champs de qualification à clarifier</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header ch-obs">⚠️ Points d'attention</div>
+    <div class="obs-list">
+      <div class="obs"><span class="badge badge-warn">Doublon</span>Plusieurs listes "clients" se chevauchent probablement : Mes clients (109), Contact clients (34), N.Charles (61), T.Ronald (10).</div>
+      <div class="obs"><span class="badge badge-warn">Doublon</span>4 attributs de qualification coexistent sans convention : BALISE, STATUT_LEAD, SEGMENT, SOURCE.</div>
+      <div class="obs"><span class="badge badge-info">À surveiller</span>Leads site Proactifs (3 contacts) et formulaire (0) — à monitorer après l'envoi de la campagne du 12 juin.</div>
+      <div class="obs"><span class="badge badge-warn">Typo</span>Segment #9 : "Proscpects Outlook" (faute de frappe).</div>
+      <div class="obs"><span class="badge badge-ok">Positif</span>CRM Proactifs Conseils (380) = liste principale bien identifiée — base solide pour les campagnes.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- DÉTAIL LISTES — tableau récapitulatif -->
+<div class="section-title">Récapitulatif complet des listes</div>
+<div class="overlap-section">
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom de la liste</th>
+      <th>Dossier</th>
+      <th>Contacts uniques</th>
+      <th>Statut</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>22</td><td>CRM Proactifs Conseils</td><td>Clients</td><td>380</td><td class="status-ok">✓ Liste principale</td></tr>
+    <tr><td>6</td><td>Prospects Gdpe</td><td>Clients</td><td>243</td><td class="status-overlap">⚠ Probable overlap avec id 22</td></tr>
+    <tr><td>5</td><td>Prospects Outlook</td><td>Clients</td><td>114</td><td class="status-overlap">⚠ Probable overlap avec id 22</td></tr>
+    <tr><td>16</td><td>Mes clients</td><td>Clients</td><td>109</td><td class="status-overlap">⚠ Chevauchement id 4, 17, 18</td></tr>
+    <tr><td>15</td><td>Leads Bark</td><td>Web marketing</td><td>103</td><td class="status-ok">✓ Source distincte</td></tr>
+    <tr><td>10</td><td>Prospects JDA</td><td>Clients</td><td>92</td><td class="status-overlap">⚠ Probable overlap avec id 22</td></tr>
+    <tr><td>21</td><td>Mes clients prospects</td><td>Clients</td><td>61</td><td class="status-overlap">⚠ Doublon possible</td></tr>
+    <tr><td>17</td><td>Clients N.Charles</td><td>Clients</td><td>61</td><td class="status-ok">✓ Sous-portefeuille distinct</td></tr>
+    <tr><td>7</td><td>Prospects Colombes</td><td>Clients</td><td>59</td><td class="status-overlap">⚠ Probable overlap avec id 22</td></tr>
+    <tr><td>4</td><td>Contact clients</td><td>Clients</td><td>34</td><td class="status-overlap">⚠ Doublon probable</td></tr>
+    <tr><td>18</td><td>Clients T.Ronald</td><td>Clients</td><td>10</td><td class="status-ok">✓ Sous-portefeuille distinct</td></tr>
+    <tr><td>20</td><td>Partenaires</td><td>Clients</td><td>9</td><td class="status-ok">✓ Catégorie distincte</td></tr>
+    <tr><td>19</td><td>Consultants</td><td>Clients</td><td>9</td><td class="status-ok">✓ Catégorie distincte</td></tr>
+    <tr><td>14</td><td>Leads site Proactifs</td><td>Web marketing</td><td>3</td><td class="status-ok">✓ À développer</td></tr>
+    <tr><td>13</td><td>Contacts conversations</td><td>Conversations</td><td>1</td><td class="status-ok">✓ Auto-géré par Brevo</td></tr>
+    <tr><td>23</td><td>Leads Quiz</td><td>Web marketing</td><td>1</td><td class="status-ok">✓ À développer</td></tr>
+    <tr><td>2</td><td>Votre première liste</td><td>Défaut</td><td>5</td><td class="status-overlap">⚠ Liste par défaut — à migrer</td></tr>
+    <tr><td>11</td><td>Contacts formulaire</td><td>Web marketing</td><td>0</td><td class="status-empty">✗ Vide — formulaire non branché ?</td></tr>
+    <tr><td>9</td><td>identified_contacts</td><td>Web marketing</td><td>0</td><td class="status-empty">✗ Vide — tracking non actif ?</td></tr>
+  </tbody>
+</table>
+</div>
+
+<footer>Proactifs Conseils · Généré par Claude · 11 juin 2026</footer>
+
+</body>
+</html>

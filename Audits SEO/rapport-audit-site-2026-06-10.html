@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit du site proactifsconseils.fr — 10 juin 2026</title>
+<style>
+  :root{--vert:#1f6f54;--orange:#c47b2a;--rouge:#b3402e;--encre:#1c2520;--fond:#faf8f4;}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--fond);color:var(--encre);margin:0;line-height:1.6;}
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px;}
+  h1{font-size:1.7rem;border-bottom:3px solid var(--vert);padding-bottom:10px;}
+  h2{color:var(--vert);margin-top:36px;font-size:1.25rem;}
+  .meta{color:#666;font-size:.9rem;}
+  .score{display:flex;gap:14px;flex-wrap:wrap;margin:24px 0;}
+  .card{background:#fff;border:1px solid #e3ded4;border-radius:10px;padding:16px 20px;flex:1;min-width:160px;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+  .card b{display:block;font-size:1.5rem;}
+  .ok{color:var(--vert);} .warn{color:var(--orange);} .ko{color:var(--rouge);}
+  table{width:100%;border-collapse:collapse;background:#fff;font-size:.92rem;}
+  th,td{border:1px solid #e3ded4;padding:8px 10px;text-align:left;vertical-align:top;}
+  th{background:#eef3ef;}
+  .badge{display:inline-block;padding:2px 9px;border-radius:12px;font-size:.78rem;font-weight:600;color:#fff;}
+  .b-ok{background:var(--vert);} .b-warn{background:var(--orange);} .b-ko{background:var(--rouge);}
+  ul{padding-left:20px;}
+  footer{margin-top:40px;font-size:.85rem;color:#777;border-top:1px solid #e3ded4;padding-top:14px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Audit du site proactifsconseils.fr</h1>
+<p class="meta">Audit complet — construction, fiabilité, SEO, conformité · 10 juin 2026 · 37 pages HTML analysées (local + production)</p>
+
+<div class="score">
+  <div class="card"><b class="ok">A</b>Construction technique</div>
+  <div class="card"><b class="ok">A−</b>SEO on-page</div>
+  <div class="card"><b class="ok">B+</b>Fiabilité / sécurité</div>
+  <div class="card"><b class="warn">B</b>Hygiène du dépôt</div>
+</div>
+
+<h2>1. Construction</h2>
+<p>Site 100 % statique HTML/CSS/JS vanilla, sans CMS ni build step, déployé sur Vercel via GitHub (branche <code>main</code>, déploiement automatique). Architecture saine et très rapide par nature : aucune base de données, une seule dépendance JS externe (Google Analytics gtag). Polices Google Fonts avec <code>preconnect</code>, images au format WebP, URLs propres gérées par <code>vercel.json</code> (cleanUrls, 32 rewrites, redirections www→non-www et anciennes URLs en 301). Un sous-domaine dédié <code>pret-immobilier.proactifsconseils.fr</code> est routé vers une landing spécifique. Le site comprend 27 pages racine + 10 pages blog, un <code>llms.txt</code>, un sitemap auto-régénéré par script (commit "[skip ci]" visible dans l'historique git).</p>
+
+<h2>2. Fiabilité &amp; sécurité</h2>
+<table>
+<tr><th>Point</th><th>État</th><th>Détail</th></tr>
+<tr><td>HTTPS + redirect www</td><td><span class="badge b-ok">OK</span></td><td>Canonical non-www, 301 configuré dans vercel.json</td></tr>
+<tr><td>En-têtes sécurité</td><td><span class="badge b-ok">OK</span></td><td>X-Content-Type-Options, X-Frame-Options, Referrer-Policy présents</td></tr>
+<tr><td>Content-Security-Policy</td><td><span class="badge b-warn">Absent</span></td><td>Non bloquant pour un site statique, mais recommandé (renforce contre XSS)</td></tr>
+<tr><td>Cache</td><td><span class="badge b-ok">OK</span></td><td>HTML : 1h + stale-while-revalidate ; sitemap/robots : 24h</td></tr>
+<tr><td>Surface d'attaque</td><td><span class="badge b-ok">Très faible</span></td><td>Pas de CMS, pas de plugin, un seul script tiers (GA4)</td></tr>
+<tr><td>Rewrite orphelin</td><td><span class="badge b-ko">Bug</span></td><td><code>/le-gestionnaire-de-patrimoine</code> est routé dans vercel.json mais le fichier HTML n'existe pas → 404</td></tr>
+</table>
+
+<h2>3. SEO on-page</h2>
+<ul>
+  <li><b class="ok">Excellent socle</b> : les 35 pages indexables ont toutes title, meta description, canonical et schema.org (FinancialService, LocalBusiness, Service, Article, FAQPage selon le type). Open Graph + Twitter Cards complets sur la homepage. Aucun <code>alt</code> vide détecté. robots.txt et sitemap (32 URLs) propres.</li>
+  <li><b class="warn">Pages utilitaires</b> : <code>404.html</code> et <code>merci-guide.html</code> sans canonical ni meta description — à passer en <code>noindex</code> de préférence (pages de service, pas de valeur SEO).</li>
+  <li><b class="warn">Doublons racine/blog</b> : <code>donation-vivant-patrimoine.html</code> et <code>gestion-patrimoine-entreprise-dirigeants-strategies-2026.html</code> existent en deux exemplaires (racine + blog). Pour "gestion-patrimoine-dirigeants", les deux canonicals divergent (l'un vers la racine, l'autre vers /blog/...) → risque de dilution. À unifier : une seule URL canonique, l'autre en redirect 301.</li>
+  <li><b class="ok">Maillage interne</b> : homepage liste tous les services, footer riche (services + pages villes), pages services → /bilan-patrimonial. Conforme à la stratégie.</li>
+</ul>
+
+<h2>4. Conformité MIF2</h2>
+<ul>
+  <li>Les occurrences de "gratuit" détectées correspondent presque toutes à "actions gratuites" (terme financier légitime, RSU) — conforme.</li>
+  <li><b class="ko">Point à corriger</b> : sur la homepage, section "Notre méthode", l'étape 1 indique <i>"Analyse complète… objectifs de vie., sans frais"</i>. "Sans frais" contredit la règle (le bilan est payant) + coquille typographique ("vie.,"). À corriger.</li>
+  <li>Aucune mention de "conseiller indépendant" ou "sans conflit d'intérêt" détectée — conforme.</li>
+</ul>
+
+<h2>5. Hygiène du dépôt</h2>
+<ul>
+  <li>Fichiers temporaires versionnés à supprimer : <code>vercel.json.tmp.36796…</code>, <code>vercel.json.tmp.46932…</code>, dossiers <code>.backup-canonicals…</code> et <code>.backup-cleanup…</code>, <code>push_backlinks.bat</code>.</li>
+  <li>Liens "Mentions légales" et "Politique de confidentialité" affichés dans le footer mais apparemment non cliquables / sans pages dédiées — à vérifier (obligation légale pour un CIF).</li>
+</ul>
+
+<h2>6. Actions recommandées (par priorité)</h2>
+<table>
+<tr><th>#</th><th>Action</th><th>Priorité</th></tr>
+<tr><td>1</td><td>Corriger "sans frais" + coquille sur la homepage (conformité MIF2)</td><td><span class="badge b-ko">Haute</span></td></tr>
+<tr><td>2</td><td>Créer ou supprimer la route <code>/le-gestionnaire-de-patrimoine</code> (404 actuelle)</td><td><span class="badge b-ko">Haute</span></td></tr>
+<tr><td>3</td><td>Vérifier/créer les pages Mentions légales &amp; Confidentialité</td><td><span class="badge b-ko">Haute</span></td></tr>
+<tr><td>4</td><td>Unifier les doublons racine/blog (canonicals + 301)</td><td><span class="badge b-warn">Moyenne</span></td></tr>
+<tr><td>5</td><td>Noindex sur 404.html et merci-guide.html</td><td><span class="badge b-warn">Moyenne</span></td></tr>
+<tr><td>6</td><td>Nettoyer fichiers .tmp et dossiers .backup du dépôt</td><td><span class="badge b-warn">Moyenne</span></td></tr>
+<tr><td>7</td><td>Ajouter une Content-Security-Policy dans vercel.json</td><td><span class="badge b-ok">Basse</span></td></tr>
+</table>
+
+<h2>Verdict</h2>
+<p>Site bien construit et fiable : stack statique minimaliste, déploiement automatisé propre, socle SEO solide et homogène sur les 35 pages indexables. Les points faibles sont mineurs et corrigeables en moins d'une heure : une formulation non conforme MIF2 sur la homepage, une route 404, deux doublons de contenu et un peu de ménage dans le dépôt.</p>
+
+<footer>Rapport généré par Claude · Sources : fichiers du dépôt local (Dropbox) et site en production proactifsconseils.fr · 10/06/2026</footer>
+</div>
+</body>
+</html>

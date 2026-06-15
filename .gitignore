@@ -1,3 +1,16 @@
 # Internal SEO backups (ne pas committer)
 .backup-canonicals-*/
 .backup-cleanup-*/
+
+# Skills Claude (binaires zip) — ne pas committer dans le repo site
+*.skill
+
+# Notes de travail / mises à jour de skills
+*-SKILL-update.md
+*-SKILL-update.txt
+
+# Scripts temporaires (marqués "temp-" dans le nom)
+scripts/temp-*
+
+# Fichiers .tmp de Dropbox
+*.tmp.*
