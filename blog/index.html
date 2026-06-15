@@ -79,6 +79,60 @@
     #nav:not(.scrolled) .nav-links a { color: var(--white); }
     #nav:not(.scrolled) .nav-links a:hover { color: var(--gold-light); }
     #nav:not(.scrolled) .nav-links a.active { color: var(--gold-light); }
+
+/* === Dropdown nav (uniformisation avec autres blogs) === */
+.nav-dropdown { position: relative; }
+.nav-dropdown::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: -20px;
+  right: -20px;
+  height: 14px;
+}
+.dropdown-toggle { display: flex !important; align-items: center; gap: 5px; }
+.chevron { font-size: 9px; transition: transform .2s; line-height: 1; pointer-events: none; }
+.nav-dropdown:hover .chevron,
+.nav-dropdown:focus-within .chevron { transform: rotate(180deg); }
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: -20px;
+  min-width: 240px;
+  background: #fff;
+  border: 1px solid rgba(17,24,39,.08);
+  border-radius: 8px;
+  box-shadow: 0 14px 40px rgba(17,24,39,.12);
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 8px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .18s, transform .18s, visibility .18s;
+  z-index: 200;
+}
+.dropdown-menu li { margin: 0; }
+.dropdown-menu a {
+  display: block;
+  padding: 9px 18px;
+  color: var(--ink) !important;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background .15s, color .15s;
+}
+.dropdown-menu a:hover { background: var(--gold-pale, #FBF4E3); color: var(--gold) !important; }
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown:focus-within .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+@media (max-width: 900px) {
+  .dropdown-menu { display: none !important; }
+}
+
     .nav-cta-btn {
       background: var(--gold); color: var(--ink); padding: 10px 24px;
       border-radius: var(--r-md); text-decoration: none; font-weight: 600;
@@ -270,7 +324,20 @@
     <img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:48px;width:auto;display:block;opacity:.9">
   </a>
   <ul class="nav-links">
-    <li><a href="/#services">Nos services</a></li>
+    <li class="nav-dropdown">
+      <a href="/#services" class="dropdown-toggle">Nos services <span class="chevron">▾</span></a>
+      <ul class="dropdown-menu">
+        <li><a href="/bilan-patrimonial">Bilan patrimonial</a></li>
+        <li><a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a></li>
+        <li><a href="/preparation-retraite">Préparation retraite</a></li>
+        <li><a href="/transmission">Transmission de patrimoine</a></li>
+        <li><a href="/cession-entreprise">Cession d'entreprise</a></li>
+        <li><a href="/investissement-immobilier">Investissement immobilier</a></li>
+        <li><a href="/investissement-scpi-hauts-de-seine">SCPI Hauts-de-Seine</a></li>
+        <li><a href="/courtage-credit-immobilier">Crédit immobilier</a></li>
+        <li><a href="/declaration-impots-ile-de-france">Déclaration d'impôts</a></li>
+      </ul>
+    </li>
     <li><a href="/#simulateurs">Simulateurs</a></li>
     <li><a href="/#approche">Notre approche</a></li>
     <li><a href="/#temoignages">Témoignages</a></li>
@@ -280,16 +347,24 @@
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
-  <a href="/bilan-patrimonial-gratuit" class="nav-cta-btn">Prendre rendez-vous</a>
+  <a href="/bilan-patrimonial" class="nav-cta-btn">Prendre rendez-vous</a>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="/#services">Nos services</a>
+  <a href="/bilan-patrimonial">Bilan patrimonial</a>
+  <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
+  <a href="/preparation-retraite">Préparation retraite</a>
+  <a href="/transmission">Transmission de patrimoine</a>
+  <a href="/cession-entreprise">Cession d'entreprise</a>
+  <a href="/investissement-immobilier">Investissement immobilier</a>
+  <a href="/investissement-scpi-hauts-de-seine">SCPI Hauts-de-Seine</a>
+  <a href="/courtage-credit-immobilier">Crédit immobilier</a>
+  <a href="/declaration-impots-ile-de-france">Déclaration d'impôts</a>
   <a href="/#simulateurs">Simulateurs</a>
   <a href="/#approche">Notre approche</a>
   <a href="/#temoignages">Témoignages</a>
   <a href="/#contact">Contact</a>
   <a href="/blog" style="color:var(--gold)">Blog</a>
-  <a href="/bilan-patrimonial-gratuit" style="background:var(--gold);color:var(--ink);border-radius:8px;text-align:center">Prendre rendez-vous</a>
+  <a href="/bilan-patrimonial" style="background:var(--gold);color:var(--ink);border-radius:8px;text-align:center">Prendre rendez-vous</a>
 </div>
 
 <!-- HERO -->
@@ -439,7 +514,7 @@
         <p>Les articles donnent le cadre général. Ce qui compte, c'est l'adapter à votre patrimoine, votre tranche d'imposition, vos objectifs.</p>
       </div>
       <div class="newsletter-action">
-        <a href="/bilan-patrimonial-gratuit" class="btn-gold">Prendre rendez-vous</a>
+        <a href="/bilan-patrimonial" class="btn-gold">Prendre rendez-vous</a>
         <a href="/#contact" class="btn-outline">Nous contacter</a>
       </div>
     </div>
@@ -477,8 +552,8 @@
     <div class="footer-bottom">
       <span>© 2026 Proactifs Conseils · Medy Matima, CGP</span>
       <div style="display:flex;gap:20px">
-        <a href="/bilan-patrimonial-gratuit">Mentions légales</a>
-        <a href="/bilan-patrimonial-gratuit">Politique de confidentialité</a>
+        <a href="/bilan-patrimonial">Mentions légales</a>
+        <a href="/bilan-patrimonial">Politique de confidentialité</a>
       </div>
     </div>
   </div>
