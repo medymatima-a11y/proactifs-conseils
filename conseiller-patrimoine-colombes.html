@@ -1096,4 +1096,43 @@
   "description": "Cabinet de gestion de patrimoine à Colombes (92)",
   "url": "https://proactifsconseils.fr/conseiller-patrimoine-colombes",
   "telephone": "+33184782830",
-  "email": "contact@proactifsconseils.f                                                        
+  "email": "contact@proactifsconseils.fr",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "54 Rue du Bournard",
+    "addressLocality": "Colombes",
+    "postalCode": "92700",
+    "addressCountry": "FR"
+  },
+  "areaServed": ["Hauts-de-Seine", "Île-de-France"],
+  "foundingYear": "2016",
+  "priceRange": "Sur devis"
+}
+</script>
+
+<script>
+// NAV SCROLL
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+  document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+});
+
+// HAMBURGER MENU
+document.getElementById('hamburger').addEventListener('click', function() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+  this.classList.toggle('open');
+});
+
+// REVEAL ON SCROLL
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

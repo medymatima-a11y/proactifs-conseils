@@ -1007,4 +1007,26 @@
         'Charges : crédits ' + (document.getElementById('wz-credits').value || '0') + ' € + loyer ' + (document.getElementById('wz-loyer').value || '0') + ' €',
         'Apport : ' + (wzData.apport || 0).toLocaleString('fr-FR') + ' € — Durée : ' + (wzData.duree || 20) + ' ans',
         'Avancement : ' + (wzData.step6 || '-'),
-        'Capacité estimée : ' + (wzData.capacite || 0).toLocaleString('fr-FR') + ' € (m
+        'Capacité estimée : ' + (wzData.capacite || 0).toLocaleString('fr-FR') + ' € (mensualité max ' + (wzData.mensMax || 0).toLocaleString('fr-FR') + ' €, taux ' + (wzData.tauxEstime || '-') + ' %)',
+      ];
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prenom, nom: '', email, tel, situation: wzData.step2 || '', service: 'credit', answers }),
+        });
+        if (res.ok) {
+          msgEl.className = 'wz-msg wz-msg-ok';
+          msgEl.textContent = '✓ Demande envoyée ! Un courtier vous recontacte sous 24h.';
+          btn.textContent = 'Envoyé ✓';
+        } else { throw new Error('err'); }
+      } catch (e) {
+        msgEl.className = 'wz-msg wz-msg-err';
+        msgEl.textContent = 'Une erreur est survenue. Réessayez ou appelez-nous au 01 84 78 28 30.';
+        btn.disabled = false;
+        btn.textContent = 'Envoyer ma demande';
+      }
+    }
+  </script>
+</body>
+</html>
