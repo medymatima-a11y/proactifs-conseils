@@ -725,6 +725,14 @@
   
 /* ── Dropdown nav ── */
 .nav-dropdown { position: relative; }
+.nav-dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: -20px;
+  right: -20px;
+  height: 14px;
+}
 .dropdown-toggle { display: flex !important; align-items: center; gap: 5px; }
 .chevron { font-size: 9px; transition: transform .2s; line-height: 1; pointer-events: none; }
 .nav-dropdown:hover .chevron,
