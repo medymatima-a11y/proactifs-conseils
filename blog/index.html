@@ -123,6 +123,20 @@
   transition: background .15s, color .15s;
 }
 .dropdown-menu a:hover { background: var(--gold-pale, #FBF4E3); color: var(--gold) !important; }
+.dropdown-menu li.dropdown-section {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #1E7A6E;
+  padding: 12px 14px 6px;
+  border-top: 1px solid #E5E2DA;
+  margin-top: 4px;
+  pointer-events: none;
+}
+.dropdown-menu li:first-child + li.dropdown-section { margin-top: 6px; }
+
 .nav-dropdown:hover .dropdown-menu,
 .nav-dropdown:focus-within .dropdown-menu {
   opacity: 1;
@@ -328,14 +342,18 @@
       <a href="/#services" class="dropdown-toggle">Nos services <span class="chevron">▾</span></a>
       <ul class="dropdown-menu">
         <li><a href="/bilan-patrimonial">Bilan patrimonial</a></li>
+        <li class="dropdown-section">Fiscalité</li>
         <li><a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a></li>
+        <li><a href="/declaration-impots-ile-de-france">Déclarer mes impôts</a></li>
+        <li><a href="/fiscalite-rsu-stock-options">Optimiser mes RSU</a></li>
+        <li class="dropdown-section">Investir &amp; financer</li>
+        <li><a href="/investissement-immobilier">Investissement immobilier</a></li>
+        <li><a href="/investissement-scpi-hauts-de-seine">SCPI Hauts-de-Seine</a></li>
+        <li><a href="/courtage-credit-immobilier">Obtenir un crédit</a></li>
+        <li class="dropdown-section">Projets de vie</li>
         <li><a href="/preparation-retraite">Préparation retraite</a></li>
         <li><a href="/transmission">Transmission de patrimoine</a></li>
         <li><a href="/cession-entreprise">Cession d'entreprise</a></li>
-        <li><a href="/investissement-immobilier">Investissement immobilier</a></li>
-        <li><a href="/investissement-scpi-hauts-de-seine">SCPI Hauts-de-Seine</a></li>
-        <li><a href="/courtage-credit-immobilier">Crédit immobilier</a></li>
-        <li><a href="/declaration-impots-ile-de-france">Déclaration d'impôts</a></li>
       </ul>
     </li>
     <li><a href="/#simulateurs">Simulateurs</a></li>
