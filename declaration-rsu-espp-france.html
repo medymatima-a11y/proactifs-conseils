@@ -853,4 +853,21 @@
     const nom = document.getElementById('wNom').value.trim();
     const email = document.getElementById('wEmail').value.trim();
     const tel = document.getElementById('wTel').value.trim();
-    const courtier = document.getElementById('wSituatio
+    const courtier = document.getElementById('wSituation').value;
+    if (!prenom || !nom || !email || !tel || !courtier) { alert('Veuillez remplir tous les champs.'); return; }
+    const payload = { prenom, nom, email, telephone: tel, source: 'wizard-actionnariat', answers: actioAnswers, page: 'declaration-rsu-espp-france', courtier };
+    try {
+      await fetch(_SB_URL + '/rest/v1/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': _SB_KEY, 'Authorization': 'Bearer ' + _SB_KEY, 'Prefer': 'return=minimal' },
+        body: JSON.stringify(payload)
+      });
+    } catch(e) { console.warn('Lead save error', e); }
+    document.getElementById('wizContact').style.display = 'none';
+    document.getElementById('wizThanks').style.display = 'block';
+    document.getElementById('wizProgressWrap').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
