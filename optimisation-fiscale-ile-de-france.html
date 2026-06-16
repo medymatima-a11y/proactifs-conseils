@@ -59,7 +59,8 @@
       left: 0;
       right: 0;
       height: 72px;
-      background: transparent;
+      background: rgba(250, 250, 247, 0.97);
+      box-shadow: 0 1px 0 var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -93,12 +94,6 @@
     .nav-links a:hover {
       color: var(--gold);
     }
-    #nav:not(.scrolled) .nav-links a {
-      color: var(--white);
-    }
-    #nav:not(.scrolled) .nav-links a:hover {
-      color: var(--gold-light);
-    }
     .nav-cta-btn {
       background: var(--gold);
       color: var(--ink);
@@ -128,9 +123,6 @@
       height: 2px;
       background: var(--ink);
       transition: all 0.3s ease;
-    }
-    #nav:not(.scrolled) .hamburger span {
-      background: var(--white);
     }
     .hamburger.open span:nth-child(1) {
       transform: rotate(45deg) translate(8px, 8px);
