@@ -31,6 +31,18 @@ Déployé sur Vercel via GitHub (branche `main`). Chaque `git push` déclenche u
 
 Ne jamais créer ou modifier une page sans avoir lu `proactifs-design` au préalable.
 
+### Vérification des chiffres fiscaux — MCP obligatoires
+
+Avant d'écrire un taux, abattement, plafond, délai ou article CGI dans une
+page, vérifier dans cet ordre (et **citer la source** dans le contenu ou
+en lien sortant) :
+
+1. **MCP `datagouv`** — données publiques chiffrées (DVF, Sirene, INSEE, DGFiP).
+2. **`WebFetch`/`WebSearch`** sur `bofip.impots.gouv.fr`, `legifrance.gouv.fr`,
+   `impots.gouv.fr`, `service-public.fr`.
+3. **Skill `patrimoine-fiscal-fr`** pour la consolidation interne.
+4. Sinon : marquer « à vérifier » ou demander à Medy. Aucun chiffre inventé.
+
 ## Priorité business 2026
 
 **Objectif prioritaire des 3 prochains mois : SEO local Colombes / Hauts-de-Seine (92).**

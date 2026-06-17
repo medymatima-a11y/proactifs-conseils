@@ -88,14 +88,21 @@ Le mot « offert » est banni du site.
 ## 5. Patrimoine & fiscalité — règle d'or
 
 Tout chiffre fiscal, abattement, plafond, article CGI, taux ou délai doit
-être :
+être **vérifié à une source citable**, dans cet ordre :
 
-- soit **vérifié** dans le skill `patrimoine-fiscal-fr` (s'il est chargé),
-- soit **explicitement marqué comme à vérifier** auprès de Medy,
-- soit **demandé** avant rédaction.
+1. **MCP `datagouv`** (`mcp__datagouv__search_datasets`, `query_resource_data`…)
+   pour les données publiques chiffrées (DVF, Sirene, INSEE, DGFiP).
+2. **`WebFetch` / `WebSearch`** sur sources officielles :
+   `bofip.impots.gouv.fr` → `legifrance.gouv.fr` → `impots.gouv.fr` →
+   `service-public.fr`. Citer l'URL et la date de mise à jour dans l'article.
+3. **Skill `patrimoine-fiscal-fr`** s'il est chargé (consolidation interne).
+4. Sinon **marquer explicitement comme à vérifier** auprès de Medy, ou
+   **demander** avant rédaction.
 
 **Jamais inventer un chiffre.** Mieux vaut une formule prudente
-(« sous réserve de vérification ») qu'un nombre faux.
+(« sous réserve de vérification ») qu'un nombre faux. Dans le HTML
+publié, citer la source en lien sortant `rel="noopener"` quand c'est
+pertinent (ex. lien BOFiP sur un BIC ou un abattement).
 
 Style rédactionnel : utiliser le skill `redaction-naturelle-fr` (registre
 chaleureux-proche ou institutionnel-distingué selon le sujet), pas le
@@ -164,4 +171,5 @@ Le push sur `main` déclenche un déploiement Vercel automatique
 
 ---
 
-*Dernière mise à jour : 2026-06-16*
+*Dernière mise à jour : 2026-06-17 (ajout MCP datagouv + sources officielles
+pour vérification des chiffres fiscaux).*
