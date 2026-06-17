@@ -18,6 +18,7 @@
 | Investir dans l'immobilier ancien en Île-de-France | `/blog/investir-immobilier-ancien-ile-de-france-avantages-fiscaux-2026` | immobilier ancien île-de-france avantages fiscaux | 2026-05 | ✅ Publié |
 | Gestion de patrimoine pour dirigeants d'entreprise | `/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026` | gestion patrimoine entreprise dirigeants 2026 | 2026-05 | ✅ Publié |
 | Donation de son vivant : stratégies patrimoniales | `/blog/donation-vivant-patrimoine` | donation de son vivant 2026 | 2026-05 | ✅ Publié |
+| Préparer sa retraite 2026 : 5 leviers patrimoniaux | `/blog/preparer-retraite-2026-leviers-patrimoniaux-juin` | préparer retraite 2026 leviers patrimoniaux | 2026-06 | ✅ Publié |
 
 ---
 
@@ -45,6 +46,12 @@
 - gestion patrimoine entreprise dirigeants
 - fiscalité RSU stock-options France
 - déclaration RSU ESPP impôts
+- préparer retraite 2026 leviers patrimoniaux
+- PER versement déductible 2026
+- combien épargner pour la retraite
+- retraite complémentaire chef d'entreprise
+- simulation retraite cadre
+- placement retraite Île-de-France
 
 ---
 
@@ -72,4 +79,4 @@ Quand tu crées un article, ajoute une ligne dans le tableau "Articles publiés"
 
 ---
 
-*Dernière mise à jour : 2026-06-14*
+*Dernière mise à jour : 2026-06-17*
