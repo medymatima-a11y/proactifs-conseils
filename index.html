@@ -2717,17 +2717,13 @@ async function wizSubmit() {
   }
 
   // ── Google Analytics / Ads conversion tracking ──
+  // Le nom d'event matche la conversion "Formulaire" reliée à Google Ads
+  // via GA4 (Objectifs → Conversions → action "Formulaire", source GA4).
   if (typeof gtag === 'function') {
-    gtag('event', 'generate_lead', {
+    gtag('event', 'ads_conversion_Formulaire_1', {
       event_category: 'wizard',
       event_label: wizService,
       value: 150,
-      currency: 'EUR'
-    });
-    // Google Ads conversion
-    gtag('event', 'conversion', {
-      send_to: 'AW-835423035/N_4XCMuSu6YcELuWro4D',
-      value: 150.0,
       currency: 'EUR'
     });
   }
