@@ -17,7 +17,6 @@
 | Donation du vivant : abattements et stratégies | `/blog/donation-vivant-2026` | donation vivant abattements 2026 | 2026-04 | ✅ Publié |
 | Investir dans l'immobilier ancien en Île-de-France | `/blog/investir-immobilier-ancien-ile-de-france-avantages-fiscaux-2026` | immobilier ancien île-de-france avantages fiscaux | 2026-05 | ✅ Publié |
 | Gestion de patrimoine pour dirigeants d'entreprise | `/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026` | gestion patrimoine entreprise dirigeants 2026 | 2026-05 | ✅ Publié |
-| Donation de son vivant : stratégies patrimoniales | `/blog/donation-vivant-patrimoine` | donation de son vivant 2026 | 2026-05 | ✅ Publié |
 | Préparer sa retraite 2026 : 5 leviers patrimoniaux | `/blog/preparer-retraite-2026-leviers-patrimoniaux-juin` | préparer retraite 2026 leviers patrimoniaux | 2026-06 | ✅ Publié |
 
 ---
