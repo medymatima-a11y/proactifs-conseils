@@ -31,7 +31,17 @@
     { "source": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "destination": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026.html" },
     { "source": "/investissement-immobilier-ancien",        "destination": "/investissement-immobilier-ancien.html" },
     { "source": "/declaration-rsu-espp-france",            "destination": "/declaration-rsu-espp-france.html" },
-    { "source": "/merci-avis",                             "destination": "/merci-avis.html" }
+    { "source": "/merci-avis",                             "destination": "/merci-avis.html" },
+    { "source": "/blog/rsu-imposition-france-2026",              "destination": "/blog/rsu-imposition-france-2026.html" },
+    { "source": "/blog/espp-fiscalite-france-2026",              "destination": "/blog/espp-fiscalite-france-2026.html" },
+    { "source": "/blog/quand-vendre-rsu-strategie-2026",         "destination": "/blog/quand-vendre-rsu-strategie-2026.html" },
+    { "source": "/blog/bspce-fiscalite-startup-2026",            "destination": "/blog/bspce-fiscalite-startup-2026.html" },
+    { "source": "/blog/declarer-rsu-formulaires-2026",           "destination": "/blog/declarer-rsu-formulaires-2026.html" },
+    { "source": "/blog/rsu-pea-2026",                            "destination": "/blog/rsu-pea-2026.html" },
+    { "source": "/blog/stock-options-imposition-strategie-2026", "destination": "/blog/stock-options-imposition-strategie-2026.html" },
+    { "source": "/blog/actions-gratuites-aga-fiscalite-2026",    "destination": "/blog/actions-gratuites-aga-fiscalite-2026.html" },
+    { "source": "/blog/rsu-expatriation-fiscalite-2026",         "destination": "/blog/rsu-expatriation-fiscalite-2026.html" },
+    { "source": "/blog/investir-rsu-patrimoine-2026",            "destination": "/blog/investir-rsu-patrimoine-2026.html" }
   ],
   "redirects": [
 
