@@ -37,22 +37,23 @@
 
   <style>
     :root {
-      --ivory: #FAFAF7;
-      --sand: #F3F1EB;
-      --forest: #132D1E;
+      --ivory:      #FAFAF7;
+      --sand:       #F3F1EB;
+      --forest:     #132D1E;
       --forest-mid: #1C3D28;
-      --ink: #111827;
-      --ink-soft: #374151;
-      --gold: #C4973A;
+      --ink:        #111827;
+      --ink-soft:   #374151;
+      --gold:       #C4973A;
       --gold-light: #E8C97A;
-      --gold-pale: #FBF4E3;
-      --teal: #1E7A6E;
-      --slate: #6B7280;
-      --border: #E5E2DA;
-      --white: #FFFFFF;
-      --muted: #6B7280;
-      --shadow-sm: 0 1px 3px rgba(17,24,39,.06);
-      --shadow-md: 0 4px 16px rgba(17,24,39,.08);
+      --gold-pale:  #FBF4E3;
+      --teal:       #1E7A6E;
+      --teal-pale:  #E6F4F2;
+      --slate:      #6B7280;
+      --border:     #E5E2DA;
+      --white:      #FFFFFF;
+      --muted:      #6B7280;
+      --shadow-sm:  0 1px 3px rgba(17,24,39,.06);
+      --shadow-md:  0 4px 16px rgba(17,24,39,.08);
       --r-sm: 10px;
       --r-md: 16px;
       --r-lg: 24px;
@@ -80,7 +81,7 @@
     #nav:not(.scrolled) .nav-links a:hover { color: var(--gold-light); }
     #nav:not(.scrolled) .nav-links a.active { color: var(--gold-light); }
 
-/* === Dropdown nav (uniformisation avec autres blogs) === */
+/* === Dropdown nav === */
 .nav-dropdown { position: relative; }
 .nav-dropdown::after {
   content: "";
@@ -209,36 +210,6 @@
     .filter-btn:hover { border-color: var(--gold); color: var(--gold); }
     .filter-btn.active { background: var(--forest); border-color: var(--forest); color: var(--white); }
 
-    /* ── FEATURED ARTICLE ── */
-    .blog-featured {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
-      background: var(--white); border: 1px solid var(--border); border-radius: var(--r-xl);
-      overflow: hidden; margin-bottom: 40px;
-      text-decoration: none; color: inherit;
-      transition: transform .25s, box-shadow .25s;
-    }
-    .blog-featured:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,.1); }
-    .featured-visual {
-      background: linear-gradient(135deg, var(--forest) 0%, #2a5840 100%);
-      display: flex; align-items: center; justify-content: center;
-      min-height: 280px; font-size: 80px;
-    }
-    .featured-body { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
-    .featured-tag {
-      font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase;
-      letter-spacing: .08em; color: var(--gold); margin-bottom: 12px;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .featured-tag::before { content: '★'; font-size: 10px; }
-    .featured-body h2 {
-      font-family: 'Fraunces', serif; font-size: 28px; font-weight: 700;
-      line-height: 1.3; color: var(--ink); margin-bottom: 14px;
-    }
-    .featured-body p { font-size: 15px; color: var(--muted); line-height: 1.65; margin-bottom: 24px; }
-    .featured-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-    .meta-date { font-size: 12px; color: var(--muted); }
-    .read-link { font-size: 13px; font-weight: 600; color: var(--gold); display: flex; align-items: center; gap: 4px; }
-
     /* ── GRID ARTICLES ── */
     .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .blog-card {
@@ -248,7 +219,6 @@
     }
     .blog-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.09); }
     .card-visual {
-      background: linear-gradient(135deg, var(--forest) 0%, #2a5840 100%);
       height: 160px; display: flex; align-items: center; justify-content: center;
       font-size: 52px;
     }
@@ -285,6 +255,23 @@
     }
     .btn-outline:hover { border-color: rgba(255,255,255,.6); color: var(--white); }
 
+    /* ── THEME SECTIONS ── */
+    .theme-section { margin-bottom: 52px; }
+    .theme-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 14px; margin-bottom: 20px; }
+    .theme-header-left { display: flex; align-items: center; gap: 10px; }
+    .theme-bar { width: 5px; height: 24px; border-radius: 3px; flex-shrink: 0; }
+    .theme-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; margin: 0; color: var(--ink); }
+    .theme-count { font-family: 'DM Mono', monospace; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+    .theme-link { font-size: 13px; font-weight: 500; text-decoration: none; transition: opacity .2s; }
+    .theme-link:hover { opacity: 0.7; }
+    .filter-btn.rsu-f { border-color: var(--teal); color: var(--teal); }
+    .filter-btn.rsu-f:hover { background: var(--teal-pale); border-color: var(--teal); }
+    .filter-btn.rsu-f.active { background: var(--teal); border-color: var(--teal); color: var(--white); }
+    .rsu-cta { background: var(--forest); border-radius: var(--r-xl); padding: 28px 36px; margin: 24px 0 8px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .rsu-cta-label { font-family: 'DM Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.4); margin: 0 0 10px; }
+    .rsu-cta h3 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; color: var(--white); margin: 0 0 6px; line-height: 1.3; }
+    .rsu-cta p { font-size: 14px; color: rgba(255,255,255,.65); margin: 0; max-width: 420px; }
+
     /* ── FOOTER ── */
     footer { background: #080C10; padding: 48px 80px 28px; color: rgba(255,255,255,.55); }
     .footer-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr; gap: 40px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.08); }
@@ -304,10 +291,10 @@
       .blog-hero h1 { font-size: 36px; }
       .blog-hero { padding: 100px 24px 60px; }
       .blog-main { padding: 40px 24px 60px; }
-      .blog-featured { grid-template-columns: 1fr; }
-      .featured-visual { min-height: 180px; }
       .blog-grid { grid-template-columns: 1fr; }
       .newsletter-cta { flex-direction: column; padding: 36px 24px; }
+      .theme-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .rsu-cta { flex-direction: column; padding: 24px; }
       #nav { padding: 0 24px; }
       .nav-links { display: none; }
       .nav-cta-btn { display: none; }
@@ -388,7 +375,7 @@
 <!-- HERO -->
 <section class="blog-hero">
   <div class="container">
-    <div class="hero-badge">Ressources & Analyses</div>
+    <div class="hero-badge">Ressources &amp; Analyses</div>
     <h1>Le blog <em>patrimoine</em></h1>
     <p>Fiscalité, immobilier, retraite, transmission : des analyses concrètes pour prendre les bonnes décisions patrimoniales en 2026.</p>
   </div>
@@ -401,339 +388,424 @@
     <!-- Filtres -->
     <div class="blog-filters">
       <button class="filter-btn active" onclick="filterArticles('all', this)">Tous</button>
+      <button class="filter-btn rsu-f" onclick="filterArticles('rsu', this)">RSU &amp; Actionnariat ✦</button>
       <button class="filter-btn" onclick="filterArticles('epargne', this)">Épargne retraite</button>
       <button class="filter-btn" onclick="filterArticles('fiscalite', this)">Fiscalité</button>
       <button class="filter-btn" onclick="filterArticles('immobilier', this)">Immobilier</button>
       <button class="filter-btn" onclick="filterArticles('transmission', this)">Transmission</button>
     </div>
 
-    <!-- Article à la une -->
-    <a class="blog-featured" href="/blog/preparer-retraite-2026-leviers-patrimoniaux-juin" data-cat="epargne" data-date="2026-06-05">
-    <div class="featured-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-      <span style="font-family:'Fraunces',Georgia,serif;font-size:110px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-4px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">RET</span>
-      <span style="font-family:'Fraunces',Georgia,serif;font-size:20px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Retraite</span>
-    </div>
-    <div class="featured-body">
-      <div class="featured-tag">★ Épargne retraite · À la une</div>
-      <h2>Préparer sa retraite en 2026 : 5 leviers patrimoniaux à activer avant la fin du semestre</h2>
-      <p>PER, épargne, retraite complémentaire dirigeant, simulation cadre, placements Île-de-France : les 5 leviers à activer dès juin 2026 pour préparer sa retraite sereinement.</p>
-      <div class="featured-meta">
-        <span class="meta-date">5 juin 2026 · 10 min de lecture</span>
-        <span class="read-link">Lire l'article →</span>
+    <!-- ══ SECTION RSU & ACTIONNARIAT (10 articles) ══ -->
+    <div class="theme-section" data-cat="rsu">
+      <div class="theme-header" style="border-bottom:2px solid #1E7A6E;">
+        <div class="theme-header-left">
+          <div class="theme-bar" style="background:#1E7A6E;"></div>
+          <h2 class="theme-title">RSU &amp; Actionnariat salarié</h2>
+          <span class="theme-count" style="background:#E6F4F2;color:#1E7A6E;">10 articles</span>
+        </div>
+        <a class="theme-link" style="color:#1E7A6E;" href="/fiscalite-rsu-stock-options">Accompagnement RSU →</a>
+      </div>
+
+      <div class="blog-grid">
+
+        <a class="blog-card" href="/blog/rsu-imposition-france-2026" data-cat="rsu" data-date="2026-06-20" style="border-top:2px solid #1E7A6E;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#091e1b;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(93,202,165,0.18);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">RSU</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#5DCAA5;position:relative;z-index:1;">Fiscalité RSU</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#1E7A6E;">Fiscalité RSU</div>
+            <h3>RSU en France : comment sont-ils imposés en 2026 ?</h3>
+            <p>Avantage en nature à l'acquisition, PFU 30 % à la cession : comprendre les 2 événements fiscaux des RSU pour éviter les erreurs de déclaration.</p>
+            <div class="card-footer">
+              <span class="card-date">20 juin 2026 · 10 min</span>
+              <span class="card-link" style="color:#1E7A6E;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="blog-card" href="/blog/espp-fiscalite-france-2026" data-cat="rsu" data-date="2026-06-20" style="border-top:2px solid #1E7A6E;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#091e1b;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(93,202,165,0.18);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">ESP</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#5DCAA5;position:relative;z-index:1;">ESPP</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#1E7A6E;">Fiscalité RSU</div>
+            <h3>ESPP France : fiscalité et déclaration en 2026</h3>
+            <p>Rabais d'achat, avantage en nature, plus-value de cession : le plan d'actionnariat salarié ESPP décodé avec ses pièges fiscaux les plus fréquents.</p>
+            <div class="card-footer">
+              <span class="card-date">20 juin 2026 · 8 min</span>
+              <span class="card-link" style="color:#1E7A6E;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="blog-card" href="/blog/quand-vendre-rsu-strategie-2026" data-cat="rsu" data-date="2026-06-20" style="border-top:2px solid #1E7A6E;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#091e1b;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(93,202,165,0.18);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">J+0</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#5DCAA5;position:relative;z-index:1;">Stratégie RSU</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#1E7A6E;">Stratégie RSU</div>
+            <h3>Quand vendre ses RSU : stratégies et timing en 2026</h3>
+            <p>Vendre immédiatement à l'acquisition ou conserver ? Les 3 stratégies de timing RSU et les critères fiscaux, patrimoniaux et comportementaux pour décider.</p>
+            <div class="card-footer">
+              <span class="card-date">20 juin 2026 · 9 min</span>
+              <span class="card-link" style="color:#1E7A6E;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="blog-card" href="/blog/bspce-fiscalite-startup-2026" data-cat="rsu" data-date="2026-06-20" style="border-top:2px solid #1E7A6E;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#091e1b;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(93,202,165,0.18);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">BSP</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#5DCAA5;position:relative;z-index:1;">BSPCE startup</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#1E7A6E;">Fiscalité RSU</div>
+            <h3>BSPCE : fiscalité et stratégie pour les salariés de startups en 2026</h3>
+            <p>12,8 % ou 30 % selon votre ancienneté, + 17,2 % de PS : tout comprendre sur les BSPCE avant d'exercer, de quitter l'entreprise ou de partir à l'étranger.</p>
+            <div class="card-footer">
+              <span class="card-date">20 juin 2026 · 9 min</span>
+              <span class="card-link" style="color:#1E7A6E;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="blog-card" href="/blog/declarer-rsu-formulaires-2026" data-cat="rsu" data-date="2026-06-20" style="border-top:2px solid #1E7A6E;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#091e1b;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(93,202,165,0.18);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">DEC</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#5DCAA5;position:relative;z-index:1;">Déclaration RSU</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#1E7A6E;">Déclaration RSU</div>
+            <h3>Déclarer ses RSU aux impôts : formulaires et cases 2026</h3>
+            <p>Cases 1TT, 3VG, 3VH, 3WG… Le guide pratique pour remplir sa déclaration de revenus RSU sans erreur, avec la liste des pièges les plus fréquents.</p>
+            <div class="card-footer">
+              <span class="card-date">20 juin 2026 · 8 min</span>
+              <span class="card-link" style="color:#1E7A6E;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="blog-card" href="/blog/rsu-pea-2026" data-cat="rsu" data-date="2026-06-20" style="border-top:2px solid #1E7A6E;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#091e1b;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(93,202,165,0.18);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">PEA</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#5DCAA5;position:relative;z-index:1;">RSU &amp; PEA</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#1E7A6E;">Stratégie RSU</div>
+            <h3>RSU et PEA : peut-on loger ses actions d'employeur ?</h3>
+            <p>La plupart des RSU de sociétés américaines sont incompatibles avec le PEA. Voici pourquoi, et quelles alternatives patrimoniales existent à la place.</p>
+            <div class="card-footer">
+              <span class="card-date">20 juin 2026 · 7 min</span>
+              <span class="card-link" style="color:#1E7A6E;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="blog-card" href="/blog/stock-options-imposition-strategie-2026" data-cat="rsu" data-date="2026-06-20" style="border-top:2px solid #1E7A6E;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#091e1b;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(93,202,165,0.18);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">OPT</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#5DCAA5;position:relative;z-index:1;">Stock-options</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#1E7A6E;">Fiscalité RSU</div>
+            <h3>Stock-options : exercice, imposition et stratégie 2026</h3>
+            <p>Gain de levée, régime avant/après 2012, cashless exercise, expiration en cas de départ : tout comprendre avant d'exercer vos options.</p>
+            <div class="card-footer">
+              <span class="card-date">20 juin 2026 · 9 min</span>
+              <span class="card-link" style="color:#1E7A6E;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="blog-card" href="/blog/actions-gratuites-aga-fiscalite-2026" data-cat="rsu" data-date="2026-06-20" style="border-top:2px solid #1E7A6E;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#091e1b;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(93,202,165,0.18);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">AGA</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#5DCAA5;position:relative;z-index:1;">Actions gratuites</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#1E7A6E;">Fiscalité RSU</div>
+            <h3>Actions gratuites (AGA) : régime fiscal et optimisation 2026</h3>
+            <p>Cycle de vie AGA, gain d'acquisition, période de conservation, plus-value de cession : le guide complet du régime fiscal des actions gratuites en France.</p>
+            <div class="card-footer">
+              <span class="card-date">20 juin 2026 · 9 min</span>
+              <span class="card-link" style="color:#1E7A6E;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="blog-card" href="/blog/rsu-expatriation-fiscalite-2026" data-cat="rsu" data-date="2026-06-20" style="border-top:2px solid #1E7A6E;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#091e1b;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(93,202,165,0.18);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">EXP</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#5DCAA5;position:relative;z-index:1;">RSU &amp; expatriation</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#1E7A6E;">Stratégie RSU</div>
+            <h3>RSU et expatriation : gérer sa fiscalité internationale en 2026</h3>
+            <p>Prorata temporis, conventions fiscales, exit tax, retour en France : ce qu'il faut anticiper quand vos RSU traversent plusieurs pays et résidences fiscales.</p>
+            <div class="card-footer">
+              <span class="card-date">20 juin 2026 · 10 min</span>
+              <span class="card-link" style="color:#1E7A6E;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="blog-card" href="/blog/investir-rsu-patrimoine-2026" data-cat="rsu" data-date="2026-06-20" style="border-top:2px solid #1E7A6E;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#091e1b;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(93,202,165,0.18);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">INV</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#5DCAA5;position:relative;z-index:1;">Investir ses RSU</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#1E7A6E;">Stratégie RSU</div>
+            <h3>Investir ses RSU intelligemment : 5 stratégies patrimoniales</h3>
+            <p>PER, immobilier, assurance vie, ETF, SCPI : que faire avec le produit net de vos RSU après la vente ? Les 5 stratégies adaptées aux cadres tech en 2026.</p>
+            <div class="card-footer">
+              <span class="card-date">20 juin 2026 · 10 min</span>
+              <span class="card-link" style="color:#1E7A6E;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- CTA inline RSU -->
+      <div class="rsu-cta">
+        <div>
+          <p class="rsu-cta-label">RSU · Actionnariat salarié · Startups &amp; Groupes tech</p>
+          <h3>Vous recevez des RSU d'une société américaine ?</h3>
+          <p>Gain d'acquisition, PFU, expatriation, stratégie patrimoniale : une heure de bilan change souvent la donne.</p>
+        </div>
+        <a href="/bilan-patrimonial" class="btn-gold">Prendre rendez-vous</a>
       </div>
     </div>
-  </a>
 
-    <!-- Grille articles -->
-    <div class="blog-grid" id="blogGrid">
-
-      <a class="blog-card" href="/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026" data-cat="fiscalite" data-date="2026-05-23">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">DIR</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Dirigeants</span>
+    <!-- ══ SECTION ÉPARGNE & RETRAITE (2 articles) ══ -->
+    <div class="theme-section" data-cat="epargne">
+      <div class="theme-header" style="border-bottom:2px solid #185FA5;">
+        <div class="theme-header-left">
+          <div class="theme-bar" style="background:#185FA5;"></div>
+          <h2 class="theme-title">Épargne &amp; Retraite</h2>
+          <span class="theme-count" style="background:#E8F2FF;color:#185FA5;">2 articles</span>
         </div>
-        <div class="card-body">
-          <div class="card-tag">Dirigeants</div>
-          <h3>Gestion de patrimoine pour dirigeants : les stratégies à activer avant l'été 2026</h3>
-          <p>Holding, arbitrage rémunération vs dividendes, PER, transmission… Les leviers à activer maintenant pour structurer votre patrimoine de chef d'entreprise.</p>
-          <div class="card-footer">
-            <span class="card-date">23 mai 2026 · 8 min</span>
-            <span class="card-link">Lire →</span>
+        <a class="theme-link" style="color:#185FA5;" href="/preparation-retraite">Préparer ma retraite →</a>
+      </div>
+
+      <div class="blog-grid">
+
+        <a class="blog-card" href="/blog/preparer-retraite-2026-leviers-patrimoniaux-juin" data-cat="epargne" data-date="2026-06-05" style="border-top:2px solid #185FA5;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#000c1a;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:110px;font-style:italic;font-weight:700;color:rgba(24,95,165,0.2);line-height:1;letter-spacing:-4px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">RET</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#5CA3DD;position:relative;z-index:1;">Retraite</span>
           </div>
-        </div>
-      </a>
-
-      <a class="blog-card" href="/blog/investir-immobilier-ancien-ile-de-france-avantages-fiscaux-2026" data-cat="immobilier" data-date="2026-05-23">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">ANC</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Immobilier ancien</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Immobilier ancien</div>
-          <h3>Immobilier ancien en Île-de-France : avantages fiscaux 2026</h3>
-          <p>Déficit foncier, loi Malraux, Denormandie… Comment investir dans l'immobilier ancien en IDF et profiter de la fiscalité 2026.</p>
-          <div class="card-footer">
-            <span class="card-date">23 mai 2026 · 8 min</span>
-            <span class="card-link">Lire →</span>
+          <div class="card-body">
+            <div class="card-tag" style="color:#185FA5;">Épargne retraite</div>
+            <h3>Préparer sa retraite en 2026 : 5 leviers patrimoniaux à activer avant la fin du semestre</h3>
+            <p>PER, épargne, retraite complémentaire dirigeant, simulation cadre, placements Île-de-France : les 5 leviers à activer dès juin 2026.</p>
+            <div class="card-footer">
+              <span class="card-date">5 juin 2026 · 10 min</span>
+              <span class="card-link" style="color:#185FA5;">Lire →</span>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
 
-      <a class="blog-card" href="/blog/donation-vivant-patrimoine" data-cat="transmission" data-date="2026-05-23">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">VIV</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Transmission</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Transmission</div>
-          <h3>Donation de son vivant en 2026 : abattements, délais et stratégies</h3>
-          <p>Abattements fiscaux, délai de rappel de 15 ans, démembrement et donation-partage : tout ce qu'il faut savoir pour transmettre efficacement.</p>
-          <div class="card-footer">
-            <span class="card-date">23 mai 2026 · 8 min</span>
-            <span class="card-link">Lire →</span>
+        <a class="blog-card" href="/blog/per-vs-assurance-vie-2026" data-cat="epargne" data-date="2026-04-30" style="border-top:2px solid #185FA5;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#000c1a;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(24,95,165,0.2);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">PER</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#5CA3DD;position:relative;z-index:1;">Épargne</span>
           </div>
-        </div>
-      </a>
-
-      <a class="blog-card" href="/blog/per-vs-assurance-vie-2026" data-cat="epargne" data-date="2026-04-30">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">PER</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Épargne</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Épargne</div>
-          <h3>PER ou Assurance Vie en 2026 : lequel choisir selon votre situation ?</h3>
-          <p>Comparatif complet des deux enveloppes fiscales — fiscalité, liquidité, transmission, plafonds.</p>
-          <div class="card-footer">
-            <span class="card-date">30 avril 2026 · 12 min</span>
-            <span class="card-link">Lire →</span>
+          <div class="card-body">
+            <div class="card-tag" style="color:#185FA5;">Épargne</div>
+            <h3>PER ou Assurance Vie en 2026 : lequel choisir selon votre situation ?</h3>
+            <p>Comparatif complet des deux enveloppes fiscales — fiscalité, liquidité, transmission, plafonds.</p>
+            <div class="card-footer">
+              <span class="card-date">30 avril 2026 · 12 min</span>
+              <span class="card-link" style="color:#185FA5;">Lire →</span>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
 
-      <a class="blog-card" href="/blog/reduire-impots-2026" data-cat="fiscalite" data-date="2026-04-30">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">TMI</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Fiscalité</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Fiscalité</div>
-          <h3>Réduire ses impôts en 2026 : les 7 leviers à activer avant le 31 décembre</h3>
-          <p>PER, déficit foncier, FCPI, dons… Tour d'horizon des dispositifs encore accessibles et des erreurs à éviter pour maximiser votre économie d'impôt.</p>
-          <div class="card-footer">
-            <span class="card-date">30 avril 2026 · 9 min</span>
-            <span class="card-link">Lire →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="blog-card" href="/blog/lmnp-2026" data-cat="immobilier" data-date="2026-04-30">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">LMNP</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Immobilier</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Immobilier</div>
-          <h3>LMNP 2026 : ce qui change après la réforme et comment s'adapter</h3>
-          <p>La réforme fiscale du LMNP modifie en profondeur les règles du jeu. Ce qu'il faut savoir si vous êtes propriétaire ou envisagez d'investir en location meublée.</p>
-          <div class="card-footer">
-            <span class="card-date">30 avril 2026 · 10 min</span>
-            <span class="card-link">Lire →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="blog-card" href="/blog/donation-vivant-2026" data-cat="transmission" data-date="2026-04-30">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">DON</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Transmission</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Transmission</div>
-          <h3>Donation du vivant en 2026 : abattements, stratégies et pièges à éviter</h3>
-          <p>100 000 € par enfant tous les 15 ans, démembrement, donation-partage… Tout ce qu'il faut savoir pour transmettre efficacement avant la succession.</p>
-          <div class="card-footer">
-            <span class="card-date">30 avril 2026 · 10 min</span>
-            <span class="card-link">Lire →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="blog-card" href="/blog/sci-familiale-2026" data-cat="transmission" data-date="2026-04-30">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">SCI</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Transmission</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Transmission</div>
-          <h3>SCI familiale : l'outil de transmission que beaucoup de familles ignorent</h3>
-          <p>Démembrement de parts, décote de liquidité, IR vs IS… La SCI familiale peut réduire significativement la facture successorale. Pour qui est-elle vraiment pertinente ?</p>
-          <div class="card-footer">
-            <span class="card-date">30 avril 2026 · 11 min</span>
-            <span class="card-link">Lire →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="blog-card" href="/blog/scpi-2026" data-cat="immobilier" data-date="2026-04-30">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">SCPI</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Immobilier</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Immobilier</div>
-          <h3>SCPI 2026 : rendements, risques et comment bien choisir</h3>
-          <p>TDVM moyen, taux d'occupation, secteurs porteurs… Les critères pour sélectionner les meilleures SCPI et les différentes façons d'investir selon votre profil.</p>
-          <div class="card-footer">
-            <span class="card-date">30 avril 2026 · 10 min</span>
-            <span class="card-link">Lire →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="blog-card" href="/blog/rsu-imposition-france-2026" data-cat="fiscalite" data-date="2026-06-20">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">RSU</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Fiscalité RSU</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Fiscalité RSU</div>
-          <h3>RSU en France : comment sont-ils imposés en 2026 ?</h3>
-          <p>Avantage en nature à l'acquisition, PFU 30 % à la cession : comprendre les 2 événements fiscaux des RSU pour éviter les erreurs de déclaration.</p>
-          <div class="card-footer">
-            <span class="card-date">20 juin 2026 · 10 min</span>
-            <span class="card-link">Lire →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="blog-card" href="/blog/espp-fiscalite-france-2026" data-cat="fiscalite" data-date="2026-06-20">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">ESP</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Fiscalité ESPP</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Fiscalité RSU</div>
-          <h3>ESPP France : fiscalité et déclaration en 2026</h3>
-          <p>Rabais d'achat, avantage en nature, plus-value de cession : le plan d'actionnariat salarié ESPP décodé avec ses pièges fiscaux les plus fréquents.</p>
-          <div class="card-footer">
-            <span class="card-date">20 juin 2026 · 8 min</span>
-            <span class="card-link">Lire →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="blog-card" href="/blog/quand-vendre-rsu-strategie-2026" data-cat="fiscalite" data-date="2026-06-20">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">J+0</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Stratégie RSU</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Stratégie RSU</div>
-          <h3>Quand vendre ses RSU : stratégies et timing en 2026</h3>
-          <p>Vendre immédiatement à l'acquisition ou conserver ? Les 3 stratégies de timing RSU et les critères fiscaux, patrimoniaux et comportementaux pour décider.</p>
-          <div class="card-footer">
-            <span class="card-date">20 juin 2026 · 9 min</span>
-            <span class="card-link">Lire →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="blog-card" href="/blog/bspce-fiscalite-startup-2026" data-cat="fiscalite" data-date="2026-06-20">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">BSP</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">BSPCE startup</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Fiscalité RSU</div>
-          <h3>BSPCE : fiscalité et stratégie pour les salariés de startups en 2026</h3>
-          <p>12,8 % ou 30 % selon votre ancienneté, + 17,2 % de PS : tout comprendre sur les BSPCE avant d'exercer, de quitter l'entreprise ou de partir à l'étranger.</p>
-          <div class="card-footer">
-            <span class="card-date">20 juin 2026 · 9 min</span>
-            <span class="card-link">Lire →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="blog-card" href="/blog/declarer-rsu-formulaires-2026" data-cat="fiscalite" data-date="2026-06-20">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">DEC</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Déclaration RSU</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Déclaration RSU</div>
-          <h3>Déclarer ses RSU aux impôts : formulaires et cases 2026</h3>
-          <p>Cases 1TT, 3VG, 3VH, 3WG… Le guide pratique pour remplir sa déclaration de revenus RSU sans erreur, avec la liste des pièges les plus fréquents.</p>
-          <div class="card-footer">
-            <span class="card-date">20 juin 2026 · 8 min</span>
-            <span class="card-link">Lire →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="blog-card" href="/blog/rsu-pea-2026" data-cat="fiscalite" data-date="2026-06-20">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">PEA</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">RSU & PEA</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Stratégie RSU</div>
-          <h3>RSU et PEA : peut-on loger ses actions d'employeur ?</h3>
-          <p>La plupart des RSU de sociétés américaines sont incompatibles avec le PEA. Voici pourquoi, et quelles alternatives patrimoniales existent à la place.</p>
-          <div class="card-footer">
-            <span class="card-date">20 juin 2026 · 7 min</span>
-            <span class="card-link">Lire →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="blog-card" href="/blog/stock-options-imposition-strategie-2026" data-cat="fiscalite" data-date="2026-06-20">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">OPT</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Stock-options</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Fiscalité RSU</div>
-          <h3>Stock-options : exercice, imposition et stratégie 2026</h3>
-          <p>Gain de levée, régime avant/après 2012, cashless exercise, expiration en cas de départ : tout comprendre avant d'exercer vos options.</p>
-          <div class="card-footer">
-            <span class="card-date">20 juin 2026 · 9 min</span>
-            <span class="card-link">Lire →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="blog-card" href="/blog/actions-gratuites-aga-fiscalite-2026" data-cat="fiscalite" data-date="2026-06-20">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">AGA</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Actions gratuites</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Fiscalité RSU</div>
-          <h3>Actions gratuites (AGA) : régime fiscal et optimisation 2026</h3>
-          <p>Cycle de vie AGA, gain d'acquisition, période de conservation, plus-value de cession : le guide complet du régime fiscal des actions gratuites en France.</p>
-          <div class="card-footer">
-            <span class="card-date">20 juin 2026 · 9 min</span>
-            <span class="card-link">Lire →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="blog-card" href="/blog/rsu-expatriation-fiscalite-2026" data-cat="fiscalite" data-date="2026-06-20">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">EXP</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">RSU & expatriation</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Stratégie RSU</div>
-          <h3>RSU et expatriation : gérer sa fiscalité internationale en 2026</h3>
-          <p>Prorata temporis, conventions fiscales, exit tax, retour en France : ce qu'il faut anticiper quand vos RSU traversent plusieurs pays et résidences fiscales.</p>
-          <div class="card-footer">
-            <span class="card-date">20 juin 2026 · 10 min</span>
-            <span class="card-link">Lire →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="blog-card" href="/blog/investir-rsu-patrimoine-2026" data-cat="fiscalite" data-date="2026-06-20">
-        <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">INV</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Investir ses RSU</span>
-        </div>
-        <div class="card-body">
-          <div class="card-tag">Stratégie RSU</div>
-          <h3>Investir ses RSU intelligemment : 5 stratégies patrimoniales</h3>
-          <p>PER, immobilier, assurance vie, ETF, SCPI : que faire avec le produit net de vos RSU après la vente ? Les 5 stratégies adaptées aux cadres tech en 2026.</p>
-          <div class="card-footer">
-            <span class="card-date">20 juin 2026 · 10 min</span>
-            <span class="card-link">Lire →</span>
-          </div>
-        </div>
-      </a>
-
+      </div>
     </div>
 
-    <!-- CTA -->
+    <!-- ══ SECTION FISCALITÉ & PATRIMOINE (2 articles) ══ -->
+    <div class="theme-section" data-cat="fiscalite">
+      <div class="theme-header" style="border-bottom:2px solid #C4973A;">
+        <div class="theme-header-left">
+          <div class="theme-bar" style="background:#C4973A;"></div>
+          <h2 class="theme-title">Fiscalité &amp; Patrimoine</h2>
+          <span class="theme-count" style="background:#FBF4E3;color:#C4973A;">2 articles</span>
+        </div>
+        <a class="theme-link" style="color:#C4973A;" href="/optimisation-fiscale-ile-de-france">Optimisation fiscale →</a>
+      </div>
+
+      <div class="blog-grid">
+
+        <a class="blog-card" href="/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026" data-cat="fiscalite" data-date="2026-05-23" style="border-top:2px solid #C4973A;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">DIR</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Dirigeants</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#C4973A;">Dirigeants</div>
+            <h3>Gestion de patrimoine pour dirigeants : les stratégies à activer avant l'été 2026</h3>
+            <p>Holding, arbitrage rémunération vs dividendes, PER, transmission… Les leviers à activer maintenant pour structurer votre patrimoine de chef d'entreprise.</p>
+            <div class="card-footer">
+              <span class="card-date">23 mai 2026 · 8 min</span>
+              <span class="card-link" style="color:#C4973A;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="blog-card" href="/blog/reduire-impots-2026" data-cat="fiscalite" data-date="2026-04-30" style="border-top:2px solid #C4973A;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#0a1f14;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">TMI</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Fiscalité</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#C4973A;">Fiscalité</div>
+            <h3>Réduire ses impôts en 2026 : les 7 leviers à activer avant le 31 décembre</h3>
+            <p>PER, déficit foncier, FCPI, dons… Tour d'horizon des dispositifs encore accessibles et des erreurs à éviter pour maximiser votre économie d'impôt.</p>
+            <div class="card-footer">
+              <span class="card-date">30 avril 2026 · 9 min</span>
+              <span class="card-link" style="color:#C4973A;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ══ SECTION IMMOBILIER (3 articles) ══ -->
+    <div class="theme-section" data-cat="immobilier">
+      <div class="theme-header" style="border-bottom:2px solid #B86B1C;">
+        <div class="theme-header-left">
+          <div class="theme-bar" style="background:#B86B1C;"></div>
+          <h2 class="theme-title">Investissement Immobilier</h2>
+          <span class="theme-count" style="background:#FFF0E5;color:#B86B1C;">3 articles</span>
+        </div>
+        <a class="theme-link" style="color:#B86B1C;" href="/investissement-immobilier">Investissement immobilier →</a>
+      </div>
+
+      <div class="blog-grid">
+
+        <a class="blog-card" href="/blog/investir-immobilier-ancien-ile-de-france-avantages-fiscaux-2026" data-cat="immobilier" data-date="2026-05-23" style="border-top:2px solid #B86B1C;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#1a0c00;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(184,107,28,0.2);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">ANC</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#E89A4A;position:relative;z-index:1;">Immobilier ancien</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#B86B1C;">Immobilier ancien</div>
+            <h3>Immobilier ancien en Île-de-France : avantages fiscaux 2026</h3>
+            <p>Déficit foncier, loi Malraux, Denormandie… Comment investir dans l'immobilier ancien en IDF et profiter de la fiscalité 2026.</p>
+            <div class="card-footer">
+              <span class="card-date">23 mai 2026 · 8 min</span>
+              <span class="card-link" style="color:#B86B1C;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="blog-card" href="/blog/lmnp-2026" data-cat="immobilier" data-date="2026-04-30" style="border-top:2px solid #B86B1C;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#1a0c00;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(184,107,28,0.2);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">LMNP</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#E89A4A;position:relative;z-index:1;">Immobilier</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#B86B1C;">Immobilier</div>
+            <h3>LMNP 2026 : ce qui change après la réforme et comment s'adapter</h3>
+            <p>La réforme fiscale du LMNP modifie en profondeur les règles du jeu. Ce qu'il faut savoir si vous êtes propriétaire ou envisagez d'investir en location meublée.</p>
+            <div class="card-footer">
+              <span class="card-date">30 avril 2026 · 10 min</span>
+              <span class="card-link" style="color:#B86B1C;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="blog-card" href="/blog/scpi-2026" data-cat="immobilier" data-date="2026-04-30" style="border-top:2px solid #B86B1C;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#1a0c00;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:62px;font-style:italic;font-weight:700;color:rgba(184,107,28,0.2);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">SCPI</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#E89A4A;position:relative;z-index:1;">Immobilier</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#B86B1C;">Immobilier</div>
+            <h3>SCPI 2026 : rendements, risques et comment bien choisir</h3>
+            <p>TDVM moyen, taux d'occupation, secteurs porteurs… Les critères pour sélectionner les meilleures SCPI et les différentes façons d'investir selon votre profil.</p>
+            <div class="card-footer">
+              <span class="card-date">30 avril 2026 · 10 min</span>
+              <span class="card-link" style="color:#B86B1C;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ══ SECTION TRANSMISSION & SUCCESSION (3 articles) ══ -->
+    <div class="theme-section" data-cat="transmission">
+      <div class="theme-header" style="border-bottom:2px solid #8B3A3A;">
+        <div class="theme-header-left">
+          <div class="theme-bar" style="background:#8B3A3A;"></div>
+          <h2 class="theme-title">Transmission &amp; Succession</h2>
+          <span class="theme-count" style="background:#FFF0F0;color:#8B3A3A;">3 articles</span>
+        </div>
+        <a class="theme-link" style="color:#8B3A3A;" href="/transmission">Transmission de patrimoine →</a>
+      </div>
+
+      <div class="blog-grid">
+
+        <a class="blog-card" href="/blog/donation-vivant-2026" data-cat="transmission" data-date="2026-04-30" style="border-top:2px solid #8B3A3A;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#1a0808;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(139,58,58,0.2);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">DON</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C47B7B;position:relative;z-index:1;">Transmission</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#8B3A3A;">Transmission</div>
+            <h3>Donation du vivant en 2026 : abattements, stratégies et pièges à éviter</h3>
+            <p>100 000 € par enfant tous les 15 ans, démembrement, donation-partage… Tout ce qu'il faut savoir pour transmettre efficacement avant la succession.</p>
+            <div class="card-footer">
+              <span class="card-date">30 avril 2026 · 10 min</span>
+              <span class="card-link" style="color:#8B3A3A;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="blog-card" href="/blog/donation-vivant-patrimoine" data-cat="transmission" data-date="2026-05-23" style="border-top:2px solid #8B3A3A;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#1a0808;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(139,58,58,0.2);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">VIV</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C47B7B;position:relative;z-index:1;">Transmission</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#8B3A3A;">Transmission</div>
+            <h3>Donation de son vivant en 2026 : abattements, délais et stratégies</h3>
+            <p>Abattements fiscaux, délai de rappel de 15 ans, démembrement et donation-partage : tout ce qu'il faut savoir pour transmettre efficacement.</p>
+            <div class="card-footer">
+              <span class="card-date">23 mai 2026 · 8 min</span>
+              <span class="card-link" style="color:#8B3A3A;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="blog-card" href="/blog/sci-familiale-2026" data-cat="transmission" data-date="2026-04-30" style="border-top:2px solid #8B3A3A;">
+          <div class="card-visual" style="position:relative;overflow:hidden;background:#1a0808;">
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:72px;font-style:italic;font-weight:700;color:rgba(139,58,58,0.2);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">SCI</span>
+            <span style="font-family:'Fraunces',Georgia,serif;font-size:15px;font-style:italic;font-weight:600;color:#C47B7B;position:relative;z-index:1;">Transmission</span>
+          </div>
+          <div class="card-body">
+            <div class="card-tag" style="color:#8B3A3A;">Transmission</div>
+            <h3>SCI familiale : l'outil de transmission que beaucoup de familles ignorent</h3>
+            <p>Démembrement de parts, décote de liquidité, IR vs IS… La SCI familiale peut réduire significativement la facture successorale. Pour qui est-elle vraiment pertinente ?</p>
+            <div class="card-footer">
+              <span class="card-date">30 avril 2026 · 11 min</span>
+              <span class="card-link" style="color:#8B3A3A;">Lire →</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- CTA global bas de page -->
     <div class="newsletter-cta">
       <div class="newsletter-text">
         <h3>Votre situation mérite une analyse sur-mesure</h3>
@@ -769,8 +841,8 @@
       <div class="footer-col">
         <h4>Blog</h4>
         <ul>
+          <li><a href="/blog/rsu-imposition-france-2026">RSU : imposition 2026</a></li>
           <li><a href="/blog/per-vs-assurance-vie-2026">PER vs Assurance Vie 2026</a></li>
-          <li><a href="/blog/reduire-impots-2026">Réduire ses impôts 2026</a></li>
           <li><a href="/blog/lmnp-2026">LMNP 2026 : la réforme</a></li>
         </ul>
       </div>
@@ -786,13 +858,11 @@
 </footer>
 
 <script>
-  // Nav scroll
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 20);
   });
 
-  // Hamburger
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
   hamburger.addEventListener('click', () => {
@@ -800,59 +870,11 @@
     mobileMenu.classList.toggle('open');
   });
 
-  // Tri auto par date desc : le featured est l'article le plus récent,
-  // les cards du grid suivent dans l'ordre data-date décroissant.
-  (function autoSortByDate() {
-    const grid = document.getElementById('blogGrid');
-    const featured = document.querySelector('.blog-featured');
-    if (!grid) return;
-
-    const parseDate = el => {
-      const d = el && el.dataset && el.dataset.date;
-      return d ? new Date(d).getTime() : 0;
-    };
-
-    const cards = Array.from(grid.querySelectorAll('.blog-card'));
-    const all = featured ? [featured, ...cards] : cards.slice();
-    all.sort((a, b) => parseDate(b) - parseDate(a));
-
-    const newest = all[0];
-    const rest = all.slice(1);
-
-    if (featured && newest && newest !== featured) {
-      // Le plus récent prend la place du featured ; l'ancien featured rejoint la grille.
-      featured.parentNode.replaceChild(newest, featured);
-      newest.classList.remove('blog-card');
-      newest.classList.add('blog-featured');
-      featured.classList.remove('blog-featured');
-      featured.classList.add('blog-card');
-    }
-
-    rest.forEach(card => {
-      if (card.classList.contains('blog-featured')) {
-        card.classList.remove('blog-featured');
-        card.classList.add('blog-card');
-      }
-      grid.appendChild(card);
-    });
-  })();
-
-  // Filtres
   function filterArticles(cat, btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    const featured = document.querySelector('.blog-featured');
-    if (cat === 'all' || featured.dataset.cat === cat) {
-      featured.style.display = '';
-    } else {
-      featured.style.display = 'none';
-    }
-    document.querySelectorAll('.blog-card').forEach(card => {
-      if (cat === 'all' || card.dataset.cat === cat) {
-        card.style.display = '';
-      } else {
-        card.style.display = 'none';
-      }
+    document.querySelectorAll('.theme-section').forEach(section => {
+      section.style.display = (cat === 'all' || section.dataset.cat === cat) ? '' : 'none';
     });
   }
 </script>
