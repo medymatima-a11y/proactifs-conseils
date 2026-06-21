@@ -69,6 +69,7 @@ Tu es un agent SEO éditeur. Quand on te demande d'optimiser le SEO :
 | Fichier | URL | Sujet |
 |---|---|---|
 | `index.html` | / | Homepage — cabinet de gestion de patrimoine |
+| `cabinet.html` | /cabinet | Présentation du cabinet et de Medy Matima |
 | `bilan-patrimonial.html` | /bilan-patrimonial | Bilan patrimonial sur mesure |
 | `optimisation-fiscale-ile-de-france.html` | /optimisation-fiscale-ile-de-france | Optimisation fiscale |
 | `preparation-retraite.html` | /preparation-retraite | Préparation retraite |

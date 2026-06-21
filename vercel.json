@@ -20,6 +20,7 @@
     { "source": "/conseiller-patrimoine-asnieres",      "destination": "/conseiller-patrimoine-asnieres.html" },
     { "source": "/conseiller-patrimoine-levallois",     "destination": "/conseiller-patrimoine-levallois.html" },
     { "source": "/conseiller-patrimoine-nanterre",          "destination": "/conseiller-patrimoine-nanterre.html" },
+    { "source": "/cabinet",                                 "destination": "/cabinet.html" },
     { "source": "/blog",                                    "destination": "/blog/index.html" },
     { "source": "/blog/per-vs-assurance-vie-2026",         "destination": "/blog/per-vs-assurance-vie-2026.html" },
     { "source": "/blog/reduire-impots-2026",               "destination": "/blog/reduire-impots-2026.html" },
@@ -56,8 +57,8 @@
     { "source": "/nos-services",          "destination": "/",                                    "permanent": true },
     { "source": "/services",             "destination": "/",                                    "permanent": true },
     { "source": "/contact",              "destination": "/",                                    "permanent": true },
-    { "source": "/a-propos",             "destination": "/conseiller-patrimoine-colombes", "permanent": true },
-    { "source": "/qui-sommes-nous",      "destination": "/conseiller-patrimoine-colombes", "permanent": true },
+    { "source": "/a-propos",             "destination": "/cabinet", "permanent": true },
+    { "source": "/qui-sommes-nous",      "destination": "/cabinet", "permanent": true },
     { "source": "/fiscalite",            "destination": "/optimisation-fiscale-ile-de-france",  "permanent": true },
     { "source": "/retraite",             "destination": "/preparation-retraite",                "permanent": true },
     { "source": "/immobilier",           "destination": "/investissement-immobilier",            "permanent": true },
@@ -95,8 +96,8 @@
     { "source": "/le-gestionnaire-de-patrimoine",  "destination": "/bilan-patrimonial", "permanent": true },
     { "source": "/le-gestionnaire-de-patrimoine/", "destination": "/bilan-patrimonial", "permanent": true },
 
-    { "source": "/presentation-du-cabinet",  "destination": "/conseiller-patrimoine-colombes", "permanent": true },
-    { "source": "/presentation-du-cabinet/", "destination": "/conseiller-patrimoine-colombes", "permanent": true }
+    { "source": "/presentation-du-cabinet",  "destination": "/cabinet", "permanent": true },
+    { "source": "/presentation-du-cabinet/", "destination": "/cabinet", "permanent": true }
   ],
   "headers": [
     {
