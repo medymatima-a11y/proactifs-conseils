@@ -28,6 +28,7 @@
 | Actions gratuites (AGA) : régime fiscal et optimisation 2026 | `/blog/actions-gratuites-aga-fiscalite-2026` | actions gratuites AGA fiscalité 2026 | 2026-06 | ✅ Publié |
 | RSU et expatriation : gérer sa fiscalité internationale en 2026 | `/blog/rsu-expatriation-fiscalite-2026` | RSU expatriation fiscalité internationale 2026 | 2026-06 | ✅ Publié |
 | Investir ses RSU intelligemment : 5 stratégies patrimoniales | `/blog/investir-rsu-patrimoine-2026` | investir RSU stratégies patrimoniales 2026 | 2026-06 | ✅ Publié |
+| Gestion de patrimoine entreprise : stratégies d'optimisation fiscale 2026 | `/blog/gestion-patrimoine-entreprise-strategies-optimisation-fiscale-2026` | optimisation fiscale chef d'entreprise holding patrimoniale 2026 | 2026-06 | ✅ Publié |
 
 ---
 
@@ -61,6 +62,10 @@
 - retraite complémentaire chef d'entreprise
 - simulation retraite cadre
 - placement retraite Île-de-France
+- optimisation fiscale chef d'entreprise holding patrimoniale
+- PER dirigeant déductible
+- séparation patrimoine professionnel personnel dirigeant
+- transmission entreprise fiscalité Pacte Dutreil
 
 ---
 
@@ -88,4 +93,4 @@ Quand tu crées un article, ajoute une ligne dans le tableau "Articles publiés"
 
 ---
 
-*Dernière mise à jour : 2026-06-17*
+*Dernière mise à jour : 2026-06-22*
