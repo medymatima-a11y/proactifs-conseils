@@ -9,12 +9,12 @@
 
 | Titre | Slug / Fichier | Mot-clé principal | Date création | Statut |
 |---|---|---|---|---|
-| LMNP 2026 : avantages et fiscalité | `/blog/lmnp-2026` | LMNP 2026 avantages | 2026-04 | ✅ Publié |
+| LMNP 2026 : avantages et fiscalité | `/blog/lmnp-2026` | LMNP 2026 avantages | 2026-04 | ✅ Publié (refonte 2026-07-02 : section LF 2026, PS 18,6 %, seuils micro-BIC, fix JS) |
 | PER vs assurance-vie : quel placement choisir ? | `/blog/per-vs-assurance-vie-2026` | PER vs assurance vie comparatif | 2026-04 | ✅ Publié |
 | SCI familiale : comment créer et gérer | `/blog/sci-familiale-2026` | SCI familiale comment créer | 2026-04 | ✅ Publié |
 | SCPI 2026 : guide complet | `/blog/scpi-2026` | SCPI 2026 investissement | 2026-04 | ✅ Publié |
 | Réduire ses impôts en 2026 | `/blog/reduire-impots-2026` | réduire impôts 2026 | 2026-04 | ✅ Publié |
-| Donation du vivant : abattements et stratégies | `/blog/donation-vivant-2026` | donation vivant abattements 2026 | 2026-04 | ✅ Publié |
+| Donation du vivant : abattements et stratégies | `/blog/donation-vivant-2026` | donation vivant abattements 2026 | 2026-04 | ✅ Publié (title/meta CTR 2026-07-02) |
 | Investir dans l'immobilier ancien en Île-de-France | `/blog/investir-immobilier-ancien-ile-de-france-avantages-fiscaux-2026` | immobilier ancien île-de-france avantages fiscaux | 2026-05 | ✅ Publié |
 | Gestion de patrimoine pour dirigeants d'entreprise | `/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026` | gestion patrimoine entreprise dirigeants 2026 | 2026-05 | ✅ Publié |
 | Préparer sa retraite 2026 : 5 leviers patrimoniaux | `/blog/preparer-retraite-2026-leviers-patrimoniaux-juin` | préparer retraite 2026 leviers patrimoniaux | 2026-06 | ✅ Publié |
