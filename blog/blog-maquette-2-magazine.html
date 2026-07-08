@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maquette 2 — Magazine moderne | Blog Proactifs Conseils</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ivory: #FAFAF7; --sand: #F3F1EB; --forest: #132D1E; --forest-mid: #1C3D28;
+  --ink: #111827; --ink-soft: #374151; --gold: #C4973A; --gold-light: #E8C97A;
+  --gold-pale: #FBF4E3; --teal: #1E7A6E; --teal-light: #2A9D8F; --teal-pale: #E6F4F2;
+  --slate: #6B7280; --border: #E5E2DA; --white: #FFFFFF;
+  --shadow-sm: 0 1px 3px rgba(17,24,39,.06), 0 1px 2px rgba(17,24,39,.04);
+  --shadow-md: 0 4px 16px rgba(17,24,39,.08), 0 2px 6px rgba(17,24,39,.04);
+  --shadow-lg: 0 12px 40px rgba(17,24,39,.1), 0 4px 12px rgba(17,24,39,.06);
+  --r-sm: 10px; --r-md: 16px; --r-lg: 24px; --r-xl: 32px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--ivory); line-height: 1.6; }
+
+#nav { position: sticky; top: 0; z-index: 100; height: 72px; background: rgba(250,250,247,.98); box-shadow: var(--shadow-sm); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+.nav-logo { font-family: 'Fraunces', serif; font-weight: 700; font-size: 19px; color: var(--forest); text-decoration: none; }
+.nav-links { display: flex; list-style: none; gap: 36px; }
+.nav-links a { text-decoration: none; color: var(--ink); font-size: 14px; font-weight: 500; }
+.nav-links a.active { color: var(--gold); }
+.nav-cta-btn { background: var(--gold); color: var(--ink); padding: 10px 22px; border-radius: var(--r-md); text-decoration: none; font-weight: 600; font-size: 13px; }
+@media (max-width: 900px) { .nav-links { display: none; } }
+
+.maquette-tag {
+  position: fixed; bottom: 20px; right: 20px; z-index: 200;
+  background: var(--forest); color: var(--gold-light);
+  font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .04em;
+  padding: 10px 16px; border-radius: var(--r-md); box-shadow: var(--shadow-md);
+  max-width: 260px; line-height: 1.5;
+}
+.maquette-tag strong { color: var(--white); display: block; margin-bottom: 2px; font-size: 12px; }
+
+.blog-hero { background: linear-gradient(135deg, #0a1f14 0%, var(--forest) 60%, #1a4030 100%); padding: 88px 40px 100px; color: var(--white); text-align: center; position: relative; overflow: hidden; }
+.blog-hero::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 60px; background: var(--ivory); clip-path: ellipse(55% 100% at 50% 100%); }
+.blog-hero .container { position: relative; z-index: 1; }
+.container { max-width: 1180px; margin: 0 auto; }
+.hero-badge { display: inline-block; background: rgba(196,151,58,.2); border: 1px solid rgba(196,151,58,.4); color: var(--gold-light); padding: 6px 18px; border-radius: 40px; font-size: 12px; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 20px; }
+.blog-hero h1 { font-family: 'Fraunces', serif; font-size: 42px; font-weight: 700; margin-bottom: 12px; }
+.blog-hero h1 em { color: var(--gold-light); font-style: italic; }
+.blog-hero p { font-size: 16px; color: rgba(255,255,255,.75); max-width: 560px; margin: 0 auto; }
+
+main { padding: 56px 40px 100px; }
+
+/* Pill catégorie plein, forte lisibilité */
+.pill { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; padding: 5px 12px; border-radius: 20px; color: var(--white); }
+
+/* FEATURE : grand panneau couleur + texte EN DESSOUS (jamais superposé) */
+.feature-card { display: block; text-decoration: none; color: inherit; border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-lg); margin-bottom: 40px; background: var(--white); }
+.feature-panel {
+  height: 300px; position: relative; display: flex; align-items: flex-start; padding: 24px;
+  background:
+    linear-gradient(180deg, rgba(10,20,15,.55) 0%, rgba(10,20,15,.15) 35%, rgba(10,20,15,.65) 100%),
+    url('https://images.pexels.com/photos/36733315/pexels-photo-36733315.jpeg?auto=compress&cs=tinysrgb&w=1600') center 30% / cover no-repeat;
+}
+.feature-panel .pill { background: rgba(255,255,255,.22); backdrop-filter: blur(3px); }
+.feature-panel .credit { position: absolute; right: 16px; bottom: 12px; font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,.6); }
+.feature-panel .credit a { color: rgba(255,255,255,.75); text-decoration: none; }
+.feature-text { padding: 32px 36px 36px; }
+.feature-text h2 { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; max-width: 700px; }
+.feature-text p { font-size: 15px; color: var(--ink-soft); line-height: 1.7; max-width: 640px; margin-bottom: 18px; }
+.feature-text .meta { font-size: 13px; color: var(--slate); display: flex; gap: 8px; align-items: center; }
+.feature-text .meta .go { color: var(--gold); font-weight: 700; margin-left: auto; }
+
+/* Grille moyenne : bento 2 colonnes avec vignette couleur compacte */
+.mid-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 44px; }
+.mid-card { display: flex; gap: 18px; background: var(--white); border-radius: var(--r-lg); padding: 20px; box-shadow: var(--shadow-sm); text-decoration: none; color: inherit; transition: box-shadow .2s, transform .2s; }
+.mid-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.mid-thumb { width: 84px; height: 84px; border-radius: var(--r-md); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.mid-thumb span { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 700; color: rgba(255,255,255,.92); }
+.mid-body h3 { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 700; line-height: 1.35; margin: 2px 0 8px; }
+.mid-body p { font-size: 13px; color: var(--ink-soft); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 8px; }
+.mid-body .meta { font-size: 11.5px; color: var(--slate); }
+
+.sec-label { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; color: var(--teal); text-transform: uppercase; letter-spacing: .08em; margin: 44px 0 20px; padding-left: 20px; position: relative; }
+.sec-label::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 12px; height: 1px; background: var(--teal); }
+
+/* Liste compacte pour absorber le volume restant */
+.more-list { background: var(--white); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+.more-row { display: flex; align-items: center; gap: 16px; padding: 18px 24px; text-decoration: none; color: inherit; border-bottom: 1px solid var(--border); transition: background .2s; }
+.more-row:last-child { border-bottom: none; }
+.more-row:hover { background: var(--sand); }
+.more-row .pill { flex-shrink: 0; }
+.more-row h4 { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 600; flex: 1; }
+.more-row .meta { font-size: 12px; color: var(--slate); flex-shrink: 0; }
+
+@media (max-width: 900px) {
+  .mid-grid { grid-template-columns: 1fr; }
+  .feature-panel { height: 180px; }
+  .blog-hero h1 { font-size: 32px; }
+  main { padding: 40px 20px 80px; }
+  .more-row { flex-wrap: wrap; }
+}
+</style>
+<!-- Brevo tracker -->
+<script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
+<script>
+    // Version: 2.0
+    window.Brevo = window.Brevo || [];
+    Brevo.push([
+        "init",
+        {
+        client_key: "d0aqzyj88l6bfuhczwn7zv35",
+        // Optional: Add other initialization options, see documentation
+        }
+    ]);
+</script>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">Proactifs Conseils</a>
+  <ul class="nav-links">
+    <li><a href="#">Nos services</a></li>
+    <li><a href="#">Simulateurs</a></li>
+    <li><a href="#">Notre approche</a></li>
+    <li><a href="#" class="active">Blog</a></li>
+  </ul>
+  <a href="#" class="nav-cta-btn">Prendre rendez-vous</a>
+</nav>
+
+<section class="blog-hero">
+  <div class="hero-badge">Ressources &amp; Analyses</div>
+  <h1>Le blog <em>patrimoine</em></h1>
+  <p>Fiscalité, immobilier, retraite, transmission : des analyses concrètes pour prendre les bonnes décisions patrimoniales en 2026.</p>
+</section>
+
+<main>
+  <div class="container">
+
+    <!-- FEATURE : panneau couleur plein, texte en dessous (jamais overlay illisible) -->
+    <a class="feature-card" href="#">
+      <div class="feature-panel">
+        <span class="pill">Dirigeants · Nouveau</span>
+        <span class="credit">Photo : <a href="https://www.pexels.com/photo/professional-business-meeting-in-modern-office-36733315/" target="_blank" rel="noopener">Vitaly Gariev / Pexels</a></span>
+      </div>
+      <div class="feature-text">
+        <h2>Gestion de patrimoine entreprise : stratégies d'optimisation fiscale 2026</h2>
+        <p>Holding, PER dirigeant, arbitrage rémunération/dividendes, Pacte Dutreil 2026 : les leviers fiscaux essentiels pour les chefs d'entreprise en Île-de-France.</p>
+        <div class="meta">22 juin 2026 <span>·</span> 10 min <span class="go">Lire →</span></div>
+      </div>
+    </a>
+
+    <!-- MID GRID : vignettes couleur compactes, jamais de texte superposé -->
+    <div class="mid-grid">
+      <a class="mid-card" href="#">
+        <div class="mid-thumb" style="background:linear-gradient(135deg,#1E7A6E,#0e4a42);"><span>RS</span></div>
+        <div class="mid-body">
+          <h3>RSU en France : comment sont-ils imposés en 2026 ?</h3>
+          <p>Avantage en nature, PFU 31,4 % à la cession : les 2 événements fiscaux à maîtriser.</p>
+          <div class="meta">20 juin 2026 · 10 min</div>
+        </div>
+      </a>
+      <a class="mid-card" href="#">
+        <div class="mid-thumb" style="background:linear-gradient(135deg,#B86B1C,#7a4610);"><span>SC</span></div>
+        <div class="mid-body">
+          <h3>SCPI 2026 : rendements, risques et comment bien choisir</h3>
+          <p>Taux de distribution, décote à l'entrée, fiscalité : la grille de lecture 2026.</p>
+          <div class="meta">30 avril 2026 · 10 min</div>
+        </div>
+      </a>
+      <a class="mid-card" href="#">
+        <div class="mid-thumb" style="background:linear-gradient(135deg,#8B3A3A,#5a2222);"><span>DV</span></div>
+        <div class="mid-body">
+          <h3>Donation du vivant en 2026 : abattements et pièges à éviter</h3>
+          <p>Abattements renouvelables, démembrement, donation-partage : bien organiser.</p>
+          <div class="meta">30 avril 2026 · 10 min</div>
+        </div>
+      </a>
+      <a class="mid-card" href="#">
+        <div class="mid-thumb" style="background:linear-gradient(135deg,#185FA5,#0d3a66);"><span>PE</span></div>
+        <div class="mid-body">
+          <h3>PER ou Assurance Vie en 2026 : lequel choisir ?</h3>
+          <p>Fiscalité à l'entrée, disponibilité, transmission : le comparatif complet.</p>
+          <div class="meta">30 avril 2026 · 12 min</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="sec-label">Le reste des articles</div>
+
+    <div class="more-list">
+      <a class="more-row" href="#">
+        <span class="pill" style="background:#1E7A6E;">RSU</span>
+        <h4>Quand vendre ses RSU : stratégies et timing en 2026</h4>
+        <span class="meta">20 juin 2026 · 9 min</span>
+      </a>
+      <a class="more-row" href="#">
+        <span class="pill" style="background:#1E7A6E;">RSU</span>
+        <h4>BSPCE : fiscalité et stratégie pour les salariés de startups en 2026</h4>
+        <span class="meta">20 juin 2026 · 9 min</span>
+      </a>
+      <a class="more-row" href="#">
+        <span class="pill" style="background:#185FA5;">Épargne</span>
+        <h4>Préparer sa retraite en 2026 : 5 leviers patrimoniaux à activer</h4>
+        <span class="meta">5 juin 2026 · 10 min</span>
+      </a>
+      <a class="more-row" href="#">
+        <span class="pill" style="background:#C4973A;">Fiscalité</span>
+        <h4>Réduire ses impôts en 2026 : les 7 leviers à activer avant le 31 décembre</h4>
+        <span class="meta">30 avril 2026 · 9 min</span>
+      </a>
+      <a class="more-row" href="#">
+        <span class="pill" style="background:#B86B1C;">Immobilier</span>
+        <h4>LMNP 2026 : ce qui change après la réforme et comment s'adapter</h4>
+        <span class="meta"
