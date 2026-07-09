@@ -1021,4 +1021,33 @@
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     document.querySelectorAll('.theme-section').forEach(section => {
-      section.style.display = (cat === 'all' ||
+      section.style.display = (cat === 'all' || section.dataset.cat === cat) ? '' : 'none';
+    });
+  }
+
+  // ── DERNIERS ARTICLES (automatique) ──
+  (function() {
+    const now = new Date();
+    const allCards = Array.from(document.querySelectorAll('.blog-card[data-date]'));
+    allCards.sort(function(a, b) { return new Date(b.dataset.date) - new Date(a.dataset.date); });
+    const top3 = allCards.slice(0, 3);
+    const grid = document.getElementById('latest-grid');
+    top3.forEach(function(card, i) {
+      const clone = card.cloneNode(true);
+      if (i === 0) clone.classList.add('card-hero');
+      const diffDays = Math.floor((now - new Date(card.dataset.date)) / 86400000);
+      if (diffDays < 30) {
+        const tag = clone.querySelector('.card-tag');
+        if (tag) {
+          const badge = document.createElement('span');
+          badge.className = 'badge-new';
+          badge.textContent = 'Nouveau';
+          tag.appendChild(badge);
+        }
+      }
+      grid.appendChild(clone);
+    });
+  })();
+</script>
+</body>
+</html>
