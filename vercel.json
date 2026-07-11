@@ -29,7 +29,6 @@
     { "source": "/blog/sci-familiale-2026",                "destination": "/blog/sci-familiale-2026.html" },
     { "source": "/blog/scpi-2026",                         "destination": "/blog/scpi-2026.html" },
     { "source": "/blog/preparer-retraite-2026-leviers-patrimoniaux-juin", "destination": "/blog/preparer-retraite-2026-leviers-patrimoniaux-juin.html" },
-    { "source": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "destination": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026.html" },
     { "source": "/investissement-immobilier-ancien",        "destination": "/investissement-immobilier-ancien.html" },
     { "source": "/declaration-rsu-espp-france",            "destination": "/declaration-rsu-espp-france.html" },
     { "source": "/merci-avis",                             "destination": "/merci-avis.html" },
@@ -91,8 +90,10 @@
     { "source": "/immobilier-ancien",    "destination": "/investissement-immobilier-ancien",     "permanent": true },
     { "source": "/immobilier-ancien/",   "destination": "/investissement-immobilier-ancien",     "permanent": true },
 
-    { "source": "/gestion-de-patrimoine-de-lentreprise", "destination": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "permanent": true },
-    { "source": "/gestion-de-patrimoine-de-lentreprise/","destination": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "permanent": true },
+    { "source": "/gestion-de-patrimoine-de-lentreprise", "destination": "/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "permanent": true },
+    { "source": "/gestion-de-patrimoine-de-lentreprise/","destination": "/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "permanent": true },
+
+    { "source": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "destination": "/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "permanent": true },
 
     { "source": "/le-gestionnaire-de-patrimoine",  "destination": "/bilan-patrimonial", "permanent": true },
     { "source": "/le-gestionnaire-de-patrimoine/", "destination": "/bilan-patrimonial", "permanent": true },

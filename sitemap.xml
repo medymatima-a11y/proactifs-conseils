@@ -13,24 +13,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://proactifsconseils.fr/blog/blog-maquette-1-editorial</loc>
-    <lastmod>2026-07-09</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://proactifsconseils.fr/blog/blog-maquette-2-magazine</loc>
-    <lastmod>2026-07-09</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://proactifsconseils.fr/blog/blog-maquette-3-liste-minimaliste</loc>
-    <lastmod>2026-07-09</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://proactifsconseils.fr/blog/bspce-fiscalite-startup-2026</loc>
     <lastmod>2026-07-09</lastmod>
     <changefreq>yearly</changefreq>
@@ -151,12 +133,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://proactifsconseils.fr/brevo-architecture-contacts</loc>
-    <lastmod>2026-07-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://proactifsconseils.fr/cabinet</loc>
     <lastmod>2026-07-09</lastmod>
     <changefreq>monthly</changefreq>
@@ -229,12 +205,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://proactifsconseils.fr/gestion-patrimoine-entreprise-dirigeants-strategies-2026</loc>
-    <lastmod>2026-07-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://proactifsconseils.fr</loc>
     <lastmod>2026-07-09</lastmod>
     <changefreq>weekly</changefreq>
@@ -254,12 +224,6 @@
   </url>
   <url>
     <loc>https://proactifsconseils.fr/investissement-scpi-hauts-de-seine</loc>
-    <lastmod>2026-07-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://proactifsconseils.fr/merci-avis</loc>
     <lastmod>2026-07-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
