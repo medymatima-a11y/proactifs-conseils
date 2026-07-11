@@ -84,8 +84,6 @@ Tu es un agent SEO éditeur. Quand on te demande d'optimiser le SEO :
 | `declaration-rsu-espp-france.html` | /declaration-rsu-espp-france | Déclaration RSU/ESPP |
 | `placements-financiers.html` | /placements-financiers | Placements financiers |
 | `simulation-pret-immobilier.html` | /simulation-pret-immobilier | Simulateur prêt immobilier |
-| `donation-vivant-patrimoine.html` | /donation-vivant-patrimoine | Donation du vivant |
-| `gestion-patrimoine-entreprise-dirigeants-strategies-2026.html` | /gestion-patrimoine-entreprise-dirigeants-strategies-2026 | Gestion patrimoine dirigeants |
 
 ### Pages villes (SEO local)
 | Fichier | URL | Ville |

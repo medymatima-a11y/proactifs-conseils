@@ -95,6 +95,8 @@
 
     { "source": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "destination": "/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "permanent": true },
 
+    { "source": "/donation-vivant-patrimoine", "destination": "/blog/donation-vivant-2026", "permanent": true },
+
     { "source": "/le-gestionnaire-de-patrimoine",  "destination": "/bilan-patrimonial", "permanent": true },
     { "source": "/le-gestionnaire-de-patrimoine/", "destination": "/bilan-patrimonial", "permanent": true },
 

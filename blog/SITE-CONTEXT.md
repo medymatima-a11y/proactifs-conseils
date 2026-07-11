@@ -38,8 +38,8 @@
 | Déclaration RSU/ESPP | `/declaration-rsu-espp-france` → `declaration-rsu-espp-france.html` | ✅ En ligne |
 | Placements financiers | `/placements-financiers` → `placements-financiers.html` | ✅ En ligne |
 | Simulateur prêt immobilier | `/simulation-pret-immobilier` → `simulation-pret-immobilier.html` | ✅ En ligne |
-| Donation du vivant | `/donation-vivant-patrimoine` → `donation-vivant-patrimoine.html` | ✅ En ligne |
-| Gestion patrimoine dirigeants | `/gestion-patrimoine-entreprise-dirigeants-strategies-2026` → `gestion-patrimoine-entreprise-dirigeants-strategies-2026.html` | ✅ En ligne |
+| Donation du vivant | `/blog/donation-vivant-2026` → `blog/donation-vivant-2026.html` | ✅ En ligne (fusionné avec donation-vivant-patrimoine le 2026-07-11) |
+| Gestion patrimoine dirigeants | `/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026` → `blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026.html` | ✅ En ligne (fusionné, doublon racine supprimé le 2026-07-11) |
 | Contact | `/contact` | ✅ En ligne |
 
 ### Pages villes (SEO local)
