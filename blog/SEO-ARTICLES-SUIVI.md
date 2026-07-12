@@ -30,6 +30,7 @@
 | Investir ses RSU intelligemment : 5 stratégies patrimoniales | `/blog/investir-rsu-patrimoine-2026` | investir RSU stratégies patrimoniales 2026 | 2026-06 | ✅ Publié |
 | Gestion de patrimoine entreprise : stratégies d'optimisation fiscale 2026 | `/blog/gestion-patrimoine-entreprise-strategies-optimisation-fiscale-2026` | optimisation fiscale chef d'entreprise holding patrimoniale 2026 | 2026-06 | ✅ Publié |
 | Modifier la clause bénéficiaire de son assurance-vie en 2026 | `/blog/modifier-clause-beneficiaire-assurance-vie-2026` | changement bénéficiaire assurance-vie fiscalité | 2026-07 | ✅ Publié |
+| Conseiller en patrimoine en Île-de-France : trouver le bon expert | `/blog/conseiller-patrimoine-ile-de-france` | conseil en gestion de patrimoine Île-de-France | 2026-07 | ✅ Publié |
 
 ---
 
@@ -67,6 +68,9 @@
 - PER dirigeant déductible
 - séparation patrimoine professionnel personnel dirigeant
 - transmission entreprise fiscalité Pacte Dutreil
+- conseil en gestion de patrimoine Île-de-France
+- expert patrimoine Paris
+- consultant patrimoine régional
 
 ---
 
