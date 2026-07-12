@@ -14,3 +14,6 @@ scripts/temp-*
 
 # Fichiers .tmp de Dropbox
 *.tmp.*
+
+# Config locale Claude Code
+.claude/
