@@ -19,7 +19,7 @@
 | Gestion de patrimoine pour dirigeants d'entreprise | `/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026` | gestion patrimoine entreprise dirigeants 2026 | 2026-05 | ✅ Publié |
 | Préparer sa retraite 2026 : 5 leviers patrimoniaux | `/blog/preparer-retraite-2026-leviers-patrimoniaux-juin` | préparer retraite 2026 leviers patrimoniaux | 2026-06 | ✅ Publié |
 | RSU en France : comment sont-ils imposés en 2026 ? | `/blog/rsu-imposition-france-2026` | RSU imposition France 2026 | 2026-06 | ✅ Publié |
-| ESPP France : fiscalité et déclaration en 2026 | `/blog/espp-fiscalite-france-2026` | ESPP fiscalité France 2026 | 2026-06 | ✅ Publié |
+| ESPP France : fiscalité et déclaration en 2026 ? | `/blog/espp-fiscalite-france-2026` | ESPP fiscalité France 2026 | 2026-06 | ✅ Publié |
 | Quand vendre ses RSU : stratégies et timing en 2026 | `/blog/quand-vendre-rsu-strategie-2026` | quand vendre RSU stratégie 2026 | 2026-06 | ✅ Publié |
 | BSPCE : fiscalité et stratégie pour les salariés de startups en 2026 | `/blog/bspce-fiscalite-startup-2026` | BSPCE fiscalité startup 2026 | 2026-06 | ✅ Publié |
 | Déclarer ses RSU aux impôts : formulaires et cases 2026 | `/blog/declarer-rsu-formulaires-2026` | déclarer RSU impôts formulaires 2026 | 2026-06 | ✅ Publié |
@@ -31,6 +31,7 @@
 | Gestion de patrimoine entreprise : stratégies d'optimisation fiscale 2026 | `/blog/gestion-patrimoine-entreprise-strategies-optimisation-fiscale-2026` | optimisation fiscale chef d'entreprise holding patrimoniale 2026 | 2026-06 | ✅ Publié |
 | Modifier la clause bénéficiaire de son assurance-vie en 2026 | `/blog/modifier-clause-beneficiaire-assurance-vie-2026` | changement bénéficiaire assurance-vie fiscalité | 2026-07 | ✅ Publié |
 | Conseiller en patrimoine en Île-de-France : trouver le bon expert | `/blog/conseiller-patrimoine-ile-de-france` | conseil en gestion de patrimoine Île-de-France | 2026-07 | ✅ Publié |
+| LMNP ou SCPI pour la retraite à 50 ans | `/blog/immobilier-complement-retraite-lmnp-scpi-50-ans` | LMNP SCPI complément retraite 50 ans | 2026-08 | ✅ Publié |
 
 ---
 
@@ -71,6 +72,8 @@
 - conseil en gestion de patrimoine Île-de-France
 - expert patrimoine Paris
 - consultant patrimoine régional
+- LMNP SCPI complément retraite 50 ans
+- immobilier locatif retraite Île-de-France
 
 ---
 
@@ -98,4 +101,4 @@ Quand tu crées un article, ajoute une ligne dans le tableau "Articles publiés"
 
 ---
 
-*Dernière mise à jour : 2026-06-22*
+*Dernière mise à jour : 2026-08-19*
