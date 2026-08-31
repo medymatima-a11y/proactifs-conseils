@@ -407,6 +407,15 @@
       color:var(--white);
     }
 
+    .comparison-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow-sm)}
+    .comparison-table thead{background:var(--forest);color:var(--white)}
+    .comparison-table th{padding:16px 20px;text-align:left;font-size:14px;font-weight:600}
+    .comparison-table td{padding:14px 20px;font-size:14px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.6}
+    .comparison-table tr:last-child td{border-bottom:none}
+    .comparison-table tr:nth-child(even) td{background:var(--sand)}
+    .comparison-table td:first-child{font-weight:600;color:var(--ink);font-size:13px}
+    .source-note{font-family:'DM Mono',monospace;font-size:11px;color:var(--slate);line-height:1.6;margin-top:14px}
+    .source-note a{color:var(--teal);text-decoration:underline}
     .zone-list {
       background:rgba(255,255,255,.05);
       border:1px solid rgba(196,151,58,.3);
@@ -961,8 +970,8 @@
 
     <div class="why-cards">
       <div class="why-card reveal" data-number="1">
-        <h3>Conseil objectif</h3>
-        <p>Entièrement dédié à vos intérêts, nos recommandations sont guidées par votre situation et vos objectifs — pas par des produits à placer ni des partenariats commerciaux.</p>
+        <h3>Une analyse avant toute solution</h3>
+        <p>Nous commençons par examiner votre situation dans son ensemble : fiscalité, revenus, projets, horizon. La recommandation vient après, jamais l'inverse.</p>
       </div>
       <div class="why-card reveal" data-number="2">
         <h3>Sur-mesure 100%</h3>
@@ -973,6 +982,82 @@
         <p>Proche de La Défense, nous accompagnons régulièrement des cadres et dirigeants de Courbevoie sur des problématiques de stock-options, épargne salariale et optimisation fiscale des hauts revenus.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- SECTION 2b: MARCHE IMMOBILIER COURBEVOIE (donnees DVF) -->
+<section class="sec" style="background:var(--sand);">
+  <div class="container reveal">
+    <div class="sec-label">Marché local</div>
+    <h2 class="sec-title">Ce que disent les <em>chiffres</em> de Courbevoie</h2>
+    <p class="sec-subtitle">Organiser un patrimoine commence par regarder le marché où il se trouve.</p>
+
+    <p>Courbevoie n'est pas Colombes, et les transactions enregistrées le montrent sans ambiguïté. L'appartement s'y négocie environ 34 % plus cher, et la maison y est devenue une exception statistique.</p>
+
+    <table class="comparison-table" style="margin:28px 0;">
+      <thead>
+        <tr><th>Indicateur</th><th>Courbevoie</th><th>Colombes</th><th>Hauts-de-Seine</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Appartement, prix médian</td><td>7 143 €/m²</td><td>5 337 €/m²</td><td>6 818 €/m²</td></tr>
+        <tr><td>Ventes d'appartements</td><td>5 336</td><td>4 097</td><td>91 471</td></tr>
+        <tr><td>Maison, prix médian</td><td>9 241 €/m²</td><td>7 500 €/m²</td><td>7 905 €/m²</td></tr>
+        <tr><td>Ventes de maisons</td><td>168</td><td>1 462</td><td>11 600</td></tr>
+      </tbody>
+    </table>
+
+    <p>Sur 5 504 transactions recensées, 168 seulement portent sur une maison. Trois pour cent. À Colombes, la proportion atteint vingt-six pour cent. Le patrimoine immobilier courbevoisien est donc presque intégralement détenu en copropriété, ce qui change la manière de l'organiser, de le louer et de le transmettre.</p>
+
+    <p class="source-note">Source : <a href="https://www.data.gouv.fr/datasets/statistiques-dvf/" target="_blank" rel="noopener">Statistiques DVF</a>, data.gouv.fr, cumul des dix derniers semestres disponibles, mise à jour du 17 juillet 2026, Licence Ouverte 2.0.</p>
+  </div>
+</section>
+
+<!-- SECTION 2c: REMUNERATION EN TITRES (La Defense) -->
+<section class="sec" style="background:var(--white);">
+  <div class="container reveal">
+    <div class="sec-label">La Défense</div>
+    <h2 class="sec-title">Quand une partie de votre rémunération arrive en <em>titres</em></h2>
+    <p class="sec-subtitle">Un sujet quotidien à Courbevoie, presque absent ailleurs dans le département.</p>
+
+    <p>À cinq minutes de La Défense, une part importante de nos rendez-vous porte sur une question que nous rencontrons rarement dans les communes voisines : que faire d'une rémunération versée en actions.</p>
+
+    <p>RSU, stock-options, ESPP, BSPCE. Chacun de ces dispositifs a son calendrier, son régime d'imposition et son moment de bascule. La question n'est jamais seulement fiscale. Conserver, c'est concentrer son patrimoine sur l'employeur qui verse déjà le salaire. Vendre, c'est arbitrer entre une fiscalité immédiate et une diversification. Les deux se défendent, selon votre situation.</p>
+
+    <p>Nous avons documenté ces mécanismes en détail : <a href="/blog/rsu-imposition-france-2026">l'imposition des RSU en France</a>, <a href="/blog/quand-vendre-rsu-strategie-2026">le moment de la vente</a>, <a href="/blog/espp-fiscalite-france-2026">la fiscalité de l'ESPP</a>, <a href="/blog/stock-options-imposition-strategie-2026">les stock-options</a> et <a href="/blog/bspce-fiscalite-startup-2026">les BSPCE</a>. Notre page <a href="/fiscalite-rsu-stock-options">fiscalité des RSU et stock-options</a> en donne la vue d'ensemble.</p>
+  </div>
+</section>
+
+<!-- SECTION 2d: IFI -->
+<section class="sec" style="background:var(--sand);">
+  <div class="container reveal">
+    <div class="sec-label">Impôt sur la fortune immobilière</div>
+    <h2 class="sec-title">L'IFI concerne plus de <em>Courbevoisiens</em> qu'on ne le croit</h2>
+    <p class="sec-subtitle">Le niveau des prix locaux rattrape les propriétaires de longue date.</p>
+
+    <p>Le seuil d'assujettissement est fixé à 1,3 million d'euros de patrimoine immobilier net taxable au 1<sup>er</sup> janvier. Rapporté à la médiane courbevoisienne de 7 143 €/m², cela représente environ 182 m². Personne ne se sent fortuné avec un appartement, et pourtant l'arithmétique locale rattrape vite ceux qui ont acheté il y a vingt ans.</p>
+
+    <p>Votre résidence principale bénéficie d'un abattement de 30 % sur sa valeur vénale. Elle doit donc dépasser 260 m² pour vous rendre imposable à elle seule, ce qui reste rare. Le basculement vient presque toujours du deuxième bien : un locatif, un pied-à-terre, des parts de SCPI. Ceux-là ne bénéficient d'aucun abattement.</p>
+
+    <p>Un point revient souvent dans les dossiers que nous examinons. Si votre résidence principale est détenue par l'intermédiaire d'une société civile immobilière de gestion, l'abattement de 30 % ne s'applique pas. Le montage constitué pour préparer la transmission peut alors vous faire franchir le seuil.</p>
+
+    <p>Au-delà de 1,3 million, le barème progresse par tranches : 0,50 % entre 800 000 et 1,3 million, 0,70 % jusqu'à 2,57 millions, puis 1 % au-delà. Une décote atténue l'effet de seuil entre 1,3 et 1,4 million.</p>
+
+    <p class="source-note">Sources : <a href="https://bofip.impots.gouv.fr/bofip/11289-PGP.html/identifiant=BOI-PAT-IFI-10-20180608" target="_blank" rel="noopener">BOI-PAT-IFI-10</a> (champ d'application, article 964 du CGI), <a href="https://bofip.impots.gouv.fr/bofip/11319-PGP.html/identifiant=BOI-PAT-IFI-40-10-20180608" target="_blank" rel="noopener">BOI-PAT-IFI-40-10</a> (tarif) et <a href="https://bofip.impots.gouv.fr/bofip/11360-PGP.html/identifiant=BOI-PAT-IFI-20-30-20-20240605" target="_blank" rel="noopener">BOI-PAT-IFI-20-30-20</a> (abattement de 30 %, article 973 du CGI). Ces éléments sont donnés à titre d'information générale et ne remplacent pas l'examen de votre situation.</p>
+  </div>
+</section>
+
+<!-- SECTION 2e: INVESTIR ET FINANCER -->
+<section class="sec" style="background:var(--white);">
+  <div class="container reveal">
+    <div class="sec-label">Investir et financer</div>
+    <h2 class="sec-title">Se constituer un patrimoine sur un marché à <em>7 143 €/m²</em></h2>
+    <p class="sec-subtitle">La rareté de la maison oriente les stratégies vers d'autres supports.</p>
+
+    <p>À ce niveau de prix, l'investissement locatif classique demande un apport que tout le monde n'a pas. Trois voies se présentent selon votre capacité et votre horizon.</p>
+
+    <p>L'appartement locatif reste possible, souvent sur des surfaces réduites, avec la question du régime à retenir entre location nue et <a href="/investissement-immobilier">location meublée</a>. Les <a href="/investissement-scpi-hauts-de-seine">parts de SCPI</a> permettent d'entrer sur le marché immobilier sans acquérir un bien entier, avec un ticket bien inférieur. Le <a href="/courtage-credit-immobilier">financement</a>, enfin, détermine souvent ce qui est réellement atteignable : sur un marché à 7 143 €/m², la structure du prêt pèse autant que le choix du bien.</p>
+
+    <p>Ces arbitrages se posent différemment selon vos revenus, votre fiscalité et vos projets à dix ans. C'est l'objet du <a href="/bilan-patrimonial">bilan patrimonial</a>.</p>
   </div>
 </section>
 
@@ -1127,8 +1212,8 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-    {"@type":"Question","name":"Comment optimiser sa fiscalité quand on est cadre à La Défense ?","acceptedAnswer":{"@type":"Answer","text":"Les cadres à hauts revenus du secteur de La Défense peuvent combiner PER (déduction jusqu'à 35 000€/an), FCPI/FIP (réduction IR jusqu'à 25%), et investissement immobilier (Denormandie, déficit foncier) pour réduire significativement leur TMI."}},
-    {"@type":"Question","name":"Peut-on investir en SCPI depuis Courbevoie ?","acceptedAnswer":{"@type":"Answer","text":"Oui, l'investissement en SCPI est accessible depuis Courbevoie. Avec un rendement moyen de 4,5 à 5,5%, les SCPI permettent de générer des revenus complémentaires sans contrainte de gestion."}},
+    {"@type":"Question","name":"Comment optimiser sa fiscalité quand on est cadre à La Défense ?","acceptedAnswer":{"@type":"Answer","text":"Plusieurs leviers se combinent selon la situation. Le PER permet de déduire du revenu imposable les versements, dans la limite de 10 % des revenus professionnels de l'année précédente, eux-mêmes retenus dans la limite de huit fois le plafond annuel de la sécurité sociale ; le montant qui vous est propre figure sur votre avis d'impôt, rubrique « Plafond épargne retraite ». Les FCPI et FIP ouvrent droit à une réduction d'impôt de 18 % des versements, retenus dans la limite de 12 000 € pour une personne seule et 24 000 € pour un couple. L'immobilier locatif, enfin, peut générer un déficit foncier imputable sur le revenu global sous conditions. Le choix dépend de votre tranche marginale, de votre horizon et de votre capacité d'épargne."}},
+    {"@type":"Question","name":"Peut-on investir en SCPI depuis Courbevoie ?","acceptedAnswer":{"@type":"Answer","text":"Oui. La SCPI permet d'accéder à l'immobilier locatif sans acquérir ni gérer un bien en direct, ce qui la rend pertinente à Courbevoie où le prix au mètre carré limite l'accès à l'investissement en direct. Le rendement varie selon les sociétés et les années, les performances passées ne préjugent pas des performances futures, et le capital n'est pas garanti."}},
     {"@type":"Question","name":"Proactifs Conseils se déplace-t-il à Courbevoie ?","acceptedAnswer":{"@type":"Answer","text":"Oui, nous nous déplaçons à Courbevoie ou organisons les rendez-vous en visioconférence. Notre cabinet est facilement accessible depuis Courbevoie (15 minutes en voiture)."}}
 ]}
 </script>
