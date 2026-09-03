@@ -65,7 +65,6 @@
     { "source": "/qui-sommes-nous",      "destination": "/cabinet", "permanent": true },
     { "source": "/fiscalite",            "destination": "/optimisation-fiscale-ile-de-france",  "permanent": true },
     { "source": "/retraite",             "destination": "/preparation-retraite",                "permanent": true },
-    { "source": "/immobilier",           "destination": "/investissement-immobilier",            "permanent": true },
     { "source": "/credit-immobilier",    "destination": "/courtage-credit-immobilier",          "permanent": true },
     { "source": "/succession",           "destination": "/transmission",                        "permanent": true },
     { "source": "/transmission-succession","destination": "/transmission",                      "permanent": true },
