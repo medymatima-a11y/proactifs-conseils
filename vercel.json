@@ -10,6 +10,7 @@
     { "source": "/investissement-immobilier",              "destination": "/investissement-immobilier.html" },
     { "source": "/placements-financiers",                 "destination": "/placements-financiers.html" },
     { "source": "/courtage-credit-immobilier",          "destination": "/courtage-credit-immobilier.html" },
+    { "source": "/immobilier",                         "destination": "/immobilier.html" },
     { "source": "/simulation-pret-immobilier",          "destination": "/simulation-pret-immobilier.html" },
     { "source": "/declaration-impots-ile-de-france",    "destination": "/declaration-impots-ile-de-france.html" },
     { "source": "/preparation-retraite",                "destination": "/preparation-retraite.html" },
