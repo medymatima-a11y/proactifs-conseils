@@ -270,8 +270,12 @@
     /* Parcours / timeline */
     /* Parcours — grille de cartes (fidèle à la V1 Lovable) */
     .parcours-grid { margin: 56px 0 56px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; list-style: none; }
-    .parcours-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; transition: all .3s cubic-bezier(.16,1,.3,1); }
-    .parcours-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .parcours-card { position: relative; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; transition: all .3s cubic-bezier(.16,1,.3,1); cursor: default; }
+    .parcours-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); z-index: 30; }
+    .parcours-card:focus-within { z-index: 30; }
+    .parcours-tip { position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(-6px); width: 220px; background: var(--forest); color: var(--white); font-family: 'Nunito Sans', sans-serif; font-size: 12.5px; font-weight: 500; line-height: 1.45; padding: 12px 14px; border-radius: 10px; box-shadow: var(--shadow-lg); opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; z-index: 20; text-align: left; }
+    .parcours-tip::before { content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-bottom-color: var(--forest); }
+    .parcours-card:hover .parcours-tip, .parcours-card:focus-within .parcours-tip { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
     .parcours-num { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 12px; font-size: 14px; font-weight: 700; color: var(--white); background: var(--forest); transition: transform .3s; }
     .parcours-card:hover .parcours-num { transform: scale(1.1); }
     .parcours-num.alt { background: var(--coral); }
@@ -532,14 +536,14 @@
       <h2 class="sec-title" style="max-width:560px">Et après la vente ?</h2>
       <p class="sec-intro" style="margin-bottom:0;max-width:560px">Une agence vous accompagne jusqu'à la transaction. Nous pouvons vous accompagner au-delà.</p>
       <ol class="parcours-grid">
-        <li class="parcours-card reveal-scale" style="transition-delay:0ms"><span class="parcours-num">1</span><p>Estimation</p></li>
-        <li class="parcours-card reveal-scale" style="transition-delay:70ms"><span class="parcours-num">2</span><p>Mandat</p></li>
-        <li class="parcours-card reveal-scale" style="transition-delay:140ms"><span class="parcours-num">3</span><p>Commercialisation</p></li>
-        <li class="parcours-card reveal-scale" style="transition-delay:210ms"><span class="parcours-num">4</span><p>Compromis</p></li>
-        <li class="parcours-card reveal-scale" style="transition-delay:280ms"><span class="parcours-num">5</span><p>Vente</p></li>
-        <li class="parcours-card reveal-scale" style="transition-delay:350ms"><span class="parcours-num alt">6</span><p>Nouveau financement</p></li>
-        <li class="parcours-card reveal-scale" style="transition-delay:420ms"><span class="parcours-num alt">7</span><p>Réinvestissement</p></li>
-        <li class="parcours-card reveal-scale" style="transition-delay:490ms"><span class="parcours-num alt">8</span><p>Stratégie patrimoniale</p></li>
+        <li class="parcours-card reveal-scale" style="transition-delay:0ms"><span class="parcours-num">1</span><p>Estimation</p><div class="parcours-tip">Une estimation juste, basée sur le marché local et une lecture patrimoniale de votre bien.</div></li>
+        <li class="parcours-card reveal-scale" style="transition-delay:70ms"><span class="parcours-num">2</span><p>Mandat</p><div class="parcours-tip">Un mandat clair, adapté à votre projet, sans démarche compliquée.</div></li>
+        <li class="parcours-card reveal-scale" style="transition-delay:140ms"><span class="parcours-num">3</span><p>Commercialisation</p><div class="parcours-tip">Diffusion multicanal, visuels soignés et visites qualifiées pour valoriser votre bien.</div></li>
+        <li class="parcours-card reveal-scale" style="transition-delay:210ms"><span class="parcours-num">4</span><p>Compromis</p><div class="parcours-tip">Négociation et sécurisation juridique jusqu'à la signature du compromis.</div></li>
+        <li class="parcours-card reveal-scale" style="transition-delay:280ms"><span class="parcours-num">5</span><p>Vente</p><div class="parcours-tip">Signature chez le notaire : votre vente est finalisée en toute sérénité.</div></li>
+        <li class="parcours-card reveal-scale" style="transition-delay:350ms"><span class="parcours-num alt">6</span><p>Nouveau financement</p><div class="parcours-tip">Besoin d'acheter ensuite ? Nous vous accompagnons aussi en courtage pour financer votre prochain projet.</div></li>
+        <li class="parcours-card reveal-scale" style="transition-delay:420ms"><span class="parcours-num alt">7</span><p>Réinvestissement</p><div class="parcours-tip">Nous vous aidons à réfléchir aux meilleures options pour réinvestir le capital dégagé.</div></li>
+        <li class="parcours-card reveal-scale" style="transition-delay:490ms"><span class="parcours-num alt">8</span><p>Stratégie patrimoniale</p><div class="parcours-tip">Fiscalité, transmission, retraite : votre vente s'inscrit dans une vision patrimoniale globale.</div></li>
       </ol>
       <p class="journey-closing">Parce que le véritable enjeu n'est pas uniquement de vendre votre bien au meilleur prix. C'est aussi de savoir quoi faire ensuite.</p>
     </div>
