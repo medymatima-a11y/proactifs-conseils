@@ -688,14 +688,14 @@ footer {
 ══════════════════════════════════════════════ */
 #lead-gen {
   padding: 0;
-  background: linear-gradient(160deg, #0F2518 0%, #132D1E 60%, #1C4020 100%);
+  background: linear-gradient(160deg, var(--ivory) 0%, var(--sand) 100%);
   position: relative; overflow: hidden;
 }
 #lead-gen::before {
   content:'';
   position:absolute; inset:0;
-  background: radial-gradient(ellipse 70% 60% at 80% 50%, rgba(196,151,58,.08) 0%, transparent 60%),
-              radial-gradient(ellipse 50% 80% at 10% 80%, rgba(30,122,110,.12) 0%, transparent 60%);
+  background: radial-gradient(ellipse 70% 60% at 80% 30%, rgba(30,122,110,.06) 0%, transparent 60%),
+              radial-gradient(ellipse 50% 80% at 10% 90%, rgba(196,151,58,.07) 0%, transparent 60%);
   pointer-events:none;
 }
 .lead-inner {
@@ -706,17 +706,17 @@ footer {
 .lead-header { text-align:center; margin-bottom:52px; }
 .lead-badge {
   display: inline-flex; align-items:center; gap:8px;
-  background: rgba(196,151,58,.15); border: 1px solid rgba(196,151,58,.35);
-  color: var(--gold-light); padding: 7px 18px; border-radius:100px;
+  background: var(--gold-pale); border: 1px solid rgba(196,151,58,.35);
+  color: #9A752B; padding: 7px 18px; border-radius:100px;
   font-size: 11.5px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase;
   font-family:'DM Mono',monospace; margin-bottom:22px;
 }
 .lead-title {
   font-family: 'Fraunces', serif;
   font-size: clamp(26px, 3.4vw, 44px);
-  font-weight: 700; color: #fff; line-height:1.15; margin-bottom:16px;
+  font-weight: 700; color: var(--ink); line-height:1.15; margin-bottom:16px;
 }
-.lead-title em { color: var(--gold-light); font-style:italic; }
+.lead-title em { color: var(--gold); font-style:italic; }
 .lead-title .char {
   display: inline-block;
   opacity: 0;
@@ -729,7 +729,7 @@ footer {
 }
 .lead-title .char-space { display: inline-block; width: .28em; }
 .lead-sub {
-  color: rgba(255,255,255,.85);
+  color: var(--ink-soft);
   font-size: clamp(17px, 2.2vw, 22px);
   margin-bottom: 12px;
   font-weight: 400;
@@ -737,7 +737,7 @@ footer {
 }
 .lead-cta-hint {
   display: flex; align-items: center; justify-content: center; gap: 10px;
-  color: var(--gold-light);
+  color: var(--gold);
   font-size: clamp(14px, 1.6vw, 17px);
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -758,10 +758,10 @@ footer {
 }
 .lead-trust-row {
   display: flex; align-items:center; justify-content:center; gap:20px;
-  color: rgba(255,255,255,.4); font-size:13px;
+  color: var(--slate); font-size:13px;
 }
 .lead-trust-row span { display:flex; align-items:center; gap:6px; }
-.lead-trust-dot { color:rgba(255,255,255,.2); }
+.lead-trust-dot { color: var(--border); }
 
 /* Service selector cards */
 .lead-cards {
@@ -774,8 +774,9 @@ footer {
   to   { opacity:1; transform: translateY(0); }
 }
 .lead-card {
-  background: rgba(255,255,255,.05);
-  border: 1.5px solid rgba(255,255,255,.1);
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow-sm);
   border-radius: var(--r-md);
   padding: 22px 20px;
   cursor: pointer;
@@ -802,29 +803,29 @@ footer {
 }
 .lead-card:hover::after { right:0; }
 .lead-card:hover {
-  background: rgba(255,255,255,.09);
+  background: var(--white);
   border-color: rgba(196,151,58,.5);
   transform: translateY(-8px) scale(1.03) rotate(-1deg);
-  box-shadow: 0 20px 40px rgba(0,0,0,.35), 0 0 0 1px rgba(196,151,58,.3);
+  box-shadow: var(--shadow-md), 0 0 0 1px rgba(196,151,58,.25);
 }
 
 /* ── Icône animée au survol ── */
 .lead-card-icon {
   width:40px; height:40px; border-radius:10px;
-  background: rgba(196,151,58,.15);
+  background: var(--teal-pale);
   display:flex; align-items:center; justify-content:center;
   flex-shrink:0;
   transition: transform .3s cubic-bezier(.34,1.56,.64,1), background .25s;
 }
 .lead-card:hover .lead-card-icon {
   transform: scale(1.18) rotate(-6deg);
-  background: rgba(196,151,58,.28);
+  background: #D2E9E5;
 }
 
 .lead-card-title {
-  font-family:'Fraunces',serif; font-size:15px; font-weight:600; color:#fff; line-height:1.2;
+  font-family:'Fraunces',serif; font-size:15px; font-weight:600; color:var(--ink); line-height:1.2;
 }
-.lead-card-desc { font-size:12px; color:rgba(255,255,255,.4); line-height:1.5; }
+.lead-card-desc { font-size:12px; color:var(--slate); line-height:1.5; }
 .lead-card-arrow {
   margin-top:auto; display:flex; align-items:center; gap:5px;
   font-size:11.5px; font-weight:600; color:var(--gold); letter-spacing:.5px;
@@ -1291,7 +1292,7 @@ footer {
     <div class="lead-cards">
       <div class="lead-card" onclick="openWizard('impots')">
         <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#C4973A" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M9 2l1.5 1.5M15 2l-1.5 1.5"/></svg>
+          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M9 2l1.5 1.5M15 2l-1.5 1.5"/></svg>
         </div>
         <div class="lead-card-title">Réduire mes impôts</div>
         <div class="lead-card-desc">TMI, PER, défiscalisation, revenus fonciers</div>
@@ -1299,7 +1300,7 @@ footer {
       </div>
       <div class="lead-card" onclick="openWizard('immo')">
         <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#C4973A" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
         <div class="lead-card-title">Investissement immobilier</div>
         <div class="lead-card-desc">SCPI, LMNP, SCI, locatif</div>
@@ -1307,7 +1308,7 @@ footer {
       </div>
       <div class="lead-card" onclick="openWizard('retraite')">
         <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#C4973A" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
         <div class="lead-card-title">Préparer ma retraite</div>
         <div class="lead-card-desc">PER, épargne salariale, revenus complémentaires</div>
@@ -1315,7 +1316,7 @@ footer {
       </div>
       <div class="lead-card" onclick="openWizard('epargne')">
         <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#C4973A" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
         </div>
         <div class="lead-card-title">Placer mon épargne</div>
         <div class="lead-card-desc">Assurance vie, PEA, produits structurés</div>
@@ -1323,7 +1324,7 @@ footer {
       </div>
       <div class="lead-card" onclick="openWizard('transmission')">
         <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#C4973A" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
         </div>
         <div class="lead-card-title">Transmettre à mes proches</div>
         <div class="lead-card-desc">Donation, succession, SCI familiale</div>
@@ -1331,7 +1332,7 @@ footer {
       </div>
       <div class="lead-card" onclick="openWizard('cession')">
         <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#C4973A" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
         </div>
         <div class="lead-card-title">Céder mon entreprise</div>
         <div class="lead-card-desc">Apport-cession, 150-0 B ter, remploi</div>
@@ -1339,7 +1340,7 @@ footer {
       </div>
       <div class="lead-card" onclick="openWizard('credit')">
         <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#C4973A" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
         </div>
         <div class="lead-card-title">Obtenir un crédit</div>
         <div class="lead-card-desc">Financement résidence, investissement locatif</div>
@@ -1347,7 +1348,7 @@ footer {
       </div>
       <div class="lead-card" onclick="openWizard('declaration')">
         <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#C4973A" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </div>
         <div class="lead-card-title">Déclarer mes impôts</div>
         <div class="lead-card-desc">Revenus fonciers, LMNP, plus-values</div>
@@ -1355,7 +1356,7 @@ footer {
       </div>
       <div class="lead-card" onclick="openWizard('rsu')">
         <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#C4973A" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
         </div>
         <div class="lead-card-title">Optimiser mes RSU / stock-options</div>
         <div class="lead-card-desc">RSU, BSPCE, actions gratuites, dividendes</div>
