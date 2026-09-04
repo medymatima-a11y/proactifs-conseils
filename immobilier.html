@@ -273,9 +273,11 @@
     .parcours-card { position: relative; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px; transition: all .3s cubic-bezier(.16,1,.3,1); cursor: default; }
     .parcours-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); z-index: 30; }
     .parcours-card:focus-within { z-index: 30; }
-    .parcours-tip { position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(-6px); width: 220px; background: var(--forest); color: var(--white); font-family: 'Nunito Sans', sans-serif; font-size: 12.5px; font-weight: 500; line-height: 1.45; padding: 12px 14px; border-radius: 10px; box-shadow: var(--shadow-lg); opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; z-index: 20; text-align: left; }
+    .parcours-tip { position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(-6px); width: 240px; background: var(--forest); color: var(--white); font-family: 'Nunito Sans', sans-serif; font-size: 14px; font-weight: 500; line-height: 1.5; padding: 13px 15px; border-radius: 10px; box-shadow: var(--shadow-lg); opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; z-index: 20; text-align: left; }
     .parcours-tip::before { content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-bottom-color: var(--forest); }
     .parcours-card:hover .parcours-tip, .parcours-card:focus-within .parcours-tip { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+    .parcours-grid > li:nth-child(-n+5) .parcours-tip { background: var(--coral); color: var(--coral-foreground); }
+    .parcours-grid > li:nth-child(-n+5) .parcours-tip::before { border-bottom-color: var(--coral); }
     .parcours-num { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 12px; font-size: 14px; font-weight: 700; color: var(--white); background: var(--forest); transition: transform .3s; }
     .parcours-card:hover .parcours-num { transform: scale(1.1); }
     .parcours-num.alt { background: var(--coral); }
