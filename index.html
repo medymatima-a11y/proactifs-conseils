@@ -784,13 +784,15 @@ footer {
   display:flex; flex-direction:column; gap:10px;
   position:relative; overflow:hidden;
   opacity:0;
-  transform: translateY(-28px);
+  transform: translateY(-28px) rotate(var(--tilt, -5deg));
   transition: opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1);
 }
+.lead-card:nth-child(3n+2) { --tilt: 5deg; }
+.lead-card:nth-child(3n)   { --tilt: -4deg; }
 /* Une fois visible (classe ajoutée par JS) */
 .lead-card.card-visible {
   opacity:1;
-  transform: translateY(0);
+  transform: translateY(0) rotate(0deg);
   animation: none;
 }
 
@@ -805,7 +807,7 @@ footer {
 .lead-card:hover {
   background: var(--white);
   border-color: rgba(196,151,58,.5);
-  transform: translateY(-8px) scale(1.03) rotate(-1deg);
+  transform: translateY(-8px) scale(1.04) rotate(-3deg);
   box-shadow: var(--shadow-md), 0 0 0 1px rgba(196,151,58,.25);
 }
 
@@ -1842,61 +1844,48 @@ footer {
       <h2 class="sec-title">Nos derniers articles</h2>
       <p class="sec-sub">Analyses, stratégies et actualités patrimoniales pour vous aider à décider.</p>
     </div>
-    <div class="blog-grid">
+    <div class="blog-grid" id="blog-grid">
 
-      <a class="blog-card reveal" href="/blog/per-vs-assurance-vie-2026">
-        <div class="blog-card-img" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:80px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-3px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">PER</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:17px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Épargne</span>
-        </div>
-        <div class="blog-card-body">
-          <div class="blog-card-tag">Épargne retraite</div>
-          <div class="blog-card-title">PER vs Assurance Vie 2026 : lequel choisir pour votre épargne&nbsp;?</div>
-          <p class="blog-card-desc">Comparatif complet des deux enveloppes fiscales — fiscalité, liquidité, transmission. On vous dit lequel privilégier selon votre profil.</p>
-          <div class="blog-card-footer">
-            <span class="blog-card-date">Avril 2026</span>
-            <span class="blog-card-link">Lire l'article →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="blog-card reveal d1" href="/blog/reduire-impots-2026">
-        <div class="blog-card-img" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:80px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">TMI</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:17px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Fiscalité</span>
-        </div>
-        <div class="blog-card-body">
-          <div class="blog-card-tag">Fiscalité</div>
-          <div class="blog-card-title">Réduire ses impôts en 2026 : les 7 leviers à activer avant le 31 décembre</div>
-          <p class="blog-card-desc">PER, déficit foncier, FCPI, dons… Tour d'horizon des dispositifs encore accessibles et des erreurs à éviter.</p>
-          <div class="blog-card-footer">
-            <span class="blog-card-date">Avril 2026</span>
-            <span class="blog-card-link">Lire l'article →</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="blog-card reveal d2" href="/blog/lmnp-2026">
-        <div class="blog-card-img" style="position:relative;overflow:hidden;background:#0a1f14;">
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:68px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">LMNP</span>
-          <span style="font-family:'Fraunces',Georgia,serif;font-size:17px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">Immobilier</span>
-        </div>
+      <a class="blog-card reveal" href="/blog/immobilier-complement-retraite-lmnp-scpi-50-ans">
+        <div class="blog-card-img" style="background-image:url('https://images.unsplash.com/photo-1757125505346-2d71c70e6003?w=800&amp;q=75&amp;auto=format&amp;fit=crop');background-size:cover;background-position:center;"></div>
         <div class="blog-card-body">
           <div class="blog-card-tag">Immobilier</div>
-          <div class="blog-card-title">LMNP 2026 : ce qui change après la réforme et comment s'adapter</div>
-          <p class="blog-card-desc">La réforme fiscale du LMNP modifie en profondeur les règles. Ce qu'il faut savoir si vous êtes propriétaire ou envisagez d'investir.</p>
+          <div class="blog-card-title">LMNP ou SCPI pour la retraite à 50 ans&nbsp;: lequel choisir&nbsp;?</div>
+          <p class="blog-card-desc">À 50 ans, LMNP ou SCPI pour préparer un complément de retraite ? Comparatif fiscalité, gestion et capacité d'emprunt pour choisir en Île-de-France.</p>
           <div class="blog-card-footer">
-            <span class="blog-card-date">Avril 2026</span>
+            <span class="blog-card-date">Août 2026</span>
             <span class="blog-card-link">Lire l'article →</span>
           </div>
         </div>
       </a>
 
-    </div>
-  </div>
-</section>
+      <a class="blog-card reveal d1" href="/blog/modifier-clause-beneficiaire-assurance-vie-2026">
+        <div class="blog-card-img" style="background-image:url('/blog/grandparents-album-photo-transmission.jpg');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-card-tag">Transmission</div>
+          <div class="blog-card-title">Modifier sa clause bénéficiaire d'assurance-vie en 2026</div>
+          <p class="blog-card-desc">Bénéficiaire décédé, ex-conjoint oublié, démembrement... Comment réviser sa clause bénéficiaire pour sécuriser la transmission de son assurance-vie.</p>
+          <div class="blog-card-footer">
+            <span class="blog-card-date">Juillet 2026</span>
+            <span class="blog-card-link">Lire l'article →</span>
+          </div>
+        </div>
+      </a>
 
-<!-- ════════════ TEMOIGNAGES ════════════ -->
+      <a class="blog-card reveal d2" href="/blog/gestion-patrimoine-entreprise-strategies-optimisation-fiscale-2026">
+        <div class="blog-card-img" style="background-image:url('/blog/dirigeants-reunion-bureau.jpg');background-size:cover;background-position:center;"></div>
+        <div class="blog-card-body">
+          <div class="blog-card-tag">Dirigeants</div>
+          <div class="blog-card-title">Gestion de patrimoine entreprise&nbsp;: stratégies d'optimisation fiscale 2026</div>
+          <p class="blog-card-desc">Holding, PER dirigeant, arbitrage rémunération/dividendes, Pacte Dutreil 2026 : les leviers fiscaux essentiels pour les chefs d'entreprise en Île-de-France.</p>
+          <div class="blog-card-footer">
+            <span class="blog-card-date">Juin 2026</span>
+            <span class="blog-card-link">Lire l'article →</span>
+          </div>
+        </div>
+      </a>
+
+    <!-- ════════════ TEMOIGNAGES ════════════ -->
 <section id="temoignages" class="sec sec-white">
   <div class="container">
     <div class="sec-label reveal">Ce que disent nos clients</div>
@@ -2879,6 +2868,94 @@ document.querySelectorAll('.svc-card').forEach(card => {
     });
   }
 });
+
+// ── Derniers articles : MAJ automatique depuis /blog/index.html ──
+// Récupère les cartes <a class="blog-card" data-date="..."> du blog, garde les
+// 3 plus récentes et remplace le contenu du bloc "Nos derniers articles".
+// En cas d'échec (offline, etc.), les 3 cartes déjà présentes dans le HTML restent affichées.
+(function() {
+  const grid = document.getElementById('blog-grid');
+  if (!grid) return;
+
+  const MOIS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+  function formatDateFr(iso) {
+    const parts = iso.split('-');
+    const m = parseInt(parts[1], 10);
+    return MOIS_FR[m - 1] + ' ' + parts[0];
+  }
+  function watermark(tag) {
+    const first = (tag || '').trim().split(/\s+/)[0] || '';
+    return first.slice(0, 4).toUpperCase();
+  }
+  function escapeHtml(s) {
+    return (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  fetch('/blog/index.html')
+    .then(r => r.ok ? r.text() : Promise.reject(new Error('fetch failed')))
+    .then(html => {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const cards = Array.from(doc.querySelectorAll('a.blog-card[data-date]'));
+      if (!cards.length) return;
+
+      const articles = cards.map(a => {
+        const h3 = a.querySelector('h3');
+        const p = a.querySelector('p');
+        const tagEl = a.querySelector('.card-tag');
+        const visual = a.querySelector('.card-visual');
+        let photo = null;
+        if (visual && visual.classList.contains('has-photo')) {
+          const m = /background-image:\s*url\(['"]?([^'")]+)['"]?\)/.exec(visual.getAttribute('style') || '');
+          if (m) photo = m[1];
+        }
+        return {
+          href: a.getAttribute('href'),
+          date: a.getAttribute('data-date'),
+          tag: tagEl ? tagEl.textContent.trim() : '',
+          title: h3 ? h3.textContent.trim() : '',
+          desc: p ? p.textContent.trim() : '',
+          photo: photo
+        };
+      }).filter(a => a.href && a.date && a.title);
+
+      if (!articles.length) return;
+      articles.sort((a, b) => b.date.localeCompare(a.date));
+      const top3 = articles.slice(0, 3);
+
+      grid.innerHTML = '';
+      top3.forEach((art, idx) => {
+        const a = document.createElement('a');
+        a.className = 'blog-card reveal' + (idx === 1 ? ' d1' : idx === 2 ? ' d2' : '');
+        a.href = art.href;
+
+        const imgHtml = art.photo
+          ? `<div class="blog-card-img" style="background-image:url('${art.photo}');background-size:cover;background-position:center;"></div>`
+          : `<div class="blog-card-img" style="position:relative;overflow:hidden;background:#0a1f14;">
+               <span style="font-family:'Fraunces',Georgia,serif;font-size:64px;font-style:italic;font-weight:700;color:rgba(196,151,58,0.15);line-height:1;letter-spacing:-2px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);user-select:none;white-space:nowrap;">${escapeHtml(watermark(art.tag))}</span>
+               <span style="font-family:'Fraunces',Georgia,serif;font-size:17px;font-style:italic;font-weight:600;color:#C4973A;position:relative;z-index:1;">${escapeHtml(art.tag)}</span>
+             </div>`;
+
+        a.innerHTML = imgHtml + `
+          <div class="blog-card-body">
+            <div class="blog-card-tag">${escapeHtml(art.tag)}</div>
+            <div class="blog-card-title">${escapeHtml(art.title)}</div>
+            <p class="blog-card-desc">${escapeHtml(art.desc)}</p>
+            <div class="blog-card-footer">
+              <span class="blog-card-date">${formatDateFr(art.date)}</span>
+              <span class="blog-card-link">Lire l'article →</span>
+            </div>
+          </div>`;
+        grid.appendChild(a);
+      });
+
+      if (typeof observer !== 'undefined') {
+        grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      } else {
+        grid.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+      }
+    })
+    .catch(() => { /* échec silencieux : cartes statiques du HTML conservées */ });
+})();
 
 </script>
 </body>
