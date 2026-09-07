@@ -9,6 +9,7 @@
 
 | Titre | Slug / Fichier | Mot-clé principal | Date création | Statut |
 |---|---|---|---|---|
+| Préparer sa retraite à 50 ans : 5 leviers patrimoniaux | `/blog/preparer-retraite-50-ans-leviers-patrimoniaux` | épargne retraite PER | 2026-09 | ✅ Publié (auto Agent SEO) |
 | LMNP 2026 : avantages et fiscalité | `/blog/lmnp-2026` | LMNP 2026 avantages | 2026-04 | ✅ Publié (refonte 2026-07-02 : section LF 2026, PS 18,6 %, seuils micro-BIC, fix JS) |
 | PER vs assurance-vie : quel placement choisir ? | `/blog/per-vs-assurance-vie-2026` | PER vs assurance vie comparatif | 2026-04 | ✅ Publié |
 | SCI familiale : comment créer et gérer | `/blog/sci-familiale-2026` | SCI familiale comment créer | 2026-04 | ✅ Publié |
