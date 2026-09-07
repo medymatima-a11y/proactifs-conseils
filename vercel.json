@@ -2,141 +2,497 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/", "has": [{"type": "host", "value": "pret-immobilier.proactifsconseils.fr"}], "destination": "/pret-immobilier-index.html" },
-    { "source": "/bilan-patrimonial",                   "destination": "/bilan-patrimonial.html" },
-    { "source": "/optimisation-fiscale-ile-de-france",  "destination": "/optimisation-fiscale-ile-de-france.html" },
-    { "source": "/fiscalite-rsu-stock-options",       "destination": "/fiscalite-rsu-stock-options.html" },
-    { "source": "/investissement-scpi-hauts-de-seine",  "destination": "/investissement-scpi-hauts-de-seine.html" },
-    { "source": "/investissement-immobilier",              "destination": "/investissement-immobilier.html" },
-    { "source": "/placements-financiers",                 "destination": "/placements-financiers.html" },
-    { "source": "/courtage-credit-immobilier",          "destination": "/courtage-credit-immobilier.html" },
-    { "source": "/immobilier",                         "destination": "/immobilier.html" },
-    { "source": "/simulation-pret-immobilier",          "destination": "/simulation-pret-immobilier.html" },
-    { "source": "/declaration-impots-ile-de-france",    "destination": "/declaration-impots-ile-de-france.html" },
-    { "source": "/preparation-retraite",                "destination": "/preparation-retraite.html" },
-    { "source": "/cession-entreprise",                  "destination": "/cession-entreprise.html" },
-    { "source": "/transmission",                        "destination": "/transmission.html" },
-    { "source": "/conseiller-patrimoine-colombes", "destination": "/conseiller-patrimoine-colombes.html" },
-    { "source": "/conseiller-patrimoine-courbevoie",    "destination": "/conseiller-patrimoine-courbevoie.html" },
-    { "source": "/conseiller-patrimoine-asnieres",      "destination": "/conseiller-patrimoine-asnieres.html" },
-    { "source": "/conseiller-patrimoine-levallois",     "destination": "/conseiller-patrimoine-levallois.html" },
-    { "source": "/conseiller-patrimoine-nanterre",          "destination": "/conseiller-patrimoine-nanterre.html" },
-    { "source": "/cabinet",                                 "destination": "/cabinet.html" },
-    { "source": "/blog",                                    "destination": "/blog/index.html" },
-    { "source": "/blog/per-vs-assurance-vie-2026",         "destination": "/blog/per-vs-assurance-vie-2026.html" },
-    { "source": "/blog/reduire-impots-2026",               "destination": "/blog/reduire-impots-2026.html" },
-    { "source": "/blog/lmnp-2026",                         "destination": "/blog/lmnp-2026.html" },
-    { "source": "/blog/donation-vivant-2026",              "destination": "/blog/donation-vivant-2026.html" },
-    { "source": "/blog/sci-familiale-2026",                "destination": "/blog/sci-familiale-2026.html" },
-    { "source": "/blog/scpi-2026",                         "destination": "/blog/scpi-2026.html" },
-    { "source": "/blog/preparer-retraite-2026-leviers-patrimoniaux-juin", "destination": "/blog/preparer-retraite-2026-leviers-patrimoniaux-juin.html" },
-    { "source": "/investissement-immobilier-ancien",        "destination": "/investissement-immobilier-ancien.html" },
-    { "source": "/declaration-rsu-espp-france",            "destination": "/declaration-rsu-espp-france.html" },
-    { "source": "/merci-avis",                             "destination": "/merci-avis.html" },
-    { "source": "/blog/rsu-imposition-france-2026",              "destination": "/blog/rsu-imposition-france-2026.html" },
-    { "source": "/blog/espp-fiscalite-france-2026",              "destination": "/blog/espp-fiscalite-france-2026.html" },
-    { "source": "/blog/quand-vendre-rsu-strategie-2026",         "destination": "/blog/quand-vendre-rsu-strategie-2026.html" },
-    { "source": "/blog/bspce-fiscalite-startup-2026",            "destination": "/blog/bspce-fiscalite-startup-2026.html" },
-    { "source": "/blog/declarer-rsu-formulaires-2026",           "destination": "/blog/declarer-rsu-formulaires-2026.html" },
-    { "source": "/blog/rsu-pea-2026",                            "destination": "/blog/rsu-pea-2026.html" },
-    { "source": "/blog/stock-options-imposition-strategie-2026", "destination": "/blog/stock-options-imposition-strategie-2026.html" },
-    { "source": "/blog/actions-gratuites-aga-fiscalite-2026",    "destination": "/blog/actions-gratuites-aga-fiscalite-2026.html" },
-    { "source": "/blog/rsu-expatriation-fiscalite-2026",         "destination": "/blog/rsu-expatriation-fiscalite-2026.html" },
-    { "source": "/blog/investir-rsu-patrimoine-2026",            "destination": "/blog/investir-rsu-patrimoine-2026.html" },
-    { "source": "/blog/gestion-patrimoine-entreprise-strategies-optimisation-fiscale-2026", "destination": "/blog/gestion-patrimoine-entreprise-strategies-optimisation-fiscale-2026.html" },
-    { "source": "/blog/modifier-clause-beneficiaire-assurance-vie-2026", "destination": "/blog/modifier-clause-beneficiaire-assurance-vie-2026.html" },
-    { "source": "/blog/conseiller-patrimoine-ile-de-france",             "destination": "/blog/conseiller-patrimoine-ile-de-france.html" },
-    { "source": "/blog/immobilier-complement-retraite-lmnp-scpi-50-ans", "destination": "/blog/immobilier-complement-retraite-lmnp-scpi-50-ans.html" }
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "pret-immobilier.proactifsconseils.fr"
+        }
+      ],
+      "destination": "/pret-immobilier-index.html"
+    },
+    {
+      "source": "/bilan-patrimonial",
+      "destination": "/bilan-patrimonial.html"
+    },
+    {
+      "source": "/optimisation-fiscale-ile-de-france",
+      "destination": "/optimisation-fiscale-ile-de-france.html"
+    },
+    {
+      "source": "/fiscalite-rsu-stock-options",
+      "destination": "/fiscalite-rsu-stock-options.html"
+    },
+    {
+      "source": "/investissement-scpi-hauts-de-seine",
+      "destination": "/investissement-scpi-hauts-de-seine.html"
+    },
+    {
+      "source": "/investissement-immobilier",
+      "destination": "/investissement-immobilier.html"
+    },
+    {
+      "source": "/placements-financiers",
+      "destination": "/placements-financiers.html"
+    },
+    {
+      "source": "/courtage-credit-immobilier",
+      "destination": "/courtage-credit-immobilier.html"
+    },
+    {
+      "source": "/immobilier",
+      "destination": "/immobilier.html"
+    },
+    {
+      "source": "/simulation-pret-immobilier",
+      "destination": "/simulation-pret-immobilier.html"
+    },
+    {
+      "source": "/declaration-impots-ile-de-france",
+      "destination": "/declaration-impots-ile-de-france.html"
+    },
+    {
+      "source": "/preparation-retraite",
+      "destination": "/preparation-retraite.html"
+    },
+    {
+      "source": "/cession-entreprise",
+      "destination": "/cession-entreprise.html"
+    },
+    {
+      "source": "/transmission",
+      "destination": "/transmission.html"
+    },
+    {
+      "source": "/conseiller-patrimoine-colombes",
+      "destination": "/conseiller-patrimoine-colombes.html"
+    },
+    {
+      "source": "/conseiller-patrimoine-courbevoie",
+      "destination": "/conseiller-patrimoine-courbevoie.html"
+    },
+    {
+      "source": "/conseiller-patrimoine-asnieres",
+      "destination": "/conseiller-patrimoine-asnieres.html"
+    },
+    {
+      "source": "/conseiller-patrimoine-levallois",
+      "destination": "/conseiller-patrimoine-levallois.html"
+    },
+    {
+      "source": "/conseiller-patrimoine-nanterre",
+      "destination": "/conseiller-patrimoine-nanterre.html"
+    },
+    {
+      "source": "/cabinet",
+      "destination": "/cabinet.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog/index.html"
+    },
+    {
+      "source": "/blog/per-vs-assurance-vie-2026",
+      "destination": "/blog/per-vs-assurance-vie-2026.html"
+    },
+    {
+      "source": "/blog/reduire-impots-2026",
+      "destination": "/blog/reduire-impots-2026.html"
+    },
+    {
+      "source": "/blog/lmnp-2026",
+      "destination": "/blog/lmnp-2026.html"
+    },
+    {
+      "source": "/blog/donation-vivant-2026",
+      "destination": "/blog/donation-vivant-2026.html"
+    },
+    {
+      "source": "/blog/sci-familiale-2026",
+      "destination": "/blog/sci-familiale-2026.html"
+    },
+    {
+      "source": "/blog/scpi-2026",
+      "destination": "/blog/scpi-2026.html"
+    },
+    {
+      "source": "/blog/preparer-retraite-2026-leviers-patrimoniaux-juin",
+      "destination": "/blog/preparer-retraite-2026-leviers-patrimoniaux-juin.html"
+    },
+    {
+      "source": "/investissement-immobilier-ancien",
+      "destination": "/investissement-immobilier-ancien.html"
+    },
+    {
+      "source": "/declaration-rsu-espp-france",
+      "destination": "/declaration-rsu-espp-france.html"
+    },
+    {
+      "source": "/merci-avis",
+      "destination": "/merci-avis.html"
+    },
+    {
+      "source": "/blog/rsu-imposition-france-2026",
+      "destination": "/blog/rsu-imposition-france-2026.html"
+    },
+    {
+      "source": "/blog/espp-fiscalite-france-2026",
+      "destination": "/blog/espp-fiscalite-france-2026.html"
+    },
+    {
+      "source": "/blog/quand-vendre-rsu-strategie-2026",
+      "destination": "/blog/quand-vendre-rsu-strategie-2026.html"
+    },
+    {
+      "source": "/blog/bspce-fiscalite-startup-2026",
+      "destination": "/blog/bspce-fiscalite-startup-2026.html"
+    },
+    {
+      "source": "/blog/declarer-rsu-formulaires-2026",
+      "destination": "/blog/declarer-rsu-formulaires-2026.html"
+    },
+    {
+      "source": "/blog/rsu-pea-2026",
+      "destination": "/blog/rsu-pea-2026.html"
+    },
+    {
+      "source": "/blog/stock-options-imposition-strategie-2026",
+      "destination": "/blog/stock-options-imposition-strategie-2026.html"
+    },
+    {
+      "source": "/blog/actions-gratuites-aga-fiscalite-2026",
+      "destination": "/blog/actions-gratuites-aga-fiscalite-2026.html"
+    },
+    {
+      "source": "/blog/rsu-expatriation-fiscalite-2026",
+      "destination": "/blog/rsu-expatriation-fiscalite-2026.html"
+    },
+    {
+      "source": "/blog/investir-rsu-patrimoine-2026",
+      "destination": "/blog/investir-rsu-patrimoine-2026.html"
+    },
+    {
+      "source": "/blog/gestion-patrimoine-entreprise-strategies-optimisation-fiscale-2026",
+      "destination": "/blog/gestion-patrimoine-entreprise-strategies-optimisation-fiscale-2026.html"
+    },
+    {
+      "source": "/blog/modifier-clause-beneficiaire-assurance-vie-2026",
+      "destination": "/blog/modifier-clause-beneficiaire-assurance-vie-2026.html"
+    },
+    {
+      "source": "/blog/conseiller-patrimoine-ile-de-france",
+      "destination": "/blog/conseiller-patrimoine-ile-de-france.html"
+    },
+    {
+      "source": "/blog/immobilier-complement-retraite-lmnp-scpi-50-ans",
+      "destination": "/blog/immobilier-complement-retraite-lmnp-scpi-50-ans.html"
+    },
+    {
+      "source": "/blog/preparer-retraite-50-ans-leviers-patrimoniaux",
+      "destination": "/blog/preparer-retraite-50-ans-leviers-patrimoniaux.html"
+    }
   ],
   "redirects": [
-
-    { "source": "/:path*", "has": [{"type": "host", "value": "www.proactifsconseils.fr"}], "destination": "https://proactifsconseils.fr/:path*", "permanent": true },
-
-    { "source": "/assurance-vie",   "destination": "/placements-financiers", "permanent": true },
-    { "source": "/assurance-vie/",  "destination": "/placements-financiers", "permanent": true },
-
-    { "source": "/page-conseiller-patrimoine-colombes", "destination": "/conseiller-patrimoine-colombes", "permanent": true },
-    { "source": "/bilan-patrimonial-gratuit",             "destination": "/bilan-patrimonial",                   "permanent": true },
-    { "source": "/conseiller-gestion-patrimoine-colombes", "destination": "/conseiller-patrimoine-colombes", "permanent": true },
-    { "source": "/nos-services",          "destination": "/",                                    "permanent": true },
-    { "source": "/services",             "destination": "/",                                    "permanent": true },
-    { "source": "/contact",              "destination": "/",                                    "permanent": true },
-    { "source": "/a-propos",             "destination": "/cabinet", "permanent": true },
-    { "source": "/qui-sommes-nous",      "destination": "/cabinet", "permanent": true },
-    { "source": "/fiscalite",            "destination": "/optimisation-fiscale-ile-de-france",  "permanent": true },
-    { "source": "/retraite",             "destination": "/preparation-retraite",                "permanent": true },
-    { "source": "/credit-immobilier",    "destination": "/courtage-credit-immobilier",          "permanent": true },
-    { "source": "/succession",           "destination": "/transmission",                        "permanent": true },
-    { "source": "/transmission-succession","destination": "/transmission",                      "permanent": true },
-
-    { "source": "/declarer-mes-impots",   "destination": "/declaration-impots-ile-de-france",   "permanent": true },
-    { "source": "/declarer-mes-impots/",  "destination": "/declaration-impots-ile-de-france",   "permanent": true },
-    { "source": "/declaration-de-revenu", "destination": "/declaration-impots-ile-de-france",   "permanent": true },
-    { "source": "/declaration-de-revenu/","destination": "/declaration-impots-ile-de-france",   "permanent": true },
-    { "source": "/reduire-mes-impots",    "destination": "/optimisation-fiscale-ile-de-france", "permanent": true },
-    { "source": "/reduire-mes-impots/",   "destination": "/optimisation-fiscale-ile-de-france", "permanent": true },
-    { "source": "/financement-immobilier","destination": "/courtage-credit-immobilier",         "permanent": true },
-    { "source": "/financement-immobilier/","destination": "/courtage-credit-immobilier",        "permanent": true },
-    { "source": "/acheter-un-bien-immobilier", "destination": "/investissement-immobilier",     "permanent": true },
-    { "source": "/acheter-un-bien-immobilier/","destination": "/investissement-immobilier",     "permanent": true },
-    { "source": "/residence-principale",  "destination": "/investissement-immobilier",          "permanent": true },
-    { "source": "/residence-principale/", "destination": "/investissement-immobilier",          "permanent": true },
-    { "source": "/conseils-en-gestion-de-tresorerie",  "destination": "/placements-financiers", "permanent": true },
-    { "source": "/conseils-en-gestion-de-tresorerie/", "destination": "/placements-financiers", "permanent": true },
-    { "source": "/author/:path*",         "destination": "/conseiller-patrimoine-colombes",     "permanent": true },
-    { "source": "/feed",                  "destination": "/blog",                               "permanent": true },
-    { "source": "/feed/",                 "destination": "/blog",                               "permanent": true },
-
-    { "source": "/wp-admin",             "destination": "/",                                    "permanent": true },
-    { "source": "/wp-content/:path*",    "destination": "/",                                    "permanent": true },
-
-    { "source": "/immobilier-ancien",    "destination": "/investissement-immobilier-ancien",     "permanent": true },
-    { "source": "/immobilier-ancien/",   "destination": "/investissement-immobilier-ancien",     "permanent": true },
-
-    { "source": "/gestion-de-patrimoine-de-lentreprise", "destination": "/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "permanent": true },
-    { "source": "/gestion-de-patrimoine-de-lentreprise/","destination": "/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "permanent": true },
-
-    { "source": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "destination": "/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026", "permanent": true },
-
-    { "source": "/donation-vivant-patrimoine", "destination": "/blog/donation-vivant-2026", "permanent": true },
-
-    { "source": "/le-gestionnaire-de-patrimoine",  "destination": "/bilan-patrimonial", "permanent": true },
-    { "source": "/le-gestionnaire-de-patrimoine/", "destination": "/bilan-patrimonial", "permanent": true },
-
-    { "source": "/presentation-du-cabinet",  "destination": "/cabinet", "permanent": true },
-    { "source": "/presentation-du-cabinet/", "destination": "/cabinet", "permanent": true }
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.proactifsconseils.fr"
+        }
+      ],
+      "destination": "https://proactifsconseils.fr/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/assurance-vie",
+      "destination": "/placements-financiers",
+      "permanent": true
+    },
+    {
+      "source": "/assurance-vie/",
+      "destination": "/placements-financiers",
+      "permanent": true
+    },
+    {
+      "source": "/page-conseiller-patrimoine-colombes",
+      "destination": "/conseiller-patrimoine-colombes",
+      "permanent": true
+    },
+    {
+      "source": "/bilan-patrimonial-gratuit",
+      "destination": "/bilan-patrimonial",
+      "permanent": true
+    },
+    {
+      "source": "/conseiller-gestion-patrimoine-colombes",
+      "destination": "/conseiller-patrimoine-colombes",
+      "permanent": true
+    },
+    {
+      "source": "/nos-services",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/services",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/a-propos",
+      "destination": "/cabinet",
+      "permanent": true
+    },
+    {
+      "source": "/qui-sommes-nous",
+      "destination": "/cabinet",
+      "permanent": true
+    },
+    {
+      "source": "/fiscalite",
+      "destination": "/optimisation-fiscale-ile-de-france",
+      "permanent": true
+    },
+    {
+      "source": "/retraite",
+      "destination": "/preparation-retraite",
+      "permanent": true
+    },
+    {
+      "source": "/credit-immobilier",
+      "destination": "/courtage-credit-immobilier",
+      "permanent": true
+    },
+    {
+      "source": "/succession",
+      "destination": "/transmission",
+      "permanent": true
+    },
+    {
+      "source": "/transmission-succession",
+      "destination": "/transmission",
+      "permanent": true
+    },
+    {
+      "source": "/declarer-mes-impots",
+      "destination": "/declaration-impots-ile-de-france",
+      "permanent": true
+    },
+    {
+      "source": "/declarer-mes-impots/",
+      "destination": "/declaration-impots-ile-de-france",
+      "permanent": true
+    },
+    {
+      "source": "/declaration-de-revenu",
+      "destination": "/declaration-impots-ile-de-france",
+      "permanent": true
+    },
+    {
+      "source": "/declaration-de-revenu/",
+      "destination": "/declaration-impots-ile-de-france",
+      "permanent": true
+    },
+    {
+      "source": "/reduire-mes-impots",
+      "destination": "/optimisation-fiscale-ile-de-france",
+      "permanent": true
+    },
+    {
+      "source": "/reduire-mes-impots/",
+      "destination": "/optimisation-fiscale-ile-de-france",
+      "permanent": true
+    },
+    {
+      "source": "/financement-immobilier",
+      "destination": "/courtage-credit-immobilier",
+      "permanent": true
+    },
+    {
+      "source": "/financement-immobilier/",
+      "destination": "/courtage-credit-immobilier",
+      "permanent": true
+    },
+    {
+      "source": "/acheter-un-bien-immobilier",
+      "destination": "/investissement-immobilier",
+      "permanent": true
+    },
+    {
+      "source": "/acheter-un-bien-immobilier/",
+      "destination": "/investissement-immobilier",
+      "permanent": true
+    },
+    {
+      "source": "/residence-principale",
+      "destination": "/investissement-immobilier",
+      "permanent": true
+    },
+    {
+      "source": "/residence-principale/",
+      "destination": "/investissement-immobilier",
+      "permanent": true
+    },
+    {
+      "source": "/conseils-en-gestion-de-tresorerie",
+      "destination": "/placements-financiers",
+      "permanent": true
+    },
+    {
+      "source": "/conseils-en-gestion-de-tresorerie/",
+      "destination": "/placements-financiers",
+      "permanent": true
+    },
+    {
+      "source": "/author/:path*",
+      "destination": "/conseiller-patrimoine-colombes",
+      "permanent": true
+    },
+    {
+      "source": "/feed",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/feed/",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/wp-admin",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/wp-content/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/immobilier-ancien",
+      "destination": "/investissement-immobilier-ancien",
+      "permanent": true
+    },
+    {
+      "source": "/immobilier-ancien/",
+      "destination": "/investissement-immobilier-ancien",
+      "permanent": true
+    },
+    {
+      "source": "/gestion-de-patrimoine-de-lentreprise",
+      "destination": "/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026",
+      "permanent": true
+    },
+    {
+      "source": "/gestion-de-patrimoine-de-lentreprise/",
+      "destination": "/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026",
+      "permanent": true
+    },
+    {
+      "source": "/gestion-patrimoine-entreprise-dirigeants-strategies-2026",
+      "destination": "/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026",
+      "permanent": true
+    },
+    {
+      "source": "/donation-vivant-patrimoine",
+      "destination": "/blog/donation-vivant-2026",
+      "permanent": true
+    },
+    {
+      "source": "/le-gestionnaire-de-patrimoine",
+      "destination": "/bilan-patrimonial",
+      "permanent": true
+    },
+    {
+      "source": "/le-gestionnaire-de-patrimoine/",
+      "destination": "/bilan-patrimonial",
+      "permanent": true
+    },
+    {
+      "source": "/presentation-du-cabinet",
+      "destination": "/cabinet",
+      "permanent": true
+    },
+    {
+      "source": "/presentation-du-cabinet/",
+      "destination": "/cabinet",
+      "permanent": true
+    }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options",    "value": "nosniff" },
-        { "key": "X-Frame-Options",           "value": "SAMEORIGIN" },
-        { "key": "X-XSS-Protection",          "value": "1; mode=block" },
-        { "key": "Referrer-Policy",           "value": "strict-origin-when-cross-origin" },
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
-        { "key": "Permissions-Policy",        "value": "camera=(), microphone=(), geolocation=(), payment=()" },
-        { "key": "Content-Security-Policy",   "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://googleads.g.doubleclick.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com https://www.google-analytics.com https://www.googletagmanager.com https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://region1.analytics.google.com https://www.google.com https://ullnkylrixdvormohryl.supabase.co https://stats.g.doubleclick.net; frame-src https://calendly.com; object-src 'none'; base-uri 'self'; form-action 'self'" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=()"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://googleads.g.doubleclick.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com https://www.google-analytics.com https://www.googletagmanager.com https://www.google.com https://www.google.fr https://googleads.g.doubleclick.net; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://region1.analytics.google.com https://www.google.com https://ullnkylrixdvormohryl.supabase.co https://stats.g.doubleclick.net; frame-src https://calendly.com; object-src 'none'; base-uri 'self'; form-action 'self'"
+        }
       ]
     },
     {
       "source": "/sitemap.xml",
       "headers": [
-        { "key": "Content-Type",  "value": "application/xml" },
-        { "key": "Cache-Control", "value": "public, max-age=86400" }
+        {
+          "key": "Content-Type",
+          "value": "application/xml"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
       ]
     },
     {
       "source": "/robots.txt",
       "headers": [
-        { "key": "Content-Type",  "value": "text/plain" },
-        { "key": "Cache-Control", "value": "public, max-age=86400" }
+        {
+          "key": "Content-Type",
+          "value": "text/plain"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
       ]
     },
     {
       "source": "/:path*.html",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, stale-while-revalidate=86400"
+        }
       ]
     }
   ]
