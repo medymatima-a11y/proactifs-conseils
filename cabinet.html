@@ -112,19 +112,17 @@ a{text-decoration:none;color:inherit}
 button{cursor:pointer;border:none;background:none;font-family:inherit}
 
 /* ── NAV ── */
-#nav {
+/* Nav toujours opaque : un fil d'Ariane clair suit la nav fixe, le texte blanc
+       "non scrollé" restait invisible (cf. correctif immobilier.html du 03/09/2026). */
+    #nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   height: 72px;
-  background: transparent;
+  background: rgba(250,250,247,.98); box-shadow: var(--shadow-md);
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 40px;
   transition: all 0.3s ease;
 }
-#nav.scrolled {
-  background: rgba(250,250,247,.98);
-  box-shadow: var(--shadow-md);
-  height: 68px;
-}
+#nav.scrolled { height: 68px; }
 .nav-logo { display: flex; align-items: center; text-decoration: none; }
 .nav-logo img { height: 48px; width: auto; display: block; opacity: .9; }
 .nav-links { display: flex; list-style: none; gap: 40px; flex: 1; margin-left: 60px; }
@@ -134,9 +132,6 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 }
 .nav-links a:hover { color: var(--gold); }
 .nav-links a.active { color: var(--gold); }
-#nav:not(.scrolled) .nav-links a { color: var(--white); }
-#nav:not(.scrolled) .nav-links a:hover { color: var(--gold-light); }
-#nav:not(.scrolled) .nav-links a.active { color: var(--gold-light); }
 .nav-cta-btn {
   background: var(--gold); color: var(--ink);
   padding: 10px 24px; border-radius: var(--r-md);

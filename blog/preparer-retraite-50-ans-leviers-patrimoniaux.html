@@ -52,7 +52,7 @@
       {
         "@type": "Question",
         "name": "Quel est le taux de remplacement moyen pour un cadre en Île-de-France ?",
-        "acceptedAnswer": {"@type": "Answer", "text": "Pour un cadre en Île-de-France, le taux de remplacement — c'est-à-dire le rapport entre la pension et le dernier salaire net — tourne généralement autour de 50 à 65 %, selon les régimes concernés (régime général, Agirc-Arrco) et la durée de carrière. Pour les hauts revenus, ce taux peut être encore plus faible en proportion, ce qui rend indispensable la constitution d'un complément de revenus via l'épargne ou l'immobilier."}
+        "acceptedAnswer": {"@type": "Answer", "text": "Pour un cadre en Île-de-France, le taux de remplacement, c'est-à-dire le rapport entre la pension et le dernier salaire net, tourne généralement autour de 50 à 65 %, selon les régimes concernés (régime général, Agirc-Arrco) et la durée de carrière. Pour les hauts revenus, ce taux peut être encore plus faible en proportion, ce qui rend indispensable la constitution d'un complément de revenus via l'épargne ou l'immobilier."}
       },
       {
         "@type": "Question",
@@ -119,21 +119,20 @@
     body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--white); line-height: 1.6; }
 
     /* ── NAV ── */
+    /* Nav toujours opaque : un fil d'Ariane clair suit la nav fixe, le texte blanc
+       "non scrollé" restait invisible (cf. correctif immobilier.html du 03/09/2026). */
     #nav {
       position: fixed; top: 0; left: 0; right: 0; height: 72px;
-      background: transparent; display: flex; align-items: center;
+      background: rgba(250,250,247,.98); box-shadow: var(--shadow-md); display: flex; align-items: center;
       justify-content: space-between; padding: 0 40px; z-index: 100;
       transition: all 0.3s ease;
     }
-    #nav.scrolled { background: rgba(250,250,247,.98); box-shadow: var(--shadow-md); height: 68px; }
+    #nav.scrolled { height: 68px; }
     .nav-logo img { height: 48px; width: auto; display: block; opacity: .9; }
     .nav-links { display: flex; list-style: none; gap: 40px; flex: 1; margin-left: 60px; }
     .nav-links a { text-decoration: none; color: var(--ink); font-size: 14px; font-weight: 500; transition: color 0.2s; }
     .nav-links a:hover { color: var(--gold); }
     .nav-links a.active { color: var(--gold); }
-    #nav:not(.scrolled) .nav-links a { color: var(--white); }
-    #nav:not(.scrolled) .nav-links a:hover { color: var(--gold-light); }
-    #nav:not(.scrolled) .nav-links a.active { color: var(--gold-light); }
     .nav-cta-btn {
       background: var(--gold); color: var(--ink); padding: 10px 24px;
       border-radius: var(--r-md); text-decoration: none; font-weight: 600;
@@ -142,7 +141,6 @@
     .nav-cta-btn:hover { background: var(--gold-light); box-shadow: var(--shadow-md); }
     .hamburger { display: none; flex-direction: column; background: none; border: none; cursor: pointer; gap: 6px; margin-left: auto; }
     .hamburger span { width: 24px; height: 2px; background: var(--ink); transition: all 0.3s; }
-    #nav:not(.scrolled) .hamburger span { background: var(--white); }
     .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(8px,8px); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(7px,-7px); }
@@ -281,7 +279,7 @@
     }
     .highlight-box h4 { font-size: 15px; font-weight: 600; color: var(--gold); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
     .highlight-box ul { list-style: none; padding: 0; }
-    .highlight-box li { font-size: 14px; color: var(--ink-soft); padding: 6px 0; border-bottom: 1px solid rgba(196,151,58,.15); display: flex; gap: 10px; line-height: 1.6; }
+    .highlight-box li { font-size: 14px; color: var(--ink-soft); padding: 6px 0; border-bottom: 1px solid rgba(196,151,58,.15); display: block; line-height: 1.6; }
     .highlight-box li:last-child { border-bottom: none; }
     .highlight-box li::before { content: '→'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
     .highlight-box li strong { color: var(--ink); }
@@ -294,7 +292,7 @@
     }
     .warning-box h4 { font-size: 15px; font-weight: 600; color: #991B1B; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
     .warning-box ul { list-style: none; padding: 0; margin: 0; }
-    .warning-box li { font-size: 14px; color: #7F1D1D; padding: 6px 0; display: flex; gap: 10px; line-height: 1.6; }
+    .warning-box li { font-size: 14px; color: #7F1D1D; padding: 6px 0; display: block; line-height: 1.6; }
     .warning-box li::before { content: '⚠'; flex-shrink: 0; }
 
     /* ── COMPARISON TABLE ── */
@@ -524,7 +522,7 @@
       </div>
     </div>
     <h1>Préparer sa retraite à 50 ans :<br><em>5 leviers patrimoniaux</em><br>à activer maintenant</h1>
-    <p class="intro">À 50 ans, votre relevé de carrière affiche une estimation — mais ce chiffre dit rarement toute la vérité. Voici comment combler l'écart, dans le bon ordre, avec les bons outils.</p>
+    <p class="intro">À 50 ans, votre relevé de carrière affiche une estimation, mais ce chiffre dit rarement toute la vérité. Voici comment combler l'écart, dans le bon ordre, avec les bons outils.</p>
   </div>
 </header>
 
@@ -572,7 +570,7 @@
     <!-- ── SECTION 2 ── -->
     <h2 id="5-leviers">Les 5 leviers patrimoniaux à activer avant 55 ans</h2>
 
-    <p>Ces cinq leviers ne sont pas interchangeables : leur efficacité dépend de l'ordre dans lequel vous les mobilisez. Le diagnostic précède toujours l'action — et la fiscalité conditionne souvent le choix entre deux outils apparemment similaires.</p>
+    <p>Ces cinq leviers ne sont pas interchangeables : leur efficacité dépend de l'ordre dans lequel vous les mobilisez. Le diagnostic précède toujours l'action, et la fiscalité conditionne souvent le choix entre deux outils apparemment similaires.</p>
 
     <!-- Levier 1 -->
     <div class="levier-card">
@@ -582,7 +580,7 @@
       </div>
       <div class="levier-body">
         <p>Avant d'activer quoi que ce soit, il faut mesurer. Une simulation retraite sérieuse intègre votre âge de départ envisagé, vos régimes de cotisation (régime général, Agirc-Arrco, régimes spéciaux le cas échéant), votre niveau de vie cible et vos charges prévisibles. Sans ce diagnostic préalable, tout effort d'épargne risque d'être soit insuffisant, soit mal orienté.</p>
-        <p>Pour les cadres et dirigeants d'Île-de-France — qui cumulent souvent revenus variables, dividendes et droits dans plusieurs régimes — cet exercice est particulièrement complexe, et particulièrement nécessaire. Notre page dédiée à la <a href="/preparation-retraite">préparation retraite</a> détaille les étapes de cette projection.</p>
+        <p>Pour les cadres et dirigeants d'Île-de-France, qui cumulent souvent revenus variables, dividendes et droits dans plusieurs régimes, cet exercice est particulièrement complexe, et particulièrement nécessaire. Notre page dédiée à la <a href="/preparation-retraite">préparation retraite</a> détaille les étapes de cette projection.</p>
       </div>
     </div>
 
@@ -657,7 +655,7 @@
     <!-- ── SECTION 3 : PER vs Assurance-vie ── -->
     <h2 id="per-vs-av">PER ou assurance-vie : quel outil pour quel objectif ?</h2>
 
-    <p>La question revient systématiquement lors des bilans patrimoniaux que nous réalisons à Colombes et dans toute l'Île-de-France. PER et assurance-vie ne sont pas concurrents — ils sont complémentaires. Mais leur logique diffère, et le choix dépend de votre situation fiscale actuelle.</p>
+    <p>La question revient systématiquement lors des bilans patrimoniaux que nous réalisons à Colombes et dans toute l'Île-de-France. PER et assurance-vie ne sont pas concurrents, ils sont complémentaires. Mais leur logique diffère, et le choix dépend de votre situation fiscale actuelle.</p>
 
     <div class="comparison-wrap">
       <table class="comparison-table">
@@ -696,8 +694,8 @@
           </tr>
           <tr>
             <td>Intérêt pour la liquidité</td>
-            <td>Faible — enveloppe tunnel</td>
-            <td>Fort — capital disponible en cas de besoin</td>
+            <td>Faible : enveloppe tunnel</td>
+            <td>Fort : capital disponible en cas de besoin</td>
           </tr>
         </tbody>
       </table>
@@ -714,7 +712,163 @@
       <h4>⚠ Erreurs fréquentes à éviter</h4>
       <ul>
         <li><strong>Sur-bloquer votre liquidité :</strong> le PER est une enveloppe tunnel jusqu'à la retraite (sauf cas de déblocage anticipé prévus par la loi). Maintenir une épargne disponible en parallèle est indispensable.</li>
-        <li><strong>Sous-estimer la fiscalité à la sortie :</strong> les sorties en rente ou en capital du PER sont imposables. Le gain fiscal à l'entrée peut être partiellement compensé si votre tranche d'imposition à la retraite reste élevée — une simulation sur mesure est nécessaire.</li>
+        <li><strong>Sous-estimer la fiscalité à la sortie :</strong> les sorties en rente ou en capital du PER sont imposables. Le gain fiscal à l'entrée peut être partiellement compensé si votre tranche d'imposition à la retraite reste élevée, une simulation sur mesure est nécessaire.</li>
         <li><strong>Déconnecter retraite et prévoyance :</strong> un arrêt de travail prolongé, une invalidité ou un décès prématuré peuvent remettre en cause l'ensemble du plan. La couverture prévoyance doit être vérifiée en parallèle.</li>
         <li><strong>Ignorer les évolutions des règles de retraite :</strong> les bornes d'âge, les conditions de départ anticipé et les règles de calcul continuent d'évoluer selon les dispositifs en vigueur.</li>
       </ul>
+    </div>
+
+    <!-- ── FAQ ── -->
+    <h2 id="faq">Questions fréquentes</h2>
+    <div class="faq-section">
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Est-il trop tard pour préparer sa retraite à 50 ans ?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-answer">Non, 50 ans est en réalité une fenêtre stratégique idéale. Avec 12 à 15 ans devant vous avant un départ potentiel, vous avez encore le temps de capitaliser sur un PER, de rembourser un crédit immobilier locatif et de réorganiser votre épargne. L'effet de la capitalisation reste significatif sur cet horizon. Attendre 55 ou 58 ans, en revanche, réduit considérablement les marges de manœuvre.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Quel est le taux de remplacement moyen pour un cadre en Île-de-France ?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-answer">Pour un cadre en Île-de-France, le taux de remplacement, c'est-à-dire le rapport entre la pension et le dernier salaire net, tourne généralement autour de 50 à 65 %, selon les régimes concernés (régime général, Agirc-Arrco) et la durée de carrière. Pour les hauts revenus, ce taux peut être encore plus faible en proportion, ce qui rend indispensable la constitution d'un complément de revenus via l'épargne ou l'immobilier.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          PER ou assurance-vie : que choisir pour préparer sa retraite ?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-answer">Le PER est avantageux si vous êtes fortement imposé pendant votre activité : les versements sont déductibles du revenu imposable, ce qui génère une économie fiscale immédiate. L'assurance-vie apporte plus de souplesse (disponibilité des fonds à tout moment) et une fiscalité allégée en cas de rachat après 8 ans. Les deux enveloppes sont complémentaires : le PER pour la déduction fiscale, l'assurance-vie pour la liquidité et la transmission. Le bon équilibre dépend de votre tranche marginale d'imposition et de vos besoins de liquidité.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Les SCPI sont-elles adaptées pour préparer sa retraite ?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-answer">Oui, les SCPI peuvent constituer un complément retraite pertinent dans une stratégie globale. Elles permettent d'accéder à l'immobilier avec une mise de départ plus faible qu'un bien en direct, une gestion entièrement déléguée, et des revenus potentiels réguliers versés trimestriellement. Achetées à crédit à 50 ans sur 12 à 15 ans, elles peuvent générer des revenus complémentaires au moment de la retraite, une fois le crédit remboursé.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          Peut-on débloquer un PER avant la retraite ?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-answer">Le PER est en principe une enveloppe bloquée jusqu'à la retraite, mais la loi prévoit plusieurs cas de déblocage anticipé : acquisition de la résidence principale, décès du conjoint ou du partenaire de PACS, invalidité, surendettement, expiration des droits au chômage. Ces cas de déblocage préservent une certaine souplesse, mais il reste fortement recommandé de conserver en parallèle une épargne liquide suffisante pour faire face aux imprévus.</div>
+      </div>
+
+    </div>
+
+    <!-- ── CTA ── -->
+    <div class="article-cta">
+      <h2>Votre stratégie retraite mérite une <em>projection chiffrée</em></h2>
+      <p>Relevé de carrière, PER, immobilier, épargne existante, transmission : l'ordre dans lequel vous activez ces leviers change le résultat. Un bilan patrimonial permet de mesurer l'écart à combler et de bâtir une séquence adaptée à votre situation.</p>
+      <div class="cta-actions">
+        <a href="/bilan-patrimonial" class="cta-btn-primary">Prendre rendez-vous pour votre bilan patrimonial →</a>
+        <a href="/preparation-retraite" class="cta-btn-secondary">En savoir plus sur la préparation retraite</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="article-sidebar">
+    <div class="sidebar-toc">
+      <h3>Dans cet article</h3>
+      <ol>
+        <li><a href="#releve-carriere">Ce que votre relevé ne dit pas</a></li>
+        <li><a href="#5-leviers">Les 5 leviers à activer avant 55 ans</a></li>
+        <li><a href="#per-vs-av">PER ou assurance-vie</a></li>
+        <li><a href="#vigilance">Les points de vigilance</a></li>
+        <li><a href="#faq">Questions fréquentes</a></li>
+      </ol>
+    </div>
+    <div class="sidebar-cta">
+      <div class="author-box">
+        <div class="author-avatar">M</div>
+        <div class="author-info">
+          <strong>Medy Matima</strong>
+          <span>Conseiller en Gestion de Patrimoine</span>
+        </div>
+      </div>
+      <p>Mesurons ensemble l'écart entre votre future pension et votre niveau de vie cible, puis la séquence de leviers adaptée à votre situation.</p>
+      <a href="/bilan-patrimonial">Prendre rendez-vous →</a>
+    </div>
+    <div class="sidebar-related">
+      <h3>À lire aussi</h3>
+      <div class="sidebar-related-item">
+        <a href="/blog/per-vs-assurance-vie-2026">PER ou assurance-vie : le bon choix selon votre tranche d'imposition</a>
+        <span>Placements</span>
+      </div>
+      <div class="sidebar-related-item">
+        <a href="/blog/immobilier-complement-retraite-lmnp-scpi-50-ans">Immobilier et complément de retraite : LMNP ou SCPI à 50 ans</a>
+        <span>Immobilier</span>
+      </div>
+    </div>
+  </aside>
+
+</div><!-- .article-body -->
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="/images/logo-white.png" alt="Proactifs Conseils" class="footer-logo" onerror="this.style.display='none'">
+      <p>Cabinet de conseil en gestion de patrimoine à Colombes (92). Dédié à vos intérêts depuis 2018.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
+      <a href="/declaration-impots-ile-de-france">Déclarer mes impôts</a>
+      <a href="/fiscalite-rsu-stock-options">Optimiser mes RSU</a>
+      <a href="/preparation-retraite">Préparation retraite</a>
+      <a href="/investissement-scpi-hauts-de-seine">Investissement SCPI</a>
+      <a href="/transmission">Transmission</a>
+      <a href="/cession-entreprise">Cession d'entreprise</a>
+    </div>
+    <div class="footer-col">
+      <h4>Cabinet</h4>
+      <a href="/conseiller-patrimoine-colombes">Notre approche</a>
+      <a href="/conseiller-patrimoine-nanterre">Nanterre</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Proactifs Conseils · 54 Rue du Bournard, 92700 Colombes · Tél. 01 84 78 28 30</p>
+    <p>Conseiller en Investissements Financiers (CIF) enregistré à l'ORIAS · Mentions légales</p>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+    document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+  });
+
+  // Hamburger
+  document.getElementById('hamburger').addEventListener('click', function() {
+    this.classList.toggle('open');
+    document.getElementById('mobileMenu').classList.toggle('open');
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>

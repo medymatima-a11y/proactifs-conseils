@@ -48,19 +48,18 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--white); line-height: 1.6; }
 
-    #nav { position: fixed; top: 0; left: 0; right: 0; height: 72px; background: transparent; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; z-index: 100; transition: all 0.3s ease; }
-    #nav.scrolled { background: rgba(250,250,247,.98); box-shadow: var(--shadow-md); height: 68px; }
+    /* Nav toujours opaque : un fil d'Ariane clair suit la nav fixe, le texte blanc
+       "non scrollé" restait invisible (cf. correctif immobilier.html du 03/09/2026). */
+    #nav { position: fixed; top: 0; left: 0; right: 0; height: 72px; background: rgba(250,250,247,.98); box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; z-index: 100; transition: all 0.3s ease; }
+    #nav.scrolled { height: 68px; }
     .nav-logo img { height: 40px; transition: all 0.3s ease; }
     .nav-links { display: flex; list-style: none; gap: 40px; flex: 1; margin-left: 60px; }
     .nav-links a { text-decoration: none; color: var(--ink); font-size: 14px; font-weight: 500; transition: color 0.2s ease; }
     .nav-links a:hover { color: var(--gold); }
-    #nav:not(.scrolled) .nav-links a { color: var(--white); }
-    #nav:not(.scrolled) .nav-links a:hover { color: var(--gold-light); }
     .nav-cta-btn { background: var(--gold); color: var(--ink); padding: 10px 24px; border-radius: var(--r-md); text-decoration: none; font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; }
     .nav-cta-btn:hover { background: var(--gold-light); box-shadow: var(--shadow-md); }
     .hamburger { display: none; flex-direction: column; background: none; border: none; cursor: pointer; gap: 6px; margin-left: auto; }
     .hamburger span { width: 24px; height: 2px; background: var(--ink); transition: all 0.3s ease; }
-    #nav:not(.scrolled) .hamburger span { background: var(--white); }
     .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(8px,8px); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(7px,-7px); }
