@@ -170,6 +170,7 @@ Rappels rapides :
 - [ ] Lien de maillage vers `/bilan-patrimonial` présent (sur page service)
 - [ ] Open Graph complet
 - [ ] Title et meta description respectent les longueurs cibles
+- [ ] Responsive mobile : `node scripts/check-mobile-nav.js` ne renvoie aucune régression (voir section dédiée ci-dessous)
 
 ```bash
 git add [fichiers modifiés]
@@ -177,6 +178,31 @@ git commit -m "SEO: [description courte]"
 git push origin main
 ```
 Vercel déploie automatiquement en ~30 secondes.
+
+### Responsive mobile — menu et nav (audit du 13/09/2026)
+
+Trois bugs récurrents ont touché la quasi-totalité des pages (menu mobile qui
+déborde de l'écran sans scroll possible, menu qui ne se referme pas au clic
+sur un lien, nav transparente invisible sur les pages avec fil d'Ariane).
+Corrigés le 13/09/2026 sur les 53 pages + sur le gabarit de génération
+(`agent-seo-proactifs-v2/lib/blog-publish.ts`, fonction `fixMobileNavCss`,
+appliquée automatiquement à chaque article généré).
+
+**Avant de créer ou modifier une page à la main (nav/menu mobile) :**
+1. Ne jamais repartir d'un ancien commit/snapshot de nav — copier le bloc nav
+   d'une page déjà à jour (`transmission.html` ou `immobilier.html` par
+   exemple).
+2. `#nav` doit être opaque dès le départ (`background: rgba(250,250,247,.98)`
+   ou équivalent) si la page a un `.breadcrumb` juste en dessous — jamais
+   `background: transparent` avec des liens/hamburger blancs par défaut,
+   même via un pattern inversé (`#nav.scrolled X { color: dark }` avec un
+   défaut blanc sur `.nav-links a`/`.hamburger span`).
+3. `.mobile-menu` doit avoir `max-height: calc(100vh - <hauteur nav>px);
+   overflow-y: auto;`.
+4. Un script doit fermer `.mobile-menu` (retirer `.open`) au clic sur un lien
+   à l'intérieur.
+5. Lancer `node scripts/check-mobile-nav.js` à la racine du repo — code de
+   sortie 0 si tout est propre, liste les pages en défaut sinon.
 
 ## Ordre de Priorité des Optimisations
 

@@ -66,19 +66,17 @@
   <style>
     :root { --ivory:#FAFAF7;--sand:#F3F1EB;--forest:#132D1E;--forest-mid:#1C3D28;--ink:#111827;--ink-soft:#374151;--gold:#C4973A;--gold-light:#E8C97A;--gold-pale:#FBF4E3;--teal:#1E7A6E;--teal-light:#2A9D8F;--teal-pale:#E6F4F2;--slate:#6B7280;--border:#E5E2DA;--white:#FFFFFF;--shadow-sm:0 1px 3px rgba(17,24,39,.06),0 1px 2px rgba(17,24,39,.04);--shadow-md:0 4px 16px rgba(17,24,39,.08),0 2px 6px rgba(17,24,39,.04);--shadow-lg:0 12px 40px rgba(17,24,39,.1),0 4px 12px rgba(17,24,39,.06);--r-sm:10px;--r-md:16px;--r-lg:24px;--r-xl:32px; }
     *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);line-height:1.6}
-    #nav{position:fixed;top:0;left:0;right:0;height:72px;background:transparent;display:flex;align-items:center;justify-content:space-between;padding:0 40px;z-index:100;transition:all 0.3s ease}
+    #nav{position:fixed;top:0;left:0;right:0;height:72px;background: rgba(250,250,247,.98);display:flex;align-items:center;justify-content:space-between;padding:0 40px;z-index:100;transition:all 0.3s ease}
     #nav.scrolled{background:rgba(250,250,247,.98);box-shadow:var(--shadow-md);height:68px}
     .nav-logo img{height:40px}.nav-links{display:flex;list-style:none;gap:40px;flex:1;margin-left:60px}
     .nav-links a{text-decoration:none;color:var(--ink);font-size:14px;font-weight:500;transition:color 0.2s}
     .nav-links a:hover{color:var(--gold)}.nav-links a.active{color:var(--gold)}
-    #nav:not(.scrolled) .nav-links a{color:var(--white)}#nav:not(.scrolled) .nav-links a:hover{color:var(--gold-light)}#nav:not(.scrolled) .nav-links a.active{color:var(--gold-light)}
     .nav-cta-btn{background:var(--gold);color:var(--ink);padding:10px 24px;border-radius:var(--r-md);text-decoration:none;font-weight:600;font-size:13px;transition:all 0.2s;white-space:nowrap}
     .nav-cta-btn:hover{background:var(--gold-light);box-shadow:var(--shadow-md)}
     .hamburger{display:none;flex-direction:column;background:none;border:none;cursor:pointer;gap:6px;margin-left:auto}
     .hamburger span{width:24px;height:2px;background:var(--ink);transition:all 0.3s}
-    #nav:not(.scrolled) .hamburger span{background:var(--white)}
     .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(8px,8px)}.hamburger.open span:nth-child(2){opacity:0}.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(7px,-7px)}
-    .mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:var(--white);flex-direction:column;padding:20px;gap:12px;z-index:99}
+    .mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:var(--white);flex-direction:column;padding:20px;gap:12px;z-index:99;max-height:calc(100vh - 72px);overflow-y:auto;-webkit-overflow-scrolling:touch;}
     .mobile-menu.open{display:flex}.mobile-menu a{padding:12px 16px;text-decoration:none;color:var(--ink);font-weight:500;border-radius:var(--r-sm);transition:all 0.2s}
     .mobile-menu a:hover{background:var(--sand);color:var(--gold)}
     .breadcrumb{background:var(--sand);padding:12px 40px;font-size:13px;color:var(--slate);margin-top:72px}
@@ -444,6 +442,21 @@
   window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>20);document.getElementById('scrollTop').classList.toggle('visible',window.scrollY>400);});
   document.getElementById('hamburger').addEventListener('click',function(){this.classList.toggle('open');document.getElementById('mobileMenu').classList.toggle('open');});
   document.querySelectorAll('.faq-question').forEach(q=>{q.addEventListener('click',()=>{const item=q.closest('.faq-item');const wasOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!wasOpen)item.classList.add('open');});});
+</script>
+<script>
+/* Ferme le menu mobile au clic sur un lien (ancre ou page) - correctif audit 13/09/2026 */
+(function(){
+  var mm = document.getElementById('mobileMenu');
+  var hb = document.getElementById('hamburger');
+  if (mm) {
+    mm.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        mm.classList.remove('open');
+        if (hb) hb.classList.remove('open');
+      });
+    });
+  }
+})();
 </script>
 </body>
 </html>

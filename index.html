@@ -120,12 +120,14 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 .nav-cta-btn:hover { background:#B8882E; transform:translateY(-1px); box-shadow:0 4px 16px rgba(196,151,58,.35); }
 .hamburger { display:none; flex-direction:column; gap:5px; padding:8px; }
 .hamburger span { display:block; width:22px; height:2px; background:var(--ink); border-radius:2px; transition:all .3s; }
+.hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(6px,6px); }
+.hamburger.open span:nth-child(2) { opacity:0; }
+.hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(6px,-6px); }
 .mobile-menu {
   display:none; position:fixed; top:68px; left:0; right:0;
   background:rgba(250,250,247,.98); backdrop-filter:blur(16px);
   padding:24px 32px 32px; border-bottom:1px solid var(--border);
-  z-index:199;
-}
+  z-index:199;max-height:calc(100vh - 68px);overflow-y:auto;-webkit-overflow-scrolling:touch;}
 .mobile-menu.open { display:block; }
 .mobile-menu a { display:block; padding:13px 0; font-size:15px; font-weight:500; border-bottom:1px solid var(--border); color:var(--ink-soft); }
 .mobile-menu a:last-child { border-bottom:none; color:var(--gold); font-weight:600; }
@@ -2957,6 +2959,21 @@ document.querySelectorAll('.svc-card').forEach(card => {
     .catch(() => { /* échec silencieux : cartes statiques du HTML conservées */ });
 })();
 
+</script>
+<script>
+/* Ferme le menu mobile au clic sur un lien (ancre ou page) - correctif audit 13/09/2026 */
+(function(){
+  var mm = document.getElementById('mobileMenu');
+  var hb = document.getElementById('hamburger');
+  if (mm) {
+    mm.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        mm.classList.remove('open');
+        if (hb) hb.classList.remove('open');
+      });
+    });
+  }
+})();
 </script>
 </body>
 </html>

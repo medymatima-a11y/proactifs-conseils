@@ -126,8 +126,7 @@
       background:var(--ivory);
       flex-direction:column;
       gap:0;
-      z-index:999;
-    }
+      z-index:999;max-height:calc(100vh - 68px);overflow-y:auto;-webkit-overflow-scrolling:touch;}
 
     .mobile-menu.open { display:flex; }
 
@@ -1133,6 +1132,21 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     {"@type":"Question","name":"Comment préparer sa retraite quand on est salarié à Asnières ?","acceptedAnswer":{"@type":"Answer","text":"La combinaison efficace associe le PER collectif de l'entreprise, un PER individuel (versements déductibles) et éventuellement une SCPI pour des revenus complémentaires. Selon votre TMI, chaque 1 000€ versé sur un PER peut générer 300 à 450€ d'économie fiscale."}},
     {"@type":"Question","name":"Proactifs Conseils accompagne-t-il les clients d'Asnières-sur-Seine ?","acceptedAnswer":{"@type":"Answer","text":"Oui, nous accompagnons régulièrement des clients d'Asnières-sur-Seine, à quelques minutes de notre cabinet de Colombes. Rendez-vous à notre cabinet, à domicile ou en visioconférence."}}
 ]}
+</script>
+<script>
+/* Ferme le menu mobile au clic sur un lien (ancre ou page) - correctif audit 13/09/2026 */
+(function(){
+  var mm = document.getElementById('mobileMenu');
+  var hb = document.getElementById('hamburger');
+  if (mm) {
+    mm.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        mm.classList.remove('open');
+        if (hb) hb.classList.remove('open');
+      });
+    });
+  }
+})();
 </script>
 </body>
 </html>

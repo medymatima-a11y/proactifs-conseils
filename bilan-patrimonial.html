@@ -117,7 +117,7 @@
     .nav-cta-btn:hover { background: var(--gold-light); box-shadow: var(--shadow-md); }
     .hamburger { display: none; flex-direction: column; background: none; border: none; cursor: pointer; gap: 6px; margin-left: auto; }
     .hamburger span { width: 24px; height: 2px; background: var(--ink); transition: all 0.3s ease; }
-    .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; background: var(--white); flex-direction: column; padding: 20px; gap: 12px; z-index: 99; }
+    .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; background: var(--white); flex-direction: column; padding: 20px; gap: 12px; z-index: 99;max-height:calc(100vh - 72px);overflow-y:auto;-webkit-overflow-scrolling:touch;}
     .mobile-menu.open { display: flex; }
     .mobile-menu a { padding: 12px 16px; text-decoration: none; color: var(--ink); font-weight: 500; border-radius: var(--r-sm); transition: all 0.2s ease; }
     .mobile-menu a:hover { background: var(--sand); color: var(--gold); }
@@ -679,5 +679,20 @@
       this.classList.toggle('open');
     });
   </script>
+<script>
+/* Ferme le menu mobile au clic sur un lien (ancre ou page) - correctif audit 13/09/2026 */
+(function(){
+  var mm = document.getElementById('mobileMenu');
+  var hb = document.getElementById('hamburger');
+  if (mm) {
+    mm.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        mm.classList.remove('open');
+        if (hb) hb.classList.remove('open');
+      });
+    });
+  }
+})();
+</script>
 </body>
 </html>

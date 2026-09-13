@@ -143,8 +143,7 @@
       flex-direction: column;
       padding: 20px;
       gap: 12px;
-      z-index: 99;
-    }
+      z-index: 99;max-height:calc(100vh - 72px);overflow-y:auto;-webkit-overflow-scrolling:touch;}
     .mobile-menu.open {
       display: flex;
     }
@@ -1639,5 +1638,20 @@
   details > summary::-webkit-details-marker { display: none; }
   details > summary { list-style: none; }
 </style>
+<script>
+/* Ferme le menu mobile au clic sur un lien (ancre ou page) - correctif audit 13/09/2026 */
+(function(){
+  var mm = document.getElementById('mobileMenu');
+  var hb = document.getElementById('hamburger');
+  if (mm) {
+    mm.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        mm.classList.remove('open');
+        if (hb) hb.classList.remove('open');
+      });
+    });
+  }
+})();
+</script>
 </body>
 </html>
