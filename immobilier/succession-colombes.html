@@ -19,7 +19,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Succession immobilière à Colombes | Vente & estimation | Proactifs">
   <meta name="twitter:description" content="Vous avez hérité d'un bien immobilier à Colombes ? Proactifs vous accompagne de l'estimation à la vente avec un interlocuteur unique.">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Nunito+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Nunito+Sans:wght@300;400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-P53RQGXJZX"></script>
@@ -177,8 +177,10 @@
     .hero-reassurance { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--slate); margin-top: 20px; }
     .hero-reassurance svg { width: 15px; height: 15px; stroke: var(--coral); flex-shrink: 0; }
     .hero-photo { position: relative; overflow: hidden; }
-    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
-    .hero-photo .hero-note { position: absolute; right: 28px; bottom: 28px; background: rgba(255,255,255,.92); backdrop-filter: blur(4px); padding: 14px 20px; border-radius: var(--r-md); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: var(--forest); max-width: 220px; line-height: 1.4; box-shadow: var(--shadow-lg); }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 0; }
+    .hero-photo::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to right, var(--ivory) 0%, rgba(250,250,247,0) 24%); }
+    .hero-photo .hero-note { position: absolute; right: 28px; bottom: 28px; z-index: 2; background: rgba(255,255,255,.92); backdrop-filter: blur(4px); padding: 14px 20px; border-radius: var(--r-md); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: var(--forest); max-width: 220px; line-height: 1.4; box-shadow: var(--shadow-lg); }
+    .hero-photo .hero-cursive { position: absolute; left: 32px; top: 32px; z-index: 2; max-width: 230px; font-family: 'Caveat', cursive; font-weight: 600; font-size: 26px; line-height: 1.25; color: var(--forest); transform: rotate(-3deg); text-shadow: 0 1px 2px rgba(255,255,255,.85), 0 2px 14px rgba(255,255,255,.65); }
 
     /* ── Boutons ── */
     .btn-primary { background: var(--coral); color: var(--coral-foreground); padding: 14px 32px; border: none; border-radius: 999px; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.25s ease; text-decoration: none; display: inline-block; }
@@ -311,6 +313,7 @@
     @media (max-width: 1000px) {
       .hero-split { grid-template-columns: 1fr; min-height: 0; }
       .hero-photo { height: 340px; order: -1; }
+      .hero-photo::after { background: linear-gradient(to bottom, rgba(250,250,247,0) 72%, var(--ivory) 100%); }
       .hero-text { padding: 56px 24px 48px; max-width: none; }
       .q-grid { grid-template-columns: 1fr 1fr; }
       .diag-row { grid-template-columns: repeat(3, 1fr); row-gap: 32px; }
@@ -412,7 +415,8 @@
       </div>
       <div class="hero-photo">
         <img src="/images/immobilier/hero-appartement.jpg" alt="Salon lumineux d'un appartement à Colombes avec vue sur balcon et architecture haussmannienne, bien immobilier issu d'une succession" loading="eager">
-        <div class="hero-note">Transformer une succession en un nouveau projet de vie</div>
+        <div class="hero-cursive">Transformer une succession en un nouveau projet de vie</div>
+        <div class="hero-note">À vos côtés dans les moments qui comptent vraiment</div>
       </div>
     </div>
   </section>
