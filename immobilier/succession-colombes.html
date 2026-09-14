@@ -301,6 +301,14 @@
     .faq-item p { padding: 14px 0 0 38px; color: var(--ink-soft); font-size: 14px; line-height: 1.7; }
     .faq-note { margin-top: 28px; font-size: 13px; color: var(--slate); max-width: 720px; margin-left: auto; margin-right: auto; text-align: center; }
 
+    /* ── Repères de confiance (bandeau factuel, pas de témoignage inventé) ── */
+    .trust-band { background: var(--forest); padding: 40px 40px; }
+    .trust-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; text-align: center; }
+    .trust-item { display: flex; flex-direction: column; gap: 6px; min-width: 160px; }
+    .trust-label { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 700; color: var(--coral-light); line-height: 1.25; }
+    .trust-sub { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+    @media (max-width: 600px) { .trust-grid { gap: 24px; } }
+
     /* ── Reveal au scroll ── */
     .reveal { opacity: 0; transform: translateY(24px); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -416,12 +424,12 @@
 
   <div class="breadcrumb"><a href="/">Accueil</a> › <a href="/immobilier">Immobilier</a> › Succession Colombes</div>
 
-  <!-- ═══════════ HERO ═══════════ -->
+  <!-- ═════════════ HERO ═════════════ -->
   <section class="svc-hero" id="hero">
     <div class="hero-split">
       <div class="hero-text">
         <div class="hero-eyebrow">Proactifs Immobilier · Colombes &amp; Hauts-de-Seine</div>
-        <h1>Vous avez hérité d'un bien immobilier ?</h1>
+        <h1>Vous avez hérité d'un bien immobilier à Colombes ?</h1>
         <p class="hero-kicker">Ne restez pas seul face aux décisions.</p>
         <p class="hero-sub">Succession Sérénité 360 vous accompagne de l'évaluation du bien jusqu'à sa vente, avec un interlocuteur unique pour simplifier les étapes immobilières.</p>
         <div>
@@ -440,7 +448,17 @@
     </div>
   </section>
 
-  <!-- ═══════════ QUESTIONS ═══════════ -->
+  <!-- ═════════════ REPÈRES DE CONFIANCE ═════════════ -->
+  <section class="trust-band">
+    <div class="container trust-grid">
+      <div class="trust-item"><span class="trust-label">Immo + Courtage + Patrimoine</span><span class="trust-sub">Un accompagnement complet</span></div>
+      <div class="trust-item"><span class="trust-label">Colombes &amp; Hauts-de-Seine</span><span class="trust-sub">Notre zone d'intervention</span></div>
+      <div class="trust-item"><span class="trust-label">Réponse sous 24/48h</span><span class="trust-sub">Sur chaque demande</span></div>
+      <div class="trust-item"><span class="trust-label">CIF enregistré AMF</span><span class="trust-sub">Cabinet de conseil en gestion de patrimoine</span></div>
+    </div>
+  </section>
+
+  <!-- ═════════════ QUESTIONS ═════════════ -->
   <section class="sec sec-white reveal">
     <div class="container sec-center">
       <div class="sec-label">Ce que se demandent les héritiers</div>
@@ -493,7 +511,7 @@
     </div>
   </section>
 
-  <!-- ═══════════ DIAGNOSTIC SUCCESSION 360 ═══════════ -->
+  <!-- ═════════════ DIAGNOSTIC SUCCESSION 360 ═════════════ -->
   <section class="sec sec-forest reveal" id="diagnostic-intro">
     <div class="container sec-center">
       <div class="sec-label">Notre méthode</div>
@@ -532,7 +550,7 @@
     </div>
   </section>
 
-  <!-- ═══════════ ACCOMPAGNEMENT EN 4 ÉTAPES ═══════════ -->
+  <!-- ═════════════ ACCOMPAGNEMENT EN 4 ÉTAPES ═════════════ -->
   <section class="sec sec-white reveal" id="approche">
     <div class="container sec-center">
       <div class="sec-label">Méthode</div>
@@ -564,7 +582,7 @@
     </div>
   </section>
 
-  <!-- ═══════════ DIFFÉRENCIATION ═══════════ -->
+  <!-- ═════════════ DIFFÉRENCIATION ═════════════ -->
   <section class="sec sec-sand reveal">
     <div class="container">
       <div class="diff-grid">
@@ -589,13 +607,13 @@
               <div><h3>Un accompagnement de A à Z</h3><p>De l'évaluation du bien aux réflexions patrimoniales qui suivent la vente.</p></div>
             </div>
           </div>
-          <p class="sec-note">Proactifs intervient sur la partie immobilière et patrimoniale de votre projet et ne se substitue pas au notaire, seul habilité à assurer le règlement juridique de la succession.</p>
+          <p class="sec-note">Proactifs intervient sur la partie immobilière et patrimoniale de votre projet et ne se substitue pas au notaire, seul habilité à assurer le règlement juridique de la succession. Pour les questions patrimoniales et fiscales liées à votre succession (donation, abattements, assurance vie), consultez notre page dédiée : <a href="/transmission" class="text-link">Transmission &amp; Succession</a>.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════ CTA + FORMULAIRE ═══════════ -->
+  <!-- ═════════════ CTA + FORMULAIRE ═════════════ -->
   <section class="sec sec-forest reveal" id="diagnostic">
     <div class="container">
       <div class="estim-flex">
@@ -647,7 +665,7 @@
     </div>
   </section>
 
-  <!-- ═══════════ FAQ SEO ═══════════ -->
+  <!-- ═════════════ FAQ SEO ═════════════ -->
   <section class="sec sec-sand reveal">
     <div class="container sec-center">
       <div class="sec-label">Questions fréquentes</div>
