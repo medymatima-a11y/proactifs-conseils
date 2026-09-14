@@ -200,6 +200,12 @@
     .sec-sand { background: var(--sand); }
     .sec-white { background: var(--white); }
     .sec-forest { background: var(--forest); color: var(--white); }
+    #diagnostic.sec-forest {
+      background:
+        linear-gradient(100deg, rgba(10,22,16,.82) 0%, rgba(10,22,16,.6) 32%, rgba(10,22,16,.22) 55%, rgba(10,22,16,.05) 70%),
+        url('/images/immobilier/diagnostic-bg-paris.jpg') center 38%/cover no-repeat;
+      background-color: var(--forest);
+    }
     .container { max-width: 1200px; margin: 0 auto; }
     .sec-label { font-size: 12px; font-weight: 700; color: var(--coral); text-transform: uppercase; letter-spacing: 1.2px; position: relative; display: inline-block; padding-left: 20px; margin-bottom: 16px; }
     .sec-label::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 12px; height: 1px; background: var(--coral); }
@@ -248,7 +254,7 @@
     /* ── Différenciation — 50/50, photo humaine + texte ── */
     .diff-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 64px; align-items: center; }
     .diff-photo { border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-lg); }
-    .diff-photo img { width: 100%; height: 420px; object-fit: cover; object-position: center 35%; }
+    .diff-photo img { width: 100%; height: 300px; object-fit: cover; object-position: center 45%; }
     .diff-list { margin-top: 36px; display: flex; flex-direction: column; gap: 24px; }
     .diff-row { display: flex; gap: 18px; align-items: flex-start; }
     .diff-row-icon { flex-shrink: 0; width: 42px; height: 42px; border-radius: 12px; background: var(--coral-pale); display: flex; align-items: center; justify-content: center; }
