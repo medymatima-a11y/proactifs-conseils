@@ -82,8 +82,8 @@ function findHtmlFiles(dir, base = '') {
       if (entry.name === 'files') continue;
       if (entry.name === 'Audits SEO') continue;
       if (entry.name === 'Lead magnets') continue;
-      // Récursion uniquement dans /blog pour l'instant
-      if (base === '' && entry.name !== 'blog') continue;
+      // Récursion dans /blog et /immobilier (pages nichées, ex. succession-colombes)
+      if (base === '' && entry.name !== 'blog' && entry.name !== 'immobilier') continue;
       results.push(...findHtmlFiles(path.join(dir, entry.name), rel));
     } else if (entry.isFile() && entry.name.endsWith('.html')) {
       if (EXCLUDE.has(rel)) continue;
