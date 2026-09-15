@@ -72,7 +72,7 @@
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://proactifsconseils.fr/"},
       {"@type": "ListItem", "position": 2, "name": "Immobilier", "item": "https://proactifsconseils.fr/immobilier"},
-      {"@type": "ListItem", "position": 3, "name": "Estimation Colombes", "item": "https://proactifsconseils.fr/immobilier/estimation-colombes"}
+      {"@type": "ListItem", "position": 3, "name": "Estimation immobilière Colombes", "item": "https://proactifsconseils.fr/immobilier/estimation-colombes"}
     ]
   }
   </script>
@@ -81,14 +81,22 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      {"@type": "Question", "name": "L'estimation est-elle vraiment gratuite ?",
+      {"@type": "Question", "name": "L'estimation immobilière est-elle gratuite ?",
        "acceptedAnswer": {"@type": "Answer", "text": "Oui. Nous vous proposons une estimation argumentée de votre bien à Colombes, sans frais et sans engagement de mandat de votre part."}},
-      {"@type": "Question", "name": "Combien de temps pour recevoir mon estimation ?",
+      {"@type": "Question", "name": "Comment estimez-vous un appartement à Colombes ?",
+       "acceptedAnswer": {"@type": "Answer", "text": "Nous nous appuyons sur les ventes réellement réalisées dans le secteur, sur les caractéristiques précises du bien (surface, étage, exposition, extérieur) et sur une visite pour affiner l'estimation."}},
+      {"@type": "Question", "name": "Comment estimez-vous une maison à Colombes ?",
+       "acceptedAnswer": {"@type": "Answer", "text": "La méthode est la même que pour un appartement, en intégrant en plus le terrain, les éventuels travaux et l'environnement immédiat de la maison."}},
+      {"@type": "Question", "name": "Combien de temps prend une estimation ?",
        "acceptedAnswer": {"@type": "Answer", "text": "Nous revenons vers vous sous 24/48h après votre demande pour organiser un échange ou une visite du bien, selon sa situation."}},
-      {"@type": "Question", "name": "Une estimation en ligne suffit-elle ?",
-       "acceptedAnswer": {"@type": "Answer", "text": "Un outil en ligne automatisé donne un ordre de grandeur à partir de données générales, sans visite ni connaissance réelle du bien. Notre estimation s'appuie sur les ventes réellement réalisées à Colombes et sur les caractéristiques précises de votre bien, pour un chiffre plus fiable."}},
-      {"@type": "Question", "name": "Dois-je être présent lors de l'estimation ?",
-       "acceptedAnswer": {"@type": "Answer", "text": "Une visite du bien est recommandée pour affiner l'estimation, mais nous nous adaptons à votre disponibilité et pouvons organiser le rendez-vous à un moment qui vous convient."}}
+      {"@type": "Question", "name": "Quels documents dois-je préparer ?",
+       "acceptedAnswer": {"@type": "Answer", "text": "Pour un premier échange, aucun document n'est nécessaire. Pour affiner l'estimation, le titre de propriété, le règlement de copropriété ou les diagnostics techniques peuvent être utiles."}},
+      {"@type": "Question", "name": "Dois-je obligatoirement vendre après l'estimation ?",
+       "acceptedAnswer": {"@type": "Answer", "text": "Non. L'estimation ne vous engage à rien. Vous restez libre de vendre maintenant, plus tard, ou de ne pas donner suite."}},
+      {"@type": "Question", "name": "Pouvez-vous également m'accompagner pour mon prochain achat ?",
+       "acceptedAnswer": {"@type": "Answer", "text": "Oui. Proactifs réunit immobilier, courtage et conseil patrimonial : nous pouvons vous accompagner sur la vente, puis sur le financement d'un nouveau projet."}},
+      {"@type": "Question", "name": "Que faire du capital après la vente ?",
+       "acceptedAnswer": {"@type": "Answer", "text": "C'est une question que beaucoup de vendeurs se posent. Nous pouvons en discuter lors de notre échange, sans engagement, pour explorer les options adaptées à votre situation."}}
     ]
   }
   </script>
@@ -208,6 +216,15 @@
     .sec-forest .sec-note { color: rgba(255,255,255,.6); }
     .sec-title-wide { max-width: 1100px; }
 
+    /* ── Votre bien a une valeur — 3 cards ── */
+    .value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 8px; }
+    .value-card { background: var(--sand); border-radius: var(--r-lg); padding: 32px 28px; transition: all .25s ease; }
+    .value-card:hover { background: var(--white); box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .value-card-icon { width: 46px; height: 46px; border-radius: 12px; background: var(--coral-pale); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+    .value-card-icon svg { width: 22px; height: 22px; fill: none; stroke: var(--coral); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .value-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--forest); margin-bottom: 8px; }
+    .value-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
+
     /* ── Diagnostic / facteurs de prix — icônes fines horizontales ── */
     .diag-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 28px; margin-top: 40px; }
     .diag-item { text-align: center; padding: 0 8px; }
@@ -222,9 +239,12 @@
     .step-num { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 700; color: var(--coral); margin-bottom: 14px; }
     .step-item h3 { font-size: 17px; font-weight: 700; color: var(--forest); margin-bottom: 10px; }
     .step-item p { font-size: 14px; color: var(--ink-soft); line-height: 1.65; }
+    .steps-cta { margin-top: 48px; text-align: center; }
 
     /* ── Différenciation — 50/50, photo + texte ── */
     .diff-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 64px; align-items: center; }
+    .diff-grid.diff-reverse { grid-template-columns: 1.1fr .9fr; }
+    .diff-grid.diff-reverse .diff-photo { order: 2; }
     .diff-photo { border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-lg); }
     .diff-photo img { width: 100%; height: 300px; object-fit: cover; object-position: center 45%; }
     .diff-list { margin-top: 36px; display: flex; flex-direction: column; gap: 24px; }
@@ -233,6 +253,23 @@
     .diff-row-icon svg { width: 20px; height: 20px; fill: none; stroke: var(--coral); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
     .diff-row h3 { font-size: 16px; font-weight: 700; color: var(--forest); margin-bottom: 4px; }
     .diff-row p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
+
+    /* ── Signature Proactifs : Estimer → Vendre → Financer → Optimiser → Réinvestir ── */
+    .signature-flow { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0; margin: 48px 0 40px; }
+    .sig-item { display: flex; flex-direction: column; align-items: center; text-align: center; width: 140px; }
+    .sig-icon { width: 56px; height: 56px; border-radius: 50%; background: rgba(237,146,53,.12); border: 1.5px solid rgba(237,146,53,.4); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+    .sig-icon svg { width: 24px; height: 24px; fill: none; stroke: var(--coral-light); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .sig-item span { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--white); }
+    .sig-item.sig-current .sig-icon { background: var(--coral); border-color: var(--coral); }
+    .sig-item.sig-current .sig-icon svg { stroke: var(--coral-foreground); }
+    .sig-item.sig-current span { color: var(--coral-light); }
+    .sig-arrow { color: rgba(255,255,255,.35); font-size: 20px; padding: 0 4px 24px; }
+    .signature-text { max-width: 680px; margin: 0 auto; text-align: center; }
+    .signature-text p { font-size: 15px; color: rgba(255,255,255,.85); line-height: 1.75; margin-bottom: 10px; }
+    @media (max-width: 900px) {
+      .signature-flow { gap: 8px 0; }
+      .sig-arrow { transform: rotate(90deg); padding: 4px 0; }
+    }
 
     /* ── Bandeau croisé (succession) ── */
     .cross-band { background: var(--gold-pale); border-radius: var(--r-lg); padding: 32px 40px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
@@ -244,10 +281,13 @@
     .estim-left h2 { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 600; line-height: 1.2; margin-bottom: 16px; color: var(--white); }
     .estim-left p { color: rgba(255,255,255,.8); font-size: 16px; line-height: 1.7; margin-bottom: 32px; }
     .estim-card { background: var(--white); border-radius: var(--r-xl); box-shadow: 0 30px 70px -20px rgba(0,0,0,.5); padding: 40px; }
+    .estim-group-label { font-size: 11px; font-weight: 700; color: var(--coral); text-transform: uppercase; letter-spacing: .1em; margin: 24px 0 14px; }
+    .estim-group-label:first-child { margin-top: 0; }
     .estim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .estim-field { display: flex; flex-direction: column; gap: 6px; }
     .estim-field.full { grid-column: 1 / -1; }
     .estim-field label { font-size: 12px; font-weight: 700; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .3px; }
+    .estim-field label .opt { font-weight: 500; text-transform: none; color: var(--slate); letter-spacing: 0; }
     .estim-field input, .estim-field select, .estim-field textarea {
       border: 1.5px solid var(--border); border-radius: var(--r-sm); padding: 12px 14px; font-family: 'Nunito Sans', sans-serif;
       font-size: 14px; color: var(--ink); background: var(--white); transition: border-color .2s, box-shadow .2s; width: 100%;
@@ -310,9 +350,11 @@
       .hero-text { max-width: 420px; padding: 0 24px 0 40px; }
       .hero-photo .hero-note { display: none; }
       .hero-photo .hero-cursive { font-size: 22px; max-width: 170px; top: 11%; }
+      .value-grid { grid-template-columns: 1fr; }
       .diag-row { grid-template-columns: repeat(3, 1fr); row-gap: 32px; }
       .steps-row { grid-template-columns: 1fr 1fr; row-gap: 32px; }
-      .diff-grid { grid-template-columns: 1fr; gap: 40px; }
+      .diff-grid, .diff-grid.diff-reverse { grid-template-columns: 1fr; gap: 40px; }
+      .diff-grid.diff-reverse .diff-photo { order: 0; }
       .diff-photo img { height: 320px; }
       .estim-flex { grid-template-columns: 1fr; }
     }
@@ -376,7 +418,7 @@
       <li><a href="/blog">Blog</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-    <a href="#estimation" class="nav-cta-btn">Demander mon estimation gratuite</a>
+    <a href="#estimation" class="nav-cta-btn" data-track="estimate_hero_cta">Estimer mon bien gratuitement</a>
   </nav>
   <div class="mobile-menu" id="mobileMenu">
     <a href="/bilan-patrimonial">Bilan patrimonial</a>
@@ -395,21 +437,21 @@
     <a href="/#approche">Notre approche</a>
     <a href="/#contact">Contact</a>
     <a href="/blog">Blog</a>
-    <a href="#estimation">Demander mon estimation gratuite</a>
+    <a href="#estimation">Estimer mon bien gratuitement</a>
   </div>
 
-  <div class="breadcrumb"><a href="/">Accueil</a> › <a href="/immobilier">Immobilier</a> › Estimation Colombes</div>
+  <div class="breadcrumb"><a href="/">Accueil</a> › <a href="/immobilier">Immobilier</a> › Estimation immobilière Colombes</div>
 
   <!-- ═══════════ HERO ═══════════ -->
   <section class="svc-hero" id="hero">
     <div class="hero-split">
       <div class="hero-text">
-        <div class="hero-eyebrow">Proactifs Immobilier · Colombes &amp; Hauts-de-Seine</div>
-        <h1>Quelle est la vraie valeur de votre bien à Colombes ?</h1>
-        <p class="hero-kicker">Une estimation argumentée, pas un chiffre au hasard.</p>
-        <p class="hero-sub">Recevez une estimation gratuite de votre maison ou appartement à Colombes, fondée sur les ventes réellement réalisées dans le secteur et les caractéristiques précises de votre bien — sans engagement de votre part.</p>
+        <div class="hero-eyebrow">Estimation immobilière · Colombes</div>
+        <h1>Combien vaut réellement votre bien à Colombes ?</h1>
+        <p class="hero-kicker">Une estimation juste, c'est le point de départ d'un projet réussi.</p>
+        <p class="hero-sub">Appartement, maison, résidence principale ou bien locatif : nous évaluons votre bien en tenant compte de ses caractéristiques, de son emplacement et de votre projet. Et parce qu'une vente ne s'arrête pas au prix du bien, Proactifs peut vous accompagner avant, pendant et après la transaction.</p>
         <div>
-          <a href="#estimation" class="btn-primary">Demander mon estimation gratuite</a>
+          <a href="#estimation" class="btn-primary" data-track="estimate_hero_cta">Estimer mon bien gratuitement</a>
         </div>
         <p class="hero-reassurance">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
@@ -419,7 +461,7 @@
       <div class="hero-photo">
         <img src="/images/immobilier/hero-facade.jpg" alt="Façade d'immeuble résidentiel à Colombes, illustrant l'estimation d'un bien immobilier dans le secteur" loading="eager" fetchpriority="high" width="1600" height="1072">
         <div class="hero-cursive">Un chiffre argumenté, pas une estimation au hasard</div>
-        <div class="hero-note">Fondée sur le marché réel de Colombes</div>
+        <div class="hero-note">Connaître la valeur de votre bien, pour mieux décider.</div>
       </div>
     </div>
   </section>
@@ -434,8 +476,34 @@
     </div>
   </section>
 
-  <!-- ═══════════ POURQUOI UNE ESTIMATION EN LIGNE NE SUFFIT PAS ═══════════ -->
+  <!-- ═══════════ VOTRE BIEN A UNE VALEUR ═══════════ -->
   <section class="sec sec-white reveal">
+    <div class="container">
+      <div class="sec-label">Votre situation</div>
+      <h2 class="sec-title">Votre bien a <em>une valeur</em>. Votre projet aussi.</h2>
+      <p class="sec-intro">Deux appartements de même surface à Colombes ne se vendent pas nécessairement au même prix : étage, état général, luminosité, extérieur, stationnement, rue, environnement, prestations… chaque détail compte. Mais nous voulons aussi comprendre pourquoi vous envisagez de vendre, pour vous proposer une approche réellement adaptée.</p>
+      <div class="value-grid">
+        <div class="value-card">
+          <div class="value-card-icon"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 21v-6h6v6"/></svg></div>
+          <h3>Je souhaite vendre</h3>
+          <p>Obtenir une estimation réaliste et préparer la commercialisation de votre bien.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card-icon"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/><path d="M3 6l3 6-3 6"/></svg></div>
+          <h3>J'ai un nouveau projet</h3>
+          <p>Vente et acquisition doivent être pensées ensemble pour sécuriser votre transition.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 2.5"/></svg></div>
+          <h3>Je réfléchis encore</h3>
+          <p>Connaître la valeur de votre patrimoine avant de prendre une décision.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ POURQUOI UNE ESTIMATION EN LIGNE NE SUFFIT PAS ═══════════ -->
+  <section class="sec sec-sand reveal">
     <div class="container">
       <div class="diff-grid">
         <div class="diff-photo">
@@ -464,69 +532,95 @@
     </div>
   </section>
 
-  <!-- ═══════════ NOTRE MÉTHODE EN 4 ÉTAPES ═══════════ -->
-  <section class="sec sec-sand reveal" id="approche">
+  <!-- ═══════════ COMMENT ESTIMONS-NOUS VOTRE BIEN ═══════════ -->
+  <section class="sec sec-white reveal" id="approche">
     <div class="container sec-center">
       <div class="sec-label">Méthode</div>
-      <h2 class="sec-title">Notre estimation <em>en 4 étapes</em></h2>
+      <h2 class="sec-title">Comment estimons-nous <em>votre bien</em> ?</h2>
+      <p class="sec-intro">Une estimation fondée sur votre bien, pas seulement sur un algorithme.</p>
     </div>
     <div class="container">
       <div class="steps-row">
         <div class="step-item">
           <div class="step-num">01</div>
-          <h3>Premier échange</h3>
-          <p>Vous nous parlez de votre bien et de votre projet, sans engagement.</p>
+          <h3>Votre bien</h3>
+          <p>Surface, état, étage, exposition, extérieur, parking, prestations : les caractéristiques précises de votre bien.</p>
         </div>
         <div class="step-item">
           <div class="step-num">02</div>
-          <h3>Visite &amp; analyse</h3>
-          <p>Nous visitons le bien et analysons ses caractéristiques et son environnement.</p>
+          <h3>Son emplacement</h3>
+          <p>Quartier, rue, environnement, transports et attractivité locale à Colombes.</p>
         </div>
         <div class="step-item">
           <div class="step-num">03</div>
-          <h3>Estimation argumentée</h3>
-          <p>Nous vous remettons un prix de marché expliqué, fondé sur des ventes réelles à Colombes.</p>
+          <h3>Le marché</h3>
+          <p>Analyse des références et des biens comparables réellement pertinents.</p>
         </div>
         <div class="step-item">
           <div class="step-num">04</div>
-          <h3>Vous décidez</h3>
-          <p>Vous restez libre de vendre maintenant, plus tard, ou de ne pas donner suite.</p>
+          <h3>Votre projet</h3>
+          <p>Vente, nouvel achat, financement, succession ou réinvestissement : nous adaptons notre accompagnement.</p>
         </div>
+      </div>
+      <div class="steps-cta">
+        <a href="#estimation" class="btn-outline">Demander mon estimation</a>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════ CE QUI INFLUENCE LE PRIX ═══════════ -->
+  <!-- ═══════════ SIGNATURE PROACTIFS ═══════════ -->
   <section class="sec sec-forest reveal">
     <div class="container sec-center">
-      <div class="sec-label">À prendre en compte</div>
-      <h2 class="sec-title">Ce qui influence <em>le prix de votre bien</em></h2>
-      <p class="sec-intro">Un prix de marché à Colombes dépend de plusieurs facteurs, au-delà d'un simple prix au m².</p>
-      <div class="diag-row">
-        <div class="diag-item">
-          <div class="diag-icon"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 21v-6h6v6"/></svg></div>
-          <h3>Localisation</h3>
-          <p>Le quartier, la proximité des transports et des commerces à Colombes.</p>
+      <div class="sec-label">Notre approche</div>
+      <h2 class="sec-title">Estimer votre bien n'est que <em>la première étape</em>.</h2>
+      <p class="sec-intro">Une approche globale pour sécuriser chaque décision.</p>
+      <div class="signature-flow">
+        <div class="sig-item sig-current">
+          <div class="sig-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+          <span>Estimer</span>
         </div>
-        <div class="diag-item">
-          <div class="diag-icon"><svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 012-2h8l6 6v10a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path d="M14 3v6h6"/></svg></div>
-          <h3>État général</h3>
-          <p>Travaux à prévoir, entretien, prestations et diagnostics techniques.</p>
+        <div class="sig-arrow">→</div>
+        <div class="sig-item">
+          <div class="sig-icon"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 21v-6h6v6"/></svg></div>
+          <span>Vendre</span>
         </div>
-        <div class="diag-item">
-          <div class="diag-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 10h16"/><path d="M10 4v6"/></svg></div>
-          <h3>Surface &amp; configuration</h3>
-          <p>Nombre de pièces, agencement, luminosité et exposition du bien.</p>
+        <div class="sig-arrow">→</div>
+        <div class="sig-item">
+          <div class="sig-icon"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg></div>
+          <span>Financer</span>
         </div>
-        <div class="diag-item">
-          <div class="diag-icon"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
-          <h3>Extérieurs &amp; annexes</h3>
-          <p>Jardin, balcon, terrasse, parking ou garage.</p>
+        <div class="sig-arrow">→</div>
+        <div class="sig-item">
+          <div class="sig-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          <span>Optimiser</span>
         </div>
-        <div class="diag-item">
-          <div class="diag-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
-          <h3>Marché local actuel</h3>
-          <p>Le niveau de la demande et les ventes récentes constatées à Colombes.</p>
+        <div class="sig-arrow">→</div>
+        <div class="sig-item">
+          <div class="sig-icon"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 11-3-6.7"/><path d="M21 4v5h-5"/></svg></div>
+          <span>Réinvestir</span>
+        </div>
+      </div>
+      <div class="signature-text">
+        <p>Vous vendez pour acheter une nouvelle résidence ? Vous vous interrogez sur le financement de votre prochain projet ? Vous allez disposer d'un capital après la vente et ne savez pas encore comment l'utiliser ?</p>
+        <p>C'est précisément là que l'approche Proactifs prend tout son sens.</p>
+      </div>
+      <div style="margin-top:32px;">
+        <a href="/#approche" class="btn-outline" style="border-color:rgba(255,255,255,.3);color:var(--white);">Découvrir notre approche</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ UNE ESTIMATION ANCRÉE À COLOMBES ═══════════ -->
+  <section class="sec sec-sand reveal">
+    <div class="container">
+      <div class="diff-grid diff-reverse">
+        <div class="diff-photo">
+          <img src="/images/immobilier/zone-street.jpg" alt="Rue résidentielle à Colombes, environnement urbain pris en compte dans l'estimation d'un bien" loading="lazy">
+        </div>
+        <div>
+          <div class="sec-label">Ancrage local</div>
+          <h2 class="sec-title">Une estimation immobilière <em>ancrée à Colombes</em>.</h2>
+          <p class="sec-intro" style="margin-bottom:0">La valeur d'un bien ne se résume pas à un prix moyen au m². À Colombes, quelques rues, un étage, une terrasse, un jardin ou la proximité d'un transport peuvent modifier l'attractivité d'un bien. Notre estimation tient compte de ces particularités afin de vous donner une base réaliste pour votre décision.</p>
         </div>
       </div>
     </div>
@@ -534,9 +628,13 @@
 
   <!-- ═══════════ BANDEAU CROISÉ SUCCESSION ═══════════ -->
   <section class="sec sec-white reveal">
+    <div class="container sec-center" style="margin-bottom:32px;">
+      <div class="sec-label">Bien reçu en héritage ?</div>
+      <h2 class="sec-title" style="margin-bottom:0;">Vous souhaitez estimer un bien reçu en héritage ?</h2>
+    </div>
     <div class="container">
       <div class="cross-band">
-        <p><strong>Le bien fait partie d'une succession ?</strong> Nous proposons un accompagnement dédié aux héritiers, de l'estimation à la vente.</p>
+        <p>Une succession immobilière soulève souvent plusieurs questions en même temps : valeur du bien, indivision, vente, fiscalité et destination du capital. Notre accompagnement <strong>Succession Sérénité 360</strong> a été conçu pour réunir ces sujets autour d'un interlocuteur unique.</p>
         <a href="/immobilier/succession-colombes" class="btn-outline">Découvrir Succession Sérénité 360</a>
       </div>
     </div>
@@ -548,21 +646,50 @@
       <div class="estim-flex">
         <div class="estim-left">
           <div class="sec-label">Estimation gratuite</div>
-          <h2>Recevez l'estimation de votre bien à Colombes.</h2>
-          <p>Un premier échange pour comprendre votre bien et votre projet, sans engagement de votre part.</p>
+          <h2>Parlons de votre bien.</h2>
+          <p>Quelques informations nous permettront de préparer notre premier échange, sans engagement de votre part.</p>
         </div>
         <div class="estim-card">
           <form id="estimColombesForm">
+            <div class="estim-group-label">Votre bien</div>
             <div class="estim-grid">
-              <div class="estim-field"><label for="ec-prenom">Prénom *</label><input type="text" id="ec-prenom" required></div>
-              <div class="estim-field"><label for="ec-tel">Téléphone *</label><input type="tel" id="ec-tel" required></div>
-              <div class="estim-field"><label for="ec-email">Email *</label><input type="email" id="ec-email" required></div>
-              <div class="estim-field"><label for="ec-ville">Ville / secteur du bien *</label><input type="text" id="ec-ville" placeholder="Ex : Colombes" required></div>
               <div class="estim-field"><label for="ec-type">Type de bien *</label>
                 <select id="ec-type" required>
                   <option value="">Sélectionnez</option>
                   <option>Appartement</option>
                   <option>Maison</option>
+                  <option>Autre</option>
+                </select>
+              </div>
+              <div class="estim-field"><label for="ec-ville">Ville / secteur du bien *</label><input type="text" id="ec-ville" placeholder="Ex : Colombes" required></div>
+              <div class="estim-field"><label for="ec-surface">Surface <span class="opt">(optionnel)</span></label><input type="text" id="ec-surface" placeholder="Ex : 65 m²"></div>
+              <div class="estim-field"><label for="ec-pieces">Nombre de pièces <span class="opt">(optionnel)</span></label><input type="text" id="ec-pieces" placeholder="Ex : 3"></div>
+              <div class="estim-field"><label for="ec-exterieur">Extérieur <span class="opt">(optionnel)</span></label>
+                <select id="ec-exterieur">
+                  <option value="">Sélectionnez</option>
+                  <option>Aucun</option>
+                  <option>Balcon</option>
+                  <option>Terrasse</option>
+                  <option>Jardin</option>
+                </select>
+              </div>
+              <div class="estim-field"><label for="ec-parking">Parking / garage <span class="opt">(optionnel)</span></label>
+                <select id="ec-parking">
+                  <option value="">Sélectionnez</option>
+                  <option>Oui</option>
+                  <option>Non</option>
+                </select>
+              </div>
+            </div>
+            <div class="estim-group-label">Votre projet</div>
+            <div class="estim-grid">
+              <div class="estim-field full"><label for="ec-raison">Pourquoi envisagez-vous ce projet ? <span class="opt">(optionnel)</span></label>
+                <select id="ec-raison">
+                  <option value="">Sélectionnez</option>
+                  <option>Je souhaite vendre</option>
+                  <option>J'ai un nouveau projet (achat)</option>
+                  <option>Bien reçu en héritage</option>
+                  <option>Je réfléchis encore / je veux juste connaître la valeur</option>
                 </select>
               </div>
               <div class="estim-field"><label for="ec-delai">Quand envisagez-vous ce projet ? *</label>
@@ -572,14 +699,16 @@
                   <option>Dans les 3 mois</option>
                   <option>3 à 6 mois</option>
                   <option>Je réfléchis encore</option>
-                  <option>Je souhaite juste connaître la valeur</option>
                 </select>
               </div>
+              <div class="estim-field"><label for="ec-prenom">Nom *</label><input type="text" id="ec-prenom" required></div>
+              <div class="estim-field"><label for="ec-tel">Téléphone *</label><input type="tel" id="ec-tel" required></div>
+              <div class="estim-field full"><label for="ec-email">Email *</label><input type="email" id="ec-email" required></div>
             </div>
             <div class="estim-submit">
-              <button type="submit" class="btn-primary" id="estimColombesBtn">Demander mon estimation gratuite</button>
+              <button type="submit" class="btn-primary" id="estimColombesBtn" data-track="estimate_form_submit">Estimer mon bien gratuitement</button>
               <div class="estim-msg" id="estimColombesMsg"></div>
-              <p class="estim-confidentialite"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg> Vos informations sont confidentielles.</p>
+              <p class="estim-confidentialite"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg> Vos informations restent confidentielles.</p>
             </div>
           </form>
           <div class="estim-success" id="estimColombesSuccess" hidden>
@@ -601,10 +730,14 @@
     </div>
     <div class="container">
       <div class="faq-list">
-        <details class="faq-item"><summary>L'estimation est-elle vraiment gratuite ?</summary><p>Oui. Nous vous proposons une estimation argumentée de votre bien à Colombes, sans frais et sans engagement de mandat de votre part.</p></details>
-        <details class="faq-item"><summary>Combien de temps pour recevoir mon estimation ?</summary><p>Nous revenons vers vous sous 24/48h après votre demande pour organiser un échange ou une visite du bien, selon sa situation.</p></details>
-        <details class="faq-item"><summary>Une estimation en ligne suffit-elle ?</summary><p>Un outil en ligne automatisé donne un ordre de grandeur à partir de données générales, sans visite ni connaissance réelle du bien. Notre estimation s'appuie sur les ventes réellement réalisées à Colombes et sur les caractéristiques précises de votre bien, pour un chiffre plus fiable.</p></details>
-        <details class="faq-item"><summary>Dois-je être présent lors de l'estimation ?</summary><p>Une visite du bien est recommandée pour affiner l'estimation, mais nous nous adaptons à votre disponibilité et pouvons organiser le rendez-vous à un moment qui vous convient.</p></details>
+        <details class="faq-item"><summary>L'estimation immobilière est-elle gratuite ?</summary><p>Oui. Nous vous proposons une estimation argumentée de votre bien à Colombes, sans frais et sans engagement de mandat de votre part.</p></details>
+        <details class="faq-item"><summary>Comment estimez-vous un appartement à Colombes ?</summary><p>Nous nous appuyons sur les ventes réellement réalisées dans le secteur, sur les caractéristiques précises du bien (surface, étage, exposition, extérieur) et sur une visite pour affiner l'estimation.</p></details>
+        <details class="faq-item"><summary>Comment estimez-vous une maison à Colombes ?</summary><p>La méthode est la même que pour un appartement, en intégrant en plus le terrain, les éventuels travaux et l'environnement immédiat de la maison.</p></details>
+        <details class="faq-item"><summary>Combien de temps prend une estimation ?</summary><p>Nous revenons vers vous sous 24/48h après votre demande pour organiser un échange ou une visite du bien, selon sa situation.</p></details>
+        <details class="faq-item"><summary>Quels documents dois-je préparer ?</summary><p>Pour un premier échange, aucun document n'est nécessaire. Pour affiner l'estimation, le titre de propriété, le règlement de copropriété ou les diagnostics techniques peuvent être utiles.</p></details>
+        <details class="faq-item"><summary>Dois-je obligatoirement vendre après l'estimation ?</summary><p>Non. L'estimation ne vous engage à rien. Vous restez libre de vendre maintenant, plus tard, ou de ne pas donner suite.</p></details>
+        <details class="faq-item"><summary>Pouvez-vous également m'accompagner pour mon prochain achat ?</summary><p>Oui. Proactifs réunit immobilier, courtage et conseil patrimonial : nous pouvons vous accompagner sur la vente, puis sur le financement d'un nouveau projet.</p></details>
+        <details class="faq-item"><summary>Que faire du capital après la vente ?</summary><p>C'est une question que beaucoup de vendeurs se posent. Nous pouvons en discuter lors de notre échange, sans engagement, pour explorer les options adaptées à votre situation.</p></details>
       </div>
       <p class="faq-note">Ces réponses sont données à titre indicatif et peuvent varier selon la situation précise de votre bien.</p>
     </div>
@@ -670,20 +803,40 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+    /* ── Tracking (réutilise le gtag déjà chargé sur la page, aucun nouveau système) ── */
+    function trackEstim(label) {
+      if (typeof gtag === 'function') { gtag('event', label, { event_category: 'estimation_colombes' }); }
+    }
+    document.querySelectorAll('[data-track="estimate_hero_cta"]').forEach(el => {
+      el.addEventListener('click', () => trackEstim('estimate_hero_cta'));
+    });
+    (function() {
+      let started = false;
+      const form = document.getElementById('estimColombesForm');
+      form.addEventListener('focusin', () => {
+        if (!started) { started = true; trackEstim('estimate_form_start'); }
+      });
+    })();
+
     /* ── Formulaire Estimation Colombes → Supabase (table leads, même pipeline que le reste du site) ── */
     const _SB_URL = 'https://ullnkylrixdvormohryl.supabase.co';
     const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbG5reWxyaXhkdm9ybW9ocnlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjUzNDgsImV4cCI6MjA5NDE0MTM0OH0.Fu5xc-VVA49qp1-WHgve8ZYpOB-QrciHzVeZx0GXmKk';
 
     document.getElementById('estimColombesForm').addEventListener('submit', async function(ev) {
       ev.preventDefault();
-      const prenom = document.getElementById('ec-prenom').value.trim();
-      const email  = document.getElementById('ec-email').value.trim();
-      const tel    = document.getElementById('ec-tel').value.trim();
-      const ville  = document.getElementById('ec-ville').value.trim();
-      const type   = document.getElementById('ec-type').value;
-      const delai  = document.getElementById('ec-delai').value;
-      const msgEl  = document.getElementById('estimColombesMsg');
-      const btn    = document.getElementById('estimColombesBtn');
+      const prenom     = document.getElementById('ec-prenom').value.trim();
+      const email      = document.getElementById('ec-email').value.trim();
+      const tel        = document.getElementById('ec-tel').value.trim();
+      const ville      = document.getElementById('ec-ville').value.trim();
+      const type       = document.getElementById('ec-type').value;
+      const surface    = document.getElementById('ec-surface').value.trim();
+      const pieces     = document.getElementById('ec-pieces').value.trim();
+      const exterieur  = document.getElementById('ec-exterieur').value;
+      const parking    = document.getElementById('ec-parking').value;
+      const raison     = document.getElementById('ec-raison').value;
+      const delai      = document.getElementById('ec-delai').value;
+      const msgEl      = document.getElementById('estimColombesMsg');
+      const btn        = document.getElementById('estimColombesBtn');
 
       if (!prenom || !email || !tel || !ville || !type || !delai) {
         msgEl.className = 'estim-msg estim-msg-err';
@@ -694,7 +847,7 @@
       btn.disabled = true;
       btn.textContent = 'Envoi en cours…';
 
-      const reponses = { ville_bien: ville, type_bien: type, delai };
+      const reponses = { ville_bien: ville, type_bien: type, delai, surface, pieces, exterieur, parking, raison };
 
       try {
         const res = await fetch(_SB_URL + '/rest/v1/leads', {
@@ -710,6 +863,7 @@
           })
         });
         if (res.ok) {
+          trackEstim('estimate_form_submit');
           this.reset();
           this.hidden = true;
           document.getElementById('estimColombesSuccess').hidden = false;
@@ -720,7 +874,7 @@
         msgEl.className = 'estim-msg estim-msg-err';
         msgEl.textContent = 'Une erreur est survenue. Réessayez ou appelez-nous au 01 84 78 28 30.';
         btn.disabled = false;
-        btn.textContent = 'Demander mon estimation gratuite';
+        btn.textContent = 'Estimer mon bien gratuitement';
       }
     });
 
@@ -731,7 +885,7 @@
         document.getElementById('estimColombesForm').hidden = false;
         const btn = document.getElementById('estimColombesBtn');
         btn.disabled = false;
-        btn.textContent = 'Demander mon estimation gratuite';
+        btn.textContent = 'Estimer mon bien gratuitement';
         document.getElementById('estimColombesMsg').textContent = '';
       });
     }
