@@ -207,3 +207,17 @@ Panneau blanc, coins arrondis (`--r-md`), bordure discrète, ombre légère ; ti
 - Propagation du nouveau header aux ~47 autres pages (ajout au manifeste `scripts/nav-pages.json` + application des thèmes).
 - Nettoyage optionnel : les blocs `@media (max-width:900px) { .nav-links{display:none}; … }` restent inline dans les pages (redondants avec le CSS centralisé, même point de rupture, sans effet visuel).
 - Rattachement éventuel de « Notre approche » / « Témoignages » / « Contact » sous « Le cabinet » ou au footer.
+
+---
+
+## MENU-2B — Finitions desktop (16/09/2026)
+
+Ajustements visuels desktop sur les 4 prototypes, sans toucher au contenu, au SEO, aux URLs ni au mobile. Toujours via le système centralisé (aucun nouveau système de navigation).
+
+**Header / logo.** Gouttières responsives `padding: 0 clamp(24px, 4vw, 48px)` + `box-sizing: border-box` sur `#nav` ; logo et CTA en `flex-shrink: 0`, `.nav-links` en `min-width: 0`. Le logo garde sa taille (44 px), reste entièrement visible avec une marge gauche confortable et ne peut plus être rogné ni compressé de 1024 à 1920 px. Disposition LOGO | navigation centrée | CTA conservée.
+
+**Mega-menus plus compacts et harmonisés.** Largeur partagée ramenée de 1000 à **820 px** (`min(820px, calc(100vw − 48px))`), padding `22px 26px` (au lieu de `26px 30px`), gouttière de colonnes 26 px, titre→liens et interligne des liens resserrés. Patrimoine ne donne plus l'impression d'une grande boîte partiellement vide ; Immobilier partage exactement les mêmes dimensions/grille/rayon/ombre/bordure/titres. `navigation.css` (or) et `navigation-immobilier.css` (corail) conservent un corps strictement identique — seul l'accent `:root` diffère.
+
+**Accès à /immobilier.** Le déclencheur « Immobilier » reste l'ouvreur du mega-menu (comportement inchangé). Dans le panneau : « Vendre mon bien » → `/immobilier` conservé, et ajout d'un lien secondaire discret sous la 1re colonne, **« Découvrir Proactifs Immobilier → »** → `/immobilier` (séparé par un filet, plus petit, gris, sans fond au survol). Il reste secondaire et ne concurrence pas « Estimer mon bien » (action commerciale prioritaire).
+
+**Inchangé.** Contact reste hors du premier niveau desktop (CTA + footer). Ressources = Blog uniquement. Accessibilité intacte (aria-haspopup/expanded/current, focus-visible/within, Escape, retour focus, clic extérieur, hover, délai anti-fermeture). Mobile inchangé (MENU-3 à venir).
