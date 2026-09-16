@@ -480,3 +480,39 @@ Analyse des variantes techniques de l'ancien header sur les 26 pages à migrer. 
 - **Périmètre** : 2 fichiers modifiés (`blog/index.html` + `nav-pages.json`). Aucun article migré. `donation-vivant-vs-testament`, lead magnets, `declaration-rsu-espp-france`, écosystème prêt non touchés.
 
 **Statut : blog/index.html MIGRÉ.** Reste : 4D-2 (13 articles) + 4D-3 (12 articles) — en attente de validation visuelle.
+
+---
+
+## MENU-4D-2 — ARTICLES LOT 1 (13 articles) (16/09/2026)
+
+13 premiers articles (ordre alphabétique) migrés vers le header centralisé. Manifeste `scripts/nav-pages.json` : 23 → **36 pages**. Univers **Ressources** actif (desktop), CTA « Prendre rendez-vous » → `/bilan-patrimonial`, thème « site-patrimoine » (or). Aucun header local.
+
+| # | Fichier | Variante | Statut |
+|---|---|---|---|
+| 1 | `blog/actions-gratuites-aga-fiscalite-2026.html` | C | MIGRÉ |
+| 2 | `blog/bspce-fiscalite-startup-2026.html` | C | MIGRÉ |
+| 3 | `blog/conseiller-patrimoine-ile-de-france.html` | B | MIGRÉ |
+| 4 | `blog/declarer-rsu-formulaires-2026.html` | C | MIGRÉ |
+| 5 | `blog/donation-vivant-2026.html` | A | MIGRÉ |
+| 6 | `blog/donation-vivant-vs-testament-strategie-transmission.html` | E (anomalie) | MIGRÉ — 2 anomalies mobiles corrigées |
+| 7 | `blog/espp-fiscalite-france-2026.html` | C | MIGRÉ |
+| 8 | `blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026.html` | B | MIGRÉ |
+| 9 | `blog/gestion-patrimoine-entreprise-strategies-optimisation-fiscale-2026.html` | A | MIGRÉ |
+| 10 | `blog/immobilier-complement-retraite-lmnp-scpi-50-ans.html` | A | MIGRÉ |
+| 11 | `blog/investir-immobilier-ancien-ile-de-france-avantages-fiscaux-2026.html` | A | MIGRÉ |
+| 12 | `blog/investir-rsu-patrimoine-2026.html` | C | MIGRÉ |
+| 13 | `blog/lmnp-2026.html` | A | MIGRÉ |
+
+Répartition : A ×5, B ×2, C ×5, E ×1.
+
+**Migrateur ciblé par variante** : retrait JS nav par regex tolérant l'indentation et la minification (variante C minifiée, A/B/E en `this`-first), avec conservation du JS de page (`#scrollTop`, `IntersectionObserver`/reveal, accordéon FAQ). Garde-fou : assertion « aucun `getElementById('hamburger')` / `scrolled` / `const nav` résiduel » après retrait. Autoclose standard → `navigation.js` ; pour la variante E (sans autoclose), `navigation.js` ajouté avant `</body>`.
+
+**Variante E — anomalies corrigées par le header central (sans correctif local)** : rendu headless réel — fermeture du menu mobile au clic sur un lien = OUI (`closeMobile`) ; vues de niveau 2 en `overflow-y:auto` sous `.mobile-menu { max-height: 772px }` → plus de débordement. Les 2 défauts (`menu-mobile-deborde`, `menu-ne-se-referme-pas`) ont disparu ; `check-mobile-nav.js` ne signale plus cette page.
+
+**Tests** : `build-header.js` → 13 régénérées ; `--check` → idempotent (exit 0, 36 pages) ; `check-mobile-nav.js` → **1 seule** page signalée (`Lead magnets/blog-per-vs-assurance-vie-2026.html`, exclue) — donation-vs-testament désormais conforme. Rendu headless (A/B/C/E) : desktop 1024/1440/1920 → aucun débordement, dropdown Ressources ouvert + actif ; mobile 375/390/430 → aucun débordement, ☰ ouvre la racine.
+
+**Contrôle SEO/contenu par article (HEAD vs migré)** : title, meta description, canonical, H1, nombre de H2, nombre de JSON-LD, nombre de breadcrumb **identiques sur les 13**. 0 ligne SEO modifiée (diff). Aucun texte, image, lien éditorial, date ni auteur touché.
+
+**Périmètre** : 14 fichiers modifiés (13 articles + `nav-pages.json`). Non touchés : `Lead magnets/blog-per-vs-assurance-vie-2026.html`, `declaration-rsu-espp-france.html`, lead magnets, pages capture, écosystème prêt, et les 12 articles du lot 4D-3.
+
+**Statut : lot 4D-2 MIGRÉ (13/13).** Reste : 4D-3 (12 articles) — en attente de validation visuelle.
