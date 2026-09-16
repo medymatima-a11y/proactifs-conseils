@@ -221,3 +221,24 @@ Ajustements visuels desktop sur les 4 prototypes, sans toucher au contenu, au SE
 **Accès à /immobilier.** Le déclencheur « Immobilier » reste l'ouvreur du mega-menu (comportement inchangé). Dans le panneau : « Vendre mon bien » → `/immobilier` conservé, et ajout d'un lien secondaire discret sous la 1re colonne, **« Découvrir Proactifs Immobilier → »** → `/immobilier` (séparé par un filet, plus petit, gris, sans fond au survol). Il reste secondaire et ne concurrence pas « Estimer mon bien » (action commerciale prioritaire).
 
 **Inchangé.** Contact reste hors du premier niveau desktop (CTA + footer). Ressources = Blog uniquement. Accessibilité intacte (aria-haspopup/expanded/current, focus-visible/within, Escape, retour focus, clic extérieur, hover, délai anti-fermeture). Mobile inchangé (MENU-3 à venir).
+
+---
+
+## MENU-3 — Navigation mobile 2 niveaux (16/09/2026)
+
+Remplacement du menu mobile plat par une navigation premium à 2 niveaux, sur les 4 prototypes, **sans aucun changement desktop** (seules des règles isolées au breakpoint `max-width: 900px` sont ajoutées ; le seul changement du `<nav>` est l'ajout d'attributs ARIA au hamburger, invisibles en desktop). Toujours via le système centralisé.
+
+**Niveau 1.** Patrimoine ›, Immobilier ›, Simulateurs, Le cabinet, Ressources ›, puis le CTA contextuel. « Notre approche », « Témoignages » et « Contact » sont retirés du menu mobile (pages et ancres conservées ; le CTA et le footer assurent le contact).
+
+**Niveau 2 (vraie nouvelle vue qui glisse, 220 ms, `prefers-reduced-motion` respecté).**
+- **Patrimoine** : ← Retour + titre + 3 groupes (Gérer & optimiser / Investir & préparer / Transmettre & entreprendre), mêmes URLs que le mega desktop.
+- **Immobilier** : ← Retour + Vendre votre bien (Estimer mon bien → /immobilier/estimation-colombes, Vendre mon bien → /immobilier, Succession Sérénité 360 → /immobilier/succession-colombes) + Investir & financer (Investissement immobilier, SCPI, Financement / Courtage) + « Découvrir Proactifs Immobilier → » (/immobilier) + CTA « Estimer mon bien » (/immobilier/estimation-colombes). La carte corail desktop **n'est pas** reprise sur mobile.
+- **Ressources** : ← Retour + Blog.
+
+**Comportement.** Hamburger ☰/✕ ; ouverture toujours au niveau 1 ; parents → niveau 2 ; ← Retour → niveau 1 sans fermer ; fermeture par ✕, Escape (focus rendu au hamburger) et clic sur une destination ; scroll de la page bloqué (`body.m-open`), défilement interne par vue.
+
+**Accessibilité.** `aria-haspopup`/`aria-expanded`/`aria-controls` sur hamburger et parents, `aria-current="page"` (Immobilier sur les 3 pages Immobilier), `aria-label` sur les boutons Retour, `focus-visible`, focus déplacé vers ← Retour à l'ouverture d'un niveau 2 et rendu au parent au retour. Les vues masquées sont neutralisées via `inert` (hors flux Tab et arbre d'accessibilité).
+
+**CTA contextuel mobile (niveau 1).** index → Prendre rendez-vous (/bilan-patrimonial) ; /immobilier → Estimer mon bien (/immobilier/estimation-colombes) ; estimation → Estimer mon bien (#estimation) ; succession → Diagnostic Succession 360 (#diagnostic).
+
+**Design.** Fond ivoire, vert profond, typographies Proactifs, accent or (Patrimoine) / corail (Immobilier), séparateurs fins, zones tactiles ≥ 44 px, CTA arrondi. Breakpoint inchangé (900 px). Desktop MENU-2B figé.

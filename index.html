@@ -1054,7 +1054,7 @@ footer {
 <body>
 
 <!-- ════════════ NAV ════════════ -->
-<!-- NAV:CONFIG {"theme":"site-patrimoine","tokens":{"HOME_PREFIX":"","CTA_HREF":"/bilan-patrimonial","CTA_LABEL":"Prendre rendez-vous","MOBILE_CTA_HREF":"/bilan-patrimonial","MOBILE_CTA_LABEL":"Bilan patrimonial sur mesure"},"items":{"temoignages":true}} -->
+<!-- NAV:CONFIG {"theme":"site-patrimoine","tokens":{"HOME_PREFIX":"","CTA_HREF":"/bilan-patrimonial","CTA_LABEL":"Prendre rendez-vous","MOBILE_CTA_HREF":"/bilan-patrimonial","MOBILE_CTA_LABEL":"Prendre rendez-vous"},"items":{"temoignages":true}} -->
 <!-- NAV:START (bloc généré par scripts/build-header.js — ne pas éditer à la main, voir docs/NAVIGATION-PROACTIFS.md) -->
 <nav id="nav">
   <a href="/" class="nav-logo"><img src="/images/proactifs-logo.png" alt="Proactifs Conseils"></a>
@@ -1115,28 +1115,56 @@ footer {
       </div>
     </li>
   </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <button class="hamburger" id="hamburger" type="button" aria-label="Ouvrir le menu" aria-haspopup="true" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
   <a href="/bilan-patrimonial" class="nav-cta-btn">Prendre rendez-vous</a>
 </nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="/bilan-patrimonial">Bilan patrimonial</a>
-  <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
-  <a href="/declaration-impots-ile-de-france">Déclarer mes impôts</a>
-  <a href="/fiscalite-rsu-stock-options">Optimiser mes RSU</a>
-  <a href="/preparation-retraite">Préparation retraite</a>
-  <a href="/transmission">Transmission de patrimoine</a>
-  <a href="/cession-entreprise">Cession d'entreprise</a>
-  <a href="/investissement-immobilier">Investissement immobilier</a>
-  <a href="/investissement-scpi-hauts-de-seine">SCPI Hauts-de-Seine</a>
-  <a href="/courtage-credit-immobilier">Obtenir un crédit</a>
-  <a href="/immobilier">Immobilier</a>
-  <a href="#simulateurs">Simulateurs</a>
-  <a href="/cabinet">Le cabinet</a>
-  <a href="#approche">Notre approche</a>
-  <a href="#temoignages">Témoignages</a>
-  <a href="#contact">Contact</a>
-  <a href="/blog">Blog</a>
-  <a href="/bilan-patrimonial">Bilan patrimonial sur mesure</a>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <!-- Niveau 1 -->
+  <div class="m-view m-view--root" data-view="root">
+    <button class="m-item m-parent" type="button" data-submenu="patrimoine" aria-haspopup="true" aria-expanded="false" aria-controls="m-patrimoine">Patrimoine <span class="m-caret" aria-hidden="true">›</span></button>
+    <button class="m-item m-parent" type="button" data-submenu="immobilier" aria-haspopup="true" aria-expanded="false" aria-controls="m-immobilier">Immobilier <span class="m-caret" aria-hidden="true">›</span></button>
+    <a class="m-item" href="#simulateurs">Simulateurs</a>
+    <a class="m-item" href="/cabinet">Le cabinet</a>
+    <button class="m-item m-parent" type="button" data-submenu="ressources" aria-haspopup="true" aria-expanded="false" aria-controls="m-ressources">Ressources <span class="m-caret" aria-hidden="true">›</span></button>
+    <a class="m-cta" href="/bilan-patrimonial">Prendre rendez-vous</a>
+  </div>
+  <!-- Niveau 2 : Patrimoine -->
+  <div class="m-view m-view--sub" data-view="patrimoine" id="m-patrimoine" role="group" aria-label="Patrimoine">
+    <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
+    <p class="m-title">Patrimoine</p>
+    <p class="m-group">Gérer &amp; optimiser</p>
+    <a class="m-item" href="/bilan-patrimonial">Bilan patrimonial</a>
+    <a class="m-item" href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
+    <a class="m-item" href="/declaration-impots-ile-de-france">Déclarer mes impôts</a>
+    <a class="m-item" href="/fiscalite-rsu-stock-options">RSU &amp; stock-options</a>
+    <p class="m-group">Investir &amp; préparer</p>
+    <a class="m-item" href="/placements-financiers">Placements financiers</a>
+    <a class="m-item" href="/preparation-retraite">Préparation retraite</a>
+    <p class="m-group">Transmettre &amp; entreprendre</p>
+    <a class="m-item" href="/transmission">Transmission de patrimoine</a>
+    <a class="m-item" href="/cession-entreprise">Cession d'entreprise</a>
+  </div>
+  <!-- Niveau 2 : Immobilier -->
+  <div class="m-view m-view--sub" data-view="immobilier" id="m-immobilier" role="group" aria-label="Immobilier">
+    <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
+    <p class="m-title">Immobilier</p>
+    <p class="m-group">Vendre votre bien</p>
+    <a class="m-item" href="/immobilier/estimation-colombes">Estimer mon bien</a>
+    <a class="m-item" href="/immobilier">Vendre mon bien</a>
+    <a class="m-item" href="/immobilier/succession-colombes">Succession Sérénité 360</a>
+    <p class="m-group">Investir &amp; financer</p>
+    <a class="m-item" href="/investissement-immobilier">Investissement immobilier</a>
+    <a class="m-item" href="/investissement-scpi-hauts-de-seine">SCPI</a>
+    <a class="m-item" href="/courtage-credit-immobilier">Financement / Courtage</a>
+    <a class="m-more" href="/immobilier">Découvrir Proactifs Immobilier →</a>
+    <a class="m-cta" href="/immobilier/estimation-colombes">Estimer mon bien</a>
+  </div>
+  <!-- Niveau 2 : Ressources -->
+  <div class="m-view m-view--sub" data-view="ressources" id="m-ressources" role="group" aria-label="Ressources">
+    <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
+    <p class="m-title">Ressources</p>
+    <a class="m-item" href="/blog">Blog</a>
+  </div>
 </div>
 <!-- NAV:END -->
 
