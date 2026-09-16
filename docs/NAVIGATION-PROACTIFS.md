@@ -246,3 +246,34 @@ Remplacement du menu mobile plat par une navigation premium à 2 niveaux, sur le
 ### MENU-3.1 — Correctif scroll/recouvrement des sous-menus mobiles (16/09/2026)
 
 Bug : à l'ouverture d'un sous-menu long (Patrimoine, Immobilier), `back.focus()` faisait défiler horizontalement le conteneur `.mobile-menu` (`overflow:hidden` mais `scrollWidth` ≈ 2× la largeur à cause des vues inactives en `translateX(100%)`), décalant toute la pile de 390 px : la vue active passait hors écran à gauche et une vue inactive (Ressources, dernière dans le DOM) se retrouvait visible par-dessus. Ressources (court) semblait fonctionner car c'était elle qui recouvrait. Correctif : `element.focus({ preventScroll: true })` sur les trois focus du menu mobile (ouverture sous-vue, retour, fermeture). Combiné à la hauteur `100dvh` (MENU-3.1 précédent), le scroll interne des vues longues fonctionne. Desktop et gabarit inchangés (correctif JS isolé au comportement mobile).
+
+---
+
+## MENU-4A — Propagation LOT 1 (pages Patrimoine) (16/09/2026)
+
+Header centralisé (référence MENU-2B desktop + MENU-3.1 mobile) propagé aux 8 pages de services Patrimoine, via le système existant (partials/header.html + build-header.js + navigation.css/js). Aucun header local, aucune variante par page. Le manifeste `scripts/nav-pages.json` compte désormais 12 pages (4 prototypes + 8 LOT 1).
+
+**Pages migrées (8) — toutes en thème « site patrimoine » (or), univers Patrimoine actif (desktop, `aria-current="page"`), HOME_PREFIX `/` :**
+
+| Page | CTA header | Cible |
+|---|---|---|
+| /bilan-patrimonial | Demander un bilan | `#form` (CTA propre conservé, §5) |
+| /optimisation-fiscale-ile-de-france | Prendre rendez-vous | /bilan-patrimonial |
+| /declaration-impots-ile-de-france | Prendre rendez-vous | /bilan-patrimonial |
+| /fiscalite-rsu-stock-options | Prendre rendez-vous | /bilan-patrimonial |
+| /placements-financiers | Prendre rendez-vous | /bilan-patrimonial |
+| /preparation-retraite | Prendre rendez-vous | /bilan-patrimonial |
+| /transmission | Prendre rendez-vous | /bilan-patrimonial |
+| /cession-entreprise | Prendre rendez-vous | /bilan-patrimonial |
+
+Les 7 pages « défaut » avaient déjà « Prendre rendez-vous » → /bilan-patrimonial dans leur ancien header ; bilan-patrimonial avait « Demander un bilan » → `#form`, conservé.
+
+**Procédure appliquée par page** : retrait des règles CSS de nav (sélecteurs `#nav`, `.nav-links`, `.nav-cta-btn`, `.nav-logo`, `.hamburger`, `.mobile-menu`, `.nav-dropdown`, `.dropdown-*`, `.chevron` — ~29-30 règles/page, retrait par analyse d'accolades, sans toucher au CSS de page) ; retrait du JS de nav inline (scroll `#nav.scrolled`, handler hamburger, autoclose) en conservant le JS de page (bouton retour-haut, IntersectionObserver `.reveal`) ; remplacement du `<nav>`+menu mobile par les marqueurs NAV:CONFIG/NAV:START/END ; ajout de `<link navigation.css>` + `<script navigation.js>` ; régénération via build-header.js.
+
+**États actifs** : Patrimoine actif en desktop sur les 8. En mobile, l'architecture MENU-3 ne prévoit pas d'état actif « Patrimoine » (seul Immobilier a un token mobile) — donc pas d'indication active mobile Patrimoine, conformément à §4 (« si prévue par l'architecture »). Aucune variante locale créée.
+
+**Anomalies** : aucune. Variation mineure attendue : fiscalite-rsu-stock-options a 29 règles de nav retirées (vs 30) — simple différence de nombre de règles dans l'ancien header, migration propre.
+
+**SEO/contenu** : aucun title, meta, H1, canonical, schema JSON-LD, contenu, sitemap, URL ni redirect modifié (vérifié par diff : 0 ligne SEO changée ; comptes de sections/titres/formulaires identiques avant/après sur les 8).
+
+**Pages NON migrées (hors LOT 1)** : Immobilier (déjà prototypes), courtage-credit-immobilier, investissement-immobilier, SCPI, pages locales SEO, cabinet, blog, articles, landing/lead magnets, pages merci, pret-immobilier-index.html et sous-domaine prêt. Réservées aux lots MENU-4B/4C/4D.
