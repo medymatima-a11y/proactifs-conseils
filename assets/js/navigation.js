@@ -52,7 +52,7 @@
       var back = view && view.querySelector('[data-back]');
       if (back) back.focus({ preventScroll: true });
     }
-    function openMenu() {
+    function openMobile() {
       goRoot();
       mobileMenu.classList.add('open');
       hamburger.classList.add('open');
@@ -62,7 +62,7 @@
       body.classList.add('m-open');
       applyInert();
     }
-    function closeMenu(returnFocus) {
+    function closeMobile(returnFocus) {
       mobileMenu.classList.remove('open');
       hamburger.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
@@ -74,8 +74,8 @@
     }
 
     hamburger.addEventListener('click', function () {
-      if (mobileMenu.classList.contains('open')) closeMenu(false);
-      else openMenu();
+      if (mobileMenu.classList.contains('open')) closeMobile(false);
+      else openMobile();
     });
     parents.forEach(function (p) {
       p.addEventListener('click', function () { openSub(p.getAttribute('data-submenu')); });
@@ -90,10 +90,10 @@
     });
     /* Ferme au clic sur une destination - correctif audit 13/09/2026, maj MENU-3. */
     mobileMenu.querySelectorAll('a[href]').forEach(function (a) {
-      a.addEventListener('click', function () { closeMenu(false); });
+      a.addEventListener('click', function () { closeMobile(false); });
     });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMenu(true);
+      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMobile(true);
     });
     applyInert();
   }
