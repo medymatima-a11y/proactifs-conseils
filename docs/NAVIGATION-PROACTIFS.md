@@ -334,3 +334,36 @@ MENU-4B (univers **Immobilier / financement**) n'a **jamais été exécuté**. L
 ### Statut
 
 **STOP.** Inventaire 4C figé et documenté. Aucune page modifiée. Prochaine étape : **exécuter MENU-4B**, puis reprendre la migration MENU-4C (6 pages confirmées + arbitrage `declaration-rsu-espp-france`).
+
+---
+
+## MENU-4B — Propagation univers Immobilier / financement (16/09/2026)
+
+Header centralisé (MENU-2B desktop + MENU-3.1 mobile) propagé aux 4 pages restantes de l'univers Immobilier / investissement / financement, via le système existant (partials/header.html + build-header.js + navigation-immobilier.css/navigation.js). Aucun header local. Manifeste `scripts/nav-pages.json` : 12 → **16 pages**.
+
+**Pages migrées (4) — thème « immobilier » (corail), univers Immobilier actif (desktop `IMMOBILIER_ACTIVE_DESKTOP` + mobile `IMMOBILIER_ACTIVE_MOBILE`, `aria-current="page"`), HOME_PREFIX `/` :**
+
+| Page | Dans méga-menu « Investir & financer » | CTA header | Cible |
+|---|---|---|---|
+| /investissement-immobilier | Oui | Prendre rendez-vous | /bilan-patrimonial |
+| /investissement-immobilier-ancien | Non (voir note) | Prendre rendez-vous | /bilan-patrimonial |
+| /investissement-scpi-hauts-de-seine | Oui (SCPI) | Prendre rendez-vous | /bilan-patrimonial |
+| /courtage-credit-immobilier | Oui (Financement / Courtage) | Prendre rendez-vous | /bilan-patrimonial |
+
+**CTA** : le CTA header métier existant de ces 4 pages était déjà « Prendre rendez-vous » → `/bilan-patrimonial` ; conservé tel quel (pas de « Estimer mon bien » forcé, conformément au brief).
+
+**État actif** : Immobilier actif en desktop ET mobile (l'architecture MENU-3 prévoit un token actif Immobilier mobile, contrairement à Patrimoine). Décision `investissement-immobilier-ancien` (non liée dans le méga-menu) : **migrée en Immobilier actif** (validé — éviter qu'une page de l'univers Immobilier reste sur l'ancien header ; non ajoutée au méga-menu).
+
+**Particularité `investissement-immobilier-ancien.html`** : JS de nav divergent (ordre des toggles hamburger inversé, seuil scroll 50 mêlé au toggle du bouton retour-haut). Migrée via une chirurgie ciblée distincte du migrateur commun (retrait `const nav` + ligne `nav.scrolled`, conservation du listener scroll pour `#scrollTop`, retrait du handler hamburger variante, autoclose standard remplacé par navigation.js). JS de page conservé (bouton retour-haut, IntersectionObserver `.reveal`).
+
+**Procédure (3 pages conformes)** : retrait des règles CSS de nav (~30 règles/page, sans toucher au CSS de page) ; retrait du JS de nav inline (scroll `#nav.scrolled`, handler hamburger, autoclose) en conservant le JS de page ; remplacement `<nav>`+menu mobile par les marqueurs NAV:CONFIG/START/END ; ajout `<link navigation-immobilier.css>` + `<script navigation.js>` ; régénération build-header.js.
+
+**Tests** : `build-header.js` → 4 régénérées ; `--check` → idempotent (exit 0) ; `check-mobile-nav.js` → aucune nouvelle régression (seules les 2 pages pré-existantes hors périmètre restent signalées). Rendu headless réel : survol desktop « Immobilier » → panneau `mega-immobilier` en `display:grid` (Patrimoine reste fermé), `aria-expanded=true` ; mobile → ☰ ouvre la racine, sous-menu Immobilier actif. Desktop MENU-2B et mobile MENU-3.1 confirmés.
+
+**SEO/contenu** : aucun title, meta, H1, canonical, schema, contenu, sitemap, URL ni redirect modifié (vérifié par diff : 0 ligne SEO sur les 4 ; comptes sections/H2/formulaires/.reveal identiques avant/après).
+
+**Périmètre figé** : 5 fichiers modifiés (4 pages + nav-pages.json). Prototypes `immobilier`/`estimation-colombes`/`succession-colombes` et assets header (navigation.css, navigation-immobilier.css, navigation.js, header.html, build-header.js) **inchangés**.
+
+**Exclues de 4B** : `simulation-pret-immobilier.html` et `pret-immobilier-index.html` (écosystème prêt, hors périmètre — validé) ; blog/articles (4D) ; cabinet + `conseiller-patrimoine-VILLE` + `declaration-rsu-espp-france` (MENU-4C, non repris). MENU-4C reste documenté et NON migré.
+
+**Commit** : `ebfaba1` sur `menu-1.5-centralisation-header` (+ doc). À pousser sur la branche preview uniquement — jamais main/prod.
