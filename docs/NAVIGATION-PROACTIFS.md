@@ -242,3 +242,7 @@ Remplacement du menu mobile plat par une navigation premium à 2 niveaux, sur le
 **CTA contextuel mobile (niveau 1).** index → Prendre rendez-vous (/bilan-patrimonial) ; /immobilier → Estimer mon bien (/immobilier/estimation-colombes) ; estimation → Estimer mon bien (#estimation) ; succession → Diagnostic Succession 360 (#diagnostic).
 
 **Design.** Fond ivoire, vert profond, typographies Proactifs, accent or (Patrimoine) / corail (Immobilier), séparateurs fins, zones tactiles ≥ 44 px, CTA arrondi. Breakpoint inchangé (900 px). Desktop MENU-2B figé.
+
+### MENU-3.1 — Correctif scroll/recouvrement des sous-menus mobiles (16/09/2026)
+
+Bug : à l'ouverture d'un sous-menu long (Patrimoine, Immobilier), `back.focus()` faisait défiler horizontalement le conteneur `.mobile-menu` (`overflow:hidden` mais `scrollWidth` ≈ 2× la largeur à cause des vues inactives en `translateX(100%)`), décalant toute la pile de 390 px : la vue active passait hors écran à gauche et une vue inactive (Ressources, dernière dans le DOM) se retrouvait visible par-dessus. Ressources (court) semblait fonctionner car c'était elle qui recouvrait. Correctif : `element.focus({ preventScroll: true })` sur les trois focus du menu mobile (ouverture sous-vue, retour, fermeture). Combiné à la hauteur `100dvh` (MENU-3.1 précédent), le scroll interne des vues longues fonctionne. Desktop et gabarit inchangés (correctif JS isolé au comportement mobile).

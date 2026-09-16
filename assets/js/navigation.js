@@ -50,7 +50,7 @@
       applyInert();
       var view = mobileMenu.querySelector('.m-view[data-view="' + name + '"]');
       var back = view && view.querySelector('[data-back]');
-      if (back) back.focus();
+      if (back) back.focus({ preventScroll: true });
     }
     function openMenu() {
       goRoot();
@@ -70,7 +70,7 @@
       mobileMenu.setAttribute('aria-hidden', 'true');
       body.classList.remove('m-open');
       goRoot();
-      if (returnFocus) hamburger.focus();
+      if (returnFocus) hamburger.focus({ preventScroll: true });
     }
 
     hamburger.addEventListener('click', function () {
@@ -85,7 +85,7 @@
         var current = activeSub;
         goRoot();
         var parentBtn = current && mobileMenu.querySelector('.m-parent[data-submenu="' + current + '"]');
-        if (parentBtn) parentBtn.focus();
+        if (parentBtn) parentBtn.focus({ preventScroll: true });
       });
     });
     /* Ferme au clic sur une destination - correctif audit 13/09/2026, maj MENU-3. */
