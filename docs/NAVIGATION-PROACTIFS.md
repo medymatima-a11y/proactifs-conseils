@@ -146,3 +146,64 @@ Toutes ces modifications vivent sur la branche `menu-1.5-centralisation-header`,
 - **Rollback total (avant validation)** : ne pas fusionner la branche ; la supprimer si besoin (`git branch -D menu-1.5-centralisation-header`). `main` reste inchangé.
 - **Rollback partiel (après fusion, si un problème apparaît en prod)** : revert du/des commit(s) de la branche sur `main` — chaque page migrée redevient autonome avec son HTML/CSS/JS en dur, exactement comme avant le 16/09/2026 (aucune suppression de l'ancien code n'a eu lieu ailleurs : les 47 autres pages n'ont jamais été touchées et continuent de fonctionner en autonomie complète, comme avant).
 - Les nouveaux fichiers (`partials/`, `assets/css/navigation*.css`, `assets/js/navigation.js`, `scripts/build-header.js`, `scripts/migrate-header.js`, `scripts/nav-pages.json`) n'ont aucun effet sur les pages non listées dans `scripts/nav-pages.json` — les laisser en place sans les utiliser est sans risque.
+
+---
+
+## MENU-2A — Mega-menu desktop (prototype, 16/09/2026)
+
+Phase **desktop uniquement**, appliquée via le système centralisé (aucun second système de navigation créé). Le mobile reste le système MENU-1.5 (menu plat), inchangé — la refonte mobile est prévue pour MENU-3. Prototype sur 4 pages seulement : `index.html`, `immobilier.html`, `immobilier/estimation-colombes.html`, `immobilier/succession-colombes.html`. Les ~47 autres pages ne sont pas migrées.
+
+### Architecture desktop finale
+
+Barre : `LOGO` · **Patrimoine ▾** · **Immobilier ▾** · Simulateurs · Le cabinet · **Ressources ▾** · `CTA`.
+Logo à gauche, liens centrés, CTA à droite. Fond ivoire, hauteur 72 px (64 px au scroll), accent par univers. Les entrées « Notre approche », « Témoignages » et « Contact » ne sont plus des entrées de premier niveau desktop (les pages/ancres existent toujours ; elles restent présentes dans le menu mobile inchangé). Elles pourront être rattachées à « Le cabinet » ou au footer dans une phase ultérieure.
+
+Trois déclencheurs ouvrent un panneau (`<button class="nav-trigger">`), deux liens simples (`Simulateurs`, `Le cabinet`). « Patrimoine » et « Ressources » n'ont pas de page propre : ce sont des ouvreurs de menu. « Immobilier » aussi est un ouvreur ; la page `/immobilier` est atteinte via « Vendre mon bien » dans le panneau.
+
+### Liens — Patrimoine (mega, 3 colonnes)
+
+- Gérer & optimiser : Bilan patrimonial `/bilan-patrimonial` · Optimisation fiscale `/optimisation-fiscale-ile-de-france` · Déclarer mes impôts `/declaration-impots-ile-de-france` · RSU & stock-options `/fiscalite-rsu-stock-options`
+- Investir & préparer : Placements financiers `/placements-financiers` · Préparation retraite `/preparation-retraite`
+- Transmettre & entreprendre : Transmission de patrimoine `/transmission` · Cession d'entreprise `/cession-entreprise`
+
+### Liens — Immobilier (mega, 3 colonnes)
+
+- Vendre votre bien : Estimer mon bien `/immobilier/estimation-colombes` · Vendre mon bien `/immobilier` · Succession Sérénité 360 `/immobilier/succession-colombes`
+- Investir & financer : Investissement immobilier `/investissement-immobilier` · SCPI `/investissement-scpi-hauts-de-seine` · Financement / Courtage `/courtage-credit-immobilier`
+- Carte commerciale : « Vous avez un bien à Colombes ? » → CTA « Estimer mon bien → » `/immobilier/estimation-colombes`
+
+### Liens — Ressources (dropdown simple)
+
+- Blog `/blog`
+
+Aucune entrée « YouTube / Guides / Actualités » (pas de page réelle). Toutes les destinations ci-dessus ont été vérifiées comme existantes avant intégration.
+
+### CTA contextuels (par prototype)
+
+- `index.html` → « Prendre rendez-vous » (`/bilan-patrimonial`)
+- `/immobilier` → « Faire estimer mon bien » (`#estimation`)
+- `/immobilier/estimation-colombes` → « Estimer mon bien » (`#estimation`, `data-track="estimate_hero_cta"` conservé)
+- `/immobilier/succession-colombes` → « Diagnostic Succession 360 » (`#diagnostic`, libellé court pour ne pas écraser la nav)
+
+### États actifs
+
+Mécanisme : attribut `aria-current="page"` injecté par token sur le déclencheur/lien concerné, stylé par `.nav-trigger[aria-current="page"]` / `.nav-link[aria-current="page"]` (soulignement accent). Tokens disponibles : `PATRIMOINE_ACTIVE_DESKTOP`, `IMMOBILIER_ACTIVE_DESKTOP`, `RESSOURCES_ACTIVE_DESKTOP`, `CABINET_ACTIVE_DESKTOP` (+ variantes mobiles conservées). Pour MENU-2A : Immobilier actif sur les 3 pages Immobilier ; aucun actif sur l'accueil. Patrimoine/Ressources actifs prévus pour les pages patrimoine / le blog lors de la propagation.
+
+### Comportement des mega-menus (`assets/js/navigation.js`)
+
+Ouverture au survol et au focus clavier ; maintien ouvert lors du passage du déclencheur au panneau ; fermeture différée (140 ms) pour éviter les fermetures accidentelles ; `Escape` ferme et rend le focus au déclencheur ; clic hors du menu ferme ; un seul menu ouvert à la fois ; `aria-expanded` synchronisé. Sans JS, repli CSS : ouverture au `:hover` et au `:focus-within` (la classe `nav-js` sur `<html>` bascule entre les deux modes). Aucune bibliothèque externe.
+
+### Design & positionnement
+
+Panneau blanc, coins arrondis (`--r-md`), bordure discrète, ombre légère ; titres de colonnes petits/sobres ; liens espacés. Mega centré sous la barre, largeur `min(1000px, 100vw − 48px)` → aucun débordement de 1024 à 1920 px. Accent de survol par panneau : Patrimoine → or, Immobilier → corail, sur toutes les pages (via `--pat-accent` / `--immo-accent` définis dans les deux CSS). L'accent de la barre elle-même (liens, CTA, actif) suit l'univers de la page : or sur les pages patrimoine, corail sur les pages Immobilier.
+
+### Fin du drift Immobilier
+
+`immobilier.html` utilisait une variante de nav légèrement différente (CSS inline : logo 40 px, `#nav` z-index 100, hauteur 68 px au scroll…). Son CSS de nav inline a été retiré ; la page utilise désormais `assets/css/navigation-immobilier.css`, comme succession et estimation. Les surcharges responsives inline `#nav { height: 64px }` (< 600 px) ont été retirées des 3 pages Immobilier. `navigation.css` (or) et `navigation-immobilier.css` (corail) ont désormais un **corps strictement identique** ; seul le bloc `:root` d'accent diffère (2 lignes). z-index unifié : `#nav` 1000, panneaux 1001 (max constaté ailleurs : 500). Résultat : une seule architecture de header, deux accents.
+
+### Reste pour MENU-3 / propagation
+
+- Refonte de la navigation mobile (niveau 2 : accordéons/panneaux Patrimoine & Immobilier). Le menu mobile actuel reste plat et liste encore les anciennes entrées (Contact, Témoignages, Notre approche) — volontairement inchangé à ce stade.
+- Propagation du nouveau header aux ~47 autres pages (ajout au manifeste `scripts/nav-pages.json` + application des thèmes).
+- Nettoyage optionnel : les blocs `@media (max-width:900px) { .nav-links{display:none}; … }` restent inline dans les pages (redondants avec le CSS centralisé, même point de rupture, sans effet visuel).
+- Rattachement éventuel de « Notre approche » / « Témoignages » / « Contact » sous « Le cabinet » ou au footer.
