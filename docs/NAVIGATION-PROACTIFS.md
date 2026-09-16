@@ -367,3 +367,34 @@ Header centralisé (MENU-2B desktop + MENU-3.1 mobile) propagé aux 4 pages rest
 **Exclues de 4B** : `simulation-pret-immobilier.html` et `pret-immobilier-index.html` (écosystème prêt, hors périmètre — validé) ; blog/articles (4D) ; cabinet + `conseiller-patrimoine-VILLE` + `declaration-rsu-espp-france` (MENU-4C, non repris). MENU-4C reste documenté et NON migré.
 
 **Commit** : `ebfaba1` sur `menu-1.5-centralisation-header` (+ doc). À pousser sur la branche preview uniquement — jamais main/prod.
+
+---
+
+## MENU-4C — Exécution (migration) (16/09/2026)
+
+Migration effective des 6 pages confirmées à l'inventaire 4C (MENU-4B ayant été exécuté avant, comme prévu). Système centralisé uniquement (partials/header.html + build-header.js + navigation.css/js). Manifeste `scripts/nav-pages.json` : 16 → **22 pages**.
+
+**Pages migrées (6) — thème « site-patrimoine » (or), HOME_PREFIX `/`, CTA « Prendre rendez-vous » → /bilan-patrimonial :**
+
+| URL | Fichier | État actif |
+|---|---|---|
+| /cabinet | `cabinet.html` | **Le cabinet** (`CABINET_ACTIVE_DESKTOP` + `CABINET_ACTIVE_MOBILE`, `aria-current="page"`) |
+| /conseiller-patrimoine-asnieres | `conseiller-patrimoine-asnieres.html` | **Patrimoine** (desktop) |
+| /conseiller-patrimoine-colombes | `conseiller-patrimoine-colombes.html` | **Patrimoine** (desktop) |
+| /conseiller-patrimoine-courbevoie | `conseiller-patrimoine-courbevoie.html` | **Patrimoine** (desktop) |
+| /conseiller-patrimoine-levallois | `conseiller-patrimoine-levallois.html` | **Patrimoine** (desktop) |
+| /conseiller-patrimoine-nanterre | `conseiller-patrimoine-nanterre.html` | **Patrimoine** (desktop) |
+
+**Particularité JS** : les 6 pages avaient une indentation JS à 2 espaces (vs 4 pour LOT 1) et un handler hamburger variante (cabinet : ordre des toggles inversé). Migrées via des migrateurs 4C dédiés (retrait `const nav` + ligne `nav.scrolled`, conservation du listener scroll pour `#scrollTop` sur les pages locales, retrait du handler hamburger, autoclose standard → navigation.js). JS de page conservé (bouton retour-haut, reveal).
+
+**État actif** : Patrimoine actif desktop sur les 5 locales (pas de token actif Patrimoine mobile — architecture MENU-3, cf. §4). Cabinet actif desktop + mobile.
+
+**Tests** : `build-header.js` → 6 régénérées ; `--check` → idempotent (exit 0, 22 pages « à jour ») ; `check-mobile-nav.js` → aucune nouvelle régression (2 pages pré-existantes hors périmètre). Rendu headless réel : locale → survol « Patrimoine » ouvre le mega (`display:grid`, `aria-expanded=true`, actif « Patrimoine ») ; cabinet → `aria-current="page"` sur le lien `/cabinet`, CTA « Prendre rendez-vous » ; mobile → ☰ ouvre la racine. Desktop MENU-2B et mobile MENU-3.1 confirmés.
+
+**SEO/contenu** : 0 ligne SEO modifiée sur les 6 (vérifié par diff) ; comptes sections/H2/reveal identiques avant/après.
+
+**Périmètre figé** : 7 fichiers modifiés (6 pages + nav-pages.json). Prototypes, pages MENU-4B et assets header inchangés.
+
+**Non migrée (rappel)** : `declaration-rsu-espp-france.html` reste **À STATUER** (git diff = 0, intouchée). Exclusions inchangées : blog/articles (4D), écosystème prêt, lead magnets, pages merci, pages de capture, pages sans header. NAV-UX non développé (aucun breadcrumb, aucun bouton Retour ajouté).
+
+**Statut MENU-4C : MIGRÉ** (6 pages). Reste en suspens : arbitrage `declaration-rsu-espp-france` ; MENU-4D (blog) non commencé.
