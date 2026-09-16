@@ -277,3 +277,60 @@ Les 7 pages « défaut » avaient déjà « Prendre rendez-vous » → /bilan-pa
 **SEO/contenu** : aucun title, meta, H1, canonical, schema JSON-LD, contenu, sitemap, URL ni redirect modifié (vérifié par diff : 0 ligne SEO changée ; comptes de sections/titres/formulaires identiques avant/après sur les 8).
 
 **Pages NON migrées (hors LOT 1)** : Immobilier (déjà prototypes), courtage-credit-immobilier, investissement-immobilier, SCPI, pages locales SEO, cabinet, blog, articles, landing/lead magnets, pages merci, pret-immobilier-index.html et sous-domaine prêt. Réservées aux lots MENU-4B/4C/4D.
+
+---
+
+## MENU-4C — CABINET / INSTITUTIONNEL / LOCAL — Inventaire & décisions (16/09/2026)
+
+> **Phase inventaire uniquement.** Aucune page n'est migrée dans cette étape (conformément à §2 du brief : « NE PAS encore modifier les pages pendant cet inventaire »). La migration effective est **suspendue** : MENU-4B (univers Immobilier / financement, jamais exécuté) doit passer **avant** la reprise de MENU-4C. Ce bloc documente seulement le périmètre confirmé et les décisions d'état actif / CTA.
+
+### Périmètre confirmé (pages À MIGRER en 4C)
+
+Toutes ces pages utilisent encore l'ancien header (`<nav id="nav">`, pas de marqueur `NAV:CONFIG`), CTA actuel « Prendre rendez-vous ». Structure identique et migrable (nav#nav + menu déroulant « Nos services » + mobileMenu).
+
+| URL | Fichier | Type | État actif proposé (desktop) | CTA header cible | Statut |
+|---|---|---|---|---|---|
+| /cabinet | `cabinet.html` | Cabinet / institutionnel | **Le cabinet** | Prendre rendez-vous → /bilan-patrimonial | À MIGRER |
+| /conseiller-patrimoine-asnieres | `conseiller-patrimoine-asnieres.html` | Local (SEO ville) | **Patrimoine** | Prendre rendez-vous → /bilan-patrimonial | À MIGRER |
+| /conseiller-patrimoine-colombes | `conseiller-patrimoine-colombes.html` | Local (SEO ville) | **Patrimoine** | Prendre rendez-vous → /bilan-patrimonial | À MIGRER |
+| /conseiller-patrimoine-courbevoie | `conseiller-patrimoine-courbevoie.html` | Local (SEO ville) | **Patrimoine** | Prendre rendez-vous → /bilan-patrimonial | À MIGRER |
+| /conseiller-patrimoine-levallois | `conseiller-patrimoine-levallois.html` | Local (SEO ville) | **Patrimoine** | Prendre rendez-vous → /bilan-patrimonial | À MIGRER |
+| /conseiller-patrimoine-nanterre | `conseiller-patrimoine-nanterre.html` | Local (SEO ville) | **Patrimoine** | Prendre rendez-vous → /bilan-patrimonial | À MIGRER |
+
+### Décisions actées
+
+1. **5 pages locales `conseiller-patrimoine-VILLE`** → état actif **Patrimoine** en desktop (`PATRIMOINE_ACTIVE_DESKTOP`, `aria-current="page"`). Décision validée par le client (« Choix 1 : Patrimoine »). Thème « site patrimoine » (or), HOME_PREFIX `/`. Pas d'état actif mobile (l'architecture MENU-3 ne prévoit pas de token actif Patrimoine mobile — cf. §4).
+2. **`cabinet.html`** → état actif **Le cabinet** en desktop (`CABINET_ACTIVE_DESKTOP`). Thème patrimoine (or).
+3. CTA header identique pour les 6 : « Prendre rendez-vous » → `/bilan-patrimonial` (déjà le CTA actuel de ces pages).
+
+### Décision EN ATTENTE
+
+| URL | Fichier | Remarque | Statut |
+|---|---|---|---|
+| /declaration-rsu-espp-france | `declaration-rsu-espp-france.html` | Page fiscalité (RSU/ESPP), thématiquement Patrimoine (proche de `/fiscalite-rsu-stock-options`, déjà dans le méga-menu Patrimoine). Rattachement 4C **non confirmé** par le client (Q2 restée sans réponse). | **À STATUER** — ne pas migrer tant que l'arbitrage (in-scope 4C + état actif Patrimoine ?) n'est pas validé. |
+
+### Bloqueur : MENU-4B non exécuté
+
+MENU-4B (univers **Immobilier / financement**) n'a **jamais été exécuté**. Les pages suivantes restent sur l'ancien header et sont **exclues de 4C** (elles relèvent de 4B, à traiter avant la reprise de 4C) :
+
+- `courtage-credit-immobilier.html`
+- `investissement-immobilier.html`
+- `investissement-immobilier-ancien.html`
+- `investissement-scpi-hauts-de-seine.html`
+
+### Exclusions 4C (confirmées)
+
+- **Blog & articles** → réservés à MENU-4D.
+- **Écosystème prêt immobilier** (`pret-immobilier-index.html` et sous-domaine prêt) → hors périmètre.
+- **Landing / lead magnets, pages « merci »** → hors périmètre (pas de header principal / parcours dédié).
+- **Pages sans header principal** → non concernées.
+- `succession-colombes.local.bak.html` → fichier de sauvegarde non suivi, hors périmètre.
+- **Ancres, pas des pages** : « Notre approche » (`#approche`), « Contact » (`#contact`), « Simulateurs » (`#simulateurs`) sont des ancres de l'accueil, pas des pages autonomes — rien à migrer.
+
+### Note backlog NAV-UX (post-propagation)
+
+**À traiter après la propagation générale — phase NAV-UX :** harmonisation des fils d'Ariane (breadcrumbs) et de la navigation retour sur l'ensemble des pages migrées (cohérence du retour vers les hubs Patrimoine / Immobilier / Cabinet, et depuis les pages locales / articles). Hors périmètre 4A–4D ; à cadrer une fois le header centralisé propagé partout.
+
+### Statut
+
+**STOP.** Inventaire 4C figé et documenté. Aucune page modifiée. Prochaine étape : **exécuter MENU-4B**, puis reprendre la migration MENU-4C (6 pages confirmées + arbitrage `declaration-rsu-espp-france`).
