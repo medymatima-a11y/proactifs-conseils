@@ -449,3 +449,34 @@ Les deux sont **corrigées automatiquement** par la migration vers le header cen
 ### Statut
 
 **STOP.** Inventaire 4D figé. Aucune page migrée. `declaration-rsu-espp-france.html` non touchée (hors éditorial, À STATUER). Migration MENU-4D en attente de validation.
+
+---
+
+## MENU-4D-0 — PRÉ-VOL (26 pages blog) (16/09/2026)
+
+Analyse des variantes techniques de l'ancien header sur les 26 pages à migrer. **5 gabarits** identifiés (aucun ne modifie le contenu ; il s'agit de variations de balisage JS/CSS de l'ancien header) :
+
+| Variante | Nb | Indentation JS | Handler hamburger | `const nav` / scrolled | autoclose | CSS mobile (max-height/overflow) |
+|---|---|---|---|---|---|---|
+| A | 13 | 2 espaces | `this`-first | oui / >20 | oui | oui |
+| B | 2 | 4 espaces | `this`-first | oui / >20 | oui | oui |
+| C | 9 | — | forme alternative (sans `const nav`/scrolled) | non / non | oui | oui |
+| D (index) | 1 | 2 espaces | fonction fléchée + `const hamburger`/`const mobileMenu` | oui / >20 | oui | oui |
+| E (anomalie) | 1 | 2 espaces | `this`-first | oui / >20 | **non** | **non** |
+
+- **Variante E** = `blog/donation-vivant-vs-testament-strategie-transmission.html` : seule page présentant les 2 défauts mobiles déjà documentés (menu sans max-height/overflow-y + pas d'auto-fermeture). La migration les corrige. À traiter en 4D-2/4D-3.
+- **Variante C (9 pages)** : gabarit sans `const nav`/scrolled et handler hamburger sous une autre forme → nécessitera un migrateur ciblé (pré-vol détaillé au début de 4D-2). Non bloquant.
+- **Aucune anomalie bloquante supplémentaire** détectée.
+
+## MENU-4D-1 — INDEX BLOG (16/09/2026)
+
+`blog/index.html` (`/blog`) migré vers le header centralisé. Manifeste `scripts/nav-pages.json` : 22 → **23 pages**.
+
+- **Univers actif** : **Ressources** en desktop (`RESSOURCES_ACTIVE_DESKTOP`, `aria-current="page"`). Pas d'état actif Ressources mobile : l'architecture MENU-3 ne prévoit pas de token `RESSOURCES_ACTIVE_MOBILE` (comme Patrimoine) — le bouton mobile « Ressources › » reste fonctionnel sans marqueur actif.
+- **Thème** : « site-patrimoine » (or, `navigation.css`). **CTA** : « Prendre rendez-vous » → `/bilan-patrimonial` (CTA existant conservé).
+- **Migration (variante D)** : retrait des règles CSS de nav (35), retrait du bloc JS nav+hamburger (fonction fléchée `const hamburger`/`const mobileMenu`) en **conservant** le JS de page (formulaire newsletter `nl-form`, rendu des cartes), autoclose standard → `navigation.js`, marqueurs NAV:CONFIG/START/END, `<link navigation.css>`.
+- **Tests** : `build-header.js` → régénéré ; `--check` → idempotent (exit 0, 23 pages) ; `check-mobile-nav.js` → aucune nouvelle régression (2 pages pré-existantes hors périmètre). Rendu headless réel : desktop 1024/1280/1440/1920 → aucun débordement horizontal, dropdown Ressources ouvert (`aria-expanded=true`, `display:block`), Ressources actif ; mobile 375/390/430/768 → aucun débordement, ☰ ouvre la racine, sous-menu Ressources actif. Desktop MENU-2B et mobile MENU-3.1 conservés.
+- **SEO/contenu** : 0 ligne SEO modifiée (diff) ; comptes sections/H2 identiques avant/après. Aucun article, lien éditorial, canonical, schema, OG, sitemap, URL, redirect ni breadcrumb touché.
+- **Périmètre** : 2 fichiers modifiés (`blog/index.html` + `nav-pages.json`). Aucun article migré. `donation-vivant-vs-testament`, lead magnets, `declaration-rsu-espp-france`, écosystème prêt non touchés.
+
+**Statut : blog/index.html MIGRÉ.** Reste : 4D-2 (13 articles) + 4D-3 (12 articles) — en attente de validation visuelle.
