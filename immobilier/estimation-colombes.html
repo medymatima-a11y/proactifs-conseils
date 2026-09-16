@@ -136,33 +136,7 @@
     img { display: block; max-width: 100%; }
 
     /* ── Navigation (identique au reste de la famille Immobilier) ── */
-    #nav { position: fixed; top: 0; left: 0; right: 0; height: 72px; background: rgba(250, 250, 247, 0.98); box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; z-index: 100; transition: all 0.3s ease; }
-    #nav.scrolled { height: 68px; }
-    .nav-logo img { height: 48px; width: auto; display: block; opacity: .9; }
-    .nav-links { display: flex; list-style: none; gap: 40px; flex: 1; margin-left: 60px; }
-    .nav-links a { text-decoration: none; color: var(--ink); font-size: 14px; font-weight: 500; transition: color 0.2s ease; }
-    .nav-links a:hover { color: var(--coral); }
-    .nav-links a.active { color: var(--coral); }
-    .nav-dropdown { position: relative; }
-    .dropdown-toggle { display: flex; align-items: center; gap: 5px; }
-    .chevron { display: inline-block; transition: transform .2s; font-size: 10px; line-height: 1; }
-    .nav-dropdown:hover .chevron, .nav-dropdown:focus-within .chevron { transform: rotate(180deg); }
-    .dropdown-menu { display: none; position: absolute; top: 28px; left: 0; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-lg); padding: 12px; min-width: 240px; list-style: none; z-index: 300; }
-    .nav-dropdown:hover .dropdown-menu, .nav-dropdown:focus-within .dropdown-menu { display: block; }
-    .dropdown-menu li a { display: block; padding: 8px 12px; border-radius: var(--r-sm); color: var(--ink); font-size: 13px; }
-    .dropdown-menu li a:hover { background: var(--sand); color: var(--coral); }
-    .dropdown-section { padding: 8px 12px 4px; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: var(--slate); }
-    .nav-cta-btn { background: var(--coral); color: var(--coral-foreground); padding: 10px 22px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 13px; transition: all 0.25s ease; line-height: 1.25; white-space: nowrap; }
-    .nav-cta-btn:hover { background: var(--coral-light); box-shadow: var(--shadow-coral); transform: translateY(-2px); }
-    .hamburger { display: none; flex-direction: column; background: none; border: none; cursor: pointer; gap: 6px; margin-left: auto; }
-    .hamburger span { width: 24px; height: 2px; background: var(--ink); transition: all 0.3s ease; }
-    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
-    .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; background: var(--white); flex-direction: column; padding: 20px; gap: 12px; z-index: 99; max-height: calc(100vh - 72px); overflow-y: auto; }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a { padding: 12px 16px; text-decoration: none; color: var(--ink); font-weight: 500; border-radius: var(--r-sm); transition: all 0.2s ease; }
-    .mobile-menu a:hover { background: var(--sand); color: var(--coral); }
+    /* Navigation : voir /assets/css/navigation-immobilier.css (centralisé, MENU-1.5) */
 
     .breadcrumb { background: var(--sand); padding: 12px 40px; font-size: 13px; color: var(--slate); margin-top: 72px; }
     .breadcrumb a { color: var(--coral); text-decoration: none; transition: color 0.2s ease; }
@@ -387,58 +361,62 @@
       .footer-grid { grid-template-columns: 1fr; }
     }
   </style>
+  <link rel="stylesheet" href="/assets/css/navigation-immobilier.css">
 </head>
 <body>
-  <nav id="nav">
-    <a href="/" class="nav-logo"><img src="/images/proactifs-logo.png" alt="Proactifs Conseils"></a>
-    <ul class="nav-links">
-      <li class="nav-dropdown">
-        <a href="/#services" class="dropdown-toggle">Nos services <span class="chevron">▾</span></a>
-        <ul class="dropdown-menu">
-          <li><a href="/bilan-patrimonial">Bilan patrimonial</a></li>
-          <li class="dropdown-section">Fiscalité</li>
-          <li><a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a></li>
-          <li><a href="/declaration-impots-ile-de-france">Déclarer mes impôts</a></li>
-          <li><a href="/fiscalite-rsu-stock-options">Optimiser mes RSU</a></li>
-          <li class="dropdown-section">Investir &amp; financer</li>
-          <li><a href="/investissement-immobilier">Investissement immobilier</a></li>
-          <li><a href="/investissement-scpi-hauts-de-seine">SCPI Hauts-de-Seine</a></li>
-          <li><a href="/courtage-credit-immobilier">Obtenir un crédit</a></li>
-          <li class="dropdown-section">Projets de vie</li>
-          <li><a href="/preparation-retraite">Préparation retraite</a></li>
-          <li><a href="/transmission">Transmission de patrimoine</a></li>
-          <li><a href="/cession-entreprise">Cession d'entreprise</a></li>
-        </ul>
-      </li>
-      <li><a href="/immobilier" class="active">Immobilier</a></li>
-      <li><a href="/#simulateurs">Simulateurs</a></li>
-      <li><a href="/cabinet">Le cabinet</a></li>
-      <li><a href="/#approche">Notre approche</a></li>
-      <li><a href="/#contact">Contact</a></li>
-      <li><a href="/blog">Blog</a></li>
-    </ul>
-    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-    <a href="#estimation" class="nav-cta-btn" data-track="estimate_hero_cta">Estimer mon bien gratuitement</a>
-  </nav>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="/bilan-patrimonial">Bilan patrimonial</a>
-    <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
-    <a href="/declaration-impots-ile-de-france">Déclarer mes impôts</a>
-    <a href="/fiscalite-rsu-stock-options">Optimiser mes RSU</a>
-    <a href="/preparation-retraite">Préparation retraite</a>
-    <a href="/transmission">Transmission de patrimoine</a>
-    <a href="/cession-entreprise">Cession d'entreprise</a>
-    <a href="/investissement-immobilier">Investissement immobilier</a>
-    <a href="/investissement-scpi-hauts-de-seine">SCPI Hauts-de-Seine</a>
-    <a href="/courtage-credit-immobilier">Obtenir un crédit</a>
-    <a href="/immobilier">Immobilier</a>
-    <a href="/#simulateurs">Simulateurs</a>
-    <a href="/cabinet">Le cabinet</a>
-    <a href="/#approche">Notre approche</a>
-    <a href="/#contact">Contact</a>
-    <a href="/blog">Blog</a>
-    <a href="#estimation">Estimer mon bien gratuitement</a>
-  </div>
+  <!-- NAV:CONFIG {"theme":"immobilier","tokens":{"HOME_PREFIX":"/","IMMOBILIER_ACTIVE_DESKTOP":" class=\"active\"","IMMOBILIER_ACTIVE_MOBILE":"","CTA_HREF":"#estimation","CTA_LABEL":"Estimer mon bien gratuitement","CTA_EXTRA":" data-track=\"estimate_hero_cta\"","MOBILE_CTA_HREF":"#estimation","MOBILE_CTA_LABEL":"Estimer mon bien gratuitement"},"items":{"temoignages":false}} -->
+<!-- NAV:START (bloc généré par scripts/build-header.js — ne pas éditer à la main, voir docs/NAVIGATION-PROACTIFS.md) -->
+<nav id="nav">
+  <a href="/" class="nav-logo"><img src="/images/proactifs-logo.png" alt="Proactifs Conseils"></a>
+  <ul class="nav-links">
+    <li class="nav-dropdown">
+      <a href="/#services" class="dropdown-toggle">Nos services <span class="chevron">▾</span></a>
+      <ul class="dropdown-menu">
+        <li><a href="/bilan-patrimonial">Bilan patrimonial</a></li>
+        <li class="dropdown-section">Fiscalité</li>
+        <li><a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a></li>
+        <li><a href="/declaration-impots-ile-de-france">Déclarer mes impôts</a></li>
+        <li><a href="/fiscalite-rsu-stock-options">Optimiser mes RSU</a></li>
+        <li class="dropdown-section">Investir &amp; financer</li>
+        <li><a href="/investissement-immobilier">Investissement immobilier</a></li>
+        <li><a href="/investissement-scpi-hauts-de-seine">SCPI Hauts-de-Seine</a></li>
+        <li><a href="/courtage-credit-immobilier">Obtenir un crédit</a></li>
+        <li class="dropdown-section">Projets de vie</li>
+        <li><a href="/preparation-retraite">Préparation retraite</a></li>
+        <li><a href="/transmission">Transmission de patrimoine</a></li>
+        <li><a href="/cession-entreprise">Cession d'entreprise</a></li>
+      </ul>
+    </li>
+    <li><a href="/immobilier" class="active">Immobilier</a></li>
+    <li><a href="/#simulateurs">Simulateurs</a></li>
+    <li><a href="/cabinet">Le cabinet</a></li>
+    <li><a href="/#approche">Notre approche</a></li>
+    <li><a href="/#contact">Contact</a></li>
+    <li><a href="/blog">Blog</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <a href="#estimation" class="nav-cta-btn" data-track="estimate_hero_cta">Estimer mon bien gratuitement</a>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/bilan-patrimonial">Bilan patrimonial</a>
+  <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
+  <a href="/declaration-impots-ile-de-france">Déclarer mes impôts</a>
+  <a href="/fiscalite-rsu-stock-options">Optimiser mes RSU</a>
+  <a href="/preparation-retraite">Préparation retraite</a>
+  <a href="/transmission">Transmission de patrimoine</a>
+  <a href="/cession-entreprise">Cession d'entreprise</a>
+  <a href="/investissement-immobilier">Investissement immobilier</a>
+  <a href="/investissement-scpi-hauts-de-seine">SCPI Hauts-de-Seine</a>
+  <a href="/courtage-credit-immobilier">Obtenir un crédit</a>
+  <a href="/immobilier">Immobilier</a>
+  <a href="/#simulateurs">Simulateurs</a>
+  <a href="/cabinet">Le cabinet</a>
+  <a href="/#approche">Notre approche</a>
+  <a href="/#contact">Contact</a>
+  <a href="/blog">Blog</a>
+  <a href="#estimation">Estimer mon bien gratuitement</a>
+</div>
+<!-- NAV:END -->
 
   <div class="breadcrumb"><a href="/">Accueil</a> › <a href="/immobilier">Immobilier</a> › Estimation immobilière Colombes</div>
 
@@ -789,14 +767,8 @@
   <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">↑</button>
 
   <script>
-    const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 20);
       document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
-    });
-    document.getElementById('hamburger').addEventListener('click', function() {
-      document.getElementById('mobileMenu').classList.toggle('open');
-      this.classList.toggle('open');
     });
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
@@ -890,20 +862,6 @@
       });
     }
   </script>
-  <script>
-  /* Ferme le menu mobile au clic sur un lien (ancre ou page) - correctif audit 13/09/2026 */
-  (function(){
-    var mm = document.getElementById('mobileMenu');
-    var hb = document.getElementById('hamburger');
-    if (mm) {
-      mm.querySelectorAll('a').forEach(function(a){
-        a.addEventListener('click', function(){
-          mm.classList.remove('open');
-          if (hb) hb.classList.remove('open');
-        });
-      });
-    }
-  })();
-  </script>
+  <script src="/assets/js/navigation.js" defer></script>
 </body>
 </html>

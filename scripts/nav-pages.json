@@ -1,0 +1,9 @@
+{
+  "_comment": "MENU-1.5 (16/09/2026) — pages centralisées via partials/header.html + scripts/build-header.js. Ajouter une page ici seulement après lui avoir appliqué la procédure de migration décrite dans docs/NAVIGATION-PROACTIFS.md.",
+  "pages": [
+    "index.html",
+    "immobilier.html",
+    "immobilier/succession-colombes.html",
+    "immobilier/estimation-colombes.html"
+  ]
+}

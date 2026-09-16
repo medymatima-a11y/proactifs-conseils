@@ -420,8 +420,10 @@
   </style>
 </head>
 <body>
-  <nav id="nav">
-  <a href="/" class="nav-logo"><img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:48px;width:auto;display:block;opacity:.9"></a>
+  <!-- NAV:CONFIG {"theme":"immobilier-legacy-inline-css","tokens":{"HOME_PREFIX":"/","IMMOBILIER_ACTIVE_DESKTOP":" aria-current=\"page\"","IMMOBILIER_ACTIVE_MOBILE":" aria-current=\"page\"","CTA_HREF":"#estimation","CTA_LABEL":"Faire estimer mon bien","MOBILE_CTA_HREF":"/bilan-patrimonial","MOBILE_CTA_LABEL":"Prendre rendez-vous"},"items":{"temoignages":true}} -->
+<!-- NAV:START (bloc généré par scripts/build-header.js — ne pas éditer à la main, voir docs/NAVIGATION-PROACTIFS.md) -->
+<nav id="nav">
+  <a href="/" class="nav-logo"><img src="/images/proactifs-logo.png" alt="Proactifs Conseils"></a>
   <ul class="nav-links">
     <li class="nav-dropdown">
       <a href="/#services" class="dropdown-toggle">Nos services <span class="chevron">▾</span></a>
@@ -452,7 +454,7 @@
   <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   <a href="#estimation" class="nav-cta-btn">Faire estimer mon bien</a>
 </nav>
-  <div class="mobile-menu" id="mobileMenu">
+<div class="mobile-menu" id="mobileMenu">
   <a href="/bilan-patrimonial">Bilan patrimonial</a>
   <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
   <a href="/declaration-impots-ile-de-france">Déclarer mes impôts</a>
@@ -472,6 +474,7 @@
   <a href="/blog">Blog</a>
   <a href="/bilan-patrimonial">Prendre rendez-vous</a>
 </div>
+<!-- NAV:END -->
 
   <div class="breadcrumb"><a href="/">Accueil</a> › Immobilier</div>
 
@@ -804,14 +807,8 @@
   <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
   <script>
-    const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 20);
       document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
-    });
-    document.getElementById('hamburger').addEventListener('click', function() {
-      document.getElementById('mobileMenu').classList.toggle('open');
-      this.classList.toggle('open');
     });
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
@@ -964,20 +961,6 @@
       });
     }
   </script>
-<script>
-/* Ferme le menu mobile au clic sur un lien (ancre ou page) - correctif audit 13/09/2026 */
-(function(){
-  var mm = document.getElementById('mobileMenu');
-  var hb = document.getElementById('hamburger');
-  if (mm) {
-    mm.querySelectorAll('a').forEach(function(a){
-      a.addEventListener('click', function(){
-        mm.classList.remove('open');
-        if (hb) hb.classList.remove('open');
-      });
-    });
-  }
-})();
-</script>
+<script src="/assets/js/navigation.js" defer></script>
 </body>
 </html>

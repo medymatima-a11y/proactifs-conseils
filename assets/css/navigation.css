@@ -1,0 +1,119 @@
+/* ══════════════════════════════════════════════
+   NAVIGATION — thème "site patrimoine" (gold)
+   Extrait à l'identique de index.html le 16/09/2026
+   (MENU-1.5 — centralisation du header, prototype).
+   Utilisé par : index.html et les pages "site patrimoine"
+   (hors univers Proactifs Immobilier, cf. navigation-immobilier.css).
+══════════════════════════════════════════════ */
+#nav {
+  position: fixed; top:0; left:0; right:0; z-index:200;
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  transition: background .3s, box-shadow .3s;
+  background: rgba(250,250,247,.97);
+  box-shadow: 0 1px 0 var(--border), var(--shadow-sm);
+}
+#nav.scrolled {
+  background: rgba(250,250,247,.96);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 var(--border), var(--shadow-sm);
+}
+.nav-logo { display:flex; align-items:center; text-decoration:none; }
+/* hauteur 48px = valeur réellement affichée avant centralisation (l'ancienne
+   règle 52px était systématiquement écrasée par un style inline sur <img>,
+   supprimé ici — même rendu, une seule déclaration). */
+.nav-logo img { height:48px; width:auto; display:block; opacity:.9; }
+.nav-links { display:flex; gap:32px; list-style:none; }
+.nav-links a {
+  font-size: 14px; font-weight: 500; color: var(--ink-soft);
+  position: relative; padding-bottom: 2px;
+  transition: color .2s;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:0; left:0; right:100%;
+  height: 1.5px; background: var(--gold);
+  transition: right .25s ease;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after { right:0; }
+.nav-cta-btn {
+  background: var(--gold);
+  color: var(--white);
+  padding: 10px 22px;
+  border-radius: var(--r-sm);
+  font-size: 13.5px; font-weight: 600;
+  transition: background .2s, transform .15s, box-shadow .2s;
+  white-space: nowrap;
+}
+.nav-cta-btn:hover { background:#B8882E; transform:translateY(-1px); box-shadow:0 4px 16px rgba(196,151,58,.35); }
+.hamburger { display:none; flex-direction:column; gap:5px; padding:8px; }
+.hamburger span { display:block; width:22px; height:2px; background:var(--ink); border-radius:2px; transition:all .3s; }
+.hamburger.open span:nth-child(1) { transform:rotate(45deg) translate(6px,6px); }
+.hamburger.open span:nth-child(2) { opacity:0; }
+.hamburger.open span:nth-child(3) { transform:rotate(-45deg) translate(6px,-6px); }
+.mobile-menu {
+  display:none; position:fixed; top:68px; left:0; right:0;
+  background:rgba(250,250,247,.98); backdrop-filter:blur(16px);
+  padding:24px 32px 32px; border-bottom:1px solid var(--border);
+  z-index:199;max-height:calc(100vh - 68px);overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.mobile-menu.open { display:block; }
+.mobile-menu a { display:block; padding:13px 0; font-size:15px; font-weight:500; border-bottom:1px solid var(--border); color:var(--ink-soft); }
+.mobile-menu a:last-child { border-bottom:none; color:var(--gold); font-weight:600; }
+
+/* ── Dropdown "Nos services" ── */
+.nav-dropdown { position: relative; }
+.nav-dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: -20px;
+  right: -20px;
+  height: 14px;
+}
+.dropdown-toggle { display: flex !important; align-items: center; gap: 5px; }
+.chevron { font-size: 9px; transition: transform .2s; line-height: 1; pointer-events: none; }
+.nav-dropdown:hover .chevron,
+.nav-dropdown:focus-within .chevron { transform: rotate(180deg); }
+.dropdown-menu {
+  display: none;
+  position: absolute; top: calc(100% + 10px); left: 50%;
+  transform: translateX(-50%);
+  background: #FFFFFF; border: 1px solid #E5E2DA;
+  border-radius: 16px; padding: 6px;
+  min-width: 260px;
+  box-shadow: 0 12px 40px rgba(17,24,39,.1), 0 4px 12px rgba(17,24,39,.06);
+  list-style: none; z-index: 300;
+}
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown:focus-within .dropdown-menu { display: block; }
+.dropdown-menu li a {
+  display: block !important; padding: 9px 14px !important;
+  font-size: 13.5px !important; font-weight: 500 !important;
+  color: #374151 !important;
+  border-radius: 10px; transition: background .15s, color .15s !important;
+  white-space: nowrap; text-decoration: none;
+}
+.dropdown-menu li a::after { display: none !important; }
+.dropdown-menu li a:hover { background: #FBF4E3; color: #C4973A !important; }
+.dropdown-menu li.dropdown-section {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #1E7A6E;
+  padding: 12px 14px 6px;
+  border-top: 1px solid #E5E2DA;
+  margin-top: 4px;
+  pointer-events: none;
+}
+.dropdown-menu li:first-child + li.dropdown-section { margin-top: 6px; }
+
+/* ── Responsive (bascule desktop → hamburger) ── */
+@media(max-width:900px) {
+  #nav { padding:0 24px; }
+  .nav-links { display:none; }
+  .nav-cta-btn { display:none; }
+  .hamburger { display:flex; }
+}
