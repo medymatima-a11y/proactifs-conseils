@@ -516,3 +516,42 @@ Répartition : A ×5, B ×2, C ×5, E ×1.
 **Périmètre** : 14 fichiers modifiés (13 articles + `nav-pages.json`). Non touchés : `Lead magnets/blog-per-vs-assurance-vie-2026.html`, `declaration-rsu-espp-france.html`, lead magnets, pages capture, écosystème prêt, et les 12 articles du lot 4D-3.
 
 **Statut : lot 4D-2 MIGRÉ (13/13).** Reste : 4D-3 (12 articles) — en attente de validation visuelle.
+
+---
+
+## MENU-4D-3 — ARTICLES LOT 2 (12 articles) (16/09/2026)
+
+12 derniers articles migrés vers le header centralisé. Manifeste `scripts/nav-pages.json` : 36 → **48 pages**. Univers **Ressources** actif (desktop), CTA « Prendre rendez-vous » → `/bilan-patrimonial`, thème « site-patrimoine » (or). Même méthode qu'en 4D-2 (migrateur ciblé par variante).
+
+| # | Fichier | Variante | Statut |
+|---|---|---|---|
+| 14 | `blog/modifier-clause-beneficiaire-assurance-vie-2026.html` | A | MIGRÉ |
+| 15 | `blog/per-vs-assurance-vie-2026.html` | A | MIGRÉ |
+| 16 | `blog/preparer-retraite-2026-leviers-patrimoniaux-juin.html` | A | MIGRÉ |
+| 17 | `blog/preparer-retraite-50-ans-leviers-patrimoniaux.html` | A | MIGRÉ |
+| 18 | `blog/quand-vendre-rsu-strategie-2026.html` | C | MIGRÉ |
+| 19 | `blog/reduire-impots-2026.html` | A | MIGRÉ |
+| 20 | `blog/rsu-expatriation-fiscalite-2026.html` | C | MIGRÉ |
+| 21 | `blog/rsu-imposition-france-2026.html` | A | MIGRÉ |
+| 22 | `blog/rsu-pea-2026.html` | C | MIGRÉ |
+| 23 | `blog/sci-familiale-2026.html` | A | MIGRÉ |
+| 24 | `blog/scpi-2026.html` | A | MIGRÉ |
+| 25 | `blog/stock-options-imposition-strategie-2026.html` | C | MIGRÉ |
+
+Répartition : A ×8, C ×4 (aucune variante B ni E dans ce lot).
+
+**JS métier conservé** : `#scrollTop`, `IntersectionObserver`/reveal, accordéon FAQ. Retrait limité à l'ancien JS de nav (const nav, scrolled, hamburger, autoclose). Garde-fou anti-résidu par fichier (aucun `getElementById('hamburger')` / `scrolled` / `const nav` restant).
+
+**Tests** : `build-header.js` → 12 régénérées ; `--check` → idempotent (exit 0, 48 pages) ; `check-mobile-nav.js` → **1 seule** page signalée (`Lead magnets/blog-per-vs-assurance-vie-2026.html`, volontairement exclue). Rendu headless (A, C) : desktop 1024/1440/1920 → aucun débordement, dropdown Ressources ouvert + actif ; mobile 375/390/430 → aucun débordement, ☰ ouvre la racine, sous-menu Ressources + retour fonctionnels.
+
+**Contrôle SEO/contenu par article (HEAD vs migré)** : title, meta, canonical, H1, nombre de H2, JSON-LD, breadcrumb, **auteur, date** — identiques sur les 12. 0 ligne SEO modifiée (diff).
+
+**Périmètre** : 13 fichiers modifiés (12 articles + `nav-pages.json`). Non touchés : `Lead magnets/blog-per-vs-assurance-vie-2026.html`, `declaration-rsu-espp-france.html`, lead magnets, pages de capture, écosystème prêt, pages merci.
+
+---
+
+## MENU-4D — BLOG / ARTICLES = TERMINÉ
+
+L'ensemble du blog est migré vers le header centralisé : **`blog/index.html` + les 25 articles = 26 pages** (4D-1 : index ; 4D-2 : 13 articles ; 4D-3 : 12 articles). Univers **Ressources** actif desktop, CTA « Prendre rendez-vous » → `/bilan-patrimonial`, thème site-patrimoine. Aucune régression `check-mobile-nav` (seule reste `Lead magnets/blog-per-vs-assurance-vie-2026.html`, exclue). Aucune modification SEO/contenu/URL.
+
+**Hors périmètre (non traités, volontairement) :** `declaration-rsu-espp-france.html` (À STATUER), le lead magnet exclu, l'écosystème prêt, les pages de capture/merci, et la phase NAV-UX (breadcrumbs / navigation retour) — à cadrer séparément.
