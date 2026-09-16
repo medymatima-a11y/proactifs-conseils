@@ -116,6 +116,26 @@ function checkFile(relPath) {
       issues.push('nav-invisible-avant-scroll (#nav transparent ou #nav:not(.scrolled) avec un bandeau fil d\'Ariane)');
     }
   }
+  // 4. MENU-3 : pages à menu mobile 2 niveaux — vérifier la présence réelle
+  //    des 3 sous-vues (Patrimoine / Immobilier / Ressources) et de leurs liens clés.
+  if (content.includes('data-view="root"')) {
+    var panels = {
+      patrimoine: ['/bilan-patrimonial', '/preparation-retraite', '/cession-entreprise'],
+      immobilier: ['/immobilier/estimation-colombes', '/immobilier', '/courtage-credit-immobilier'],
+      ressources: ['/blog'],
+    };
+    Object.keys(panels).forEach(function (view) {
+      if (!content.includes('data-view="' + view + '"')) {
+        issues.push('menu2-panel-absent (sous-vue ' + view + ' introuvable)');
+        return;
+      }
+      panels[view].forEach(function (href) {
+        if (!content.includes('href="' + href + '"')) {
+          issues.push('menu2-lien-absent (' + view + ' -> ' + href + ')');
+        }
+      });
+    });
+  }
 
   return issues;
 }
