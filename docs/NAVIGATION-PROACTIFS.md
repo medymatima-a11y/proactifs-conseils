@@ -398,3 +398,54 @@ Migration effective des 6 pages confirmées à l'inventaire 4C (MENU-4B ayant é
 **Non migrée (rappel)** : `declaration-rsu-espp-france.html` reste **À STATUER** (git diff = 0, intouchée). Exclusions inchangées : blog/articles (4D), écosystème prêt, lead magnets, pages merci, pages de capture, pages sans header. NAV-UX non développé (aucun breadcrumb, aucun bouton Retour ajouté).
 
 **Statut MENU-4C : MIGRÉ** (6 pages). Reste en suspens : arbitrage `declaration-rsu-espp-france` ; MENU-4D (blog) non commencé.
+
+---
+
+## MENU-4D — INVENTAIRE BLOG / ARTICLES (16/09/2026)
+
+> **Phase inventaire uniquement.** Aucune page modifiée, aucune migration, aucun commit de migration. Ce bloc recense le contenu éditorial et fige les décisions avant la future migration MENU-4D.
+
+### Périmètre éditorial trouvé (30 pages)
+
+- **26 pages dans `blog/`** (1 index + 25 articles) — toutes sur l'**ancien header** (`<nav id="nav">`, pas de `NAV:CONFIG`), menu mobile plat MENU-1.5, CTA « Prendre rendez-vous » → `/bilan-patrimonial`, **aucune** dans `scripts/nav-pages.json`. → À MIGRER, univers **Ressources** actif.
+- **1 lead magnet dupliqué** : `Lead magnets/blog-per-vs-assurance-vie-2026.html` — ancien header, CTA **spécifique** « Bilan sur-mesure » → `/bilan-patrimonial-gratuit`. Écosystème lead magnet → **EXCLUE** (+ anomalie connue).
+- **3 aperçus lead magnet** (`Lead magnets/apercu-*.html`) + **`guide-5-erreurs-patrimoniaux.html`** : **sans header principal** → **EXCLUES**.
+
+### Tableau (statut par page)
+
+| Type | URL / fichier | Header actuel | CTA header | Manifeste | Mobile | Statut |
+|---|---|---|---|---|---|---|
+| Index Blog | `/blog` — `blog/index.html` | Ancien (`nav#nav`) | Prendre rendez-vous → /bilan-patrimonial | Non | Plat MENU-1.5 | À MIGRER (Ressources) |
+| Article ×24 (sains) | `blog/*.html` | Ancien (`nav#nav`) | Prendre rendez-vous → /bilan-patrimonial | Non | Plat MENU-1.5 | À MIGRER (Ressources) |
+| Article (anomalie) | `blog/donation-vivant-vs-testament-strategie-transmission.html` | Ancien | Prendre rendez-vous → /bilan-patrimonial | Non | **2 défauts** | À MIGRER — la migration corrige l'anomalie |
+| Lead magnet (dupliqué) | `Lead magnets/blog-per-vs-assurance-vie-2026.html` | Ancien | **Bilan sur-mesure → /bilan-patrimonial-gratuit** | Non | **3 défauts** | EXCLUE (écosystème lead magnet) — anomalie connue |
+| Aperçus / capture | `Lead magnets/apercu-*.html`, `guide-5-erreurs-patrimoniaux.html` | Aucun header | — | Non | Sans menu | EXCLUES (sans header, intentionnel) |
+
+Liste des 25 articles : actions-gratuites-aga-fiscalite-2026 · bspce-fiscalite-startup-2026 · conseiller-patrimoine-ile-de-france · declarer-rsu-formulaires-2026 · donation-vivant-2026 · donation-vivant-vs-testament-strategie-transmission · espp-fiscalite-france-2026 · gestion-patrimoine-entreprise-dirigeants-strategies-2026 · gestion-patrimoine-entreprise-strategies-optimisation-fiscale-2026 · immobilier-complement-retraite-lmnp-scpi-50-ans · investir-immobilier-ancien-ile-de-france-avantages-fiscaux-2026 · investir-rsu-patrimoine-2026 · lmnp-2026 · modifier-clause-beneficiaire-assurance-vie-2026 · per-vs-assurance-vie-2026 · preparer-retraite-2026-leviers-patrimoniaux-juin · preparer-retraite-50-ans-leviers-patrimoniaux · quand-vendre-rsu-strategie-2026 · reduire-impots-2026 · rsu-expatriation-fiscalite-2026 · rsu-imposition-france-2026 · rsu-pea-2026 · sci-familiale-2026 · scpi-2026 · stock-options-imposition-strategie-2026.
+
+### Décisions (architecture cible)
+
+- `/blog` (index) et les 25 articles → univers **Ressources** actif (`RESSOURCES_ACTIVE_DESKTOP`, `aria-current="page"`), thème « site-patrimoine » (or).
+- CTA header : « Prendre rendez-vous » → `/bilan-patrimonial` (déjà le CTA des 26 pages ; aucun CTA header spécifique à conserver côté blog). Le seul CTA header spécifique relevé (« Bilan sur-mesure ») est sur le lead magnet **exclu**.
+
+### Cause exacte des 2 anomalies check-mobile-nav.js
+
+**1. `blog/donation-vivant-vs-testament-strategie-transmission.html` — 2 défauts :**
+- `menu-mobile-deborde` : la règle CSS `.mobile-menu { … }` ne contient ni `max-height` ni `overflow-y` → menu long non défilable sur mobile.
+- `menu-ne-se-referme-pas` : aucun script d'auto-fermeture (`hasAutocloseScript`) ne retire `.open` de `.mobile-menu` au clic sur un lien → menu reste ouvert après clic d'ancre.
+- Origine : gabarit d'article antérieur au correctif appliqué aux 24 autres articles.
+
+**2. `Lead magnets/blog-per-vs-assurance-vie-2026.html` — 3 défauts :** les 2 ci-dessus **+**
+- `nav-invisible-avant-scroll` : règles `#nav:not(.scrolled)` (barre transparente, liens/hamburger blancs avant scroll) + bandeau `.breadcrumb` clair sous la nav → barre et bouton ☰ invisibles avant tout scroll.
+
+Les deux sont **corrigées automatiquement** par la migration vers le header centralisé (menu MENU-3.1 : `max-height`/`overflow-y`, auto-fermeture via `navigation.js`, nav opaque). Le lead magnet étant exclu, son anomalie devra être traitée séparément (hors 4D) si souhaité.
+
+### Découpage en lots recommandé (26 pages)
+
+- **LOT 4D-0 (pré-vol)** : contrôle des variantes JS (indentation, handler hamburger, autoclose) sur les 26 pages — comme en 4B/4C.
+- **LOT 4D-1** : `blog/index.html` seul (structure d'index).
+- **LOT 4D-2 / 4D-3** : les 25 articles en 2 sous-lots (~12–13), avec `git diff` page par page + `check-mobile-nav.js` après chaque sous-lot.
+
+### Statut
+
+**STOP.** Inventaire 4D figé. Aucune page migrée. `declaration-rsu-espp-france.html` non touchée (hors éditorial, À STATUER). Migration MENU-4D en attente de validation.
