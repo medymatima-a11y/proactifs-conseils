@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Prototype — Simulateur capacité d'emprunt V2 | Proactifs Conseils</title>
+<!-- ⚠ PROTOTYPE INTERNE CS-2 — non public, non indexé, absent du sitemap/nav/header.
+     N'envoie aucun lead réel (transport mock). Taux = référence technique legacy. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/simulators/simulators.css">
+<style>
+  :root { --iv:#FCFBF7; --forest:#0F2E22; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--iv); color:#1A1A1A; font-family:'Nunito Sans',system-ui,sans-serif; }
+  /* mini-header autonome (PAS le header centralisé V1) */
+  .proto-header { display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:14px 20px; background:var(--forest); color:#fff; position:sticky; top:0; z-index:10; }
+  .proto-brand { font-family:'Fraunces',serif; font-weight:600; font-size:18px; letter-spacing:.3px; }
+  .proto-tag { font-size:11px; text-transform:uppercase; letter-spacing:1px; background:#D2B41E; color:#20180A;
+    padding:3px 10px; border-radius:999px; font-weight:800; margin-left:10px; }
+  .proto-back { color:#EDE7D6; text-decoration:none; font-size:14px; font-weight:700; }
+  .proto-back:hover { color:#fff; }
+  .proto-hero { text-align:center; max-width:680px; margin:0 auto; padding:36px 20px 8px; }
+  .proto-hero h1 { font-family:'Fraunces',serif; font-weight:600; font-size:34px; line-height:1.15; margin:0 0 12px; color:var(--forest); }
+  .proto-hero p.sub { font-size:17px; color:#5B6670; margin:0 0 14px; line-height:1.6; }
+  .proto-badges { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+  .proto-note { font-size:12px; color:#5B6670; background:#F1EEE4; border:1px solid #E4E0D2; border-radius:999px; padding:5px 12px; }
+  .sim-result__note { font-size:13.5px; line-height:1.7; max-width:560px; margin:14px auto 0; color:#5B6670; }
+  /* radios en cartes */
+  .opt-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .opt { position:relative; }
+  .opt input { position:absolute; opacity:0; inset:0; cursor:pointer; }
+  .opt label { display:block; border:1px solid #E4E7E5; border-radius:12px; padding:14px 16px; cursor:pointer;
+    background:#fff; font-weight:700; font-size:15px; transition:border-color .15s, box-shadow .15s; }
+  .opt input:checked + label { border-color:#006E64; box-shadow:0 0 0 2px rgba(0,110,100,.15); }
+  .opt input:focus-visible + label { outline:2px solid #006E64; outline-offset:2px; }
+  .dur-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+  .dur-grid .opt label { text-align:center; padding:12px 6px; }
+  .wizard-nav { display:flex; justify-content:space-between; gap:12px; margin-top:24px; }
+  .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:18px; text-align:left; }
+  .result-cell { background:#fff; border:1px solid #E4E7E5; border-radius:12px; padding:14px 16px; }
+  .result-cell .k { font-size:12px; text-transform:uppercase; letter-spacing:.5px; color:#5B6670; }
+  .result-cell .v { font-size:20px; font-weight:800; color:var(--forest); margin-top:2px; }
+  .proto-debug { max-width:680px; margin:30px auto; padding:12px 16px; border:1px dashed #C9C4B0; border-radius:10px;
+    background:#FAF8F0; font:12px/1.5 ui-monospace,Menlo,monospace; color:#5B6670; }
+  .proto-debug h4 { margin:0 0 6px; font-family:'Nunito Sans'; font-size:12px; text-transform:uppercase; letter-spacing:1px; }
+  @media (max-width:600px){
+    .proto-hero h1 { font-size:27px; }
+    .proto-tag { display:none; }          /* masquer le badge PROTOTYPE sur mobile */
+    .opt-grid { grid-template-columns:1fr; }
+    .dur-grid { grid-template-columns:repeat(3,1fr); }
+    .result-grid { grid-template-columns:1fr; }
+    .wizard-nav .sim-cta { flex:1; }
+  }
+</style>
+</head>
+<body>
+
+<header class="proto-header">
+  <div><span class="proto-brand">Proactifs Conseils</span><span class="proto-tag">Prototype simulateur V2</span></div>
+  <a class="proto-back" href="/">Retour au site</a>
+</header>
+
+<div class="proto-hero">
+  <h1>Quelle est votre capacité d'emprunt&nbsp;?</h1>
+  <p class="sub">Estimez en quelques minutes le budget que vous pourriez consacrer à votre projet immobilier.</p>
+  <div class="proto-badges">
+    <span class="proto-note">Simulation indicative et non contractuelle.</span>
+  </div>
+</div>
+
+<main class="sim-root">
+  <div class="sim-container">
+
+    <div class="sim-progress" aria-hidden="true"><div class="sim-progress__bar"></div></div>
+    <p id="sim-step-indicator" class="sim-step__hint" aria-live="polite">Étape 1 sur 4</p>
+
+    <form id="sim-form" novalidate>
+
+      <!-- ÉTAPE 1 — PROJET -->
+      <section class="sim-step" data-step="1">
+        <h2 class="sim-step__title">Votre projet</h2>
+        <fieldset class="sim-field" style="border:0;padding:0;margin:0 0 18px;">
+          <legend class="sim-field__label">Type de projet</legend>
+          <div class="opt-grid">
+            <div class="opt"><input type="radio" id="p-rp" name="projet" value="residence-principale"><label for="p-rp">Résidence principale</label></div>
+            <div class="opt"><input type="radio" id="p-loc" name="projet" value="investissement-locatif"><label for="p-loc">Investissement locatif</label></div>
+            <div class="opt"><input type="radio" id="p-sec" name="projet" value="residence-secondaire"><label for="p-sec">Résidence secondaire</label></div>
+            <div class="opt"><input type="radio" id="p-autre" name="projet" value="autre"><label for="p-autre">Autre projet immobilier</label></div>
+          </div>
+          <div class="sim-msg" data-err="projet"></div>
+        </fieldset>
+        <fieldset class="sim-field" style="border:0;padding:0;margin:0;">
+          <legend class="sim-field__label">Votre situation</legend>
+          <div class="opt-grid">
+            <div class="opt"><input type="radio" id="s-seul" name="situation" value="seul" checked><label for="s-seul">Seul(e)</label></div>
+            <div class="opt"><input type="radio" id="s-deux" name="situation" value="deux"><label for="s-deux">À deux</label></div>
+          </div>
+          <div class="sim-msg" data-err="situation"></div>
+        </fieldset>
+        <div class="wizard-nav"><span></span><button type="button" class="sim-cta" data-action="next">Continuer</button></div>
+      </section>
+
+      <!-- ÉTAPE 2 — REVENUS -->
+      <section class="sim-step" data-step="2" hidden>
+        <h2 class="sim-step__title">Vos revenus</h2>
+        <p class="sim-step__hint">Revenus nets mensuels (avant impôt sur le revenu).</p>
+        <div class="sim-field">
+          <label class="sim-field__label" for="f-income1">Vos revenus nets mensuels</label>
+          <input class="sim-field__input" id="f-income1" inputmode="decimal" placeholder="ex. 3 000" autocomplete="off">
+          <div class="sim-msg" data-err="income1"></div>
+        </div>
+        <div class="sim-field" id="f-income2-wrap" hidden>
+          <label class="sim-field__label" for="f-income2">Revenus nets mensuels du co-emprunteur</label>
+          <input class="sim-field__input" id="f-income2" inputmode="decimal" placeholder="ex. 2 200" autocomplete="off">
+          <div class="sim-msg" data-err="income2"></div>
+        </div>
+        <div class="wizard-nav">
+          <button type="button" class="sim-cta sim-cta--ghost" data-action="back">Retour</button>
+          <button type="button" class="sim-cta" data-action="next">Continuer</button>
+        </div>
+      </section>
+
+      <!-- ÉTAPE 3 — CHARGES & FINANCEMENT -->
+      <section class="sim-step" data-step="3" hidden>
+        <h2 class="sim-step__title">Vos charges &amp; votre financement</h2>
+        <div class="sim-field">
+          <label class="sim-field__label" for="f-debt">Mensualités de crédits en cours</label>
+          <input class="sim-field__input" id="f-debt" inputmode="decimal" placeholder="ex. 0" autocomplete="off">
+          <div class="sim-msg" data-err="existingDebt"></div>
+        </div>
+        <div class="sim-field">
+          <label class="sim-field__label" for="f-apport">Apport personnel</label>
+          <input class="sim-field__input" id="f-apport" inputmode="decimal" placeholder="ex. 50 000" autocomplete="off">
+          <div class="sim-msg" data-err="apport"></div>
+        </div>
+        <fieldset class="sim-field" style="border:0;padding:0;margin:0;">
+          <legend class="sim-field__label">Durée souhaitée</legend>
+          <div class="dur-grid">
+            <div class="opt"><input type="radio" id="d10" name="duration" value="10"><label for="d10">10 ans</label></div>
+            <div class="opt"><input type="radio" id="d15" name="duration" value="15"><label for="d15">15 ans</label></div>
+            <div class="opt"><input type="radio" id="d20" name="duration" value="20" checked><label for="d20">20 ans</label></div>
+            <div class="opt"><input type="radio" id="d25" name="duration" value="25"><label for="d25">25 ans</label></div>
+            <div class="opt"><input type="radio" id="d30" name="duration" value="30"><label for="d30">30 ans</label></div>
+          </div>
+          <div class="sim-msg" data-err="durationYears"></div>
+        </fieldset>
+        <div class="wizard-nav">
+          <button type="button" class="sim-cta sim-cta--ghost" data-action="back">Retour</button>
+          <button type="button" class="sim-cta" data-action="next">Voir mon estimation</button>
+        </div>
+      </section>
+
+      <!-- ÉTAPE 4 — RÉSULTAT -->
+      <section class="sim-step" data-step="4" hidden>
+        <h2 class="sim-step__title">Votre estimation</h2>
+        <div class="sim-result" role="region" aria-live="polite" aria-label="Résultat de la simulation">
+          <div class="sim-result__label">Budget total estimé</div>
+          <div class="sim-result__value" id="r-budget">—</div>
+          <div class="result-grid">
+            <div class="result-cell"><div class="k">Capacité d'emprunt estimée</div><div class="v" id="r-capacity">—</div></div>
+            <div class="result-cell"><div class="k">Mensualité maximale estimée</div><div class="v" id="r-payment">—</div></div>
+            <div class="result-cell"><div class="k">Apport</div><div class="v" id="r-apport">—</div></div>
+            <div class="result-cell"><div class="k">Durée</div><div class="v" id="r-duration">—</div></div>
+            <div class="result-cell"><div class="k">Taux utilisé pour la simulation</div><div class="v" id="r-rate">—</div></div>
+          </div>
+          <p class="sim-result__note">Cette estimation constitue un premier repère. Votre capacité réelle dépend de votre situation, de l'assurance emprunteur, de la nature de vos revenus, de votre reste à vivre et des critères de l'établissement prêteur.</p>
+        </div>
+
+        <div style="text-align:center;margin-top:26px;">
+          <h3 style="font-family:'Fraunces',serif;font-weight:600;color:var(--forest);font-size:22px;margin:0 0 8px;">Votre projet mérite plus qu'une simulation.</h3>
+          <p style="color:#5B6670;max-width:520px;margin:0 auto 18px;line-height:1.6;">Nous pouvons étudier votre financement dans sa globalité et confronter cette première estimation à votre situation réelle.</p>
+          <button type="button" class="sim-cta" data-action="open-lead">Étudier mon financement</button>
+        </div>
+
+        <div class="wizard-nav"><button type="button" class="sim-cta sim-cta--ghost" data-action="back">Retour</button><span></span></div>
+      </section>
+    </form>
+
+    <!-- LEAD (mock) -->
+    <section id="sim-lead" hidden style="margin-top:28px;">
+      <h3 class="sim-step__title">Étudier mon financement</h3>
+      <form id="sim-lead-form">
+        <div class="sim-field"><label class="sim-field__label" for="f-prenom">Prénom</label><input class="sim-field__input" id="f-prenom" autocomplete="given-name"></div>
+        <div class="sim-field"><label class="sim-field__label" for="f-email">Email</label><input class="sim-field__input" id="f-email" type="email" autocomplete="email"></div>
+        <div class="sim-field"><label class="sim-field__label" for="f-tel">Téléphone</label><input class="sim-field__input" id="f-tel" type="tel" autocomplete="tel"></div>
+        <div class="sim-field"><label class="sim-field__label" for="f-projet-lead">Votre projet (optionnel)</label><input class="sim-field__input" id="f-projet-lead" autocomplete="off"></div>
+        <button type="submit" class="sim-cta">Envoyer ma demande</button>
+      </form>
+      <div id="sim-lead-msg" class="sim-msg" role="status" aria-live="polite"></div>
+    </section>
+
+    <!-- DEBUG (prototype uniquement — visible seulement avec ?debug=1) -->
+    <div class="proto-debug" id="sim-debug" hidden>
+      <h4>Tracking debug (local — aucun GA4, aucune PII, aucun montant exact)</h4>
+      <div id="sim-debug-log"></div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Moteur CS-1 (ordre : core -> rates -> calc-credit -> lead -> ui) puis contrôleur -->
+<script src="/assets/js/simulators/core.js"></script>
+<script src="/assets/js/simulators/rates.js"></script>
+<script src="/assets/js/simulators/calc-credit.js"></script>
+<script src="/assets/js/simulators/lead.js"></script>
+<script src="/assets/js/simulators/ui.js"></script>
+<script src="/assets/js/simulators/prototype-capacity.js"></script>
+<script>
+  // Toggle co-emprunteur (UI pure, aucun calcul)
+  document.querySelectorAll('input[name="situation"]').forEach(function (r) {
+    r.addEventListener('change', function () {
+      var wrap = document.getElementById('f-income2-wrap');
+      if (wrap) wrap.hidden = (document.querySelector('input[name="situation"]:checked').value !== 'deux');
+    });
+  });
+  // Démarrage : le panneau debug n'apparaît qu'avec ?debug=1 dans l'URL
+  if (window.PrototypeCapacity) window.PrototypeCapacity.init();
+</script>
+</body>
+</html>

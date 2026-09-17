@@ -10,6 +10,10 @@
 }(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
   var hasDoc = typeof document !== 'undefined';
+  // Référence au global (navigateur) capturée dans la portée de la factory.
+  var GLOBAL = (typeof self !== 'undefined') ? self
+    : (typeof window !== 'undefined') ? window
+    : (typeof globalThis !== 'undefined') ? globalThis : {};
 
   /* --- Formatters (purs) -------------------------------------------------- */
   function formatEuro(v, opts) {
@@ -63,8 +67,8 @@
     var payload = { event: eventName };
     var clean = sanitizeTrackingData(data);
     Object.keys(clean).forEach(function (k) { payload[k] = clean[k]; });
-    if (hasDoc && root.dataLayer && typeof root.dataLayer.push === 'function') {
-      root.dataLayer.push(payload);
+    if (hasDoc && GLOBAL.dataLayer && typeof GLOBAL.dataLayer.push === 'function') {
+      GLOBAL.dataLayer.push(payload);
     }
     return true;
   }
