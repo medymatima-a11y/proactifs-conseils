@@ -630,3 +630,58 @@ Aucune de ces pages n'est bloquante pour NAV-UX ; ce sont les seuls arbitrages d
 ## Référence : audit CRÉDIT & SIMULATEURS V2
 
 Voir `docs/CREDIT-SIMULATEURS-V2.md` (phase CREDIT-SIM-0, 17/09/2026) — audit technique préparatoire à la future architecture Crédit / Simulateurs (diagnostic uniquement, aucune implémentation).
+
+---
+
+## MENU-4F — Clôture couverture Header V1 (17/09/2026)
+
+Finalisation de la propagation du header V1 avant NAV-UX. Header V1 conservé (Patrimoine · Immobilier · Simulateurs · Le cabinet · Ressources · CTA) — **pas de Crédit, pas de Header V2**.
+
+### Page migrée
+
+- **`declaration-rsu-espp-france.html`** (`/declaration-rsu-espp-france`) → header centralisé, univers **Patrimoine** actif (desktop, `PATRIMOINE_ACTIVE_DESKTOP`, `aria-current="page"`), thème « site-patrimoine » (or), CTA « Prendre rendez-vous » → `/bilan-patrimonial` (CTA existant conservé). Pas d'état actif Patrimoine mobile (architecture MENU-3, comme les autres pages Patrimoine). Migration via migrateur regex (retrait CSS/JS nav, marqueurs, `navigation.css`) ; **0 ligne SEO modifiée** (title/meta/canonical/H1/H2/FAQ/JSON-LD/OG intacts ; comptes sections/H2/JSON-LD identiques). Manifeste `nav-pages.json` : 48 → **49 pages**.
+
+### Exceptions intentionnelles (non migrées, figées)
+
+| Fichier | Statut | Raison |
+|---|---|---|
+| `pret-immobilier-index.html` | INTENTIONAL_LEGACY | Legacy Crédit / landing du sous-domaine `pret-immobilier.proactifsconseils.fr` (rewrite `vercel.json`). Décision SEO (consolidation / 301 / maintien Ads / suppression) **reportée au chantier Crédit V2**. |
+| `simulation-pret-immobilier.html` | INTENTIONAL_LEGACY | Legacy Simulateur. Migration prévue vers `/simulateurs/capacite-emprunt` (301) en **CS-4** comme livraison atomique. Inutile de centraliser une page destinée à être migrée. |
+| `Lead magnets/blog-per-vs-assurance-vie-2026.html` | LANDING_SPECIAL | Landing d'acquisition (canonical → article `/blog/per-vs-assurance-vie-2026`, formulaire Tally/Brevo, CTA « Bilan sur-mesure »). N'a pas vocation à devenir une page Ressources normale. |
+
+Ces 3 pages : `git diff` = 0. `vercel.json` et `sitemap.xml` inchangés.
+
+### Contrôle mobile — Lead magnet PER
+
+Anomalies **toujours présentes** (inchangées) : `menu-mobile-deborde` (pas de `max-height`/`overflow-y` sur `.mobile-menu`), `menu-ne-se-referme-pas` (pas d'auto-fermeture), `nav-invisible-avant-scroll` (`#nav:not(.scrolled)` transparent + bandeau `.breadcrumb`). **Non corrigées dans MENU-4F** : cette landing est une exception LANDING_SPECIAL en attente d'arbitrage (correction / exclusion / suppression) au chantier Crédit V2 ; la modifier maintenant (CSS/JS) risquerait son funnel/design. Anomalie **documentée, non masquée** dans `check-mobile-nav.js` (conformément à la règle « ne jamais masquer une vraie anomalie »). → décision Medy requise : correctif mobile minimal maintenant, ou report avec l'arbitrage de la page.
+
+### Pages sans header (intentionnel, confirmées)
+
+`404.html`, `merci-avis.html`, `merci-guide.html`, `guide-5-erreurs-patrimoniaux.html` (capture), `Audits SEO/rapport-audit-site-2026-06-10.html` (interne), `brevo-architecture-contacts.html` (interne). Aucune n'a reçu de header.
+
+### Inventaire final par statut (58 pages LIVE + 5 techniques)
+
+| Statut | Nb | Pages |
+|---|---|---|
+| **CENTRALIZED** | 49 | index + 48 pages centralisées (dont declaration-rsu-espp-france) |
+| **INTENTIONAL_LEGACY** | 2 | pret-immobilier-index · simulation-pret-immobilier |
+| **LANDING_SPECIAL** | 1 | Lead magnets/blog-per-vs-assurance-vie-2026 |
+| **NO_HEADER_INTENTIONAL** | 6 | 404 · merci-avis · merci-guide · guide-5-erreurs-patrimoniaux · Audits SEO/rapport-audit-site-2026-06-10 · brevo-architecture-contacts |
+| **TECHNICAL_EXCLUDED** | 5 | succession-colombes.local.bak · 3× Lead magnets/apercu-* · partials/header.html (gabarit source) |
+
+**Aucune page UNKNOWN / À STATUER / FORGOTTEN.** Couverture Header V1 close (49+2+1+6 = 58 live).
+
+### Tests
+
+`build-header.js --check` → exit 0 (49 pages à jour). `check-mobile-nav.js` → 1 page signalée : le lead magnet (exception documentée). Rendu headless réel `declaration-rsu-espp-france` : desktop 1024/1440/1920 → aucun débordement, méga Patrimoine `display:grid`, Patrimoine actif ; mobile 375/390/430 → aucun débordement, `.mobile-menu` `max-height:772px`, sous-menu Patrimoine actif. MENU-2B et MENU-3.1 figés, inchangés.
+
+### Dette reportée
+
+- **Crédit V2** : sort de `pret-immobilier-index` + sous-domaine `pret-immobilier.proactifsconseils.fr` (consolidation / 301 / Ads / suppression). Correctif mobile du lead magnet PER (ou retrait).
+- **Simulateurs V2** : migration `simulation-pret-immobilier` → `/simulateurs/capacite-emprunt` (301) en CS-4 ; correction des typos title/H1 (« e » parasite) à cette occasion.
+
+### Prochaine phase : NAV-UX
+
+**Non commencée.** Objectif : harmoniser les fils d'Ariane (breadcrumbs) et la navigation parent/retour sur l'ensemble du site. Aucun breadcrumb / `history.back()` / fil d'Ariane modifié en MENU-4F.
+
+**Statut : couverture Header V1 clôturée.** Header V2 non commencé.
