@@ -685,3 +685,22 @@ Anomalies **toujours présentes** (inchangées) : `menu-mobile-deborde` (pas de 
 **Non commencée.** Objectif : harmoniser les fils d'Ariane (breadcrumbs) et la navigation parent/retour sur l'ensemble du site. Aucun breadcrumb / `history.back()` / fil d'Ariane modifié en MENU-4F.
 
 **Statut : couverture Header V1 clôturée.** Header V2 non commencé.
+
+---
+
+## MENU-4F.1 — Correctif mobile landing PER (17/09/2026)
+
+Correctif **mobile minimal** sur la landing spéciale `Lead magnets/blog-per-vs-assurance-vie-2026.html`. La page **reste LANDING_SPECIAL** : header central **non appliqué**, **non ajoutée** à `nav-pages.json`, design/funnel/SEO inchangés.
+
+**3 anomalies corrigées** (cause → correctif) :
+1. `menu-mobile-deborde` : `.mobile-menu` sans `max-height`/`overflow-y` → ajout de `max-height: calc(100dvh - 72px)` (+ fallback `vh`) et `overflow-y: auto` (+ `-webkit-overflow-scrolling`). Le menu défile désormais sur écran court.
+2. `nav-invisible-avant-scroll` : `#nav { background: transparent }` + règles `#nav:not(.scrolled)` (liens/hamburger blancs) sous un bandeau `.breadcrumb` clair → `#nav` rendu **opaque par défaut** (`rgba(250,250,247,.98)`, comme l'état scrollé) et retrait des 3 règles `#nav:not(.scrolled)` ; liens/hamburger reprennent leur couleur foncée de base (`var(--ink)`) → nav lisible avant scroll.
+3. `menu-ne-se-referme-pas` : aucun script d'auto-fermeture → ajout d'un petit script `mobile-menu-autoclose` fermant `.mobile-menu` au clic sur un lien.
+
+**Tests** : `check-mobile-nav.js` → **✓ 0 anomalie sur 63 pages**. `build-header.js --check` → exit 0 (49 pages centralisées inchangées). Rendu headless : desktop 1024/1440/1920 (nav opaque, liens foncés, aucun débordement) ; mobile 375/390/430 (nav+hamburger visibles avant scroll, ouverture/fermeture au clic, `max-height:772px`/`overflow-y:auto`) ; faible hauteur 375×420 (menu défilable, `max-height:348px`).
+
+**SEO/funnel inchangés** : 0 ligne title/meta/canonical/robots/H1/H2/JSON-LD/OG/Tally/Brevo/`/api/` modifiée (diff limité au CSS nav/mobile + script autoclose). URL, formulaire, tracking, CTA « Bilan sur-mesure » préservés.
+
+**Hors périmètre (documenté, non corrigé)** : léger débordement horizontal à **320 px** (élément de contenu de la landing plus large que le viewport) — pré-existant, non lié aux 3 anomalies, non signalé par le checker. À traiter éventuellement lors de l'arbitrage Crédit V2 de cette page.
+
+**Statut** : landing PER conforme mobile, toujours exception LANDING_SPECIAL (header central non appliqué).
