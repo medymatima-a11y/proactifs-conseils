@@ -188,6 +188,39 @@
     };
   }
 
+  /* Salaire (revenu net mensuel) requis pour emprunter un montant donné.
+     RÉUTILISE le moteur : CS-1 (monthlyPayment) + CS-3.5 (getMarketRate ACTIVE)
+     + CS-3 (maxDebtRatio). Hypothèses : emprunteur seul, aucun crédit, pas de
+     revenu locatif, assurance hors calcul, apport non utilisé pour le salaire.
+     Aucune formule parallèle, aucune valeur codée en dur. */
+  function calculateRequiredIncomeForLoan(args) {
+    args = args || {};
+    var loanAmount = policyAmount(args.loanAmount);
+    var durationYears = Number(args.durationYears);
+    var ref = rates.ACTIVE_MARKET_REFERENCE;
+    var rate = rates.getMarketRate(durationYears, ref);
+    if (typeof rate !== 'number') {
+      return { supported: false, loanAmount: loanAmount, durationYears: durationYears };
+    }
+    var maxDebtRatio = core.isValidNumber(args.maxDebtRatio)
+      ? args.maxDebtRatio : policy.PROACTIFS_CREDIT_POLICY_V1.maxDebtRatio;
+    var months = core.monthsFromYears(durationYears);
+    var payment = core.monthlyPayment({ principal: loanAmount, annualRatePct: rate, months: months });
+    var requiredIncome = core.isValidNumber(payment) && maxDebtRatio > 0
+      ? core.round(payment / maxDebtRatio, 0) : NaN;
+    return {
+      supported: true,
+      loanAmount: loanAmount,
+      durationYears: durationYears,
+      rate: rate,
+      maxDebtRatio: maxDebtRatio,
+      requiredMonthlyPayment: core.isValidNumber(payment) ? core.round(payment, 0) : NaN,
+      requiredMonthlyIncome: requiredIncome,
+      effectiveMonth: ref.effectiveMonth,
+      marketLabel: marketMonthLabel(ref.effectiveMonth)
+    };
+  }
+
   /* Normalisation montant (miroir de credit-policy.amount, pour apport UI). */
   function policyAmount(v) {
     if (v === undefined || v === null || v === '') return 0;
@@ -497,6 +530,7 @@
     PUBLIC_DURATIONS: PUBLIC_DURATIONS,
     buildFinancingInput: buildFinancingInput,
     computeCapacityV2: computeCapacityV2,
+    calculateRequiredIncomeForLoan: calculateRequiredIncomeForLoan,
     validateStepV2: validateStepV2,
     mapReliability: mapReliability,
     mapReviewFlags: mapReviewFlags,
