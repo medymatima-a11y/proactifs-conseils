@@ -53,31 +53,88 @@ function listHtmlFiles(dir, out = []) {
   return out;
 }
 
+// MENU-1.5 (16/09/2026) -- pages dont le <nav> est centralise via
+// partials/header.html + scripts/build-header.js : leur CSS de nav (et donc
+// la regle .mobile-menu) peut vivre dans un fichier externe plutot que dans
+// un <style> inline, et leur comportement (fermeture au clic) vient du
+// script partage assets/js/navigation.js plutot que d'un bloc inline
+// commente "correctif audit 13/09/2026". On tient compte des deux cas pour
+// ne pas perdre la couverture de ce check sur ces pages.
+const CENTRALIZED_NAV_CSS = ['assets/css/navigation.css', 'assets/css/navigation-immobilier.css'];
+const CENTRALIZED_NAV_JS = 'assets/js/navigation.js';
+
+function resolveEffectiveNavContent(content) {
+  let effective = content;
+  const linkRe = /<link[^>]+href=["']\/?(assets\/css\/[\w.-]+\.css)["'][^>]*>/g;
+  let m;
+  while ((m = linkRe.exec(content))) {
+    const cssRelPath = m[1];
+    if (CENTRALIZED_NAV_CSS.includes(cssRelPath)) {
+      const cssPath = path.join(ROOT, cssRelPath);
+      if (fs.existsSync(cssPath)) {
+        effective += '\n' + fs.readFileSync(cssPath, 'utf8');
+      }
+    }
+  }
+  return effective;
+}
+
+function hasAutocloseScript(content) {
+  if (content.includes('mobile-menu-autoclose') || content.includes('correctif audit 13/09/2026')) {
+    return true;
+  }
+  // Script centralise (MENU-1.5) : assets/js/navigation.js ferme .mobile-menu
+  // au clic sur un lien (cf. son propre code, deja verifie).
+  return content.includes(CENTRALIZED_NAV_JS);
+}
+
 function checkFile(relPath) {
   const content = fs.readFileSync(path.join(ROOT, relPath), 'utf8');
   const issues = [];
 
   if (SKIP_NO_MENU.has(relPath)) return issues;
 
+  const effectiveContent = resolveEffectiveNavContent(content);
+
   // 1. .mobile-menu sans max-height/overflow-y
-  if (content.includes('.mobile-menu')) {
-    const m = content.match(/\.mobile-menu\s*\{[^}]*\}/);
+  if (effectiveContent.includes('.mobile-menu')) {
+    const m = effectiveContent.match(/\.mobile-menu\s*\{[^}]*\}/);
     if (!m || !/overflow-y|max-height/.test(m[0])) {
       issues.push('menu-mobile-deborde (pas de max-height/overflow-y sur .mobile-menu)');
     }
-    if (!content.includes('mobile-menu-autoclose') && !content.includes('correctif audit 13/09/2026')) {
+    if (!hasAutocloseScript(content)) {
       issues.push('menu-ne-se-referme-pas (aucun script ne ferme .mobile-menu au clic sur un lien)');
     }
   }
 
   // 3. nav transparente + bandeau clair
   if (!TRANSPARENT_NAV_OK.has(relPath) && /class=["']breadcrumb["']/.test(content)) {
-    const navBlock = content.match(/#nav\s*\{[^}]*\}/);
+    const navBlock = effectiveContent.match(/#nav\s*\{[^}]*\}/);
     const navTransparent = navBlock && /background:\s*transparent/.test(navBlock[0]);
-    const hasNotScrolledOverride = /#nav:not\(\.scrolled\)/.test(content);
+    const hasNotScrolledOverride = /#nav:not\(\.scrolled\)/.test(effectiveContent);
     if (navTransparent || hasNotScrolledOverride) {
       issues.push('nav-invisible-avant-scroll (#nav transparent ou #nav:not(.scrolled) avec un bandeau fil d\'Ariane)');
     }
+  }
+  // 4. MENU-3 : pages à menu mobile 2 niveaux — vérifier la présence réelle
+  //    des 3 sous-vues (Patrimoine / Immobilier / Ressources) et de leurs liens clés.
+  if (content.includes('data-view="root"')) {
+    var panels = {
+      patrimoine: ['/bilan-patrimonial', '/preparation-retraite', '/cession-entreprise'],
+      immobilier: ['/immobilier/estimation-colombes', '/immobilier', '/courtage-credit-immobilier'],
+      ressources: ['/blog'],
+    };
+    Object.keys(panels).forEach(function (view) {
+      if (!content.includes('data-view="' + view + '"')) {
+        issues.push('menu2-panel-absent (sous-vue ' + view + ' introuvable)');
+        return;
+      }
+      panels[view].forEach(function (href) {
+        if (!content.includes('href="' + href + '"')) {
+          issues.push('menu2-lien-absent (' + view + ' -> ' + href + ')');
+        }
+      });
+    });
   }
 
   return issues;
