@@ -624,3 +624,9 @@ Non référencées en interne : **`pret-immobilier-index.html`** et **`Lead magn
 Aucune de ces pages n'est bloquante pour NAV-UX ; ce sont les seuls arbitrages de couverture restants.
 
 **STOP.** Audit figé. Aucune modification.
+
+---
+
+## Référence : audit CRÉDIT & SIMULATEURS V2
+
+Voir `docs/CREDIT-SIMULATEURS-V2.md` (phase CREDIT-SIM-0, 17/09/2026) — audit technique préparatoire à la future architecture Crédit / Simulateurs (diagnostic uniquement, aucune implémentation).
