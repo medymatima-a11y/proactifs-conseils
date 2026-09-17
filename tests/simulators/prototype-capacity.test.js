@@ -109,6 +109,6 @@ test('CS-2.1 : le mot "legacy" n\'apparaît pas dans l\'UI visible (hors comment
   assert.ok(!/legacy/i.test(visible), 'aucun "legacy" ne doit être visible pour le prospect');
   // le second badge legacy a bien été retiré
   assert.ok(!/référence technique legacy/i.test(visible));
-  assert.ok(/Taux utilisé pour la simulation/.test(visible));
+  assert.ok(/Taux indicatif/.test(visible));
   assert.ok(/Simulation indicative et non contractuelle/.test(visible));
 });

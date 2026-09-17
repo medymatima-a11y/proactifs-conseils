@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Prototype — Simulateur capacité d'emprunt V2 | Proactifs Conseils</title>
-<!-- ⚠ PROTOTYPE INTERNE CS-4A — non public, non indexé, absent du sitemap/nav/header.
+<!-- ⚠ PROTOTYPE INTERNE CS-4SEO — non public, non indexé, absent du sitemap/nav/header.
      N'envoie aucun lead réel (transport mock). Taux = référentiel marché Proactifs (ACTIVE_MARKET_REFERENCE). -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +15,7 @@
   :root { --iv:#FCFBF7; --forest:#0F2E22; --teal:#006E64; --gold:#D2B41E; }
   * { box-sizing:border-box; }
   body { margin:0; background:var(--iv); color:#1A1A1A; font-family:'Nunito Sans',system-ui,sans-serif; }
+  /* mini-header autonome — sticky en desktop, statique en mobile (voir A1) */
   .proto-header { display:flex; align-items:center; justify-content:space-between; gap:16px;
     padding:14px 20px; background:var(--forest); color:#fff; position:sticky; top:0; z-index:10; }
   .proto-brand { font-family:'Fraunces',serif; font-weight:600; font-size:18px; letter-spacing:.3px; }
@@ -27,11 +28,9 @@
   .proto-hero p.sub { font-size:17px; color:#5B6670; margin:0 0 14px; line-height:1.6; }
   .proto-badges { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
   .proto-note { font-size:12px; color:#5B6670; background:#F1EEE4; border:1px solid #E4E0D2; border-radius:999px; padding:5px 12px; }
-  .sim-result__note { font-size:13.5px; line-height:1.7; max-width:560px; margin:14px auto 0; color:#5B6670; }
   .cond { margin-top:2px; }
   .subq { font-size:13px; color:#5B6670; margin:2px 0 8px; }
   .opt-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-  .opt-grid--3 { grid-template-columns:1fr 1fr; }
   .yn-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; max-width:280px; }
   .opt { position:relative; }
   .opt input { position:absolute; opacity:0; inset:0; cursor:pointer; }
@@ -45,34 +44,47 @@
   details.more > summary { cursor:pointer; font-size:14px; font-weight:700; color:var(--teal); list-style:none; }
   details.more > summary::-webkit-details-marker { display:none; }
   .wizard-nav { display:flex; justify-content:space-between; gap:12px; margin-top:24px; }
-  .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:18px; text-align:left; }
-  .result-cell { background:#fff; border:1px solid #E4E7E5; border-radius:12px; padding:14px 16px; }
-  .result-cell .k { font-size:12px; text-transform:uppercase; letter-spacing:.5px; color:#5B6670; }
-  .result-cell .v { font-size:20px; font-weight:800; color:var(--forest); margin-top:2px; }
-  .reliability { text-align:center; margin:22px auto 4px; max-width:600px; }
-  .reliability h3 { font-family:'Fraunces',serif; font-weight:600; color:var(--forest); font-size:21px; margin:0 0 6px; }
+  /* Résultat */
+  .reliability { text-align:center; margin:4px auto 14px; max-width:600px; }
+  .reliability h3 { font-family:'Fraunces',serif; font-weight:600; color:var(--forest); font-size:22px; margin:0 0 6px; }
   .reliability p { color:#5B6670; margin:0; line-height:1.6; }
-  .flags { max-width:600px; margin:14px auto 0; padding-left:18px; color:#5B6670; font-size:14px; line-height:1.6; }
+  .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; text-align:left; }
+  .result-cell { background:#fff; border:1px solid #E4E7E5; border-radius:12px; padding:12px 14px; }
+  .result-cell .k { font-size:11.5px; text-transform:uppercase; letter-spacing:.5px; color:#5B6670; }
+  .result-cell .v { font-size:19px; font-weight:800; color:var(--forest); margin-top:2px; }
+  .rate-ref { text-align:center; font-size:12.5px; color:#5B6670; margin:12px 0 0; }
+  .flags { max-width:600px; margin:12px auto 0; padding-left:18px; color:#5B6670; font-size:13.5px; line-height:1.55; }
   .flags li { margin:3px 0; }
-  .freshness { max-width:600px; margin:12px auto 0; font-size:13.5px; border-radius:10px; padding:10px 14px; }
+  .freshness { max-width:600px; margin:10px auto 0; font-size:13px; border-radius:10px; padding:9px 13px; }
   .freshness[data-level="warn"] { background:#FBEEE6; border:1px solid #E8C4AE; color:#8A3B12; }
   .freshness[data-level="info"] { background:#F1EEE4; border:1px solid #E4E0D2; color:#5B6670; }
-  .rate-line { text-align:center; font-size:13px; color:#5B6670; margin-top:12px; }
-  details.explain { max-width:600px; margin:18px auto 0; background:#fff; border:1px solid #E4E7E5; border-radius:12px; padding:0 16px; }
-  details.explain > summary { cursor:pointer; font-weight:700; color:var(--forest); padding:14px 0; list-style:none; }
-  details.explain > summary::-webkit-details-marker { display:none; }
-  details.explain .body { font-size:14px; color:#5B6670; line-height:1.7; padding-bottom:14px; }
-  .proto-debug { max-width:680px; margin:30px auto; padding:12px 16px; border:1px dashed #C9C4B0; border-radius:10px;
-    background:#FAF8F0; font:12px/1.5 ui-monospace,Menlo,monospace; color:#5B6670; }
-  .proto-debug h4 { margin:0 0 6px; font-family:'Nunito Sans'; font-size:12px; text-transform:uppercase; letter-spacing:1px; }
+  /* Accordéon (button réel + aria) */
+  .accordion { max-width:600px; margin:16px auto 0; }
+  .acc-btn { width:100%; display:flex; align-items:center; justify-content:space-between; gap:10px;
+    background:#fff; border:1px solid #E4E7E5; border-radius:12px; padding:14px 16px; cursor:pointer;
+    font-family:'Nunito Sans',sans-serif; font-weight:700; font-size:15px; color:var(--forest); text-align:left; }
+  .acc-btn:focus-visible { outline:2px solid var(--teal); outline-offset:2px; }
+  .acc-btn .chev { transition:transform .2s ease; font-size:20px; color:var(--teal); }
+  .acc-btn[aria-expanded="true"] .chev { transform:rotate(90deg); }
+  .acc-panel { border:1px solid #E4E7E5; border-top:0; border-radius:0 0 12px 12px; padding:14px 16px;
+    font-size:14px; color:#5B6670; line-height:1.7; background:#fff; }
+  .acc-panel .full-disclaimer { margin:10px 0 0; font-size:13px; color:#6B7480; }
+  .cta-block { text-align:center; margin-top:24px; }
   @media (max-width:600px){
-    .proto-hero h1 { font-size:27px; }
+    .proto-header { position:static; }        /* A1 : header dans le flux normal en mobile */
+    .proto-hero { padding:22px 16px 4px; }
+    .proto-hero h1 { font-size:26px; }
     .proto-tag { display:none; }
     .opt-grid { grid-template-columns:1fr; }
     .dur-grid { grid-template-columns:repeat(2,1fr); }
     .result-grid { grid-template-columns:1fr; }
+    .reliability h3 { font-size:20px; }
     .wizard-nav .sim-cta { flex:1; }
+    .cta-block .sim-cta { width:100%; }
   }
+  .proto-debug { max-width:680px; margin:30px auto; padding:12px 16px; border:1px dashed #C9C4B0; border-radius:10px;
+    background:#FAF8F0; font:12px/1.5 ui-monospace,Menlo,monospace; color:#5B6670; }
+  .proto-debug h4 { margin:0 0 6px; font-family:'Nunito Sans'; font-size:12px; text-transform:uppercase; letter-spacing:1px; }
 </style>
 </head>
 <body>
@@ -232,10 +244,8 @@
         </div>
       </section>
 
-      <!-- ÉTAPE 4 — RÉSULTAT -->
+      <!-- ÉTAPE 4 — RÉSULTAT (titre "Votre estimation" retiré — A2) -->
       <section class="sim-step" data-step="4" hidden>
-        <h2 class="sim-step__title">Votre estimation</h2>
-
         <div class="reliability">
           <h3 id="r-reliability-title">Votre première estimation est prête.</h3>
           <p id="r-reliability-text">Nous pouvons maintenant étudier les conditions de financement adaptées à votre projet.</p>
@@ -249,26 +259,29 @@
             <div class="result-cell"><div class="k">Mensualité estimée</div><div class="v" id="r-payment">—</div></div>
             <div class="result-cell"><div class="k">Apport</div><div class="v" id="r-apport">—</div></div>
             <div class="result-cell"><div class="k">Durée</div><div class="v" id="r-duration">—</div></div>
-            <div class="result-cell"><div class="k">Taux utilisé pour la simulation</div><div class="v" id="r-rate">—</div></div>
+            <div class="result-cell"><div class="k">Taux indicatif</div><div class="v" id="r-rate">—</div></div>
           </div>
+          <p class="rate-ref" id="r-rate-ref">Référence — · hors assurance</p>
 
           <ul class="flags" id="r-flags" hidden></ul>
           <div class="freshness" id="r-freshness" hidden></div>
 
-          <p class="rate-line">Référence mise à jour&nbsp;: <strong id="r-market-date">—</strong></p>
-          <p class="sim-result__note">Taux indicatif utilisé uniquement pour cette simulation, hors assurance. Le taux réellement proposé dépend notamment de votre profil, de votre projet et des conditions de l'établissement prêteur.</p>
+          <p class="sim-result__note">Simulation indicative, hors assurance et non contractuelle.</p>
         </div>
 
-        <details class="explain">
-          <summary>Comment cette estimation est-elle calculée&nbsp;?</summary>
-          <div class="body">
-            Cette estimation prend en compte les revenus et les charges que vous avez renseignés, votre apport, la durée choisie et un taux indicatif de référence Proactifs. Lorsque des revenus locatifs sont indiqués, une hypothèse prudente leur est appliquée. Il s'agit d'un premier repère&nbsp;: votre capacité réelle dépend de votre situation complète et des conditions de l'établissement prêteur.
+        <div class="accordion">
+          <button type="button" class="acc-btn" id="acc-btn" aria-expanded="false" aria-controls="acc-panel">
+            <span>Comment avons-nous calculé cette estimation&nbsp;?</span><span class="chev" aria-hidden="true">›</span>
+          </button>
+          <div class="acc-panel" id="acc-panel" role="region" aria-labelledby="acc-btn" hidden>
+            <p>Cette estimation prend en compte notamment&nbsp;: les revenus que vous avez renseignés, les charges que vous avez renseignées, votre apport, la durée choisie et un taux indicatif de référence Proactifs.</p>
+            <p class="full-disclaimer">Taux indicatif utilisé uniquement pour cette simulation, hors assurance. Le taux réellement proposé dépend notamment de votre profil, de votre projet et des conditions de l'établissement prêteur.</p>
           </div>
-        </details>
+        </div>
 
-        <div style="text-align:center;margin-top:26px;">
+        <div class="cta-block">
           <h3 style="font-family:'Fraunces',serif;font-weight:600;color:var(--forest);font-size:22px;margin:0 0 8px;">Votre projet mérite plus qu'une simulation.</h3>
-          <p style="color:#5B6670;max-width:520px;margin:0 auto 18px;line-height:1.6;">Un financement dépend de bien plus qu'un taux&nbsp;: votre situation, votre projet, votre apport et la manière dont votre dossier est présenté aux banques.</p>
+          <p style="color:#5B6670;max-width:520px;margin:0 auto 18px;line-height:1.6;">Faites analyser votre projet par Proactifs Conseils et découvrez les solutions de financement adaptées à votre situation.</p>
           <button type="button" class="sim-cta" data-action="open-lead">Étudier mon financement</button>
         </div>
 

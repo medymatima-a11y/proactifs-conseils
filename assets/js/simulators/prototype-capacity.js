@@ -404,7 +404,8 @@
       setTxt('#r-apport', ui.formatEuro(res.apport));
       setTxt('#r-duration', res.durationYears + ' ans');
       setTxt('#r-rate', ui.formatPercent(res.rate));
-      setTxt('#r-market-date', res.ux.marketLabel);
+      // Référence dérivée de effectiveMonth (jamais codée en dur), + hors assurance
+      setTxt('#r-rate-ref', 'Référence ' + res.ux.marketLabel + ' · hors assurance');
       // Titre + texte reliability (client)
       setTxt('#r-reliability-title', res.ux.reliability.title);
       setTxt('#r-reliability-text', res.ux.reliability.text);
@@ -466,6 +467,17 @@
         leadForm.hidden = true;
       }).catch(function () { if (msg) ui.setState(msg, 'error', 'Vérifiez votre email et votre téléphone.'); });
     });
+
+    /* Accordéon « Comment avons-nous calculé cette estimation ? » (button + aria) */
+    var accBtn = root.querySelector('#acc-btn');
+    var accPanel = root.querySelector('#acc-panel');
+    if (accBtn && accPanel) {
+      accBtn.addEventListener('click', function () {
+        var open = accBtn.getAttribute('aria-expanded') === 'true';
+        accBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
+        accPanel.hidden = open;
+      });
+    }
 
     syncConditionals();
     showStep(1);
