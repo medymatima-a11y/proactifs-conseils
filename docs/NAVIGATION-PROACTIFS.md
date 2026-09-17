@@ -704,3 +704,12 @@ Correctif **mobile minimal** sur la landing spéciale `Lead magnets/blog-per-vs-
 **Hors périmètre (documenté, non corrigé)** : léger débordement horizontal à **320 px** (élément de contenu de la landing plus large que le viewport) — pré-existant, non lié aux 3 anomalies, non signalé par le checker. À traiter éventuellement lors de l'arbitrage Crédit V2 de cette page.
 
 **Statut** : landing PER conforme mobile, toujours exception LANDING_SPECIAL (header central non appliqué).
+
+## NAV-UX-0 — Audit breadcrumbs & navigation parente (17/09/2026)
+
+Audit en lecture seule des 49 pages centralisées. Voir `docs/NAV-UX-0-AUDIT.md`.
+- 47 breadcrumbs visibles, 2 `BreadcrumbList` JSON-LD, 0 `history.back`.
+- Classes : A=2, B=40, C=0, D=5, E=2, F=0.
+- Breadcrumb = contenu de page (HTML + CSS dupliqués), hors header centralisé.
+- Cible : généraliser le JSON-LD, réparer les 5 incohérences, imbriquer l'univers Immobilier sous `/immobilier` — destinations réelles uniquement (pas de /patrimoine ni /ressources).
+- NAV-UX-1 non démarré.
