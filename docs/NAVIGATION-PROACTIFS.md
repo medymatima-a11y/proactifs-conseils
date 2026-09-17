@@ -555,3 +555,72 @@ Répartition : A ×8, C ×4 (aucune variante B ni E dans ce lot).
 L'ensemble du blog est migré vers le header centralisé : **`blog/index.html` + les 25 articles = 26 pages** (4D-1 : index ; 4D-2 : 13 articles ; 4D-3 : 12 articles). Univers **Ressources** actif desktop, CTA « Prendre rendez-vous » → `/bilan-patrimonial`, thème site-patrimoine. Aucune régression `check-mobile-nav` (seule reste `Lead magnets/blog-per-vs-assurance-vie-2026.html`, exclue). Aucune modification SEO/contenu/URL.
 
 **Hors périmètre (non traités, volontairement) :** `declaration-rsu-espp-france.html` (À STATUER), le lead magnet exclu, l'écosystème prêt, les pages de capture/merci, et la phase NAV-UX (breadcrumbs / navigation retour) — à cadrer séparément.
+
+---
+
+## MENU-4E — AUDIT GLOBAL DE COUVERTURE (16/09/2026)
+
+> **Phase diagnostique uniquement.** Aucune page modifiée, aucune migration, `nav-pages.json` inchangé. Audit de couverture avant NAV-UX / production.
+
+### Décompte global
+
+- **63 fichiers `.html`** dans le dépôt.
+- **5 fichiers techniques / source** (exclus) : `succession-colombes.local.bak.html` (sauvegarde), `Lead magnets/apercu-guide-complet.html`, `Lead magnets/apercu-guide-nouveau-design.html`, `Lead magnets/apercu-images.html` (aperçus), `partials/header.html` (gabarit source du header — normal qu'il contienne `<nav id="nav">` sans `NAV:CONFIG`).
+- **58 pages LIVE** restantes.
+
+| État | Nb | Détail |
+|---|---|---|
+| **HEADER CENTRALISÉ** | 48 | = exactement le manifeste (cohérent) |
+| **ANCIEN HEADER** | 4 | declaration-rsu-espp-france · Lead magnets/blog-per-vs-assurance-vie-2026 · pret-immobilier-index · simulation-pret-immobilier |
+| **SANS HEADER (intentionnel)** | 6 | 404 · merci-avis · merci-guide · guide-5-erreurs-patrimoniaux (capture, nav légère) · Audits SEO/rapport-audit-site-2026-06-10 (interne) · brevo-architecture-contacts (interne) |
+| **À STATUER** | 4 | = les 4 pages en ancien header ci-dessus |
+
+### Pages encore en ANCIEN header (tableau F)
+
+| URL | Fichier | Univers logique | CTA actuel | Reco |
+|---|---|---|---|---|
+| /declaration-rsu-espp-france | `declaration-rsu-espp-france.html` | Patrimoine (fiscalité RSU) | Prendre rendez-vous | **MIGRER** (Patrimoine) — arbitrage |
+| /blog/per-vs-assurance-vie-2026 (lead magnet) | `Lead magnets/blog-per-vs-assurance-vie-2026.html` | Lead magnet / landing | Bilan sur-mesure | **À STATUER** (corriger / exclure / retirer) |
+| /pret-immobilier-index | `pret-immobilier-index.html` | Immobilier / financement | Prendre rendez-vous | **À STATUER** (Immobilier vs écosystème) |
+| /simulation-pret-immobilier | `simulation-pret-immobilier.html` | Simulateurs / financement | Prendre rendez-vous | **À STATUER** (Simulateurs vs écosystème) |
+
+Aucune page oubliée des lots 4A/4B/4C/4D : les seules pages en ancien header sont ces 4, toutes déjà connues et volontairement hors périmètre jusqu'ici.
+
+### Pages sans header (tableau G)
+
+`404.html` (page erreur), `merci-avis.html` / `merci-guide.html` (pages de remerciement post-formulaire), `guide-5-erreurs-patrimoniaux.html` (landing de capture, nav légère), `Audits SEO/rapport-audit-site-2026-06-10.html` + `brevo-architecture-contacts.html` (documents internes non publics). Sans header par nature — aucune action.
+
+### Vérification du header centralisé
+
+Les 48 pages centralisées ont toutes `NAV:CONFIG` + `NAV:START/END`, un `<link>` cohérent (immobilier = `navigation-immobilier.css` corail pour les 7 pages univers Immobilier ; `navigation.css` or pour les 41 autres) et un thème cohérent. **Aucune incohérence** fichier/manifeste/univers/CTA/thème détectée.
+
+### Cohérence `nav-pages.json`
+
+48 entrées, 48 uniques, **0 doublon**, **0 fichier inexistant**, **0 page centralisée absente du manifeste**, 48 pages centralisées trouvées = 48 entrées. Manifeste parfaitement cohérent.
+
+### Pages à arbitrer (détail)
+
+**A. `declaration-rsu-espp-france.html`** — page SEO autonome « Déclaration RSU, ESPP & Stock-Options France | CGP Colombes 92 », H1 « Déclaration RSU, ESPP et stock-options en France », **canonical auto** (indexée pour elle-même), lie déjà vers `/fiscalite-rsu-stock-options`. Univers logique : **Patrimoine** (angle « déclaration » complémentaire de la page service `/fiscalite-rsu-stock-options` et des articles RSU). Page réelle et indexée → **intérêt de la conserver**, recommandation **MIGRER en Patrimoine** (comme les autres pages fiscalité).
+
+**B. `Lead magnets/blog-per-vs-assurance-vie-2026.html`** — **canonical → `/blog/per-vs-assurance-vie-2026`** (l'article de blog) : c'est un **doublon de capture** de l'article, consolidé SEO vers lui. Contient un formulaire (Tally/Brevo), CTA spécifique « Bilan sur-mesure ». Non lié en interne (atteinte via pub/email). 3 anomalies mobiles (déjà documentées). Recommandation : **À STATUER** — soit corriger son header séparément, soit la retirer/rediriger à terme (redondante avec l'article, déjà canonicalisée vers lui). Pas prioritaire.
+
+**C. `pret-immobilier-index.html`** (« Courtier en Prêt Immobilier Colombes 92 ») et **`simulation-pret-immobilier.html`** (« Simulation Prêt Immobilier ») — pages du **domaine principal** (pas de sous-domaine), ancien header, liées au menu principal mais **non liées DEPUIS le header central**. Univers logique : `pret-immobilier-index` → **Immobilier / financement** (recouvre partiellement « Financement / Courtage » = `/courtage-credit-immobilier`) ; `simulation-pret-immobilier` → **Simulateurs**. Recommandation : **À STATUER** — décider migration (univers Immobilier corail / Simulateurs) vs écosystème indépendant. Candidates pour un futur lot dédié, pas une exclusion définitive.
+
+### Orphelines / pages non liées
+
+Non référencées en interne : **`pret-immobilier-index.html`** et **`Lead magnets/blog-per-vs-assurance-vie-2026.html`** (landing pub/email). `merci-avis` / `merci-guide` = post-formulaire (normal). `index.html` et `blog/index.html` sont liés via `/` et `/blog` (non orphelines). Aucune décision SEO prise — cas signalés seulement.
+
+### Tests
+
+`build-header.js --check` → exit 0 (48 pages à jour, idempotent). `check-mobile-nav.js` → **1 seule** page signalée : `Lead magnets/blog-per-vs-assurance-vie-2026.html` (exclue). Toutes les pages du site public sont conformes.
+
+### Décisions nécessaires avant NAV-UX
+
+1. **declaration-rsu-espp-france** : migrer en Patrimoine (recommandé) ou laisser hors périmètre ?
+2. **pret-immobilier-index** : migrer (Immobilier corail) ou écosystème indépendant ?
+3. **simulation-pret-immobilier** : migrer (Simulateurs, thème or) ou écosystème indépendant ?
+4. **Lead magnet PER** : corriger son header, exclure définitivement, ou rediriger/retirer (doublon canonicalisé) ?
+
+Aucune de ces pages n'est bloquante pour NAV-UX ; ce sont les seuls arbitrages de couverture restants.
+
+**STOP.** Audit figé. Aucune modification.
