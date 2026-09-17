@@ -87,9 +87,6 @@
     html { scroll-behavior:smooth; }
     body { font-family:'DM Sans',sans-serif; color:var(--ink); background:var(--white); line-height:1.6; }
 
-    .breadcrumb { background:var(--sand); padding:12px 40px; font-size:13px; color:var(--slate); margin-top:72px; }
-    .breadcrumb a { color:var(--teal); text-decoration:none; }
-    .breadcrumb a:hover { color:var(--gold); }
 
     .article-hero { background:linear-gradient(135deg, #0D1A10 0%, var(--forest) 60%, #1E3D2A 100%); padding:80px 40px 100px; color:var(--white); position:relative; overflow:hidden; }
     .article-hero::after { content:''; position:absolute; bottom:-1px; left:0; right:0; height:60px; background:var(--white); clip-path:ellipse(55% 100% at 50% 100%); }
@@ -255,6 +252,20 @@
     ]);
 </script>
   <link rel="stylesheet" href="/assets/css/navigation.css">
+  <link rel="stylesheet" href="/assets/css/breadcrumb.css">
+  <!-- BREADCRUMB_JSONLD:START -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://proactifsconseils.fr/"},
+      {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://proactifsconseils.fr/blog"},
+      {"@type": "ListItem", "position": 3, "name": "LMNP en 2026", "item": "https://proactifsconseils.fr/blog/lmnp-2026"}
+    ]
+  }
+  </script>
+  <!-- BREADCRUMB_JSONLD:END -->
 </head>
 <body>
 
@@ -372,9 +383,17 @@
 </div>
 <!-- NAV:END -->
 
-<div class="breadcrumb">
-  <a href="/">Accueil</a> &rsaquo; <a href="/">Blog</a> &rsaquo; LMNP en 2026
-</div>
+<!-- BREADCRUMB:START -->
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <ol>
+      <li><a href="/">Accueil</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><span aria-current="page">LMNP en 2026</span></li>
+    </ol>
+  </nav>
+  <!-- BREADCRUMB:END -->
+
+
 
 <header class="article-hero">
   <div class="container">

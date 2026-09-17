@@ -1,0 +1,678 @@
+{
+  "_comment": "NAV-UX-1B (17/09/2026) — Source de vérité UNIQUE des breadcrumbs (fil d'Ariane + BreadcrumbList JSON-LD), générée par scripts/build-breadcrumbs.js. INDÉPENDANT du header. Couvre les 48 pages CENTRALIZED de nav-pages.json (index.html = accueil, sans breadcrumb, volontairement absent). 'trail' = ancêtres (Accueil en tête) ; 'label'/'url' = la page (crumb terminal). Toute URL de trail correspond à une page réelle de nav-pages.json.",
+  "domain": "https://proactifsconseils.fr",
+  "pages": [
+    {
+      "file": "immobilier.html",
+      "url": "/immobilier",
+      "label": "Immobilier",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        }
+      ]
+    },
+    {
+      "file": "immobilier/succession-colombes.html",
+      "url": "/immobilier/succession-colombes",
+      "label": "Succession Colombes",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Immobilier",
+          "url": "/immobilier"
+        }
+      ]
+    },
+    {
+      "file": "immobilier/estimation-colombes.html",
+      "url": "/immobilier/estimation-colombes",
+      "label": "Estimation immobilière Colombes",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Immobilier",
+          "url": "/immobilier"
+        }
+      ]
+    },
+    {
+      "file": "investissement-immobilier.html",
+      "url": "/investissement-immobilier",
+      "label": "Investissement immobilier",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Immobilier",
+          "url": "/immobilier"
+        }
+      ]
+    },
+    {
+      "file": "investissement-immobilier-ancien.html",
+      "url": "/investissement-immobilier-ancien",
+      "label": "Immobilier ancien",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Immobilier",
+          "url": "/immobilier"
+        }
+      ]
+    },
+    {
+      "file": "investissement-scpi-hauts-de-seine.html",
+      "url": "/investissement-scpi-hauts-de-seine",
+      "label": "Investissement SCPI",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Immobilier",
+          "url": "/immobilier"
+        }
+      ]
+    },
+    {
+      "file": "courtage-credit-immobilier.html",
+      "url": "/courtage-credit-immobilier",
+      "label": "Courtage crédit immobilier",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Immobilier",
+          "url": "/immobilier"
+        }
+      ]
+    },
+    {
+      "file": "optimisation-fiscale-ile-de-france.html",
+      "url": "/optimisation-fiscale-ile-de-france",
+      "label": "Optimisation fiscale",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        }
+      ]
+    },
+    {
+      "file": "bilan-patrimonial.html",
+      "url": "/bilan-patrimonial",
+      "label": "Bilan patrimonial",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        }
+      ]
+    },
+    {
+      "file": "declaration-impots-ile-de-france.html",
+      "url": "/declaration-impots-ile-de-france",
+      "label": "Déclaration d'impôts",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        }
+      ]
+    },
+    {
+      "file": "fiscalite-rsu-stock-options.html",
+      "url": "/fiscalite-rsu-stock-options",
+      "label": "Fiscalité RSU, stock-options & BSPCE",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        }
+      ]
+    },
+    {
+      "file": "placements-financiers.html",
+      "url": "/placements-financiers",
+      "label": "Placements financiers",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        }
+      ]
+    },
+    {
+      "file": "preparation-retraite.html",
+      "url": "/preparation-retraite",
+      "label": "Préparation retraite",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        }
+      ]
+    },
+    {
+      "file": "transmission.html",
+      "url": "/transmission",
+      "label": "Transmission & succession",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        }
+      ]
+    },
+    {
+      "file": "cession-entreprise.html",
+      "url": "/cession-entreprise",
+      "label": "Cession d'entreprise",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        }
+      ]
+    },
+    {
+      "file": "declaration-rsu-espp-france.html",
+      "url": "/declaration-rsu-espp-france",
+      "label": "Déclaration RSU, ESPP",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Fiscalité RSU, stock-options & BSPCE",
+          "url": "/fiscalite-rsu-stock-options"
+        }
+      ]
+    },
+    {
+      "file": "cabinet.html",
+      "url": "/cabinet",
+      "label": "Le cabinet",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        }
+      ]
+    },
+    {
+      "file": "conseiller-patrimoine-colombes.html",
+      "url": "/conseiller-patrimoine-colombes",
+      "label": "Conseiller patrimoine Colombes",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        }
+      ]
+    },
+    {
+      "file": "conseiller-patrimoine-asnieres.html",
+      "url": "/conseiller-patrimoine-asnieres",
+      "label": "Asnières-sur-Seine",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Conseiller patrimoine Colombes",
+          "url": "/conseiller-patrimoine-colombes"
+        }
+      ]
+    },
+    {
+      "file": "conseiller-patrimoine-courbevoie.html",
+      "url": "/conseiller-patrimoine-courbevoie",
+      "label": "Courbevoie",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Conseiller patrimoine Colombes",
+          "url": "/conseiller-patrimoine-colombes"
+        }
+      ]
+    },
+    {
+      "file": "conseiller-patrimoine-levallois.html",
+      "url": "/conseiller-patrimoine-levallois",
+      "label": "Levallois-Perret",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Conseiller patrimoine Colombes",
+          "url": "/conseiller-patrimoine-colombes"
+        }
+      ]
+    },
+    {
+      "file": "conseiller-patrimoine-nanterre.html",
+      "url": "/conseiller-patrimoine-nanterre",
+      "label": "Nanterre",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Conseiller patrimoine Colombes",
+          "url": "/conseiller-patrimoine-colombes"
+        }
+      ]
+    },
+    {
+      "file": "blog/index.html",
+      "url": "/blog",
+      "label": "Blog",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        }
+      ]
+    },
+    {
+      "file": "blog/actions-gratuites-aga-fiscalite-2026.html",
+      "url": "/blog/actions-gratuites-aga-fiscalite-2026",
+      "label": "Actions gratuites (AGA) : fiscalité 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/bspce-fiscalite-startup-2026.html",
+      "url": "/blog/bspce-fiscalite-startup-2026",
+      "label": "BSPCE : fiscalité startups 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/conseiller-patrimoine-ile-de-france.html",
+      "url": "/blog/conseiller-patrimoine-ile-de-france",
+      "label": "Conseiller patrimoine Île-de-France",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/declarer-rsu-formulaires-2026.html",
+      "url": "/blog/declarer-rsu-formulaires-2026",
+      "label": "Déclarer ses RSU : formulaires 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/donation-vivant-2026.html",
+      "url": "/blog/donation-vivant-2026",
+      "label": "Donation du vivant en 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/donation-vivant-vs-testament-strategie-transmission.html",
+      "url": "/blog/donation-vivant-vs-testament-strategie-transmission",
+      "label": "Donation vivant ou testament : que choisir ?",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/espp-fiscalite-france-2026.html",
+      "url": "/blog/espp-fiscalite-france-2026",
+      "label": "ESPP France : fiscalité 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026.html",
+      "url": "/blog/gestion-patrimoine-entreprise-dirigeants-strategies-2026",
+      "label": "Gestion de patrimoine dirigeants 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/gestion-patrimoine-entreprise-strategies-optimisation-fiscale-2026.html",
+      "url": "/blog/gestion-patrimoine-entreprise-strategies-optimisation-fiscale-2026",
+      "label": "Gestion de patrimoine entreprise : stratégies 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/immobilier-complement-retraite-lmnp-scpi-50-ans.html",
+      "url": "/blog/immobilier-complement-retraite-lmnp-scpi-50-ans",
+      "label": "LMNP ou SCPI pour la retraite à 50 ans",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/investir-immobilier-ancien-ile-de-france-avantages-fiscaux-2026.html",
+      "url": "/blog/investir-immobilier-ancien-ile-de-france-avantages-fiscaux-2026",
+      "label": "Immobilier ancien en Île-de-France",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/investir-rsu-patrimoine-2026.html",
+      "url": "/blog/investir-rsu-patrimoine-2026",
+      "label": "Investir ses RSU : 5 stratégies patrimoniales",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/lmnp-2026.html",
+      "url": "/blog/lmnp-2026",
+      "label": "LMNP en 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/modifier-clause-beneficiaire-assurance-vie-2026.html",
+      "url": "/blog/modifier-clause-beneficiaire-assurance-vie-2026",
+      "label": "Modifier la clause bénéficiaire de son assurance-vie",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/per-vs-assurance-vie-2026.html",
+      "url": "/blog/per-vs-assurance-vie-2026",
+      "label": "PER ou Assurance Vie en 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/preparer-retraite-2026-leviers-patrimoniaux-juin.html",
+      "url": "/blog/preparer-retraite-2026-leviers-patrimoniaux-juin",
+      "label": "Préparer sa retraite en 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/preparer-retraite-50-ans-leviers-patrimoniaux.html",
+      "url": "/blog/preparer-retraite-50-ans-leviers-patrimoniaux",
+      "label": "Préparer sa retraite à 50 ans : 5 leviers patrimoniaux",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/quand-vendre-rsu-strategie-2026.html",
+      "url": "/blog/quand-vendre-rsu-strategie-2026",
+      "label": "Quand vendre ses RSU",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/reduire-impots-2026.html",
+      "url": "/blog/reduire-impots-2026",
+      "label": "Réduire ses impôts en 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/rsu-expatriation-fiscalite-2026.html",
+      "url": "/blog/rsu-expatriation-fiscalite-2026",
+      "label": "RSU et expatriation : fiscalité internationale 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/rsu-imposition-france-2026.html",
+      "url": "/blog/rsu-imposition-france-2026",
+      "label": "RSU : imposition en France 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/rsu-pea-2026.html",
+      "url": "/blog/rsu-pea-2026",
+      "label": "RSU et PEA 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/sci-familiale-2026.html",
+      "url": "/blog/sci-familiale-2026",
+      "label": "SCI familiale 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/scpi-2026.html",
+      "url": "/blog/scpi-2026",
+      "label": "SCPI 2026 : rendements et comment bien choisir",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/stock-options-imposition-strategie-2026.html",
+      "url": "/blog/stock-options-imposition-strategie-2026",
+      "label": "Stock-options : imposition 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    }
+  ]
+}

@@ -332,6 +332,19 @@
     ]);
 </script>
   <link rel="stylesheet" href="/assets/css/navigation.css">
+  <link rel="stylesheet" href="/assets/css/breadcrumb.css">
+  <!-- BREADCRUMB_JSONLD:START -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://proactifsconseils.fr/"},
+      {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://proactifsconseils.fr/blog"}
+    ]
+  }
+  </script>
+  <!-- BREADCRUMB_JSONLD:END -->
 </head>
 <body>
 
@@ -449,6 +462,16 @@
   </div>
 </div>
 <!-- NAV:END -->
+
+<!-- BREADCRUMB:START -->
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <ol>
+      <li><a href="/">Accueil</a></li>
+      <li><span aria-current="page">Blog</span></li>
+    </ol>
+  </nav>
+  <!-- BREADCRUMB:END -->
+
 
 <!-- HERO -->
 <section class="blog-hero">

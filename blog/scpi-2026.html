@@ -104,9 +104,6 @@
     body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--white); line-height: 1.6; }
 
     /* ── BREADCRUMB ── */
-    .breadcrumb { background: var(--sand); padding: 12px 40px; font-size: 13px; color: var(--slate); margin-top: 72px; }
-    .breadcrumb a { color: var(--teal); text-decoration: none; transition: color 0.2s; }
-    .breadcrumb a:hover { color: var(--gold); }
 
     /* ── ARTICLE HERO ── */
     .article-hero {
@@ -421,6 +418,20 @@
     ]);
 </script>
   <link rel="stylesheet" href="/assets/css/navigation.css">
+  <link rel="stylesheet" href="/assets/css/breadcrumb.css">
+  <!-- BREADCRUMB_JSONLD:START -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://proactifsconseils.fr/"},
+      {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://proactifsconseils.fr/blog"},
+      {"@type": "ListItem", "position": 3, "name": "SCPI 2026 : rendements et comment bien choisir", "item": "https://proactifsconseils.fr/blog/scpi-2026"}
+    ]
+  }
+  </script>
+  <!-- BREADCRUMB_JSONLD:END -->
 </head>
 <body>
 
@@ -539,10 +550,18 @@
 </div>
 <!-- NAV:END -->
 
+<!-- BREADCRUMB:START -->
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <ol>
+      <li><a href="/">Accueil</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><span aria-current="page">SCPI 2026 : rendements et comment bien choisir</span></li>
+    </ol>
+  </nav>
+  <!-- BREADCRUMB:END -->
+
+
 <!-- ═══════════════ BREADCRUMB ═══════════════ -->
-<div class="breadcrumb">
-  <a href="/">Accueil</a> &rsaquo; <a href="/blog">Blog</a> &rsaquo; SCPI 2026 : rendements et comment bien choisir
-</div>
 
 <!-- ═══════════════ ARTICLE HERO ═══════════════ -->
 <header class="article-hero">

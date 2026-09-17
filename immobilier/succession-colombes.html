@@ -68,17 +68,6 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://proactifsconseils.fr/"},
-      {"@type": "ListItem", "position": 2, "name": "Immobilier", "item": "https://proactifsconseils.fr/immobilier"},
-      {"@type": "ListItem", "position": 3, "name": "Succession Colombes", "item": "https://proactifsconseils.fr/immobilier/succession-colombes"}
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {"@type": "Question", "name": "Peut-on vendre un bien avant la fin d'une succession ?",
@@ -137,9 +126,6 @@
        un bandeau fil d'Ariane clair suit la nav fixe sur cette page) ── */
     /* Navigation : voir /assets/css/navigation-immobilier.css (centralisé, MENU-1.5) */
 
-    .breadcrumb { background: var(--sand); padding: 12px 40px; font-size: 13px; color: var(--slate); margin-top: 72px; }
-    .breadcrumb a { color: var(--coral); text-decoration: none; transition: color 0.2s ease; }
-    .breadcrumb a:hover { color: var(--forest); }
 
     /* ── Hero — image panoramique plein cadre, texte superposé côté clair (maquette validée 14/09) ── */
     .svc-hero { background: var(--ivory); position: relative; overflow: hidden; }
@@ -335,7 +321,6 @@
       .hero-text h1 { font-size: 28px; }
     }
     @media (max-width: 600px) {
-      .breadcrumb { padding: 12px 20px; font-size: 12px; }
       .q-grid { grid-template-columns: 1fr; }
       .diag-row { grid-template-columns: 1fr 1fr; }
       .steps-row { grid-template-columns: 1fr; }
@@ -343,6 +328,20 @@
     }
   </style>
   <link rel="stylesheet" href="/assets/css/navigation-immobilier.css">
+  <link rel="stylesheet" href="/assets/css/breadcrumb.css">
+  <!-- BREADCRUMB_JSONLD:START -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://proactifsconseils.fr/"},
+      {"@type": "ListItem", "position": 2, "name": "Immobilier", "item": "https://proactifsconseils.fr/immobilier"},
+      {"@type": "ListItem", "position": 3, "name": "Succession Colombes", "item": "https://proactifsconseils.fr/immobilier/succession-colombes"}
+    ]
+  }
+  </script>
+  <!-- BREADCRUMB_JSONLD:END -->
 </head>
 <body>
   <!-- NAV:CONFIG {"theme":"immobilier","tokens":{"HOME_PREFIX":"/","IMMOBILIER_ACTIVE_DESKTOP":" aria-current=\"page\"","IMMOBILIER_ACTIVE_MOBILE":" aria-current=\"page\"","CTA_HREF":"#diagnostic","CTA_LABEL":"Diagnostic Succession 360","MOBILE_CTA_HREF":"#diagnostic","MOBILE_CTA_LABEL":"Diagnostic Succession 360"},"items":{"temoignages":false}} -->
@@ -459,7 +458,17 @@
 </div>
 <!-- NAV:END -->
 
-  <div class="breadcrumb"><a href="/">Accueil</a> › <a href="/immobilier">Immobilier</a> › Succession Colombes</div>
+<!-- BREADCRUMB:START -->
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <ol>
+      <li><a href="/">Accueil</a></li>
+      <li><a href="/immobilier">Immobilier</a></li>
+      <li><span aria-current="page">Succession Colombes</span></li>
+    </ol>
+  </nav>
+  <!-- BREADCRUMB:END -->
+
+
 
   <!-- ═══════════ HERO ═══════════ -->
   <section class="svc-hero" id="hero">

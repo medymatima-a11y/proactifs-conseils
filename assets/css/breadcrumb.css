@@ -1,0 +1,66 @@
+/* ==========================================================================
+   NAV-UX-1A — Fil d'Ariane centralisé (breadcrumb)
+   Source de vérité visuelle UNIQUE. Reproduit à l'identique l'ancien style
+   inline .breadcrumb (fond sable, position sous header 72px, typo, responsive)
+   et ajoute le reset de liste pour le nouveau balisage accessible <nav><ol>.
+   Indépendant du header : ne modifie pas navigation.css / navigation-immobilier.css.
+   Variables réutilisées depuis le :root de chaque page (avec valeurs de repli).
+   ========================================================================== */
+
+.breadcrumb {
+  background: var(--sand, #F3F1EB);
+  padding: 12px 40px;
+  font-size: 13px;
+  color: var(--slate, #6B7280);
+  margin-top: 72px;               /* dégage le header fixe (72px) */
+}
+
+.breadcrumb ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;                /* conserve le WRAP naturel (pas de nowrap/scroll) */
+  align-items: center;
+}
+
+.breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Séparateur › géré en CSS (pas dans le HTML) */
+.breadcrumb li + li::before {
+  content: "\203A";               /* › */
+  margin: 0 8px;
+  color: var(--slate, #6B7280);
+  flex: none;
+}
+
+.breadcrumb a {
+  color: var(--teal, #1E7A6E);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+  color: var(--gold, #C4973A);
+}
+
+.breadcrumb a:focus-visible {
+  outline: 2px solid var(--teal, #1E7A6E);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Crumb terminal (page courante) : non cliquable, couleur de texte */
+.breadcrumb [aria-current="page"] {
+  color: var(--slate, #6B7280);
+}
+
+@media (max-width: 600px) {
+  .breadcrumb {
+    padding: 12px 20px;
+    font-size: 12px;
+  }
+}

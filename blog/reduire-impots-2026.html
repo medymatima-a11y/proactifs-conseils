@@ -85,9 +85,6 @@
     body { font-family:'DM Sans',sans-serif; color:var(--ink); background:var(--white); line-height:1.6; }
 
     /* BREADCRUMB */
-    .breadcrumb { background:var(--sand); padding:12px 40px; font-size:13px; color:var(--slate); margin-top:72px; }
-    .breadcrumb a { color:var(--teal); text-decoration:none; }
-    .breadcrumb a:hover { color:var(--gold); }
 
     /* HERO */
     .article-hero { background:linear-gradient(135deg, #0D1F0D 0%, #1a3020 50%, var(--forest) 100%); padding:80px 40px 100px; color:var(--white); position:relative; overflow:hidden; }
@@ -245,6 +242,20 @@
     ]);
 </script>
   <link rel="stylesheet" href="/assets/css/navigation.css">
+  <link rel="stylesheet" href="/assets/css/breadcrumb.css">
+  <!-- BREADCRUMB_JSONLD:START -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://proactifsconseils.fr/"},
+      {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://proactifsconseils.fr/blog"},
+      {"@type": "ListItem", "position": 3, "name": "Réduire ses impôts en 2026", "item": "https://proactifsconseils.fr/blog/reduire-impots-2026"}
+    ]
+  }
+  </script>
+  <!-- BREADCRUMB_JSONLD:END -->
 </head>
 <body>
 
@@ -362,9 +373,17 @@
 </div>
 <!-- NAV:END -->
 
-<div class="breadcrumb">
-  <a href="/">Accueil</a> &rsaquo; <a href="/">Blog</a> &rsaquo; Réduire ses impôts en 2026
-</div>
+<!-- BREADCRUMB:START -->
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <ol>
+      <li><a href="/">Accueil</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><span aria-current="page">Réduire ses impôts en 2026</span></li>
+    </ol>
+  </nav>
+  <!-- BREADCRUMB:END -->
+
+
 
 <header class="article-hero">
   <div class="container">

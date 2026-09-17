@@ -33,26 +33,9 @@
     em { color:var(--gold); font-style:italic; }
 
     /* BREADCRUMB */
-    .breadcrumb-bar {
-      background:var(--sand);
-      padding:10px 80px;
-      border-bottom:1px solid var(--border);
-      margin-top:68px;
-    }
 
-    .breadcrumb-bar small {
-      font-size:12px;
-      color:var(--ink-soft);
-    }
 
-    .breadcrumb-bar a {
-      color:var(--ink);
-      transition:color .3s;
-    }
 
-    .breadcrumb-bar a:hover {
-      color:var(--gold);
-    }
 
     /* CONTAINER & SECTIONS */
     .container {
@@ -548,9 +531,6 @@
         padding:64px 40px;
       }
 
-      .breadcrumb-bar {
-        padding:10px 40px;
-      }
 
       .svc-hero {
         padding:80px 40px;
@@ -583,9 +563,6 @@
         padding:48px 20px;
       }
 
-      .breadcrumb-bar {
-        padding:10px 20px;
-      }
 
       .svc-hero {
         padding:60px 20px;
@@ -659,6 +636,20 @@
     ]);
 </script>
   <link rel="stylesheet" href="/assets/css/navigation.css">
+  <link rel="stylesheet" href="/assets/css/breadcrumb.css">
+  <!-- BREADCRUMB_JSONLD:START -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://proactifsconseils.fr/"},
+      {"@type": "ListItem", "position": 2, "name": "Conseiller patrimoine Colombes", "item": "https://proactifsconseils.fr/conseiller-patrimoine-colombes"},
+      {"@type": "ListItem", "position": 3, "name": "Courbevoie", "item": "https://proactifsconseils.fr/conseiller-patrimoine-courbevoie"}
+    ]
+  }
+  </script>
+  <!-- BREADCRUMB_JSONLD:END -->
 </head>
 <body>
 
@@ -777,12 +768,17 @@
 </div>
 <!-- NAV:END -->
 
-<!-- BREADCRUMB -->
-<div class="breadcrumb-bar">
-  <div class="container">
-    <small><a href="/">Accueil</a> › <a href="/conseiller-patrimoine-colombes">Conseiller Patrimoine</a> › <span>Courbevoie</span></small>
-  </div>
-</div>
+<!-- BREADCRUMB:START -->
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <ol>
+      <li><a href="/">Accueil</a></li>
+      <li><a href="/conseiller-patrimoine-colombes">Conseiller patrimoine Colombes</a></li>
+      <li><span aria-current="page">Courbevoie</span></li>
+    </ol>
+  </nav>
+  <!-- BREADCRUMB:END -->
+
+
 
 <!-- HERO -->
 <section class="svc-hero">

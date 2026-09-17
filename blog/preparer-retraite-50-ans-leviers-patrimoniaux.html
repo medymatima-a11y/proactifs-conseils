@@ -119,9 +119,6 @@
     body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--white); line-height: 1.6; }
 
     /* ── BREADCRUMB ── */
-    .breadcrumb { background: var(--sand); padding: 12px 40px; font-size: 13px; color: var(--slate); margin-top: 72px; }
-    .breadcrumb a { color: var(--teal); text-decoration: none; transition: color 0.2s; }
-    .breadcrumb a:hover { color: var(--gold); }
 
     /* ── ARTICLE HERO ── */
     .article-hero {
@@ -383,10 +380,23 @@
       .article-cta h2 { font-size: 28px; }
       footer { padding: 48px 24px 24px; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-      .breadcrumb { padding: 12px 24px; }
     }
   </style>
   <link rel="stylesheet" href="/assets/css/navigation.css">
+  <link rel="stylesheet" href="/assets/css/breadcrumb.css">
+  <!-- BREADCRUMB_JSONLD:START -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://proactifsconseils.fr/"},
+      {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://proactifsconseils.fr/blog"},
+      {"@type": "ListItem", "position": 3, "name": "Préparer sa retraite à 50 ans : 5 leviers patrimoniaux", "item": "https://proactifsconseils.fr/blog/preparer-retraite-50-ans-leviers-patrimoniaux"}
+    ]
+  }
+  </script>
+  <!-- BREADCRUMB_JSONLD:END -->
 </head>
 <body>
 
@@ -505,10 +515,18 @@
 </div>
 <!-- NAV:END -->
 
+<!-- BREADCRUMB:START -->
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <ol>
+      <li><a href="/">Accueil</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><span aria-current="page">Préparer sa retraite à 50 ans : 5 leviers patrimoniaux</span></li>
+    </ol>
+  </nav>
+  <!-- BREADCRUMB:END -->
+
+
 <!-- ═══════════════ BREADCRUMB ═══════════════ -->
-<div class="breadcrumb">
-  <a href="/">Accueil</a> &rsaquo; <a href="/blog">Blog</a> &rsaquo; Préparer sa retraite à 50 ans : 5 leviers patrimoniaux
-</div>
 
 <!-- ═══════════════ ARTICLE HERO ═══════════════ -->
 <header class="article-hero">

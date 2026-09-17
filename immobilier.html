@@ -118,9 +118,6 @@
     .text-link:hover { color: var(--forest); }
     .sec-forest .text-link { color: var(--coral-light); }
 
-    .breadcrumb { background: var(--sand); padding: 12px 40px; font-size: 13px; color: var(--slate); margin-top: 72px; }
-    .breadcrumb a { color: var(--coral); text-decoration: none; transition: color 0.2s ease; }
-    .breadcrumb a:hover { color: var(--coral-dark); }
 
     /* Hero — carrousel plein écran avec effet Ken Burns */
     .svc-hero { position: relative; overflow: hidden; color: var(--white); min-height: 92vh; display: flex; align-items: center; }
@@ -378,7 +375,6 @@
       .estim-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 600px) {
-      .breadcrumb { padding: 12px 20px; font-size: 12px; }
       .svc-hero { min-height: 74vh; }
       .svc-hero .container { padding: 60px 20px; }
       .svc-hero h1 { font-size: 28px; margin-bottom: 16px; }
@@ -390,6 +386,19 @@
     }
   </style>
   <link rel="stylesheet" href="/assets/css/navigation-immobilier.css">
+  <link rel="stylesheet" href="/assets/css/breadcrumb.css">
+  <!-- BREADCRUMB_JSONLD:START -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://proactifsconseils.fr/"},
+      {"@type": "ListItem", "position": 2, "name": "Immobilier", "item": "https://proactifsconseils.fr/immobilier"}
+    ]
+  }
+  </script>
+  <!-- BREADCRUMB_JSONLD:END -->
 </head>
 <body>
   <!-- NAV:CONFIG {"theme":"immobilier","tokens":{"HOME_PREFIX":"/","IMMOBILIER_ACTIVE_DESKTOP":" aria-current=\"page\"","IMMOBILIER_ACTIVE_MOBILE":" aria-current=\"page\"","CTA_HREF":"#estimation","CTA_LABEL":"Faire estimer mon bien","MOBILE_CTA_HREF":"/immobilier/estimation-colombes","MOBILE_CTA_LABEL":"Estimer mon bien"},"items":{"temoignages":true}} -->
@@ -506,7 +515,16 @@
 </div>
 <!-- NAV:END -->
 
-  <div class="breadcrumb"><a href="/">Accueil</a> › Immobilier</div>
+<!-- BREADCRUMB:START -->
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <ol>
+      <li><a href="/">Accueil</a></li>
+      <li><span aria-current="page">Immobilier</span></li>
+    </ol>
+  </nav>
+  <!-- BREADCRUMB:END -->
+
+
 
   <section class="svc-hero" id="hero">
     <img src="/images/immobilier/hero-facade.jpg" alt="" class="hero-slide active" id="heroSlide0">

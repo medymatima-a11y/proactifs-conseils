@@ -48,9 +48,6 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--white); line-height: 1.6; }
 
-    .breadcrumb { background: var(--sand); padding: 12px 40px; font-size: 13px; color: var(--slate); margin-top: 72px; }
-    .breadcrumb a { color: var(--teal); text-decoration: none; transition: color 0.2s ease; }
-    .breadcrumb a:hover { color: var(--gold); }
 
     .svc-hero { background: linear-gradient(135deg, #0a1f14 0%, var(--forest) 100%); padding: 80px 40px; position: relative; overflow: hidden; color: var(--white); }
     .svc-hero::before { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: url('/images/optimisation-fiscale.webp') center center / cover; opacity: 0.1; z-index: 0; }
@@ -221,7 +218,6 @@
       .sec-title { font-size: 32px; }
     }
     @media (max-width: 600px) {
-      .breadcrumb { padding: 12px 20px; font-size: 12px; }
       .svc-hero { padding: 60px 20px; margin-top: 64px; }
       .svc-hero h1 { font-size: 28px; margin-bottom: 16px; }
       .svc-hero > .container > p { font-size: 14px; margin-bottom: 40px; }
@@ -290,6 +286,20 @@
     ]);
 </script>
   <link rel="stylesheet" href="/assets/css/navigation.css">
+  <link rel="stylesheet" href="/assets/css/breadcrumb.css">
+  <!-- BREADCRUMB_JSONLD:START -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://proactifsconseils.fr/"},
+      {"@type": "ListItem", "position": 2, "name": "Fiscalité RSU, stock-options & BSPCE", "item": "https://proactifsconseils.fr/fiscalite-rsu-stock-options"},
+      {"@type": "ListItem", "position": 3, "name": "Déclaration RSU, ESPP", "item": "https://proactifsconseils.fr/declaration-rsu-espp-france"}
+    ]
+  }
+  </script>
+  <!-- BREADCRUMB_JSONLD:END -->
 </head>
 <body>
 
@@ -407,11 +417,17 @@
 </div>
 <!-- NAV:END -->
 
-<div class="breadcrumb">
-  <a href="/">Accueil</a> › <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
-  <a href="/declaration-impots-ile-de-france">Déclarer mes impôts</a>
-  <a href="/fiscalite-rsu-stock-options">Optimiser mes RSU</a> › Déclaration RSU, ESPP &amp; stock-options
-</div>
+<!-- BREADCRUMB:START -->
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <ol>
+      <li><a href="/">Accueil</a></li>
+      <li><a href="/fiscalite-rsu-stock-options">Fiscalité RSU, stock-options &amp; BSPCE</a></li>
+      <li><span aria-current="page">Déclaration RSU, ESPP</span></li>
+    </ol>
+  </nav>
+  <!-- BREADCRUMB:END -->
+
+
 
 <section class="svc-hero">
   <div class="container">

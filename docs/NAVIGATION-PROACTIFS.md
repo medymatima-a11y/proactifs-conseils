@@ -713,3 +713,15 @@ Audit en lecture seule des 49 pages centralisées. Voir `docs/NAV-UX-0-AUDIT.md`
 - Breadcrumb = contenu de page (HTML + CSS dupliqués), hors header centralisé.
 - Cible : généraliser le JSON-LD, réparer les 5 incohérences, imbriquer l'univers Immobilier sous `/immobilier` — destinations réelles uniquement (pas de /patrimoine ni /ressources).
 - NAV-UX-1 non démarré.
+
+## NAV-UX-1 — Breadcrumbs centralisés (17/09/2026)
+
+Système de fil d'Ariane généré, **indépendant du header**. Voir `docs/NAV-UX-1A-BREADCRUMBS.md` (moteur) et `docs/NAV-UX-1B-BREADCRUMBS.md` (généralisation).
+
+- **Source de vérité** : `scripts/breadcrumb-pages.json` (48 pages, index.html exclu).
+- **Générateur** : `scripts/build-breadcrumbs.js` → HTML visible `<nav aria-label="Fil d'Ariane"><ol>` (marqueurs `<!-- BREADCRUMB:START/END -->`) **+** `BreadcrumbList` JSON-LD en `<head>` (`<!-- BREADCRUMB_JSONLD:START/END -->`). `--check` valide couverture, cohérence visible↔JSON-LD, résidu legacy, BreadcrumbList unique, parents réels.
+- **CSS unique** : `assets/css/breadcrumb.css` (fond sable, 72px sous header, teal/slate, responsive, wrap naturel). CSS inline legacy `.breadcrumb`/`.breadcrumb-bar` supprimé.
+- **Hiérarchies** : Patrimoine `Accueil › Service` (pas de hub `/patrimoine`) ; Immobilier `Accueil › Immobilier › Page` ; Blog `Accueil › Blog › Article` ; Local `Accueil › Conseiller patrimoine Colombes › Ville`. Destinations réelles uniquement.
+- **Règle UX** : breadcrumb = navigation secondaire unique. Pas de bouton Retour, jamais `history.back()`.
+- **Accueil** (`/`) : sans breadcrumb.
+- Ne modifie jamais `NAV:START/END` ni le header.
