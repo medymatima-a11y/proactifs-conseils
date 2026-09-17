@@ -184,3 +184,5 @@ Justification du ré-ordonnancement : le socle (CS-1) et le hub Simulateurs (CS-
 ---
 
 **Audit figé.** 0 page/CSS/JS/header/manifeste/sitemap modifié. Attendre validation avant tout développement (CS-1).
+
+> **Suite :** validation avant développement dans `docs/CREDIT-SIMULATEURS-CS-0.5.md` (phase CS-0.5, 17/09/2026).
