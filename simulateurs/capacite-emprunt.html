@@ -203,7 +203,7 @@
 
 
 <style>
-  :root { --forest:#0F2E22; --teal:#006E64; --teal-dark:#005249; --gold:#D2B41E; --iv:#FCFBF7; --iv2:#F6F4EC; --slate:#5B6670; --line:#E7E3D6; }
+  :root { --forest:#0F2E22; --teal:#006E64; --teal-dark:#005249; --gold:#C4973A; --iv:#FCFBF7; --iv2:#F6F4EC; --slate:#5B6670; --line:#E7E3D6; }
   .cap-wrap { font-family:'Nunito Sans',system-ui,sans-serif; color:#1E2422; }
   .cap-wrap h1,.cap-wrap h2,.cap-wrap h3,.cap-wrap .serif { font-family:'Cormorant Garamond',Georgia,serif; color:var(--forest); }
   .wide { max-width:1080px; margin:0 auto; padding:0 24px; }
@@ -211,19 +211,27 @@
   .eyebrow { font-family:'Nunito Sans'; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--teal); font-weight:800; margin:0 0 6px; }
   /* Boutons .sim-cta hors .sim-root : rétablir la couleur de marque (les tokens --sim-* ne sont définis que dans .sim-root) */
   .cap-wrap .sim-cta { background:var(--gold); color:#241C06; }
-  .cap-wrap .sim-cta:hover { background:#E4C63A; }
+  .cap-wrap .sim-cta:hover { background:#B0862F; }
   .cap-wrap .sim-cta--ghost { background:transparent; color:var(--teal); border:1px solid var(--teal); }
   .cap-wrap .cta-conv .sim-cta { background:var(--gold); color:#241C06; }
-  .cap-wrap .cta-conv .sim-cta:hover { background:#E4C63A; }
+  .cap-wrap .cta-conv .sim-cta:hover { background:#B0862F; }
   .cap-wrap .sim-consent { font-size:13px; color:var(--slate); margin:10px 0 0; line-height:1.5; }
+  /* CS-4C.1 : CTA hero premium (bouton, jamais souligné) */
+  .cap-wrap .sim-cta, .cap-wrap .sim-cta:hover, .cap-wrap .sim-cta:focus, .cap-wrap .sim-cta:visited { text-decoration:none; }
+  .cap-wrap .hero-cta .sim-cta { padding:15px 34px; font-size:16px; letter-spacing:.2px; box-shadow:0 10px 24px -14px rgba(196,151,58,.6); }
+  /* CS-4C.1 : gold accent interne du wizard aligné sur l'or de marque */
+  .cap-wrap .sim-root { --sim-gold:#C4973A; }
+  /* CS-4C.1 : carte outil premium détachée du bandeau ivoire */
+  .cap-wrap #simulateur.sim-root { max-width:772px; margin:6px auto 0; }
+  .cap-wrap #simulateur .sim-container { background:#fff; border:1px solid var(--line); border-radius:20px; box-shadow:0 1px 2px rgba(16,46,34,.05), 0 20px 44px -26px rgba(16,46,34,.22); padding:30px 32px 34px; }
   /* HERO */
-  .cap-hero { text-align:center; max-width:780px; margin:0 auto; padding:30px 24px 4px; }
-  .cap-hero h1 { font-size:clamp(34px,5vw,46px); line-height:1.08; font-weight:600; margin:6px 0 10px; }
-  .cap-hero p.intro { font-size:17px; color:var(--slate); line-height:1.6; margin:0 auto 16px; max-width:620px; }
+  .cap-hero { text-align:center; max-width:860px; margin:0 auto; padding:44px 24px 22px; }
+  .cap-hero h1 { font-size:clamp(30px,4.4vw,44px); line-height:1.14; font-weight:600; margin:4px 0 12px; }
+  .cap-hero p.intro { font-size:16.5px; color:var(--slate); line-height:1.6; margin:0 auto 18px; max-width:680px; }
   .cap-hero .reassure { font-size:13px; color:var(--slate); margin:10px 0 0; }
   .cap-hero .reassure b { color:var(--forest); font-weight:700; }
   .cap-hero .reassure span { margin:0 5px; opacity:.5; }
-  .hero-cta { margin:6px 0 2px; }
+  .hero-cta { margin:12px 0 2px; text-align:center; }
   /* SECTIONS / RYTHME */
   .band { padding:34px 0; }
   .band--soft { background:var(--iv2); }
@@ -283,7 +291,7 @@
   .cta-conv h2 { color:#fff; font-size:clamp(26px,3.4vw,34px); margin:0 0 10px; }
   .cta-conv p { color:rgba(243,239,227,.85); max-width:560px; margin:0 auto 20px; line-height:1.6; font-size:16px; }
   .cta-conv .sim-cta { background:var(--gold); color:#241C06; font-weight:800; }
-  .cta-conv .sim-cta:hover { background:#E4C63A; }
+  .cta-conv .sim-cta:hover { background:#B0862F; }
   .cta-reassure { margin-top:16px; display:flex; gap:10px 22px; justify-content:center; flex-wrap:wrap; font-size:13px; color:rgba(243,239,227,.8); }
   .cta-reassure span::before { content:"— "; color:var(--gold); }
   /* FAQ */
@@ -320,14 +328,22 @@
   .footer-bottom { border-top:1px solid rgba(255,255,255,.12); margin-top:26px; padding-top:18px; text-align:center; font-size:12px; color:rgba(255,255,255,.55); }
   @media (max-width:960px){ .ex-cards{ grid-template-columns:1fr 1fr; } .method-grid{ grid-template-columns:1fr 1fr; } .footer-grid{ grid-template-columns:1fr 1fr; } }
   @media (max-width:600px){
-    .cap-hero { padding:22px 18px 2px; }
+    .band--hero { padding-top:8px; }
+    .cap-hero { padding:16px 18px 2px; }
+    .cap-hero p.intro { margin-bottom:12px; }
+    .hero-cta { margin:8px 0 2px; }
+    .cap-hero .reassure { margin-top:8px; }
     .wide { padding:0 16px; }
     .opt-grid { grid-template-columns:1fr; } .dur-grid { grid-template-columns:repeat(2,1fr); }
     .result-grid { grid-template-columns:1fr; } .wizard-nav .sim-cta { flex:1; }
+    .wizard-nav .sim-cta[data-action="next"]:only-of-type { flex:0 1 auto; width:72%; max-width:300px; margin-left:auto; }
     .ex-cards { grid-template-columns:1fr; } .method-grid { grid-template-columns:1fr; }
     .footer-grid { grid-template-columns:1fr; }
     .cta-conv { padding:30px 20px; border-radius:18px; }
-    .cap-wrap .hero-cta .sim-cta, .cap-wrap .cta-conv .sim-cta { display:block; width:auto; max-width:100%; box-sizing:border-box; text-align:center; }
+    .cap-wrap .hero-cta .sim-cta { display:inline-flex; width:auto; max-width:calc(100% - 8px); padding:14px 28px; }
+    .cap-wrap .cta-conv .sim-cta { display:block; width:auto; max-width:100%; box-sizing:border-box; text-align:center; }
+    .cap-wrap #simulateur.sim-root { padding:0 16px; }
+    .cap-wrap #simulateur .sim-container { border-radius:16px; padding:22px 18px 26px; }
   }
   .proto-debug { max-width:680px; margin:24px auto; padding:12px 16px; border:1px dashed #C9C4B0; border-radius:10px; background:#FAF8F0; font:12px/1.5 ui-monospace,Menlo,monospace; color:#5B6670; }
   .proto-debug h4 { margin:0 0 6px; font-family:'Nunito Sans'; font-size:12px; text-transform:uppercase; letter-spacing:1px; }
