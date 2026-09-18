@@ -1,0 +1,135 @@
+/* ==========================================================================
+   Proactifs Conseils — Simulateurs V2 — simulators.css
+   Primitives visuelles RÉUTILISABLES (préfixe .sim-). Sobre, premium,
+   responsive, accessible. NE refait PAS le design du site et ne s'applique
+   à AUCUNE page existante en CS-1. Couleurs de marque vérifiées :
+   Teal #006E64 + Mustard Gold #D2B41E sur blanc.
+   ========================================================================== */
+
+.sim-root {
+  --sim-teal: #006E64;
+  --sim-teal-dark: #005249;
+  --sim-gold: #D2B41E;
+  --sim-ink: #1A1A1A;
+  --sim-slate: #5B6670;
+  --sim-line: #E4E7E5;
+  --sim-bg: #FFFFFF;
+  --sim-bg-soft: #F6F8F7;
+  --sim-error: #B42318;
+  --sim-success: #067647;
+  --sim-radius: 14px;
+  --sim-gap: 20px;
+  color: var(--sim-ink);
+  font-family: 'Nunito Sans', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+}
+.sim-root *, .sim-root *::before, .sim-root *::after { box-sizing: inherit; }
+
+/* Conteneur */
+.sim-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 20px;
+  background: var(--sim-bg);
+}
+
+/* Progression */
+.sim-progress {
+  height: 6px;
+  background: var(--sim-line);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.sim-progress__bar {
+  height: 100%;
+  width: 0;
+  background: var(--sim-teal);
+  transition: width .3s ease;
+}
+
+/* Étape */
+.sim-step { animation: sim-fade .25s ease; }
+.sim-step[hidden] { display: none; }
+.sim-step__title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 22px;
+  line-height: 1.25;
+  margin: 0 0 6px;
+  color: var(--sim-ink);
+}
+.sim-step__hint { color: var(--sim-slate); font-size: 14px; margin: 0 0 18px; }
+
+/* Champs */
+.sim-field { margin-bottom: var(--sim-gap); }
+.sim-field__label { display: block; font-weight: 700; font-size: 14px; margin-bottom: 6px; }
+.sim-field__input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 16px;                 /* >=16px : évite le zoom iOS */
+  border: 1px solid var(--sim-line);
+  border-radius: 10px;
+  background: var(--sim-bg);
+  color: var(--sim-ink);
+}
+.sim-field__input:focus-visible {
+  outline: 2px solid var(--sim-teal);
+  outline-offset: 1px;
+  border-color: var(--sim-teal);
+}
+.sim-field__suffix { color: var(--sim-slate); font-size: 13px; margin-left: 6px; }
+
+/* CTA */
+.sim-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 26px;
+  font-size: 16px;
+  font-weight: 800;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  background: var(--sim-teal);
+  color: #fff;
+  transition: background .2s ease, transform .1s ease;
+}
+.sim-cta:hover { background: var(--sim-teal-dark); }
+.sim-cta:active { transform: translateY(1px); }
+.sim-cta:focus-visible { outline: 2px solid var(--sim-gold); outline-offset: 2px; }
+.sim-cta--ghost { background: transparent; color: var(--sim-teal); border: 1px solid var(--sim-teal); }
+
+/* Résultat */
+.sim-result {
+  background: var(--sim-bg-soft);
+  border: 1px solid var(--sim-line);
+  border-radius: var(--sim-radius);
+  padding: 24px;
+  text-align: center;
+}
+.sim-result__value {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 40px;
+  line-height: 1.1;
+  color: var(--sim-teal);
+  margin: 4px 0;
+}
+.sim-result__label { color: var(--sim-slate); font-size: 14px; text-transform: uppercase; letter-spacing: .5px; }
+.sim-result__note { color: var(--sim-slate); font-size: 12px; margin-top: 12px; }
+
+/* États */
+.sim-error { color: var(--sim-error) !important; border-color: var(--sim-error) !important; }
+.sim-success { color: var(--sim-success) !important; }
+.sim-msg { font-size: 13px; margin-top: 6px; min-height: 1em; }
+
+@keyframes sim-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .sim-step, .sim-progress__bar { animation: none; transition: none; } }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .sim-container { padding: 20px 16px; }
+  .sim-result__value { font-size: 32px; }
+  .sim-step__title { font-size: 20px; }
+}

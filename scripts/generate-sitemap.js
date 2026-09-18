@@ -82,11 +82,12 @@ function findHtmlFiles(dir, base = '') {
       if (entry.name === 'files') continue;
       if (entry.name === 'Audits SEO') continue;
       if (entry.name === 'Lead magnets') continue;
-      // Récursion dans /blog et /immobilier (pages nichées, ex. succession-colombes)
-      if (base === '' && entry.name !== 'blog' && entry.name !== 'immobilier') continue;
+      // Récursion dans /blog, /immobilier et /simulateurs (pages nichées)
+      if (base === '' && entry.name !== 'blog' && entry.name !== 'immobilier' && entry.name !== 'simulateurs') continue;
       results.push(...findHtmlFiles(path.join(dir, entry.name), rel));
     } else if (entry.isFile() && entry.name.endsWith('.html')) {
       if (EXCLUDE.has(rel)) continue;
+      if (/\.bak\.html$/.test(entry.name)) continue;   // fichiers de sauvegarde locaux (ex. *.local.bak.html)
       results.push(rel);
     }
   }

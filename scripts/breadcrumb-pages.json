@@ -673,6 +673,20 @@
           "url": "/blog"
         }
       ]
+    },
+    {
+      "file": "simulateurs/capacite-emprunt.html",
+      "url": "/simulateurs/capacite-emprunt",
+      "label": "Capacité d'emprunt",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Simulateurs"
+        }
+      ]
     }
   ]
 }
