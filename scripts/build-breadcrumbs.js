@@ -75,6 +75,9 @@ function renderHtml(page) {
     if (c.current) {
       return `      <li><span aria-current="page">${htmlEscape(c.label)}</span></li>`;
     }
+    if (!c.url) {
+      return `      <li><span>${htmlEscape(c.label)}</span></li>`;   // crumb non cliquable (hub inexistant)
+    }
     return `      <li><a href="${c.url}">${htmlEscape(c.label)}</a></li>`;
   }).join('\n');
   return [
@@ -92,7 +95,9 @@ function renderHtml(page) {
 function renderJsonLd(page, domain) {
   const crumbs = page.trail.concat([{ label: page.label, url: page.url }]);
   const items = crumbs.map((c, i) =>
-    `      {"@type": "ListItem", "position": ${i + 1}, "name": ${JSON.stringify(c.label)}, "item": "${absUrl(domain, c.url)}"}`
+    c.url
+      ? `      {"@type": "ListItem", "position": ${i + 1}, "name": ${JSON.stringify(c.label)}, "item": "${absUrl(domain, c.url)}"}`
+      : `      {"@type": "ListItem", "position": ${i + 1}, "name": ${JSON.stringify(c.label)}}`
   ).join(',\n');
   return [
     LD_START,
@@ -206,7 +211,8 @@ function main() {
     // validations config
     if (!page.url || !page.url.startsWith('/')) { fail(`${label}: url parent/self invalide`); continue; }
     for (const t of page.trail) {
-      if (!t.url || !t.url.startsWith('/')) { fail(`${label}: URL parent invalide "${t && t.url}"`); }
+      if (t.url === undefined || t.url === null) { continue; }   // crumb non cliquable (ex. hub Simulateurs inexistant) : autorisé
+      if (!t.url.startsWith('/')) { fail(`${label}: URL parent invalide "${t.url}"`); }
       else if (!real.has(t.url)) { fail(`${label}: parent inexistant "${t.url}" (absent de nav-pages.json)`); }
     }
 

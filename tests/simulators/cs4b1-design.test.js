@@ -63,10 +63,11 @@ test('Méthodologie : 4 blocs + signature Proactifs', () => {
   assert.ok(/Un simulateur Proactifs Conseils/.test(visible));
 });
 
-/* ---- Preview : noindex conservé + aucun réseau ------------------------ */
-test('Preview : noindex,nofollow conservé, aucun endpoint réseau', () => {
-  assert.ok(/<meta name="robots" content="noindex,nofollow">/.test(HTML));
-  assert.ok(!/api\/subscribe|supabase|brevo|systeme\.io|fetch\(/i.test(HTML));
+/* ---- Publication CS-4C : indexable + lead connecté sans secret tiers ---- */
+test('Publication : index,follow + lead connecté /api/subscribe, aucun secret tiers', () => {
+  assert.ok(/<meta name="robots" content="index, follow">/.test(HTML));
+  assert.ok(/\/api\/subscribe/.test(HTML));
+  assert.ok(!/supabase|brevo|systeme\.io/i.test(HTML));
 });
 
 /* ---- Pas de mini-header prototype ------------------------------------- */

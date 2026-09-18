@@ -91,7 +91,7 @@ test('Mock lead : transport local, aucun réseau', async () => {
   assert.ok(!/api\/subscribe|supabase|brevo|systeme\.io/i.test(HTML));
 });
 
-/* ---- noindex conservé ------------------------------------------------- */
-test('noindex,nofollow conservé', () => {
+/* ---- noindex conservé (prototype de dev, non publié) ------------------ */
+test('noindex,nofollow conservé (prototype)', () => {
   assert.ok(/<meta name="robots" content="noindex,nofollow">/.test(HTML));
 });

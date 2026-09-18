@@ -9,31 +9,17 @@
   <title>Simulateur Capacité d'Emprunt Immobilier | Proactifs</title>
   <meta name="description" content="Calculez votre capacité d'emprunt immobilier à partir de vos revenus, vos charges, votre apport et la durée. Estimation immédiate, gratuite et sans engagement.">
   <link rel="canonical" href="https://proactifsconseils.fr/simulateurs/capacite-emprunt">
-  <!-- CS-4B : page PREVIEW — non indexée, hors sitemap. CS-4C retirera le noindex. -->
-  <meta name="robots" content="noindex,nofollow">
+  <meta name="robots" content="index, follow">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Simulateur Capacité d'Emprunt Immobilier | Proactifs">
   <meta property="og:description" content="Calculez votre capacité d'emprunt immobilier à partir de vos revenus, vos charges, votre apport et la durée. Estimation immédiate, gratuite et sans engagement.">
   <meta property="og:url" content="https://proactifsconseils.fr/simulateurs/capacite-emprunt">
-  <!-- og:image : aucune ressource dédiée validée à ce jour — à fournir en CS-4C. -->
+  <meta property="og:image" content="https://proactifsconseils.fr/images/courtier-credit.webp">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Nunito+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/navigation.css">
   <link rel="stylesheet" href="/assets/css/breadcrumb.css">
   <link rel="stylesheet" href="/assets/css/simulators/simulators.css">
 
-  <!-- BREADCRUMB_JSONLD:START (hand-built CS-4B — "Simulateurs" sans URL car le hub n'existe pas encore) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://proactifsconseils.fr/"},
-      {"@type": "ListItem", "position": 2, "name": "Simulateurs"},
-      {"@type": "ListItem", "position": 3, "name": "Capacité d'emprunt", "item": "https://proactifsconseils.fr/simulateurs/capacite-emprunt"}
-    ]
-  }
-  </script>
-  <!-- BREADCRUMB_JSONLD:END -->
 
   <script type="application/ld+json">
   {
@@ -51,10 +37,48 @@
     ]
   }
   </script>
+  <!-- Analytics GA4 (convention site) + pont dataLayer -> gtag, événements sans PII -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P53RQGXJZX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P53RQGXJZX');
+    gtag('config', 'AW-835423035');
+    (function () {
+      var WL = ['simulation_started','simulation_completed','simulation_result','financing_cta_clicked','financing_lead_submitted'];
+      var dl = window.dataLayer, origPush = dl.push.bind(dl);
+      dl.push = function (item) {
+        var r = origPush(item);
+        try {
+          if (item && typeof item === 'object' && !Array.isArray(item) && typeof item.length !== 'number'
+              && item.event && WL.indexOf(item.event) !== -1 && typeof window.gtag === 'function') {
+            var params = {}; Object.keys(item).forEach(function (k) { if (k !== 'event') params[k] = item[k]; });
+            window.gtag('event', item.event, params);
+          }
+        } catch (e) {}
+        return r;
+      };
+    })();
+  </script>
+  <!-- BREADCRUMB_JSONLD:START -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://proactifsconseils.fr/"},
+      {"@type": "ListItem", "position": 2, "name": "Simulateurs"},
+      {"@type": "ListItem", "position": 3, "name": "Capacité d'emprunt", "item": "https://proactifsconseils.fr/simulateurs/capacite-emprunt"}
+    ]
+  }
+  </script>
+  <!-- BREADCRUMB_JSONLD:END -->
 </head>
 <body>
 
-<!-- Header centralisé Proactifs (identique à partials/header.html — jetons par défaut, sans état actif) -->
+<!-- NAV:CONFIG {"tokens":{"HOME_PREFIX":"/"}} -->
+<!-- NAV:START (bloc généré par scripts/build-header.js — ne pas éditer à la main, voir docs/NAVIGATION-PROACTIFS.md) -->
 <nav id="nav">
   <a href="/" class="nav-logo"><img src="/images/proactifs-logo.png" alt="Proactifs Conseils"></a>
   <ul class="nav-links">
@@ -118,6 +142,7 @@
   <a href="/bilan-patrimonial" class="nav-cta-btn">Prendre rendez-vous</a>
 </nav>
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <!-- Niveau 1 -->
   <div class="m-view m-view--root" data-view="root">
     <button class="m-item m-parent" type="button" data-submenu="patrimoine" aria-haspopup="true" aria-expanded="false" aria-controls="m-patrimoine">Patrimoine <span class="m-caret" aria-hidden="true">›</span></button>
     <button class="m-item m-parent" type="button" data-submenu="immobilier" aria-haspopup="true" aria-expanded="false" aria-controls="m-immobilier">Immobilier <span class="m-caret" aria-hidden="true">›</span></button>
@@ -126,6 +151,7 @@
     <button class="m-item m-parent" type="button" data-submenu="ressources" aria-haspopup="true" aria-expanded="false" aria-controls="m-ressources">Ressources <span class="m-caret" aria-hidden="true">›</span></button>
     <a class="m-cta" href="/bilan-patrimonial">Prendre rendez-vous</a>
   </div>
+  <!-- Niveau 2 : Patrimoine -->
   <div class="m-view m-view--sub" data-view="patrimoine" id="m-patrimoine" role="group" aria-label="Patrimoine">
     <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
     <p class="m-title">Patrimoine</p>
@@ -141,6 +167,7 @@
     <a class="m-item" href="/transmission">Transmission de patrimoine</a>
     <a class="m-item" href="/cession-entreprise">Cession d'entreprise</a>
   </div>
+  <!-- Niveau 2 : Immobilier -->
   <div class="m-view m-view--sub" data-view="immobilier" id="m-immobilier" role="group" aria-label="Immobilier">
     <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
     <p class="m-title">Immobilier</p>
@@ -155,21 +182,25 @@
     <a class="m-more" href="/immobilier">Découvrir Proactifs Immobilier →</a>
     <a class="m-cta" href="/immobilier/estimation-colombes">Estimer mon bien</a>
   </div>
+  <!-- Niveau 2 : Ressources -->
   <div class="m-view m-view--sub" data-view="ressources" id="m-ressources" role="group" aria-label="Ressources">
     <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
     <p class="m-title">Ressources</p>
     <a class="m-item" href="/blog">Blog</a>
   </div>
 </div>
+<!-- NAV:END -->
 
-<!-- Fil d'Ariane : Simulateurs non cliquable (hub inexistant) -->
-<nav class="breadcrumb" aria-label="Fil d'Ariane">
-  <ol>
-    <li><a href="/">Accueil</a></li>
-    <li><span>Simulateurs</span></li>
-    <li><span aria-current="page">Capacité d'emprunt</span></li>
-  </ol>
-</nav>
+<!-- BREADCRUMB:START -->
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <ol>
+      <li><a href="/">Accueil</a></li>
+      <li><span>Simulateurs</span></li>
+      <li><span aria-current="page">Capacité d'emprunt</span></li>
+    </ol>
+  </nav>
+  <!-- BREADCRUMB:END -->
+
 
 <style>
   :root { --forest:#0F2E22; --teal:#006E64; --teal-dark:#005249; --gold:#D2B41E; --iv:#FCFBF7; --iv2:#F6F4EC; --slate:#5B6670; --line:#E7E3D6; }
@@ -179,11 +210,12 @@
   .read { max-width:760px; margin:0 auto; }
   .eyebrow { font-family:'Nunito Sans'; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--teal); font-weight:800; margin:0 0 6px; }
   /* Boutons .sim-cta hors .sim-root : rétablir la couleur de marque (les tokens --sim-* ne sont définis que dans .sim-root) */
-  .cap-wrap .sim-cta { background:var(--teal); color:#fff; }
-  .cap-wrap .sim-cta:hover { background:var(--teal-dark); }
+  .cap-wrap .sim-cta { background:var(--gold); color:#241C06; }
+  .cap-wrap .sim-cta:hover { background:#E4C63A; }
   .cap-wrap .sim-cta--ghost { background:transparent; color:var(--teal); border:1px solid var(--teal); }
   .cap-wrap .cta-conv .sim-cta { background:var(--gold); color:#241C06; }
   .cap-wrap .cta-conv .sim-cta:hover { background:#E4C63A; }
+  .cap-wrap .sim-consent { font-size:13px; color:var(--slate); margin:10px 0 0; line-height:1.5; }
   /* HERO */
   .cap-hero { text-align:center; max-width:780px; margin:0 auto; padding:30px 24px 4px; }
   .cap-hero h1 { font-size:clamp(34px,5vw,46px); line-height:1.08; font-weight:600; margin:6px 0 10px; }
@@ -464,6 +496,7 @@
               <div class="freshness" id="r-freshness" hidden></div>
               <p class="sim-result__note">Simulation indicative, hors assurance et non contractuelle.</p>
             </div>
+            <div class="result-lead-cta" style="margin:20px 0 4px;text-align:center;"><button type="button" class="sim-cta" data-action="open-lead">Être recontacté par un conseiller</button></div>
             <div class="accordion">
               <button type="button" class="acc-btn" id="acc-btn" aria-expanded="false" aria-controls="acc-panel">
                 <span>Comment avons-nous calculé cette estimation&nbsp;?</span><span class="chev" aria-hidden="true">›</span>
@@ -484,6 +517,7 @@
             <div class="sim-field"><label class="sim-field__label" for="f-email">Email</label><input class="sim-field__input" id="f-email" type="email" autocomplete="email"></div>
             <div class="sim-field"><label class="sim-field__label" for="f-tel">Téléphone</label><input class="sim-field__input" id="f-tel" type="tel" autocomplete="tel"></div>
             <div class="sim-field"><label class="sim-field__label" for="f-projet-lead">Votre projet (facultatif)</label><input class="sim-field__input" id="f-projet-lead" autocomplete="off"></div>
+            <p class="sim-consent">En envoyant ce formulaire, vos coordonnées sont transmises à Proactifs Conseils pour être recontacté au sujet de votre projet. Vos données restent strictement confidentielles et ne sont jamais revendues.</p>
             <button type="submit" class="sim-cta">Envoyer ma demande</button>
           </form>
           <div id="sim-lead-msg" class="sim-msg" role="status" aria-live="polite"></div>
@@ -657,7 +691,19 @@
 <script>
   (function () {
     if (!window.PrototypeCapacity) return;
-    window.PrototypeCapacity.init();
+    window.PrototypeCapacity.init({
+      leadTransport: function (payload) {
+        return fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(function (res) {
+          if (!res.ok) throw new Error('subscribe ' + res.status);
+          return res.json().catch(function () { return { ok: true }; });
+        });
+      },
+      leadSuccessMessage: 'Merci, votre demande a bien été envoyée. Nous vous recontactons rapidement.'
+    });
 
     // Cas pratiques : revenu nécessaire calculé dynamiquement via le moteur unique.
     var PC = window.PrototypeCapacity, UI = window.SimUI;

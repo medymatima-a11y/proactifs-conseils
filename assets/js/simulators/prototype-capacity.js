@@ -482,10 +482,14 @@
       var pre = root.querySelector('#f-projet-lead'); if (pre) pre.value = state.data.projet || '';
     });
 
-    /* Soumission lead — MOCK uniquement */
+    /* Soumission lead — transport injecté (réel en prod) ou mock par défaut */
+    var leadTransport = (typeof opts.leadTransport === 'function') ? opts.leadTransport : mockTransport;
+    var leadSuccessMsg = opts.leadSuccessMessage
+      || 'Prototype — aucune donnée envoyée. Votre demande test a bien été enregistrée localement.';
     var leadForm = root.querySelector('#sim-lead-form');
     if (leadForm) leadForm.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (leadForm.getAttribute('data-submitting') === '1') return;   // anti double-submit
       var payload = lead.buildLeadPayload({
         prenom: (root.querySelector('#f-prenom') || {}).value || '',
         email: (root.querySelector('#f-email') || {}).value || '',
@@ -494,11 +498,19 @@
         answers: [{ projet: state.data.projet }]
       });
       var msg = root.querySelector('#sim-lead-msg');
-      lead.submitLead(payload, mockTransport).then(function () {
+      var submitBtn = leadForm.querySelector('[type="submit"]');
+      leadForm.setAttribute('data-submitting', '1');
+      if (submitBtn) submitBtn.disabled = true;
+      if (msg) ui.setState(msg, 'idle', '');
+      lead.submitLead(payload, leadTransport).then(function () {
         emit('financing_lead_submitted', { bucket: budgetBucket(state.result && state.result.budget) });
-        if (msg) ui.setState(msg, 'success', 'Prototype — aucune donnée envoyée. Votre demande test a bien été enregistrée localement.');
+        if (msg) ui.setState(msg, 'success', leadSuccessMsg);
         leadForm.hidden = true;
-      }).catch(function () { if (msg) ui.setState(msg, 'error', 'Vérifiez votre email et votre téléphone.'); });
+      }).catch(function () {
+        leadForm.setAttribute('data-submitting', '0');
+        if (submitBtn) submitBtn.disabled = false;
+        if (msg) ui.setState(msg, 'error', 'Une erreur est survenue. Vérifiez votre email et votre téléphone, puis réessayez.');
+      });
     });
 
     /* Accordéon « Comment avons-nous calculé cette estimation ? » (button + aria) */

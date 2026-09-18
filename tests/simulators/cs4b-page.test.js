@@ -43,11 +43,11 @@ test('SEO : exactement 1 H1', () => {
   assert.strictEqual(h1.length, 1);
   assert.ok(/Calculez votre capacité d'emprunt immobilier/.test(visible));
 });
-test('SEO : title, meta description, canonical, robots noindex', () => {
+test('SEO : title, meta description, canonical, robots index (publié CS-4C)', () => {
   assert.ok(/<title>Simulateur Capacité d'Emprunt Immobilier \| Proactifs<\/title>/.test(HTML));
   assert.ok(/<meta name="description" content="[^"]*capacité d'emprunt[^"]*">/.test(HTML));
   assert.ok(/<link rel="canonical" href="https:\/\/proactifsconseils\.fr\/simulateurs\/capacite-emprunt">/.test(HTML));
-  assert.ok(/<meta name="robots" content="noindex,nofollow">/.test(HTML));
+  assert.ok(/<meta name="robots" content="index, follow">/.test(HTML));
 });
 test('SEO : Open Graph présent (title/description/url/type)', () => {
   ['og:type', 'og:title', 'og:description', 'og:url'].forEach(p =>
@@ -105,8 +105,9 @@ test('SEO : pas de ciblage local dans Title / H1', () => {
 });
 
 /* ---- Simulateur : moteur chargé, mock lead (aucun réseau) ------------- */
-test('Page : scripts moteur + navigation chargés, aucun endpoint réseau', () => {
+test('Page : scripts moteur + navigation chargés, lead connecté /api/subscribe (CS-4C)', () => {
   ['core.js', 'rates.js', 'calc-credit.js', 'credit-policy.js', 'prototype-capacity.js', 'navigation.js']
     .forEach(s => assert.ok(HTML.indexOf('/assets/js/simulators/' + s) !== -1 || HTML.indexOf('/assets/js/' + s) !== -1, 'manque ' + s));
-  assert.ok(!/api\/subscribe|supabase|brevo|systeme\.io|fetch\(/i.test(HTML));
+  assert.ok(/\/api\/subscribe/.test(HTML), 'lead connecté au endpoint existant');
+  assert.ok(!/supabase|brevo|systeme\.io|SERVICE_KEY|apikey/i.test(HTML), 'aucun secret/endpoint tiers côté client');
 });
