@@ -58,3 +58,11 @@ Desktop 1440, mobile 390, mobile 320, état sélectionné + « Continuer ».
 ## Git
 Commit `CS-4C.1 : harmonisation visuelle hero simulateur` sur `credit-simulateurs-v2`.
 **PAS DE MERGE MAIN. PAS DE DÉPLOIEMENT PRODUCTION.** En attente de validation visuelle.
+
+---
+
+## Micro-corrections post-validation (mobile 320–430)
+Validation visuelle OK ; 2 ajustements mobiles uniquement (CSS `@media max-width:600px`, aucun autre changement) :
+1. **Respiration hero réduite ~12 %** via les espacements verticaux seulement (band-hero padding-top 18→8, cap-hero padding-top 22→16, intro margin-bottom 18→12, hero-cta margin 12→8, reassure margin-top 10→8) — H1 et textes inchangés → la carte simulateur apparaît plus tôt.
+2. **Bouton « Continuer » (étape unique)** limité à ~72 % de la largeur utile de la carte, aligné à droite, clairement secondaire par rapport au CTA hero. Desktop inchangé (position à droite). Rangées Retour+Continuer inchangées (50/50).
+Contrôles : 191/191 tests, header/breadcrumbs/mobile OK, 0 débordement 320/390, Continuer ≈ 72 % largeur utile.
