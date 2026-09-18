@@ -153,12 +153,13 @@ test('Lead : source simulateur_mensualite_credit, service credit, transport inje
   assert.ok(/opts\.leadTransport/.test(ADAPTER));
 });
 
-/* ---- R : preview noindex + pas de socle touché ------------------------ */
-test('Preview : noindex,nofollow + aucun POST réseau + charge prototype-mensualite', () => {
-  assert.ok(/<meta name="robots" content="noindex,nofollow">/.test(HTML));
+/* ---- R : publication CS-5D (index) + pas de socle touché --------------- */
+test('Publication : index,follow + canonical + charge prototype-mensualite', () => {
+  assert.ok(/<meta name="robots" content="index, follow">/.test(HTML));
+  assert.ok(/<link rel="canonical" href="https:\/\/proactifsconseils\.fr\/simulateurs\/mensualite-credit">/.test(HTML));
   assert.ok(/prototype-mensualite\.js/.test(HTML));
   assert.ok(!/PrototypeCapacity/.test(HTML));
-  assert.ok(!/fetch\('\/api\/subscribe'/.test(HTML) && !/fetch\("\/api\/subscribe"/.test(HTML));
+  assert.ok(!/noindex/.test(HTML), 'aucun noindex résiduel');
 });
 test('Marché : label mois dérivé de effectiveMonth (pas de date figée)', () => {
   assert.strictEqual(M.marketMonthLabel('2026-09'), 'septembre 2026');
@@ -200,4 +201,18 @@ test('CS-5B.1 : nowrap sur les montants (CSS + spans .nb comparateur)', () => {
 test('CS-5B.1 : aucune modification du moteur de calcul', () => {
   assert.ok(/SimCalcCredit|calculateMonthlyPayment/.test(ADAPTER));
   assert.ok(!/compareLoanDurations/.test(ADAPTER), 'pas de primitive ajoutée au socle');
+});
+
+/* ---- CS-5D.1 : branchement lead réel ---------------------------------- */
+test('CS-5D.1 : transport lead réel POST /api/subscribe (plus de mock)', () => {
+  assert.ok(/fetch\('\/api\/subscribe'/.test(HTML) || /fetch\("\/api\/subscribe"/.test(HTML), 'endpoint /api/subscribe présent');
+  assert.ok(/method:\s*'POST'/.test(HTML), 'méthode POST');
+  assert.ok(/'Content-Type':\s*'application\/json'/.test(HTML), 'header JSON');
+  assert.ok(!/mock/.test(HTML), 'aucune trace de transport mock dans la page');
+  assert.ok(/if \(!res\.ok\) throw/.test(HTML), 'gestion erreur conservée (throw sur !res.ok)');
+});
+test('CS-5D.1 : moteur/adaptateur lead intacts (buildLeadPayload + submitLead)', () => {
+  assert.ok(/lead\.buildLeadPayload/.test(ADAPTER), 'adaptateur utilise buildLeadPayload');
+  assert.ok(/lead\.submitLead\(payload, leadTransport\)/.test(ADAPTER), 'submitLead(payload, leadTransport) conservé');
+  assert.ok(/service: 'credit'/.test(ADAPTER) && /source: 'simulateur_mensualite_credit'/.test(ADAPTER), 'payload inchangé');
 });
