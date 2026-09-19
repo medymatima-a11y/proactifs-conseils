@@ -28,6 +28,31 @@ const EXCLUDE = new Set([
   'blog/blog-maquette-3-liste-minimaliste.html', // maquette de test, jamais publiée
 ]);
 
+// Sources de redirections PERMANENTES déclarées dans vercel.json.
+// Principe : une URL source redirigée de façon permanente (301/308) ne doit
+// JAMAIS figurer dans le sitemap, même si son fichier .html existe encore sur
+// disque. Solution générique : on lit vercel.json et on exclut toute source
+// littérale de redirection permanente (on ignore les patterns :path*/* et les
+// redirects conditionnels par host, comme www -> apex).
+function loadPermanentRedirectSources() {
+  const set = new Set();
+  try {
+    const vercel = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
+    for (const r of vercel.redirects || []) {
+      if (r.permanent !== true) continue;                  // uniquement permanentes
+      if (r.has) continue;                                 // ignorer les redirects conditionnels (host, etc.)
+      const src = r.source || '';
+      if (src.includes(':') || src.includes('*')) continue; // ignorer patterns/wildcards
+      let norm = src.startsWith('/') ? src : '/' + src;    // slash initial garanti
+      if (norm.length > 1) norm = norm.replace(/\/+$/, ''); // retirer slash final (hors racine)
+      set.add(norm);
+    }
+  } catch (e) {
+    // vercel.json absent/illisible : pas d'exclusion supplémentaire (dégradation gracieuse)
+  }
+  return set;
+}
+
 // Priorités par défaut selon le type de page
 function priorityFor(urlPath) {
   if (urlPath === '/') return '1.0';
@@ -96,7 +121,18 @@ function findHtmlFiles(dir, base = '') {
 
 function buildSitemap() {
   const files = findHtmlFiles('.').sort();
-  const urls = files.map((file) => {
+  // Exclure les fichiers dont l'URL est la source d'une redirection permanente (vercel.json).
+  const redirectSources = loadPermanentRedirectSources();
+  const kept = files.filter((file) => {
+    const urlPath = htmlToUrlPath(file);
+    const norm = urlPath.length > 1 ? urlPath.replace(/\/+$/, '') : urlPath;
+    return !redirectSources.has(norm);
+  });
+  const excludedByRedirect = files.length - kept.length;
+  if (excludedByRedirect > 0) {
+    console.log(`[sitemap] ${excludedByRedirect} URL(s) exclue(s) : source d'une redirection permanente (vercel.json)`);
+  }
+  const urls = kept.map((file) => {
     const urlPath = htmlToUrlPath(file);
     return {
       loc: `${SITE}${urlPath === '/' ? '' : urlPath}`,
@@ -132,4 +168,4 @@ if (require.main === module) {
   buildSitemap();
 }
 
-module.exports = { buildSitemap };
+module.exports = { buildSitemap, loadPermanentRedirectSources };
