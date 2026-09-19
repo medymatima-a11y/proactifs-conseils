@@ -701,6 +701,20 @@
           "label": "Simulateurs"
         }
       ]
+    },
+    {
+      "file": "simulateurs/taux-endettement.html",
+      "url": "/simulateurs/taux-endettement",
+      "label": "Taux d'endettement",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Simulateurs"
+        }
+      ]
     }
   ]
 }
