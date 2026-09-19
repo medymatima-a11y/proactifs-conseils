@@ -687,6 +687,20 @@
           "label": "Simulateurs"
         }
       ]
+    },
+    {
+      "file": "simulateurs/mensualite-credit.html",
+      "url": "/simulateurs/mensualite-credit",
+      "label": "Mensualité de crédit",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Simulateurs"
+        }
+      ]
     }
   ]
 }

@@ -45,10 +45,6 @@
       "destination": "/immobilier.html"
     },
     {
-      "source": "/simulation-pret-immobilier",
-      "destination": "/simulation-pret-immobilier.html"
-    },
-    {
       "source": "/declaration-impots-ile-de-france",
       "destination": "/declaration-impots-ile-de-france.html"
     },
@@ -207,6 +203,11 @@
         }
       ],
       "destination": "https://proactifsconseils.fr/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/simulation-pret-immobilier",
+      "destination": "/simulateurs/capacite-emprunt",
       "permanent": true
     },
     {
