@@ -890,6 +890,8 @@ footer {
   transition:all .2s;
 }
 .wiz-submit-btn:hover { background:#B8882E; }
+.wiz-submit-btn:disabled { opacity:.65; cursor:default; }
+.wiz-error { font-size:13px; color:#b3261e; background:#fdecea; border:1px solid #f5c6c0; border-radius:8px; padding:10px 12px; margin:0 0 12px; line-height:1.45; }
 
 /* Intro screen */
 .wiz-intro-body {
@@ -1364,7 +1366,7 @@ footer {
       <h3 class="wiz-intro-title" id="wizIntroTitle">Votre diagnostic personnalisé</h3>
       <p class="wiz-intro-desc" id="wizIntroDesc">Répondez à quelques questions rapides pour que nous puissions analyser votre situation et vous proposer les solutions les plus adaptées.</p>
       <div class="wiz-intro-points">
-        <div class="wiz-intro-point"><span class="wiz-intro-point-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2"/><path d="M9 2h6"/></svg></span><span>3 questions rapides — moins de 2 minutes</span></div>
+        <div class="wiz-intro-point"><span class="wiz-intro-point-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2"/><path d="M9 2h6"/></svg></span><span id="wizIntroCount">3 questions rapides — moins de 2 minutes</span></div>
         <div class="wiz-intro-point"><span class="wiz-intro-point-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><span>Vos données restent strictement confidentielles</span></div>
         <div class="wiz-intro-point"><span class="wiz-intro-point-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h3l2 5-2.5 1.5a12 12 0 0 0 6 6L16 15l5 2v3a2 2 0 0 1-2 2A17 17 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg></span><span>Un conseiller vous rappelle sous 24h</span></div>
       </div>
@@ -1405,6 +1407,7 @@ footer {
           </select>
         </div>
         <p class="wiz-gdpr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;color:var(--teal)"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Vos données sont confidentielles et ne seront jamais revendues. En soumettant ce formulaire, vous acceptez d'être contacté par Proactifs Conseils.</p>
+        <p class="wiz-error" id="wizError" style="display:none" role="alert" aria-live="assertive"></p>
         <button class="wiz-submit-btn" onclick="wizSubmit()">Envoyer ma demande →</button>
       </div>
     </div>
@@ -2119,6 +2122,15 @@ function openWizard(service) {
   const flow = flows[wizService];
   document.getElementById('wizBadgeName').textContent = flow.name;
 
+  // Nombre réel de questions/étapes du diagnostic (dynamique)
+  const nbSteps = flow.steps.length;
+  const countEl = document.getElementById('wizIntroCount');
+  if (countEl) {
+    countEl.textContent = (nbSteps <= 3)
+      ? nbSteps + ' questions rapides — moins de 2 minutes'
+      : nbSteps + ' étapes rapides — quelques minutes';
+  }
+
   document.getElementById('wizIntro').style.display = 'block';
   document.getElementById('wizQBody').style.display = 'none';
   document.getElementById('wizQFooter').style.display = 'none';
@@ -2170,8 +2182,7 @@ function renderWizStep() {
     ta.style.cssText = 'width:100%;min-height:120px;padding:12px 14px;border:1.5px solid #e0e4e8;border-radius:6px;font-size:14px;font-family:inherit;color:#1a2230;resize:vertical;outline:none;transition:border-color .2s;box-sizing:border-box;';
     ta.value = wizAnswers[wizStep] || '';
     ta.oninput = () => {
-      wizAnswers[wizStep] = ta.value;
-      document.getElementById('wizNext').classList.toggle('ready', ta.value.trim().length > 0);
+      wizAnswers[wizStep] = ta.value; // champ facultatif : on conserve la saisie, le bouton reste actif
     };
     ta.onfocus = () => ta.style.borderColor = 'var(--gold)';
     ta.onblur  = () => ta.style.borderColor = '#e0e4e8';
@@ -2192,7 +2203,7 @@ function renderWizStep() {
   const nextBtn = document.getElementById('wizNext');
   const step2 = flow.steps[wizStep];
   if (step2.type === 'textarea') {
-    nextBtn.classList.toggle('ready', !!(wizAnswers[wizStep] && wizAnswers[wizStep].trim().length > 0));
+    nextBtn.classList.add('ready'); // champ facultatif : toujours actionnable
   } else {
     nextBtn.classList.toggle('ready', wizAnswers[wizStep]!==undefined);
   }
@@ -2234,8 +2245,7 @@ function wizNext() {
   const currentStep = flows[wizService].steps[wizStep];
   if (currentStep && currentStep.type === 'textarea') {
     const ta = document.getElementById('wizTextarea');
-    if (!ta || !ta.value.trim()) { ta && ta.focus(); return; }
-    wizAnswers[wizStep] = ta.value.trim();
+    wizAnswers[wizStep] = ta ? ta.value.trim() : ''; // champ facultatif : le vide est autorisé, le contenu conservé
   } else if(wizAnswers[wizStep]===undefined) return;
   wizStep++;
   if(wizStep >= flows[wizService].steps.length) {
@@ -2277,6 +2287,8 @@ async function wizSubmit() {
   }
 
   const btn = document.querySelector('#wizContact .wiz-submit-btn');
+  const errEl = document.getElementById('wizError');
+  if (errEl) { errEl.style.display = 'none'; errEl.textContent = ''; }
   if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
 
   // Construire les réponses lisibles
@@ -2290,6 +2302,7 @@ async function wizSubmit() {
     return opt ? q + ' : ' + opt.l : null;
   }).filter(Boolean);
 
+  let ok = false;
   try {
     const _srcMap = {
       impots:       'Quiz Fiscalité',
@@ -2304,7 +2317,7 @@ async function wizSubmit() {
     };
     const reponses = {};
     answersLabels.forEach((a, i) => { reponses['q' + (i + 1)] = a; });
-    await fetch('https://ullnkylrixdvormohryl.supabase.co/rest/v1/leads', {
+    const res = await fetch('https://ullnkylrixdvormohryl.supabase.co/rest/v1/leads', {
       method: 'POST',
       headers: {
         'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbG5reWxyaXhkdm9ybW9ocnlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjUzNDgsImV4cCI6MjA5NDE0MTM0OH0.Fu5xc-VVA49qp1-WHgve8ZYpOB-QrciHzVeZx0GXmKk',
@@ -2322,11 +2335,24 @@ async function wizSubmit() {
         reponses,
       }),
     });
+    ok = res.ok;
   } catch(e) {
     console.warn('Subscribe error:', e);
+    ok = false;
   }
 
-  // ── Google Analytics / Ads conversion tracking ──
+  // ── Échec (réseau HS ou réponse Supabase non-OK) : ne jamais perdre un lead silencieusement ──
+  if (!ok) {
+    if (errEl) {
+      errEl.textContent = "Une erreur est survenue lors de l'envoi. Vos informations n'ont pas été transmises. Veuillez réessayer.";
+      errEl.style.display = 'block';
+    }
+    if (btn) { btn.disabled = false; btn.textContent = 'Réessayer'; }
+    return; // pas de conversion Google Ads, pas d'écran de remerciement — données conservées
+  }
+
+  // ── Succès Supabase confirmé uniquement ──
+  // Google Analytics / Ads conversion tracking
   // Le nom d'event matche la conversion "Formulaire" reliée à Google Ads
   // via GA4 (Objectifs → Conversions → action "Formulaire", source GA4).
   if (typeof gtag === 'function') {
