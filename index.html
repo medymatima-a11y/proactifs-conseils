@@ -28,7 +28,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-P53RQGXJZX"></script>
 <script>
@@ -38,7 +38,6 @@
   gtag('config', 'G-P53RQGXJZX');
   gtag('config', 'AW-835423035');
 </script>
-<!-- Chart.js : lazy-load via JS quand #simulateurs entre dans le viewport -->
 <style>
 /* ══════════════════════════════════════════════
    DESIGN SYSTEM
@@ -82,43 +81,51 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
    HERO
 ══════════════════════════════════════════════ */
 #hero {
-  min-height: 100vh;
+  min-height: 84vh;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 45% 55%;
   align-items: center;
   padding-top: 68px;
-  overflow: visible;
+  overflow: hidden;
+  position: relative;
 }
 .hero-left {
-  padding: 60px 48px 60px 80px;
+  padding: 44px 36px 44px 72px;
   display: flex; flex-direction: column; justify-content: center;
 }
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--teal-pale);
-  color: var(--teal);
-  padding: 6px 14px; border-radius: 100px;
-  font-size: 11.5px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
-  width: fit-content; margin-bottom: 28px;
+.hero-kicker {
+  font-size: 12px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--ink); margin-bottom: 18px;
   opacity:0; transform:translateY(16px); transition: opacity .6s .1s ease, transform .6s .1s ease;
 }
-.hero-badge::before { content:'●'; font-size:7px; }
+.hero-kicker::after {
+  content:''; display:block; width:48px; height:2px; margin-top:12px;
+  background: var(--gold); border-radius:2px;
+}
 .hero-h1 {
   font-family: 'Fraunces', serif;
-  font-size: clamp(40px,4.5vw,64px);
-  font-weight: 700; line-height: 1.08; letter-spacing: -.5px;
-  color: var(--ink); margin-bottom: 24px;
+  font-size: clamp(30px, calc(3.5vw - 8px), 60px);
+  font-weight: 700; line-height: 1.12; letter-spacing: -.5px;
+  color: var(--ink); margin-bottom: 20px;
   opacity:0; transform:translateY(16px); transition: opacity .7s .2s ease, transform .7s .2s ease;
 }
-.hero-h1 em { color: var(--gold); font-style: italic; }
-.hero-h1 span { color: var(--teal); font-style: normal; }
+.hero-h1 .t-teal { color: var(--teal); }
+.hero-h1 .t-gold { color: var(--gold); font-style: italic; }
 .hero-sub {
-  font-size: 17px; line-height: 1.7; color: var(--slate);
-  max-width: 460px; margin-bottom: 36px;
+  font-size: 16.5px; line-height: 1.65; color: var(--slate);
+  max-width: 480px; margin-bottom: 16px;
   opacity:0; transform:translateY(16px); transition: opacity .7s .3s ease, transform .7s .3s ease;
 }
+.hero-geo {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 13px; font-weight: 500; color: var(--ink-soft);
+  margin: 0 0 28px;
+  opacity:0; transform:translateY(16px); transition: opacity .7s .35s ease, transform .7s .35s ease;
+}
+.hero-geo svg { width: 15px; height: 15px; color: var(--gold); flex-shrink: 0; }
+.hero-geo .geo-mobile { display: none; }
 .hero-actions {
-  display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px;
+  display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 30px;
   opacity:0; transform:translateY(16px); transition: opacity .7s .4s ease, transform .7s .4s ease;
 }
 .btn-primary {
@@ -138,62 +145,50 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
   transition: all .2s;
 }
 .btn-secondary:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-pale); }
-.hero-stats {
-  display: flex; gap: 36px;
-  padding-top: 36px; border-top: 1px solid var(--border);
+/* 5 EXPERTISES */
+.hero-expertises {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  padding-top: 24px; border-top: 1px solid var(--border);
   opacity:0; transform:translateY(16px); transition: opacity .7s .5s ease, transform .7s .5s ease;
 }
-.hstat-num {
-  font-family: 'Fraunces', serif;
-  font-size: 32px; font-weight: 700; color: var(--ink); line-height:1;
-}
-.hstat-num span { color: var(--gold); }
-.hstat-label { font-size: 12px; color: var(--slate); margin-top: 4px; font-weight: 500; }
+.hexp { display:flex; flex-direction:column; gap:9px; padding: 0 14px; }
+.hexp:first-child { padding-left: 0; }
+.hexp + .hexp { border-left: 1px solid var(--border); }
+.hexp-icon { width:26px; height:26px; color: var(--gold); }
+.hexp-icon svg { width:100%; height:100%; display:block; }
+.hexp-title { font-size:12px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color: var(--ink); }
+.hexp-sub { font-size:12px; color: var(--slate); line-height:1.35; }
 
 .hero-right {
-  position: relative; height: 100vh;
+  position: relative; height: 100%; min-height: 84vh;
   overflow: hidden;
 }
 .hero-img {
-  width: 100%; height: 100%; object-fit: cover;
+  width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%;
   opacity:0; transform:scale(1.03); transition: opacity .9s .1s ease, transform .9s .1s ease;
 }
 .hero-img-overlay {
-  position:absolute; inset:0;
-  background: linear-gradient(90deg, var(--ivory) 0%, transparent 20%, transparent 100%);
+  position:absolute; inset:0; pointer-events:none;
+  background: linear-gradient(90deg, var(--ivory) 0%, rgba(250,250,247,.55) 12%, transparent 34%, transparent 100%);
 }
-.hero-card {
-  position: absolute; bottom: 48px; left: -24px;
-  background: var(--white); border-radius: var(--r-md);
-  padding: 20px 24px; box-shadow: var(--shadow-lg);
-  display: flex; align-items: center; gap: 16px;
-  max-width: 300px;
-  opacity:0; transform:translateY(16px); transition: opacity .7s .7s ease, transform .7s .7s ease;
+/* Signature manuscrite sur le ciel */
+.hero-signature {
+  position:absolute; top:8%; right:6%; left:auto; z-index:2; text-align:right;
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700; line-height: 1.08;
+  font-size: clamp(21px, 2.1vw, 34px);
+  color: #FFFFFF;
+  text-shadow: 0 2px 18px rgba(0,0,0,.55), 0 1px 4px rgba(0,0,0,.6);
+  max-width: 54%;
+  opacity:0; transform:translateY(16px); transition: opacity .8s .7s ease, transform .8s .7s ease;
 }
-.hero-card-icon {
-  width: 48px; height: 48px; border-radius: var(--r-sm);
-  background: var(--teal-pale); display:flex; align-items:center; justify-content:center;
-  flex-shrink:0;
-}
-.hero-card-icon svg { color: var(--teal); }
-.hero-card-text { font-size: 13px; font-weight: 600; color: var(--ink); }
-.hero-card-sub { font-size: 12px; color: var(--slate); margin-top: 2px; }
+.hero-signature .sig-gold { color: var(--gold); }
+.hero-signature .sig-underline { display:block; width:120px; height:2px; margin:8px 0 0 auto;
+  background: linear-gradient(90deg, transparent, var(--gold)); border-radius:2px; }
 
 /* ══════════════════════════════════════════════
    TRUST BAR
 ══════════════════════════════════════════════ */
-#trust {
-  background: var(--forest);
-  padding: 18px 48px;
-  display: flex; align-items: center; justify-content: center; gap: 48px;
-  flex-wrap: wrap;
-}
-.trust-item {
-  display: flex; align-items: center; gap: 10px;
-  color: rgba(255,255,255,.75); font-size: 13px; font-weight: 500;
-}
-.trust-item strong { color: var(--gold-light); font-family:'DM Mono',monospace; font-size:14px; }
-.trust-sep { width:1px; height:20px; background:rgba(255,255,255,.2); }
 
 /* ══════════════════════════════════════════════
    SECTION BASE
@@ -343,70 +338,34 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 }
 
 /* ══════════════════════════════════════════════
-   SIMULATEURS
+   SIMULATEURS V2 — cartes home vers /simulateurs
 ══════════════════════════════════════════════ */
-.sim-tabs {
-  display:flex; flex-wrap:wrap; gap:6px; background:var(--sand);
-  border-radius:var(--r-sm); padding:6px; width:fit-content;
-  margin: 40px 0 0;
-  border:1px solid var(--border);
+.simv2-intro { max-width:640px; margin:0 0 4px; color:var(--slate); font-size:16px; line-height:1.6; }
+.simv2-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:34px; }
+.simv2-card { display:flex; flex-direction:column; background:var(--white); border:1.5px solid var(--border); border-radius:var(--r-md); box-shadow:var(--shadow-sm); padding:26px 24px; text-decoration:none; color:inherit; transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.simv2-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-md,0 10px 26px rgba(15,46,34,.10)); border-color:rgba(196,151,58,.55); }
+.simv2-card:focus-visible { outline:3px solid var(--teal); outline-offset:3px; }
+.simv2-ico { width:42px; height:42px; border-radius:11px; background:var(--gold-pale); color:var(--gold); display:flex; align-items:center; justify-content:center; margin-bottom:16px; }
+.simv2-card h3 { font-family:'Fraunces',serif; font-size:19px; font-weight:600; color:var(--ink); margin:0 0 6px; line-height:1.2; }
+.simv2-q { font-size:13.5px; color:var(--slate); line-height:1.5; margin:0 0 20px; flex:1; }
+.simv2-cta { margin-top:auto; display:inline-flex; align-items:center; gap:6px; color:var(--teal); font-weight:700; font-size:13px; letter-spacing:.3px; }
+.simv2-card:hover .simv2-cta { color:var(--gold); }
+.simv2-actions { display:flex; justify-content:center; margin-top:30px; }
+.simv2-all { display:inline-flex; align-items:center; gap:8px; background:var(--teal); color:#fff; text-decoration:none; font-weight:600; font-size:15px; padding:13px 26px; border-radius:10px; transition:background .2s ease, transform .15s ease; }
+.simv2-all:hover { background:var(--teal-light); transform:translateY(-2px); }
+.simv2-more { margin-top:34px; text-align:center; }
+.simv2-more-label { font-size:12px; letter-spacing:1px; text-transform:uppercase; color:var(--slate); font-weight:700; margin:0 0 12px; font-family:'DM Mono',monospace; }
+.simv2-more-links { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
+.simv2-more-links a { display:inline-flex; align-items:center; gap:6px; background:var(--white); border:1px solid var(--border); border-radius:999px; padding:8px 16px; text-decoration:none; color:var(--ink); font-size:13.5px; transition:border-color .2s, color .2s; }
+.simv2-more-links a:hover { border-color:var(--gold); color:var(--teal); }
+@media(max-width:900px){
+  .simv2-grid { grid-template-columns:repeat(2,1fr); }
+  .simv2-grid > .simv2-card:last-child:nth-child(odd){ grid-column:1 / -1; justify-self:center; width:calc((100% - 20px) / 2); }
 }
-.sim-tab {
-  padding:11px 22px; border-radius:8px; font-size:13px; font-weight:500;
-  color:var(--slate); transition:all .25s ease;
-  background:transparent; border:1px solid transparent;
-  cursor:pointer; position:relative;
+@media(max-width:560px){
+  .simv2-grid { grid-template-columns:1fr; }
+  .simv2-grid > .simv2-card:last-child:nth-child(odd){ grid-column:auto; width:auto; }
 }
-.sim-tab svg { transition:color .25s ease; }
-.sim-tab:hover:not(.active) {
-  background:var(--teal-pale);
-  color:var(--teal);
-  transform:translateY(-1px);
-}
-.sim-tab:hover:not(.active) svg { color:var(--teal); }
-.sim-tab.active {
-  background:var(--teal); color:var(--white); font-weight:600;
-  box-shadow:0 4px 14px rgba(30, 122, 110, 0.30);
-  transform:translateY(-1px);
-}
-.sim-tab.active svg { color:var(--gold); }
-.sim-panels { margin-top:28px; }
-.sim-panel { display:none; }
-.sim-panel.active { display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start; }
-.sim-form, .sim-results {
-  background:var(--white); border:1px solid var(--border);
-  border-radius:var(--r-md); padding:32px;
-}
-.sim-form h3, .sim-results h3 {
-  font-family:'Fraunces',serif; color:var(--ink); font-size:19px; margin-bottom:22px;
-}
-.field { margin-bottom:18px; }
-.field label { display:block; font-size:11px; font-weight:600; color:var(--teal); letter-spacing:1px; text-transform:uppercase; margin-bottom:7px; font-family:'DM Mono',monospace; }
-.field input, .field select {
-  width:100%; background:var(--ivory); border:1.5px solid var(--border);
-  border-radius:var(--r-sm); padding:11px 13px; color:var(--ink);
-  font-size:14px; font-family:'DM Sans',sans-serif; outline:none; transition:border .2s;
-}
-.field input:focus, .field select:focus { border-color:var(--gold); }
-.range-row { display:flex; justify-content:space-between; margin-bottom:5px; }
-.range-val { color:var(--gold); font-weight:700; font-size:15px; font-family:'DM Mono',monospace; }
-input[type=range] { width:100%; -webkit-appearance:none; height:3px; background:var(--border); border-radius:2px; outline:none; }
-input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:18px; height:18px; background:var(--gold); border-radius:50%; cursor:pointer; box-shadow:0 2px 6px rgba(196,151,58,.4); }
-.sim-btn {
-  width:100%; padding:13px; background:var(--teal); color:var(--white);
-  border-radius:var(--r-sm); font-size:14px; font-weight:600;
-  margin-top:20px; transition:background .2s;
-}
-.sim-btn:hover { background:var(--teal-light); }
-.result-card {
-  background:var(--ivory); border-radius:var(--r-sm); padding:18px;
-  margin-bottom:12px; border-left:3px solid var(--gold);
-}
-.result-card .r-label { color:var(--slate); font-size:11px; letter-spacing:1px; text-transform:uppercase; margin-bottom:5px; font-family:'DM Mono',monospace; }
-.result-card .r-val { color:var(--ink); font-family:'Fraunces',serif; font-size:26px; font-weight:700; }
-.result-card .r-sub { color:var(--slate); font-size:12px; margin-top:2px; }
-.chart-wrap { margin-top:18px; position:relative; height:200px; }
-.result-note { color:var(--slate); font-size:11px; margin-top:14px; line-height:1.5; }
 
 /* ══════════════════════════════════════════════
    TÉMOIGNAGES
@@ -601,10 +560,18 @@ footer {
 }
 @media(max-width:900px) {
   #hero { grid-template-columns:1fr; min-height:auto; }
-  .hero-left { padding:100px 32px 40px; }
-  .hero-right { height:320px; }
-  .hero-card { display:none; }
-  .hero-img-overlay { background:linear-gradient(180deg, transparent 50%, var(--ivory) 100%); }
+  .hero-left { padding:84px 28px 30px; }
+  .hero-kicker { margin-bottom:14px; }
+  .hero-h1 { font-size: clamp(30px, 6.4vw, 44px); line-height:1.14; margin-bottom:14px; }
+  .hero-sub { line-height:1.55; margin-bottom:12px; }
+  .hero-geo { font-size:12.5px; margin-bottom:20px; }
+  .hero-actions { margin-bottom:26px; }
+  .hero-expertises { padding-top:22px; }
+  .hero-right { height:340px; min-height:0; }
+  .hero-img { object-position: 55% 46%; }
+  .hero-img-overlay { background:linear-gradient(180deg, transparent 55%, var(--ivory) 100%); }
+  .hero-signature { top:14px; right:auto; left:22px; text-align:left; font-size:clamp(17px,4.8vw,24px); max-width:78%; }
+  .hero-signature .sig-underline { margin:6px auto 0 0; }
   .sec { padding:64px 32px; }
   #priorities { padding:24px 32px 0; }
   #nav { padding:0 24px; }
@@ -616,19 +583,25 @@ footer {
   .process-step { border-right:none; border-bottom:1px solid rgba(255,255,255,.08); padding:28px 0; }
   .temo-grid { grid-template-columns:1fr; }
   .sim-panel.active { grid-template-columns:1fr; }
-  #trust { gap:24px; padding:16px 24px; }
-  .trust-sep { display:none; }
   #cta-band { padding:56px 32px; }
   footer { padding:48px 32px 28px; }
   .footer-grid { grid-template-columns:1fr; gap:32px; }
-  .hero-stats { gap:24px; }
 }
 @media(max-width:600px) {
   .services-grid { grid-template-columns:1fr; }
   .why-grid { grid-template-columns:1fr; }
   .form-row { grid-template-columns:1fr; }
   .hero-actions { flex-direction:column; }
-  .btn-primary,.btn-secondary { width:100%; justify-content:center; }
+  .btn-primary,.btn-secondary { width:100%; justify-content:center; padding:12px 22px; }
+  .hero-right { height:320px; }
+  .hero-geo .geo-desktop { display:none; }
+  .hero-geo .geo-mobile { display:inline; }
+  .hero-expertises { display:flex; flex-wrap:wrap; justify-content:center; gap:18px 0; padding-top:20px; }
+  .hexp, .hexp + .hexp { flex:0 0 33.33%; padding:0 6px; border-left:none; align-items:center; text-align:center; gap:7px; }
+  .hexp-icon { margin:0 auto; }
+  .hexp-title { font-size:11px; }
+  .hexp-sub { font-size:11px; }
+  .hero-signature { font-size:clamp(16px,5vw,21px); top:12px; left:18px; max-width:82%; }
 }
 
 /* ══════════════════════════════════════════════
@@ -638,6 +611,7 @@ footer {
   padding: 0;
   background: linear-gradient(160deg, var(--ivory) 0%, var(--sand) 100%);
   position: relative; overflow: hidden;
+  scroll-margin-top: 88px;
 }
 #lead-gen::before {
   content:'';
@@ -713,7 +687,8 @@ footer {
 
 /* Service selector cards */
 .lead-cards {
-  display: grid; grid-template-columns: repeat(3,1fr); gap:18px;
+  display: grid; grid-template-columns: repeat(3,1fr);
+  --lead-gap:18px; gap:var(--lead-gap);
 }
 
 /* ── Entrée en cascade ── */
@@ -754,22 +729,23 @@ footer {
 .lead-card:hover::after { right:0; }
 .lead-card:hover {
   background: var(--white);
-  border-color: rgba(196,151,58,.5);
-  transform: translateY(-8px) scale(1.04) rotate(-3deg);
-  box-shadow: var(--shadow-md), 0 0 0 1px rgba(196,151,58,.25);
+  border-color: rgba(196,151,58,.55);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md), 0 0 0 1px rgba(196,151,58,.18);
 }
 
 /* ── Icône animée au survol ── */
 .lead-card-icon {
   width:40px; height:40px; border-radius:10px;
-  background: var(--teal-pale);
+  background: var(--gold-pale);
+  color: var(--gold);
   display:flex; align-items:center; justify-content:center;
   flex-shrink:0;
-  transition: transform .3s cubic-bezier(.34,1.56,.64,1), background .25s;
+  transition: transform .25s ease, background .25s;
 }
 .lead-card:hover .lead-card-icon {
-  transform: scale(1.18) rotate(-6deg);
-  background: #D2E9E5;
+  transform: scale(1.06);
+  background: rgba(196,151,58,.16);
 }
 
 .lead-card-title {
@@ -780,10 +756,17 @@ footer {
   margin-top:auto; display:flex; align-items:center; gap:5px;
   font-size:11.5px; font-weight:600; color:var(--gold); letter-spacing:.5px;
   font-family:'DM Mono',monospace; text-transform:uppercase;
-  opacity:0; transition:opacity .2s, transform .2s;
-  transform: translateX(-4px);
+  opacity:.6; transition:opacity .2s, transform .2s;
+  transform: translateX(0);
 }
-.lead-card:hover .lead-card-arrow { opacity:1; transform: translateX(0); }
+.lead-card:hover .lead-card-arrow { opacity:1; transform: translateX(3px); }
+/* Focus clavier visible (accessibilité) */
+.lead-card:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-color: rgba(196,151,58,.6);
+}
+.lead-card:focus-visible .lead-card-arrow { opacity:1; transform: translateX(3px); }
 
 /* ══════════════════════════════════════════════
    WIZARD POPUP
@@ -913,7 +896,8 @@ footer {
   padding:36px 28px 28px; text-align:center;
 }
 .wiz-intro-icon {
-  font-size:40px; margin-bottom:16px;
+  color:var(--teal); line-height:0; margin-bottom:16px;
+  display:flex; justify-content:center;
 }
 .wiz-intro-title {
   font-family:'Fraunces',serif; font-size:24px; color:var(--ink); margin-bottom:10px; line-height:1.3;
@@ -929,7 +913,8 @@ footer {
   display:flex; align-items:center; gap:12px; font-size:14px; color:var(--ink);
 }
 .wiz-intro-point-icon {
-  font-size:18px; flex-shrink:0; width:28px; text-align:center;
+  color:var(--teal); flex-shrink:0; width:28px;
+  display:inline-flex; align-items:center; justify-content:center;
 }
 .wiz-intro-cta {
   display:inline-flex; align-items:center; gap:8px;
@@ -950,7 +935,7 @@ footer {
 .wiz-thanks-icon {
   width:72px; height:72px; border-radius:50%; background:rgba(30,122,110,.1);
   display:flex; align-items:center; justify-content:center;
-  margin:0 auto 24px; font-size:32px;
+  margin:0 auto 24px; color:var(--teal);
 }
 .wiz-thanks-body h3 { font-family:'Fraunces',serif; font-size:26px; color:var(--ink); margin-bottom:12px; }
 .wiz-thanks-body p { font-size:15px; color:var(--slate); line-height:1.7; max-width:380px; margin:0 auto 28px; }
@@ -965,12 +950,27 @@ footer {
 @media(max-width:900px) {
   .lead-inner { padding:60px 24px 52px; }
   .lead-cards { grid-template-columns:repeat(2,1fr); }
+  /* 9e carte (dernier enfant impair) centrée sur toute la plage 2 colonnes ; largeur = 1 colonne ; robuste si le gap change (--lead-gap) */
+  .lead-cards > .lead-card:last-child:nth-child(odd) { grid-column:1 / -1; justify-self:center; width:calc((100% - var(--lead-gap)) / 2); }
   .wiz-form-row { grid-template-columns:1fr; }
   #wizard { border-radius:16px; }
 }
 @media(max-width:600px) {
-  .lead-cards { grid-template-columns:1fr 1fr; gap:10px; }
-  .lead-card { padding:16px 14px; }
+  .lead-cards { grid-template-columns:1fr 1fr; --lead-gap:10px; gap:var(--lead-gap); align-items:stretch; }
+  .lead-card { padding:16px 14px; height:100%; }
+  /* 9e carte centrée : règle unique gap-robuste dans le bloc <=900px ci-dessus */
+  /* espacements resserrés */
+  .lead-inner { padding:40px 20px 44px; }
+  .lead-header { margin-bottom:28px; }
+  .lead-badge { margin-bottom:14px; }
+  /* titre : évite le "?" seul + taille réduite */
+  .lead-title { font-size: clamp(23px, 6.6vw, 30px); line-height:1.2; text-wrap:balance; margin-bottom:12px; }
+  .lead-sub { margin-bottom:10px; }
+  .lead-cta-hint { margin-bottom:16px; }
+  /* réassurance sur une seule ligne */
+  .lead-trust-row { gap:9px; font-size:11px; }
+  .lead-trust-row span { white-space:nowrap; gap:4px; }
+  .lead-trust-row svg { width:13px; height:13px; }
   .wiz-q { font-size:18px; }
   .wiz-body { padding:24px 20px 16px; }
   .wiz-top,.wiz-footer,.wiz-progress-wrap,.wiz-contact-body { padding-left:20px; padding-right:20px; }
@@ -1029,7 +1029,9 @@ footer {
   ]
 }
   </script>
-  <link rel="preload" as="image" href="/images/hero-home.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="/images/hero-famille-1600.webp"
+    imagesrcset="/images/hero-famille-800.webp 800w, /images/hero-famille-1200.webp 1200w, /images/hero-famille-1600.webp 1600w"
+    imagesizes="(max-width:900px) 100vw, 54vw" fetchpriority="high">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Organization","name":"Proactifs Conseils","alternateName":"Proactifs Conseils Patrimoine","url":"https://proactifsconseils.fr","logo":"https://proactifsconseils.fr/images/proactifs-logo.png","foundingDate":"2017","founder":{"@type":"Person","name":"Medy Matima"},"address":{"@type":"PostalAddress","streetAddress":"54 Rue du Bournard","addressLocality":"Colombes","postalCode":"92700","addressRegion":"Île-de-France","addressCountry":"FR"},"telephone":"+33184782830","email":"contact@proactifsconseils.fr","areaServed":[{"@type":"City","name":"Colombes"},{"@type":"City","name":"Courbevoie"},{"@type":"City","name":"Asnières-sur-Seine"},{"@type":"City","name":"Levallois-Perret"},{"@type":"City","name":"Nanterre"},{"@type":"AdministrativeArea","name":"Hauts-de-Seine"},{"@type":"AdministrativeArea","name":"Île-de-France"}],"sameAs":["https://www.linkedin.com/company/proactifs-conseils/","https://www.linkedin.com/in/medy-matima"],"knowsAbout":["Optimisation fiscale","Préparation retraite","Investissement immobilier","SCPI","PER","Assurance vie","Transmission","Cession d'entreprise","Pacte Dutreil","LMNP","Démembrement","Courtage en crédit immobilier"]}
   </script>
@@ -1106,7 +1108,7 @@ footer {
         </div>
       </div>
     </li>
-    <li class="nav-item"><a href="#simulateurs" class="nav-link">Simulateurs</a></li>
+    <li class="nav-item"><a href="/simulateurs" class="nav-link">Simulateurs</a></li>
     <li class="nav-item"><a href="/cabinet" class="nav-link">Le cabinet</a></li>
     <li class="nav-item nav-drop" data-nav="ressources">
       <button type="button" class="nav-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="drop-ressources">Ressources <span class="chevron">▾</span></button>
@@ -1123,7 +1125,7 @@ footer {
   <div class="m-view m-view--root" data-view="root">
     <button class="m-item m-parent" type="button" data-submenu="patrimoine" aria-haspopup="true" aria-expanded="false" aria-controls="m-patrimoine">Patrimoine <span class="m-caret" aria-hidden="true">›</span></button>
     <button class="m-item m-parent" type="button" data-submenu="immobilier" aria-haspopup="true" aria-expanded="false" aria-controls="m-immobilier">Immobilier <span class="m-caret" aria-hidden="true">›</span></button>
-    <a class="m-item" href="#simulateurs">Simulateurs</a>
+    <a class="m-item" href="/simulateurs">Simulateurs</a>
     <a class="m-item" href="/cabinet">Le cabinet</a>
     <button class="m-item m-parent" type="button" data-submenu="ressources" aria-haspopup="true" aria-expanded="false" aria-controls="m-ressources">Ressources <span class="m-caret" aria-hidden="true">›</span></button>
     <a class="m-cta" href="/bilan-patrimonial">Prendre rendez-vous</a>
@@ -1172,15 +1174,21 @@ footer {
 <main id="main-content">
 <section id="hero">
   <div class="hero-left">
-    <div class="hero-badge">Cabinet conseil · Colombes (92)</div>
+    <div class="hero-kicker">Conseiller aujourd’hui pour demain</div>
     <h1 class="hero-h1">
-      Votre patrimoine,<br>
-      <em>conseillé</em> par des<br>
-      <span>experts locaux</span>
+      Gestion de patrimoine<br>
+      <span class="t-teal">&amp; immobilier</span><br>
+      au service de <span class="t-gold">vos projets</span>
     </h1>
     <p class="hero-sub">
-      Optimisation fiscale, immobilier, assurance vie, retraite, transmission :
-      nous construisons ensemble la stratégie sur mesure adaptée à votre situation.
+      Fiscalité, placements, immobilier, financement, retraite et transmission :
+      nous construisons avec vous une stratégie globale et sur mesure pour
+      concrétiser vos projets et développer votre patrimoine.
+    </p>
+    <p class="hero-geo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>
+      <span class="geo-desktop">Cabinet de gestion de patrimoine à Colombes (92) · Île-de-France</span>
+      <span class="geo-mobile">Cabinet de gestion de patrimoine · Colombes (92)</span>
     </p>
     <div class="hero-actions">
       <a href="/bilan-patrimonial" class="btn-primary">
@@ -1192,135 +1200,141 @@ footer {
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
-    <div class="hero-stats">
-      <div>
-        <div class="hstat-num" data-count="400"><span>+</span>400</div>
-        <div class="hstat-label">Clients accompagnés</div>
+    <div class="hero-expertises">
+      <div class="hexp">
+        <span class="hexp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 9.5V20h14V9.5"/><path d="M9.5 20v-5h5v5"/></svg></span>
+        <span class="hexp-title">Immobilier</span>
+        <span class="hexp-sub">Valoriser vos biens</span>
       </div>
-      <div>
-        <div class="hstat-num">10 <span>ans</span></div>
-        <div class="hstat-label">D'expertise</div>
+      <div class="hexp">
+        <span class="hexp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M7 20v-6"/><path d="M12 20V9"/><path d="M17 20V5"/></svg></span>
+        <span class="hexp-title">Patrimoine</span>
+        <span class="hexp-sub">Faire fructifier</span>
       </div>
-      <div>
-        <div class="hstat-num">100<span>%</span></div>
-        <div class="hstat-label">Dédié à vos intérêts</div>
+      <div class="hexp">
+        <span class="hexp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="2.2"/><circle cx="16" cy="16" r="2.2"/><path d="M7 17 17 7"/></svg></span>
+        <span class="hexp-title">Fiscalité</span>
+        <span class="hexp-sub">Optimiser votre situation</span>
+      </div>
+      <div class="hexp">
+        <span class="hexp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M15 9.4a3.6 3.6 0 1 0 0 5.2"/><path d="M7.6 11.4h5M7.6 13.2h5"/></svg></span>
+        <span class="hexp-title">Financement</span>
+        <span class="hexp-sub">Concrétiser vos projets</span>
+      </div>
+      <div class="hexp">
+        <span class="hexp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c9 1 14-4 14-13 0 0-9-1-13 4-2.6 3.1-1 9-1 9z"/><path d="M5 19c3-6 7-8.5 10.5-9.5"/></svg></span>
+        <span class="hexp-title">Transmission</span>
+        <span class="hexp-sub">Préparer demain</span>
       </div>
     </div>
   </div>
   <div class="hero-right">
     <img class="hero-img"
-      src="/images/hero-home.webp"
-      alt="Patrimoine immobilier">
+      src="/images/hero-famille-1600.webp"
+      srcset="/images/hero-famille-800.webp 800w, /images/hero-famille-1200.webp 1200w, /images/hero-famille-1600.webp 1600w"
+      sizes="(max-width:900px) 100vw, 54vw"
+      width="1600" height="1067" fetchpriority="high" decoding="async"
+      alt="Villa contemporaine au crépuscule — gestion de patrimoine et immobilier à Colombes (92)">
     <div class="hero-img-overlay"></div>
-    
+    <div class="hero-signature">
+      Des projets de vie<br>à la hauteur<br><span class="sig-gold">de vos ambitions</span>
+      <span class="sig-underline"></span>
+    </div>
     </div>
   </div>
 </section>
-
-<!-- ════════════ TRUST BAR ════════════ -->
-<div id="trust">
-  <div class="trust-item"><strong>+400</strong> clients accompagnés</div>
-  <div class="trust-sep"></div>
-  <div class="trust-item"><strong>100%</strong> Dédié à vos intérêts</div>
-  <div class="trust-sep"></div>
-  <div class="trust-item"><strong>9 ans</strong> d'expertise</div>
-  <div class="trust-sep"></div>
-  <div class="trust-item">📍 <strong>Colombes (92)</strong> & Île-de-France</div>
-  <div class="trust-sep"></div>
-  <div class="trust-item"><strong>CIF</strong> enregistré AMF</div>
-</div>
 
 <!-- ════════════ LEAD GEN ════════════ -->
 <section id="lead-gen">
   <div class="lead-inner">
     <div class="lead-header">
       <div class="lead-badge">✦ Analyse personnalisée</div>
-      <h2 class="lead-title">Qu'est-ce qui vous <em>préoccupe</em> en ce moment&nbsp;?</h2>
-      <p class="lead-sub">Dites-nous ce que vous cherchez à accomplir, nous vous apportons une analyse sur mesure.</p>
+      <h2 class="lead-title">Quel projet souhaitez-vous <em>concrétiser</em>&nbsp;?</h2>
+      <p class="lead-sub">Sélectionnez votre priorité. Nous vous guidons vers les solutions adaptées à votre situation.</p>
       <div class="lead-cta-hint">
-        Quel est votre objectif prioritaire ?
+        Choisissez votre priorité
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
       </div>
       <div class="lead-trust-row">
-        <span>⏱ 2 minutes</span>
+        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2"/><path d="M9 2h6"/></svg> 2 min</span>
         <span class="lead-trust-dot">·</span>
-        <span>🔒 100&nbsp;% confidentiel</span>
+        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Confidentiel</span>
         <span class="lead-trust-dot">·</span>
-        <span>✓</span>
+        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Sans engagement</span>
       </div>
     </div>
     <div class="lead-cards">
       <div class="lead-card" onclick="openWizard('impots')">
         <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M9 2l1.5 1.5M15 2l-1.5 1.5"/></svg>
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M9 2l1.5 1.5M15 2l-1.5 1.5"/></svg>
         </div>
         <div class="lead-card-title">Réduire mes impôts</div>
-        <div class="lead-card-desc">TMI, PER, défiscalisation, revenus fonciers</div>
-        <div class="lead-card-arrow">Commencer <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="lead-card-desc">Identifier les leviers fiscaux adaptés à ma situation</div>
+        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
       <div class="lead-card" onclick="openWizard('immo')">
         <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
-        <div class="lead-card-title">Investissement immobilier</div>
-        <div class="lead-card-desc">SCPI, LMNP, SCI, locatif</div>
-        <div class="lead-card-arrow">Commencer <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="lead-card-title">Investir dans l'immobilier</div>
+        <div class="lead-card-desc">Construire et développer mon patrimoine immobilier</div>
+        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
       <div class="lead-card" onclick="openWizard('retraite')">
         <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
         <div class="lead-card-title">Préparer ma retraite</div>
-        <div class="lead-card-desc">PER, épargne salariale, revenus complémentaires</div>
-        <div class="lead-card-arrow">Commencer <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="lead-card-desc">Anticiper mes revenus et mon niveau de vie</div>
+        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
       <div class="lead-card" onclick="openWizard('epargne')">
         <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
         </div>
-        <div class="lead-card-title">Placer mon épargne</div>
-        <div class="lead-card-desc">Assurance vie, PEA, produits structurés</div>
-        <div class="lead-card-arrow">Commencer <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      </div>
-      <div class="lead-card" onclick="openWizard('transmission')">
-        <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        </div>
-        <div class="lead-card-title">Transmettre à mes proches</div>
-        <div class="lead-card-desc">Donation, succession, SCI familiale</div>
-        <div class="lead-card-arrow">Commencer <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      </div>
-      <div class="lead-card" onclick="openWizard('cession')">
-        <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
-        </div>
-        <div class="lead-card-title">Céder mon entreprise</div>
-        <div class="lead-card-desc">Apport-cession, 150-0 B ter, remploi</div>
-        <div class="lead-card-arrow">Commencer <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="lead-card-title">Faire fructifier mon épargne</div>
+        <div class="lead-card-desc">Structurer mes placements selon mes objectifs</div>
+        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
       <div class="lead-card" onclick="openWizard('credit')">
         <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
         </div>
-        <div class="lead-card-title">Obtenir un crédit</div>
-        <div class="lead-card-desc">Financement résidence, investissement locatif</div>
-        <div class="lead-card-arrow">Commencer <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="lead-card-title">Financer un projet</div>
+        <div class="lead-card-desc">Trouver le financement adapté à mon projet</div>
+        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="lead-card" onclick="openWizard('transmission')">
+        <div class="lead-card-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="lead-card-title">Préparer ma transmission</div>
+        <div class="lead-card-desc">Protéger mes proches et anticiper ma succession</div>
+        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </div>
+      <div class="lead-card" onclick="openWizard('cession')">
+        <div class="lead-card-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        </div>
+        <div class="lead-card-title">Céder mon entreprise</div>
+        <div class="lead-card-desc">Préparer et optimiser la vente de ma société</div>
+        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
       <div class="lead-card" onclick="openWizard('declaration')">
         <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </div>
-        <div class="lead-card-title">Déclarer mes impôts</div>
-        <div class="lead-card-desc">Revenus fonciers, LMNP, plus-values</div>
-        <div class="lead-card-arrow">Commencer <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="lead-card-title">Déclarer mes revenus</div>
+        <div class="lead-card-desc">Sécuriser et optimiser ma déclaration annuelle</div>
+        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
       <div class="lead-card" onclick="openWizard('rsu')">
         <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
         </div>
-        <div class="lead-card-title">Optimiser mes RSU / stock-options</div>
-        <div class="lead-card-desc">RSU, BSPCE, actions gratuites, dividendes</div>
-        <div class="lead-card-arrow">Commencer <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="lead-card-title">Valoriser mon actionnariat salarié</div>
+        <div class="lead-card-desc">Déclarer et optimiser mes actions d'entreprise</div>
+        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
     </div>
   </div>
@@ -1350,12 +1364,11 @@ footer {
       <h3 class="wiz-intro-title" id="wizIntroTitle">Votre diagnostic personnalisé</h3>
       <p class="wiz-intro-desc" id="wizIntroDesc">Répondez à quelques questions rapides pour que nous puissions analyser votre situation et vous proposer les solutions les plus adaptées.</p>
       <div class="wiz-intro-points">
-        <div class="wiz-intro-point"><span class="wiz-intro-point-icon">⏱</span><span>3 questions rapides — moins de 2 minutes</span></div>
-        <div class="wiz-intro-point"><span class="wiz-intro-point-icon">🔒</span><span>Vos données restent strictement confidentielles</span></div>
-        <div class="wiz-intro-point"><span class="wiz-intro-point-icon">📞</span><span>Un conseiller vous rappelle sous 24h</span></div>
+        <div class="wiz-intro-point"><span class="wiz-intro-point-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2"/><path d="M9 2h6"/></svg></span><span>3 questions rapides — moins de 2 minutes</span></div>
+        <div class="wiz-intro-point"><span class="wiz-intro-point-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><span>Vos données restent strictement confidentielles</span></div>
+        <div class="wiz-intro-point"><span class="wiz-intro-point-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h3l2 5-2.5 1.5a12 12 0 0 0 6 6L16 15l5 2v3a2 2 0 0 1-2 2A17 17 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg></span><span>Un conseiller vous rappelle sous 24h</span></div>
       </div>
       <button class="wiz-intro-cta" onclick="startWizQuestions()">Commencer mon diagnostic →</button>
-      <p class="wiz-intro-free">100%  ·</p>
     </div>
 
     <!-- QUESTION STEPS -->
@@ -1391,7 +1404,7 @@ footer {
             <option>Investisseur</option>
           </select>
         </div>
-        <p class="wiz-gdpr">🔒 Vos données sont confidentielles et ne seront jamais revendues. En soumettant ce formulaire, vous acceptez d'être contacté par Proactifs Conseils.</p>
+        <p class="wiz-gdpr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;color:var(--teal)"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Vos données sont confidentielles et ne seront jamais revendues. En soumettant ce formulaire, vous acceptez d'être contacté par Proactifs Conseils.</p>
         <button class="wiz-submit-btn" onclick="wizSubmit()">Envoyer ma demande →</button>
       </div>
     </div>
@@ -1399,7 +1412,7 @@ footer {
     <!-- THANK YOU -->
     <div id="wizThanks" style="display:none">
       <div class="wiz-thanks-body">
-        <div class="wiz-thanks-icon">✓</div>
+        <div class="wiz-thanks-icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
         <h3>Demande envoyée&nbsp;!</h3>
         <p>Nous avons bien reçu votre demande. Un conseiller Proactifs vous contactera <strong>dans les 24h</strong> pour votre analyse personnalisée.</p>
         <button class="wiz-thanks-cta" onclick="closeWizard()">Retour à l'accueil</button>
@@ -1420,7 +1433,7 @@ footer {
       <div class="svc-card reveal d1">
         <img class="svc-img" src="/images/optimisation-fiscale.webp" alt="Fiscalité">
         <div class="svc-body">
-          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.93V18h-2v-1.07C9.41 16.65 8 15.46 8 14c0-.55.45-1 1-1s1 .45 1 1c0 .55.45 1 1 1h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-1.66 0-3-1.34-3-3 0-1.46 1.41-2.65 3-2.93V6h2v1.07c1.59.28 3 1.47 3 2.93 0 .55-.45 1-1 1s-1-.45-1-1c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1h2c1.66 0 3 1.34 3 3 0 1.46-1.41 2.65-3 2.93z"/></svg></div>
+          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.93V18h-2v-1.07C9.41 16.65 8 15.46 8 14c0-.55.45-1 1-1s1 .45 1 1c0 .55.45 1 1 1h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-1.66 0-3-1.34-3-3 0-1.46 1.41-2.65 3-2.93V6h2v1.07c1.59.28 3 1.47 3 2.93 0 .55-.45 1-1 1s-1-.45-1-1c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1h2c1.66 0 3 1.34 3 3 0 1.46-1.41 2.65-3 2.93z"/></svg></div>
           <div class="svc-title">Optimisation fiscale</div>
           <p class="svc-desc">PER, déficit foncier, lois de défiscalisation… Nous identifions les leviers adaptés à votre TMI.</p>
           <a class="svc-link" href="/optimisation-fiscale-ile-de-france">En savoir plus <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
@@ -1429,7 +1442,7 @@ footer {
       <div class="svc-card reveal d2">
         <img class="svc-img" src="/images/investissement-immobilier.webp" alt="Immobilier">
         <div class="svc-body">
-          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
           <div class="svc-title">Investissement immobilier</div>
           <p class="svc-desc">SCPI, LMNP, SCI IS… Nous construisons la stratégie qui maximise votre rendement net.</p>
           <a class="svc-link" href="/investissement-immobilier">En savoir plus <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
@@ -1438,7 +1451,7 @@ footer {
       <div class="svc-card reveal d3">
         <img class="svc-img" src="/images/placement-financier.webp" alt="Placements">
         <div class="svc-body">
-          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
           <div class="svc-title">Placements financiers</div>
           <p class="svc-desc">Assurance vie, PEA, produits structurés… Les meilleurs supports selon votre profil de risque.</p>
           <a class="svc-link" href="/placements-financiers">En savoir plus <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
@@ -1447,7 +1460,7 @@ footer {
       <div class="svc-card reveal d4">
         <img class="svc-img" src="/images/retraite.webp" alt="Retraite" >
         <div class="svc-body">
-          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
           <div class="svc-title">Préparation retraite</div>
           <p class="svc-desc">PER, épargne salariale, capitalisation… Anticipez pour maintenir votre niveau de vie.</p>
           <a class="svc-link" href="/preparation-retraite">En savoir plus <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
@@ -1456,7 +1469,7 @@ footer {
       <div class="svc-card reveal d1">
         <img class="svc-img" src="/images/transmission.webp" alt="Transmission">
         <div class="svc-body">
-          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
           <div class="svc-title">Transmission & succession</div>
           <p class="svc-desc">Donation, démembrement, SCI familiale… Optimisez la transmission en minimisant les droits.</p>
           <a class="svc-link" href="/transmission">En savoir plus <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
@@ -1465,7 +1478,7 @@ footer {
       <div class="svc-card reveal d2">
         <img class="svc-img" src="/images/cession-entreprise.webp" alt="Cession entreprise" style="object-position: center 15%;">
         <div class="svc-body">
-          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
+          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
           <div class="svc-title">Cession d'entreprise</div>
           <p class="svc-desc">Apport-cession, 150-0 B ter, remploi du produit… Sécurisez et optimisez votre cession.</p>
           <a class="svc-link" href="/cession-entreprise">En savoir plus <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
@@ -1474,7 +1487,7 @@ footer {
       <div class="svc-card reveal d3">
         <img class="svc-img" src="/images/courtier-credit.webp" alt="Crédit immobilier">
         <div class="svc-body">
-          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
           <div class="svc-title">Courtage en crédit</div>
           <p class="svc-desc">Nous négocions pour vous les meilleures conditions de financement auprès de nos partenaires bancaires.</p>
           <a class="svc-link" href="/courtage-credit-immobilier">En savoir plus <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
@@ -1483,7 +1496,7 @@ footer {
       <div class="svc-card reveal d4">
         <img class="svc-img" src="/images/declaration-impot.webp" alt="Déclaration impôts">
         <div class="svc-body">
-          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
           <div class="svc-title">Déclaration d'impôts</div>
           <p class="svc-desc">Accompagnement personnalisé pour votre déclaration annuelle : revenus fonciers, plus-values, LMNP.</p>
           <a class="svc-link" href="/declaration-impots-ile-de-france">En savoir plus <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
@@ -1492,7 +1505,7 @@ footer {
       <div class="svc-card reveal d1">
         <img class="svc-img" src="/images/stock-rsu.webp" alt="Fiscalité RSU, stock-options et actions gratuites">
         <div class="svc-body">
-          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="#1E7A6E" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+          <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
           <div class="svc-title">Fiscalité RSU &amp; stock-options</div>
           <p class="svc-desc">RSU, BSPCE, actions gratuites, ESPP… Déclarez sans erreur et transformez vos actions en patrimoine.</p>
           <a class="svc-link" href="/fiscalite-rsu-stock-options">En savoir plus <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
@@ -1578,217 +1591,38 @@ footer {
 <!-- ════════════ SIMULATEURS ════════════ -->
 <section id="simulateurs" class="sec sec-sand">
   <div class="container">
-    <div class="sec-label reveal">Outils en ligne</div>
-    <h2 class="sec-title reveal d1">Simulez votre situation<br><em>en quelques clics</em></h2>
-    <div class="sim-tabs">
-      <button class="sim-tab active" onclick="switchSim('credit')">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:5px"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
-        Crédit immobilier
-      </button>
-      <button class="sim-tab" onclick="switchSim('capacite')">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:5px"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-        Capacité d'emprunt
-      </button>
-      <button class="sim-tab" onclick="switchSim('fiscal')">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:5px"><circle cx="12" cy="12" r="10"/></svg>
-        Économies fiscales
-      </button>
-      <button class="sim-tab" onclick="switchSim('scpi')">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:5px"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg>
-        Rendement SCPI
-      </button>
-      <button class="sim-tab" onclick="switchSim('retraite')">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-right:5px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        Retraite
-      </button>
+    <div class="sec-label reveal">Outils &amp; simulateurs</div>
+    <h2 class="sec-title reveal d1">Préparez votre projet avec <em>nos simulateurs</em></h2>
+    <p class="simv2-intro reveal d1">Estimez en quelques minutes les principaux éléments de votre financement immobilier grâce à nos outils gratuits.</p>
+    <div class="simv2-grid">
+      <a class="simv2-card reveal" href="/simulateurs/capacite-emprunt" data-tool="capacite">
+        <span class="simv2-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+        <h3>Capacité d'emprunt</h3>
+        <p class="simv2-q">Combien puis-je emprunter ?</p>
+        <span class="simv2-cta">Calculer ma capacité →</span>
+      </a>
+      <a class="simv2-card reveal" href="/simulateurs/mensualite-credit" data-tool="mensualite">
+        <span class="simv2-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg></span>
+        <h3>Mensualité de crédit</h3>
+        <p class="simv2-q">Combien vais-je rembourser chaque mois ?</p>
+        <span class="simv2-cta">Calculer ma mensualité →</span>
+      </a>
+      <a class="simv2-card reveal" href="/simulateurs/taux-endettement" data-tool="endettement">
+        <span class="simv2-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M12 12l5-3"/><path d="M12 12V3"/></svg></span>
+        <h3>Taux d'endettement</h3>
+        <p class="simv2-q">Quelle part de mes revenus est déjà engagée ?</p>
+        <span class="simv2-cta">Calculer mon taux d'endettement →</span>
+      </a>
     </div>
-    <div class="sim-panels">
-      <!-- CRÉDIT -->
-      <div class="sim-panel active" id="panel-credit">
-        <div class="sim-form">
-          <h3>Simulateur crédit immobilier</h3>
-          <div class="field">
-            <label for="r-prix">Prix du bien</label>
-            <div class="range-row"><span>Montant</span><span class="range-val" id="cv-prix">300 000 €</span></div>
-            <input type="range" id="r-prix" min="50000" max="2000000" step="10000" value="300000" oninput="updateRange('prix',this.value,true,'€');calcCredit()">
-          </div>
-          <div class="field">
-            <label for="r-apport">Apport personnel</label>
-            <div class="range-row"><span>Apport</span><span class="range-val" id="cv-apport">60 000 €</span></div>
-            <input type="range" id="r-apport" min="0" max="500000" step="5000" value="60000" oninput="updateRange('apport',this.value,true,'€');calcCredit()">
-          </div>
-          <div class="field">
-            <label for="r-duree">Durée du prêt</label>
-            <div class="range-row"><span>Années</span><span class="range-val" id="cv-duree">20 ans</span></div>
-            <input type="range" id="r-duree" min="5" max="30" step="1" value="20" oninput="updateRange('duree',this.value,false,' ans');calcCredit()">
-          </div>
-          <div class="field">
-            <label for="r-taux">Taux d'intérêt annuel (%)</label>
-            <div class="range-row"><span>Taux</span><span class="range-val" id="cv-taux">3,5 %</span></div>
-            <input type="range" id="r-taux" min="1" max="7" step="0.1" value="3.5" oninput="updateRange('taux',this.value,false,' %');calcCredit()">
-          </div>
-          <button class="sim-btn" onclick="calcCredit()">Calculer ma mensualité</button>
-        </div>
-        <div class="sim-results">
-          <h3>Votre simulation</h3>
-          <div class="result-card"><div class="r-label">Mensualité estimée</div><div class="r-val" id="r-mensualite">—</div><div class="r-sub">Hors assurance emprunteur</div></div>
-          <div class="result-card"><div class="r-label">Montant emprunté</div><div class="r-val" id="r-emprunt">—</div></div>
-          <div class="result-card"><div class="r-label">Coût total du crédit</div><div class="r-val" id="r-cout">—</div><div class="r-sub">Intérêts inclus</div></div>
-          <div class="chart-wrap"><canvas id="chartCredit"></canvas></div>
-          <p class="result-note">Simulation indicative. Contactez-nous pour obtenir les meilleures conditions de financement.</p>
-        </div>
-      </div>
-            <!-- CAPACITE D'EMPRUNT -->
-      <div class="sim-panel" id="panel-capacite">
-        <div class="sim-form">
-          <h3>Combien puis-je emprunter ?</h3>
-          <div class="field">
-            <label for="r-revenus">Revenus nets mensuels du foyer</label>
-            <div class="range-row"><span>Revenus</span><span class="range-val" id="cv-revenus">5 000 €</span></div>
-            <input type="range" id="r-revenus" min="1500" max="30000" step="100" value="5000" oninput="updateRange('revenus',this.value,true,'€');calcCapacite()">
-          </div>
-          <div class="field">
-            <label for="r-charges">Charges mensuelles fixes</label>
-            <div class="range-row"><span>Crédits, pensions...</span><span class="range-val" id="cv-charges">200 €</span></div>
-            <input type="range" id="r-charges" min="0" max="5000" step="50" value="200" oninput="updateRange('charges',this.value,true,'€');calcCapacite()">
-          </div>
-          <div class="field">
-            <label for="r-cap-apport">Apport personnel</label>
-            <div class="range-row"><span>Apport</span><span class="range-val" id="cv-cap-apport">30 000 €</span></div>
-            <input type="range" id="r-cap-apport" min="0" max="500000" step="5000" value="30000" oninput="updateRange('cap-apport',this.value,true,'€');calcCapacite()">
-          </div>
-          <div class="field">
-            <label for="r-cap-duree">Durée du prêt</label>
-            <div class="range-row"><span>Années</span><span class="range-val" id="cv-cap-duree">20 ans</span></div>
-            <input type="range" id="r-cap-duree" min="5" max="30" step="1" value="20" oninput="updateRange('cap-duree',this.value,false,' ans');calcCapacite()">
-          </div>
-          <div class="field">
-            <label for="r-cap-taux">Taux d'intérêt annuel</label>
-            <div class="range-row"><span>Taux</span><span class="range-val" id="cv-cap-taux">3,5 %</span></div>
-            <input type="range" id="r-cap-taux" min="2" max="6" step="0.1" value="3.5" oninput="updateRange('cap-taux',this.value,false,' %');calcCapacite()">
-          </div>
-          <button class="sim-btn" onclick="calcCapacite()">Calculer ma capacité</button>
-        </div>
-        <div class="sim-results">
-          <h3>Votre capacité</h3>
-          <div class="result-card"><div class="r-label">Mensualité maximale</div><div class="r-val" id="r-cap-mensualite">—</div><div class="r-sub">Taux d'endettement HCSF 35 %</div></div>
-          <div class="result-card"><div class="r-label">Capacité d'emprunt</div><div class="r-val" id="r-cap-emprunt">—</div></div>
-          <div class="result-card"><div class="r-label">Budget total avec apport</div><div class="r-val" id="r-cap-budget">—</div><div class="r-sub">Capacité + apport</div></div>
-          <div class="chart-wrap"><canvas id="chartCapacite"></canvas></div>
-          <p class="result-note">Estimation rapide basée sur le taux d'endettement HCSF (35 %).</p>
-          <a href="/courtage-credit-immobilier#simulateur" style="display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:20px; background:var(--gold-pale); border-left:3px solid var(--gold); border-radius:var(--r-md); padding:18px 22px; text-decoration:none; transition:all .2s;" onmouseover="this.style.background='#F5E6BC'" onmouseout="this.style.background='var(--gold-pale)'">
-            <div>
-              <div style="font-family:'Fraunces',serif; font-size:16px; font-weight:600; color:var(--ink); line-height:1.3;">Pour une analyse complète et personnalisée</div>
-              <div style="font-size:13px; color:var(--ink-soft); margin-top:4px;">Situation pro, charges détaillées, type de projet</div>
-            </div>
-            <div style="background:var(--gold); color:var(--ink); padding:10px 18px; border-radius:var(--r-md); font-size:13px; font-weight:600; white-space:nowrap; flex-shrink:0;">Simuler votre projet (7 étapes, 2 mn) →</div>
-          </a>
-        </div>
-      </div>
-      <!-- FISCAL -->
-      <div class="sim-panel" id="panel-fiscal">
-        <div class="sim-form">
-          <h3>Simulateur économies fiscales</h3>
-          <div class="field">
-            <label for="r-frev">Revenus annuels imposables</label>
-            <div class="range-row"><span>Revenus</span><span class="range-val" id="fv-rev">80 000 €</span></div>
-            <input type="range" id="r-frev" min="20000" max="500000" step="5000" value="80000" oninput="updateRange('frev',this.value,true,'€');calcFiscal()">
-          </div>
-          <div class="field">
-            <label>Situation familiale</label>
-            <select id="f-foyer" onchange="calcFiscal()">
-              <option value="1">Célibataire (1 part)</option>
-              <option value="2" selected>Couple sans enfants (2 parts)</option>
-              <option value="2.5">Couple + 1 enfant (2,5 parts)</option>
-              <option value="3">Couple + 2 enfants (3 parts)</option>
-              <option value="4">Couple + 3 enfants (4 parts)</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="r-fper">Investissement PER annuel</label>
-            <div class="range-row"><span>PER</span><span class="range-val" id="fv-per">5 000 €</span></div>
-            <input type="range" id="r-fper" min="0" max="50000" step="500" value="5000" oninput="updateRange('fper',this.value,true,'€');calcFiscal()">
-          </div>
-          <button class="sim-btn" onclick="calcFiscal()">Calculer mes économies</button>
-        </div>
-        <div class="sim-results">
-          <h3>Votre potentiel d'économies</h3>
-          <div class="result-card"><div class="r-label">Impôt actuel estimé</div><div class="r-val" id="r-impot">—</div></div>
-          <div class="result-card"><div class="r-label">Économie PER</div><div class="r-val" id="r-eco-per">—</div><div class="r-sub">Réduction d'impôt directe</div></div>
-          <div class="result-card"><div class="r-label">Impôt après optimisation</div><div class="r-val" id="r-impot-opt">—</div></div>
-          <div class="chart-wrap"><canvas id="chartFiscal"></canvas></div>
-          <p class="result-note">Estimation basée sur le barème 2024. Pour une analyse personnalisée, prenez rendez-vous.</p>
-        </div>
-      </div>
-      <!-- SCPI -->
-      <div class="sim-panel" id="panel-scpi">
-        <div class="sim-form">
-          <h3>Simulateur rendement SCPI</h3>
-          <div class="field">
-            <label for="r-smontant">Montant investi</label>
-            <div class="range-row"><span>Investissement</span><span class="range-val" id="sv-montant">50 000 €</span></div>
-            <input type="range" id="r-smontant" min="5000" max="500000" step="5000" value="50000" oninput="updateRange('smontant',this.value,true,'€');calcScpi()">
-          </div>
-          <div class="field">
-            <label for="r-staux">Taux de distribution (%)</label>
-            <div class="range-row"><span>Taux</span><span class="range-val" id="sv-taux">5 %</span></div>
-            <input type="range" id="r-staux" min="3" max="8" step="0.1" value="5" oninput="updateRange('staux',this.value,false,' %');calcScpi()">
-          </div>
-          <div class="field">
-            <label for="r-shorizon">Horizon de placement</label>
-            <div class="range-row"><span>Années</span><span class="range-val" id="sv-horizon">10 ans</span></div>
-            <input type="range" id="r-shorizon" min="3" max="30" step="1" value="10" oninput="updateRange('shorizon',this.value,false,' ans');calcScpi()">
-          </div>
-          <button class="sim-btn" onclick="calcScpi()">Calculer mon rendement</button>
-        </div>
-        <div class="sim-results">
-          <h3>Votre projection SCPI</h3>
-          <div class="result-card"><div class="r-label">Revenus annuels estimés</div><div class="r-val" id="r-scpi-an">—</div></div>
-          <div class="result-card"><div class="r-label">Revenus mensuels</div><div class="r-val" id="r-scpi-mois">—</div><div class="r-sub">Avant fiscalité</div></div>
-          <div class="result-card"><div class="r-label">Capital projeté à terme</div><div class="r-val" id="r-scpi-cap">—</div></div>
-          <div class="chart-wrap"><canvas id="chartScpi"></canvas></div>
-          <p class="result-note">Performances passées ne préjugent pas des performances futures. Investissement à risque de perte en capital.</p>
-        </div>
-      </div>
-      <!-- RETRAITE -->
-      <div class="sim-panel" id="panel-retraite">
-        <div class="sim-form">
-          <h3>Simulateur retraite</h3>
-          <div class="field">
-            <label for="r-age">Votre âge actuel</label>
-            <div class="range-row"><span>Âge</span><span class="range-val" id="rv-age">40 ans</span></div>
-            <input type="range" id="r-age" min="25" max="60" step="1" value="40" oninput="updateRange('age',this.value,false,' ans');calcRetraite()">
-          </div>
-          <div class="field">
-            <label for="r-depart">Âge de départ souhaité</label>
-            <div class="range-row"><span>Départ</span><span class="range-val" id="rv-depart">64 ans</span></div>
-            <input type="range" id="r-depart" min="60" max="70" step="1" value="64" oninput="updateRange('depart',this.value,false,' ans');calcRetraite()">
-          </div>
-          <div class="field">
-            <label for="r-capital">Épargne actuelle dédiée retraite</label>
-            <div class="range-row"><span>Capital</span><span class="range-val" id="rv-capital">30 000 €</span></div>
-            <input type="range" id="r-capital" min="0" max="500000" step="5000" value="30000" oninput="updateRange('capital',this.value,true,'€');calcRetraite()">
-          </div>
-          <div class="field">
-            <label for="r-effort">Effort d'épargne mensuel</label>
-            <div class="range-row"><span>Mensuel</span><span class="range-val" id="rv-effort">500 €</span></div>
-            <input type="range" id="r-effort" min="100" max="5000" step="50" value="500" oninput="updateRange('effort',this.value,true,'€');calcRetraite()">
-          </div>
-          <div class="field">
-            <label for="r-rdt">Rendement annuel espéré (%)</label>
-            <div class="range-row"><span>Rendement</span><span class="range-val" id="rv-rdt">4 %</span></div>
-            <input type="range" id="r-rdt" min="1" max="8" step="0.5" value="4" oninput="updateRange('rdt',this.value,false,' %');calcRetraite()">
-          </div>
-          <button class="sim-btn" onclick="calcRetraite()">Estimer ma retraite</button>
-        </div>
-        <div class="sim-results">
-          <h3>Votre projection retraite</h3>
-          <div class="result-card"><div class="r-label">Capital estimé au départ</div><div class="r-val" id="r-ret-capital">—</div></div>
-          <div class="result-card"><div class="r-label">Complément mensuel sur 25 ans</div><div class="r-val" id="r-ret-mensuel">—</div><div class="r-sub">Rente estimée après départ</div></div>
-          <div class="result-card"><div class="r-label">Total versé par vous</div><div class="r-val" id="r-ret-verse">—</div></div>
-          <div class="chart-wrap"><canvas id="chartRetraite"></canvas></div>
-          <p class="result-note">Projection indicative hors inflation et fiscalité. Prenez rendez-vous pour un bilan retraite personnalisé.</p>
-        </div>
+    <div class="simv2-actions">
+      <a class="simv2-all" href="/simulateurs">Voir tous les simulateurs →</a>
+    </div>
+    <div class="simv2-more">
+      <p class="simv2-more-label">Besoin d'aller plus loin ?</p>
+      <div class="simv2-more-links">
+        <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
+        <a href="/investissement-scpi-hauts-de-seine">SCPI</a>
+        <a href="/preparation-retraite">Préparation retraite</a>
       </div>
     </div>
   </div>
@@ -2008,201 +1842,9 @@ function closeModal() {
   document.body.style.overflow='';
 }
 
-/* ════════ SIMULATEURS ════════ */
-function switchSim(name) {
-  document.querySelectorAll('.sim-tab').forEach((t,i) => t.classList.toggle('active', ['credit','capacite','fiscal','scpi','retraite'][i]===name));
-  document.querySelectorAll('.sim-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('panel-'+name).classList.add('active');
-  if(name==='credit') calcCredit();
-  if(name==='fiscal') calcFiscal();
-  if(name==='scpi') calcScpi();
-  if(name==='retraite') calcRetraite();
-  if(name==='capacite') calcCapacite();
-}
-function fmtEur(n) { return new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n); }
-function updateRange(id, val, isMoney, suffix) {
-  const el = document.getElementById('cv-'+id) || document.getElementById('fv-'+id) || document.getElementById('sv-'+id) || document.getElementById('rv-'+id);
-  if(!el) return;
-  if(isMoney) { el.textContent = new Intl.NumberFormat('fr-FR').format(val) + ' ' + suffix; }
-  else { el.textContent = parseFloat(val).toLocaleString('fr-FR') + suffix; }
-}
-
-let chartCredit, chartFiscal, chartScpi, chartRetraite;
-function calcCredit() {
-  if (typeof Chart === 'undefined') return;
-  const prix   = +document.querySelector('#panel-credit input[oninput*="prix"]').value;
-  const apport = +document.querySelector('#panel-credit input[oninput*="apport"]').value;
-  const duree  = +document.querySelector('#panel-credit input[oninput*="duree"]').value;
-  const taux   = +document.querySelector('#panel-credit input[oninput*="taux"]').value / 100;
-  const capital = prix - apport;
-  const n = duree * 12;
-  const r = taux / 12;
-  const mensualite = r === 0 ? capital/n : capital * r * Math.pow(1+r,n) / (Math.pow(1+r,n)-1);
-  const total = mensualite * n;
-  const interets = total - capital;
-  document.getElementById('r-mensualite').textContent = fmtEur(mensualite);
-  document.getElementById('r-emprunt').textContent = fmtEur(capital);
-  document.getElementById('r-cout').textContent = fmtEur(interets);
-  const ctx = document.getElementById('chartCredit').getContext('2d');
-  if(chartCredit) chartCredit.destroy();
-  chartCredit = new Chart(ctx, {
-    type:'doughnut',
-    data:{labels:['Capital','Intérêts'],datasets:[{data:[capital,interets],backgroundColor:['#1E7A6E','#C4973A'],borderWidth:0}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#6B7280',font:{size:12}}}}}
-  });
-}
-function calcFiscal() {
-  if (typeof Chart === 'undefined') return;
-  const rev = +document.querySelector('#panel-fiscal input[oninput*="frev"]').value;
-  const parts = +document.getElementById('f-foyer').value;
-  const per = +document.querySelector('#panel-fiscal input[oninput*="fper"]').value;
-  function calcIR(revenu, parts) {
-    const qi = revenu / parts;
-    let impot = 0;
-    const tranches = [[11294,0],[28797,.11],[82341,.30],[177106,.41],[Infinity,.45]];
-    let prev = 0;
-    for(const [plafond, taux] of tranches) {
-      if(qi > prev) { impot += (Math.min(qi, plafond) - prev) * taux; prev = plafond; }
-    }
-    return impot * parts;
-  }
-  const impotAvant = calcIR(rev, parts);
-  const impotApres = calcIR(Math.max(0, rev - per), parts);
-  const eco = impotAvant - impotApres;
-  document.getElementById('r-impot').textContent = fmtEur(impotAvant);
-  document.getElementById('r-eco-per').textContent = fmtEur(eco);
-  document.getElementById('r-impot-opt').textContent = fmtEur(impotApres);
-  const ctx = document.getElementById('chartFiscal').getContext('2d');
-  if(chartFiscal) chartFiscal.destroy();
-  chartFiscal = new Chart(ctx, {
-    type:'bar',
-    data:{labels:['Avant','Après'],datasets:[{data:[impotAvant,impotApres],backgroundColor:['#e5e2da','#1E7A6E'],borderRadius:6}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>fmtEur(v)},grid:{color:'rgba(0,0,0,.05)'}},x:{grid:{display:false}}}}
-  });
-}
-function calcScpi() {
-  if (typeof Chart === 'undefined') return;
-  const montant = +document.querySelector('#panel-scpi input[oninput*="smontant"]').value;
-  const taux = +document.querySelector('#panel-scpi input[oninput*="staux"]').value / 100;
-  const horizon = +document.querySelector('#panel-scpi input[oninput*="shorizon"]').value;
-  const revAn = montant * taux;
-  const revMois = revAn / 12;
-  const capitalFinal = montant * Math.pow(1 + taux * 0.3, horizon);
-  document.getElementById('r-scpi-an').textContent = fmtEur(revAn);
-  document.getElementById('r-scpi-mois').textContent = fmtEur(revMois);
-  document.getElementById('r-scpi-cap').textContent = fmtEur(capitalFinal);
-  const ctx = document.getElementById('chartScpi').getContext('2d');
-  const years = Array.from({length:horizon+1},(_,i)=>i);
-  const vals = years.map(y => Math.round(montant + revAn*y));
-  if(chartScpi) chartScpi.destroy();
-  chartScpi = new Chart(ctx, {
-    type:'line',
-    data:{labels:years.map(y=>'Année '+y),datasets:[{data:vals,borderColor:'#C4973A',backgroundColor:'rgba(196,151,58,.08)',fill:true,tension:.4,pointRadius:2}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>fmtEur(v)},grid:{color:'rgba(0,0,0,.05)'}},x:{grid:{display:false}}}}
-  });
-}
-
-function calcRetraite() {
-  if (typeof Chart === 'undefined') return;
-  const age = +document.querySelector('#panel-retraite input[oninput*="\'age\'"]').value;
-  const depart = +document.querySelector('#panel-retraite input[oninput*="\'depart\'"]').value;
-  const capital = +document.querySelector('#panel-retraite input[oninput*="\'capital\'"]').value;
-  const effort = +document.querySelector('#panel-retraite input[oninput*="\'effort\'"]').value;
-  const rdt = +document.querySelector('#panel-retraite input[oninput*="\'rdt\'"]').value / 100;
-  const annees = Math.max(1, depart - age);
-  const mois = annees * 12;
-  const rm = rdt / 12;
-  // Capital final = capital initial composé + versements mensuels composés
-  const capitalFinal = capital * Math.pow(1 + rm, mois) + effort * (Math.pow(1 + rm, mois) - 1) / rm;
-  const totalVerse = capital + effort * mois;
-  // Rente mensuelle sur 25 ans (300 mois) avec le même taux
-  const moisRente = 300;
-  const mensuelRente = rm === 0 ? capitalFinal / moisRente : capitalFinal * rm * Math.pow(1 + rm, moisRente) / (Math.pow(1 + rm, moisRente) - 1);
-  document.getElementById('r-ret-capital').textContent = fmtEur(capitalFinal);
-  document.getElementById('r-ret-mensuel').textContent = fmtEur(mensuelRente);
-  document.getElementById('r-ret-verse').textContent = fmtEur(totalVerse);
-  const ctx = document.getElementById('chartRetraite').getContext('2d');
-  const years = Array.from({length: annees + 1}, (_, i) => i);
-  const valsCapital = years.map(y => {
-    const m = y * 12;
-    return Math.round(capital * Math.pow(1 + rm, m) + (rm > 0 ? effort * (Math.pow(1 + rm, m) - 1) / rm : effort * m));
-  });
-  const valsVerse = years.map(y => Math.round(capital + effort * y * 12));
-  if(chartRetraite) chartRetraite.destroy();
-  chartRetraite = new Chart(ctx, {
-    type:'line',
-    data:{
-      labels: years.map(y => age + y + ' ans'),
-      datasets:[
-        {label:'Capital projeté', data:valsCapital, borderColor:'#1E7A6E', backgroundColor:'rgba(30,122,110,.08)', fill:true, tension:.4, pointRadius:2},
-        {label:'Total versé', data:valsVerse, borderColor:'#C4973A', backgroundColor:'rgba(196,151,58,.08)', fill:true, tension:.1, pointRadius:2, borderDash:[5,5]}
-      ]
-    },
-    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom',labels:{color:'#6B7280',font:{size:12}}}}, scales:{y:{ticks:{callback:v=>fmtEur(v)},grid:{color:'rgba(0,0,0,.05)'}},x:{grid:{display:false}}}}
-  });
-}
-let chartCapacite;
-function calcCapacite() {
-  if (typeof Chart === 'undefined') return;
-  const revenus = +document.querySelector('#panel-capacite input[oninput*="revenus"]').value;
-  const charges = +document.querySelector('#panel-capacite input[oninput*="charges"]').value;
-  const apport  = +document.querySelector('#panel-capacite input[oninput*="cap-apport"]').value;
-  const duree   = +document.querySelector('#panel-capacite input[oninput*="cap-duree"]').value;
-  const taux    = +document.querySelector('#panel-capacite input[oninput*="cap-taux"]').value / 100;
-  const mensualiteMax = Math.max(0, (revenus - charges) * 0.35);
-  const n = duree * 12;
-  const r = taux / 12;
-  const capacite = r === 0 ? mensualiteMax * n : mensualiteMax * (1 - Math.pow(1 + r, -n)) / r;
-  const budget = capacite + apport;
-  document.getElementById('r-cap-mensualite').textContent = fmtEur(mensualiteMax);
-  document.getElementById('r-cap-emprunt').textContent = fmtEur(capacite);
-  document.getElementById('r-cap-budget').textContent = fmtEur(budget);
-  const ctx = document.getElementById('chartCapacite').getContext('2d');
-  if (chartCapacite) chartCapacite.destroy();
-  chartCapacite = new Chart(ctx, {
-    type: 'doughnut',
-    data: { labels: ['Apport personnel', 'Emprunt'], datasets: [{ data: [apport, capacite], backgroundColor: ['#C4973A', '#1E7A6E'], borderWidth: 0 }] },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#6B7280', font: { size: 12 } } } } }
-  });
-}
-
-
-/* ════════ LAZY-LOAD CHART.JS ════════
-   Charge Chart.js seulement quand le simulateur entre dans le viewport.
-   Avantage : Chart.js (~150 Ko) ne bloque plus le rendu initial. */
-let chartJsLoaded = false;
-let chartJsLoading = null;
-function loadChartJs() {
-  if (chartJsLoaded) return Promise.resolve();
-  if (chartJsLoading) return chartJsLoading;
-  chartJsLoading = new Promise((resolve) => {
-    const s = document.createElement('script');
-    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js';
-    s.async = true;
-    s.onload = () => { chartJsLoaded = true; resolve(); };
-    s.onerror = () => { console.warn('Chart.js failed to load'); resolve(); };
-    document.head.appendChild(s);
-  });
-  return chartJsLoading;
-}
-
-const simulSection = document.getElementById('simulateurs');
-if (simulSection) {
-  const simulObs = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) {
-      loadChartJs().then(() => {
-        // Une fois Chart chargé, initialiser le panel actif
-        const activeTab = document.querySelector('.sim-tab.active');
-        if (activeTab) {
-          const m = activeTab.getAttribute('onclick')?.match(/'(\w+)'/);
-          if (m && typeof switchSim === 'function') switchSim(m[1]);
-        }
-      });
-      simulObs.disconnect();
-    }
-  }, { rootMargin: '300px' }); // Pré-charge 300px avant entrée dans le viewport
-  simulObs.observe(simulSection);
-}
+/* ════════ SIMULATEURS ════════
+   Widget legacy retiré en CS-7D. Les simulateurs vivent sur /simulateurs
+   (+ /simulateurs/capacite-emprunt, /mensualite-credit, /taux-endettement). */
 
 /* ════════ WIZARD ENGINE ════════ */
 const flows = {
@@ -2450,15 +2092,15 @@ const flows = {
 let wizService='', wizStep=0, wizAnswers=[];
 
 const wizIntros = {
-  impots:       { icon:'💰', title:'Payez-vous trop d\'impôts ?',       desc:'Découvrez en quelques questions les leviers d\'optimisation fiscale adaptés à votre situation.' },
-  immo:         { icon:'🏠', title:'Votre projet immobilier sur mesure',    desc:'Quelques questions pour identifier le montage le plus rentable et fiscalement optimal pour vous.' },
-  retraite:     { icon:'🌅', title:'Anticipez sereinement votre retraite',  desc:'Évaluons ensemble votre situation pour construire une stratégie de revenus complémentaires.' },
-  epargne:      { icon:'📈', title:'Faites fructifier votre épargne',       desc:'Quelques questions pour vous proposer une allocation sur mesure, adaptée à vos objectifs.' },
-  transmission: { icon:'👨‍👩‍👧‍👦', title:'Protégez vos proches',                 desc:'Anticipez la transmission de votre patrimoine pour protéger vos proches et optimiser la fiscalité.' },
-  cession:      { icon:'🏢', title:'Préparez la cession de votre entreprise', desc:'Le montage en amont fait toute la différence. Évaluons ensemble les options pour votre cession.' },
-  credit:       { icon:'🏦', title:'Obtenez les meilleures conditions',     desc:'En tant que courtier, nous négocions pour vous auprès de nos partenaires bancaires.' },
-  declaration:  { icon:'📋', title:'Votre déclaration, vérifiée et optimisée', desc:'Chaque année, nous identifions des erreurs qui coûtent en moyenne plusieurs milliers d\'euros.' },
-  rsu:          { icon:'📊', title:'Vos actions, bien déclarées et bien investies', desc:'Quelques questions pour évaluer la fiscalité de vos RSU, stock-options ou BSPCE.' },
+  impots:       { icon:'<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="7.5" cy="7.5" r="2"/><circle cx="16.5" cy="16.5" r="2"/></svg>', title:'Payez-vous trop d\'impôts ?',       desc:'Découvrez en quelques questions les leviers d\'optimisation fiscale adaptés à votre situation.' },
+  immo:         { icon:'<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/></svg>', title:'Votre projet immobilier sur mesure',    desc:'Quelques questions pour identifier le montage le plus rentable et fiscalement optimal pour vous.' },
+  retraite:     { icon:'<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3"/><path d="M5.6 9.6 7 11"/><path d="M18.4 9.6 17 11"/><path d="M2 17h20"/><path d="M22 21H2"/><path d="M8 17a4 4 0 0 1 8 0"/></svg>', title:'Anticipez sereinement votre retraite',  desc:'Évaluons ensemble votre situation pour construire une stratégie de revenus complémentaires.' },
+  epargne:      { icon:'<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17 10 10l4 4 7-7"/><path d="M14 7h7v7"/></svg>', title:'Faites fructifier votre épargne',       desc:'Quelques questions pour vous proposer une allocation sur mesure, adaptée à vos objectifs.' },
+  transmission: { icon:'<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg>', title:'Protégez vos proches',                 desc:'Anticipez la transmission de votre patrimoine pour protéger vos proches et optimiser la fiscalité.' },
+  cession:      { icon:'<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 8h.01M12 8h.01M15 8h.01M9 12h.01M12 12h.01M15 12h.01M10 21v-4h4v4"/></svg>', title:'Préparez la cession de votre entreprise', desc:'Le montage en amont fait toute la différence. Évaluons ensemble les options pour votre cession.' },
+  credit:       { icon:'<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 8h16z"/><path d="M4 10h16"/><path d="M6 10v7M10 10v7M14 10v7M18 10v7"/><path d="M4 20h16"/></svg>', title:'Obtenez les meilleures conditions',     desc:'En tant que courtier, nous négocions pour vous auprès de nos partenaires bancaires.' },
+  declaration:  { icon:'<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>', title:'Votre déclaration, vérifiée et optimisée', desc:'Chaque année, nous identifions des erreurs qui coûtent en moyenne plusieurs milliers d\'euros.' },
+  rsu:          { icon:'<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7"/><path d="M3 20h16"/></svg>', title:'Vos actions, bien déclarées et bien investies', desc:'Quelques questions pour évaluer la fiscalité de vos RSU, stock-options ou BSPCE.' },
 };
 
 function openWizard(service) {
@@ -2470,7 +2112,7 @@ function openWizard(service) {
 
   // Show intro screen
   const intro = wizIntros[service] || { icon:'🎯', title:'Votre diagnostic personnalisé', desc:'Répondez à quelques questions pour une analyse adaptée à votre situation.' };
-  document.getElementById('wizIntroIcon').textContent = intro.icon;
+  document.getElementById('wizIntroIcon').innerHTML = intro.icon;
   document.getElementById('wizIntroTitle').textContent = intro.title;
   document.getElementById('wizIntroDesc').textContent = intro.desc;
 
@@ -2705,7 +2347,7 @@ async function wizSubmit() {
 /* ════════ HERO LOAD ANIMATION ════════ */
 function triggerHeroAnims() {
   const els = document.querySelectorAll(
-    '.hero-badge, .hero-h1, .hero-sub, .hero-actions, .hero-stats, .hero-img, .hero-card'
+    '.hero-kicker, .hero-h1, .hero-sub, .hero-geo, .hero-actions, .hero-expertises, .hero-img, .hero-signature'
   );
   els.forEach(el => {
     el.style.opacity = '1';
@@ -2913,6 +2555,18 @@ document.querySelectorAll('.svc-card').forEach(card => {
     .catch(() => { /* échec silencieux : cartes statiques du HTML conservées */ });
 })();
 
+/* ── Accessibilité clavier des cartes diagnostic (n'altère pas openWizard) ── */
+(function(){
+  document.querySelectorAll('.lead-card').forEach(function(card){
+    if(!card.hasAttribute('tabindex')) card.setAttribute('tabindex','0');
+    if(!card.hasAttribute('role')) card.setAttribute('role','button');
+    var t=card.querySelector('.lead-card-title');
+    if(t && !card.hasAttribute('aria-label')) card.setAttribute('aria-label', t.textContent.trim()+' — faire mon diagnostic');
+    card.addEventListener('keydown', function(e){
+      if(e.key==='Enter' || e.key===' ' || e.key==='Spacebar'){ e.preventDefault(); card.click(); }
+    });
+  });
+})();
 </script>
 <script src="/assets/js/navigation.js" defer></script>
 </body>

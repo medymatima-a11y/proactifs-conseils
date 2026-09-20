@@ -293,16 +293,16 @@ test('L2 — header central : page enregistrée dans nav-pages.json + bloc NAV p
   assert.ok(NAV_PAGES.pages.includes('simulateurs/taux-endettement.html'), 'page dans nav-pages.json');
   assert.ok(/<!-- NAV:START/.test(HTML) && /<!-- NAV:END -->/.test(HTML), 'marqueurs NAV présents');
 });
-test('L3 — breadcrumb central : Accueil > Simulateurs (non cliquable) > Taux d\'endettement', () => {
+test('L3 — breadcrumb central : Accueil > Simulateurs (lien /simulateurs) > Taux d\'endettement', () => {
   const entry = BC_PAGES.pages.find((x) => x.file === 'simulateurs/taux-endettement.html');
   assert.ok(entry, 'entrée breadcrumb présente');
   assert.strictEqual(entry.url, '/simulateurs/taux-endettement');
   assert.strictEqual(entry.label, 'Taux d\'endettement');
-  assert.deepStrictEqual(entry.trail, [{ label: 'Accueil', url: '/' }, { label: 'Simulateurs' }]);
+  assert.deepStrictEqual(entry.trail, [{ label: 'Accueil', url: '/' }, { label: 'Simulateurs', url: '/simulateurs' }]);
   // marqueurs centraux + Simulateurs non cliquable + page courante + JSON-LD
   assert.ok(/<!-- BREADCRUMB:START -->/.test(HTML) && /<!-- BREADCRUMB:END -->/.test(HTML), 'marqueurs breadcrumb visibles');
   assert.ok(/<!-- BREADCRUMB_JSONLD:START -->/.test(HTML), 'marqueurs JSON-LD breadcrumb');
-  assert.ok(/<li><span>Simulateurs<\/span><\/li>/.test(HTML), 'Simulateurs non cliquable (span sans lien)');
+  assert.ok(/<li><a href="\/simulateurs">Simulateurs<\/a><\/li>/.test(HTML), 'Simulateurs cliquable vers le hub (CS-7C)');
   assert.ok(/aria-current="page">Taux d'endettement<\/span>/.test(HTML), 'page courante marquée');
   assert.ok(/"@type": "BreadcrumbList"/.test(HTML), 'JSON-LD BreadcrumbList présent');
 });

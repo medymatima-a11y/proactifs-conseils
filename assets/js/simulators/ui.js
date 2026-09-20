@@ -39,7 +39,9 @@
     'simulation_completed',
     'simulation_result',
     'financing_cta_clicked',
-    'financing_lead_submitted'
+    'financing_lead_submitted',
+    'simulator_hub_view',      // CS-7B : vue du hub /simulateurs (ajout additif)
+    'simulator_card_clicked'   // CS-7B : clic carte outil (propriété tool uniquement)
   ];
   // Clés interdites (PII / montants exacts) — jamais transmises au tracking.
   var FORBIDDEN_KEYS = [

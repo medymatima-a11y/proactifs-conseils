@@ -58,17 +58,16 @@ test('SEO : header centralisé réel (pas de mini-header prototype)', () => {
   assert.ok(!/Prototype simulateur V2/.test(HTML));
   assert.ok(!/proto-header/.test(HTML));
 });
-test('SEO : breadcrumb visible — Simulateurs non cliquable', () => {
+test('SEO : breadcrumb visible — Simulateurs cliquable vers /simulateurs (CS-7C)', () => {
   assert.ok(/<nav class="breadcrumb"/.test(HTML));
   assert.ok(/<li><a href="\/">Accueil<\/a><\/li>/.test(HTML));
-  assert.ok(/<li><span>Simulateurs<\/span><\/li>/.test(HTML));  // pas de lien
+  assert.ok(/<li><a href="\/simulateurs">Simulateurs<\/a><\/li>/.test(HTML));  // hub cliquable
   assert.ok(/<li><span aria-current="page">Capacité d'emprunt<\/span><\/li>/.test(HTML));
 });
-test('SEO : BreadcrumbList JSON-LD — Simulateurs sans URL, current avec URL réelle', () => {
+test('SEO : BreadcrumbList JSON-LD — Simulateurs avec item /simulateurs (CS-7C)', () => {
   assert.ok(/"@type":\s*"BreadcrumbList"/.test(HTML));
-  assert.ok(/"position":\s*2,\s*"name":\s*"Simulateurs"\s*}/.test(HTML)); // pas de "item"
+  assert.ok(/"position":\s*2,\s*"name":\s*"Simulateurs",\s*"item":\s*"https:\/\/proactifsconseils\.fr\/simulateurs"/.test(HTML));
   assert.ok(/"name":\s*"Capacité d'emprunt",\s*"item":\s*"https:\/\/proactifsconseils\.fr\/simulateurs\/capacite-emprunt"/.test(HTML));
-  assert.ok(!/simulateurs"\s*}\s*,?\s*{[^}]*"name":\s*"Simulateurs"/.test(HTML)); // Simulateurs n'a pas d'URL /simulateurs
 });
 test('SEO : FAQ visible (8) + FAQPage JSON-LD', () => {
   const details = visible.match(/<details>/g) || [];

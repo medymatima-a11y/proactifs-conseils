@@ -4,7 +4,7 @@
  * Protège : robots index, og:image, GA4 + pont dataLayer->gtag (5 events),
  * lead réel connecté /api/subscribe (service credit, sans secret tiers),
  * consentement, CTA primaire or, header/breadcrumb centralisés
- * (Simulateurs non cliquable), analytics sans PII. Moteur/SEO gelés ailleurs.
+ * (Simulateurs cliquable /simulateurs — CS-7C), analytics sans PII. Moteur/SEO gelés ailleurs.
  * ========================================================================== */
 const test = require('node:test');
 const assert = require('node:assert');
@@ -44,8 +44,9 @@ test('Analytics : track() ne laisse passer aucune PII (drop email/montant/revenu
   global.self = global; global.document = global.document || {}; global.dataLayer = [];
   delete require.cache[require.resolve('../../assets/js/simulators/ui.js')];
   const ui = require('../../assets/js/simulators/ui.js');
+  // CS-7B : extension additive autorisée (+ simulator_hub_view, simulator_card_clicked).
   assert.deepStrictEqual(ui.ALLOWED_EVENTS,
-    ['simulation_started','simulation_completed','simulation_result','financing_cta_clicked','financing_lead_submitted']);
+    ['simulation_started','simulation_completed','simulation_result','financing_cta_clicked','financing_lead_submitted','simulator_hub_view','simulator_card_clicked']);
   ui.track('simulation_result', { bucket: '200-300k', email: 'a@b.fr', montant: 300000, revenu: 4000, prenom: 'X' });
   const last = global.dataLayer[global.dataLayer.length - 1];
   assert.strictEqual(last.event, 'simulation_result');
@@ -84,13 +85,13 @@ test('Header : couvert par le build centralisé (marqueurs NAV)', () => {
   assert.ok(/<!-- NAV:START/.test(HTML) && /<!-- NAV:END -->/.test(HTML));
   assert.ok(/<!-- NAV:CONFIG/.test(HTML));
 });
-test('Breadcrumb : Accueil > Simulateurs (non cliquable) > Capacité', () => {
+test('Breadcrumb : Accueil > Simulateurs (lien /simulateurs) > Capacité (CS-7C)', () => {
   const bc = HTML.slice(HTML.indexOf('<!-- BREADCRUMB:START -->'), HTML.indexOf('<!-- BREADCRUMB:END -->'));
   assert.ok(/<a href="\/">Accueil<\/a>/.test(bc));
-  assert.ok(/<li><span>Simulateurs<\/span><\/li>/.test(bc), 'Simulateurs non cliquable');
+  assert.ok(/<li><a href="\/simulateurs">Simulateurs<\/a><\/li>/.test(bc), 'Simulateurs cliquable vers le hub');
   assert.ok(/<span aria-current="page">Capacité d'emprunt<\/span>/.test(bc));
-  // JSON-LD : Simulateurs name-only (pas de item)
-  assert.ok(/"position": 2, "name": "Simulateurs"\}/.test(HTML));
+  // JSON-LD : Simulateurs porte désormais item /simulateurs
+  assert.ok(/"position": 2, "name": "Simulateurs", "item": "https:\/\/proactifsconseils\.fr\/simulateurs"/.test(HTML));
 });
 
 /* ---- Socles gelés : signatures moteur intactes ------------------------ */

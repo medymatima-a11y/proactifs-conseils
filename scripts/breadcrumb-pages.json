@@ -675,6 +675,17 @@
       ]
     },
     {
+      "file": "simulateurs/index.html",
+      "url": "/simulateurs",
+      "label": "Simulateurs",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        }
+      ]
+    },
+    {
       "file": "simulateurs/capacite-emprunt.html",
       "url": "/simulateurs/capacite-emprunt",
       "label": "Capacité d'emprunt",
@@ -684,7 +695,8 @@
           "url": "/"
         },
         {
-          "label": "Simulateurs"
+          "label": "Simulateurs",
+          "url": "/simulateurs"
         }
       ]
     },
@@ -698,7 +710,8 @@
           "url": "/"
         },
         {
-          "label": "Simulateurs"
+          "label": "Simulateurs",
+          "url": "/simulateurs"
         }
       ]
     },
@@ -712,7 +725,8 @@
           "url": "/"
         },
         {
-          "label": "Simulateurs"
+          "label": "Simulateurs",
+          "url": "/simulateurs"
         }
       ]
     }
