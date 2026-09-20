@@ -1388,7 +1388,8 @@ footer {
     <div id="wizContact" style="display:none">
       <div class="wiz-contact-body">
         <h3>Vous y êtes presque&nbsp;!</h3>
-        <p>Laissez-nous vos coordonnées pour recevoir votre analyse personnalisée <strong>sous 24h</strong>.</p>
+        <p>Laissez-nous vos coordonnées pour échanger sur votre situation avec un conseiller.</p>
+        <p style="margin-top:-4px;color:var(--teal);font-weight:600;font-size:13.5px">Un conseiller Proactifs vous recontacte sous 24h.</p>
         <div class="wiz-form-row">
           <div class="wiz-field"><label>Prénom *</label><input type="text" id="wPrenom" placeholder="Votre prénom" required></div>
           <div class="wiz-field"><label>Nom *</label><input type="text" id="wNom" placeholder="Votre nom" required></div>
@@ -1854,65 +1855,73 @@ const flows = {
   impots: {
     name:"Réduire mes impôts",
     steps:[
-      { q:"Quelle est votre tranche marginale d'imposition\u00a0?", sub:"Cela nous permet d'identifier les leviers les plus efficaces pour vous.", opts:[
-        {l:"0 – 11 %", d:"Revenus < 27\u202f000 €/an"},
-        {l:"30 %", d:"Revenus 27\u202f000 – 78\u202f000 €/an"},
-        {l:"41 %", d:"Revenus 78\u202f000 – 168\u202f000 €/an"},
-        {l:"45 %", d:"Revenus > 168\u202f000 €/an"}
+      { q:"Quel montant d'impôt sur le revenu payez-vous environ chaque année ?", sub:"", opts:[
+        {l:"Moins de 5 000 €", d:""},
+        {l:"5 000 à 10 000 €", d:""},
+        {l:"10 000 à 25 000 €", d:""},
+        {l:"25 000 à 50 000 €", d:""},
+        {l:"Plus de 50 000 €", d:""},
+        {l:"Je ne sais pas", d:""}
       ]},
-      { q:"Que souhaitez-vous principalement optimiser\u00a0?", sub:"", opts:[
+      { q:"Que souhaitez-vous principalement optimiser ?", sub:"", opts:[
         {l:"Salaires & revenus professionnels", d:""},
-        {l:"Revenus fonciers locatifs", d:""},
-        {l:"Dividendes & plus-values", d:""},
-        {l:"Je ne sais pas encore", d:"Un bilan nous permettra de l'identifier"}
+        {l:"Revenus fonciers / locatifs", d:""},
+        {l:"Dividendes, placements & plus-values", d:""},
+        {l:"L'ensemble de ma situation fiscale", d:""},
+        {l:"Je ne sais pas encore", d:""}
       ]},
-      { q:"Avez-vous déjà des dispositifs de défiscalisation\u00a0?", sub:"", opts:[
-        {l:"Non, je démarre de zéro", d:""},
-        {l:"Oui, mais pas optimisé", d:"Je cherche à aller plus loin"},
-        {l:"Oui, je veux les réviser", d:"Vérifier si mes placements sont toujours adaptés"},
-        {l:"Je ne suis pas sûr(e)", d:""}
+      { q:"Avez-vous déjà mis en place des solutions pour réduire votre fiscalité ?", sub:"", opts:[
+        {l:"Non, je souhaite commencer", d:""},
+        {l:"Oui, mais je souhaite aller plus loin", d:""},
+        {l:"Oui, je souhaite vérifier leur efficacité", d:""},
+        {l:"Je ne sais pas / je souhaite faire le point", d:""}
       ]}
     ]
   },
   immo: {
     name:"Investissement immobilier",
     steps:[
-      { q:"Quel est votre budget d'investissement\u00a0?", sub:"", opts:[
-        {l:"Moins de 100\u202f000 €", d:""},
-        {l:"100\u202f000 – 300\u202f000 €", d:""},
-        {l:"300\u202f000 – 500\u202f000 €", d:""},
-        {l:"Plus de 500\u202f000 €", d:""}
+      { q:"Quel est votre objectif principal ?", sub:"", opts:[
+        {l:"Créer des revenus complémentaires", d:""},
+        {l:"Développer mon patrimoine", d:""},
+        {l:"Préparer ma retraite", d:""},
+        {l:"Réduire ma fiscalité", d:""},
+        {l:"Préparer la transmission de mon patrimoine", d:""},
+        {l:"Je souhaite être conseillé", d:""}
       ]},
-      { q:"Quel type d'investissement vous intéresse\u00a0?", sub:"", opts:[
-        {l:"SCPI – Pierre-papier", d:"Revenus sans gestion"},
-        {l:"LMNP – Location meublée", d:"Défiscalisation & rendement"},
-        {l:"Locatif classique", d:"Immobilier en direct"},
-        {l:"SCI – Structure familiale", d:"Optimisation transmission"}
+      { q:"Quel budget envisagez-vous pour votre projet ?", sub:"Valeur globale du projet, financement compris.", opts:[
+        {l:"Moins de 100 000 €", d:""},
+        {l:"100 000 à 300 000 €", d:""},
+        {l:"300 000 à 500 000 €", d:""},
+        {l:"Plus de 500 000 €", d:""},
+        {l:"Je ne sais pas encore", d:""}
       ]},
-      { q:"Quel est votre horizon d'investissement\u00a0?", sub:"", opts:[
-        {l:"Court terme (< 5 ans)", d:""},
-        {l:"Moyen terme (5 – 10 ans)", d:""},
-        {l:"Long terme (> 10 ans)", d:"Retraite, succession"},
-        {l:"Pas encore défini", d:""}
+      { q:"Où en êtes-vous dans votre projet ?", sub:"", opts:[
+        {l:"Je commence à réfléchir", d:""},
+        {l:"Je recherche actuellement une opportunité", d:""},
+        {l:"J'ai déjà identifié un bien", d:""},
+        {l:"J'ai besoin d'étudier mon financement", d:""},
+        {l:"Je possède déjà un bien et souhaite l'optimiser ou le vendre", d:""}
       ]}
     ]
   },
   retraite: {
     name:"Préparer ma retraite",
     steps:[
-      { q:"Dans combien d'années prévoyez-vous de partir\u00a0?", sub:"", opts:[
+      { q:"Dans combien d'années prévoyez-vous de partir ?", sub:"", opts:[
         {l:"Moins de 5 ans", d:"Priorité à la sécurisation"},
         {l:"5 – 10 ans", d:"Encore le temps d'optimiser"},
         {l:"10 – 20 ans", d:"Phase de capitalisation"},
         {l:"Plus de 20 ans", d:"Long terme : maximiser"}
       ]},
-      { q:"Avez-vous déjà une épargne retraite\u00a0?", sub:"", opts:[
-        {l:"Non, je démarre", d:""},
-        {l:"Oui, un PER individuel", d:""},
-        {l:"Oui, une assurance vie", d:""},
-        {l:"Plusieurs dispositifs", d:""}
+      { q:"Avez-vous déjà commencé à préparer financièrement votre retraite ?", sub:"", opts:[
+        {l:"Non, pas encore", d:""},
+        {l:"Oui, avec une épargne dédiée", d:""},
+        {l:"Oui, avec des investissements immobiliers", d:""},
+        {l:"Oui, avec plusieurs solutions", d:""},
+        {l:"Je ne sais pas si ma préparation est suffisante", d:""}
       ]},
-      { q:"Quel est votre objectif principal\u00a0?", sub:"", opts:[
+      { q:"Quel est votre objectif principal ?", sub:"", opts:[
         {l:"Maintenir mon niveau de vie", d:"Revenus complémentaires"},
         {l:"Générer des revenus passifs", d:"Immobilier, SCPI, dividendes"},
         {l:"Transmettre un capital", d:"À mes enfants"},
@@ -1923,19 +1932,19 @@ const flows = {
   epargne: {
     name:"Placer mon épargne",
     steps:[
-      { q:"Quel montant souhaitez-vous placer\u00a0?", sub:"", opts:[
-        {l:"Moins de 50\u202f000 €", d:""},
-        {l:"50\u202f000 – 150\u202f000 €", d:""},
-        {l:"150\u202f000 – 500\u202f000 €", d:""},
-        {l:"Plus de 500\u202f000 €", d:""}
+      { q:"Quel montant souhaitez-vous placer ?", sub:"", opts:[
+        {l:"Moins de 50 000 €", d:""},
+        {l:"50 000 – 150 000 €", d:""},
+        {l:"150 000 – 500 000 €", d:""},
+        {l:"Plus de 500 000 €", d:""}
       ]},
-      { q:"Quel est votre profil de risque\u00a0?", sub:"Nous adapterons nos recommandations en conséquence.", opts:[
-        {l:"Prudent", d:"Je privilégie la sécurité du capital"},
-        {l:"Équilibré", d:"Risque modéré, rendement stable"},
-        {l:"Dynamique", d:"Je cherche la performance long terme"},
-        {l:"Je ne sais pas encore", d:"Nous vous aiderons à le définir"}
+      { q:"Quelle approche correspond le mieux à vos attentes ?", sub:"", opts:[
+        {l:"Je privilégie avant tout la sécurité de mon capital", d:""},
+        {l:"J'accepte des fluctuations modérées pour rechercher davantage de rendement", d:""},
+        {l:"J'accepte des fluctuations importantes pour rechercher de la performance à long terme", d:""},
+        {l:"Je ne sais pas encore", d:""}
       ]},
-      { q:"Dans quel délai pourriez-vous avoir besoin de ces fonds\u00a0?", sub:"", opts:[
+      { q:"Dans quel délai pourriez-vous avoir besoin de ces fonds ?", sub:"", opts:[
         {l:"Je n'en ai pas besoin (long terme)", d:""},
         {l:"Dans 5 – 10 ans", d:""},
         {l:"Dans 2 – 5 ans", d:""},
@@ -1946,21 +1955,22 @@ const flows = {
   transmission: {
     name:"Transmettre à mes proches",
     steps:[
-      { q:"Quel est votre objectif de transmission\u00a0?", sub:"", opts:[
-        {l:"Donation de mon vivant", d:"Réduire les droits de succession"},
-        {l:"Préparer ma succession", d:"Organiser l'héritage"},
-        {l:"Transmettre mon entreprise", d:"Cession ou donation"},
+      { q:"Quel est votre objectif principal ?", sub:"", opts:[
+        {l:"Transmettre de mon vivant", d:""},
+        {l:"Préparer ma succession", d:""},
+        {l:"Protéger mon conjoint / mes proches", d:""},
+        {l:"Transmettre mon entreprise", d:""},
         {l:"Je ne sais pas encore", d:""}
       ]},
-      { q:"Avez-vous des héritiers directs\u00a0?", sub:"", opts:[
+      { q:"Avez-vous des héritiers directs ?", sub:"", opts:[
         {l:"Oui, des enfants", d:""},
         {l:"Oui, d'autres héritiers", d:"Neveux, nièces, amis"},
         {l:"Non", d:""},
         {l:"Situation complexe", d:"Famille recomposée"}
       ]},
-      { q:"Quelle est votre estimation de patrimoine\u00a0?", sub:"Pour calculer les droits potentiels.", opts:[
-        {l:"Moins de 300\u202f000 €", d:""},
-        {l:"300\u202f000 € – 1 million", d:""},
+      { q:"Quelle est votre estimation de patrimoine ?", sub:"Pour calculer les droits potentiels.", opts:[
+        {l:"Moins de 300 000 €", d:""},
+        {l:"300 000 € – 1 million", d:""},
         {l:"1 – 3 millions", d:""},
         {l:"Plus de 3 millions", d:""}
       ]}
@@ -1969,19 +1979,19 @@ const flows = {
   cession: {
     name:"Céder mon entreprise",
     steps:[
-      { q:"Dans quel délai envisagez-vous la cession\u00a0?", sub:"", opts:[
+      { q:"Dans quel délai envisagez-vous la cession ?", sub:"", opts:[
         {l:"Dans les 12 prochains mois", d:"Urgent – préparation immédiate"},
         {l:"Dans 1 – 3 ans", d:"Temps d'optimiser la structure"},
         {l:"Dans 3 – 5 ans", d:"Phase de préparation"},
         {l:"Je réfléchis encore", d:""}
       ]},
-      { q:"Quelle est la valeur estimée de votre entreprise\u00a0?", sub:"", opts:[
-        {l:"Moins de 500\u202f000 €", d:""},
-        {l:"500\u202f000 € – 2 millions", d:""},
+      { q:"Quelle est la valeur estimée de votre entreprise ?", sub:"", opts:[
+        {l:"Moins de 500 000 €", d:""},
+        {l:"500 000 € – 2 millions", d:""},
         {l:"2 – 5 millions", d:""},
         {l:"Plus de 5 millions", d:""}
       ]},
-      { q:"Avez-vous déjà identifié des acquéreurs\u00a0?", sub:"", opts:[
+      { q:"Avez-vous déjà identifié des acquéreurs ?", sub:"", opts:[
         {l:"Non, je cherche encore", d:""},
         {l:"Oui, en interne (associés, famille)", d:""},
         {l:"Oui, à l'externe", d:"Fonds, industriels"},
@@ -1992,99 +2002,88 @@ const flows = {
   credit: {
     name:"Obtenir un crédit immobilier",
     steps:[
-      { q:"Pour quel type de projet souhaitez-vous un financement\u00a0?", sub:"", opts:[
+      { q:"Pour quel type de projet souhaitez-vous un financement ?", sub:"", opts:[
         {l:"Résidence principale", d:""},
         {l:"Investissement locatif", d:"LMNP, classique"},
         {l:"Rachat de crédits", d:"Regroupement & optimisation"},
         {l:"Local professionnel", d:""}
       ]},
-      { q:"Quel est le montant de votre projet\u00a0?", sub:"", opts:[
-        {l:"Moins de 200\u202f000 €", d:""},
-        {l:"200\u202f000 – 400\u202f000 €", d:""},
-        {l:"400\u202f000 – 800\u202f000 €", d:""},
-        {l:"Plus de 800\u202f000 €", d:""}
+      { q:"Quel est le montant de votre projet ?", sub:"", opts:[
+        {l:"Moins de 200 000 €", d:""},
+        {l:"200 000 – 400 000 €", d:""},
+        {l:"400 000 – 800 000 €", d:""},
+        {l:"Plus de 800 000 €", d:""}
       ]},
-      { q:"Quelle est votre situation professionnelle\u00a0?", sub:"Cela influence les conditions de financement.", opts:[
-        {l:"Salarié(e) en CDI", d:""},
-        {l:"Fonctionnaire / Retraité(e)", d:""},
-        {l:"TNS / Indépendant(e)", d:""},
-        {l:"Chef(fe) d'entreprise", d:""}
+      { q:"Où en êtes-vous dans votre projet ?", sub:"", opts:[
+        {l:"Je commence à étudier mon projet", d:""},
+        {l:"Je recherche actuellement un bien", d:""},
+        {l:"J'ai déjà trouvé le bien", d:""},
+        {l:"J'ai signé un compromis / une promesse", d:""},
+        {l:"Je souhaite renégocier ou restructurer un financement existant", d:""}
       ]}
     ]
   },
   declaration: {
     name:"Déclarer mes impôts",
     steps:[
-      { q:"Quelle est votre tranche marginale d'imposition\u00a0?", sub:"Cela nous permet d'évaluer les optimisations possibles pour votre déclaration.", opts:[
-        {l:"0 – 11 %", d:"Revenus < 27\u202f000 €/an"},
-        {l:"30 %", d:"Revenus 27\u202f000 – 78\u202f000 €/an"},
-        {l:"41 %", d:"Revenus 78\u202f000 – 168\u202f000 €/an"},
-        {l:"45 %", d:"Revenus > 168\u202f000 €/an"}
+      { q:"Quels revenus ou opérations devez-vous déclarer ?", sub:"", type:"multi", opts:[
+        {l:"Salaires / pensions", d:""},
+        {l:"Revenus fonciers", d:""},
+        {l:"Location meublée / LMNP", d:""},
+        {l:"Revenus professionnels BNC/BIC", d:""},
+        {l:"Placements / dividendes / plus-values", d:""},
+        {l:"RSU / actions / stock-options", d:""},
+        {l:"Revenus étrangers", d:""},
+        {l:"SCI / autres situations", d:""}
       ]},
-      { q:"Quels types de revenus devez-vous déclarer\u00a0?", sub:"", opts:[
-        {l:"Salaires uniquement", d:"Déclaration standard"},
-        {l:"Revenus fonciers", d:"Location nue"},
-        {l:"LMNP – Location meublée", d:"Régime réel ou micro-BIC"},
-        {l:"Plus-values immobilières ou mobilières", d:""},
-        {l:"Autres", d:"SCI, BNC, revenus étrangers, cryptomonnaies…"}
+      { q:"Quelle est votre principale difficulté ?", sub:"", opts:[
+        {l:"Je veux éviter les erreurs", d:""},
+        {l:"Je ne sais pas quels formulaires / cases utiliser", d:""},
+        {l:"Je veux optimiser mes charges et déductions", d:""},
+        {l:"Je dois corriger une déclaration", d:""},
+        {l:"Ma situation comporte plusieurs types de revenus", d:""},
+        {l:"Je veux simplement déléguer", d:""}
       ]},
-      { q:"Êtes-vous actuellement accompagné(e)\u00a0?", sub:"", opts:[
-        {l:"Non, je gère seul(e)", d:""},
-        {l:"J'utilise un logiciel en ligne", d:"Impôt.gouv, Turbo Tax"},
-        {l:"Oui, par un comptable", d:"Mais je cherche une alternative"},
-        {l:"Première déclaration", d:"Je suis nouveau contribuable"}
+      { q:"Quel accompagnement recherchez-vous ?", sub:"", opts:[
+        {l:"Vérifier ma déclaration avant envoi", d:""},
+        {l:"Prendre en charge ma déclaration", d:""},
+        {l:"Corriger une déclaration déjà envoyée", d:""},
+        {l:"Faire un bilan fiscal plus global", d:""}
       ]},
-      { q:"Avez-vous rencontré des difficultés par le passé\u00a0?", sub:"", opts:[
-        {l:"Non, tout était simple", d:""},
-        {l:"Oui, des revenus complexes", d:"Difficile à déclarer correctement"},
-        {l:"Oui, j'ai eu un redressement", d:"Je veux sécuriser mes futures déclarations"},
-        {l:"Je ne sais pas si tout était juste", d:""}
+      { q:"Quand souhaitez-vous être accompagné ?", sub:"", opts:[
+        {l:"Dès que possible", d:""},
+        {l:"Dans les 15 jours", d:""},
+        {l:"Dans les prochaines semaines", d:""},
+        {l:"Je prépare simplement la prochaine déclaration", d:""}
       ]},
-      { q:"Quelles difficultés rencontrez-vous actuellement\u00a0?", sub:"Sélectionnez celle qui vous concerne le plus.", opts:[
-        {l:"Choix du régime fiscal", d:"Micro-foncier, réel, micro-BIC… je ne sais pas lequel choisir"},
-        {l:"Cases et formulaires complexes", d:"2044, 2042-C, annexes… je m'y perds"},
-        {l:"Calcul des charges déductibles", d:"Travaux, intérêts, assurance… qu'est-ce que je peux déduire ?"},
-        {l:"Pas de difficulté particulière", d:"Je veux juste m'assurer de ne rien oublier"}
-      ]},
-      { q:"Qu'attendez-vous de notre accompagnement\u00a0?", sub:"Cela nous permet de préparer au mieux votre premier échange.", opts:[
-        {l:"Vérifier ma déclaration avant envoi", d:"Relecture complète pour éviter les erreurs"},
-        {l:"La remplir entièrement pour moi", d:"Prise en charge complète de la déclaration"},
-        {l:"Corriger une déclaration déjà envoyée", d:"Déclaration rectificative si nécessaire"},
-        {l:"Un bilan fiscal global", d:"Déclaration + stratégie d'optimisation"}
-      ]},
-      { q:"Quand souhaitez-vous débuter la préparation\u00a0?", sub:"", opts:[
-        {l:"Cette semaine", d:"Je souhaite démarrer rapidement"},
-        {l:"D'ici 15 jours", d:"Je prends le temps de me préparer"},
-        {l:"Plus tard", d:"Je veux d'abord m'informer"}
-      ]},
-      { q:"Informations complémentaires", sub:"Précisez votre situation ou vos questions si vous le souhaitez.", type:"textarea" }
+      { q:"Souhaitez-vous nous préciser quelque chose ?", sub:"Précisez votre situation ou vos questions si vous le souhaitez.", type:"textarea" }
     ]
   }
   ,rsu: {
     name:"Actionnariat salarié",
     steps:[
-      { q:"Quel type de plan d'actionnariat possédez-vous\u00a0?", sub:"", opts:[
+      { q:"Quel type de plan d'actionnariat possédez-vous ?", sub:"", opts:[
         {l:"RSU (Restricted Stock Units)", d:"Actions débloquées au vesting"},
         {l:"Stock-options ou BSPCE", d:"Options ou bons de souscription"},
         {l:"Actions gratuites (AGA)", d:"Plan d'attribution français"},
         {l:"ESPP", d:"Actions achetées à prix réduit"},
         {l:"Plusieurs types", d:"RSU + ESPP, ou autre combinaison"}
       ]},
-      { q:"Avez-vous vendu des actions cette année ou l'an dernier\u00a0?", sub:"", opts:[
+      { q:"Avez-vous vendu des actions cette année ou l'an dernier ?", sub:"", opts:[
         {l:"Oui, j'ai vendu des actions", d:""},
         {l:"Non, pas encore", d:""},
         {l:"Sell-to-cover automatique au vesting", d:""}
       ]},
-      { q:"Votre compte est-il détenu chez un courtier à l'étranger\u00a0?", sub:"Formulaire 3916 : déclaration obligatoire chaque année", opts:[
+      { q:"Votre compte est-il détenu chez un courtier à l'étranger ?", sub:"Un compte détenu à l'étranger peut entraîner des obligations déclaratives spécifiques.", opts:[
         {l:"Oui, et je le déclare chaque année", d:""},
         {l:"Oui, mais pas déclaré chaque année", d:""},
         {l:"Non, compte en France", d:""},
         {l:"Je ne sais pas", d:""}
       ]},
-      { q:"Quelle part de votre patrimoine est investie dans les actions de votre entreprise\u00a0?", sub:"", opts:[
-        {l:"Moins de 10\u00a0%", d:""},
-        {l:"Entre 10 et 30\u00a0%", d:""},
-        {l:"Plus de 30\u00a0%", d:""},
+      { q:"Quelle part de votre patrimoine est investie dans les actions de votre entreprise ?", sub:"", opts:[
+        {l:"Moins de 10 %", d:""},
+        {l:"Entre 10 et 30 %", d:""},
+        {l:"Plus de 30 %", d:""},
         {l:"Je ne sais pas exactement", d:""}
       ]},
       { q:"Informations complémentaires", sub:"Précisez votre situation ou vos questions si vous le souhaitez.", type:"textarea" }
@@ -2187,6 +2186,15 @@ function renderWizStep() {
     ta.onfocus = () => ta.style.borderColor = 'var(--gold)';
     ta.onblur  = () => ta.style.borderColor = '#e0e4e8';
     optsEl.appendChild(ta);
+  } else if (step.type === 'multi') {
+    const sel = Array.isArray(wizAnswers[wizStep]) ? wizAnswers[wizStep] : [];
+    step.opts.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'wiz-opt' + (sel.indexOf(i)!==-1?' selected':'');
+      div.innerHTML = '<div class="wiz-opt-check"></div><div><div class="wiz-opt-label">'+opt.l+'</div>'+(opt.d?'<div class="wiz-opt-desc">'+opt.d+'</div>':'')+'</div>';
+      div.onclick = () => toggleOpt(i);
+      optsEl.appendChild(div);
+    });
   } else {
     step.opts.forEach((opt, i) => {
       const div = document.createElement('div');
@@ -2204,6 +2212,8 @@ function renderWizStep() {
   const step2 = flow.steps[wizStep];
   if (step2.type === 'textarea') {
     nextBtn.classList.add('ready'); // champ facultatif : toujours actionnable
+  } else if (step2.type === 'multi') {
+    nextBtn.classList.toggle('ready', Array.isArray(wizAnswers[wizStep]) && wizAnswers[wizStep].length > 0);
   } else {
     nextBtn.classList.toggle('ready', wizAnswers[wizStep]!==undefined);
   }
@@ -2237,15 +2247,32 @@ function selectOpt(i) {
   document.getElementById('wizNext').classList.add('ready');
   // Auto-advance uniquement sur les étapes à choix multiple (pas textarea)
   const curStep = flows[wizService] && flows[wizService].steps[wizStep];
-  if (!curStep || curStep.type !== 'textarea') {
+  if (!curStep || (curStep.type !== 'textarea' && curStep.type !== 'multi')) {
     setTimeout(()=>{ if(wizAnswers[wizStep]!==undefined) document.getElementById('wizNext').click(); }, 350);
   }
+}
+function toggleOpt(i) {
+  // Choix multiple : sélection/désélection, PAS d'auto-avance
+  let sel = Array.isArray(wizAnswers[wizStep]) ? wizAnswers[wizStep].slice() : [];
+  const pos = sel.indexOf(i);
+  if (pos === -1) sel.push(i); else sel.splice(pos, 1);
+  wizAnswers[wizStep] = sel;
+  document.querySelectorAll('#wizOpts .wiz-opt').forEach((el, idx) => {
+    const on = sel.indexOf(idx) !== -1;
+    el.classList.toggle('selected', on);
+    const chk = el.querySelector('.wiz-opt-check');
+    chk.style.borderColor = on ? 'var(--gold)' : '';
+    chk.style.background  = on ? 'var(--gold)' : '';
+  });
+  document.getElementById('wizNext').classList.toggle('ready', sel.length > 0);
 }
 function wizNext() {
   const currentStep = flows[wizService].steps[wizStep];
   if (currentStep && currentStep.type === 'textarea') {
     const ta = document.getElementById('wizTextarea');
     wizAnswers[wizStep] = ta ? ta.value.trim() : ''; // champ facultatif : le vide est autorisé, le contenu conservé
+  } else if (currentStep && currentStep.type === 'multi') {
+    if (!Array.isArray(wizAnswers[wizStep]) || wizAnswers[wizStep].length === 0) return; // min. 1 sélection obligatoire
   } else if(wizAnswers[wizStep]===undefined) return;
   wizStep++;
   if(wizStep >= flows[wizService].steps.length) {
@@ -2298,9 +2325,20 @@ async function wizSubmit() {
     if (!step) return null;
     const q = step.q.replace(/\u00a0/g, ' ');
     if (step.type === 'textarea') return q + ' : ' + ans;
+    if (step.type === 'multi') {
+      if (!Array.isArray(ans) || ans.length === 0) return null;
+      return q + ' : ' + ans.map(idx => step.opts[idx].l).join(' | ');
+    }
     const opt = step.opts && step.opts[ans];
     return opt ? q + ' : ' + opt.l : null;
   }).filter(Boolean);
+
+  // preoccupation : si la 1re \u00e9tape est un multis\u00e9lection, on stocke les valeurs lisibles jointes
+  let _preoccupation = answersLabels[0] || '';
+  const _firstStep = flow.steps[0];
+  if (_firstStep && _firstStep.type === 'multi' && Array.isArray(wizAnswers[0])) {
+    _preoccupation = wizAnswers[0].map(idx => _firstStep.opts[idx].l).join(' | ');
+  }
 
   let ok = false;
   try {
@@ -2331,7 +2369,7 @@ async function wizSubmit() {
         telephone:     tel,
         source:        _srcMap[wizService] || 'Quiz Homepage',
         situation,
-        preoccupation: answersLabels[0] || '',
+        preoccupation: _preoccupation,
         reponses,
       }),
     });
