@@ -788,7 +788,7 @@ footer {
 @keyframes wizIn { from{opacity:0;transform:scale(.94) translateY(16px)} to{opacity:1;transform:none} }
 
 .wiz-top {
-  padding: 22px 28px 0;
+  padding: 16px 28px 0;
   display:flex; align-items:center; justify-content:space-between;
 }
 .wiz-service-badge {
@@ -805,7 +805,7 @@ footer {
 }
 .wiz-close-btn:hover { background:var(--border); color:var(--ink); }
 
-.wiz-progress-wrap { padding:20px 28px 0; }
+.wiz-progress-wrap { padding:12px 28px 0; }
 .wiz-progress-labels {
   display:flex; justify-content:space-between; margin-bottom:8px;
 }
@@ -820,17 +820,18 @@ footer {
   border-radius:3px; transition:width .4s ease;
 }
 
-.wiz-body { padding: 32px 28px 24px; min-height:300px; }
+.wiz-body { padding: 18px 28px 14px; min-height:0; }
 .wiz-q {
   font-family:'Fraunces',serif; font-size:22px; font-weight:700;
   color:var(--ink); line-height:1.3; margin-bottom:8px;
 }
-.wiz-sub { font-size:14px; color:var(--slate); margin-bottom:26px; line-height:1.5; }
+.wiz-sub { font-size:14px; color:var(--slate); margin-bottom:14px; line-height:1.45; }
+.wiz-sub:empty { display:none; }
 
-.wiz-options { display:flex; flex-direction:column; gap:10px; }
+.wiz-options { display:flex; flex-direction:column; gap:8px; }
 .wiz-opt {
-  display:flex; align-items:center; gap:14px;
-  padding:14px 18px; border-radius:12px;
+  display:flex; align-items:center; gap:13px;
+  padding:7px 15px; min-height:42px; box-sizing:border-box; border-radius:11px;
   border:1.5px solid var(--border); cursor:pointer;
   transition:all .2s; background:var(--ivory);
 }
@@ -851,7 +852,7 @@ footer {
 .wiz-opt-desc { font-size:12px; color:var(--slate); margin-top:1px; }
 
 .wiz-footer {
-  padding:0 28px 24px;
+  padding:0 28px 18px;
   display:flex; align-items:center; justify-content:space-between;
 }
 .wiz-back-btn {
@@ -974,8 +975,11 @@ footer {
   .lead-trust-row span { white-space:nowrap; gap:4px; }
   .lead-trust-row svg { width:13px; height:13px; }
   .wiz-q { font-size:18px; }
-  .wiz-body { padding:24px 20px 16px; }
+  .wiz-body { padding:20px 20px 14px; }
   .wiz-top,.wiz-footer,.wiz-progress-wrap,.wiz-contact-body { padding-left:20px; padding-right:20px; }
+  /* Mobile : on conserve des zones tactiles confortables */
+  .wiz-opt { min-height:54px; padding:11px 15px; gap:12px; }
+  .wiz-options { gap:9px; }
 }
 
 
