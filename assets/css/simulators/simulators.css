@@ -20,7 +20,7 @@
   --sim-radius: 14px;
   --sim-gap: 20px;
   color: var(--sim-ink);
-  font-family: 'Nunito Sans', system-ui, -apple-system, sans-serif;
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
   box-sizing: border-box;
 }
 .sim-root *, .sim-root *::before, .sim-root *::after { box-sizing: inherit; }
