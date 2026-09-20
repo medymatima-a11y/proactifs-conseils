@@ -16,10 +16,12 @@ const HTML = fs.readFileSync(PAGE, 'utf8');
 const visible = HTML.replace(/<!--[\s\S]*?-->/g, '').replace(/<script[\s\S]*?<\/script>/g, '');
 
 /* ---- Logo : asset réel + chemin absolu (header ET footer) ------------- */
-test('Logo : <img src="/images/proactifs-logo.png"> (chemin absolu, header + footer)', () => {
-  const m = HTML.match(/src="\/images\/proactifs-logo\.png"/g) || [];
-  assert.ok(m.length >= 2, 'logo attendu dans le header et le footer');
-  assert.ok(fs.existsSync(path.join(__dirname, '../../images/proactifs-logo.png')), 'asset logo présent');
+test('Logo : header (proactifs-logo-header.png) + footer (proactifs-logo.png), chemins absolus', () => {
+  // NAV-LOGO-3 : le header utilise l'asset dédié recadré, le footer garde l'asset historique
+  assert.ok(/src="\/images\/proactifs-logo-header\.png"/.test(HTML), 'logo header attendu (asset dédié)');
+  assert.ok(/src="\/images\/proactifs-logo\.png"/.test(HTML), 'logo footer attendu');
+  assert.ok(fs.existsSync(path.join(__dirname, '../../images/proactifs-logo-header.png')), 'asset logo header présent');
+  assert.ok(fs.existsSync(path.join(__dirname, '../../images/proactifs-logo.png')), 'asset logo footer présent');
 });
 
 /* ---- Cards exemples : conteneur présent, AUCUNE valeur codée en dur ---- */
