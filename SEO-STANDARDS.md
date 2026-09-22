@@ -106,13 +106,21 @@ Gabarit minimum à respecter sur toutes les pages :
 <meta property="og:title" content="[Titre page]">
 <meta property="og:description" content="[Meta description]">
 <meta property="og:url" content="https://proactifsconseils.fr/[slug]">
-<meta property="og:image" content="https://proactifsconseils.fr/images/og-default.jpg">
+<meta property="og:image" content="https://proactifsconseils.fr/images/[image-existante-de-la-page].webp">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
 
 <!-- Twitter Card (optionnel) -->
 <meta name="twitter:card" content="summary_large_image">
 ```
+
+**Règle `og:image` (obligatoire) :**
+- Il n'existe **pas** d'image `og-default.jpg` : ne jamais l'utiliser ni la créer.
+- Chaque page utilise une image **qui existe réellement** dans le dépôt et qui est **pertinente pour son sujet** (en priorité l'image hero de la page).
+- URL **absolue et non-www** : `https://proactifsconseils.fr/images/...` (pas d'URL relative, pas d'espace ni d'accent dans le nom de fichier).
+- Format paysage de préférence (proche de 1,91:1). Si `og:image:width` / `og:image:height` sont renseignés, ils doivent correspondre aux dimensions réelles du fichier.
+- Avant publication, vérifier que l'URL répond en 200 (pas de 404).
+- Même exigence pour les images des données structurées JSON-LD (`image`, `logo`) : fichier existant, URL absolue non-www.
 
 **Longueurs cibles :**
 - `title` : 50-60 caractères, mot-clé principal en début
