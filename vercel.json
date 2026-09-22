@@ -1,6 +1,7 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "ignoreCommand": "bash vercel-ignore-build.sh",
   "rewrites": [
     {
       "source": "/",
@@ -204,6 +205,46 @@
       ],
       "destination": "https://proactifsconseils.fr/:path*",
       "permanent": true
+    },
+    {
+      "source": "/images/transmission.jpg",
+      "destination": "/images/transmission.webp",
+      "statusCode": 301
+    },
+    {
+      "source": "/images/optimisation-fiscale.jpg",
+      "destination": "/images/optimisation-fiscale.webp",
+      "statusCode": 301
+    },
+    {
+      "source": "/images/courtier-credit.jpg",
+      "destination": "/images/courtier-credit.webp",
+      "statusCode": 301
+    },
+    {
+      "source": "/images/investissement-immobilier.jpg",
+      "destination": "/images/investissement-immobilier.webp",
+      "statusCode": 301
+    },
+    {
+      "source": "/images/placement-financier.jpg",
+      "destination": "/images/placement-financier.webp",
+      "statusCode": 301
+    },
+    {
+      "source": "/images/declaration-impot.jpg",
+      "destination": "/images/declaration-impot.webp",
+      "statusCode": 301
+    },
+    {
+      "source": "/images/cession-entreprise.jpg",
+      "destination": "/images/cession-entreprise.webp",
+      "statusCode": 301
+    },
+    {
+      "source": "/images/retraite.jpg",
+      "destination": "/images/retraite.webp",
+      "statusCode": 301
     },
     {
       "source": "/simulation-pret-immobilier",

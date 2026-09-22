@@ -1,0 +1,32 @@
+# .vercelignore — fichiers présents dans Git mais NON envoyés à Vercel.
+# Les fichiers restent versionnés ; ils ne sont simplement pas déployés.
+# Syntaxe identique à .gitignore.
+
+# --- Dev / documentation / audits ---
+docs/
+tests/
+scripts/
+prototypes/
+Indexation auto/
+Audits SEO/
+Lead magnets/
+Claude outputs/
+.github/
+.claude/
+blog/.claude/
+*.md
+*.bak
+*.bak.*
+*.skill
+*.bat
+
+# --- Originaux JPG non utilisés (le site sert les versions .webp) ---
+# Anciennes URL redirigées en 301 vers le .webp dans vercel.json.
+images/transmission.jpg
+images/optimisation-fiscale.jpg
+images/courtier-credit.jpg
+images/investissement-immobilier.jpg
+images/placement-financier.jpg
+images/declaration-impot.jpg
+images/cession-entreprise.jpg
+images/retraite.jpg
