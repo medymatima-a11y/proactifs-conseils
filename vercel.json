@@ -4,16 +4,6 @@
   "ignoreCommand": "bash vercel-ignore-build.sh",
   "rewrites": [
     {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "pret-immobilier.proactifsconseils.fr"
-        }
-      ],
-      "destination": "/pret-immobilier-index.html"
-    },
-    {
       "source": "/bilan-patrimonial",
       "destination": "/bilan-patrimonial.html"
     },
@@ -205,6 +195,33 @@
       ],
       "destination": "https://proactifsconseils.fr/:path*",
       "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "pret-immobilier.proactifsconseils.fr"
+        }
+      ],
+      "destination": "https://proactifsconseils.fr/pret-immobilier",
+      "statusCode": 307
+    },
+    {
+      "source": "/pret-immobilier-index",
+      "destination": "/pret-immobilier",
+      "statusCode": 307
+    },
+    {
+      "source": "/:path+",
+      "has": [
+        {
+          "type": "host",
+          "value": "pret-immobilier.proactifsconseils.fr"
+        }
+      ],
+      "destination": "https://proactifsconseils.fr/:path+",
+      "statusCode": 307
     },
     {
       "source": "/images/transmission.jpg",
