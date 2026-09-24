@@ -4,6 +4,8 @@
    (niveaux, retour, focus/inert, blocage scroll, Escape).
    MENU-2A (16/09/2026) : mega-menus desktop (hover + clavier,
    maintien vers le panneau, délai de fermeture, Escape, aria-expanded).
+   Phase 2A-1a (24/09/2026) : Escape ne rouvre plus le panneau via focusin ;
+   un clic juste après l'ouverture au survol ne le referme plus.
    Aucune dépendance externe. Voir docs/NAVIGATION-PROACTIFS.md.
 ══════════════════════════════════════════════ */
 (function () {
@@ -103,6 +105,10 @@
   var items = nav ? nav.querySelectorAll('.nav-item.nav-mega, .nav-item.nav-drop') : [];
   var openItem = null;
   var closeTimer = null;
+  /* Phase 2A-1a : évite la réouverture par focusin quand Escape rend le focus au déclencheur,
+     et qu'un clic juste après l'ouverture au survol referme aussitôt le panneau. */
+  var suppressFocusOpen = false;
+  var HOVER_CLICK_GRACE = 400;
 
   function triggerOf(item) { return item.querySelector('.nav-trigger'); }
 
@@ -129,16 +135,20 @@
 
   Array.prototype.forEach.call(items, function (item) {
     var t = triggerOf(item);
-    item.addEventListener('mouseenter', function () { openMenu(item); });
+    item.addEventListener('mouseenter', function () {
+      if (!item.classList.contains('open')) item._hoverOpenedAt = Date.now();
+      openMenu(item);
+    });
     item.addEventListener('mouseleave', function () { scheduleClose(item); });
-    item.addEventListener('focusin', function () { openMenu(item); });
+    item.addEventListener('focusin', function () { if (!suppressFocusOpen) openMenu(item); });
     item.addEventListener('focusout', function (e) {
       if (!item.contains(e.relatedTarget)) scheduleClose(item);
     });
     if (t) {
       t.addEventListener('click', function (e) {
         e.preventDefault();
-        if (item.classList.contains('open')) closeMenu(item);
+        var justHovered = item._hoverOpenedAt && (Date.now() - item._hoverOpenedAt) < HOVER_CLICK_GRACE;
+        if (item.classList.contains('open') && !justHovered) closeMenu(item);
         else openMenu(item);
       });
     }
@@ -149,7 +159,7 @@
     if (e.key === 'Escape' && openItem) {
       var t = triggerOf(openItem);
       closeMenu(openItem);
-      if (t) t.focus();
+      if (t) { suppressFocusOpen = true; t.focus(); suppressFocusOpen = false; }
     }
   });
 

@@ -53,6 +53,7 @@
     "simulateurs/index.html",
     "simulateurs/capacite-emprunt.html",
     "simulateurs/mensualite-credit.html",
-    "simulateurs/taux-endettement.html"
+    "simulateurs/taux-endettement.html",
+    "pret-immobilier.html"
   ]
 }

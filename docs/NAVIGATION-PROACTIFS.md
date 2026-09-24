@@ -725,3 +725,36 @@ Système de fil d'Ariane généré, **indépendant du header**. Voir `docs/NAV-U
 - **Règle UX** : breadcrumb = navigation secondaire unique. Pas de bouton Retour, jamais `history.back()`.
 - **Accueil** (`/`) : sans breadcrumb.
 - Ne modifie jamais `NAV:START/END` ni le header.
+
+---
+
+## Phase 2A-1a — Restructuration par piliers métier (24/09/2026)
+
+Branche `seo-phase-2a-header-navigation`, base `origin/main` 570423d. Modifications faites **uniquement** via la source centralisée (`partials/header.html` + `scripts/build-header.js`), puis régénération des pages du manifeste.
+
+### Barre desktop
+`LOGO` · **Patrimoine ▾** · **Immobilier ▾** · **Financement ▾** · **Entreprises & Pro ▾** · Conseils · Cabinet · `CTA`
+
+- **Patrimoine** (mega 4 colonnes, `.mega-panel--4`) — Gérer & optimiser : Bilan patrimonial, Optimisation fiscale, Déclaration d'impôts · Investir & préparer : Placements financiers, Préparation retraite · Transmettre : Transmission · Actionnariat salarié : RSU & actions gratuites (`/fiscalite-rsu-stock-options`), Déclaration RSU & ESPP (`/declaration-rsu-espp-france`).
+- **Immobilier** (mega 2 colonnes, `.mega-panel--2`) — Vendre : Vendre un bien immobilier, Estimation immobilière, Succession immobilière · Investir : Investissement immobilier, Immobilier ancien, SCPI. Retirés de la navigation (pages conservées) : « Découvrir Proactifs Immobilier → », la carte « Vous avez un bien à Colombes ? » et, en mobile, le lien « Découvrir… » et le bouton « Estimer mon bien » de la sous-vue (doublons de « Estimation immobilière »).
+- **Financement** (mega 2 colonnes) — Financer votre projet : Courtage crédit immobilier, Prêt immobilier · Simuler votre financement : Tous les simulateurs, Capacité d'emprunt, Mensualité de crédit, Taux d'endettement. Remplace l'entrée autonome « Simulateurs ».
+- **Entreprises & Pro** (dropdown `.nav-drop`) — Cession d'entreprise. Prévu pour accueillir plus tard Dirigeants / Professions libérales (ajouter un `<a>` dans `#drop-entreprises` et `#m-entreprises`, uniquement quand les pages existent).
+- **Conseils** (lien direct vers `/blog`, ex-dropdown « Ressources » ; arbitrage du 24/09/2026 : pas de niveau intermédiaire tant qu'il n'y a qu'une destination). Même logique en mobile : lien direct, pas de sous-vue.
+- **Cabinet** (lien simple, ex-« Le cabinet »).
+
+### Tokens d'état actif (NAV:CONFIG)
+Nouveaux : `FINANCEMENT_ACTIVE_DESKTOP/MOBILE`, `ENTREPRISES_ACTIVE_DESKTOP/MOBILE`, `PATRIMOINE_ACTIVE_MOBILE`, `RESSOURCES_ACTIVE_MOBILE`. Les tokens `RESSOURCES_*` pilotent désormais l'entrée « Conseils » (nom conservé pour ne pas toucher les 26 configs d'articles). Configs modifiées : `courtage-credit-immobilier.html` (Immobilier → Financement), `simulateurs/*.html` (Financement), `cession-entreprise.html` (Patrimoine → Entreprises & Pro).
+
+### `/pret-immobilier` intégrée au header commun
+Page ajoutée au manifeste (54 pages). Procédure section 7 : suppression du bloc CSS de nav inline, `<link>` vers `assets/css/navigation.css`, bloc NAV:CONFIG/START/END à la place de l'ancienne nav, suppression du JS inline scroll/hamburger/fermeture, `<script src="/assets/js/navigation.js" defer>`. CTA contextuel conservé : « Simuler mon prêt → » (`#simulateur`). Title, meta, H1, canonical, JSON-LD, contenu et fil d'Ariane visuel inchangés. L'exclusion de la section 5 (sous-domaine) n'a plus d'objet : le sous-domaine redirige en 308 depuis le 23/09/2026.
+
+### Responsive
+Bascule hamburger à **1100 px** (`@media (max-width: 1100px)`, auparavant 900 px) dans les deux CSS de navigation : desktop ≥ 1101 px, menu mobile sliding ≤ 1100 px (4 sous-vues : Patrimoine, Immobilier, Financement, Entreprises & Pro). À 1101 px, 30-35 px de marge restent entre logo/liens et liens/CTA ; en dessous, « Entreprises & Pro » serrerait la barre. Les règles inline à 900/768 px encore présentes dans certaines pages ne font que masquer la nav desktop : aucun conflit.
+
+### Accessibilité (navigation uniquement)
+- Suppression de `role="menu"` / `role="menuitem"` (panneaux) et de `aria-haspopup` (déclencheurs, hamburger, parents mobiles) : modèle « disclosure » (bouton + `aria-expanded` + `aria-controls`), adapté à une navigation de site.
+- `<nav aria-label="Navigation principale">`, chevrons `aria-hidden="true"`.
+- JS : Escape ne rouvre plus le panneau via `focusin` quand le focus revient au déclencheur ; un clic juste après une ouverture au survol ne referme plus le panneau.
+
+### Outils
+`scripts/check-mobile-nav.js` vérifie désormais les 4 sous-vues mobiles (patrimoine, immobilier, financement, entreprises) et le lien direct « Conseils » → `/blog`.

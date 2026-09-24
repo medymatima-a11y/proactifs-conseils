@@ -136,76 +136,89 @@
 
 <!-- NAV:CONFIG {"theme": "site-patrimoine", "tokens": {"HOME_PREFIX": "/", "RESSOURCES_ACTIVE_DESKTOP": " aria-current=\"page\"", "CTA_HREF": "/bilan-patrimonial", "CTA_LABEL": "Prendre rendez-vous", "MOBILE_CTA_HREF": "/bilan-patrimonial", "MOBILE_CTA_LABEL": "Prendre rendez-vous"}} -->
 <!-- NAV:START (bloc généré par scripts/build-header.js — ne pas éditer à la main, voir docs/NAVIGATION-PROACTIFS.md) -->
-<nav id="nav">
+<nav id="nav" aria-label="Navigation principale">
   <a href="/" class="nav-logo"><img src="/images/proactifs-logo-header.png" alt="Proactifs Conseils"></a>
   <ul class="nav-links">
     <li class="nav-item nav-mega" data-nav="patrimoine">
-      <button type="button" class="nav-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="mega-patrimoine">Patrimoine <span class="chevron">▾</span></button>
-      <div class="mega-panel" id="mega-patrimoine" role="menu" aria-label="Patrimoine">
+      <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="mega-patrimoine">Patrimoine <span class="chevron" aria-hidden="true">▾</span></button>
+      <div class="mega-panel mega-panel--4" id="mega-patrimoine">
         <div class="mega-col">
           <p class="mega-col-title">Gérer &amp; optimiser</p>
-          <a href="/bilan-patrimonial" role="menuitem">Bilan patrimonial</a>
-          <a href="/optimisation-fiscale-ile-de-france" role="menuitem">Optimisation fiscale</a>
-          <a href="/declaration-impots-ile-de-france" role="menuitem">Déclarer mes impôts</a>
-          <a href="/fiscalite-rsu-stock-options" role="menuitem">RSU &amp; stock-options</a>
+          <a href="/bilan-patrimonial">Bilan patrimonial</a>
+          <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
+          <a href="/declaration-impots-ile-de-france">Déclaration d'impôts</a>
         </div>
         <div class="mega-col">
           <p class="mega-col-title">Investir &amp; préparer</p>
-          <a href="/placements-financiers" role="menuitem">Placements financiers</a>
-          <a href="/preparation-retraite" role="menuitem">Préparation retraite</a>
+          <a href="/placements-financiers">Placements financiers</a>
+          <a href="/preparation-retraite">Préparation retraite</a>
         </div>
         <div class="mega-col">
-          <p class="mega-col-title">Transmettre &amp; entreprendre</p>
-          <a href="/transmission" role="menuitem">Transmission de patrimoine</a>
-          <a href="/cession-entreprise" role="menuitem">Cession d'entreprise</a>
+          <p class="mega-col-title">Transmettre</p>
+          <a href="/transmission">Transmission</a>
+        </div>
+        <div class="mega-col">
+          <p class="mega-col-title">Actionnariat salarié</p>
+          <a href="/fiscalite-rsu-stock-options">RSU &amp; actions gratuites</a>
+          <a href="/declaration-rsu-espp-france">Déclaration RSU &amp; ESPP</a>
         </div>
       </div>
     </li>
     <li class="nav-item nav-mega nav-mega--immo" data-nav="immobilier">
-      <button type="button" class="nav-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="mega-immobilier">Immobilier <span class="chevron">▾</span></button>
-      <div class="mega-panel mega-panel--immo" id="mega-immobilier" role="menu" aria-label="Immobilier">
+      <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="mega-immobilier">Immobilier <span class="chevron" aria-hidden="true">▾</span></button>
+      <div class="mega-panel mega-panel--immo mega-panel--2" id="mega-immobilier">
         <div class="mega-col">
-          <p class="mega-col-title">Vendre votre bien</p>
-          <a href="/immobilier/estimation-colombes" role="menuitem">Estimer mon bien</a>
-          <a href="/immobilier" role="menuitem">Vendre mon bien</a>
-          <a href="/immobilier/succession-colombes" role="menuitem">Succession Sérénité 360</a>
-          <a href="/immobilier" class="mega-col-more" role="menuitem">Découvrir Proactifs Immobilier →</a>
+          <p class="mega-col-title">Vendre</p>
+          <a href="/immobilier">Vendre un bien immobilier</a>
+          <a href="/immobilier/estimation-colombes">Estimation immobilière</a>
+          <a href="/immobilier/succession-colombes">Succession immobilière</a>
         </div>
         <div class="mega-col">
-          <p class="mega-col-title">Investir &amp; financer</p>
-          <a href="/investissement-immobilier" role="menuitem">Investissement immobilier</a>
-          <a href="/investissement-scpi-hauts-de-seine" role="menuitem">SCPI</a>
-          <a href="/courtage-credit-immobilier" role="menuitem">Financement / Courtage</a>
-        </div>
-        <div class="mega-col mega-col--card">
-          <div class="mega-card">
-            <p class="mega-card-title">Vous avez un bien à Colombes ?</p>
-            <p class="mega-card-text">Découvrez sa valeur et préparons ensemble la suite de votre projet.</p>
-            <a href="/immobilier/estimation-colombes" class="mega-card-cta">Estimer mon bien →</a>
-          </div>
+          <p class="mega-col-title">Investir</p>
+          <a href="/investissement-immobilier">Investissement immobilier</a>
+          <a href="/investissement-immobilier-ancien">Immobilier ancien</a>
+          <a href="/investissement-scpi-hauts-de-seine">SCPI</a>
         </div>
       </div>
     </li>
-    <li class="nav-item"><a href="/simulateurs" class="nav-link">Simulateurs</a></li>
-    <li class="nav-item"><a href="/cabinet" class="nav-link">Le cabinet</a></li>
-    <li class="nav-item nav-drop" data-nav="ressources">
-      <button type="button" class="nav-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="drop-ressources" aria-current="page">Ressources <span class="chevron">▾</span></button>
-      <div class="drop-panel" id="drop-ressources" role="menu" aria-label="Ressources">
-        <a href="/blog" role="menuitem">Blog</a>
+    <li class="nav-item nav-mega" data-nav="financement">
+      <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="mega-financement">Financement <span class="chevron" aria-hidden="true">▾</span></button>
+      <div class="mega-panel mega-panel--2" id="mega-financement">
+        <div class="mega-col">
+          <p class="mega-col-title">Financer votre projet</p>
+          <a href="/courtage-credit-immobilier">Courtage crédit immobilier</a>
+          <a href="/pret-immobilier">Prêt immobilier</a>
+        </div>
+        <div class="mega-col">
+          <p class="mega-col-title">Simuler votre financement</p>
+          <a href="/simulateurs">Tous les simulateurs</a>
+          <a href="/simulateurs/capacite-emprunt">Capacité d'emprunt</a>
+          <a href="/simulateurs/mensualite-credit">Mensualité de crédit</a>
+          <a href="/simulateurs/taux-endettement">Taux d'endettement</a>
+        </div>
       </div>
     </li>
+    <li class="nav-item nav-drop" data-nav="entreprises">
+      <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="drop-entreprises">Entreprises &amp; Pro <span class="chevron" aria-hidden="true">▾</span></button>
+      <div class="drop-panel" id="drop-entreprises">
+        <a href="/cession-entreprise">Cession d'entreprise</a>
+      </div>
+    </li>
+    <li class="nav-item"><a href="/blog" class="nav-link" aria-current="page">Conseils</a></li>
+    <li class="nav-item"><a href="/cabinet" class="nav-link">Cabinet</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" type="button" aria-label="Ouvrir le menu" aria-haspopup="true" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+  <button class="hamburger" id="hamburger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
   <a href="/bilan-patrimonial" class="nav-cta-btn">Prendre rendez-vous</a>
 </nav>
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
   <!-- Niveau 1 -->
   <div class="m-view m-view--root" data-view="root">
-    <button class="m-item m-parent" type="button" data-submenu="patrimoine" aria-haspopup="true" aria-expanded="false" aria-controls="m-patrimoine">Patrimoine <span class="m-caret" aria-hidden="true">›</span></button>
-    <button class="m-item m-parent" type="button" data-submenu="immobilier" aria-haspopup="true" aria-expanded="false" aria-controls="m-immobilier">Immobilier <span class="m-caret" aria-hidden="true">›</span></button>
-    <a class="m-item" href="/simulateurs">Simulateurs</a>
-    <a class="m-item" href="/cabinet">Le cabinet</a>
-    <button class="m-item m-parent" type="button" data-submenu="ressources" aria-haspopup="true" aria-expanded="false" aria-controls="m-ressources">Ressources <span class="m-caret" aria-hidden="true">›</span></button>
+    <button class="m-item m-parent" type="button" data-submenu="patrimoine" aria-expanded="false" aria-controls="m-patrimoine">Patrimoine <span class="m-caret" aria-hidden="true">›</span></button>
+    <button class="m-item m-parent" type="button" data-submenu="immobilier" aria-expanded="false" aria-controls="m-immobilier">Immobilier <span class="m-caret" aria-hidden="true">›</span></button>
+    <button class="m-item m-parent" type="button" data-submenu="financement" aria-expanded="false" aria-controls="m-financement">Financement <span class="m-caret" aria-hidden="true">›</span></button>
+    <button class="m-item m-parent" type="button" data-submenu="entreprises" aria-expanded="false" aria-controls="m-entreprises">Entreprises &amp; Pro <span class="m-caret" aria-hidden="true">›</span></button>
+    <a class="m-item" href="/blog">Conseils</a>
+    <a class="m-item" href="/cabinet">Cabinet</a>
     <a class="m-cta" href="/bilan-patrimonial">Prendre rendez-vous</a>
   </div>
   <!-- Niveau 2 : Patrimoine -->
@@ -215,35 +228,47 @@
     <p class="m-group">Gérer &amp; optimiser</p>
     <a class="m-item" href="/bilan-patrimonial">Bilan patrimonial</a>
     <a class="m-item" href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
-    <a class="m-item" href="/declaration-impots-ile-de-france">Déclarer mes impôts</a>
-    <a class="m-item" href="/fiscalite-rsu-stock-options">RSU &amp; stock-options</a>
+    <a class="m-item" href="/declaration-impots-ile-de-france">Déclaration d'impôts</a>
     <p class="m-group">Investir &amp; préparer</p>
     <a class="m-item" href="/placements-financiers">Placements financiers</a>
     <a class="m-item" href="/preparation-retraite">Préparation retraite</a>
-    <p class="m-group">Transmettre &amp; entreprendre</p>
-    <a class="m-item" href="/transmission">Transmission de patrimoine</a>
-    <a class="m-item" href="/cession-entreprise">Cession d'entreprise</a>
+    <p class="m-group">Transmettre</p>
+    <a class="m-item" href="/transmission">Transmission</a>
+    <p class="m-group">Actionnariat salarié</p>
+    <a class="m-item" href="/fiscalite-rsu-stock-options">RSU &amp; actions gratuites</a>
+    <a class="m-item" href="/declaration-rsu-espp-france">Déclaration RSU &amp; ESPP</a>
   </div>
   <!-- Niveau 2 : Immobilier -->
   <div class="m-view m-view--sub" data-view="immobilier" id="m-immobilier" role="group" aria-label="Immobilier">
     <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
     <p class="m-title">Immobilier</p>
-    <p class="m-group">Vendre votre bien</p>
-    <a class="m-item" href="/immobilier/estimation-colombes">Estimer mon bien</a>
-    <a class="m-item" href="/immobilier">Vendre mon bien</a>
-    <a class="m-item" href="/immobilier/succession-colombes">Succession Sérénité 360</a>
-    <p class="m-group">Investir &amp; financer</p>
+    <p class="m-group">Vendre</p>
+    <a class="m-item" href="/immobilier">Vendre un bien immobilier</a>
+    <a class="m-item" href="/immobilier/estimation-colombes">Estimation immobilière</a>
+    <a class="m-item" href="/immobilier/succession-colombes">Succession immobilière</a>
+    <p class="m-group">Investir</p>
     <a class="m-item" href="/investissement-immobilier">Investissement immobilier</a>
+    <a class="m-item" href="/investissement-immobilier-ancien">Immobilier ancien</a>
     <a class="m-item" href="/investissement-scpi-hauts-de-seine">SCPI</a>
-    <a class="m-item" href="/courtage-credit-immobilier">Financement / Courtage</a>
-    <a class="m-more" href="/immobilier">Découvrir Proactifs Immobilier →</a>
-    <a class="m-cta" href="/immobilier/estimation-colombes">Estimer mon bien</a>
   </div>
-  <!-- Niveau 2 : Ressources -->
-  <div class="m-view m-view--sub" data-view="ressources" id="m-ressources" role="group" aria-label="Ressources">
+  <!-- Niveau 2 : Financement -->
+  <div class="m-view m-view--sub" data-view="financement" id="m-financement" role="group" aria-label="Financement">
     <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
-    <p class="m-title">Ressources</p>
-    <a class="m-item" href="/blog">Blog</a>
+    <p class="m-title">Financement</p>
+    <p class="m-group">Financer votre projet</p>
+    <a class="m-item" href="/courtage-credit-immobilier">Courtage crédit immobilier</a>
+    <a class="m-item" href="/pret-immobilier">Prêt immobilier</a>
+    <p class="m-group">Simuler votre financement</p>
+    <a class="m-item" href="/simulateurs">Tous les simulateurs</a>
+    <a class="m-item" href="/simulateurs/capacite-emprunt">Capacité d'emprunt</a>
+    <a class="m-item" href="/simulateurs/mensualite-credit">Mensualité de crédit</a>
+    <a class="m-item" href="/simulateurs/taux-endettement">Taux d'endettement</a>
+  </div>
+  <!-- Niveau 2 : Entreprises & Pro -->
+  <div class="m-view m-view--sub" data-view="entreprises" id="m-entreprises" role="group" aria-label="Entreprises &amp; Pro">
+    <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
+    <p class="m-title">Entreprises &amp; Pro</p>
+    <a class="m-item" href="/cession-entreprise">Cession d'entreprise</a>
   </div>
 </div>
 <!-- NAV:END -->

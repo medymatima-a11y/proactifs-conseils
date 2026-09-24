@@ -44,6 +44,9 @@ html:not(.nav-js) .nav-item:focus-within > .mega-panel { display: grid; }
 
 /* ===== Mega-menu (Patrimoine / Immobilier) ===== */
 .mega-panel { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: min(820px, calc(100vw - 48px)); grid-template-columns: repeat(3, 1fr); gap: 26px; background: var(--white, #FFFFFF); border: 1px solid var(--border, #E5E2DA); border-radius: var(--r-md, 16px); box-shadow: var(--shadow-lg, 0 12px 40px rgba(17,24,39,.1), 0 4px 12px rgba(17,24,39,.06)); padding: 22px 26px; z-index: 1001; }
+/* Phase 2A-1a : variantes de largeur (Patrimoine 4 colonnes, Immobilier/Financement 2 colonnes) */
+.mega-panel--4 { width: min(960px, calc(100vw - 48px)); grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.mega-panel--2 { width: min(560px, calc(100vw - 48px)); grid-template-columns: repeat(2, 1fr); }
 .mega-col { display: flex; flex-direction: column; gap: 1px; }
 .mega-col-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .8px; color: var(--slate, #6B7280); margin: 0 0 7px; padding-bottom: 6px; border-bottom: 1px solid var(--border, #E5E2DA); }
 .mega-col a { display: block; padding: 7px 10px; margin: 0 -10px; border-radius: var(--r-sm, 10px); font-size: 14px; font-weight: 500; color: var(--ink, #111827); text-decoration: none; transition: background .15s, color .15s; }
@@ -79,8 +82,8 @@ html:not(.nav-js) .nav-item:focus-within > .mega-panel { display: grid; }
 /* ===== Conteneur menu mobile (MENU-3) — display:none global, hidden en desktop ===== */
 .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; height: calc(100vh - 72px); height: calc(100dvh - 72px); max-height: calc(100dvh - 72px); overflow: hidden; background: var(--ivory, #FAFAF7); border-top: 1px solid var(--border, #E5E2DA); z-index: 999; }
 
-/* ===== Responsive : bascule desktop -> hamburger ===== */
-@media (max-width: 900px) {
+/* ===== Responsive : bascule desktop -> hamburger (Phase 2A-1a : 1100 px, auparavant 900 px) ===== */
+@media (max-width: 1100px) {
   #nav { padding: 0 24px; }
   .nav-links { display: none; }
   .nav-cta-btn { display: none; }
@@ -90,7 +93,7 @@ html:not(.nav-js) .nav-item:focus-within > .mega-panel { display: grid; }
 
 
 /* ═══ Menu mobile 2 niveaux (MENU-3) — entièrement isolé au breakpoint mobile ═══ */
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .mobile-menu.open { display: block; }
   body.m-open { overflow: hidden; }
 
