@@ -157,14 +157,6 @@
       line-height: 1.6;
     }
 
-    /* ─── BREADCRUMB ─── */
-    .breadcrumb {
-      background: var(--sand); padding: 12px 40px;
-      font-size: 13px; color: var(--slate); margin-top: 72px;
-    }
-    .breadcrumb a { color: var(--teal); text-decoration: none; }
-    .breadcrumb a:hover { text-decoration: underline; }
-
     /* ─── HERO ─── */
     .hero {
       background: linear-gradient(135deg, #071810 0%, #0a1f14 40%, var(--forest) 100%);
@@ -705,7 +697,6 @@
       .process-step { text-align: left; padding: 0; display: flex; gap: 20px; align-items: flex-start; }
       .process-step-num { margin: 0; flex-shrink: 0; }
       .footer-grid { grid-template-columns: 1fr; gap: 28px; }
-      .breadcrumb { padding: 12px 24px; }
     }
   </style>
 <!-- Brevo tracker -->
@@ -722,6 +713,19 @@
     ]);
 </script>
   <link rel="stylesheet" href="/assets/css/navigation.css">
+  <link rel="stylesheet" href="/assets/css/breadcrumb.css">
+  <!-- BREADCRUMB_JSONLD:START -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://proactifsconseils.fr/"},
+      {"@type": "ListItem", "position": 2, "name": "Prêt immobilier", "item": "https://proactifsconseils.fr/pret-immobilier"}
+    ]
+  }
+  </script>
+  <!-- BREADCRUMB_JSONLD:END -->
 </head>
 <body>
 
@@ -865,11 +869,14 @@
 </div>
 <!-- NAV:END -->
 
-<!-- BREADCRUMB -->
-<div class="breadcrumb">
-  <a href="https://proactifsconseils.fr">Proactifs Conseils</a>
-  › Courtier en prêt immobilier — Colombes &amp; 92
-</div>
+<!-- BREADCRUMB:START -->
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <ol>
+      <li><a href="/">Accueil</a></li>
+      <li><span aria-current="page">Prêt immobilier</span></li>
+    </ol>
+  </nav>
+  <!-- BREADCRUMB:END -->
 
 <!-- HERO -->
 <section class="hero">
