@@ -157,72 +157,6 @@
       line-height: 1.6;
     }
 
-    /* ─── NAV ─── */
-    #nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      height: 72px;
-      background: rgba(250,250,247,.98);
-      box-shadow: var(--shadow-md);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 40px;
-      transition: all 0.3s ease;
-    }
-    #nav.scrolled {
-      background: rgba(250,250,247,.98);
-      box-shadow: var(--shadow-md);
-      height: 68px;
-    }
-    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .nav-logo-text {
-      font-family: 'Fraunces', serif;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--ink);
-      line-height: 1.2;
-      transition: color 0.3s;
-    }
-    .nav-logo-sub {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      font-weight: 400;
-      color: var(--teal);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: color 0.3s;
-    }
-    .nav-links { display: flex; list-style: none; gap: 32px; flex: 1; margin-left: 48px; }
-    .nav-links a {
-      text-decoration: none; color: var(--ink);
-      font-size: 14px; font-weight: 500; transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--gold); }
-    .nav-cta-btn {
-      background: var(--gold); color: var(--ink);
-      padding: 10px 22px; border-radius: var(--r-md);
-      font-weight: 600; font-size: 13px;
-      transition: all 0.2s; white-space: nowrap; text-decoration: none;
-      display: inline-block;
-    }
-    .nav-cta-btn:hover { background: var(--gold-light); box-shadow: var(--shadow-md); }
-    .hamburger {
-      display: none; flex-direction: column; background: none; border: none;
-      cursor: pointer; gap: 5px; padding: 4px;
-    }
-    .hamburger span { width: 22px; height: 2px; background: var(--ink); transition: all 0.3s; }
-    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(7px,7px); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(6px,-6px); }
-    .mobile-menu {
-      display: none; position: fixed; top: 72px; left: 0; right: 0;
-      background: var(--white); flex-direction: column; padding: 20px; gap: 8px; z-index: 99;
-      box-shadow: var(--shadow-md);max-height:calc(100vh - 72px);overflow-y:auto;-webkit-overflow-scrolling:touch;}
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      padding: 12px 16px; text-decoration: none; color: var(--ink);
-      font-weight: 500; border-radius: var(--r-sm); transition: all 0.2s;
-    }
-    .mobile-menu a:hover { background: var(--sand); color: var(--gold); }
-
     /* ─── BREADCRUMB ─── */
     .breadcrumb {
       background: var(--sand); padding: 12px 40px;
@@ -787,38 +721,160 @@
         }
     ]);
 </script>
+  <link rel="stylesheet" href="/assets/css/navigation.css">
 </head>
 <body>
 
-<!-- NAV -->
-<nav id="nav">
-  <a href="https://proactifsconseils.fr" class="nav-logo">
-    <div>
-      <span class="nav-logo-text">Proactifs Conseils</span>
-      <span class="nav-logo-sub">Courtage Immobilier</span>
-    </div>
-  </a>
+<!-- ── NAV ── -->
+<!-- NAV:CONFIG {"theme": "site-patrimoine", "tokens": {"HOME_PREFIX": "/", "FINANCEMENT_ACTIVE_DESKTOP": " aria-current=\"page\"", "FINANCEMENT_ACTIVE_MOBILE": " aria-current=\"page\"", "CTA_HREF": "#simulateur", "CTA_LABEL": "Simuler mon prêt →", "MOBILE_CTA_HREF": "#simulateur", "MOBILE_CTA_LABEL": "Simuler mon prêt →"}} -->
+<!-- NAV:START (bloc généré par scripts/build-header.js — ne pas éditer à la main, voir docs/NAVIGATION-PROACTIFS.md) -->
+<nav id="nav" aria-label="Navigation principale">
+  <a href="/" class="nav-logo"><img src="/images/proactifs-logo-header.png" alt="Proactifs Conseils"></a>
   <ul class="nav-links">
-    <li><a href="#simulateur">Simulation</a></li>
-    <li><a href="#avantages">Nos atouts</a></li>
-    <li><a href="#process">Comment ça marche</a></li>
-    <li><a href="#temoignages">Témoignages</a></li>
-    <li><a href="#faq">FAQ</a></li>
+    <li class="nav-item nav-mega" data-nav="patrimoine">
+      <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="mega-patrimoine">Patrimoine <span class="chevron" aria-hidden="true">▾</span></button>
+      <div class="mega-panel mega-panel--4" id="mega-patrimoine">
+        <div class="mega-col">
+          <p class="mega-col-title">Gérer &amp; optimiser</p>
+          <a href="/bilan-patrimonial">Bilan patrimonial</a>
+          <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
+          <a href="/declaration-impots-ile-de-france">Déclaration d'impôts</a>
+        </div>
+        <div class="mega-col">
+          <p class="mega-col-title">Investir &amp; préparer</p>
+          <a href="/placements-financiers">Placements financiers</a>
+          <a href="/preparation-retraite">Préparation retraite</a>
+        </div>
+        <div class="mega-col">
+          <p class="mega-col-title">Transmettre</p>
+          <a href="/transmission">Transmission</a>
+        </div>
+        <div class="mega-col">
+          <p class="mega-col-title">Actionnariat salarié</p>
+          <a href="/fiscalite-rsu-stock-options">RSU &amp; actions gratuites</a>
+          <a href="/declaration-rsu-espp-france">Déclaration RSU &amp; ESPP</a>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item nav-mega nav-mega--immo" data-nav="immobilier">
+      <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="mega-immobilier">Immobilier <span class="chevron" aria-hidden="true">▾</span></button>
+      <div class="mega-panel mega-panel--immo mega-panel--2" id="mega-immobilier">
+        <div class="mega-col">
+          <p class="mega-col-title">Vendre</p>
+          <a href="/immobilier">Vendre un bien immobilier</a>
+          <a href="/immobilier/estimation-colombes">Estimation immobilière</a>
+          <a href="/immobilier/succession-colombes">Succession immobilière</a>
+        </div>
+        <div class="mega-col">
+          <p class="mega-col-title">Investir</p>
+          <a href="/investissement-immobilier">Investissement immobilier</a>
+          <a href="/investissement-immobilier-ancien">Immobilier ancien</a>
+          <a href="/investissement-scpi-hauts-de-seine">SCPI</a>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item nav-mega" data-nav="financement">
+      <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="mega-financement" aria-current="page">Financement <span class="chevron" aria-hidden="true">▾</span></button>
+      <div class="mega-panel mega-panel--2" id="mega-financement">
+        <div class="mega-col">
+          <p class="mega-col-title">Financer votre projet</p>
+          <a href="/courtage-credit-immobilier">Courtage crédit immobilier</a>
+          <a href="/pret-immobilier">Prêt immobilier</a>
+        </div>
+        <div class="mega-col">
+          <p class="mega-col-title">Simuler votre financement</p>
+          <a href="/simulateurs">Tous les simulateurs</a>
+          <a href="/simulateurs/capacite-emprunt">Capacité d'emprunt</a>
+          <a href="/simulateurs/mensualite-credit">Mensualité de crédit</a>
+          <a href="/simulateurs/taux-endettement">Taux d'endettement</a>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item nav-drop" data-nav="entreprises">
+      <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="drop-entreprises">Entreprises &amp; Pro <span class="chevron" aria-hidden="true">▾</span></button>
+      <div class="drop-panel" id="drop-entreprises">
+        <a href="/cession-entreprise">Cession d'entreprise</a>
+      </div>
+    </li>
+    <li class="nav-item nav-drop" data-nav="conseils">
+      <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="drop-conseils">Conseils <span class="chevron" aria-hidden="true">▾</span></button>
+      <div class="drop-panel" id="drop-conseils">
+        <a href="/blog">Blog</a>
+      </div>
+    </li>
+    <li class="nav-item"><a href="/cabinet" class="nav-link">Cabinet</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="hamburger" id="hamburger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
   <a href="#simulateur" class="nav-cta-btn">Simuler mon prêt →</a>
 </nav>
-
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#simulateur">Simulation</a>
-  <a href="#avantages">Nos atouts</a>
-  <a href="#process">Comment ça marche</a>
-  <a href="#temoignages">Témoignages</a>
-  <a href="#faq">FAQ</a>
-  <a href="#simulateur" style="background:var(--gold);color:var(--ink);font-weight:700;text-align:center;">Simuler mon prêt →</a>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <!-- Niveau 1 -->
+  <div class="m-view m-view--root" data-view="root">
+    <button class="m-item m-parent" type="button" data-submenu="patrimoine" aria-expanded="false" aria-controls="m-patrimoine">Patrimoine <span class="m-caret" aria-hidden="true">›</span></button>
+    <button class="m-item m-parent" type="button" data-submenu="immobilier" aria-expanded="false" aria-controls="m-immobilier">Immobilier <span class="m-caret" aria-hidden="true">›</span></button>
+    <button class="m-item m-parent" type="button" data-submenu="financement" aria-expanded="false" aria-controls="m-financement" aria-current="page">Financement <span class="m-caret" aria-hidden="true">›</span></button>
+    <button class="m-item m-parent" type="button" data-submenu="entreprises" aria-expanded="false" aria-controls="m-entreprises">Entreprises &amp; Pro <span class="m-caret" aria-hidden="true">›</span></button>
+    <button class="m-item m-parent" type="button" data-submenu="conseils" aria-expanded="false" aria-controls="m-conseils">Conseils <span class="m-caret" aria-hidden="true">›</span></button>
+    <a class="m-item" href="/cabinet">Cabinet</a>
+    <a class="m-cta" href="#simulateur">Simuler mon prêt →</a>
+  </div>
+  <!-- Niveau 2 : Patrimoine -->
+  <div class="m-view m-view--sub" data-view="patrimoine" id="m-patrimoine" role="group" aria-label="Patrimoine">
+    <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
+    <p class="m-title">Patrimoine</p>
+    <p class="m-group">Gérer &amp; optimiser</p>
+    <a class="m-item" href="/bilan-patrimonial">Bilan patrimonial</a>
+    <a class="m-item" href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
+    <a class="m-item" href="/declaration-impots-ile-de-france">Déclaration d'impôts</a>
+    <p class="m-group">Investir &amp; préparer</p>
+    <a class="m-item" href="/placements-financiers">Placements financiers</a>
+    <a class="m-item" href="/preparation-retraite">Préparation retraite</a>
+    <p class="m-group">Transmettre</p>
+    <a class="m-item" href="/transmission">Transmission</a>
+    <p class="m-group">Actionnariat salarié</p>
+    <a class="m-item" href="/fiscalite-rsu-stock-options">RSU &amp; actions gratuites</a>
+    <a class="m-item" href="/declaration-rsu-espp-france">Déclaration RSU &amp; ESPP</a>
+  </div>
+  <!-- Niveau 2 : Immobilier -->
+  <div class="m-view m-view--sub" data-view="immobilier" id="m-immobilier" role="group" aria-label="Immobilier">
+    <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
+    <p class="m-title">Immobilier</p>
+    <p class="m-group">Vendre</p>
+    <a class="m-item" href="/immobilier">Vendre un bien immobilier</a>
+    <a class="m-item" href="/immobilier/estimation-colombes">Estimation immobilière</a>
+    <a class="m-item" href="/immobilier/succession-colombes">Succession immobilière</a>
+    <p class="m-group">Investir</p>
+    <a class="m-item" href="/investissement-immobilier">Investissement immobilier</a>
+    <a class="m-item" href="/investissement-immobilier-ancien">Immobilier ancien</a>
+    <a class="m-item" href="/investissement-scpi-hauts-de-seine">SCPI</a>
+  </div>
+  <!-- Niveau 2 : Financement -->
+  <div class="m-view m-view--sub" data-view="financement" id="m-financement" role="group" aria-label="Financement">
+    <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
+    <p class="m-title">Financement</p>
+    <p class="m-group">Financer votre projet</p>
+    <a class="m-item" href="/courtage-credit-immobilier">Courtage crédit immobilier</a>
+    <a class="m-item" href="/pret-immobilier">Prêt immobilier</a>
+    <p class="m-group">Simuler votre financement</p>
+    <a class="m-item" href="/simulateurs">Tous les simulateurs</a>
+    <a class="m-item" href="/simulateurs/capacite-emprunt">Capacité d'emprunt</a>
+    <a class="m-item" href="/simulateurs/mensualite-credit">Mensualité de crédit</a>
+    <a class="m-item" href="/simulateurs/taux-endettement">Taux d'endettement</a>
+  </div>
+  <!-- Niveau 2 : Entreprises & Pro -->
+  <div class="m-view m-view--sub" data-view="entreprises" id="m-entreprises" role="group" aria-label="Entreprises &amp; Pro">
+    <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
+    <p class="m-title">Entreprises &amp; Pro</p>
+    <a class="m-item" href="/cession-entreprise">Cession d'entreprise</a>
+  </div>
+  <!-- Niveau 2 : Conseils -->
+  <div class="m-view m-view--sub" data-view="conseils" id="m-conseils" role="group" aria-label="Conseils">
+    <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
+    <p class="m-title">Conseils</p>
+    <a class="m-item" href="/blog">Blog</a>
+  </div>
 </div>
+<!-- NAV:END -->
 
 <!-- BREADCRUMB -->
 <div class="breadcrumb">
@@ -1371,16 +1427,6 @@
 </footer>
 
 <script>
-  // ─── NAV ───
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 20);
-  });
-  document.getElementById('hamburger').addEventListener('click', function() {
-    this.classList.toggle('open');
-    document.getElementById('mobileMenu').classList.toggle('open');
-  });
-
   // ─── SLIDER ───
   function updateSlider(slider) {
     const min = +slider.min, max = +slider.max, val = +slider.value;
@@ -1489,20 +1535,6 @@
   }
 </script>
 
-<script>
-/* Ferme le menu mobile au clic sur un lien (ancre ou page) - correctif audit 13/09/2026 */
-(function(){
-  var mm = document.getElementById('mobileMenu');
-  var hb = document.getElementById('hamburger');
-  if (mm) {
-    mm.querySelectorAll('a').forEach(function(a){
-      a.addEventListener('click', function(){
-        mm.classList.remove('open');
-        if (hb) hb.classList.remove('open');
-      });
-    });
-  }
-})();
-</script>
+<script src="/assets/js/navigation.js" defer></script>
 </body>
 </html>
