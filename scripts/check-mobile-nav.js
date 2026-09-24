@@ -117,16 +117,16 @@ function checkFile(relPath) {
     }
   }
   // 4. MENU-3 : pages à menu mobile 2 niveaux — vérifier la présence réelle
-  //    des 5 sous-vues (Patrimoine / Immobilier / Financement / Entreprises & Pro / Conseils)
-  //    et de leurs liens clés (architecture Phase 2A-1a, 24/09/2026).
+  //    des 4 sous-vues (Patrimoine / Immobilier / Financement / Entreprises & Pro)
+  //    et de leurs liens clés (architecture Phase 2A-1a, 24/09/2026 ; « Conseils » est un lien direct vers /blog).
   if (content.includes('data-view="root"')) {
     var panels = {
       patrimoine: ['/bilan-patrimonial', '/preparation-retraite', '/transmission', '/fiscalite-rsu-stock-options'],
       immobilier: ['/immobilier/estimation-colombes', '/immobilier', '/investissement-immobilier'],
       financement: ['/courtage-credit-immobilier', '/pret-immobilier', '/simulateurs'],
       entreprises: ['/cession-entreprise'],
-      conseils: ['/blog'],
     };
+    if (!content.includes('href="/blog"')) issues.push('menu2-lien-absent (root -> /blog)');
     Object.keys(panels).forEach(function (view) {
       if (!content.includes('data-view="' + view + '"')) {
         issues.push('menu2-panel-absent (sous-vue ' + view + ' introuvable)');
