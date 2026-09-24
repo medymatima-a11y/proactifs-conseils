@@ -424,6 +424,7 @@
       font-size: 13px; color: var(--slate); cursor: pointer; text-decoration: underline;
     }
     .sim-reset:hover { color: var(--ink); }
+    button.sim-reset { width: 100%; background: none; border: 0; padding: 0; font-family: inherit; }
 
     /* ─── AVANTAGES ─── */
     .avantages-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; }
@@ -979,7 +980,7 @@
 
       <!-- SIMULATEUR CARD -->
       <div class="sim-card">
-        <div class="sim-steps">
+        <div class="sim-steps" aria-hidden="true">
           <div class="sim-step-dot active" id="dot-1"></div>
           <div class="sim-step-dot" id="dot-2"></div>
           <div class="sim-step-dot" id="dot-3"></div>
@@ -988,52 +989,52 @@
         <!-- STEP 1 -->
         <div class="sim-screen active" id="screen-1">
           <div class="sim-label">Étape 1 sur 2</div>
-          <div class="sim-question">Quels sont vos revenus nets mensuels&nbsp;?</div>
+          <div class="sim-question" id="q-revenus" tabindex="-1">Quels sont vos revenus nets mensuels&nbsp;?</div>
           <div class="sim-slider-wrap">
             <div class="sim-value-display" id="display-revenus">3 500 <span>€/mois</span></div>
-            <input type="range" id="slider-revenus" min="1500" max="20000" step="100" value="3500">
+            <input type="range" id="slider-revenus" min="1500" max="20000" step="100" value="3500" aria-labelledby="q-revenus" aria-valuetext="3 500 € par mois">
             <div class="sim-range-labels"><span>1 500 €</span><span>20 000 €</span></div>
           </div>
           <div class="sim-hint">
-            💡 Incluez tous les revenus réguliers : salaire, primes fixes, revenus locatifs existants, etc. Les primes variables sont retenues à 70 %.
+            💡 Incluez tous les revenus réguliers : salaire, primes fixes, revenus locatifs existants, etc. Pour vos primes variables, retenez 70 % de leur montant dans le revenu renseigné.
           </div>
           <div class="sim-btn-row">
-            <button class="sim-btn-next" onclick="goStep(2)">Étape suivante →</button>
+            <button type="button" class="sim-btn-next" onclick="goStep(2, true)">Étape suivante →</button>
           </div>
         </div>
 
         <!-- STEP 2 -->
         <div class="sim-screen" id="screen-2">
           <div class="sim-label">Étape 2 sur 2</div>
-          <div class="sim-question">Quelles sont vos charges mensuelles actuelles&nbsp;?</div>
+          <div class="sim-question" id="q-charges" tabindex="-1">Quelles sont vos charges mensuelles actuelles&nbsp;?</div>
           <div class="sim-slider-wrap">
             <div class="sim-value-display" id="display-charges">0 <span>€/mois</span></div>
-            <input type="range" id="slider-charges" min="0" max="5000" step="50" value="0">
+            <input type="range" id="slider-charges" min="0" max="5000" step="50" value="0" aria-labelledby="q-charges" aria-valuetext="0 € par mois">
             <div class="sim-range-labels"><span>0 €</span><span>5 000 €</span></div>
           </div>
           <div class="sim-hint">
             💡 Incluez uniquement les crédits en cours : prêt auto, prêt conso, autres crédits immobiliers. Pas les charges courantes (loyer, énergie…).
           </div>
           <div class="sim-btn-row">
-            <button class="sim-btn-back" onclick="goStep(1)">← Retour</button>
-            <button class="sim-btn-next" onclick="calculateAndShow()">Voir mes résultats →</button>
+            <button type="button" class="sim-btn-back" onclick="goStep(1, true)">← Retour</button>
+            <button type="button" class="sim-btn-next" onclick="calculateAndShow()">Voir mes résultats →</button>
           </div>
         </div>
 
         <!-- STEP 3 — RÉSULTATS -->
         <div class="sim-screen" id="screen-3">
           <div class="sim-label">Votre simulation</div>
-          <div class="sim-question" id="result-title">Votre profil de financement</div>
-          <div class="sim-results" id="results-block">
+          <div class="sim-question" id="result-title" tabindex="-1">Votre profil de financement</div>
+          <div class="sim-results" id="results-block" aria-live="polite">
             <!-- Filled by JS -->
           </div>
           <div class="sim-disclaimer">
-            Simulation indicative basée sur un taux de 3,50 % et la règle d'endettement à 35 %. Les conditions réelles dépendent de votre dossier complet.
+            Simulation indicative calculée avec les taux de référence Proactifs, différents selon la durée (indiqués sous chaque résultat), hors assurance emprunteur, et un ratio d'endettement de 35 %. Les conditions réelles dépendent de votre dossier complet.
           </div>
           <div class="sim-cta-block">
             <a href="mailto:contact@proactifsconseils.fr?subject=Demande%20de%20simulation%20prêt%20immobilier" class="btn-primary">Obtenir une étude personnalisée →</a>
           </div>
-          <a class="sim-reset" onclick="goStep(1)">Refaire la simulation</a>
+          <button type="button" class="sim-reset" onclick="goStep(1, true)">Refaire la simulation</button>
         </div>
       </div>
     </div>
@@ -1422,6 +1423,9 @@
   </div>
 </footer>
 
+<script src="/assets/js/simulators/core.js"></script>
+<script src="/assets/js/simulators/rates.js"></script>
+<script src="/assets/js/simulators/calc-credit.js"></script>
 <script>
   // ─── SLIDER ───
   function updateSlider(slider) {
@@ -1436,6 +1440,7 @@
   sliderRevenus.addEventListener('input', () => {
     const v = updateSlider(sliderRevenus);
     displayRevenus.innerHTML = formatNum(v) + ' <span>€/mois</span>';
+    sliderRevenus.setAttribute('aria-valuetext', formatNum(v) + ' € par mois');
   });
   updateSlider(sliderRevenus);
 
@@ -1444,6 +1449,7 @@
   sliderCharges.addEventListener('input', () => {
     const v = updateSlider(sliderCharges);
     displayCharges.innerHTML = formatNum(v) + ' <span>€/mois</span>';
+    sliderCharges.setAttribute('aria-valuetext', formatNum(v) + ' € par mois');
   });
   updateSlider(sliderCharges);
 
@@ -1452,7 +1458,7 @@
   }
 
   // ─── STEPS ───
-  function goStep(n) {
+  function goStep(n, moveFocus) {
     [1,2,3].forEach(i => {
       document.getElementById('screen-' + i).classList.toggle('active', i === n);
       const dot = document.getElementById('dot-' + i);
@@ -1460,33 +1466,55 @@
       if (i < n) dot.classList.add('done');
       else if (i === n) dot.classList.add('active');
     });
+    if (moveFocus) {
+      const q = document.querySelector('#screen-' + n + ' .sim-question');
+      if (q) q.focus();
+    }
+  }
+
+  // ─── CALCUL : moteur commun des simulateurs (core.js, rates.js, calc-credit.js) ───
+  const MAX_DEBT_RATIO = 0.35; // ratio d'endettement conservé pour cette phase
+
+  function formatRate(pct) {
+    return pct.toFixed(2).replace('.', ',') + ' %';
+  }
+
+  function referenceMonthLabel(ref) {
+    const m = /^(\d{4})-(\d{2})$/.exec(ref && ref.effectiveMonth || '');
+    if (!m) return '';
+    return new Date(Date.UTC(+m[1], +m[2] - 1, 1))
+      .toLocaleDateString('fr-FR', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+  }
+
+  function rateLine(rate, monthLabel) {
+    if (typeof rate !== 'number') return 'Taux de référence indisponible';
+    return 'À ' + formatRate(rate) + (monthLabel ? ' — référence ' + monthLabel : '') + ' · hors assurance';
   }
 
   function calculateAndShow() {
     const revenus = +sliderRevenus.value;
     const charges = +sliderCharges.value;
 
-    // HCSF rule: max debt = 35% of net income
-    const mensMax = Math.max(0, revenus * 0.35 - charges);
+    const ref = SimRates.ACTIVE_MARKET_REFERENCE;
+    const rate20 = SimRates.getMarketRate(20, ref);
+    const rate25 = SimRates.getMarketRate(25, ref);
+    const monthLabel = referenceMonthLabel(ref);
 
-    // Annuity factor at 3.5% (representative rate 2025)
-    // factor = (1 - (1+r)^-n) / r  where r = monthly rate = 0.035/12
-    const r = 0.035 / 12;
-    const n20 = 240, n25 = 300;
-    const factor20 = (1 - Math.pow(1 + r, -n20)) / r;
-    const factor25 = (1 - Math.pow(1 + r, -n25)) / r;
-
-    const cap20 = mensMax * factor20;
-    const cap25 = mensMax * factor25;
-    const budgetTotal = cap25 * 1.10; // avec 10% apport
+    const mensMax = SimCalcCredit.calculateMaxPayment({ income: revenus, existingDebt: charges, maxDebtRatio: MAX_DEBT_RATIO });
+    const capacity = (years, rate) => typeof rate === 'number'
+      ? SimCalcCredit.calculateBorrowingCapacity({ income: revenus, existingDebt: charges, durationYears: years, annualRate: rate, maxDebtRatio: MAX_DEBT_RATIO })
+      : NaN;
+    const cap20 = capacity(20, rate20);
+    const cap25 = capacity(25, rate25);
+    const euros = v => Number.isFinite(v) ? formatNum(SimCore.round(v, 0)) + ' €' : '—';
 
     const rb = document.getElementById('results-block');
     rb.innerHTML = `
       <div class="sim-result-card">
         <div>
           <div class="sim-result-label">Mensualité maximale</div>
-          <div class="sim-result-value">${formatNum(Math.round(mensMax))} €/mois</div>
-          <div class="sim-result-sub">Basé sur 35 % de ${formatNum(revenus)} € — ${formatNum(charges)} € charges</div>
+          <div class="sim-result-value">${formatNum(SimCore.round(mensMax, 0))} €/mois</div>
+          <div class="sim-result-sub">Basé sur ${Math.round(MAX_DEBT_RATIO * 100)} % de ${formatNum(revenus)} € — ${formatNum(charges)} € charges</div>
         </div>
         <div class="sim-result-icon" style="background:var(--teal-pale)">
           <svg fill="none" stroke="var(--teal)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -1495,8 +1523,8 @@
       <div class="sim-result-card">
         <div>
           <div class="sim-result-label">Capacité d'emprunt sur 20 ans</div>
-          <div class="sim-result-value">${formatNum(Math.round(cap20))} €</div>
-          <div class="sim-result-sub">À 3,50 % — taux indicatif 2025</div>
+          <div class="sim-result-value">${euros(cap20)}</div>
+          <div class="sim-result-sub">${rateLine(rate20, monthLabel)}</div>
         </div>
         <div class="sim-result-icon" style="background:var(--sand)">
           <svg fill="none" stroke="var(--slate)" stroke-width="2" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
@@ -1505,8 +1533,8 @@
       <div class="sim-result-card highlight">
         <div>
           <div class="sim-result-label">Capacité d'emprunt sur 25 ans</div>
-          <div class="sim-result-value">${formatNum(Math.round(cap25))} €</div>
-          <div class="sim-result-sub">Budget total avec 10 % d'apport : ~${formatNum(Math.round(budgetTotal))} €</div>
+          <div class="sim-result-value">${euros(cap25)}</div>
+          <div class="sim-result-sub">${rateLine(rate25, monthLabel)}</div>
         </div>
         <div class="sim-result-icon">
           <svg fill="none" stroke="var(--gold-light)" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
@@ -1519,7 +1547,7 @@
         ? 'Vos charges dépassent la capacité d\'emprunt'
         : 'Votre profil de financement';
 
-    goStep(3);
+    goStep(3, true);
   }
 
   // ─── FAQ ───
