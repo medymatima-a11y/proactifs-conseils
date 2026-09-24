@@ -90,7 +90,7 @@
     .levier-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 20px; }
     .levier-gain { background: var(--gold-pale); border-left: 4px solid var(--gold); padding: 12px 16px; border-radius: var(--r-sm); font-weight: 600; font-size: 14px; color: var(--ink); }
 
-    .why-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 40px; }
+    .why-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 40px; }
     .why-card { background: var(--white); border-radius: var(--r-lg); padding: 48px 40px; box-shadow: var(--shadow-sm); text-align: center; transition: all 0.3s ease; position: relative; }
     .why-card::before { content: attr(data-number); position: absolute; top: 20px; right: 24px; font-family: 'Fraunces', serif; font-size: 48px; font-weight: 700; color: var(--forest); opacity: 0.15; }
     .why-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
@@ -104,7 +104,8 @@
     .process-step h3 { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--white); }
     .sec-forest .process-step p { color: rgba(255,255,255,.85); font-size: 14px; line-height: 1.7; }
 
-    .solution-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; }
+    .solution-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 32px; }
+    .case-grid { grid-template-columns: 1fr 1fr; }
     .solution-card { background: var(--white); border-radius: var(--r-lg); padding: 40px; box-shadow: var(--shadow-sm); transition: all 0.3s ease; }
     .solution-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
     .solution-tag { display: inline-block; background: var(--teal-pale); color: var(--teal); padding: 6px 12px; border-radius: var(--r-sm); font-size: 11px; font-weight: 600; font-family: 'DM Mono', monospace; text-transform: uppercase; margin-bottom: 16px; }
@@ -224,7 +225,7 @@
       .hero-stats { grid-template-columns: 1fr; gap: 16px; }
       .hero-stat { border-right: none; border-bottom: 1px solid rgba(232,201,122,.3); padding-bottom: 16px; }
       .hero-stat:last-child { border-bottom: none; }
-      .levier-grid, .why-grid, .solution-grid { grid-template-columns: 1fr; }
+      .levier-grid, .why-grid, .solution-grid, .case-grid { grid-template-columns: 1fr; }
       .sec { padding: 48px 20px; }
       .sec-title { font-size: 26px; }
       .footer-grid { grid-template-columns: 1fr; }
@@ -509,7 +510,7 @@
   <div class="container">
     <div class="sec-label">Notre méthode</div>
     <h2 class="sec-title">De votre fichier G&amp;L au rapport <em>prêt à déclarer</em></h2>
-    <div class="process-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="process-grid">
       <div class="process-step reveal" data-step="1">
         <h3>Lecture du fichier courtier</h3>
         <p>Nous analysons votre Gain &amp; Loss Statement (Schwab, Fidelity, E*Trade, Morgan Stanley…) et identifions chaque lot, sa date et son type de plan.</p>
@@ -532,7 +533,7 @@
     <div class="sec-label">Cas pratiques</div>
     <h2 class="sec-title">Deux situations <em>concrètes</em></h2>
     <p style="font-size:16px;color:var(--ink-soft);max-width:760px;margin-bottom:48px;line-height:1.7;">Voici deux profils typiques que nous rencontrons fréquemment en Hauts-de-Seine. Les chiffres sont calculés sur la base des taux 2025. Chaque situation réelle nécessite un examen personnalisé.</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;" class="case-grid">
+    <div style="display:grid;gap:32px;" class="case-grid">
       <article style="background:var(--sand);border-radius:var(--r-lg);padding:36px;">
         <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;">Cas n°1 · 38 ans, cadre tech</div>
         <h3 style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:16px;">Sophie, ingénieure chez Gilead Sciences (GILD)</h3>
@@ -558,7 +559,7 @@
   <div class="container">
     <div class="sec-label">Les pièges à éviter</div>
     <h2 class="sec-title">Quatre erreurs qui coûtent <em>cher</em></h2>
-    <div class="why-grid" style="grid-template-columns:repeat(2,1fr);">
+    <div class="why-grid">
       <div class="why-card reveal" data-number="1">
         <h3>Oublier le formulaire 3916</h3>
         <p>Tout compte chez un courtier américain (Schwab, Fidelity, E*Trade…) doit être déclaré chaque année, même sans opération. L'amende est de 1 500 € par compte non déclaré et par année.</p>
@@ -642,7 +643,7 @@
   <div class="container">
     <div class="sec-label">Sujets liés</div>
     <h2 class="sec-title">Pour aller <em>plus loin</em></h2>
-    <div class="solution-grid" style="grid-template-columns:repeat(4,1fr);">
+    <div class="solution-grid">
       <a href="/optimisation-fiscale-ile-de-france" class="solution-card" style="text-decoration:none;display:block;">
         <div class="solution-tag">Fiscalité</div>
         <h3>Optimisation fiscale</h3>
