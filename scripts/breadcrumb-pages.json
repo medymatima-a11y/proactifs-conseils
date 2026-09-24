@@ -51,10 +51,6 @@
         {
           "label": "Accueil",
           "url": "/"
-        },
-        {
-          "label": "Immobilier",
-          "url": "/immobilier"
         }
       ]
     },
@@ -68,8 +64,8 @@
           "url": "/"
         },
         {
-          "label": "Immobilier",
-          "url": "/immobilier"
+          "label": "Investissement immobilier",
+          "url": "/investissement-immobilier"
         }
       ]
     },
@@ -83,8 +79,8 @@
           "url": "/"
         },
         {
-          "label": "Immobilier",
-          "url": "/immobilier"
+          "label": "Investissement immobilier",
+          "url": "/investissement-immobilier"
         }
       ]
     },
@@ -96,10 +92,17 @@
         {
           "label": "Accueil",
           "url": "/"
-        },
+        }
+      ]
+    },
+    {
+      "file": "pret-immobilier.html",
+      "url": "/pret-immobilier",
+      "label": "Prêt immobilier",
+      "trail": [
         {
-          "label": "Immobilier",
-          "url": "/immobilier"
+          "label": "Accueil",
+          "url": "/"
         }
       ]
     },
