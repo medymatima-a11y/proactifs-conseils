@@ -374,8 +374,16 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 }
 .btn-primary-light:hover { background: var(--gold-pale); }
 
+.cabinet-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1.2fr 1.4fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
+  .cabinet-footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
   .nav-links, .nav-cta-btn { display: none; }
   .hamburger { display: flex; }
   .cabinet-hero h1 { font-size: 36px; }
@@ -396,6 +404,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
   .medy-stats { gap: 20px; }
 }
 @media (max-width: 480px) {
+  .cabinet-footer-grid { grid-template-columns: 1fr; }
   .steps-grid { grid-template-columns: 1fr; }
   .svc-list { grid-template-columns: 1fr; }
   .step { border-right: none; }
@@ -930,7 +939,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 <div id="contact" style="scroll-margin-top:80px;"></div>
 <footer style="background:#080C10;color:rgba(255,255,255,.8);padding:64px 40px 32px;">
   <div class="container">
-    <div style="display:grid;grid-template-columns:2fr 1.2fr 1.2fr 1.4fr;gap:48px;margin-bottom:48px;">
+    <div class="cabinet-footer-grid">
       <div>
         <img src="/images/proactifs-logo.png" alt="Proactifs Conseils" style="height:40px;margin-bottom:16px;opacity:.9">
         <p style="font-size:14px;line-height:1.7;color:rgba(255,255,255,.55);max-width:280px;">
