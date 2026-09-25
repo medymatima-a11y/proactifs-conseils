@@ -9,6 +9,7 @@
 
 | Titre | Slug / Fichier | Mot-clé principal | Date création | Statut |
 |---|---|---|---|---|
+| Pacte Dutreil 2026 : fiscalité et transmission d'entreprise | `/blog/pacte-dutreil-2026-fiscalite-transmission-entreprise` | Pacte Dutreil conditions avantages | 2026-09 | ✅ Publié (auto Agent SEO) |
 | Donation vivant ou testament : que choisir ? | `/blog/donation-vivant-vs-testament-strategie-transmission` | donation immobilière | 2026-09 | ✅ Publié (auto Agent SEO) |
 | Préparer sa retraite à 50 ans : 5 leviers patrimoniaux | `/blog/preparer-retraite-50-ans-leviers-patrimoniaux` | épargne retraite PER | 2026-09 | ✅ Publié (auto Agent SEO) |
 | LMNP 2026 : avantages et fiscalité | `/blog/lmnp-2026` | LMNP 2026 avantages | 2026-04 | ✅ Publié (refonte 2026-07-02 : section LF 2026, PS 18,6 %, seuils micro-BIC, fix JS) |
