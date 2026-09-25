@@ -283,6 +283,8 @@
       color:var(--white);
     }
 
+    .local-market-table-scroll{overflow-x:auto;margin:24px -4px;padding:4px}
+    .local-market-table-scroll:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
     .comparison-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow-sm)}
     .comparison-table thead{background:var(--forest);color:var(--white)}
     .comparison-table th{padding:16px 20px;text-align:left;font-size:14px;font-weight:600}
@@ -904,7 +906,8 @@
 
     <p>Courbevoie n'est pas Colombes, et les transactions enregistrées le montrent sans ambiguïté. L'appartement s'y négocie environ 34 % plus cher, et la maison y est devenue une exception statistique.</p>
 
-    <table class="comparison-table" style="margin:28px 0;">
+    <div class="local-market-table-scroll" role="region" aria-label="Comparatif immobilier de Courbevoie, Colombes et des Hauts-de-Seine" tabindex="0">
+    <table class="comparison-table">
       <thead>
         <tr><th>Indicateur</th><th>Courbevoie</th><th>Colombes</th><th>Hauts-de-Seine</th></tr>
       </thead>
@@ -915,6 +918,7 @@
         <tr><td>Ventes de maisons</td><td>168</td><td>1 462</td><td>11 600</td></tr>
       </tbody>
     </table>
+    </div>
 
     <p>Sur 5 504 transactions recensées, 168 seulement portent sur une maison. Trois pour cent. À Colombes, la proportion atteint vingt-six pour cent. Le patrimoine immobilier courbevoisien est donc presque intégralement détenu en copropriété, ce qui change la manière de l'organiser, de le louer et de le transmettre.</p>
 
