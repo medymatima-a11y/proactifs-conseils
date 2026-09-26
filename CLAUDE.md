@@ -1,5 +1,18 @@
 # Agent SEO Éditeur — Proactifs Conseils Patrimoine
 
+## ⚠️ Source de vérité frontend — lecture OBLIGATOIRE
+
+Avant toute création ou modification de page HTML, lire **`FRONTEND-RULES.md`** (racine du dépôt).
+
+En cas de contradiction entre documents, l'ordre de priorité est :
+1. `FRONTEND-RULES.md`
+2. le dépôt actuel (`partials/header.html`, `assets/`, `scripts/` et leurs manifestes)
+3. la page de référence de la famille (liste dans `FRONTEND-RULES.md` §2)
+4. ce fichier, `SEO-STANDARDS.md`, `docs/`
+5. le skill `proactifs-design` et toute documentation plus ancienne
+
+Les règles métier de ce fichier (conformité MIF2, vérification des chiffres fiscaux, validation avant écriture) restent obligatoires.
+
 ## Référence SEO
 
 Standards techniques détaillés : **`SEO-STANDARDS.md`** (à la racine du projet).
@@ -22,14 +35,14 @@ Déployé sur Vercel via GitHub (branche `main`). Chaque `git push` déclenche u
 
 | Skill | Quand l'utiliser |
 |---|---|
-| `proactifs-design` | Avant TOUTE création ou refonte de page (variables CSS, patterns nav/hero/sections/footer, boilerplates SEO) |
+| `proactifs-design` | Avant TOUTE création ou refonte de page (variables CSS, typographies, patterns hero/sections/cards). **Subordonné à `FRONTEND-RULES.md`** : header, breadcrumb, footer et pages de référence sont définis dans `FRONTEND-RULES.md` |
 | `redaction-naturelle-fr` | Pour tout texte client de plus d'un paragraphe (email, page, article, post) |
 | `patrimoine-fiscal-fr` | Dès qu'un chiffre fiscal, abattement, article CGI ou règle patrimoniale est mentionné |
 | `seo-audit` / `seo-page` | Pour un audit ou une optimisation d'une page existante |
 | `seo-content-brief` | Avant de rédiger un nouvel article ou une nouvelle page |
 | `proactifs-email-brevo` | Si une campagne email accompagne une nouvelle page |
 
-Ne jamais créer ou modifier une page sans avoir lu `proactifs-design` au préalable.
+Ne jamais créer ou modifier une page sans avoir lu `FRONTEND-RULES.md` puis `proactifs-design` au préalable.
 
 ### Vérification des chiffres fiscaux — MCP obligatoires
 
@@ -171,6 +184,8 @@ Rappels rapides :
 - [ ] Open Graph complet
 - [ ] Title et meta description respectent les longueurs cibles
 - [ ] Responsive mobile : `node scripts/check-mobile-nav.js` ne renvoie aucune régression (voir section dédiée ci-dessous)
+- [ ] Header et breadcrumb : `node scripts/build-header.js --check` et `node scripts/build-breadcrumbs.js --check` au vert, **et** la page est bien inscrite dans `scripts/nav-pages.json` / `scripts/breadcrumb-pages.json` (les contrôles ignorent les pages non inscrites)
+- [ ] Règles de `FRONTEND-RULES.md` respectées (page de référence, breakpoints, couleurs, footer, largeurs 360/390/768/1024/1440)
 
 ```bash
 git add [fichiers modifiés]
@@ -189,9 +204,12 @@ Corrigés le 13/09/2026 sur les 53 pages + sur le gabarit de génération
 appliquée automatiquement à chaque article généré).
 
 **Avant de créer ou modifier une page à la main (nav/menu mobile) :**
-1. Ne jamais repartir d'un ancien commit/snapshot de nav — copier le bloc nav
-   d'une page déjà à jour (`transmission.html` ou `immobilier.html` par
-   exemple).
+1. Ne jamais écrire, copier ni repartir d'un ancien bloc nav : le header est
+   généré par `scripts/build-header.js` depuis `partials/header.html`
+   (marqueurs `NAV:CONFIG` / `NAV:START` / `NAV:END`, page inscrite dans
+   `scripts/nav-pages.json`). Les points 2 à 4 ci-dessous sont garantis par
+   `assets/css/navigation*.css` et `assets/js/navigation.js` : ils ne
+   s'appliquent qu'à une page restée hors du système centralisé.
 2. `#nav` doit être opaque dès le départ (`background: rgba(250,250,247,.98)`
    ou équivalent) si la page a un `.breadcrumb` juste en dessous — jamais
    `background: transparent` avec des liens/hamburger blancs par défaut,
@@ -206,7 +224,7 @@ appliquée automatiquement à chaque article généré).
 
 ## Ordre de Priorité des Optimisations
 
-Navigation dropdown "Nos services" ajoutée sur les 32 pages (juin 2026 — commit 3bcff23).
+Navigation : le menu « Nos services » de juin 2026 est remplacé par le header centralisé (mega-menus Patrimoine / Immobilier / Financement / Entreprises & Pro, Blog, Cabinet — voir `docs/NAVIGATION-PROACTIFS.md`).
 Toutes les priorités urgentes et hautes ont été traitées (mai 2026). Prochaines actions :
 1. **Densifier le maillage local Colombes/92** depuis chaque page principale et chaque article
 2. **Renforcer le schema LocalBusiness** avec `areaServed` étendu sur pages villes et homepage
