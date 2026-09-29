@@ -2145,6 +2145,26 @@ const flows = {
 
 let wizService='', wizStep=0, wizAnswers=[];
 
+/* ── Mesure du tunnel diagnostic (gtag / GA4 existant) ──
+   Règle : on n'envoie QUE le type de diagnostic et des libellés d'interface statiques.
+   Jamais de nom, email, téléphone, réponse, montant ni saisie libre. */
+const WIZ_TRACK_TYPE = { impots:'impots', immo:'immobilier', retraite:'retraite', epargne:'epargne', credit:'financement', transmission:'transmission', rsu:'rsu', cession:'cession', declaration:'declaration' };
+let wizTrackSeen = {};
+let wizSource = 'direct', wizEntry = 'deep_link'; // origine du diagnostic en cours (conservée pendant tout le parcours)
+let wizPendingOrigin = null;                       // posée par un vrai clic sur carte, consommée par openWizard
+function wizTrackType() { return WIZ_TRACK_TYPE[wizService] || wizService; }
+function wizTrackBase() { return { diagnostic_type: wizTrackType(), diagnostic_source: wizSource, diagnostic_entry: wizEntry }; }
+function wizTrack(name, params) {
+  try {
+    if (typeof gtag === 'function') gtag('event', name, params);
+  } catch (e) { /* le tracking ne doit jamais bloquer le wizard */ }
+}
+function wizTrackOnce(key, name, params) { // anti-doublon : 1 fois par ouverture du wizard
+  if (wizTrackSeen[key]) return;
+  wizTrackSeen[key] = true;
+  wizTrack(name, params);
+}
+
 const wizIntros = {
   impots:       { icon:'<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="7.5" cy="7.5" r="2"/><circle cx="16.5" cy="16.5" r="2"/></svg>', title:'Payez-vous trop d\'impôts ?',       desc:'Découvrez en quelques questions les leviers d\'optimisation fiscale adaptés à votre situation.' },
   immo:         { icon:'<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-5h4v5"/></svg>', title:'Votre projet immobilier sur mesure',    desc:'Quelques questions pour identifier le montage le plus rentable et fiscalement optimal pour vous.' },
@@ -2159,8 +2179,12 @@ const wizIntros = {
 
 function openWizard(service) {
   wizService = service;
+  // Origine : clic carte (homepage) ou ouverture automatique ?service= (direct / deep_link)
+  if (wizPendingOrigin) { wizSource = wizPendingOrigin.source; wizEntry = wizPendingOrigin.entry; wizPendingOrigin = null; }
+  else { wizSource = 'direct'; wizEntry = 'deep_link'; }
   wizStep = 0;
   wizAnswers = [];
+  wizTrackSeen = {};
   document.getElementById('wiz-overlay').classList.add('open');
   document.body.style.overflow='hidden';
 
@@ -2193,6 +2217,7 @@ function openWizard(service) {
 }
 
 function startWizQuestions() {
+  wizTrackOnce('start', 'diagnostic_start', wizTrackBase());
   document.getElementById('wizIntro').style.display = 'none';
   document.querySelector('.wiz-progress-wrap').style.display = 'block';
   renderWizStep();
@@ -2288,6 +2313,9 @@ function renderWizStep() {
   };
   const isLast = wizStep === flows[wizService].steps.length - 1;
   document.getElementById('wizNext').textContent = isLast ? (lastStepLabels[wizService] || 'Finaliser ma demande →') : 'Continuer →';
+
+  // Mesure : étape effectivement affichée (1 seule fois par étape, même si retour arrière)
+  wizTrackOnce('step' + wizStep, 'diagnostic_step', Object.assign(wizTrackBase(), { step_number: wizStep + 1 }));
 }
 function selectOpt(i) {
   wizAnswers[wizStep] = i;
@@ -2338,6 +2366,7 @@ function wizNext() {
     document.getElementById('wizQBody').style.display='none';
     document.getElementById('wizQFooter').style.display='none';
     document.getElementById('wizContact').style.display='block';
+    wizTrackOnce('contact', 'diagnostic_contact_view', wizTrackBase());
   } else {
     renderWizStep();
   }
@@ -2393,6 +2422,7 @@ async function wizSubmit() {
   }
 
   let ok = false;
+  let errStage = '';
   try {
     const _srcMap = {
       impots:       'Quiz Fiscalité',
@@ -2426,13 +2456,16 @@ async function wizSubmit() {
       }),
     });
     ok = res.ok;
+    if (!ok) errStage = 'server_rejected';
   } catch(e) {
     console.warn('Subscribe error:', e);
     ok = false;
+    errStage = 'network_error';
   }
 
   // ── Échec (réseau HS ou réponse Supabase non-OK) : ne jamais perdre un lead silencieusement ──
   if (!ok) {
+    wizTrack('diagnostic_error', Object.assign(wizTrackBase(), { error_stage: errStage || 'server_rejected' }));
     if (errEl) {
       errEl.textContent = "Une erreur est survenue lors de l'envoi. Vos informations n'ont pas été transmises. Veuillez réessayer.";
       errEl.style.display = 'block';
@@ -2453,6 +2486,9 @@ async function wizSubmit() {
       currency: 'EUR'
     });
   }
+
+  // Mesure : enregistrement Supabase confirmé (après ads_conversion_Formulaire_1, sans le modifier)
+  wizTrackOnce('submit', 'diagnostic_submit', wizTrackBase());
 
   document.getElementById('wizContact').style.display = 'none';
   document.getElementById('wizThanks').style.display  = 'block';
@@ -2663,6 +2699,29 @@ document.querySelectorAll('.svc-card').forEach(card => {
     })
     .catch(() => { /* échec silencieux : cartes statiques du HTML conservées */ });
 })();
+
+/* ── Mesure : clic réel sur une carte diagnostic (l'ouverture auto ?service= n'y passe pas) ── */
+document.addEventListener('click', function(e){
+  try {
+    var card = e.target.closest && e.target.closest('.lead-card');
+    if (!card) return;
+    var m = /openWizard\('(\w+)'\)/.exec(card.getAttribute('onclick') || '');
+    if (!m) return;
+    var special = !!card.closest('#expertises-particulieres');
+    var entry = special ? 'expertise_card' : 'main_card';
+    // Origine transmise à openWizard (exécuté juste après, dans le même clic) puis conservée pendant tout le parcours
+    wizPendingOrigin = { source: 'homepage', entry: entry };
+    setTimeout(function(){ wizPendingOrigin = null; }, 0);
+    var t = card.querySelector('.lead-card-title');
+    wizTrack('diagnostic_card_click', {
+      diagnostic_type: WIZ_TRACK_TYPE[m[1]] || m[1],
+      diagnostic_source: 'homepage',
+      diagnostic_entry: entry,
+      card_group: special ? 'expertise' : 'principal',
+      card_title: t ? t.textContent.replace(/\s+/g, ' ').trim() : ''
+    });
+  } catch (err) { /* jamais bloquant */ }
+}, true);
 
 /* ── Accessibilité clavier des cartes diagnostic (n'altère pas openWizard) ── */
 (function(){
