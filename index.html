@@ -706,17 +706,7 @@ footer {
   transition: all .25s cubic-bezier(.4,0,.2,1);
   display:flex; flex-direction:column; gap:10px;
   position:relative; overflow:hidden;
-  opacity:0;
-  transform: translateY(-28px) rotate(var(--tilt, -5deg));
   transition: opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1);
-}
-.lead-card:nth-child(3n+2) { --tilt: 5deg; }
-.lead-card:nth-child(3n)   { --tilt: -4deg; }
-/* Une fois visible (classe ajoutée par JS) */
-.lead-card.card-visible {
-  opacity:1;
-  transform: translateY(0) rotate(0deg);
-  animation: none;
 }
 
 /* ── Ligne dorée en bas ── */
@@ -961,6 +951,9 @@ footer {
 @media(max-width:600px) {
   .lead-cards { grid-template-columns:1fr 1fr; --lead-gap:10px; gap:var(--lead-gap); align-items:stretch; }
   .lead-card { padding:16px 14px; height:100%; }
+  /* CTA de carte mobile : 1 ligne dès ~430 px ; sinon 2 lignes équilibrées, flèche collée au dernier mot */
+  .lead-card-arrow { display:block; font-size:10px; letter-spacing:0; line-height:1.4; text-wrap:balance; }
+  .lead-card-arrow svg { width:10px; height:10px; margin-left:4px; vertical-align:-1px; }
   /* 9e carte centrée : règle unique gap-robuste dans le bloc <=900px ci-dessus */
   /* espacements resserrés */
   .lead-inner { padding:40px 20px 44px; }
@@ -982,6 +975,24 @@ footer {
   .wiz-options { gap:9px; }
 }
 
+
+/* ── Section « expertise particulière » (Phase 1) ── */
+a.lead-card { text-decoration:none; color:inherit; }
+#expertises-particulieres { background: var(--ivory); border-top:1px solid var(--border); scroll-margin-top:88px; }
+#expertises-particulieres .lead-inner { padding: 56px 80px 64px; }
+.lead-special-header { text-align:center; margin-bottom:28px; }
+.lead-special-title {
+  font-family:'Fraunces',serif; font-size:clamp(22px,2.6vw,32px);
+  font-weight:700; color:var(--ink); line-height:1.2; margin-bottom:10px; text-wrap:balance;
+}
+.lead-special-sub { color:var(--ink-soft); font-size:clamp(15px,1.8vw,18px); }
+@media(max-width:900px) {
+  #expertises-particulieres .lead-inner { padding:44px 24px 44px; }
+}
+@media(max-width:600px) {
+  #expertises-particulieres .lead-inner { padding:32px 20px 36px; }
+  .lead-special-header { margin-bottom:20px; }
+}
 
 /* Dropdown "Nos services" : voir /assets/css/navigation.css (centralisé, MENU-1.5) */
 </style>
@@ -1301,7 +1312,7 @@ footer {
         </div>
         <div class="lead-card-title">Réduire mes impôts</div>
         <div class="lead-card-desc">Identifier les leviers fiscaux adaptés à ma situation</div>
-        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="lead-card-arrow">Découvrir mes options <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
       <div class="lead-card" onclick="openWizard('immo')">
         <div class="lead-card-icon">
@@ -1309,7 +1320,7 @@ footer {
         </div>
         <div class="lead-card-title">Investir dans l'immobilier</div>
         <div class="lead-card-desc">Construire et développer mon patrimoine immobilier</div>
-        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="lead-card-arrow">Découvrir mes options <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
       <div class="lead-card" onclick="openWizard('retraite')">
         <div class="lead-card-icon">
@@ -1317,7 +1328,7 @@ footer {
         </div>
         <div class="lead-card-title">Préparer ma retraite</div>
         <div class="lead-card-desc">Anticiper mes revenus et mon niveau de vie</div>
-        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="lead-card-arrow">Découvrir mes options <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
       <div class="lead-card" onclick="openWizard('epargne')">
         <div class="lead-card-icon">
@@ -1325,7 +1336,7 @@ footer {
         </div>
         <div class="lead-card-title">Faire fructifier mon épargne</div>
         <div class="lead-card-desc">Structurer mes placements selon mes objectifs</div>
-        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="lead-card-arrow">Découvrir mes options <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
       <div class="lead-card" onclick="openWizard('credit')">
         <div class="lead-card-icon">
@@ -1333,7 +1344,7 @@ footer {
         </div>
         <div class="lead-card-title">Financer un projet</div>
         <div class="lead-card-desc">Trouver le financement adapté à mon projet</div>
-        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="lead-card-arrow">Découvrir mes options <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
       <div class="lead-card" onclick="openWizard('transmission')">
         <div class="lead-card-icon">
@@ -1341,32 +1352,44 @@ footer {
         </div>
         <div class="lead-card-title">Préparer ma transmission</div>
         <div class="lead-card-desc">Protéger mes proches et anticiper ma succession</div>
-        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="lead-card-arrow">Découvrir mes options <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </div>
-      <div class="lead-card" onclick="openWizard('cession')">
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ EXPERTISES PARTICULIÈRES ════════════ -->
+<section id="expertises-particulieres" aria-labelledby="expertises-particulieres-title">
+  <div class="lead-inner">
+    <div class="lead-special-header">
+      <h2 class="lead-special-title" id="expertises-particulieres-title">Des situations qui demandent une expertise particulière</h2>
+      <p class="lead-special-sub">Certaines situations patrimoniales nécessitent une analyse plus spécifique.</p>
+    </div>
+    <div class="lead-cards">
+      <a class="lead-card" href="/fiscalite-rsu-stock-options" onclick="openWizard('rsu');return false;">
+        <div class="lead-card-icon">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+        </div>
+        <div class="lead-card-title">J’ai des RSU ou stock-options</div>
+        <div class="lead-card-desc">Comprendre leur fiscalité et décider quoi faire de mes actions</div>
+        <div class="lead-card-arrow">Découvrir mes options <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+      <a class="lead-card" href="/cession-entreprise" onclick="openWizard('cession');return false;">
         <div class="lead-card-icon">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
         </div>
         <div class="lead-card-title">Céder mon entreprise</div>
         <div class="lead-card-desc">Préparer et optimiser la vente de ma société</div>
-        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      </div>
-      <div class="lead-card" onclick="openWizard('declaration')">
+        <div class="lead-card-arrow">Découvrir mes options <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+      <a class="lead-card" href="/declaration-impots-ile-de-france" onclick="openWizard('declaration');return false;">
         <div class="lead-card-icon">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </div>
         <div class="lead-card-title">Déclarer mes revenus</div>
         <div class="lead-card-desc">Sécuriser et optimiser ma déclaration annuelle</div>
-        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      </div>
-      <div class="lead-card" onclick="openWizard('rsu')">
-        <div class="lead-card-icon">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-        </div>
-        <div class="lead-card-title">Valoriser mon actionnariat salarié</div>
-        <div class="lead-card-desc">Déclarer et optimiser mes actions d'entreprise</div>
-        <div class="lead-card-arrow">Faire mon diagnostic <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-      </div>
+        <div class="lead-card-arrow">Découvrir mes options <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
     </div>
   </div>
 </section>
@@ -2458,7 +2481,7 @@ setTimeout(triggerHeroAnims, 100);
    // ── Ouverture wizard par URL param ──
 // Ex: ?service=declaration ouvre directement le wizard déclaration
 (function(){
-  var valid=['impots','immo','retraite','epargne','transmission','cession','credit','declaration'];
+  var valid=['impots','immo','retraite','epargne','transmission','cession','credit','declaration','rsu'];
   var p=new URLSearchParams(window.location.search);
   var s=p.get('service');
   if(s&&valid.indexOf(s)!==-1){setTimeout(function(){openWizard(s);},600);}
@@ -2467,7 +2490,7 @@ setTimeout(triggerHeroAnims, 100);
 // ── Ouverture wizard par URL param ──
 // Ex: ?service=declaration ouvre directement le wizard déclaration
 (function(){
-  var valid=['impots','immo','retraite','epargne','transmission','cession','credit','declaration'];
+  var valid=['impots','immo','retraite','epargne','transmission','cession','credit','declaration','rsu'];
   var p=new URLSearchParams(window.location.search);
   var s=p.get('service');
   if(s&&valid.indexOf(s)!==-1){setTimeout(function(){openWizard(s);},600);}
@@ -2476,7 +2499,6 @@ setTimeout(triggerHeroAnims, 100);
 // ── Titre lettre par lettre → puis cartes en cascade ──────────
 (function() {
   const title = document.querySelector('.lead-title');
-  const cards = document.querySelectorAll('.lead-card');
   if (!title) return;
 
   // ── 1. Prépare les spans de lettres ──
@@ -2527,19 +2549,13 @@ setTimeout(triggerHeroAnims, 100);
     setTimeout(nextChar, 300);
   }
 
-  function animateCards() {
-    cards.forEach((card, idx) => {
-      setTimeout(() => card.classList.add('card-visible'), idx * 180);
-    });
-  }
-
   // ── 3. Déclenche tout via IntersectionObserver sur le titre ──
   let triggered = false;
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting && !triggered) {
         triggered = true;
-        animateTitle(() => animateCards());
+        animateTitle();
         obs.disconnect();
       }
     });
@@ -2651,10 +2667,11 @@ document.querySelectorAll('.svc-card').forEach(card => {
 /* ── Accessibilité clavier des cartes diagnostic (n'altère pas openWizard) ── */
 (function(){
   document.querySelectorAll('.lead-card').forEach(function(card){
+    if(card.tagName==='A') return; /* lien natif : focus + Entrée gérés par le navigateur */
     if(!card.hasAttribute('tabindex')) card.setAttribute('tabindex','0');
     if(!card.hasAttribute('role')) card.setAttribute('role','button');
     var t=card.querySelector('.lead-card-title');
-    if(t && !card.hasAttribute('aria-label')) card.setAttribute('aria-label', t.textContent.trim()+' — faire mon diagnostic');
+    if(t && !card.hasAttribute('aria-label')) card.setAttribute('aria-label', t.textContent.trim()+' — découvrir mes options');
     card.addEventListener('keydown', function(e){
       if(e.key==='Enter' || e.key===' ' || e.key==='Spacebar'){ e.preventDefault(); card.click(); }
     });
