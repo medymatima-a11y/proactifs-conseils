@@ -974,6 +974,7 @@
             </select>
           </div>
           <p class="wiz-gdpr">&#x1F512; Vos donn&eacute;es sont confidentielles et ne seront jamais revendues. En soumettant ce formulaire, vous acceptez d&rsquo;&ecirc;tre contact&eacute; par Proactifs Conseils.</p>
+          <div id="wizError" role="alert" style="display:none;margin:0 0 12px;padding:10px 12px;border:1px solid #d9a3a3;background:#fdf1f1;color:#8a1f1f;border-radius:8px;font-size:.88rem;line-height:1.45"></div>
           <button class="wiz-submit-btn" onclick="actioWizSubmit()">Envoyer ma demande &rarr;</button>
         </div>
       </div>
@@ -1174,6 +1175,8 @@
       document.getElementById('wizContact').style.display = 'none';
       document.getElementById('wizThanks').style.display = 'none';
       document.getElementById('wizProgressWrap').style.display = 'none';
+      document.getElementById('wizError').style.display = 'none';
+      const sb = document.querySelector('#wizContact .wiz-submit-btn'); sb.disabled = false; sb.innerHTML = 'Envoyer ma demande &rarr;';
     }
     function closeActioWizard() {
       document.getElementById('wiz-overlay').classList.remove('open');
@@ -1227,21 +1230,63 @@
       document.getElementById('wizFill').style.width = '100%';
       document.getElementById('wizContact').style.display = 'block';
     }
+    let actioSending = false;
     async function actioWizSubmit() {
+      if (actioSending) return;
       const prenom = document.getElementById('wPrenom').value.trim();
       const nom = document.getElementById('wNom').value.trim();
       const email = document.getElementById('wEmail').value.trim();
       const tel = document.getElementById('wTel').value.trim();
       const courtier = document.getElementById('wSituation').value;
       if (!prenom || !nom || !email || !tel || !courtier) { alert('Veuillez remplir tous les champs.'); return; }
-      const payload = { prenom, nom, email, telephone: tel, source: 'wizard-actionnariat', answers: actioAnswers, page: 'fiscalite-rsu-stock-options', courtier };
+
+      const btn = document.querySelector('#wizContact .wiz-submit-btn');
+      const errEl = document.getElementById('wizError');
+      errEl.style.display = 'none'; errEl.textContent = '';
+      actioSending = true;
+      btn.disabled = true; btn.textContent = 'Envoi en cours…';
+
+      // Réponses détaillées, même format lisible que le diagnostic de l'accueil (q1, q2, ...)
+      const reponses = { page: 'fiscalite-rsu-stock-options', courtier: courtier };
+      actioSteps.forEach((st, i) => { if (actioAnswers[i]) reponses['q' + (i + 1)] = st.q + ' : ' + actioAnswers[i]; });
+
+      // Uniquement des colonnes existantes de public.leads
+      const payload = {
+        prenom: prenom,
+        nom: nom,
+        email: email,
+        telephone: tel,
+        source: 'Page RSU - Diagnostic actionnariat',
+        situation: 'Courtier : ' + courtier,
+        preoccupation: actioAnswers[0] || '',
+        reponses: reponses
+      };
+
+      let ok = false;
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 15000);
       try {
-        await fetch(_SB_URL + '/rest/v1/leads', {
+        const res = await fetch(_SB_URL + '/rest/v1/leads', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'apikey': _SB_KEY, 'Authorization': 'Bearer ' + _SB_KEY, 'Prefer': 'return=minimal' },
-          body: JSON.stringify(payload)
+          body: JSON.stringify(payload),
+          signal: ctrl.signal
         });
-      } catch(e) { console.warn('Lead save error', e); }
+        ok = res.ok;
+        if (!ok) console.warn('Lead save rejected', res.status);
+      } catch (e) {
+        console.warn('Lead save error', e);
+      } finally {
+        clearTimeout(timer);
+      }
+
+      actioSending = false;
+      if (!ok) {
+        errEl.textContent = "Votre demande n'a pas pu être enregistrée. Vos réponses sont conservées : vous pouvez réessayer, ou nous joindre au 01 84 78 28 30.";
+        errEl.style.display = 'block';
+        btn.disabled = false; btn.textContent = 'Réessayer →';
+        return;
+      }
       document.getElementById('wizContact').style.display = 'none';
       document.getElementById('wizThanks').style.display = 'block';
       document.getElementById('wizProgressWrap').style.display = 'none';
