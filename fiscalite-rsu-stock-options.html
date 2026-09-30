@@ -931,15 +931,15 @@
       </div>
       <div id="wizIntro" class="wiz-intro-body">
         <div class="wiz-intro-icon">&#x1F4CA;</div>
-        <h3 class="wiz-intro-title">Votre fiscalité est-elle maîtrisée&nbsp;?</h3>
-        <p class="wiz-intro-desc">5 questions pour vérifier que vos obligations déclaratives RSU, stock-options, BSPCE et actions gratuites sont bien couvertes.</p>
+        <h3 class="wiz-intro-title">Faisons le point sur vos actions</h3>
+        <p class="wiz-intro-desc">5 questions pour mieux comprendre votre situation et identifier les sujets à examiner en priorité.</p>
         <div class="wiz-intro-points">
           <div class="wiz-intro-point"><span class="wiz-intro-point-icon">&#x23F1;</span><span>Moins de 2 minutes</span></div>
           <div class="wiz-intro-point"><span class="wiz-intro-point-icon">&#x1F512;</span><span>Vos données restent strictement confidentielles</span></div>
-          <div class="wiz-intro-point"><span class="wiz-intro-point-icon">&#x1F4DE;</span><span>Un conseiller vous rappelle sous 24h</span></div>
+          <div class="wiz-intro-point"><span class="wiz-intro-point-icon">&#x1F4DE;</span><span>Nous revenons vers vous pour faire le point sur votre situation.</span></div>
         </div>
         <button class="wiz-intro-cta" onclick="startActioQuestions()">Commencer &rarr;</button>
-        <p class="wiz-intro-free">Réponse sous 24&nbsp;h &middot; Confidentiel</p>
+        <p class="wiz-intro-free">Confidentiel</p>
       </div>
       <div id="wizQBody" class="wiz-body" style="display:none">
         <div class="wiz-q" id="wizQ"></div>
@@ -953,26 +953,13 @@
       <div id="wizContact" style="display:none">
         <div class="wiz-contact-body">
           <h3>Vous y &ecirc;tes presque&nbsp;!</h3>
-          <p>Laissez-nous vos coordonn&eacute;es pour recevoir votre analyse personnalis&eacute;e <strong>sous 24h</strong>.</p>
+          <p>Laissez-nous vos coordonn&eacute;es. Nous revenons vers vous pour faire le point sur votre situation.</p>
           <div class="wiz-form-row">
             <div class="wiz-field"><label>Pr&eacute;nom *</label><input type="text" id="wPrenom" placeholder="Votre prénom" required></div>
             <div class="wiz-field"><label>Nom *</label><input type="text" id="wNom" placeholder="Votre nom" required></div>
           </div>
           <div class="wiz-field"><label>Email *</label><input type="email" id="wEmail" placeholder="Votre adresse email" required></div>
           <div class="wiz-field"><label>T&eacute;l&eacute;phone *</label><input type="tel" id="wTel" placeholder="Votre numéro de téléphone" required></div>
-          <div class="wiz-field">
-            <label>Votre courtier / teneur de compte *</label>
-            <select id="wSituation" required>
-              <option value="">S&eacute;lectionner&hellip;</option>
-              <option>Charles Schwab</option>
-              <option>Fidelity NetBenefits</option>
-              <option>E*Trade / Morgan Stanley</option>
-              <option>UBS One Source</option>
-              <option>Global Shares / Computershare</option>
-              <option>Courtier ou banque en France</option>
-              <option>Autre / je ne sais pas</option>
-            </select>
-          </div>
           <p class="wiz-gdpr">&#x1F512; Vos donn&eacute;es sont confidentielles et ne seront jamais revendues. En soumettant ce formulaire, vous acceptez d&rsquo;&ecirc;tre contact&eacute; par Proactifs Conseils.</p>
           <div id="wizError" role="alert" style="display:none;margin:0 0 12px;padding:10px 12px;border:1px solid #d9a3a3;background:#fdf1f1;color:#8a1f1f;border-radius:8px;font-size:.88rem;line-height:1.45"></div>
           <button class="wiz-submit-btn" onclick="actioWizSubmit()">Envoyer ma demande &rarr;</button>
@@ -982,7 +969,7 @@
         <div class="wiz-thanks-body">
           <div class="wiz-thanks-icon">&#x2713;</div>
           <h3>C&rsquo;est not&eacute;.</h3>
-          <p>Un conseiller vous rappelle sous 24h pour analyser votre <strong>fiscalité d'actionnariat</strong>.</p>
+          <p>Nous revenons vers vous pour faire le point sur votre situation.</p>
           <button class="wiz-thanks-cta" onclick="closeActioWizard()">Retour &agrave; la page</button>
         </div>
       </div>
@@ -1130,43 +1117,82 @@
     const _SB_URL = 'https://ullnkylrixdvormohryl.supabase.co';
     const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbG5reWxyaXhkdm9ybW9ocnlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjUzNDgsImV4cCI6MjA5NDE0MTM0OH0.Fu5xc-VVA49qp1-WHgve8ZYpOB-QrciHzVeZx0GXmKk';
 
+    // Diagnostic v2 : 5 questions de qualification. `s` = libellé court pour la synthèse "situation".
     const actioSteps = [
-      { q:"Quel type de plan d'actionnariat possédez-vous ?", sub:"", opts:[
-        {l:"RSU (Restricted Stock Units)", d:"Actions débloquées au vesting"},
-        {l:"Stock-options ou BSPCE", d:"Options ou bons de souscription"},
-        {l:"Actions gratuites (AGA)", d:"Plan d'attribution français"},
-        {l:"ESPP", d:"Actions achetées à prix réduit"},
-        {l:"Plusieurs types", d:"RSU + ESPP, ou autre combinaison"}
+      { q:"De quel type de plan s'agit-il ?", sub:"", opts:[
+        {l:"RSU", s:"RSU"},
+        {l:"Actions gratuites", s:"Actions gratuites"},
+        {l:"Stock-options ou BSPCE", s:"Stock-options ou BSPCE"},
+        {l:"ESPP", s:"ESPP"},
+        {l:"Plusieurs dispositifs", s:"Plusieurs dispositifs"},
+        {l:"Je ne sais pas exactement", s:"Plan à préciser"}
       ]},
-      { q:"Avez-vous cédé des actions cette année ou l'an dernier ?", sub:"", opts:[
-        {l:"Oui, j'ai vendu des actions"},
-        {l:"Non, je n'ai pas vendu"},
-        {l:"J'ai fait un sell-to-cover automatique au vesting"}
+      { q:"Votre situation a-t-elle une dimension internationale ?", sub:"", opts:[
+        {l:"Non, tout se passe en France", s:"France"},
+        {l:"J'ai travaillé dans plusieurs pays depuis l'attribution de mes actions", s:"Plusieurs pays"},
+        {l:"Je me suis installé en France récemment", s:"Arrivée en France"},
+        {l:"Je pars, ou je pourrais partir, de France", s:"Départ de France"},
+        {l:"Autre situation internationale", s:"International autre"}
       ]},
-      { q:"Votre compte est-il détenu chez un courtier à l'étranger ?", sub:"Formulaire 3916 — déclaration obligatoire chaque année", opts:[
-        {l:"Oui, et je le déclare chaque année"},
-        {l:"Oui, mais j'ai oublié une ou plusieurs années"},
-        {l:"Oui, je ne savais pas que c'était obligatoire"},
-        {l:"Non, compte en France"}
+      { q:"Quel montant représentent vos actions, à peu près ?", sub:"Acquises ou non, en ordre de grandeur.", opts:[
+        {l:"Moins de 25 000 €", s:"< 25 k€"},
+        {l:"25 000 à 50 000 €", s:"25 à 50 k€"},
+        {l:"50 000 à 100 000 €", s:"50 à 100 k€"},
+        {l:"100 000 à 250 000 €", s:"100 à 250 k€"},
+        {l:"Plus de 250 000 €", s:"> 250 k€"},
+        {l:"Je préfère ne pas préciser", s:"Montant non précisé"}
       ]},
-      { q:"Votre gain d'acquisition (vesting RSU, rabais ESPP) figure-t-il sur vos fiches de paie françaises ?", sub:"", opts:[
-        {l:"Oui, il est bien intégré"},
-        {l:"Non, je n'ai qu'un relevé étranger"},
-        {l:"Je ne sais pas"}
+      { q:"Où en êtes-vous aujourd'hui ?", sub:"", opts:[
+        {l:"Mes actions sont en cours d'acquisition", s:"En acquisition"},
+        {l:"Elles sont acquises, je n'ai rien vendu", s:"Acquises, non vendues"},
+        {l:"J'en ai déjà vendu, en partie ou en totalité", s:"Déjà vendu"},
+        {l:"Un vesting ou une vente approche", s:"Vesting ou vente proche"}
       ]},
-      { q:"Quelle part de votre patrimoine est investie dans les actions de votre entreprise ?", sub:"", opts:[
-        {l:"Moins de 10 %"},
-        {l:"Entre 10 et 30 %"},
-        {l:"Plus de 30 %"},
-        {l:"Je ne sais pas exactement"}
+      { q:"Qu'attendez-vous en priorité ?", sub:"", opts:[
+        {l:"Fiscalité de mes actions"},
+        {l:"Préparation de ma déclaration"},
+        {l:"Vente ou conservation de mes actions"},
+        {l:"Départ ou arrivée en France"},
+        {l:"Réinvestissement après une vente"},
+        {l:"Vue d'ensemble de ma situation"}
       ]}
     ];
 
     let actioStep = 0;
     const actioAnswers = [];
 
+    /* Mesure du diagnostic (gtag / GA4 existant), même convention que l'accueil.
+       On n'envoie que le type, la source, le point d'entrée et des libellés techniques.
+       Jamais de nom, email, téléphone, réponse ni saisie libre. */
+    let actioEntry = 'direct', actioPendingEntry = null, actioTrackSeen = {}, actioConvSent = false;
+    function actioTrackBase() { return { diagnostic_type: 'rsu', diagnostic_source: 'page_rsu', diagnostic_entry: actioEntry }; }
+    function actioTrack(name, params) {
+      try { if (typeof gtag === 'function') gtag('event', name, params); } catch (e) { /* ne jamais bloquer le diagnostic */ }
+    }
+    function actioTrackOnce(key, name, params) { // anti-doublon : une fois par ouverture
+      if (actioTrackSeen[key]) return;
+      actioTrackSeen[key] = true;
+      actioTrack(name, params);
+    }
+    // Point d'entrée : clic réel sur l'un des 3 boutons qui ouvrent le diagnostic
+    document.addEventListener('click', function (e) {
+      try {
+        const btn = e.target.closest && e.target.closest('button');
+        if (!btn || (btn.getAttribute('onclick') || '').indexOf('openActioWizard') === -1) return;
+        let entry = null;
+        if (btn.closest('.hero-actions')) entry = 'hero';
+        else if (btn.closest('#quiz-trigger')) entry = 'bandeau_diagnostic';
+        else if (btn.closest('#cta-band')) entry = 'cta_final';
+        if (!entry) return;
+        actioPendingEntry = entry;
+        setTimeout(function () { actioPendingEntry = null; }, 0);
+      } catch (err) { /* jamais bloquant */ }
+    }, true);
+
     function openActioWizard() {
       actioStep = 0; actioAnswers.length = 0;
+      actioEntry = actioPendingEntry || 'direct'; actioPendingEntry = null;
+      actioTrackSeen = {}; actioConvSent = false;
       document.getElementById('wiz-overlay').classList.add('open');
       document.body.style.overflow = 'hidden';
       document.getElementById('wizIntro').style.display = 'block';
@@ -1185,6 +1211,7 @@
     function startActioQuestions() {
       document.getElementById('wizIntro').style.display = 'none';
       document.getElementById('wizProgressWrap').style.display = 'block';
+      actioTrackOnce('start', 'diagnostic_start', actioTrackBase());
       renderActioStep();
     }
     function renderActioStep() {
@@ -1213,6 +1240,7 @@
       document.getElementById('wizQBody').style.display = 'block';
       document.getElementById('wizQFooter').style.display = 'flex';
       document.getElementById('wizNext').classList.remove('ready');
+      actioTrackOnce('step' + actioStep, 'diagnostic_step', Object.assign(actioTrackBase(), { step_number: actioStep + 1 }));
     }
     function actioWizNext() {
       if (actioStep < actioSteps.length - 1) { actioStep++; renderActioStep(); }
@@ -1229,6 +1257,14 @@
       document.getElementById('wizStepPct').textContent = '100%';
       document.getElementById('wizFill').style.width = '100%';
       document.getElementById('wizContact').style.display = 'block';
+      actioTrackOnce('contact', 'diagnostic_contact_view', actioTrackBase());
+    }
+    // Synthèse courte Q1 | Q2 | Q3 | Q4, ex. : RSU | Plusieurs pays | 100 à 250 k€ | Vesting ou vente proche
+    function actioSituation() {
+      return [0, 1, 2, 3].map(function (i) {
+        const o = actioSteps[i].opts.find(function (x) { return x.l === actioAnswers[i]; });
+        return o ? o.s : '';
+      }).filter(Boolean).join(' | ');
     }
     let actioSending = false;
     async function actioWizSubmit() {
@@ -1237,8 +1273,7 @@
       const nom = document.getElementById('wNom').value.trim();
       const email = document.getElementById('wEmail').value.trim();
       const tel = document.getElementById('wTel').value.trim();
-      const courtier = document.getElementById('wSituation').value;
-      if (!prenom || !nom || !email || !tel || !courtier) { alert('Veuillez remplir tous les champs.'); return; }
+      if (!prenom || !nom || !email || !tel) { alert('Veuillez remplir tous les champs.'); return; }
 
       const btn = document.querySelector('#wizContact .wiz-submit-btn');
       const errEl = document.getElementById('wizError');
@@ -1247,7 +1282,7 @@
       btn.disabled = true; btn.textContent = 'Envoi en cours…';
 
       // Réponses détaillées, même format lisible que le diagnostic de l'accueil (q1, q2, ...)
-      const reponses = { page: 'fiscalite-rsu-stock-options', courtier: courtier };
+      const reponses = { page: 'fiscalite-rsu-stock-options', version: 'rsu-v2' };
       actioSteps.forEach((st, i) => { if (actioAnswers[i]) reponses['q' + (i + 1)] = st.q + ' : ' + actioAnswers[i]; });
 
       // Uniquement des colonnes existantes de public.leads
@@ -1257,12 +1292,13 @@
         email: email,
         telephone: tel,
         source: 'Page RSU - Diagnostic actionnariat',
-        situation: 'Courtier : ' + courtier,
-        preoccupation: actioAnswers[0] || '',
+        situation: actioSituation(),
+        preoccupation: actioAnswers[4] || '',
         reponses: reponses
       };
 
       let ok = false;
+      let errStage = '';
       const ctrl = new AbortController();
       const timer = setTimeout(() => ctrl.abort(), 15000);
       try {
@@ -1273,8 +1309,9 @@
           signal: ctrl.signal
         });
         ok = res.ok;
-        if (!ok) console.warn('Lead save rejected', res.status);
+        if (!ok) { errStage = 'server_rejected'; console.warn('Lead save rejected', res.status); }
       } catch (e) {
+        errStage = 'network_error';
         console.warn('Lead save error', e);
       } finally {
         clearTimeout(timer);
@@ -1282,11 +1319,22 @@
 
       actioSending = false;
       if (!ok) {
+        actioTrack('diagnostic_error', Object.assign(actioTrackBase(), { error_stage: errStage || 'server_rejected' }));
         errEl.textContent = "Votre demande n'a pas pu être enregistrée. Vos réponses sont conservées : vous pouvez réessayer, ou nous joindre au 01 84 78 28 30.";
         errEl.style.display = 'block';
         btn.disabled = false; btn.textContent = 'Réessayer →';
-        return;
+        return; // pas de conversion Google Ads ni de diagnostic_submit en cas d'échec
       }
+      // Succès Supabase confirmé uniquement : conversion Google Ads (même événement que l'accueil), une seule fois
+      if (!actioConvSent) {
+        actioConvSent = true;
+        try {
+          if (typeof gtag === 'function') {
+            gtag('event', 'ads_conversion_Formulaire_1', { event_category: 'wizard', event_label: 'rsu', value: 150, currency: 'EUR' });
+          }
+        } catch (e) { /* ne jamais bloquer l'écran de confirmation */ }
+      }
+      actioTrackOnce('submit', 'diagnostic_submit', actioTrackBase());
       document.getElementById('wizContact').style.display = 'none';
       document.getElementById('wizThanks').style.display = 'block';
       document.getElementById('wizProgressWrap').style.display = 'none';
