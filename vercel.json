@@ -186,6 +186,10 @@
     {
       "source": "/blog/pacte-dutreil-2026-fiscalite-transmission-entreprise",
       "destination": "/blog/pacte-dutreil-2026-fiscalite-transmission-entreprise.html"
+    },
+    {
+      "source": "/blog/sci-familiale-transmission-patrimoine-immobilier",
+      "destination": "/blog/sci-familiale-transmission-patrimoine-immobilier.html"
     }
   ],
   "redirects": [
