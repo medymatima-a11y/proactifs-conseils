@@ -732,6 +732,51 @@
           "url": "/simulateurs"
         }
       ]
+    },
+    {
+      "file": "blog/sci-familiale-transmission-patrimoine-immobilier.html",
+      "url": "/blog/sci-familiale-transmission-patrimoine-immobilier",
+      "label": "SCI familiale : organiser et transmettre son patrimoine immobilier",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/pacte-dutreil-2026-fiscalite-transmission-entreprise.html",
+      "url": "/blog/pacte-dutreil-2026-fiscalite-transmission-entreprise",
+      "label": "Pacte Dutreil 2026 : fiscalité et transmission d'entreprise",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
+    },
+    {
+      "file": "blog/retraite-micro-entrepreneur-profession-liberale.html",
+      "url": "/blog/retraite-micro-entrepreneur-profession-liberale",
+      "label": "Retraite micro-entrepreneur et profession libérale",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
     }
   ]
 }
