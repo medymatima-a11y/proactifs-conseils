@@ -190,6 +190,10 @@
     {
       "source": "/blog/sci-familiale-transmission-patrimoine-immobilier",
       "destination": "/blog/sci-familiale-transmission-patrimoine-immobilier.html"
+    },
+    {
+      "source": "/blog/retraite-micro-entrepreneur-profession-liberale",
+      "destination": "/blog/retraite-micro-entrepreneur-profession-liberale.html"
     }
   ],
   "redirects": [
