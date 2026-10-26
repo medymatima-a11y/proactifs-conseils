@@ -9,6 +9,7 @@
 
 | Titre | Slug / Fichier | Mot-clé principal | Date création | Statut |
 |---|---|---|---|---|
+| Retraite micro-entrepreneur et profession libérale : construire votre avenir | `/blog/retraite-micro-entrepreneur-profession-liberale` | retraite indépendant 2026 | 2026-10 | ✅ Publié (auto Agent SEO) |
 | SCI familiale : organiser et transmettre son patrimoine immobilier | `/blog/sci-familiale-transmission-patrimoine-immobilier` | créer SCI avantages fiscaux | 2026-10 | ✅ Publié (auto Agent SEO) |
 | Pacte Dutreil 2026 : fiscalité et transmission d'entreprise | `/blog/pacte-dutreil-2026-fiscalite-transmission-entreprise` | Pacte Dutreil conditions avantages | 2026-09 | ✅ Publié (auto Agent SEO) |
 | Donation vivant ou testament : que choisir ? | `/blog/donation-vivant-vs-testament-strategie-transmission` | donation immobilière | 2026-09 | ✅ Publié (auto Agent SEO) |
