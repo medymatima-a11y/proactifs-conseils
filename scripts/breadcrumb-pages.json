@@ -29,21 +29,6 @@
       ]
     },
     {
-      "file": "immobilier/estimation-colombes.html",
-      "url": "/immobilier/estimation-colombes",
-      "label": "Estimation immobilière Colombes",
-      "trail": [
-        {
-          "label": "Accueil",
-          "url": "/"
-        },
-        {
-          "label": "Immobilier",
-          "url": "/immobilier"
-        }
-      ]
-    },
-    {
       "file": "investissement-immobilier.html",
       "url": "/investissement-immobilier",
       "label": "Investissement immobilier",

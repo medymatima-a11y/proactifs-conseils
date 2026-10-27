@@ -1,6 +1,6 @@
 /* ============================================================
    Estimation immobilière en ligne — partagé par /immobilier
-   et /immobilier/estimation-colombes.
+   et /estimation.
    - ProactifsEstim.send(payload)  → POST /api/estimation
    - ProactifsEstim.render(el, estimation) → affiche la fourchette
    - ProactifsEstim.bindTypeFields(root, getType) → champs maison/appart

@@ -122,7 +122,7 @@ function checkFile(relPath) {
   if (content.includes('data-view="root"')) {
     var panels = {
       patrimoine: ['/bilan-patrimonial', '/preparation-retraite', '/transmission', '/fiscalite-rsu-stock-options'],
-      immobilier: ['/immobilier/estimation-colombes', '/immobilier', '/investissement-immobilier'],
+      immobilier: ['/estimation', '/immobilier', '/investissement-immobilier'],
       financement: ['/courtage-credit-immobilier', '/pret-immobilier', '/simulateurs'],
       entreprises: ['/cession-entreprise'],
     };
