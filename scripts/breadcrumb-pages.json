@@ -318,21 +318,6 @@
       ]
     },
     {
-      "file": "blog/conseiller-patrimoine-ile-de-france.html",
-      "url": "/blog/conseiller-patrimoine-ile-de-france",
-      "label": "Conseiller patrimoine Île-de-France",
-      "trail": [
-        {
-          "label": "Accueil",
-          "url": "/"
-        },
-        {
-          "label": "Blog",
-          "url": "/blog"
-        }
-      ]
-    },
-    {
       "file": "blog/declarer-rsu-formulaires-2026.html",
       "url": "/blog/declarer-rsu-formulaires-2026",
       "label": "Déclarer ses RSU : formulaires 2026",

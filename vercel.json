@@ -172,10 +172,6 @@
       "destination": "/blog/modifier-clause-beneficiaire-assurance-vie-2026.html"
     },
     {
-      "source": "/blog/conseiller-patrimoine-ile-de-france",
-      "destination": "/blog/conseiller-patrimoine-ile-de-france.html"
-    },
-    {
       "source": "/blog/immobilier-complement-retraite-lmnp-scpi-50-ans",
       "destination": "/blog/immobilier-complement-retraite-lmnp-scpi-50-ans.html"
     },
@@ -201,6 +197,11 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/blog/conseiller-patrimoine-ile-de-france",
+      "destination": "/cabinet",
+      "permanent": true
+    },
     {
       "source": "/immobilier/estimation-colombes",
       "destination": "/estimation",
