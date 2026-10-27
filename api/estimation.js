@@ -167,8 +167,17 @@ module.exports = async (req, res) => {
       estimationStatus = 'plafond_journalier';
     } else {
       try {
-        const geo = await immoData('/geocode', { q: adresse, geoLevel: 'address,street,city', limit: 1 }, apiKey);
-        const place = Array.isArray(geo) ? geo[0] : null;
+        // Coordonnées déjà fournies par l'autocomplétion d'adresse (Base Adresse Nationale) :
+        // acceptées uniquement en France métropolitaine, sinon géocodage Immo Data.
+        const lat = Number(b.lat);
+        const lon = Number(b.lon);
+        let place = null;
+        if (Number.isFinite(lat) && Number.isFinite(lon) && lat > 41 && lat < 51.5 && lon > -5.5 && lon < 10) {
+          place = { center: [lon, lat], geoLevel: 'address_ban', label: adresse };
+        } else {
+          const geo = await immoData('/geocode', { q: adresse, geoLevel: 'address,street,city', limit: 1 }, apiKey);
+          place = Array.isArray(geo) ? geo[0] : null;
+        }
         if (!place || !Array.isArray(place.center)) {
           estimationStatus = 'adresse_introuvable';
         } else {

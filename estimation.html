@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+  <title>Estimation immobilière gratuite à Colombes en 2 min | Proactifs Immobilier</title>
+  <meta name="description" content="Combien vaut votre bien ? Une fourchette en 2 minutes sur les ventes réelles de votre quartier, puis une visite pour l'affiner. Colombes et Hauts-de-Seine.">
+  <!-- Page d'atterrissage des annonces Google : non indexée et hors sitemap, la page SEO est /immobilier/estimation-colombes -->
+  <meta name="robots" content="noindex, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Estimation immobilière gratuite à Colombes | Proactifs Immobilier">
+  <meta property="og:description" content="Une fourchette en 2 minutes sur les ventes réelles de votre quartier, puis une visite pour l'affiner.">
+  <meta property="og:url" content="https://proactifsconseils.fr/estimation">
+  <meta property="og:image" content="https://proactifsconseils.fr/images/immobilier/hero-facade.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P53RQGXJZX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-P53RQGXJZX');
+  gtag('config', 'AW-835423035');
+</script>
+
+  <style>
+    :root {
+      --sand: #F3F1EB;
+      --sand-light: #FAF9F5;
+      --forest: #132D1E;
+      --forest-mid: #1C3D28;
+      --ink: #111827;
+      --ink-soft: #374151;
+      --slate: #5B6370;
+      --border: #E5E2DA;
+      --white: #FFFFFF;
+      --coral: #E05D3D;
+      --coral-light: #ED9235;
+      --coral-dark: #C24A2E;
+      --coral-deep: #A63E26;
+      --coral-pale: #FBEAE3;
+      --coral-foreground: #FEF9F5;
+      --r-md: 14px;
+      --r-lg: 22px;
+      --shadow-card: 0 22px 48px -28px rgba(19,45,30,.45);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito Sans', system-ui, sans-serif; color: var(--ink); background: var(--white); line-height: 1.55; }
+    img { display: block; max-width: 100%; }
+    a { color: var(--coral-dark); }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+    h1 em, h2 em { font-style: italic; color: var(--coral-dark); }
+
+    /* En-tête minimal (page d'atterrissage : pas de menu) */
+    .lp-header { background: var(--white); border-bottom: 1px solid var(--border); }
+    .lp-header .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; flex-wrap: wrap; }
+    .lp-header img { height: 46px; width: auto; }
+    .lp-header-right { display: flex; align-items: center; gap: 20px; }
+    .lp-header-zone { font-size: 14px; color: var(--slate); }
+    .lp-phone { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; color: var(--forest); text-decoration: none; min-height: 44px; }
+    .lp-phone svg { width: 18px; height: 18px; stroke: var(--coral-dark); }
+
+    /* Boutons */
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 28px; border: 0; border-radius: var(--r-md); background: var(--coral-dark); color: var(--coral-foreground); font: inherit; font-weight: 800; font-size: 16px; text-decoration: none; cursor: pointer; transition: background .2s, transform .2s, box-shadow .2s; }
+    .btn-primary:hover { background: var(--coral-deep); transform: translateY(-1px); box-shadow: 0 16px 34px -14px rgba(194,74,46,.6); }
+    .btn-primary:disabled { opacity: .6; cursor: wait; transform: none; box-shadow: none; }
+    .btn-outline { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; border-radius: var(--r-md); border: 1.5px solid var(--border); background: var(--white); font: inherit; font-weight: 700; font-size: 15px; color: var(--ink); cursor: pointer; text-decoration: none; }
+    .btn-outline:hover { border-color: var(--coral-dark); color: var(--coral-dark); }
+    .btn-forest { background: var(--forest); color: var(--white); }
+    .btn-forest:hover { background: var(--forest-mid); box-shadow: 0 16px 34px -14px rgba(19,45,30,.6); }
+
+    /* Hero */
+    .hero { background: var(--sand); }
+    .hero .container { display: flex; flex-wrap: wrap; gap: 56px; align-items: center; padding-top: 64px; padding-bottom: 80px; }
+    .hero-text { flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+    .badge { align-self: flex-start; font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--coral-deep); background: var(--coral-pale); padding: 7px 14px; border-radius: 999px; }
+    .hero h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 64px; line-height: 1.02; letter-spacing: -.01em; color: var(--forest); }
+    .hero-lead { font-size: 19px; color: var(--ink-soft); max-width: 540px; }
+    .hero-visual { flex: 1 1 420px; min-width: 0; position: relative; }
+    .hero-visual img { width: 100%; height: 540px; object-fit: cover; border-radius: 24px; }
+    .hero-floaty { position: absolute; left: -28px; bottom: 32px; width: 270px; background: var(--white); border-radius: 16px; padding: 18px 20px; box-shadow: var(--shadow-card); display: flex; flex-direction: column; gap: 9px; }
+    .hero-floaty span { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--coral-deep); }
+    .hero-floaty div { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; color: var(--forest); }
+    .hero-floaty div::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--coral); flex-shrink: 0; }
+
+    /* Carte formulaire */
+    .estim-card { background: var(--white); border: 1px solid var(--border); border-radius: 18px; padding: 22px; box-shadow: var(--shadow-card); max-width: 580px; width: 100%; }
+    .estim-card[hidden], .estim-step[hidden], .estim-field[hidden] { display: none; }
+    .estim-progress-head { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: var(--slate); margin-bottom: 8px; }
+    .estim-progress { height: 6px; background: #ECE9E0; border-radius: 999px; overflow: hidden; margin-bottom: 22px; }
+    .estim-progress div { height: 100%; width: 33%; background: var(--coral-dark); border-radius: 999px; transition: width .3s ease; }
+    .estim-step h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 32px; line-height: 1.1; color: var(--forest); margin-bottom: 8px; }
+    .estim-step > p { color: var(--ink-soft); margin-bottom: 18px; }
+    .estim-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .estim-field { display: flex; flex-direction: column; gap: 6px; }
+    .estim-field.full { grid-column: 1 / -1; }
+    .estim-field label, .addr-label { font-size: 13px; font-weight: 800; color: var(--ink); }
+    .estim-field .opt { font-weight: 600; color: var(--slate); }
+    .estim-field input, .estim-field select { font: inherit; font-size: 16px; padding: 12px 14px; border: 1.5px solid #CFCBBF; border-radius: 12px; background: var(--white); color: var(--ink); min-height: 48px; }
+    .estim-field input:focus, .estim-field select:focus, .addr-box:focus-within { outline: none; border-color: var(--coral-dark); box-shadow: 0 0 0 3px var(--coral-pale); }
+    .type-toggle { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 16px; }
+    .type-btn { min-height: 52px; border-radius: 12px; border: 1.5px solid #CFCBBF; background: var(--white); font: inherit; font-weight: 700; font-size: 16px; color: var(--ink); cursor: pointer; }
+    .type-btn.active { border: 2px solid var(--coral-dark); background: var(--coral-pale); color: var(--coral-deep); font-weight: 800; }
+    .estim-actions { display: flex; align-items: center; gap: 12px; margin-top: 22px; }
+    .estim-actions .spacer { flex: 1; }
+    .estim-msg { font-size: 14px; font-weight: 700; color: #A12C2C; margin-top: 10px; }
+    .estim-msg:empty { display: none; }
+    .estim-consent { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--ink-soft); margin-top: 14px; }
+    .estim-consent input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--coral-dark); flex-shrink: 0; }
+    .estim-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .reassure { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; color: var(--ink-soft); margin-top: 12px; }
+    .reassure span { display: inline-flex; align-items: center; gap: 6px; }
+    .reassure svg { width: 15px; height: 15px; stroke: var(--forest); }
+
+    /* Adresse + suggestions */
+    .addr-wrap { position: relative; }
+    .addr-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+    .addr-box { flex: 1 1 260px; display: flex; align-items: center; gap: 10px; border: 1.5px solid #CFCBBF; border-radius: 12px; padding: 0 14px; min-height: 52px; background: var(--white); }
+    .addr-box svg { width: 18px; height: 18px; stroke: var(--slate); flex-shrink: 0; }
+    .addr-box input { border: 0; outline: none; font: inherit; font-size: 16px; flex: 1; min-width: 0; background: transparent; color: var(--ink); }
+    .addr-list { position: absolute; z-index: 20; left: 0; right: 0; top: calc(100% + 6px); background: var(--white); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-card); list-style: none; overflow: hidden; }
+    .addr-list[hidden] { display: none; }
+    .addr-list li { padding: 12px 16px; font-size: 15px; cursor: pointer; border-top: 1px solid var(--border); }
+    .addr-list li:first-child { border-top: 0; }
+    .addr-list li[aria-selected="true"], .addr-list li:hover { background: var(--coral-pale); }
+    .addr-list small { display: block; color: var(--slate); font-size: 12px; }
+
+    /* Bandeau réassurance */
+    .strip { background: var(--forest); color: var(--white); }
+    .strip .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; padding-top: 28px; padding-bottom: 28px; }
+    .strip-item { display: flex; gap: 12px; align-items: flex-start; }
+    .strip-item svg { width: 26px; height: 26px; stroke: var(--coral-light); flex-shrink: 0; }
+    .strip-item strong { display: block; font-weight: 800; }
+    .strip-item span { font-size: 14px; opacity: .85; }
+
+    /* Sections */
+    .sec { padding: 96px 0; }
+    .sec-sand { background: var(--sand); }
+    .sec-label { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--coral-deep); margin-bottom: 12px; display: block; }
+    .sec-title { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 46px; line-height: 1.08; color: var(--forest); }
+    .sec-intro { font-size: 18px; color: var(--ink-soft); max-width: 720px; margin-top: 14px; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 44px; }
+    .step { border: 1px solid var(--border); border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 12px; background: var(--white); }
+    .step.highlight { background: var(--sand-light); }
+    .step-top { display: flex; align-items: center; justify-content: space-between; }
+    .step-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 56px; font-weight: 700; line-height: 1; color: var(--coral); }
+    .step-tag { font-size: 12px; font-weight: 800; color: var(--forest); background: #E6EEE9; padding: 5px 10px; border-radius: 999px; }
+    .step.highlight .step-tag { background: var(--coral-pale); color: var(--coral-deep); }
+    .step h3 { font-size: 21px; font-weight: 800; color: var(--forest); }
+    .step p { color: var(--ink-soft); }
+
+    .advisor { display: flex; flex-wrap: wrap; gap: 56px; align-items: center; }
+    .advisor img { flex: 0 1 380px; min-width: 0; width: 100%; max-width: 380px; height: 460px; object-fit: cover; border-radius: 24px; }
+    .advisor-text { flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+    .advisor-text p { font-size: 17px; color: var(--ink-soft); }
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .checklist li { display: flex; gap: 10px; align-items: flex-start; }
+    .checklist svg { width: 20px; height: 20px; stroke: var(--forest); flex-shrink: 0; margin-top: 2px; }
+
+    .reviews-slot { margin-top: 32px; border: 2px dashed #CFCBBF; border-radius: 20px; padding: 40px; text-align: center; color: var(--ink-soft); background: var(--sand-light); }
+
+    .faq { max-width: 860px; margin: 0 auto; }
+    .faq-list { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+    .faq-item { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 22px 26px; }
+    .faq-item h3 { font-size: 17px; font-weight: 800; color: var(--forest); margin-bottom: 6px; }
+    .faq-item p { color: var(--ink-soft); }
+
+    .final { background: var(--forest); color: var(--white); text-align: center; }
+    .final .container { max-width: 900px; display: flex; flex-direction: column; align-items: center; gap: 20px; padding-top: 88px; padding-bottom: 88px; }
+    .final h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 48px; line-height: 1.08; }
+    .final h2 em { color: #F4B49F; }
+    .final p { font-size: 18px; opacity: .9; }
+    .final .btn-outline { background: transparent; color: var(--white); border-color: rgba(255,255,255,.6); }
+
+    .lp-footer { background: #0F1A14; color: rgba(255,255,255,.75); font-size: 13px; }
+    .lp-footer .container { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 28px; padding-bottom: 28px; }
+    .lp-footer a { color: rgba(255,255,255,.75); }
+
+    @media (max-width: 900px) {
+      .hero h1 { font-size: 46px; }
+      .hero .container { padding-top: 40px; padding-bottom: 56px; gap: 36px; }
+      .hero-visual img { height: 320px; }
+      .hero-floaty { left: 16px; bottom: 16px; }
+      .sec { padding: 64px 0; }
+      .sec-title, .final h2 { font-size: 36px; }
+    }
+    @media (max-width: 560px) {
+      .lp-header-zone { display: none; }
+      .hero h1 { font-size: 40px; }
+      .hero-lead { font-size: 17px; }
+      .estim-card { padding: 18px; }
+      .estim-grid { grid-template-columns: 1fr; }
+      .hero-floaty { display: none; }
+      .advisor img { height: 340px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="lp-header">
+    <div class="container">
+      <a href="/immobilier" aria-label="Proactifs Immobilier, accueil"><img src="/images/proactifs-logo-header.png" alt="Proactifs Conseils"></a>
+      <div class="lp-header-right">
+        <span class="lp-header-zone">Colombes · Hauts-de-Seine</span>
+        <a class="lp-phone" href="tel:+33184782830" data-track="estimate_phone_click">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+          01 84 78 28 30
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="estimer">
+      <div class="container">
+        <div class="hero-text">
+          <span class="badge">Proactifs Immobilier · Colombes &amp; 92</span>
+          <h1>Combien vaut votre bien, <em>vraiment</em>&nbsp;?</h1>
+          <p class="hero-lead">Une première fourchette en 2 minutes, calculée sur les ventes réelles de votre quartier. Puis une visite et un avis de valeur argumenté, par un interlocuteur installé à Colombes.</p>
+
+          <div class="estim-card" id="estimCard">
+            <form id="lpEstimForm" novalidate>
+              <!-- Étape 1 : adresse -->
+              <div class="estim-step" data-step="1">
+                <div class="addr-wrap">
+                  <label class="addr-label" for="lp-adresse">Adresse du bien à estimer</label>
+                  <div class="addr-row">
+                    <div class="addr-box">
+                      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                      <input id="lp-adresse" type="text" autocomplete="off" placeholder="Ex : 12 rue Saint-Denis, Colombes" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="lp-adresse-list">
+                    </div>
+                    <button type="button" class="btn-primary" data-next>Estimer mon bien</button>
+                  </div>
+                  <ul class="addr-list" id="lp-adresse-list" role="listbox" hidden></ul>
+                </div>
+                <div class="reassure">
+                  <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Gratuit</span>
+                  <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Sans engagement</span>
+                  <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Résultat immédiat</span>
+                </div>
+              </div>
+
+              <!-- Étape 2 : le bien -->
+              <div class="estim-step" data-step="2" hidden>
+                <div class="estim-progress-head"><span>Étape 2 sur 3</span><span>Votre bien</span></div>
+                <div class="estim-progress"><div style="width:66%"></div></div>
+                <h2>Parlez-nous du bien</h2>
+                <p id="lp-adresse-recap"></p>
+                <div class="type-toggle" id="lp-type-group" role="group" aria-label="Type de bien">
+                  <button type="button" class="type-btn active" data-value="Appartement" aria-pressed="true">Appartement</button>
+                  <button type="button" class="type-btn" data-value="Maison" aria-pressed="false">Maison</button>
+                </div>
+                <div class="estim-grid">
+                  <div class="estim-field"><label for="lp-surface">Surface habitable (m²)</label><input id="lp-surface" type="number" inputmode="numeric" min="9" max="2000"></div>
+                  <div class="estim-field"><label for="lp-pieces">Nombre de pièces</label><input id="lp-pieces" type="number" inputmode="numeric" min="1" max="15"></div>
+                  <div class="estim-field"><label for="lp-etat">État</label>
+                    <select id="lp-etat">
+                      <option value="0">Bon état</option>
+                      <option value="-1">À rénover</option>
+                      <option value="1">Excellent état / refait à neuf</option>
+                    </select>
+                  </div>
+                  <div class="estim-field"><label for="lp-dpe">DPE <span class="opt">(si connu)</span></label>
+                    <select id="lp-dpe">
+                      <option value="">Je ne sais pas</option>
+                      <option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option>
+                    </select>
+                  </div>
+                  <div class="estim-field" data-for="apartment"><label for="lp-etage">Étage <span class="opt">(0 = RDC)</span></label><input id="lp-etage" type="number" inputmode="numeric" min="0" max="30"></div>
+                  <div class="estim-field" data-for="house" hidden><label for="lp-terrain">Terrain (m²) <span class="opt">(optionnel)</span></label><input id="lp-terrain" type="number" inputmode="numeric" min="0"></div>
+                  <div class="estim-field"><label for="lp-exterieur">Extérieur</label>
+                    <select id="lp-exterieur">
+                      <option value="">Aucun</option>
+                      <option>Balcon</option>
+                      <option>Terrasse</option>
+                      <option>Jardin</option>
+                    </select>
+                  </div>
+                  <div class="estim-field"><label for="lp-parking">Parking / garage</label>
+                    <select id="lp-parking">
+                      <option value="">Non</option>
+                      <option>Oui</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="estim-actions">
+                  <button type="button" class="btn-outline" data-back>Retour</button>
+                  <span class="spacer"></span>
+                  <button type="button" class="btn-primary" data-next>Continuer</button>
+                </div>
+              </div>
+
+              <!-- Étape 3 : coordonnées -->
+              <div class="estim-step" data-step="3" hidden>
+                <div class="estim-progress-head"><span>Étape 3 sur 3</span><span>Vos coordonnées</span></div>
+                <div class="estim-progress"><div style="width:92%"></div></div>
+                <h2>Votre estimation est prête</h2>
+                <p>Indiquez où vous joindre : le résultat s'affiche tout de suite, et nous vous rappelons pour l'affiner.</p>
+                <div class="estim-grid">
+                  <div class="estim-field"><label for="lp-prenom">Prénom</label><input id="lp-prenom" type="text" autocomplete="given-name"></div>
+                  <div class="estim-field"><label for="lp-tel">Téléphone</label><input id="lp-tel" type="tel" autocomplete="tel"></div>
+                  <div class="estim-field full"><label for="lp-email">Email</label><input id="lp-email" type="email" autocomplete="email"></div>
+                  <div class="estim-field full"><label for="lp-delai">Votre projet</label>
+                    <select id="lp-delai">
+                      <option>Vendre dans les 3 mois</option>
+                      <option>Vendre dans 3 à 12 mois</option>
+                      <option>Seulement connaître la valeur</option>
+                      <option>Bien reçu en héritage</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="estim-hp" aria-hidden="true"><label for="lp-website">Site web</label><input id="lp-website" type="text" tabindex="-1" autocomplete="off"></div>
+                <label class="estim-consent"><input type="checkbox" id="lp-consent">J'accepte d'être recontacté au sujet de mon estimation. Mes données ne sont ni revendues ni cédées.</label>
+                <div class="estim-actions">
+                  <button type="button" class="btn-outline" data-back>Retour</button>
+                  <span class="spacer"></span>
+                  <button type="submit" class="btn-primary" id="lpSubmit">Voir mon estimation</button>
+                </div>
+              </div>
+              <div class="estim-msg" id="lpMsg" role="alert"></div>
+            </form>
+
+            <!-- Résultat -->
+            <div id="lpResult" hidden></div>
+            <div id="lpThanks" hidden style="text-align:center;padding:16px 0">
+              <h2 class="serif" style="font-size:30px;color:var(--forest);margin-bottom:8px">Demande bien enregistrée</h2>
+              <p style="color:var(--ink-soft);margin-bottom:18px">Nous n'avons pas pu calculer automatiquement la valeur de ce bien. Nous vous rappelons sous 24/48h avec une estimation argumentée.</p>
+              <a class="btn-primary" href="https://calendly.com/gestionnairedepatrimoine/point-conseils-web" target="_blank" rel="noopener">Prendre rendez-vous</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <img src="/images/immobilier/hero-facade.jpg" alt="Façade d'un immeuble en pierre aux menuiseries vert sapin" width="1600" height="1072" fetchpriority="high">
+          <div class="hero-floaty" aria-hidden="true">
+            <span>Ce que vous obtenez</span>
+            <div>Une valeur estimée</div>
+            <div>Une fourchette basse / haute</div>
+            <div>Un indice de fiabilité</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="strip" aria-label="Nos engagements">
+      <div class="container">
+        <div class="strip-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg><div><strong>Ventes réelles</strong><span>Prix signés chez le notaire, pas les prix affichés</span></div></div>
+        <div class="strip-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><div><strong>Installé à Colombes</strong><span>54 rue du Bournard</span></div></div>
+        <div class="strip-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><strong>Rappel sous 24/48h</strong><span>Pour affiner lors d'une visite</span></div></div>
+        <div class="strip-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="m17 11 2 2 4-4"/></svg><div><strong>Un seul interlocuteur</strong><span>Vente, financement, patrimoine</span></div></div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="container">
+        <span class="sec-label">La méthode</span>
+        <h2 class="sec-title">Votre estimation en <em>trois temps</em></h2>
+        <p class="sec-intro">Une estimation en ligne donne une moyenne. Une visite donne un avis. Nous faisons les deux, puis nous pensons à la suite.</p>
+        <div class="steps">
+          <article class="step">
+            <div class="step-top"><span class="step-num">1</span><span class="step-tag">2 minutes</span></div>
+            <h3>La donnée</h3>
+            <p>Votre adresse, la surface, les pièces, l'état. Nous croisons ces informations avec les ventes récentes autour de chez vous et affichons une fourchette avec son indice de fiabilité.</p>
+          </article>
+          <article class="step">
+            <div class="step-top"><span class="step-num">2</span><span class="step-tag">Sous 48h</span></div>
+            <h3>La visite</h3>
+            <p>La donnée ne voit ni la lumière, ni la vue, ni les travaux. Nous venons voir votre bien et vous remettons un avis de valeur écrit et argumenté.</p>
+          </article>
+          <article class="step highlight">
+            <div class="step-top"><span class="step-num">3</span><span class="step-tag">Notre différence</span></div>
+            <h3>L'après-vente</h3>
+            <p>Vous vendez pour acheter ? Nous cherchons aussi votre financement. Vous dégagez un capital ? Nous vous aidons à réfléchir à son réemploi.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec-sand">
+      <div class="container advisor">
+        <img src="/images/immobilier/portrait-medy.jpg" alt="Portrait de Medy Matima, conseiller à Colombes" loading="lazy" width="1333" height="2000">
+        <div class="advisor-text">
+          <span class="sec-label">Votre interlocuteur</span>
+          <h2 class="sec-title">Une seule personne, <em>du premier appel à la signature</em></h2>
+          <p>Medy Matima, conseiller en gestion de patrimoine et courtier en crédit immobilier, installé à Colombes. Il estime votre bien, organise la vente, et peut aussi monter le financement de votre prochain achat.</p>
+          <ul class="checklist">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Avis de valeur écrit, appuyé sur les ventes comparables</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Coordination de la vente et du rachat</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Honoraires communiqués avant toute signature de mandat</li>
+          </ul>
+          <a href="#estimer" class="btn-primary btn-forest" style="align-self:flex-start">Démarrer mon estimation</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Avis : n'afficher que de vrais avis clients (fiche Google), jamais d'exemples rédigés -->
+    <section class="sec">
+      <div class="container">
+        <span class="sec-label">Avis clients</span>
+        <h2 class="sec-title">Ils nous ont <em>fait confiance</em></h2>
+        <div class="reviews-slot">
+          <p><strong style="color:var(--ink)">Retrouvez les avis de nos clients sur notre fiche Google.</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec-sand">
+      <div class="container faq">
+        <h2 class="sec-title" style="text-align:center">Questions <em>fréquentes</em></h2>
+        <div class="faq-list">
+          <div class="faq-item"><h3>L'estimation en ligne est-elle vraiment gratuite ?</h3><p>Oui. Elle ne vous engage à rien, ni à nous confier la vente, ni à signer un mandat.</p></div>
+          <div class="faq-item"><h3>D'où viennent les chiffres ?</h3><p>Des ventes réellement conclues autour de votre adresse (données publiques DVF), ajustées selon les caractéristiques de votre bien.</p></div>
+          <div class="faq-item"><h3>Pourquoi une visite si j'ai déjà un chiffre ?</h3><p>Parce que l'état, la luminosité, la vue ou la copropriété peuvent faire varier le prix. L'indice de fiabilité vous dit à quel point la fourchette est précise.</p></div>
+          <div class="faq-item"><h3>Quelles communes couvrez-vous ?</h3><p>Colombes en priorité, et Bois-Colombes, La Garenne-Colombes, Asnières-sur-Seine, Courbevoie, Gennevilliers, Nanterre et Argenteuil.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="container">
+        <h2>Connaître la valeur de votre bien, <em>en 2 minutes</em></h2>
+        <p>Gratuit, sans engagement, et un interlocuteur à Colombes pour la suite.</p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
+          <a href="#estimer" class="btn-primary">Estimer mon bien</a>
+          <a href="tel:+33184782830" class="btn-outline" data-track="estimate_phone_click">01 84 78 28 30</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="lp-footer">
+    <div class="container">
+      <span>Proactifs Conseils · 54 rue du Bournard, 92700 Colombes · 01 84 78 28 30</span>
+      <span><a href="/immobilier">Proactifs Immobilier</a></span>
+    </div>
+  </footer>
+
+  <script src="/assets/js/estimation-immo.js"></script>
+  <script>
+  (function () {
+    const form = document.getElementById('lpEstimForm');
+    const steps = Array.from(form.querySelectorAll('.estim-step'));
+    const msg = document.getElementById('lpMsg');
+    const addr = document.getElementById('lp-adresse');
+    const list = document.getElementById('lp-adresse-list');
+    const typeGroup = document.getElementById('lp-type-group');
+    let current = 1;
+    let picked = null;      // { label, lat, lon }
+    let suggestions = [];
+    let activeIdx = -1;
+    let started = false;
+
+    function track(name, params) {
+      if (typeof gtag === 'function') gtag('event', name, params || {});
+    }
+    function val(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+    function setMsg(t) { msg.textContent = t || ''; }
+    function show(n) {
+      current = n;
+      steps.forEach(s => { s.hidden = Number(s.dataset.step) !== n; });
+      setMsg('');
+      if (n > 1) {
+        const first = form.querySelector('.estim-step[data-step="' + n + '"] input, .estim-step[data-step="' + n + '"] .type-btn.active');
+        if (first) first.focus({ preventScroll: true });
+        document.getElementById('estimCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    /* Type de bien → champs maison / appartement */
+    function typeValue() { const b = typeGroup.querySelector('.active'); return b ? b.dataset.value : 'Appartement'; }
+    const updateTypeFields = window.ProactifsEstim ? ProactifsEstim.bindTypeFields(form, typeValue) : function () {};
+    typeGroup.addEventListener('click', function (ev) {
+      const btn = ev.target.closest('.type-btn');
+      if (!btn) return;
+      typeGroup.querySelectorAll('.type-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+      updateTypeFields();
+    });
+
+    /* Autocomplétion d'adresse (Géoplateforme / Base Adresse Nationale) */
+    let timer = null, lastQuery = '';
+    function closeList() { list.hidden = true; addr.setAttribute('aria-expanded', 'false'); activeIdx = -1; }
+    function renderList() {
+      list.innerHTML = '';
+      suggestions.forEach((s, i) => {
+        const li = document.createElement('li');
+        li.id = 'lp-addr-opt-' + i;
+        li.setAttribute('role', 'option');
+        li.setAttribute('aria-selected', i === activeIdx ? 'true' : 'false');
+        li.textContent = s.name;
+        const small = document.createElement('small');
+        small.textContent = s.postcode + ' ' + s.city;
+        li.appendChild(small);
+        li.addEventListener('mousedown', e => { e.preventDefault(); choose(i); });
+        list.appendChild(li);
+      });
+      list.hidden = suggestions.length === 0;
+      addr.setAttribute('aria-expanded', suggestions.length ? 'true' : 'false');
+      if (activeIdx >= 0) addr.setAttribute('aria-activedescendant', 'lp-addr-opt-' + activeIdx);
+      else addr.removeAttribute('aria-activedescendant');
+    }
+    function choose(i) {
+      const s = suggestions[i];
+      if (!s) return;
+      picked = s;
+      addr.value = s.label;
+      closeList();
+    }
+    async function fetchSuggestions(q) {
+      try {
+        const url = 'https://data.geopf.fr/geocodage/search?autocomplete=1&limit=5&index=address&q=' + encodeURIComponent(q);
+        const res = await fetch(url);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (q !== lastQuery) return;
+        suggestions = (data.features || []).map(f => ({
+          label: f.properties.label,
+          name: f.properties.name || f.properties.label,
+          postcode: f.properties.postcode || '',
+          city: f.properties.city || '',
+          type: f.properties.type,
+          lon: f.geometry.coordinates[0],
+          lat: f.geometry.coordinates[1]
+        }));
+        activeIdx = -1;
+        renderList();
+      } catch (e) { /* autocomplétion indisponible : saisie libre */ }
+    }
+    addr.addEventListener('input', function () {
+      picked = null;
+      if (!started) { started = true; track('estimate_form_start', { page: 'estimation' }); }
+      const q = addr.value.trim();
+      clearTimeout(timer);
+      if (q.length < 4) { suggestions = []; closeList(); return; }
+      lastQuery = q;
+      timer = setTimeout(() => fetchSuggestions(q), 220);
+    });
+    addr.addEventListener('keydown', function (e) {
+      if (list.hidden) { if (e.key === 'Enter') { e.preventDefault(); next(); } return; }
+      if (e.key === 'ArrowDown') { e.preventDefault(); activeIdx = Math.min(suggestions.length - 1, activeIdx + 1); renderList(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); activeIdx = Math.max(0, activeIdx - 1); renderList(); }
+      else if (e.key === 'Enter') { e.preventDefault(); if (activeIdx >= 0) choose(activeIdx); else if (suggestions.length) choose(0); }
+      else if (e.key === 'Escape') { closeList(); }
+    });
+    addr.addEventListener('blur', () => setTimeout(closeList, 120));
+
+    /* Navigation entre étapes */
+    function validate(n) {
+      if (n === 1) {
+        if (!addr.value.trim()) { setMsg("Indiquez l'adresse du bien."); addr.focus(); return false; }
+        if (!picked && suggestions.length) choose(0);
+        return true;
+      }
+      if (n === 2) {
+        const s = Number(val('lp-surface')), p = Number(val('lp-pieces'));
+        if (!s || s < 9 || s > 2000) { setMsg('Indiquez la surface habitable (en m²).'); document.getElementById('lp-surface').focus(); return false; }
+        if (!p || p < 1 || p > 15) { setMsg('Indiquez le nombre de pièces (1 à 15).'); document.getElementById('lp-pieces').focus(); return false; }
+        return true;
+      }
+      return true;
+    }
+    function next() {
+      if (!validate(current)) return;
+      if (current === 1) {
+        document.getElementById('lp-adresse-recap').textContent = addr.value.trim();
+        track('estimate_step', { step: 2 });
+      }
+      if (current === 2) track('estimate_step', { step: 3 });
+      show(Math.min(3, current + 1));
+    }
+    form.querySelectorAll('[data-next]').forEach(b => b.addEventListener('click', next));
+    form.querySelectorAll('[data-back]').forEach(b => b.addEventListener('click', () => show(Math.max(1, current - 1))));
+
+    /* Envoi */
+    form.addEventListener('submit', async function (ev) {
+      ev.preventDefault();
+      const prenom = val('lp-prenom'), email = val('lp-email'), tel = val('lp-tel');
+      if (!prenom || !email || !tel) { setMsg('Merci de renseigner prénom, email et téléphone.'); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setMsg('Adresse email invalide.'); return; }
+      if (!document.getElementById('lp-consent').checked) { setMsg("Merci d'accepter d'être recontacté pour recevoir votre estimation."); return; }
+
+      const btn = document.getElementById('lpSubmit');
+      btn.disabled = true;
+      btn.textContent = 'Calcul en cours…';
+      setMsg('');
+
+      const payload = {
+        page: 'estimation',
+        prenom, nom: '', email, tel,
+        type_bien: typeValue(),
+        adresse: addr.value.trim(),
+        lat: picked ? picked.lat : null,
+        lon: picked ? picked.lon : null,
+        surface: val('lp-surface'),
+        pieces: val('lp-pieces'),
+        etat: val('lp-etat'),
+        dpe: val('lp-dpe'),
+        etage: val('lp-etage'),
+        terrain: val('lp-terrain'),
+        exterieur: val('lp-exterieur'),
+        parking: val('lp-parking'),
+        motif: val('lp-delai'),
+        delai: val('lp-delai'),
+        website: val('lp-website')
+      };
+
+      try {
+        if (!window.ProactifsEstim) throw new Error('script estimation absent');
+        const data = await ProactifsEstim.send(payload);
+        form.hidden = true;
+        track('estimate_form_submit', { page: 'estimation', estimated: !!data.estimation });
+        track('generate_lead', { lead_source: 'estimation' });
+        if (data.estimation) {
+          const resultEl = document.getElementById('lpResult');
+          ProactifsEstim.render(resultEl, data.estimation, function () { window.location.reload(); });
+          resultEl.hidden = false;
+        } else {
+          document.getElementById('lpThanks').hidden = false;
+        }
+        document.getElementById('estimCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (e) {
+        setMsg('Une erreur est survenue. Réessayez ou appelez-nous au 01 84 78 28 30.');
+        btn.disabled = false;
+        btn.textContent = 'Voir mon estimation';
+      }
+    });
+
+    document.querySelectorAll('[data-track]').forEach(el => el.addEventListener('click', () => track(el.dataset.track)));
+    document.querySelectorAll('a[href="#estimer"]').forEach(a => a.addEventListener('click', () => setTimeout(() => { if (current === 1) addr.focus({ preventScroll: true }); }, 400)));
+  })();
+  </script>
+</body>
+</html>

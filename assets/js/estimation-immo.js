@@ -10,7 +10,7 @@
 
   var css = '' +
     '.estim-result{text-align:center;padding:8px 0 4px}' +
-    '.estim-result-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--coral,#E05D3D);margin-bottom:10px}' +
+    '.estim-result-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--coral-dark,#C24A2E);margin-bottom:10px}' +
     '.estim-result-value{font-family:"Cormorant Garamond",serif;font-size:44px;font-weight:700;line-height:1.1;color:var(--forest,#132D1E)}' +
     '.estim-result-range{margin:14px auto 6px;max-width:380px}' +
     '.estim-result-bar{position:relative;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--coral-pale,#FBEAE3),var(--coral,#E05D3D),var(--coral-pale,#FBEAE3))}' +
