@@ -259,6 +259,8 @@
     .estim-msg-err { color: #B14545; font-weight: 600; }
     .estim-confidentialite { font-size: 12px; color: var(--slate); text-align: center; margin-top: 4px; display: flex; align-items: center; gap: 6px; }
     .estim-confidentialite svg { width: 13px; height: 13px; stroke: var(--slate); flex-shrink: 0; }
+    .estim-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .estim-field[hidden] { display: none; }
     .estim-success { text-align: center; padding: 24px 0; }
     .estim-success-icon { width: 56px; height: 56px; margin: 0 auto 20px; border-radius: 50%; background: var(--coral-pale); color: var(--coral); font-size: 26px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
     .estim-success h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--forest); margin-bottom: 10px; }
@@ -732,9 +734,25 @@
                   <option>Autre</option>
                 </select>
               </div>
-              <div class="estim-field"><label for="ec-ville">Ville / secteur du bien *</label><input type="text" id="ec-ville" placeholder="Ex : Colombes" required></div>
-              <div class="estim-field"><label for="ec-surface">Surface <span class="opt">(optionnel)</span></label><input type="text" id="ec-surface" placeholder="Ex : 65 m²"></div>
-              <div class="estim-field"><label for="ec-pieces">Nombre de pièces <span class="opt">(optionnel)</span></label><input type="text" id="ec-pieces" placeholder="Ex : 3"></div>
+              <div class="estim-field full"><label for="ec-ville">Adresse du bien *</label><input type="text" id="ec-ville" placeholder="Ex : 12 rue Saint-Denis, Colombes" autocomplete="street-address" required></div>
+              <div class="estim-field"><label for="ec-surface">Surface <span class="opt">(pour le chiffrage)</span></label><input type="text" id="ec-surface" inputmode="numeric" placeholder="Ex : 65 m²"></div>
+              <div class="estim-field"><label for="ec-pieces">Nombre de pièces <span class="opt">(pour le chiffrage)</span></label><input type="text" id="ec-pieces" inputmode="numeric" placeholder="Ex : 3"></div>
+              <div class="estim-field"><label for="ec-etat">État du bien <span class="opt">(optionnel)</span></label>
+                <select id="ec-etat">
+                  <option value="">Sélectionnez</option>
+                  <option value="-1">À rénover</option>
+                  <option value="0">Bon état</option>
+                  <option value="1">Excellent état / refait à neuf</option>
+                </select>
+              </div>
+              <div class="estim-field"><label for="ec-dpe">DPE <span class="opt">(si connu)</span></label>
+                <select id="ec-dpe">
+                  <option value="">Je ne sais pas</option>
+                  <option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option>
+                </select>
+              </div>
+              <div class="estim-field" data-for="house" hidden><label for="ec-terrain">Terrain <span class="opt">(m², optionnel)</span></label><input type="text" id="ec-terrain" inputmode="numeric" placeholder="Ex : 300"></div>
+              <div class="estim-field" data-for="apartment" hidden><label for="ec-etage">Étage <span class="opt">(optionnel)</span></label><input type="text" id="ec-etage" inputmode="numeric" placeholder="0 = rez-de-chaussée"></div>
               <div class="estim-field"><label for="ec-exterieur">Extérieur <span class="opt">(optionnel)</span></label>
                 <select id="ec-exterieur">
                   <option value="">Sélectionnez</option>
@@ -775,6 +793,7 @@
               <div class="estim-field"><label for="ec-prenom">Nom *</label><input type="text" id="ec-prenom" required></div>
               <div class="estim-field"><label for="ec-tel">Téléphone *</label><input type="tel" id="ec-tel" required></div>
               <div class="estim-field full"><label for="ec-email">Email *</label><input type="email" id="ec-email" required></div>
+              <div class="estim-hp" aria-hidden="true"><label for="ec-website">Site web</label><input type="text" id="ec-website" tabindex="-1" autocomplete="off"></div>
             </div>
             <div class="estim-submit">
               <button type="submit" class="btn-primary" id="estimColombesBtn" data-track="estimate_form_submit">Estimer mon bien gratuitement</button>
@@ -788,6 +807,7 @@
             <p>Nous revenons vers vous sous 24/48h pour organiser votre estimation.</p>
             <button type="button" class="btn-outline" id="estimColombesReset">Nouvelle demande</button>
           </div>
+          <div id="estimColombesResult" hidden></div>
         </div>
       </div>
     </div>
@@ -859,6 +879,7 @@
   </footer>
   <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Retour en haut">↑</button>
 
+  <script src="/assets/js/estimation-immo.js"></script>
   <script>
     window.addEventListener('scroll', () => {
       document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
@@ -883,57 +904,78 @@
       });
     })();
 
-    /* ── Formulaire Estimation Colombes → Supabase (table leads, même pipeline que le reste du site) ── */
-    const _SB_URL = 'https://ullnkylrixdvormohryl.supabase.co';
-    const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbG5reWxyaXhkdm9ybW9ocnlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjUzNDgsImV4cCI6MjA5NDE0MTM0OH0.Fu5xc-VVA49qp1-WHgve8ZYpOB-QrciHzVeZx0GXmKk';
+    /* ── Formulaire Estimation Colombes → /api/estimation (lead Supabase + estimation Immo Data) ── */
+    const ecForm = document.getElementById('estimColombesForm');
+    const ecType = document.getElementById('ec-type');
+    const ecUpdateTypeFields = window.ProactifsEstim
+      ? ProactifsEstim.bindTypeFields(ecForm, () => ecType.value)
+      : function() {};
+    ecType.addEventListener('change', ecUpdateTypeFields);
 
-    document.getElementById('estimColombesForm').addEventListener('submit', async function(ev) {
+    function resetEstimColombes() {
+      document.getElementById('estimColombesSuccess').hidden = true;
+      const resultEl = document.getElementById('estimColombesResult');
+      resultEl.hidden = true;
+      resultEl.innerHTML = '';
+      ecForm.reset();
+      ecForm.hidden = false;
+      ecUpdateTypeFields();
+      const btn = document.getElementById('estimColombesBtn');
+      btn.disabled = false;
+      btn.textContent = 'Estimer mon bien gratuitement';
+      document.getElementById('estimColombesMsg').textContent = '';
+    }
+
+    ecForm.addEventListener('submit', async function(ev) {
       ev.preventDefault();
-      const prenom     = document.getElementById('ec-prenom').value.trim();
-      const email      = document.getElementById('ec-email').value.trim();
-      const tel        = document.getElementById('ec-tel').value.trim();
-      const ville      = document.getElementById('ec-ville').value.trim();
-      const type       = document.getElementById('ec-type').value;
-      const surface    = document.getElementById('ec-surface').value.trim();
-      const pieces     = document.getElementById('ec-pieces').value.trim();
-      const exterieur  = document.getElementById('ec-exterieur').value;
-      const parking    = document.getElementById('ec-parking').value;
-      const raison     = document.getElementById('ec-raison').value;
-      const delai      = document.getElementById('ec-delai').value;
-      const msgEl      = document.getElementById('estimColombesMsg');
-      const btn        = document.getElementById('estimColombesBtn');
+      const val = id => (document.getElementById(id) ? document.getElementById(id).value.trim() : '');
+      const prenom = val('ec-prenom');
+      const email  = val('ec-email');
+      const tel    = val('ec-tel');
+      const adresse = val('ec-ville');
+      const type   = val('ec-type');
+      const delai  = val('ec-delai');
+      const msgEl  = document.getElementById('estimColombesMsg');
+      const btn    = document.getElementById('estimColombesBtn');
 
-      if (!prenom || !email || !tel || !ville || !type || !delai) {
+      if (!prenom || !email || !tel || !adresse || !type || !delai) {
         msgEl.className = 'estim-msg estim-msg-err';
         msgEl.textContent = 'Merci de remplir tous les champs obligatoires.';
         return;
       }
 
       btn.disabled = true;
-      btn.textContent = 'Envoi en cours…';
+      btn.textContent = 'Calcul en cours…';
 
-      const reponses = { ville_bien: ville, type_bien: type, delai, surface, pieces, exterieur, parking, raison };
+      const payload = {
+        page: 'estimation-colombes',
+        prenom, nom: '', email, tel,
+        type_bien: type,
+        adresse,
+        surface: val('ec-surface'),
+        pieces: val('ec-pieces'),
+        etat: val('ec-etat'),
+        dpe: val('ec-dpe'),
+        terrain: val('ec-terrain'),
+        etage: val('ec-etage'),
+        exterieur: val('ec-exterieur'),
+        parking: val('ec-parking'),
+        motif: val('ec-raison'),
+        delai,
+        website: val('ec-website')
+      };
 
       try {
-        const res = await fetch(_SB_URL + '/rest/v1/leads', {
-          method: 'POST',
-          headers: { 'apikey': _SB_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
-          body: JSON.stringify({
-            prenom, nom: '', email, telephone: tel,
-            source: 'Estimation Colombes (page dédiée)',
-            situation: delai,
-            preoccupation: 'Estimation immobilière',
-            statut: 'nouveau',
-            reponses
-          })
-        });
-        if (res.ok) {
-          trackEstim('estimate_form_submit');
-          this.reset();
-          this.hidden = true;
-          document.getElementById('estimColombesSuccess').hidden = false;
+        if (!window.ProactifsEstim) throw new Error('script estimation absent');
+        const data = await ProactifsEstim.send(payload);
+        trackEstim('estimate_form_submit');
+        ecForm.hidden = true;
+        if (data.estimation) {
+          const resultEl = document.getElementById('estimColombesResult');
+          ProactifsEstim.render(resultEl, data.estimation, resetEstimColombes);
+          resultEl.hidden = false;
         } else {
-          throw new Error('Supabase ' + res.status);
+          document.getElementById('estimColombesSuccess').hidden = false;
         }
       } catch (e) {
         msgEl.className = 'estim-msg estim-msg-err';
@@ -944,16 +986,7 @@
     });
 
     const estimColombesResetBtn = document.getElementById('estimColombesReset');
-    if (estimColombesResetBtn) {
-      estimColombesResetBtn.addEventListener('click', function() {
-        document.getElementById('estimColombesSuccess').hidden = true;
-        document.getElementById('estimColombesForm').hidden = false;
-        const btn = document.getElementById('estimColombesBtn');
-        btn.disabled = false;
-        btn.textContent = 'Estimer mon bien gratuitement';
-        document.getElementById('estimColombesMsg').textContent = '';
-      });
-    }
+    if (estimColombesResetBtn) estimColombesResetBtn.addEventListener('click', resetEstimColombes);
   </script>
   <script src="/assets/js/navigation.js" defer></script>
 </body>

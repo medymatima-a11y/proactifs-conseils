@@ -135,7 +135,9 @@ Stack différente (Next.js + TypeScript + Tailwind), workflow indépendant.
 
 ## Règles de Conformité MIF2 — OBLIGATOIRES
 
-Ces règles s'appliquent à TOUT le contenu écrit ou modifié :
+Ces règles s'appliquent à tout le contenu de conseil en gestion de patrimoine (activité CIF) écrit ou modifié.
+
+**Exception — activité immobilière (Proactifs Immobilier) :** les règles MIF2 ne s'appliquent pas aux pages de transaction immobilière (`immobilier.html` et dossier `immobilier/` : vente, estimation, succession immobilière). Les formulations comme « estimation gratuite » y sont autorisées. Dès qu'une de ces pages aborde le conseil patrimonial ou financier (placements, réinvestissement, fiscalité), les règles ci-dessous s'appliquent à ce passage.
 
 | Interdit | Autorisé |
 |---|---|
@@ -163,7 +165,7 @@ Rappels rapides :
 ## Workflow Git + Checklist Pré-Commit
 
 **Avant chaque `git commit`, vérifier :**
-- [ ] Aucun terme MIF2 interdit (indépendant, gratuit, meilleur produit…)
+- [ ] Aucun terme MIF2 interdit (indépendant, gratuit, meilleur produit…) — hors pages immobilier, voir l'exception ci-dessus
 - [ ] Toutes les `<img>` ont un `alt` descriptif (pas vide, pas nom de fichier)
 - [ ] Canonical présent et en non-www
 - [ ] Schema.org adapté au type de page

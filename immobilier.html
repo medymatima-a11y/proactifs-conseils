@@ -312,6 +312,8 @@
     .estim-msg { font-size: 13px; min-height: 18px; }
     .estim-msg-ok { color: var(--forest); font-weight: 600; }
     .estim-msg-err { color: #B14545; font-weight: 600; }
+    .estim-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .estim-field[hidden] { display: none; }
     .estim-success { text-align: center; padding: 24px 0; }
     .estim-success-icon { width: 56px; height: 56px; margin: 0 auto 20px; border-radius: 50%; background: var(--coral-pale); color: var(--coral); font-size: 26px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
     .estim-success h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--forest); margin-bottom: 10px; }
@@ -699,12 +701,43 @@
                   <button type="button" class="type-btn" data-value="Appartement">Appartement</button>
                 </div>
               </div>
-              <div class="estim-field full"><label for="e-adresse">Ville / secteur du bien</label><input type="text" id="e-adresse" placeholder="Ex : Colombes"></div>
+              <div class="estim-field full"><label for="e-adresse">Adresse du bien</label><input type="text" id="e-adresse" placeholder="Ex : 12 rue Saint-Denis, Colombes" autocomplete="street-address"></div>
               <div class="estim-field"><label for="e-surface">Surface (m²)</label><input type="number" id="e-surface" min="0"></div>
               <div class="estim-field"><label for="e-pieces">Nombre de pièces</label><input type="number" id="e-pieces" min="0"></div>
               <div class="estim-field"><label for="e-chambres">Nombre de chambres</label><input type="number" id="e-chambres" min="0"></div>
-              <div class="estim-field"><label for="e-exterieur">Extérieur</label><input type="text" id="e-exterieur" placeholder="Jardin, balcon, terrasse…"></div>
-              <div class="estim-field full"><label for="e-parking">Parking / garage</label><input type="text" id="e-parking" placeholder="Ex : 1 place de parking"></div>
+              <div class="estim-field"><label for="e-etat">État du bien</label>
+                <select id="e-etat">
+                  <option value="">Sélectionnez</option>
+                  <option value="-1">À rénover</option>
+                  <option value="0">Bon état</option>
+                  <option value="1">Excellent état / refait à neuf</option>
+                </select>
+              </div>
+              <div class="estim-field" data-for="house"><label for="e-terrain">Terrain (m²)</label><input type="number" id="e-terrain" min="0"></div>
+              <div class="estim-field" data-for="apartment" hidden><label for="e-etage">Étage</label><input type="number" id="e-etage" min="0" max="30" placeholder="0 = rez-de-chaussée"></div>
+              <div class="estim-field"><label for="e-dpe">DPE (si connu)</label>
+                <select id="e-dpe">
+                  <option value="">Je ne sais pas</option>
+                  <option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option>
+                </select>
+              </div>
+              <div class="estim-field"><label for="e-exterieur">Extérieur</label>
+                <select id="e-exterieur">
+                  <option value="">Sélectionnez</option>
+                  <option>Aucun</option>
+                  <option>Balcon</option>
+                  <option>Terrasse</option>
+                  <option>Jardin</option>
+                </select>
+              </div>
+              <div class="estim-field"><label for="e-parking">Parking / garage</label>
+                <select id="e-parking">
+                  <option value="">Sélectionnez</option>
+                  <option>Oui</option>
+                  <option>Non</option>
+                </select>
+              </div>
+              <div class="estim-hp" aria-hidden="true"><label for="e-website">Site web</label><input type="text" id="e-website" tabindex="-1" autocomplete="off"></div>
               <div class="estim-field full">
                 <label>Pourquoi envisagez-vous de vendre ?</label>
                 <div class="chip-group" id="e-motif-group">
@@ -739,6 +772,7 @@
             <p>Nous revenons vers vous sous 24/48h avec votre estimation argumentée.</p>
             <button type="button" class="btn-outline" id="estimReset">Nouvelle demande</button>
           </div>
+          <div id="estimResult" hidden></div>
         </div>
       </div>
     </div>
@@ -889,6 +923,7 @@
   </footer>
   <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
+  <script src="/assets/js/estimation-immo.js"></script>
   <script>
     window.addEventListener('scroll', () => {
       document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
@@ -941,12 +976,10 @@
       nums.forEach(el => io.observe(el));
     })();
 
-    /* ── Formulaire d'estimation → Supabase (table leads, même pipeline que le reste du site) ── */
-    const _SB_URL = 'https://ullnkylrixdvormohryl.supabase.co';
-    const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbG5reWxyaXhkdm9ybW9ocnlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjUzNDgsImV4cCI6MjA5NDE0MTM0OH0.Fu5xc-VVA49qp1-WHgve8ZYpOB-QrciHzVeZx0GXmKk';
+    /* ── Formulaire d'estimation → /api/estimation (lead Supabase + estimation Immo Data) ── */
 
     // Groupes de boutons (toggle type de bien + chips motif/délai)
-    function initChoiceGroup(groupId, singleSelect) {
+    function initChoiceGroup(groupId, singleSelect, onChange) {
       const group = document.getElementById(groupId);
       if (!group) return;
       group.addEventListener('click', function(ev) {
@@ -958,11 +991,9 @@
         } else {
           btn.classList.toggle('active');
         }
+        if (onChange) onChange();
       });
     }
-    initChoiceGroup('e-type-group', true);
-    initChoiceGroup('e-motif-group', false);
-    initChoiceGroup('e-delai-group', false);
 
     function activeValues(groupId) {
       const group = document.getElementById(groupId);
@@ -970,12 +1001,36 @@
       return Array.from(group.querySelectorAll('button.active')).map(b => b.dataset.value);
     }
 
-    document.getElementById('estimForm').addEventListener('submit', async function(ev) {
+    const estimForm = document.getElementById('estimForm');
+    const updateTypeFields = window.ProactifsEstim
+      ? ProactifsEstim.bindTypeFields(estimForm, () => activeValues('e-type-group')[0] || 'Maison')
+      : function() {};
+    initChoiceGroup('e-type-group', true, updateTypeFields);
+    initChoiceGroup('e-motif-group', false);
+    initChoiceGroup('e-delai-group', false);
+
+    function resetEstimForm() {
+      document.getElementById('estimSuccess').hidden = true;
+      const resultEl = document.getElementById('estimResult');
+      resultEl.hidden = true;
+      resultEl.innerHTML = '';
+      estimForm.reset();
+      estimForm.hidden = false;
+      document.querySelectorAll('#e-type-group button, #e-motif-group button, #e-delai-group button').forEach(b => b.classList.remove('active'));
+      document.querySelector('#e-type-group button[data-value="Maison"]').classList.add('active');
+      updateTypeFields();
+      const btn = document.getElementById('estimBtn');
+      btn.disabled = false;
+      btn.textContent = 'Demander mon estimation';
+      document.getElementById('estimMsg').textContent = '';
+    }
+
+    estimForm.addEventListener('submit', async function(ev) {
       ev.preventDefault();
-      const prenom = document.getElementById('e-prenom').value.trim();
-      const nom    = document.getElementById('e-nom').value.trim();
-      const email  = document.getElementById('e-email').value.trim();
-      const tel    = document.getElementById('e-tel').value.trim();
+      const val = id => (document.getElementById(id) ? document.getElementById(id).value.trim() : '');
+      const prenom = val('e-prenom');
+      const email  = val('e-email');
+      const tel    = val('e-tel');
       const msgEl  = document.getElementById('estimMsg');
       const btn    = document.getElementById('estimBtn');
 
@@ -986,40 +1041,38 @@
       }
 
       btn.disabled = true;
-      btn.textContent = 'Envoi en cours…';
+      btn.textContent = 'Calcul en cours…';
 
-      const type_bien  = activeValues('e-type-group')[0] || 'Maison';
-      const adresse    = document.getElementById('e-adresse').value.trim();
-      const surface    = document.getElementById('e-surface').value;
-      const pieces     = document.getElementById('e-pieces').value;
-      const chambres   = document.getElementById('e-chambres').value;
-      const exterieur  = document.getElementById('e-exterieur').value.trim();
-      const parking    = document.getElementById('e-parking').value.trim();
-      const motifs     = activeValues('e-motif-group');
-      const delais     = activeValues('e-delai-group');
-
-      const reponses = { type_bien, adresse, surface, pieces, chambres, exterieur, parking, motif: motifs.join(', '), delai: delais.join(', ') };
+      const payload = {
+        page: 'immobilier',
+        prenom, nom: val('e-nom'), email, tel,
+        type_bien: activeValues('e-type-group')[0] || 'Maison',
+        adresse: val('e-adresse'),
+        surface: val('e-surface'),
+        pieces: val('e-pieces'),
+        chambres: val('e-chambres'),
+        etat: val('e-etat'),
+        terrain: val('e-terrain'),
+        etage: val('e-etage'),
+        dpe: val('e-dpe'),
+        exterieur: val('e-exterieur'),
+        parking: val('e-parking'),
+        motif: activeValues('e-motif-group').join(', '),
+        delai: activeValues('e-delai-group').join(', '),
+        website: val('e-website')
+      };
 
       try {
-        const res = await fetch(_SB_URL + '/rest/v1/leads', {
-          method: 'POST',
-          headers: { 'apikey': _SB_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
-          body: JSON.stringify({
-            prenom, nom, email, telephone: tel,
-            source: 'Estimation Immobilier',
-            situation: delais.join(', '),
-            preoccupation: motifs.join(', '),
-            statut: 'nouveau',
-            reponses
-          })
-        });
-        if (res.ok) {
-          this.reset();
-          this.hidden = true;
-          const successEl = document.getElementById('estimSuccess');
-          successEl.hidden = false;
+        if (!window.ProactifsEstim) throw new Error('script estimation absent');
+        const data = await ProactifsEstim.send(payload);
+        estimForm.hidden = true;
+        if (typeof gtag === 'function') gtag('event', 'estimate_form_submit', { page: 'immobilier', estimated: !!data.estimation });
+        if (data.estimation) {
+          const resultEl = document.getElementById('estimResult');
+          ProactifsEstim.render(resultEl, data.estimation, resetEstimForm);
+          resultEl.hidden = false;
         } else {
-          throw new Error('Supabase ' + res.status);
+          document.getElementById('estimSuccess').hidden = false;
         }
       } catch (e) {
         msgEl.className = 'estim-msg estim-msg-err';
@@ -1030,19 +1083,7 @@
     });
 
     const estimResetBtn = document.getElementById('estimReset');
-    if (estimResetBtn) {
-      estimResetBtn.addEventListener('click', function() {
-        document.getElementById('estimSuccess').hidden = true;
-        const form = document.getElementById('estimForm');
-        form.hidden = false;
-        document.querySelectorAll('#e-type-group button, #e-motif-group button, #e-delai-group button').forEach(b => b.classList.remove('active'));
-        document.querySelector('#e-type-group button[data-value="Maison"]').classList.add('active');
-        const btn = document.getElementById('estimBtn');
-        btn.disabled = false;
-        btn.textContent = 'Demander mon estimation';
-        document.getElementById('estimMsg').textContent = '';
-      });
-    }
+    if (estimResetBtn) estimResetBtn.addEventListener('click', resetEstimForm);
   </script>
 <script src="/assets/js/navigation.js" defer></script>
 </body>
