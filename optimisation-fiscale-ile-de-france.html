@@ -1462,7 +1462,21 @@
       renderFiscalStep();
     }
 
+    /* Garde-fou : envois désactivés hors production (previews Vercel, local). */
+    function pcGuardIsProd() { return ['proactifsconseils.fr', 'www.proactifsconseils.fr', 'pret-immobilier.proactifsconseils.fr'].indexOf(location.hostname) !== -1; }
+    function pcGuardBlock(el) {
+      if (!el) {
+        el = document.createElement('p');
+        el.setAttribute('role', 'alert');
+        el.style.cssText = 'color:#b00020;font-weight:600;margin:12px 0';
+        var b = document.querySelector('.wiz-submit-btn');
+        if (b && b.parentNode) b.parentNode.insertBefore(el, b); else document.body.appendChild(el);
+      }
+      el.textContent = "Envois désactivés en environnement de test : aucune donnée n'a été enregistrée.";
+      el.style.display = 'block';
+    }
     async function fiscalWizSubmit() {
+      if (!pcGuardIsProd()) { pcGuardBlock(null); return; }
       const prenom    = document.getElementById('wPrenom').value.trim();
       const nom       = document.getElementById('wNom').value.trim();
       const email     = document.getElementById('wEmail').value.trim();

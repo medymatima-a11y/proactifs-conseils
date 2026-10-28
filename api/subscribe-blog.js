@@ -9,6 +9,10 @@ module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).end();
+  // Garde-fou : hors production (previews Vercel), aucune écriture ni appel externe.
+  if (process.env.VERCEL_ENV !== 'production') {
+    return res.status(503).json({ error: 'Environnement de test : enregistrement désactivé.', code: 'NON_PRODUCTION_ENV' });
+  }
 
   const { email, prenom } = req.body || {};
 

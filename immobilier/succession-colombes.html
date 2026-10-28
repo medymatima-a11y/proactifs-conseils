@@ -811,6 +811,19 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+    /* Garde-fou : envois désactivés hors production (previews Vercel, local). */
+    function pcGuardIsProd() { return ['proactifsconseils.fr', 'www.proactifsconseils.fr', 'pret-immobilier.proactifsconseils.fr'].indexOf(location.hostname) !== -1; }
+    function pcGuardBlock(el) {
+      if (!el) {
+        el = document.createElement('p');
+        el.setAttribute('role', 'alert');
+        el.style.cssText = 'color:#b00020;font-weight:600;margin:12px 0';
+        var b = document.querySelector('.wiz-submit-btn');
+        if (b && b.parentNode) b.parentNode.insertBefore(el, b); else document.body.appendChild(el);
+      }
+      el.textContent = "Envois désactivés en environnement de test : aucune donnée n'a été enregistrée.";
+      el.style.display = 'block';
+    }
     /* ── Formulaire Diagnostic Succession 360 → Supabase (table leads, même pipeline que /immobilier) ── */
     const _SB_URL = 'https://ullnkylrixdvormohryl.supabase.co';
     const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbG5reWxyaXhkdm9ybW9ocnlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjUzNDgsImV4cCI6MjA5NDE0MTM0OH0.Fu5xc-VVA49qp1-WHgve8ZYpOB-QrciHzVeZx0GXmKk';
@@ -825,6 +838,7 @@
       const statut = document.getElementById('s-statut').value;
       const msgEl  = document.getElementById('successionMsg');
       const btn    = document.getElementById('successionBtn');
+      if (!pcGuardIsProd()) { pcGuardBlock(msgEl); return; }
 
       if (!prenom || !email || !tel || !ville || !heritiers || !statut) {
         msgEl.className = 'estim-msg estim-msg-err';

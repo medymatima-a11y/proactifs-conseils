@@ -33,6 +33,10 @@ module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Webhook-Secret, X-Webhook-Signature');
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Méthode non autorisée' });
+  // Garde-fou : hors production (previews Vercel), aucune écriture ni appel externe.
+  if (process.env.VERCEL_ENV !== 'production') {
+    return res.status(503).json({ error: 'Environnement de test : enregistrement désactivé.', code: 'NON_PRODUCTION_ENV' });
+  }
 
   const brevoApiKey = process.env.BREVO_API_KEY;
   const listId      = parseInt(process.env.BREVO_LIST_ID || '0', 10);
