@@ -16,6 +16,7 @@ const TAG_MAP = {
   cession:      'cession-entreprise',
   credit:       'credit-immobilier',
   declaration:  'declaration-impots',
+  actionnariat: 'actionnariat-salarie',
 };
 
 const LABEL_MAP = {
@@ -27,6 +28,7 @@ const LABEL_MAP = {
   cession:      'Céder mon entreprise',
   credit:       'Obtenir un crédit',
   declaration:  'Déclarer mes impôts',
+  actionnariat: 'Optimiser mes RSU / stock-options',
 };
 
 module.exports = async (req, res) => {
