@@ -176,7 +176,7 @@
     .step p { color: var(--ink-soft); }
 
     .advisor { display: flex; flex-wrap: wrap; gap: 56px; align-items: center; }
-    .advisor img { flex: 0 1 380px; min-width: 0; width: 100%; max-width: 380px; height: 460px; object-fit: cover; border-radius: 24px; }
+    .advisor img { flex: 0 0 280px; width: 280px; max-width: 100%; height: 340px; object-fit: cover; object-position: top center; border-radius: 24px; }
     .advisor-text { flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
     .advisor-text p { font-size: 17px; color: var(--ink-soft); }
     .checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; }
@@ -259,7 +259,7 @@
       .estim-card { padding: 18px; }
       .estim-grid { grid-template-columns: 1fr; }
       .hero-floaty { display: none; }
-      .advisor img { height: 340px; }
+      .advisor img { flex-basis: 200px; width: 200px; height: 240px; margin: 0 auto; }
     }
   </style>
 </head>
@@ -543,7 +543,7 @@
 
     <section class="final">
       <div class="container">
-        <h2>Connaître la valeur de votre bien, <em>en 2 minutes</em></h2>
+        <h2>Connaître la valeur de votre bien,<br><em>en 2&nbsp;minutes</em></h2>
         <p>Gratuit, sans engagement, et un interlocuteur à Colombes pour la suite.</p>
         <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
           <a href="#estimer" class="btn-primary">Estimer mon bien</a>
