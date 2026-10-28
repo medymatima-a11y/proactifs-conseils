@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html data-brevo lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,10 +65,10 @@
 {"@context":"https://schema.org","@type":"HowTo","name":"Notre approche en 4 étapes","step":[{"@type":"HowToStep","position":1,"name":"Écoute & découverte","text":"Avant toute recommandation, nous prenons le temps de comprendre votre situation dans sa globalité : revenus, charges, patrimoine existant, objectifs de vie et horizon d'investissement. Rien ne se décide sans cette base."},{"@type":"HowToStep","position":2,"name":"Diagnostic patrimonial","text":"Analyse approfondie de votre bilan patrimonial, actifs et passifs, structure fiscale actuelle, risques identifiés, leviers inexploités. Le diagnostic met en lumière ce qui fonctionne et ce qui peut être amélioré."},{"@type":"HowToStep","position":3,"name":"Stratégie sur mesure","text":"Sur la base du diagnostic, nous construisons une stratégie patrimoniale cohérente, priorisée selon vos objectifs et votre profil de risque. Chaque recommandation est argumentée et chiffrée."},{"@type":"HowToStep","position":4,"name":"Suivi & ajustements","text":"Le patrimoine évolue avec votre vie. Nous assurons un suivi régulier pour adapter la stratégie aux changements de situation : évolution professionnelle, évolution familiale, nouvelles opportunités fiscales."}]}
 </script>
 <!-- Google tag -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-P53RQGXJZX"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
   gtag('js', new Date());
   gtag('config', 'G-P53RQGXJZX');
 </script>
@@ -411,19 +411,6 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
   .step { border-right: none; }
 }
 </style>
-<!-- Brevo tracker -->
-<script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
-<script>
-    // Version: 2.0
-    window.Brevo = window.Brevo || [];
-    Brevo.push([
-        "init",
-        {
-        client_key: "d0aqzyj88l6bfuhczwn7zv35",
-        // Optional: Add other initialization options, see documentation
-        }
-    ]);
-</script>
   <link rel="stylesheet" href="/assets/css/navigation.css">
   <link rel="stylesheet" href="/assets/css/breadcrumb.css">
   <!-- BREADCRUMB_JSONLD:START -->
@@ -438,6 +425,7 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
   }
   </script>
   <!-- BREADCRUMB_JSONLD:END -->
+<script src="/assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
 
