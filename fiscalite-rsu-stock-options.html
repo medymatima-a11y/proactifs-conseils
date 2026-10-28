@@ -1280,8 +1280,17 @@
       }).filter(Boolean).join(' | ');
     }
     let actioSending = false;
+    /* Garde-fou : envois désactivés hors domaines de production (previews Vercel, local). */
+    const PC_PROD_HOSTS = ['proactifsconseils.fr', 'www.proactifsconseils.fr', 'pret-immobilier.proactifsconseils.fr'];
+    function actioIsProdHost() { return PC_PROD_HOSTS.indexOf(location.hostname) !== -1; }
     async function actioWizSubmit() {
       if (actioSending) return;
+      if (!actioIsProdHost()) {
+        const e0 = document.getElementById('wizError');
+        e0.textContent = 'Envois désactivés en environnement de test : aucune donnée n\'a été enregistrée.';
+        e0.style.display = 'block';
+        return;
+      }
       const prenom = document.getElementById('wPrenom').value.trim();
       const nom = document.getElementById('wNom').value.trim();
       const email = document.getElementById('wEmail').value.trim();

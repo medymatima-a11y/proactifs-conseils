@@ -10,6 +10,10 @@
   var GA_ID = 'G-P53RQGXJZX';
   var BREVO_KEY = 'd0aqzyj88l6bfuhczwn7zv35';
   var loaded = { gtag: false, brevo: false };
+  /* Garde-fou : aucun script de mesure ou de marketing hors domaines de production,
+     même si le consentement est accordé. */
+  var PROD_HOSTS = ['proactifsconseils.fr', 'www.proactifsconseils.fr', 'pret-immobilier.proactifsconseils.fr'];
+  var IS_PROD = PROD_HOSTS.indexOf(location.hostname) !== -1;
 
   function read() {
     try {
@@ -34,6 +38,7 @@
   }
 
   function apply(c) {
+    if (!IS_PROD) return;
     window.dataLayer = window.dataLayer || [];
     var gtag = window.gtag || function () { window.dataLayer.push(arguments); };
     window.gtag = gtag;
@@ -168,7 +173,7 @@
 
   function init() {
     addFooterLink();
-    if (!c) show(false);
+    if (!c && IS_PROD) show(false);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

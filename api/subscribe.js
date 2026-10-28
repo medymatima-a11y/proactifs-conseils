@@ -38,6 +38,12 @@ module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).end();
 
+  // Garde-fou : hors production (previews Vercel, développement), aucune écriture
+  // Supabase ni appel Systeme.io. Réponse sans aucune donnée personnelle.
+  if (process.env.VERCEL_ENV !== 'production') {
+    return res.status(503).json({ error: 'Environnement de test : enregistrement désactivé.', code: 'NON_PRODUCTION_ENV' });
+  }
+
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
   const systemeKey  = process.env.SYSTEME_API_KEY;
