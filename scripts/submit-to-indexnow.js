@@ -86,9 +86,11 @@ async function main() {
         console.log(`  ✓ status ${res.status}`);
       } else {
         console.log(`  ⚠ status ${res.status} — ${res.body.slice(0, 200)}`);
+        process.exitCode = 1; // échec visible dans GitHub Actions
       }
     } catch (err) {
       console.error(`  ✗ erreur :`, err.message);
+      process.exitCode = 1;
     }
   }
 }

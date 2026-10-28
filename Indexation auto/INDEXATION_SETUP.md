@@ -1,3 +1,5 @@
+> **Mise à jour du 28/10/2026** : la soumission à l'API Google Indexing et le ping de sitemap Google ont été retirés du workflow `.github/workflows/index-on-publish.yml`. L'API Indexing est réservée par Google aux pages d'offres d'emploi et de vidéos en direct (elle n'a aucun effet sur les autres pages), et le ping de sitemap a été supprimé par Google en 2023. Le workflow ne soumet plus qu'à **IndexNow** (Bing, Yandex, Seznam, Naver), y compris les pages supprimées et les nouvelles redirections. Lancement manuel sans URL = renvoi de tout le sitemap. Pour Google : sitemap + liens internes + « Demander l'indexation » dans Search Console. Le secret GitHub `GOOGLE_INDEXING_API_KEY` peut être supprimé.
+
 # Auto-indexation Search Console — guide de configuration
 
 Ce repo dispose d'un workflow GitHub Actions qui, à chaque push d'article :

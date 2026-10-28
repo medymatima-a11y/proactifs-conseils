@@ -1,14 +1,22 @@
 name: Auto-index on publish
 
+# Prévient les moteurs compatibles IndexNow (Bing, Yandex, Seznam, Naver…)
+# quand des pages sont ajoutées, modifiées, supprimées ou redirigées.
+# Google n'utilise pas IndexNow : pour Google, ce sont le sitemap,
+# les liens internes et « Demander l'indexation » dans Search Console.
+# (L'API Google Indexing est réservée aux offres d'emploi et vidéos en direct,
+#  et le ping de sitemap Google n'existe plus depuis 2023 : retirés le 28/10/2026.)
+
 on:
   push:
     branches: [main]
     paths:
       - '**.html'
+      - 'vercel.json'
   workflow_dispatch:
     inputs:
       urls:
-        description: 'URLs à soumettre manuellement (séparées par des espaces, vide = tout le sitemap)'
+        description: 'URLs à soumettre (séparées par des espaces). Laisser vide pour renvoyer tout le sitemap.'
         required: false
         default: ''
 
@@ -29,27 +37,36 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Detect changed HTML files
+      - name: Detect changed pages
         id: changes
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.urls }}" ]; then
-            # Soumission manuelle d'URLs explicites
-            echo "manual_urls=${{ github.event.inputs.urls }}" >> $GITHUB_OUTPUT
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "files=" >> $GITHUB_OUTPUT
-          else
-            # Détecter les .html ajoutés ou modifiés dans le push
-            BEFORE="${{ github.event.before }}"
-            AFTER="${{ github.sha }}"
-            if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
-              # première fois ou push forcé, on ne soumet rien (sécurité)
-              echo "files=" >> $GITHUB_OUTPUT
-            else
-              CHANGED=$(git diff --name-only --diff-filter=AM "$BEFORE" "$AFTER" -- '*.html' | tr '\n' ' ')
-              echo "files=$CHANGED" >> $GITHUB_OUTPUT
-              echo "Fichiers HTML modifiés : $CHANGED"
-            fi
-            echo "manual_urls=" >> $GITHUB_OUTPUT
+            echo "redirects=" >> $GITHUB_OUTPUT
+            exit 0
           fi
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.sha }}"
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            # première fois ou push forcé, on ne soumet rien (sécurité)
+            echo "files=" >> $GITHUB_OUTPUT
+            echo "redirects=" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          # Pages ajoutées, modifiées OU supprimées (une page supprimée doit aussi être signalée)
+          CHANGED=$(git diff --name-only --diff-filter=AMD "$BEFORE" "$AFTER" -- '*.html' | tr '\n' ' ')
+          echo "files=$CHANGED" >> $GITHUB_OUTPUT
+          echo "Pages modifiées : $CHANGED"
+          # Nouvelles redirections ajoutées dans vercel.json (leur ancienne adresse doit être signalée)
+          REDIRECTS=$(node -e '
+            const {execSync} = require("child_process");
+            const read = (sha) => { try { return JSON.parse(execSync(`git show ${sha}:vercel.json`).toString()); } catch (e) { return {}; } };
+            const src = (cfg) => new Set((cfg.redirects || []).map(r => r.source).filter(s => s.startsWith("/") && !/[:*(]/.test(s)));
+            const before = src(read(process.argv[1])), after = src(read(process.argv[2]));
+            console.log([...after].filter(s => !before.has(s)).join(" "));
+          ' "$BEFORE" "$AFTER")
+          echo "redirects=$REDIRECTS" >> $GITHUB_OUTPUT
+          echo "Nouvelles redirections : $REDIRECTS"
 
       - name: Regenerate sitemap.xml
         run: node scripts/generate-sitemap.js
@@ -79,53 +96,51 @@ jobs:
             echo "sitemap.xml inchangé"
           fi
 
-      - name: Build URL list from changed files
+      - name: Build URL list
         id: urls
         run: |
-          MANUAL="${{ steps.changes.outputs.manual_urls }}"
-          FILES="${{ steps.changes.outputs.files }}"
+          SITE="https://proactifsconseils.fr"
           URLS=""
-          if [ -n "$MANUAL" ]; then
-            URLS="$MANUAL"
-          elif [ -n "$FILES" ]; then
-            for f in $FILES; do
-              # exclure 404, merci, etc.
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            MANUAL="${{ github.event.inputs.urls }}"
+            if [ -n "$MANUAL" ]; then
+              URLS="$MANUAL"
+            else
+              # Renvoi complet : toutes les URL du sitemap
+              URLS=$(grep -o '<loc>[^<]*' sitemap.xml | sed 's/<loc>//' | tr '\n' ' ')
+            fi
+          else
+            for f in ${{ steps.changes.outputs.files }}; do
+              # exclure les pages techniques ou non indexées
               case "$f" in
-                404.html|merci-guide.html|guide-5-erreurs-patrimoniaux.html) continue ;;
+                404.html|merci-guide.html|merci-avis.html|guide-5-erreurs-patrimoniaux.html|mentions-legales.html) continue ;;
+                docs/*|tests/*|prototypes/*|scripts/*|"Lead magnets/"*|"Audits SEO/"*|"Indexation auto/"*|partials/*) continue ;;
+                blog/blog-maquette-*) continue ;;
               esac
-              # convertir le path en URL canonique
-              if [ "$f" = "index.html" ]; then
-                URL="https://proactifsconseils.fr/"
-              elif [ "$f" = "blog/index.html" ]; then
-                URL="https://proactifsconseils.fr/blog"
+              # convertir le chemin en URL canonique (sans .html, index → dossier)
+              P="${f%.html}"
+              if [ "$P" = "index" ]; then
+                URL="$SITE/"
+              elif [ "${P##*/}" = "index" ]; then
+                URL="$SITE/${P%/index}"
               else
-                # retire .html
-                URL="https://proactifsconseils.fr/${f%.html}"
+                URL="$SITE/$P"
               fi
               URLS="$URLS $URL"
             done
+            for r in ${{ steps.changes.outputs.redirects }}; do
+              URLS="$URLS $SITE$r"
+            done
           fi
-          URLS=$(echo "$URLS" | xargs)  # trim
+          URLS=$(echo "$URLS" | tr ' ' '\n' | sed '/^$/d' | sort -u | tr '\n' ' ' | xargs)
           echo "list=$URLS" >> $GITHUB_OUTPUT
           if [ -n "$URLS" ]; then
-            echo "URLs à indexer : $URLS"
+            echo "URLs à soumettre : $URLS"
           else
-            echo "Aucune URL à indexer."
+            echo "Aucune URL à soumettre."
           fi
 
-      - name: Submit to Google Indexing API
-        if: steps.urls.outputs.list != ''
-        env:
-          GOOGLE_INDEXING_API_KEY: ${{ secrets.GOOGLE_INDEXING_API_KEY }}
-        run: |
-          node scripts/submit-to-google.js ${{ steps.urls.outputs.list }}
-
-      - name: Submit to IndexNow (Bing + Yandex)
+      - name: Submit to IndexNow (Bing, Yandex, Seznam, Naver)
         if: steps.urls.outputs.list != ''
         run: |
           node scripts/submit-to-indexnow.js ${{ steps.urls.outputs.list }}
-
-      - name: Ping Google sitemap
-        if: steps.urls.outputs.list != ''
-        run: |
-          curl -fsS "https://www.google.com/ping?sitemap=https://proactifsconseils.fr/sitemap.xml" || true
