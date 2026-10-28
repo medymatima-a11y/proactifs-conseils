@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html data-brevo lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -112,10 +112,10 @@
   </script>
 
   <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P53RQGXJZX"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
     gtag('js', new Date());
     gtag('config', 'G-P53RQGXJZX');
   </script>
@@ -700,19 +700,6 @@
       .footer-grid { grid-template-columns: 1fr; gap: 28px; }
     }
   </style>
-<!-- Brevo tracker -->
-<script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
-<script>
-    // Version: 2.0
-    window.Brevo = window.Brevo || [];
-    Brevo.push([
-        "init",
-        {
-        client_key: "d0aqzyj88l6bfuhczwn7zv35",
-        // Optional: Add other initialization options, see documentation
-        }
-    ]);
-</script>
   <link rel="stylesheet" href="/assets/css/navigation.css">
   <link rel="stylesheet" href="/assets/css/breadcrumb.css">
   <!-- BREADCRUMB_JSONLD:START -->
@@ -727,6 +714,7 @@
   }
   </script>
   <!-- BREADCRUMB_JSONLD:END -->
+<script src="/assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
 
@@ -769,6 +757,7 @@
           <a href="/immobilier">Vendre un bien immobilier</a>
           <a href="/estimation">Estimation immobilière</a>
           <a href="/immobilier/succession-colombes">Succession immobilière</a>
+          <a href="/immobilier/honoraires">Nos honoraires</a>
         </div>
         <div class="mega-col">
           <p class="mega-col-title">Investir</p>
@@ -843,6 +832,7 @@
     <a class="m-item" href="/immobilier">Vendre un bien immobilier</a>
     <a class="m-item" href="/estimation">Estimation immobilière</a>
     <a class="m-item" href="/immobilier/succession-colombes">Succession immobilière</a>
+    <a class="m-item" href="/immobilier/honoraires">Nos honoraires</a>
     <p class="m-group">Investir</p>
     <a class="m-item" href="/investissement-immobilier">Investissement immobilier</a>
     <a class="m-item" href="/investissement-immobilier-ancien">Immobilier ancien</a>
@@ -1419,7 +1409,7 @@
   </div>
   <div class="footer-bottom">
     <span>© 2026 Proactifs Conseils · Colombes (92700)</span>
-    <span><a href="https://proactifsconseils.fr" style="color:rgba(255,255,255,.35);">proactifsconseils.fr</a> · <a href="#" style="color:rgba(255,255,255,.35);">Mentions légales</a></span>
+    <span><a href="https://proactifsconseils.fr" style="color:rgba(255,255,255,.35);">proactifsconseils.fr</a> · <a href="/mentions-legales" style="color:rgba(255,255,255,.35);">Mentions légales</a></span>
   </div>
 </footer>
 

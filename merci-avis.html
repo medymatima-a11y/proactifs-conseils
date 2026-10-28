@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html data-brevo lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +7,10 @@
   <title>Merci pour votre retour | Proactifs Conseils</title>
   <meta name="description" content="Merci d'avoir donné votre avis sur le nouveau site Proactifs Conseils.">
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P53RQGXJZX"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
     gtag('js', new Date());
     gtag('config', 'G-P53RQGXJZX');
   </script>
@@ -183,19 +183,7 @@
       .stars { font-size: 26px; letter-spacing: 3px; }
     }
   </style>
-<!-- Brevo tracker -->
-<script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
-<script>
-    // Version: 2.0
-    window.Brevo = window.Brevo || [];
-    Brevo.push([
-        "init",
-        {
-        client_key: "d0aqzyj88l6bfuhczwn7zv35",
-        // Optional: Add other initialization options, see documentation
-        }
-    ]);
-</script>
+<script src="/assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
 
