@@ -40,6 +40,10 @@
       "destination": "/mentions-legales.html"
     },
     {
+      "source": "/confidentialite",
+      "destination": "/confidentialite.html"
+    },
+    {
       "source": "/immobilier/honoraires",
       "destination": "/immobilier/honoraires.html"
     },
