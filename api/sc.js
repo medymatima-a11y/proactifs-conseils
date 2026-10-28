@@ -63,7 +63,7 @@ module.exports = async (req, res) => {
     return res.status(401).json({ error: 'Unauthorized — fournir X-Sc-Secret ou ?secret=' });
   }
   if (!process.env.GOOGLE_OAUTH_REFRESH_TOKEN) {
-    return res.status(500).json({ error: 'GOOGLE_OAUTH_REFRESH_TOKEN manquant — exécuter /api/sc-bootstrap d\'abord' });
+    return res.status(500).json({ error: 'GOOGLE_OAUTH_REFRESH_TOKEN manquant — la route de bootstrap est désactivée (410), configurer la variable Vercel directement' });
   }
 
   try {
