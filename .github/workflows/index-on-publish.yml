@@ -113,7 +113,7 @@ jobs:
             for f in ${{ steps.changes.outputs.files }}; do
               # exclure les pages techniques ou non indexées
               case "$f" in
-                404.html|merci-guide.html|merci-avis.html|guide-5-erreurs-patrimoniaux.html|mentions-legales.html) continue ;;
+                404.html|merci-guide.html|merci-avis.html|guide-5-erreurs-patrimoniaux.html|mentions-legales.html|confidentialite.html|immobilier/honoraires.html) continue ;;
                 docs/*|tests/*|prototypes/*|scripts/*|"Lead magnets/"*|"Audits SEO/"*|"Indexation auto/"*|partials/*) continue ;;
                 blog/blog-maquette-*) continue ;;
               esac

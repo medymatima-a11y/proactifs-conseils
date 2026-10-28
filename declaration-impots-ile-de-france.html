@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html data-brevo lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -615,10 +615,10 @@
 }
   </script>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-P53RQGXJZX"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
   gtag('js', new Date());
   gtag('config', 'G-P53RQGXJZX');
   gtag('config', 'AW-835423035');
@@ -633,19 +633,6 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"HowTo","name":"3 étapes pour sécuriser votre déclaration","step":[{"@type":"HowToStep","position":1,"name":"Collecte & analyse des documents","text":"Rassemblement de tous vos documents fiscaux, comptables et justificatifs. Analyse approfondie de votre situation et identification des opportunités d'optimisation."},{"@type":"HowToStep","position":2,"name":"Optimisation de la déclaration","text":"Remplissage complet de votre déclaration avec optimisation fiscale. Intégration des abattements, exonérations, et réductions applicables à votre situation."},{"@type":"HowToStep","position":3,"name":"Transmission & accompagnement","text":"Envoi de la déclaration auprès des autorités. En cas de contrôle, nous vous assistons et représentons auprès de l'administration fiscale."}]}
   </script>
-<!-- Brevo tracker -->
-<script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
-<script>
-    // Version: 2.0
-    window.Brevo = window.Brevo || [];
-    Brevo.push([
-        "init",
-        {
-        client_key: "d0aqzyj88l6bfuhczwn7zv35",
-        // Optional: Add other initialization options, see documentation
-        }
-    ]);
-</script>
   <link rel="stylesheet" href="/assets/css/navigation.css">
   <link rel="stylesheet" href="/assets/css/breadcrumb.css">
   <!-- BREADCRUMB_JSONLD:START -->
@@ -660,6 +647,7 @@
   }
   </script>
   <!-- BREADCRUMB_JSONLD:END -->
+<script src="/assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
   <!-- NAV:CONFIG {"theme": "site-patrimoine", "tokens": {"HOME_PREFIX": "/", "PATRIMOINE_ACTIVE_DESKTOP": " aria-current=\"page\"", "CTA_HREF": "/bilan-patrimonial", "CTA_LABEL": "Prendre rendez-vous", "MOBILE_CTA_HREF": "/bilan-patrimonial", "MOBILE_CTA_LABEL": "Prendre rendez-vous"}} -->
@@ -700,6 +688,7 @@
           <a href="/immobilier">Vendre un bien immobilier</a>
           <a href="/estimation">Estimation immobilière</a>
           <a href="/immobilier/succession-colombes">Succession immobilière</a>
+          <a href="/immobilier/honoraires">Nos honoraires</a>
         </div>
         <div class="mega-col">
           <p class="mega-col-title">Investir</p>
@@ -774,6 +763,7 @@
     <a class="m-item" href="/immobilier">Vendre un bien immobilier</a>
     <a class="m-item" href="/estimation">Estimation immobilière</a>
     <a class="m-item" href="/immobilier/succession-colombes">Succession immobilière</a>
+    <a class="m-item" href="/immobilier/honoraires">Nos honoraires</a>
     <p class="m-group">Investir</p>
     <a class="m-item" href="/investissement-immobilier">Investissement immobilier</a>
     <a class="m-item" href="/investissement-immobilier-ancien">Immobilier ancien</a>
@@ -1089,7 +1079,7 @@
       </div>
       <div class="footer-bottom">
         <p>© 2026 Proactifs Conseils – Tous droits réservés · CIF enregistré AMF</p>
-        <p>Mentions légales · Politique de confidentialité</p>
+        <p><a href="/mentions-legales">Mentions légales</a> · <a href="/confidentialite">Politique de confidentialité</a></p>
       </div>
     </div>
   </footer>
