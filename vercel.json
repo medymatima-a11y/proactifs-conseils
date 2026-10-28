@@ -1,7 +1,9 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
-  "regions": ["cdg1"],
+  "regions": [
+    "cdg1"
+  ],
   "ignoreCommand": "bash vercel-ignore-build.sh",
   "rewrites": [
     {
@@ -27,10 +29,6 @@
     {
       "source": "/placements-financiers",
       "destination": "/placements-financiers.html"
-    },
-    {
-      "source": "/courtage-credit-immobilier",
-      "destination": "/courtage-credit-immobilier.html"
     },
     {
       "source": "/immobilier",
@@ -211,6 +209,11 @@
   ],
   "redirects": [
     {
+      "source": "/courtage-credit-immobilier",
+      "destination": "/pret-immobilier",
+      "permanent": true
+    },
+    {
       "source": "/blog/conseiller-patrimoine-ile-de-france",
       "destination": "/cabinet",
       "permanent": true
@@ -365,7 +368,7 @@
     },
     {
       "source": "/credit-immobilier",
-      "destination": "/courtage-credit-immobilier",
+      "destination": "/pret-immobilier",
       "permanent": true
     },
     {
@@ -410,12 +413,12 @@
     },
     {
       "source": "/financement-immobilier",
-      "destination": "/courtage-credit-immobilier",
+      "destination": "/pret-immobilier",
       "permanent": true
     },
     {
       "source": "/financement-immobilier/",
-      "destination": "/courtage-credit-immobilier",
+      "destination": "/pret-immobilier",
       "permanent": true
     },
     {

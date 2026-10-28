@@ -123,7 +123,7 @@ function checkFile(relPath) {
     var panels = {
       patrimoine: ['/bilan-patrimonial', '/preparation-retraite', '/transmission', '/fiscalite-rsu-stock-options'],
       immobilier: ['/estimation', '/immobilier', '/investissement-immobilier'],
-      financement: ['/courtage-credit-immobilier', '/pret-immobilier', '/simulateurs'],
+      financement: ['/pret-immobilier', '/simulateurs'],
       entreprises: ['/cession-entreprise'],
     };
     if (!content.includes('href="/blog"')) issues.push('menu2-lien-absent (root -> /blog)');

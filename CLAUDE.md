@@ -78,7 +78,7 @@ Tu es un agent SEO éditeur. Quand on te demande d'optimiser le SEO :
 | `investissement-immobilier.html` | /investissement-immobilier | Investissement immobilier |
 | `investissement-immobilier-ancien.html` | /investissement-immobilier-ancien | Immobilier ancien |
 | `investissement-scpi-hauts-de-seine.html` | /investissement-scpi-hauts-de-seine | SCPI |
-| `courtage-credit-immobilier.html` | /courtage-credit-immobilier | Crédit immobilier |
+| `pret-immobilier.html` | /pret-immobilier | Prêt immobilier (ancienne page /courtage-credit-immobilier redirigée, 28/10/2026 : ne pas se présenter comme « courtier », statut MIOBSP) |
 | `declaration-impots-ile-de-france.html` | /declaration-impots-ile-de-france | Déclaration impôts |
 | `fiscalite-rsu-stock-options.html` | /fiscalite-rsu-stock-options | Fiscalité RSU & stock-options |
 | `declaration-rsu-espp-france.html` | /declaration-rsu-espp-france | Déclaration RSU/ESPP |

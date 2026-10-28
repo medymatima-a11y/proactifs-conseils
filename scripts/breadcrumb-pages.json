@@ -70,17 +70,6 @@
       ]
     },
     {
-      "file": "courtage-credit-immobilier.html",
-      "url": "/courtage-credit-immobilier",
-      "label": "Courtage crédit immobilier",
-      "trail": [
-        {
-          "label": "Accueil",
-          "url": "/"
-        }
-      ]
-    },
-    {
       "file": "pret-immobilier.html",
       "url": "/pret-immobilier",
       "label": "Prêt immobilier",
