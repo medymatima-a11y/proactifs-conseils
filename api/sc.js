@@ -57,6 +57,10 @@ function todayMinus(days) {
 }
 
 module.exports = async (req, res) => {
+  // Garde-fou : hors production (previews Vercel), aucun accès aux identifiants Google ni appel externe.
+  if (process.env.VERCEL_ENV !== 'production') {
+    return res.status(503).json({ error: 'Environnement de test : accès Search Console désactivé.', code: 'NON_PRODUCTION_ENV' });
+  }
   // 1) Auth
   const provided = req.headers['x-sc-secret'] || req.query.secret;
   if (!process.env.SC_PROXY_SECRET || provided !== process.env.SC_PROXY_SECRET) {
