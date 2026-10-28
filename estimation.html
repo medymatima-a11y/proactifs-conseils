@@ -65,7 +65,14 @@
       --r-md: 14px;
       --r-lg: 22px;
       --shadow-card: 0 22px 48px -28px rgba(19,45,30,.45);
+      --ivory: #FAFAF7;
+      --r-sm: 10px;
+      --shadow-sm: 0 1px 3px rgba(17,24,39,.06), 0 1px 2px rgba(17,24,39,.04);
+      --shadow-md: 0 4px 16px rgba(17,24,39,.08), 0 2px 6px rgba(17,24,39,.04);
+      --shadow-lg: 0 12px 40px rgba(17,24,39,.1), 0 4px 12px rgba(17,24,39,.06);
     }
+    body { padding-top: 72px; }
+    [id] { scroll-margin-top: 80px; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Nunito Sans', system-ui, sans-serif; color: var(--ink); background: var(--white); line-height: 1.55; }
@@ -262,22 +269,149 @@
       .advisor img { flex-basis: 200px; width: 200px; height: 240px; margin: 0 auto; }
     }
   </style>
+<link rel="stylesheet" href="/assets/css/navigation-immobilier.css">
 <script src="/assets/js/cookie-consent.js" defer></script>
 </head>
 <body>
 
-  <header class="lp-header">
-    <div class="container">
-      <a href="/immobilier" aria-label="Proactifs Immobilier, accueil"><img src="/images/proactifs-logo-header.png" alt="Proactifs Conseils"></a>
-      <div class="lp-header-right">
-        <span class="lp-header-zone">Colombes · Hauts-de-Seine</span>
-        <a class="lp-phone" href="tel:+33184782830" data-track="estimate_phone_click">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-          01 84 78 28 30
-        </a>
+  <!-- NAV:CONFIG {"theme":"immobilier","tokens":{"HOME_PREFIX":"/","IMMOBILIER_ACTIVE_DESKTOP":" aria-current=\"page\"","IMMOBILIER_ACTIVE_MOBILE":" aria-current=\"page\"","CTA_HREF":"#estimer","CTA_LABEL":"Estimer mon bien","MOBILE_CTA_HREF":"#estimer","MOBILE_CTA_LABEL":"Estimer mon bien"},"items":{"temoignages":true}} -->
+<!-- NAV:START (bloc généré par scripts/build-header.js — ne pas éditer à la main, voir docs/NAVIGATION-PROACTIFS.md) -->
+<nav id="nav" aria-label="Navigation principale">
+  <a href="/" class="nav-logo"><img src="/images/proactifs-logo-header.png" alt="Proactifs Conseils"></a>
+  <ul class="nav-links">
+    <li class="nav-item nav-mega" data-nav="patrimoine">
+      <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="mega-patrimoine">Patrimoine <span class="chevron" aria-hidden="true">▾</span></button>
+      <div class="mega-panel mega-panel--4" id="mega-patrimoine">
+        <div class="mega-col">
+          <p class="mega-col-title">Gérer &amp; optimiser</p>
+          <a href="/bilan-patrimonial">Bilan patrimonial</a>
+          <a href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
+          <a href="/declaration-impots-ile-de-france">Déclaration d'impôts</a>
+        </div>
+        <div class="mega-col">
+          <p class="mega-col-title">Investir &amp; préparer</p>
+          <a href="/placements-financiers">Placements financiers</a>
+          <a href="/preparation-retraite">Préparation retraite</a>
+        </div>
+        <div class="mega-col">
+          <p class="mega-col-title">Transmettre</p>
+          <a href="/transmission">Transmission</a>
+        </div>
+        <div class="mega-col">
+          <p class="mega-col-title">Actionnariat salarié</p>
+          <a href="/fiscalite-rsu-stock-options">RSU &amp; actions gratuites</a>
+          <a href="/declaration-rsu-espp-france">Déclaration RSU &amp; ESPP</a>
+        </div>
       </div>
-    </div>
-  </header>
+    </li>
+    <li class="nav-item nav-mega nav-mega--immo" data-nav="immobilier">
+      <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="mega-immobilier" aria-current="page">Immobilier <span class="chevron" aria-hidden="true">▾</span></button>
+      <div class="mega-panel mega-panel--immo mega-panel--2" id="mega-immobilier">
+        <div class="mega-col">
+          <p class="mega-col-title">Vendre</p>
+          <a href="/immobilier">Vendre un bien immobilier</a>
+          <a href="/estimation">Estimation immobilière</a>
+          <a href="/immobilier/succession-colombes">Succession immobilière</a>
+          <a href="/immobilier/honoraires">Nos honoraires</a>
+        </div>
+        <div class="mega-col">
+          <p class="mega-col-title">Investir</p>
+          <a href="/investissement-immobilier">Investissement immobilier</a>
+          <a href="/investissement-immobilier-ancien">Immobilier ancien</a>
+          <a href="/investissement-scpi-hauts-de-seine">SCPI</a>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item nav-mega" data-nav="financement">
+      <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="mega-financement">Financement <span class="chevron" aria-hidden="true">▾</span></button>
+      <div class="mega-panel mega-panel--2" id="mega-financement">
+        <div class="mega-col">
+          <p class="mega-col-title">Financer votre projet</p>
+          <a href="/pret-immobilier">Prêt immobilier</a>
+        </div>
+        <div class="mega-col">
+          <p class="mega-col-title">Simuler votre financement</p>
+          <a href="/simulateurs">Tous les simulateurs</a>
+          <a href="/simulateurs/capacite-emprunt">Capacité d'emprunt</a>
+          <a href="/simulateurs/mensualite-credit">Mensualité de crédit</a>
+          <a href="/simulateurs/taux-endettement">Taux d'endettement</a>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item nav-drop" data-nav="entreprises">
+      <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="drop-entreprises">Entreprises &amp; Pro <span class="chevron" aria-hidden="true">▾</span></button>
+      <div class="drop-panel" id="drop-entreprises">
+        <a href="/cession-entreprise">Cession d'entreprise</a>
+      </div>
+    </li>
+    <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
+    <li class="nav-item"><a href="/cabinet" class="nav-link">Cabinet</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+  <a href="#estimer" class="nav-cta-btn">Estimer mon bien</a>
+</nav>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <!-- Niveau 1 -->
+  <div class="m-view m-view--root" data-view="root">
+    <button class="m-item m-parent" type="button" data-submenu="patrimoine" aria-expanded="false" aria-controls="m-patrimoine">Patrimoine <span class="m-caret" aria-hidden="true">›</span></button>
+    <button class="m-item m-parent" type="button" data-submenu="immobilier" aria-expanded="false" aria-controls="m-immobilier" aria-current="page">Immobilier <span class="m-caret" aria-hidden="true">›</span></button>
+    <button class="m-item m-parent" type="button" data-submenu="financement" aria-expanded="false" aria-controls="m-financement">Financement <span class="m-caret" aria-hidden="true">›</span></button>
+    <button class="m-item m-parent" type="button" data-submenu="entreprises" aria-expanded="false" aria-controls="m-entreprises">Entreprises &amp; Pro <span class="m-caret" aria-hidden="true">›</span></button>
+    <a class="m-item" href="/blog">Blog</a>
+    <a class="m-item" href="/cabinet">Cabinet</a>
+    <a class="m-cta" href="#estimer">Estimer mon bien</a>
+  </div>
+  <!-- Niveau 2 : Patrimoine -->
+  <div class="m-view m-view--sub" data-view="patrimoine" id="m-patrimoine" role="group" aria-label="Patrimoine">
+    <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
+    <p class="m-title">Patrimoine</p>
+    <p class="m-group">Gérer &amp; optimiser</p>
+    <a class="m-item" href="/bilan-patrimonial">Bilan patrimonial</a>
+    <a class="m-item" href="/optimisation-fiscale-ile-de-france">Optimisation fiscale</a>
+    <a class="m-item" href="/declaration-impots-ile-de-france">Déclaration d'impôts</a>
+    <p class="m-group">Investir &amp; préparer</p>
+    <a class="m-item" href="/placements-financiers">Placements financiers</a>
+    <a class="m-item" href="/preparation-retraite">Préparation retraite</a>
+    <p class="m-group">Transmettre</p>
+    <a class="m-item" href="/transmission">Transmission</a>
+    <p class="m-group">Actionnariat salarié</p>
+    <a class="m-item" href="/fiscalite-rsu-stock-options">RSU &amp; actions gratuites</a>
+    <a class="m-item" href="/declaration-rsu-espp-france">Déclaration RSU &amp; ESPP</a>
+  </div>
+  <!-- Niveau 2 : Immobilier -->
+  <div class="m-view m-view--sub" data-view="immobilier" id="m-immobilier" role="group" aria-label="Immobilier">
+    <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
+    <p class="m-title">Immobilier</p>
+    <p class="m-group">Vendre</p>
+    <a class="m-item" href="/immobilier">Vendre un bien immobilier</a>
+    <a class="m-item" href="/estimation">Estimation immobilière</a>
+    <a class="m-item" href="/immobilier/succession-colombes">Succession immobilière</a>
+    <a class="m-item" href="/immobilier/honoraires">Nos honoraires</a>
+    <p class="m-group">Investir</p>
+    <a class="m-item" href="/investissement-immobilier">Investissement immobilier</a>
+    <a class="m-item" href="/investissement-immobilier-ancien">Immobilier ancien</a>
+    <a class="m-item" href="/investissement-scpi-hauts-de-seine">SCPI</a>
+  </div>
+  <!-- Niveau 2 : Financement -->
+  <div class="m-view m-view--sub" data-view="financement" id="m-financement" role="group" aria-label="Financement">
+    <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
+    <p class="m-title">Financement</p>
+    <p class="m-group">Financer votre projet</p>
+    <a class="m-item" href="/pret-immobilier">Prêt immobilier</a>
+    <p class="m-group">Simuler votre financement</p>
+    <a class="m-item" href="/simulateurs">Tous les simulateurs</a>
+    <a class="m-item" href="/simulateurs/capacite-emprunt">Capacité d'emprunt</a>
+    <a class="m-item" href="/simulateurs/mensualite-credit">Mensualité de crédit</a>
+    <a class="m-item" href="/simulateurs/taux-endettement">Taux d'endettement</a>
+  </div>
+  <!-- Niveau 2 : Entreprises & Pro -->
+  <div class="m-view m-view--sub" data-view="entreprises" id="m-entreprises" role="group" aria-label="Entreprises &amp; Pro">
+    <button class="m-back" type="button" data-back aria-label="Retour au menu principal">← Retour</button>
+    <p class="m-title">Entreprises &amp; Pro</p>
+    <a class="m-item" href="/cession-entreprise">Cession d'entreprise</a>
+  </div>
+</div>
+<!-- NAV:END -->
 
   <main>
     <section class="hero" id="estimer">
@@ -756,5 +890,6 @@
     document.querySelectorAll('a[href="#estimer"]').forEach(a => a.addEventListener('click', () => setTimeout(() => { if (current === 1) addr.focus({ preventScroll: true }); }, 400)));
   })();
   </script>
+<script src="/assets/js/navigation.js" defer></script>
 </body>
 </html>
