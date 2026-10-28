@@ -36,10 +36,6 @@
       "destination": "/immobilier.html"
     },
     {
-      "source": "/mentions-legales",
-      "destination": "/mentions-legales.html"
-    },
-    {
       "source": "/estimation",
       "destination": "/estimation.html"
     },

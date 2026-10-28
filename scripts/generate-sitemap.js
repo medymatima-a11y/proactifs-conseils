@@ -22,7 +22,6 @@ const EXCLUDE = new Set([
   'merci-guide.html',
   'guide-5-erreurs-patrimoniaux.html', // landing lead magnet (ajuste si tu veux l'inclure)
   'merci-avis.html', // page de remerciement post-formulaire, pas de contenu public
-  'mentions-legales.html', // page légale en noindex
   'brevo-architecture-contacts.html', // note technique interne, pas une page du site
   'blog/blog-maquette-1-editorial.html', // maquette de test, jamais publiée
   'blog/blog-maquette-2-magazine.html', // maquette de test, jamais publiée
