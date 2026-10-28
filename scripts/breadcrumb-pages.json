@@ -29,21 +29,6 @@
       ]
     },
     {
-      "file": "immobilier/estimation-colombes.html",
-      "url": "/immobilier/estimation-colombes",
-      "label": "Estimation immobilière Colombes",
-      "trail": [
-        {
-          "label": "Accueil",
-          "url": "/"
-        },
-        {
-          "label": "Immobilier",
-          "url": "/immobilier"
-        }
-      ]
-    },
-    {
       "file": "investissement-immobilier.html",
       "url": "/investissement-immobilier",
       "label": "Investissement immobilier",
@@ -321,21 +306,6 @@
       "file": "blog/bspce-fiscalite-startup-2026.html",
       "url": "/blog/bspce-fiscalite-startup-2026",
       "label": "BSPCE : fiscalité startups 2026",
-      "trail": [
-        {
-          "label": "Accueil",
-          "url": "/"
-        },
-        {
-          "label": "Blog",
-          "url": "/blog"
-        }
-      ]
-    },
-    {
-      "file": "blog/conseiller-patrimoine-ile-de-france.html",
-      "url": "/blog/conseiller-patrimoine-ile-de-france",
-      "label": "Conseiller patrimoine Île-de-France",
       "trail": [
         {
           "label": "Accueil",
