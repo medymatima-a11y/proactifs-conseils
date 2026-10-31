@@ -518,7 +518,44 @@
       .err-list li { grid-template-columns: 44px 1fr; }
       .err-list li::before { font-size: 28px; }
     }
-</style>
+    /* ── Formulaire commercial RSU/ESPP (#contact-rsu) ── */
+    #contact-rsu { background: var(--sand); padding: 96px 40px; scroll-margin-top: 90px; }
+    #contact-rsu .rsu-wrap { max-width: 760px; margin: 0 auto; }
+    #contact-rsu .rsu-title { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 700; line-height: 1.2; margin: 0 0 16px; color: var(--ink); }
+    #contact-rsu .rsu-title em { color: var(--gold); font-style: italic; font-weight: 600; }
+    #contact-rsu .rsu-sub { font-size: 16px; color: var(--ink-soft); line-height: 1.7; margin: 0 0 36px; }
+    #contact-rsu form { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 36px; box-shadow: var(--shadow-md); }
+    .rsu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; }
+    .rsu-field { display: flex; flex-direction: column; gap: 6px; }
+    .rsu-field.full { grid-column: 1 / -1; }
+    .rsu-field label { font-size: 13px; font-weight: 600; color: var(--ink); }
+    .rsu-req { color: var(--gold); }
+    .rsu-field input, .rsu-field select, .rsu-field textarea { font: inherit; font-size: 15px; color: var(--ink); background: var(--ivory); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 12px 14px; min-height: 46px; width: 100%; box-sizing: border-box; }
+    .rsu-field textarea { min-height: 110px; resize: vertical; }
+    #contact-rsu input:focus, #contact-rsu select:focus, #contact-rsu textarea:focus { outline: 2px solid var(--gold); outline-offset: 2px; border-color: var(--gold); }
+    #contact-rsu [aria-invalid="true"] { border-color: #B42318; }
+    /* Hauteur réservée : l'apparition/disparition d'un message ne doit pas décaler le bouton (clic perdu). */
+    .rsu-err { font-size: 13px; line-height: 18px; min-height: 18px; color: #B42318; margin: 0; }
+    .rsu-hint { font-size: 12px; color: var(--slate); text-align: right; margin: 0; }
+    .rsu-consent { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--ink-soft); line-height: 1.6; margin-top: 8px; }
+    .rsu-consent input { margin-top: 4px; width: 18px; height: 18px; flex: 0 0 auto; accent-color: var(--gold); }
+    .rsu-consent a { color: var(--teal); }
+    .rsu-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+    .rsu-actions { margin-top: 28px; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+    #contact-rsu .btn-primary { cursor: pointer; border: none; font-family: inherit; }
+    .rsu-status { margin: 0; font-size: 14px; line-height: 1.6; }
+    .rsu-status-error { color: #B42318; }
+    .rsu-status-info { color: var(--ink-soft); background: var(--gold-pale); border-radius: var(--r-sm); padding: 12px 14px; }
+    @media (max-width: 768px) {
+      #contact-rsu { padding: 56px 16px; }
+      #contact-rsu .rsu-title { font-size: 30px; margin-bottom: 12px; }
+      #contact-rsu .rsu-sub { margin-bottom: 28px; }
+      #contact-rsu form { padding: 22px 18px; }
+      .rsu-grid { grid-template-columns: 1fr; gap: 16px; }
+      .rsu-actions { margin-top: 24px; }
+      #contact-rsu .btn-primary { width: 100%; text-align: center; }
+    }
+  </style>
   <!-- Google tag (gtag.js) -->
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -1062,9 +1099,94 @@
       <p class="cta-lead" style="margin-bottom:36px;">Faisons le point ensemble sur ce que vous détenez, sur les conséquences à analyser et sur la place de ce capital dans vos projets.</p>
       <div class="cta-actions">
         <button type="button" class="btn-primary" onclick="openActioWizard()">Faire mon diagnostic RSU &amp; Stock-options</button>
-        <a href="/bilan-patrimonial" class="btn-primary-light">Prendre rendez-vous</a>
+        <a href="#contact-rsu" class="btn-primary-light">Demander une analyse de ma situation</a>
       </div>
       <p class="cta-sign">Proactifs Conseils. De vos actions d'entreprise à votre patrimoine personnel.</p>
+    </div>
+  </section>
+
+  <section id="contact-rsu" aria-labelledby="contact-rsu-title">
+    <div class="rsu-wrap">
+      <div class="sec-label">Demande d'analyse</div>
+      <h2 id="contact-rsu-title" class="rsu-title">Vos RSU, ESPP ou stock-options soulèvent des <em>questions fiscales ?</em></h2>
+      <p class="rsu-sub">Décrivez-nous votre situation en quelques instants. Nous reviendrons vers vous pour échanger sur les points à analyser et les solutions adaptées à votre situation.</p>
+
+      <form id="rsuForm" novalidate>
+        <div class="rsu-grid">
+          <div class="rsu-field">
+            <label for="rsu-nom">Nom <span class="rsu-req" aria-hidden="true">*</span></label>
+            <input id="rsu-nom" name="nom" type="text" autocomplete="name" maxlength="80" required aria-describedby="rsu-nom-err">
+            <p id="rsu-nom-err" class="rsu-err" aria-live="polite"></p>
+          </div>
+          <div class="rsu-field">
+            <label for="rsu-email">Email <span class="rsu-req" aria-hidden="true">*</span></label>
+            <input id="rsu-email" name="email" type="email" autocomplete="email" maxlength="160" required aria-describedby="rsu-email-err">
+            <p id="rsu-email-err" class="rsu-err" aria-live="polite"></p>
+          </div>
+          <div class="rsu-field">
+            <label for="rsu-tel">Téléphone <span>(facultatif)</span></label>
+            <input id="rsu-tel" name="telephone" type="tel" autocomplete="tel" aria-describedby="rsu-tel-err">
+            <p id="rsu-tel-err" class="rsu-err" aria-live="polite"></p>
+          </div>
+          <div class="rsu-field">
+            <label for="rsu-dispositif">Dispositif <span class="rsu-req" aria-hidden="true">*</span></label>
+            <select id="rsu-dispositif" name="dispositif" required aria-describedby="rsu-dispositif-err">
+              <option value="">Sélectionnez</option>
+              <option>RSU / actions gratuites</option>
+              <option>ESPP</option>
+              <option>Stock-options</option>
+              <option>Plusieurs dispositifs</option>
+              <option>Autre</option>
+            </select>
+            <p id="rsu-dispositif-err" class="rsu-err" aria-live="polite"></p>
+          </div>
+          <div class="rsu-field">
+            <label for="rsu-besoin">Besoin <span class="rsu-req" aria-hidden="true">*</span></label>
+            <select id="rsu-besoin" name="besoin" required aria-describedby="rsu-besoin-err">
+              <option value="">Sélectionnez</option>
+              <option>Comprendre la fiscalité</option>
+              <option>Préparer une vente</option>
+              <option>Déclaration fiscale</option>
+              <option>Mobilité internationale</option>
+              <option>Autre</option>
+            </select>
+            <p id="rsu-besoin-err" class="rsu-err" aria-live="polite"></p>
+          </div>
+          <div class="rsu-field full">
+            <label for="rsu-echeance">Échéance <span class="rsu-req" aria-hidden="true">*</span></label>
+            <select id="rsu-echeance" name="echeance" required aria-describedby="rsu-echeance-err">
+              <option value="">Sélectionnez</option>
+              <option>Dès que possible</option>
+              <option>Dans les prochaines semaines</option>
+              <option>Simple prise d'information</option>
+            </select>
+            <p id="rsu-echeance-err" class="rsu-err" aria-live="polite"></p>
+          </div>
+          <div class="rsu-field full">
+            <label for="rsu-commentaire">Commentaire <span>(facultatif)</span></label>
+            <textarea id="rsu-commentaire" name="commentaire" maxlength="600" aria-describedby="rsu-commentaire-hint"></textarea>
+            <p id="rsu-commentaire-hint" class="rsu-hint"><span id="rsu-count">0</span> / 600</p>
+          </div>
+        </div>
+
+        <div class="rsu-field full" style="margin-top:20px">
+          <label class="rsu-consent" style="font-weight:400">
+            <input id="rsu-consent" name="consent" type="checkbox" required aria-describedby="rsu-consent-err">
+            <span>J'accepte que Proactifs Conseils utilise les informations transmises pour répondre à ma demande, conformément à sa <a href="/confidentialite">politique de confidentialité</a>. <span class="rsu-req" aria-hidden="true">*</span></span>
+          </label>
+          <p id="rsu-consent-err" class="rsu-err" aria-live="polite"></p>
+        </div>
+
+        <div class="rsu-hp" aria-hidden="true">
+          <label for="rsu-website">Ne pas remplir</label>
+          <input id="rsu-website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="rsu-actions">
+          <button type="submit" class="btn-primary">Demander une analyse de ma situation</button>
+          <p class="rsu-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
     </div>
   </section>
 
@@ -1280,8 +1402,17 @@
       }).filter(Boolean).join(' | ');
     }
     let actioSending = false;
+    /* Garde-fou : envois désactivés hors domaines de production (previews Vercel, local). */
+    const PC_PROD_HOSTS = ['proactifsconseils.fr', 'www.proactifsconseils.fr', 'pret-immobilier.proactifsconseils.fr'];
+    function actioIsProdHost() { return PC_PROD_HOSTS.indexOf(location.hostname) !== -1; }
     async function actioWizSubmit() {
       if (actioSending) return;
+      if (!actioIsProdHost()) {
+        const e0 = document.getElementById('wizError');
+        e0.textContent = 'Envois désactivés en environnement de test : aucune donnée n\'a été enregistrée.';
+        e0.style.display = 'block';
+        return;
+      }
       const prenom = document.getElementById('wPrenom').value.trim();
       const nom = document.getElementById('wNom').value.trim();
       const email = document.getElementById('wEmail').value.trim();
@@ -1354,5 +1485,120 @@
     }
   </script>
 <script src="/assets/js/navigation.js" defer></script>
+  <script>
+  /* Formulaire RSU/ESPP.
+     Transmission ACTIVE uniquement sur le Preview TEST explicitement listé ci-dessous.
+     Domaine public (proactifsconseils.fr) et tout autre hôte : aucune donnée transmise,
+     ni à Supabase, ni à Brevo, ni à Systeme.io, ni à GA4. */
+  (function () {
+    var RSU_PREVIEW_TEST_HOSTS = ['proactifs-conseils-git-feat-rsu-form-preview-medymatima-a11ys-projects.vercel.app'];
+    var RSU_TRANSMISSION_ACTIVE = RSU_PREVIEW_TEST_HOSTS.indexOf(location.hostname) !== -1;
+    var RSU_ENDPOINT = '/api/rsu-request';
+    var sending = false, sent = false;
+    var form = document.getElementById('rsuForm');
+    if (!form) return;
+    var statusEl = form.querySelector('.rsu-status');
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var RULES = [
+      { name: 'nom', msg: 'Indiquez votre nom.' },
+      { name: 'email', msg: 'Indiquez votre adresse email.', check: function (v) { return EMAIL_RE.test(v); }, badMsg: 'Adresse email invalide.' },
+      { name: 'dispositif', msg: 'Sélectionnez votre dispositif.' },
+      { name: 'besoin', msg: 'Sélectionnez votre besoin.' },
+      { name: 'echeance', msg: 'Sélectionnez une échéance.' },
+      { name: 'consent', msg: 'Cochez cette case pour que nous puissions traiter votre demande.', checkbox: true }
+    ];
+    function setError(el, text) {
+      var box = document.getElementById(el.id + '-err');
+      if (box) box.textContent = text || '';
+      if (text) el.setAttribute('aria-invalid', 'true'); else el.removeAttribute('aria-invalid');
+    }
+    function check(rule) {
+      var el = form.elements[rule.name];
+      if (!el) return null;
+      var ok = rule.checkbox ? el.checked : (el.value || '').trim() !== '';
+      if (ok && rule.check) ok = rule.check(el.value.trim());
+      var text = ok ? '' : (rule.badMsg && (el.value || '').trim() !== '' ? rule.badMsg : rule.msg);
+      setError(el, text);
+      return ok ? null : el;
+    }
+    var counter = document.getElementById('rsu-count');
+    var textarea = document.getElementById('rsu-commentaire');
+    if (textarea && counter) textarea.addEventListener('input', function () { counter.textContent = textarea.value.length; });
+    RULES.forEach(function (rule) {
+      var el = form.elements[rule.name];
+      if (el) el.addEventListener('blur', function () { if (el.value || el.checked) check(rule); });
+    });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      statusEl.className = 'rsu-status';
+      statusEl.textContent = '';
+      // Champ piège : un robot qui le remplit n'obtient aucune réponse exploitable.
+      if (form.elements.website && form.elements.website.value) return;
+      var first = null;
+      RULES.forEach(function (rule) { var bad = check(rule); if (bad && !first) first = bad; });
+      if (first) {
+        first.focus();
+        statusEl.className = 'rsu-status rsu-status-error';
+        statusEl.textContent = 'Merci de corriger les champs signalés.';
+        return;
+      }
+      if (!RSU_TRANSMISSION_ACTIVE) {
+        statusEl.className = 'rsu-status rsu-status-info';
+        statusEl.textContent = 'Transmission non activée : aucune demande n\'a été envoyée. Cette section est en attente de validation.';
+        return;
+      }
+      if (sending || sent) return; // anti double soumission
+      sending = true;
+      var btn = form.querySelector('button[type="submit"]');
+      if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
+      statusEl.className = 'rsu-status';
+      statusEl.textContent = 'Envoi en cours…';
+
+      var payload = {
+        nom: form.elements.nom.value.trim(),
+        email: form.elements.email.value.trim(),
+        telephone: form.elements.telephone.value.trim(),
+        dispositif: form.elements.dispositif.value,
+        besoin: form.elements.besoin.value,
+        echeance: form.elements.echeance.value,
+        commentaire: form.elements.commentaire.value.trim(),
+        consent: form.elements.consent.checked === true,
+        captchaToken: (form.querySelector('[name="cf-turnstile-response"]') || {}).value || '',
+        website: ''
+      };
+      var ctrl = typeof AbortController === 'function' ? new AbortController() : null;
+      var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 15000) : null;
+
+      fetch(RSU_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: ctrl ? ctrl.signal : undefined
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, status: r.status, d: d }; });
+      }).then(function (res) {
+        if (res.ok && res.d && res.d.success === true) {
+          // Succès confirmé par le serveur uniquement.
+          sent = true;
+          statusEl.className = 'rsu-status rsu-status-info';
+          statusEl.textContent = 'Votre demande a bien été reçue. Nous revenons vers vous rapidement.';
+          if (btn) { btn.disabled = true; btn.textContent = 'Demande envoyée'; }
+          try { if (typeof gtag === 'function') gtag('event', 'generate_lead', { form_name: 'rsu_contact' }); } catch (e) { /* ne jamais bloquer */ }
+          return;
+        }
+        var msg = (res.d && res.d.error) || 'Votre demande n\'a pas pu être enregistrée. Merci de réessayer ou de nous appeler au 01 84 78 28 30.';
+        statusEl.className = 'rsu-status rsu-status-error';
+        statusEl.textContent = msg;
+      }).catch(function () {
+        statusEl.className = 'rsu-status rsu-status-error';
+        statusEl.textContent = 'Connexion impossible. Votre demande n\'a pas été envoyée : merci de réessayer.';
+      }).then(function () {
+        if (timer) clearTimeout(timer);
+        sending = false;
+        if (!sent && btn) { btn.disabled = false; btn.textContent = 'Demander une analyse de ma situation'; }
+      });
+    });
+  })();
+  </script>
 </body>
 </html>
