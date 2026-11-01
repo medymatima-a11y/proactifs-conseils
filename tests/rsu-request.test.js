@@ -11,9 +11,13 @@ const { checkTarget, verifyCaptcha, validate } = handler;
 
 const T = 'b'.repeat(20); // référence TEST factice
 const P = 'a'.repeat(20); // référence PROD factice
-const ENV_KEYS = ['VERCEL_ENV', 'SUPABASE_URL', 'SUPABASE_SERVICE_KEY', 'RSU_TEST_SUPABASE_REF', 'RSU_PROD_SUPABASE_REF',
+const ENV_KEYS = ['VERCEL_ENV', 'SUPABASE_URL', 'SUPABASE_SERVICE_KEY', 'RSU_TEST_SUPABASE_URL', 'RSU_TEST_SUPABASE_SERVICE_KEY',
+  'RSU_TEST_SUPABASE_REF', 'RSU_PROD_SUPABASE_REF',
   'RSU_PROD_ENABLED', 'RSU_TURNSTILE_SECRET', 'RSU_DAILY_CAP', 'RSU_TX_BREVO_API_KEY', 'RSU_NOTIFY_TO'];
-const PREVIEW_ENV = { VERCEL_ENV: 'preview', SUPABASE_URL: `https://${T}.supabase.co`, SUPABASE_SERVICE_KEY: 'cle-factice-test',
+// Preview : variables TEST dédiées + variables production présentes (cas réaliste : elles ne doivent jamais servir).
+const PREVIEW_ENV = { VERCEL_ENV: 'preview',
+  RSU_TEST_SUPABASE_URL: `https://${T}.supabase.co`, RSU_TEST_SUPABASE_SERVICE_KEY: 'cle-factice-test',
+  SUPABASE_URL: `https://${P}.supabase.co`, SUPABASE_SERVICE_KEY: 'cle-factice-prod',
   RSU_TEST_SUPABASE_REF: T, RSU_PROD_SUPABASE_REF: P };
 const PROD_ENV = { ...PREVIEW_ENV, VERCEL_ENV: 'production', SUPABASE_URL: `https://${P}.supabase.co` };
 
@@ -80,17 +84,35 @@ test("production avec RSU_PROD_ENABLED='false' : refus", () => {
   assert.strictEqual(checkTarget({ ...PROD_ENV, RSU_PROD_ENABLED: 'false' }).reason, 'prod_desactivee');
 });
 test("production avec RSU_PROD_ENABLED='true' et référence PROD exacte : autorisée", () => {
-  assert.deepStrictEqual(checkTarget({ ...PROD_ENV, RSU_PROD_ENABLED: 'true' }), { ok: true, mode: 'production' });
+  const r = checkTarget({ ...PROD_ENV, RSU_PROD_ENABLED: 'true' });
+  assert.strictEqual(r.ok, true);
+  assert.strictEqual(r.mode, 'production');
+  assert.strictEqual(r.url, `https://${P}.supabase.co`);
+  assert.strictEqual(r.key, 'cle-factice-prod');
 });
 test('production activée mais pointant TEST : refus', () => {
   const r = checkTarget({ ...PROD_ENV, RSU_PROD_ENABLED: 'true', SUPABASE_URL: `https://${T}.supabase.co` });
   assert.strictEqual(r.ok, false);
 });
-test('preview vers TEST exact : autorisé', () => {
-  assert.deepStrictEqual(checkTarget({ ...PREVIEW_ENV }), { ok: true, mode: 'preview_test' });
+test('preview vers TEST exact : autorisé, cible = variables TEST uniquement', () => {
+  const r = checkTarget({ ...PREVIEW_ENV });
+  assert.strictEqual(r.ok, true);
+  assert.strictEqual(r.mode, 'preview_test');
+  assert.strictEqual(r.url, `https://${T}.supabase.co`);
+  assert.strictEqual(r.key, 'cle-factice-test');
 });
 test('preview pointant PROD : refus', () => {
-  assert.strictEqual(checkTarget({ ...PREVIEW_ENV, SUPABASE_URL: `https://${P}.supabase.co` }).reason, 'preview_pointe_production');
+  assert.strictEqual(checkTarget({ ...PREVIEW_ENV, RSU_TEST_SUPABASE_URL: `https://${P}.supabase.co` }).reason, 'preview_pointe_production');
+});
+test('preview sans variables TEST : refus, aucun repli vers SUPABASE_URL de production', () => {
+  const r = checkTarget({ ...PREVIEW_ENV, RSU_TEST_SUPABASE_URL: undefined, RSU_TEST_SUPABASE_SERVICE_KEY: undefined });
+  assert.strictEqual(r.ok, false);
+  assert.strictEqual(r.reason, 'rsu_test_url_invalide');
+});
+test('preview avec clé TEST absente mais clé production présente : refus, aucun repli', () => {
+  const r = checkTarget({ ...PREVIEW_ENV, RSU_TEST_SUPABASE_SERVICE_KEY: '' });
+  assert.strictEqual(r.ok, false);
+  assert.strictEqual(r.reason, 'rsu_test_cle_absente');
 });
 test('environnement inconnu : refus', () => {
   assert.strictEqual(checkTarget({ ...PREVIEW_ENV, VERCEL_ENV: 'development' }).reason, 'environnement_non_autorise');

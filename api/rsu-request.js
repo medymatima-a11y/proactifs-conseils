@@ -11,8 +11,11 @@
      uniquement vers le projet TEST exact (RSU_TEST_SUPABASE_REF). Sinon refus, aucune écriture.
 
    Variables d'environnement (côté serveur uniquement) :
-   - SUPABASE_URL           déjà utilisée par les autres endpoints
-   - SUPABASE_SERVICE_KEY   déjà utilisée par les autres endpoints (jamais exposée au navigateur)
+   - SUPABASE_URL                production, base de production (jamais lue en Preview)
+   - SUPABASE_SERVICE_KEY        production, clé service (jamais lue en Preview)
+   - RSU_TEST_SUPABASE_URL       Preview uniquement : URL du projet TEST
+   - RSU_TEST_SUPABASE_SERVICE_KEY  Preview uniquement : clé service du projet TEST (Sensitive)
+   - RSU_TEST_SUPABASE_REF / RSU_PROD_SUPABASE_REF  références attendues (les deux, différentes)
    - RSU_DAILY_CAP          optionnel, nombre max de demandes par jour (défaut 50)
    - RSU_PROD_ENABLED       écritures en PRODUCTION refusées tant que != 'true' (défaut : refus)
    - RSU_TURNSTILE_SECRET   optionnel. Si défini, jeton anti-robot Cloudflare Turnstile obligatoire
@@ -102,26 +105,33 @@ function projectRefFromUrl(u) {
   return m ? m[1] : null;
 }
 // Exigences : les DEUX références présentes, valides et différentes, dans tous les environnements.
-// Production : seule la correspondance exacte avec RSU_PROD_SUPABASE_REF est autorisée.
-// Preview : seule la correspondance exacte avec RSU_TEST_SUPABASE_REF est autorisée.
+// Production : URL et clé lues sur SUPABASE_URL / SUPABASE_SERVICE_KEY. Écriture seulement si la
+//   référence est exactement RSU_PROD_SUPABASE_REF et RSU_PROD_ENABLED = 'true'.
+// Preview : URL et clé lues UNIQUEMENT sur RSU_TEST_SUPABASE_URL / RSU_TEST_SUPABASE_SERVICE_KEY.
+//   Aucun repli vers SUPABASE_URL ni SUPABASE_SERVICE_KEY : si une variable TEST manque, refus.
+// Retour : { ok, mode, url, key }. url et key servent uniquement à l'appel serveur, jamais aux logs.
 function checkTarget(env) {
   const vercelEnv = env.VERCEL_ENV;
   if (vercelEnv !== 'production' && vercelEnv !== 'preview') return { ok: false, reason: 'environnement_non_autorise' };
   // Production : refus explicite tant que l'activation n'est pas décidée (variable dédiée).
   if (vercelEnv === 'production' && env.RSU_PROD_ENABLED !== 'true') return { ok: false, reason: 'prod_desactivee' };
-  const ref = projectRefFromUrl(env.SUPABASE_URL);
-  if (!ref) return { ok: false, reason: 'supabase_url_invalide' };
   const testRef = String(env.RSU_TEST_SUPABASE_REF || '');
   const prodRef = String(env.RSU_PROD_SUPABASE_REF || '');
   if (!SUPABASE_REF_RE.test(testRef)) return { ok: false, reason: 'ref_test_absente_ou_invalide' };
   if (!SUPABASE_REF_RE.test(prodRef)) return { ok: false, reason: 'ref_prod_absente_ou_invalide' };
   if (testRef === prodRef) return { ok: false, reason: 'refs_identiques' };
   if (vercelEnv === 'production') {
+    const ref = projectRefFromUrl(env.SUPABASE_URL);
+    if (!ref) return { ok: false, reason: 'supabase_url_invalide' };
     if (ref !== prodRef) return { ok: false, reason: ref === testRef ? 'production_pointe_test' : 'ref_different_de_la_production' };
-    return { ok: true, mode: 'production' };
+    if (!env.SUPABASE_SERVICE_KEY) return { ok: false, reason: 'cle_production_absente' };
+    return { ok: true, mode: 'production', url: env.SUPABASE_URL, key: env.SUPABASE_SERVICE_KEY };
   }
+  const ref = projectRefFromUrl(env.RSU_TEST_SUPABASE_URL);
+  if (!ref) return { ok: false, reason: 'rsu_test_url_invalide' };
   if (ref !== testRef) return { ok: false, reason: ref === prodRef ? 'preview_pointe_production' : 'ref_different_du_test' };
-  return { ok: true, mode: 'preview_test' };
+  if (!env.RSU_TEST_SUPABASE_SERVICE_KEY) return { ok: false, reason: 'rsu_test_cle_absente' };
+  return { ok: true, mode: 'preview_test', url: env.RSU_TEST_SUPABASE_URL, key: env.RSU_TEST_SUPABASE_SERVICE_KEY };
 }
 
 // Anti-robot serveur (Cloudflare Turnstile). Inactif tant que RSU_TURNSTILE_SECRET n'est pas défini.
@@ -240,12 +250,9 @@ module.exports = async (req, res) => {
     return res.status(captcha.status).json({ error: 'Vérification anti-robot échouée. Merci de réessayer.', code: 'CAPTCHA' });
   }
 
-  const sbUrl = process.env.SUPABASE_URL;
-  const sbKey = process.env.SUPABASE_SERVICE_KEY;
-  if (!sbUrl || !sbKey) {
-    console.error('Missing SUPABASE_URL or SUPABASE_SERVICE_KEY');
-    return res.status(500).json({ error: 'Configuration serveur manquante' });
-  }
+  // URL et clé issues de checkTarget() : la même décision valide la cible et les identifiants.
+  const sbUrl = target.url;
+  const sbKey = target.key;
 
   // Limites : par email et par jour, puis plafond global. Échec de comptage = refus (fail closed).
   const since = `gte.${startOfTodayIso()}`;
