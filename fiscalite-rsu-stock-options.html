@@ -1182,6 +1182,11 @@
           <input id="rsu-website" name="website" type="text" tabindex="-1" autocomplete="off">
         </div>
 
+        <div id="rsu-captcha-wrap" class="rsu-field full" style="display:none;margin-top:20px">
+          <div id="rsu-captcha" aria-label="Vérification anti-robot"></div>
+          <p id="rsu-captcha-err" class="rsu-err" aria-live="polite"></p>
+        </div>
+
         <div class="rsu-actions">
           <button type="submit" class="btn-primary">Demander une analyse de ma situation</button>
           <p class="rsu-status" role="status" aria-live="polite"></p>
@@ -1498,6 +1503,46 @@
     var form = document.getElementById('rsuForm');
     if (!form) return;
     var statusEl = form.querySelector('.rsu-status');
+    // Anti-robot Cloudflare Turnstile (mode explicite). Chargé uniquement sur le Preview TEST.
+    var captchaId = null, captchaReady = false;
+    var captchaWrap = document.getElementById('rsu-captcha-wrap');
+    var captchaErr = document.getElementById('rsu-captcha-err');
+    function loadTurnstile() {
+      return new Promise(function (resolve, reject) {
+        if (window.turnstile) return resolve();
+        var s = document.createElement('script');
+        s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+        s.async = true;
+        s.onload = function () { resolve(); };
+        s.onerror = function () { reject(new Error('turnstile_load')); };
+        document.head.appendChild(s);
+      });
+    }
+    function initCaptcha() {
+      if (captchaWrap) captchaWrap.style.display = 'block';
+      fetch('/api/rsu-config', { headers: { Accept: 'application/json' } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (cfg) {
+          if (!cfg || !cfg.turnstileSiteKey) throw new Error('turnstile_key_absente');
+          return loadTurnstile().then(function () { return cfg.turnstileSiteKey; });
+        })
+        .then(function (siteKey) {
+          captchaId = window.turnstile.render('#rsu-captcha', {
+            sitekey: siteKey,
+            action: 'rsu_request',
+            theme: 'light',
+            size: 'flexible',
+            callback: function () { if (captchaErr) captchaErr.textContent = ''; },
+            'expired-callback': function () { if (captchaErr) captchaErr.textContent = 'La vérification a expiré. Merci de la refaire.'; },
+            'error-callback': function () { if (captchaErr) captchaErr.textContent = 'La vérification anti-robot a échoué. Merci de réessayer.'; }
+          });
+          captchaReady = true;
+        })
+        .catch(function () {
+          if (captchaErr) captchaErr.textContent = 'Vérification anti-robot indisponible. Merci de réessayer ou de nous appeler au 01 84 78 28 30.';
+        });
+    }
+    if (RSU_TRANSMISSION_ACTIVE) initCaptcha();
     var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     var RULES = [
       { name: 'nom', msg: 'Indiquez votre nom.' },
@@ -1548,6 +1593,15 @@
         return;
       }
       if (sending || sent) return; // anti double soumission
+      // Jeton anti-robot : un jeton est à usage unique, lu au moment de l'envoi.
+      var captchaToken = (captchaId !== null && window.turnstile) ? (window.turnstile.getResponse(captchaId) || '') : '';
+      if (!captchaToken) {
+        statusEl.className = 'rsu-status rsu-status-error';
+        statusEl.textContent = captchaReady
+          ? 'Merci de valider la vérification anti-robot.'
+          : 'Vérification anti-robot indisponible. Merci de réessayer ou de nous appeler.';
+        return;
+      }
       sending = true;
       var btn = form.querySelector('button[type="submit"]');
       if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
@@ -1563,7 +1617,7 @@
         echeance: form.elements.echeance.value,
         commentaire: form.elements.commentaire.value.trim(),
         consent: form.elements.consent.checked === true,
-        captchaToken: (form.querySelector('[name="cf-turnstile-response"]') || {}).value || '',
+        captchaToken: captchaToken,
         website: ''
       };
       var ctrl = typeof AbortController === 'function' ? new AbortController() : null;
@@ -1596,6 +1650,8 @@
         if (timer) clearTimeout(timer);
         sending = false;
         if (!sent && btn) { btn.disabled = false; btn.textContent = 'Demander une analyse de ma situation'; }
+        // Jeton consommé ou refusé : nouvelle vérification avant tout nouvel essai.
+        if (!sent && captchaId !== null && window.turnstile) { try { window.turnstile.reset(captchaId); } catch (e) { /* ne jamais bloquer */ } }
       });
     });
   })();

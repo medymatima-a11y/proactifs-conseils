@@ -7,18 +7,22 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
 const handler = require(path.join(ROOT, 'api', 'rsu-request.js'));
-const { checkTarget, verifyCaptcha, validate } = handler;
+const { checkTarget, verifyCaptcha, validate, TURNSTILE_ACTION } = handler;
+const configHandler = require(path.join(ROOT, 'api', 'rsu-config.js'));
 
 const T = 'b'.repeat(20); // référence TEST factice
 const P = 'a'.repeat(20); // référence PROD factice
+const ORIGIN_HOST = 'proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-projects.vercel.app';
 const ENV_KEYS = ['VERCEL_ENV', 'SUPABASE_URL', 'SUPABASE_SERVICE_KEY', 'RSU_TEST_SUPABASE_URL', 'RSU_TEST_SUPABASE_SERVICE_KEY',
   'RSU_TEST_SUPABASE_REF', 'RSU_PROD_SUPABASE_REF',
-  'RSU_PROD_ENABLED', 'RSU_TURNSTILE_SECRET', 'RSU_DAILY_CAP', 'RSU_TX_BREVO_API_KEY', 'RSU_NOTIFY_TO'];
+  'RSU_PROD_ENABLED', 'RSU_TURNSTILE_SECRET', 'RSU_TURNSTILE_SITE_KEY', 'RSU_DAILY_CAP', 'RSU_TX_BREVO_API_KEY', 'RSU_NOTIFY_TO'];
 // Preview : variables TEST dédiées + variables production présentes (cas réaliste : elles ne doivent jamais servir).
 const PREVIEW_ENV = { VERCEL_ENV: 'preview',
   RSU_TEST_SUPABASE_URL: `https://${T}.supabase.co`, RSU_TEST_SUPABASE_SERVICE_KEY: 'cle-factice-test',
   SUPABASE_URL: `https://${P}.supabase.co`, SUPABASE_SERVICE_KEY: 'cle-factice-prod',
-  RSU_TEST_SUPABASE_REF: T, RSU_PROD_SUPABASE_REF: P };
+  RSU_TEST_SUPABASE_REF: T, RSU_PROD_SUPABASE_REF: P, RSU_TURNSTILE_SECRET: 'secret-factice-test' };
+// Environnement sans secret Turnstile (clé omise, pas de valeur « undefined »).
+const { RSU_TURNSTILE_SECRET: _omitted, ...PREVIEW_NO_SECRET } = PREVIEW_ENV;
 const PROD_ENV = { ...PREVIEW_ENV, VERCEL_ENV: 'production', SUPABASE_URL: `https://${P}.supabase.co` };
 
 function withEnv(vars, fn) {
@@ -47,10 +51,15 @@ const json = (obj, status = 200) => new Response(JSON.stringify(obj), { status, 
 const inserts = (calls) => calls.filter(c => c.method === 'POST' && c.url.includes('/rest/v1/rsu_requests'));
 const count = (n) => new Response('[]', { status: 200, headers: { 'content-range': `0-0/${n}` } });
 
-// Répondeur par défaut : Turnstile valide, comptages à zéro, insertion acceptée.
+// Répondeur par défaut : Turnstile valide (hôte et action attendus), comptages à zéro, insertion acceptée.
 function defaultResponder(opts = {}) {
   return (url, o) => {
-    if (url.includes('challenges.cloudflare.com')) return json({ success: opts.turnstile !== false });
+    if (url.includes('challenges.cloudflare.com')) {
+      if (opts.cfDown) throw new Error('réseau');
+      if (opts.cfStatus) return new Response('', { status: opts.cfStatus });
+      if (opts.turnstile === false) return json({ success: false, 'error-codes': opts.codes || ['invalid-input-response'] });
+      return json({ success: true, hostname: opts.hostname ?? ORIGIN_HOST, action: opts.action ?? 'rsu_request' });
+    }
     if (url.includes('/rest/v1/rsu_requests') && (o.method || 'GET') === 'GET') {
       if (url.includes('email=eq.')) return count(opts.perEmail ?? 0);
       return count(opts.total ?? 0);
@@ -60,8 +69,8 @@ function defaultResponder(opts = {}) {
   };
 }
 const VALID = { nom: 'Test RSU', email: 'test-rsu@example.com', telephone: '06 00 00 00 01', dispositif: 'ESPP',
-  besoin: 'Autre', echeance: "Simple prise d'information", commentaire: '', consent: true, website: '' };
-const ORIGIN = 'https://proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-projects.vercel.app';
+  besoin: 'Autre', echeance: "Simple prise d'information", commentaire: '', consent: true, website: '', captchaToken: 'jeton-factice-valide' };
+const ORIGIN = `https://${ORIGIN_HOST}`;
 
 async function run({ env, body = VALID, method = 'POST', origin = ORIGIN, responder = defaultResponder() }) {
   return withEnv(env, async () => {
@@ -146,36 +155,113 @@ test('consentement absent : 400, aucun appel', async () => {
 });
 
 // ── 3. Anti-robot (Turnstile) ─────────────────────────────────────────────────
-test('Turnstile non défini : aucun appel Cloudflare, enregistrement possible', async () => {
-  const { res, calls } = await run({ env: { ...PREVIEW_ENV } });
-  assert.strictEqual(res.statusCode, 200);
-  assert.ok(!calls.some(c => c.url.includes('challenges.cloudflare.com')));
+// Appel direct de verifyCaptcha avec un répondeur Cloudflare simulé.
+async function captchaWith(responder, { secret = 's', token = 'jeton-factice', host = ORIGIN_HOST } = {}) {
+  const f = stubFetch(responder);
+  try {
+    const r = await withEnv(secret === null ? {} : { RSU_TURNSTILE_SECRET: secret },
+      () => verifyCaptcha(process.env, token, host));
+    return { r, calls: f.calls };
+  } finally { f.restore(); }
+}
+const siteverify = (calls) => calls.filter(c => c.url.includes('challenges.cloudflare.com'));
+
+test('Turnstile sans secret (absent ou vide) : 503 CONFIG_CAPTCHA, aucun appel, aucune insertion (fail closed)', async () => {
+  for (const env of [PREVIEW_NO_SECRET, { ...PREVIEW_ENV, RSU_TURNSTILE_SECRET: '   ' }]) {
+    const { res, calls } = await run({ env });
+    assert.strictEqual(res.statusCode, 503);
+    assert.strictEqual(res.body.code, 'CONFIG_CAPTCHA');
+    assert.strictEqual(calls.length, 0);
+  }
 });
-test('Turnstile défini, jeton absent : 400 CAPTCHA, aucun appel', async () => {
-  const { res, calls } = await run({ env: { ...PREVIEW_ENV, RSU_TURNSTILE_SECRET: 'secret-factice' } });
+test('Turnstile, jeton absent : 400 CAPTCHA, aucun appel Cloudflare, aucune insertion', async () => {
+  const { res, calls } = await run({ env: { ...PREVIEW_ENV }, body: { ...VALID, captchaToken: '' } });
   assert.strictEqual(res.statusCode, 400);
   assert.strictEqual(res.body.code, 'CAPTCHA');
   assert.strictEqual(calls.length, 0);
 });
-test('Turnstile défini, jeton refusé par Cloudflare : 400, aucune insertion', async () => {
-  const { res, calls } = await run({ env: { ...PREVIEW_ENV, RSU_TURNSTILE_SECRET: 's' }, body: { ...VALID, captchaToken: 'jeton' },
-    responder: defaultResponder({ turnstile: false }) });
+test('Turnstile, jeton refusé par Cloudflare : 400, aucune insertion', async () => {
+  const { res, calls } = await run({ env: { ...PREVIEW_ENV }, responder: defaultResponder({ turnstile: false }) });
   assert.strictEqual(res.statusCode, 400);
-  assert.ok(inserts(calls).length === 0);
+  assert.strictEqual(res.body.code, 'CAPTCHA');
+  assert.strictEqual(inserts(calls).length, 0);
 });
-test('Turnstile défini, Cloudflare injoignable : 503, aucune insertion', async () => {
-  const { res, calls } = await run({ env: { ...PREVIEW_ENV, RSU_TURNSTILE_SECRET: 's' }, body: { ...VALID, captchaToken: 'jeton' },
-    responder: (url) => { if (url.includes('challenges.cloudflare.com')) throw new Error('réseau'); return defaultResponder()(url); } });
+test('Turnstile, jeton expiré via le endpoint : 400, aucune insertion', async () => {
+  const { res, calls } = await run({ env: { ...PREVIEW_ENV },
+    responder: defaultResponder({ turnstile: false, codes: ['timeout-or-duplicate'] }) });
+  assert.strictEqual(res.statusCode, 400);
+  assert.strictEqual(inserts(calls).length, 0);
+});
+test('Turnstile, domaine différent de la page : 400, aucune insertion', async () => {
+  const { res, calls } = await run({ env: { ...PREVIEW_ENV }, responder: defaultResponder({ hostname: 'proactifsconseils.fr' }) });
+  assert.strictEqual(res.statusCode, 400);
+  assert.strictEqual(inserts(calls).length, 0);
+});
+test('Turnstile, Cloudflare injoignable : 503, aucune insertion', async () => {
+  const { res, calls } = await run({ env: { ...PREVIEW_ENV }, responder: defaultResponder({ cfDown: true }) });
   assert.strictEqual(res.statusCode, 503);
-  assert.ok(inserts(calls).length === 0);
+  assert.strictEqual(inserts(calls).length, 0);
 });
-test('verifyCaptcha sans secret : ok, sans appel', async () => {
-  const f = stubFetch(() => json({}));
-  try {
-    const r = await withEnv({}, () => verifyCaptcha(process.env, '', ''));
-    assert.strictEqual(r.ok, true);
-    assert.strictEqual(f.calls.length, 0);
-  } finally { f.restore(); }
+test('verifyCaptcha : jeton valide, hôte et action attendus : ok, un seul appel au bon endpoint', async () => {
+  const { r, calls } = await captchaWith(() => json({ success: true, hostname: ORIGIN_HOST, action: TURNSTILE_ACTION }));
+  assert.strictEqual(r.ok, true);
+  assert.strictEqual(siteverify(calls).length, 1);
+  assert.strictEqual(calls[0].url, 'https://challenges.cloudflare.com/turnstile/v0/siteverify');
+  const body = JSON.parse(calls[0].body);
+  assert.strictEqual(body.secret, 's');
+  assert.strictEqual(body.response, 'jeton-factice');
+});
+test('verifyCaptcha : jeton invalide (invalid-input-response) : jeton_refuse, 400', async () => {
+  const { r } = await captchaWith(() => json({ success: false, 'error-codes': ['invalid-input-response'] }));
+  assert.strictEqual(r.ok, false);
+  assert.strictEqual(r.status, 400);
+  assert.strictEqual(r.reason, 'jeton_refuse');
+});
+test('verifyCaptcha : jeton expiré ou déjà utilisé (timeout-or-duplicate) : jeton_expire, 400', async () => {
+  const { r } = await captchaWith(() => json({ success: false, 'error-codes': ['timeout-or-duplicate'] }));
+  assert.strictEqual(r.reason, 'jeton_expire');
+  assert.strictEqual(r.status, 400);
+});
+test('verifyCaptcha : hôte renvoyé différent de la page : domaine_inattendu, 400', async () => {
+  const { r } = await captchaWith(() => json({ success: true, hostname: 'autre.example', action: TURNSTILE_ACTION }));
+  assert.strictEqual(r.reason, 'domaine_inattendu');
+  assert.strictEqual(r.status, 400);
+});
+test('verifyCaptcha : hôte absent de la réponse : refus (pas de confiance par défaut)', async () => {
+  const { r } = await captchaWith(() => json({ success: true, action: TURNSTILE_ACTION }));
+  assert.strictEqual(r.ok, false);
+  assert.strictEqual(r.reason, 'domaine_inattendu');
+});
+test('verifyCaptcha : action différente de rsu_request : action_inattendue, 400', async () => {
+  const { r } = await captchaWith(() => json({ success: true, hostname: ORIGIN_HOST, action: 'autre' }));
+  assert.strictEqual(r.reason, 'action_inattendue');
+});
+test('verifyCaptcha : réponse Cloudflare HTTP en erreur : erreur_cloudflare, 503', async () => {
+  const { r } = await captchaWith(() => new Response('', { status: 500 }));
+  assert.strictEqual(r.ok, false);
+  assert.strictEqual(r.status, 503);
+  assert.strictEqual(r.reason, 'erreur_cloudflare');
+});
+test('verifyCaptcha : réseau coupé : erreur_reseau, 503', async () => {
+  const { r } = await captchaWith(() => { throw new Error('réseau'); });
+  assert.strictEqual(r.reason, 'erreur_reseau');
+  assert.strictEqual(r.status, 503);
+});
+test('verifyCaptcha : secret absent : config_turnstile_absente, aucun appel', async () => {
+  const { r, calls } = await captchaWith(() => json({ success: true }), { secret: null });
+  assert.strictEqual(r.ok, false);
+  assert.strictEqual(r.reason, 'config_turnstile_absente');
+  assert.strictEqual(calls.length, 0);
+});
+test('verifyCaptcha : hôte inconnu : refus sans appel', async () => {
+  const { r, calls } = await captchaWith(() => json({ success: true }), { host: '' });
+  assert.strictEqual(r.reason, 'hote_inconnu');
+  assert.strictEqual(calls.length, 0);
+});
+test('verifyCaptcha : jeton absent : jeton_absent, aucun appel', async () => {
+  const { r, calls } = await captchaWith(() => json({ success: true }), { token: '  ' });
+  assert.strictEqual(r.reason, 'jeton_absent');
+  assert.strictEqual(calls.length, 0);
 });
 
 // ── 4. Limites ────────────────────────────────────────────────────────────────
@@ -199,9 +285,10 @@ test('comptage en échec : 503 (fail closed), aucune insertion', async () => {
 });
 
 // ── 5. Parcours nominal ───────────────────────────────────────────────────────
-test('preview TEST, parcours nominal : 200 et insertion sans jeton anti-robot stocké', async () => {
-  const { res, calls } = await run({ env: { ...PREVIEW_ENV }, body: { ...VALID, captchaToken: '' } });
+test('preview TEST, parcours nominal : 200, jeton vérifié une fois, insertion sans jeton stocké', async () => {
+  const { res, calls } = await run({ env: { ...PREVIEW_ENV } });
   assert.strictEqual(res.statusCode, 200);
+  assert.strictEqual(siteverify(calls).length, 1);
   const post = inserts(calls)[0];
   assert.ok(post, 'insertion attendue');
   assert.ok(post.url.startsWith(`https://${T}.supabase.co/rest/v1/rsu_requests`), 'insertion vers TEST uniquement');
@@ -211,12 +298,42 @@ test('preview TEST, parcours nominal : 200 et insertion sans jeton anti-robot st
   assert.ok(row.consent_at);
   assert.ok(!('captchaToken' in row) && !('website' in row) && !('consent' in row));
 });
-test('production activée avec Turnstile valide : 200 vers PROD uniquement', async () => {
-  const { res, calls } = await run({ env: { ...PROD_ENV, RSU_PROD_ENABLED: 'true', RSU_TURNSTILE_SECRET: 's' },
-    origin: 'https://proactifsconseils.fr', body: { ...VALID, captchaToken: 'jeton' } });
+test('production activée avec Turnstile valide sur le domaine public : 200 vers PROD uniquement', async () => {
+  const { res, calls } = await run({ env: { ...PROD_ENV, RSU_PROD_ENABLED: 'true' },
+    origin: 'https://proactifsconseils.fr', responder: defaultResponder({ hostname: 'proactifsconseils.fr' }) });
   assert.strictEqual(res.statusCode, 200);
   const post = inserts(calls)[0];
   assert.ok(post.url.startsWith(`https://${P}.supabase.co/`));
+});
+test('production : jeton émis pour un autre domaine : refus, aucune insertion', async () => {
+  const { res, calls } = await run({ env: { ...PROD_ENV, RSU_PROD_ENABLED: 'true' },
+    origin: 'https://proactifsconseils.fr', responder: defaultResponder({ hostname: ORIGIN_HOST }) });
+  assert.strictEqual(res.statusCode, 400);
+  assert.strictEqual(inserts(calls).length, 0);
+});
+
+// ── 5 bis. Configuration publique (clé Turnstile seulement) ───────────────────
+test('rsu-config : GET renvoie la clé publique, jamais le secret', async () => {
+  await withEnv({ RSU_TURNSTILE_SITE_KEY: '0x-cle-publique-test', RSU_TURNSTILE_SECRET: 'secret-a-ne-pas-exposer' }, async () => {
+    const res = mockRes();
+    await configHandler({ method: 'GET', headers: {} }, res);
+    assert.strictEqual(res.statusCode, 200);
+    assert.deepStrictEqual(res.body, { turnstileSiteKey: '0x-cle-publique-test' });
+    assert.ok(!JSON.stringify(res.body).includes('secret'));
+    assert.strictEqual(res.headers['Cache-Control'], 'no-store');
+  });
+});
+test('rsu-config : clé absente : null (le formulaire refusera l\'envoi)', async () => {
+  await withEnv({}, async () => {
+    const res = mockRes();
+    await configHandler({ method: 'GET', headers: {} }, res);
+    assert.deepStrictEqual(res.body, { turnstileSiteKey: null });
+  });
+});
+test('rsu-config : POST refusé (405)', async () => {
+  const res = mockRes();
+  await configHandler({ method: 'POST', headers: {}, body: {} }, res);
+  assert.strictEqual(res.statusCode, 405);
 });
 
 // ── 6. Garde-fou d'activation côté page ───────────────────────────────────────
@@ -266,8 +383,41 @@ test('page : la clé embarquée dans le navigateur est une clé anon, jamais ser
   const payload = JSON.parse(Buffer.from(m[1].split('.')[1], 'base64url').toString('utf8'));
   assert.strictEqual(payload.role, 'anon');
 });
-test('page : jeton anti-robot transmis au serveur', () => {
-  assert.ok(PAGE.includes("captchaToken: (form.querySelector('[name=\"cf-turnstile-response\"]') || {}).value || ''"));
+test('page : jeton Turnstile lu à l\'envoi et transmis sous captchaToken', () => {
+  assert.ok(PAGE.includes('captchaToken: captchaToken,'));
+  assert.ok(PAGE.includes('window.turnstile.getResponse(captchaId)'));
+});
+test('page : widget Turnstile en mode explicite, action rsu_request, clé lue via /api/rsu-config', () => {
+  assert.ok(PAGE.includes('challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'));
+  assert.ok(PAGE.includes("fetch('/api/rsu-config'"));
+  assert.ok(PAGE.includes("action: 'rsu_request'"));
+  assert.ok(PAGE.includes('id="rsu-captcha"'));
+});
+test('page : widget initialisé uniquement sur le Preview TEST (jamais sur le domaine public)', () => {
+  assert.ok(/if \(RSU_TRANSMISSION_ACTIVE\) initCaptcha\(\);/.test(PAGE));
+});
+test('page : jeton réinitialisé après un échec (usage unique)', () => {
+  assert.ok(PAGE.includes('window.turnstile.reset(captchaId)'));
+});
+test('page : aucun secret Turnstile, aucune clé en dur, aucun appel siteverify côté navigateur', () => {
+  assert.ok(!PAGE.includes('RSU_TURNSTILE_SECRET'));
+  assert.ok(!/sitekey:\s*'0x/.test(PAGE));
+  assert.ok(!PAGE.includes('siteverify'));
+});
+test('page : le diagnostic rapide n\'utilise pas Turnstile', () => {
+  const diag = PAGE.slice(PAGE.indexOf('function actioIsProdHost()'), PAGE.indexOf("fetch(_SB_URL + '/rest/v1/leads'"));
+  assert.ok(diag.length > 0);
+  assert.ok(!/turnstile/i.test(diag));
+});
+test('CSP : challenges.cloudflare.com autorisé en script et iframe, pas en connect', () => {
+  const vercel = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
+  const header = vercel.headers.flatMap(h => h.headers || []).find(x => x.key === 'Content-Security-Policy');
+  assert.ok(header, 'en-tête CSP introuvable');
+  const directive = (name) => header.value.split(';').map(s => s.trim()).find(s => s.startsWith(name + ' ')) || '';
+  assert.ok(directive('script-src').includes('https://challenges.cloudflare.com'));
+  assert.ok(directive('frame-src').includes('https://challenges.cloudflare.com'));
+  assert.ok(!directive('connect-src').includes('challenges.cloudflare.com'));
+  assert.ok(header.value.includes("object-src 'none'"), 'directives existantes conservées');
 });
 
 // ── 7. SQL (contrôles statiques) ──────────────────────────────────────────────

@@ -18,8 +18,10 @@
    - RSU_TEST_SUPABASE_REF / RSU_PROD_SUPABASE_REF  références attendues (les deux, différentes)
    - RSU_DAILY_CAP          optionnel, nombre max de demandes par jour (défaut 50)
    - RSU_PROD_ENABLED       écritures en PRODUCTION refusées tant que != 'true' (défaut : refus)
-   - RSU_TURNSTILE_SECRET   optionnel. Si défini, jeton anti-robot Cloudflare Turnstile obligatoire
-                            (champ captchaToken). Non défini = contrôle inactif, aucun appel externe.
+   - RSU_TURNSTILE_SECRET   OBLIGATOIRE (fail closed). Clé secrète Cloudflare Turnstile, côté serveur
+                            uniquement. Absente ou vide = toute demande refusée (503), aucun appel externe.
+                            Jeton (champ captchaToken) vérifié auprès de Cloudflare avant tout accès base.
+   - RSU_TURNSTILE_SITE_KEY clé publique Turnstile, lue par /api/rsu-config (jamais un secret).
 
    Notification du cabinet : email transactionnel interne, via une clé DÉDIÉE
    (RSU_TX_BREVO_API_KEY), distincte de la clé marketing. Aucun contact créé,
@@ -36,6 +38,7 @@ const DEFAULT_DAILY_CAP = 50;
 const MAX_BODY_CHARS = 2000;
 const NOTIFY_ENDPOINT = 'https://api.brevo.com/v3/smtp/email'; // transactionnel uniquement (pas /v3/contacts)
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+const TURNSTILE_ACTION = 'rsu_request'; // action déclarée par le widget de la page RSU
 
 const DISPOSITIFS = ['RSU / actions gratuites', 'ESPP', 'Stock-options', 'Plusieurs dispositifs', 'Autre'];
 const BESOINS = ['Comprendre la fiscalité', 'Préparer une vente', 'Déclaration fiscale', 'Mobilité internationale', 'Autre'];
@@ -134,25 +137,42 @@ function checkTarget(env) {
   return { ok: true, mode: 'preview_test', url: env.RSU_TEST_SUPABASE_URL, key: env.RSU_TEST_SUPABASE_SERVICE_KEY };
 }
 
-// Anti-robot serveur (Cloudflare Turnstile). Inactif tant que RSU_TURNSTILE_SECRET n'est pas défini.
-// Dès qu'il est défini, un jeton absent ou refusé bloque la demande (fail closed).
-async function verifyCaptcha(env, token, ip) {
-  const secret = env.RSU_TURNSTILE_SECRET;
-  if (!secret) return { ok: true, status: 200, reason: null };
+// Anti-robot serveur (Cloudflare Turnstile). FAIL CLOSED : sans secret, rien n'est enregistré.
+// expectedHost : hôte de la page ayant émis le jeton (origine validée, ou en-tête Host).
+// Contrôles : secret présent, jeton présent, succès Cloudflare, hôte et action identiques.
+async function verifyCaptcha(env, token, expectedHost) {
+  const secret = String(env.RSU_TURNSTILE_SECRET || '').trim();
+  if (!secret) return { ok: false, status: 503, reason: 'config_turnstile_absente' };
+  const host = String(expectedHost || '').trim().toLowerCase();
+  if (!host) return { ok: false, status: 503, reason: 'hote_inconnu' };
   const response = clean(token, 2048);
   if (!response) return { ok: false, status: 400, reason: 'jeton_absent' };
+  const ctrl = typeof AbortController === 'function' ? new AbortController() : null;
+  const timer = ctrl ? setTimeout(() => ctrl.abort(), 10000) : null;
+  let d;
   try {
     const r = await fetch(TURNSTILE_VERIFY_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ secret, response, remoteip: ip || undefined }),
+      body: JSON.stringify({ secret, response }),
+      signal: ctrl ? ctrl.signal : undefined,
     });
-    const d = await r.json().catch(() => ({}));
-    if (r.ok && d && d.success === true) return { ok: true, status: 200, reason: null };
-    return { ok: false, status: 400, reason: 'jeton_refuse' };
+    d = await r.json().catch(() => null);
+    if (!r.ok || !d || typeof d !== 'object') return { ok: false, status: 503, reason: 'erreur_cloudflare' };
   } catch (e) {
     return { ok: false, status: 503, reason: 'erreur_reseau' };
+  } finally {
+    if (timer) clearTimeout(timer);
   }
+  const codes = Array.isArray(d['error-codes']) ? d['error-codes'] : [];
+  if (d.success !== true) {
+    // Jeton à usage unique et limité dans le temps : expiré ou déjà utilisé.
+    if (codes.includes('timeout-or-duplicate')) return { ok: false, status: 400, reason: 'jeton_expire' };
+    return { ok: false, status: 400, reason: 'jeton_refuse' };
+  }
+  if (String(d.hostname || '').toLowerCase() !== host) return { ok: false, status: 400, reason: 'domaine_inattendu' };
+  if (d.action !== TURNSTILE_ACTION) return { ok: false, status: 400, reason: 'action_inattendue' };
+  return { ok: true, status: 200, reason: null };
 }
 
 // Compte les demandes déjà reçues (filtres PostgREST). Renvoie null si le comptage échoue.
@@ -243,11 +263,20 @@ module.exports = async (req, res) => {
   if (v.error) return res.status(400).json({ error: v.error });
 
   // Anti-robot : contrôlé côté serveur avant tout accès à la base.
-  const ip = clean(String(req.headers['x-forwarded-for'] || '').split(',')[0], 64);
-  const captcha = await verifyCaptcha(process.env, b.captchaToken, ip);
+  // Hôte attendu = hôte de l'origine validée ; à défaut, en-tête Host (requête same-origin).
+  let expectedHost = '';
+  try { expectedHost = origin ? new URL(origin).hostname : ''; } catch (e) { expectedHost = ''; }
+  if (!expectedHost) expectedHost = clean(req.headers.host, 255);
+  const captcha = await verifyCaptcha(process.env, b.captchaToken, expectedHost);
   if (!captcha.ok) {
-    console.error('[rsu captcha refusé]', captcha.reason);
-    return res.status(captcha.status).json({ error: 'Vérification anti-robot échouée. Merci de réessayer.', code: 'CAPTCHA' });
+    console.error('[rsu captcha refusé]', captcha.reason); // raison seule, jamais le jeton
+    if (captcha.reason === 'config_turnstile_absente') {
+      return res.status(503).json({ error: 'Vérification anti-robot indisponible. Merci de réessayer ou de nous appeler.', code: 'CONFIG_CAPTCHA' });
+    }
+    if (captcha.status === 503) {
+      return res.status(503).json({ error: 'Vérification anti-robot indisponible. Merci de réessayer ou de nous appeler.', code: 'CAPTCHA' });
+    }
+    return res.status(400).json({ error: 'Vérification anti-robot échouée. Merci de réessayer.', code: 'CAPTCHA' });
   }
 
   // URL et clé issues de checkTarget() : la même décision valide la cible et les identifiants.
@@ -302,3 +331,4 @@ module.exports.notifyCabinet = notifyCabinet;
 module.exports.checkTarget = checkTarget;
 module.exports.verifyCaptcha = verifyCaptcha;
 module.exports.projectRefFromUrl = projectRefFromUrl;
+module.exports.TURNSTILE_ACTION = TURNSTILE_ACTION;
