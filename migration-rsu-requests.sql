@@ -34,6 +34,11 @@ create table if not exists public.rsu_requests (
   statut          text not null default 'nouveau'
 );
 
+-- Dernier contact pertinent avec la personne (base du suivi de conservation de 12 mois sans suite).
+-- NULL = jamais renseigné. Aucun défaut ni trigger : valeur posée manuellement, jamais à chaque modification.
+-- L'endpoint /api/rsu-request n'écrit pas ce champ (insert limité aux champs validés).
+alter table public.rsu_requests add column if not exists dernier_contact_at timestamptz null;
+
 -- Index utilisés par les limites de l'endpoint (par e-mail et par jour).
 create index if not exists rsu_requests_email_created_idx on public.rsu_requests (email, created_at);
 create index if not exists rsu_requests_created_idx       on public.rsu_requests (created_at);
