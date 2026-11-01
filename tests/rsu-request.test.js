@@ -61,7 +61,7 @@ function defaultResponder(opts = {}) {
 }
 const VALID = { nom: 'Test RSU', email: 'test-rsu@example.com', telephone: '06 00 00 00 01', dispositif: 'ESPP',
   besoin: 'Autre', echeance: "Simple prise d'information", commentaire: '', consent: true, website: '' };
-const ORIGIN = 'https://proactifs-conseils-git-feat-rsu-form-preview-medymatima-a11ys-projects.vercel.app';
+const ORIGIN = 'https://proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-projects.vercel.app';
 
 async function run({ env, body = VALID, method = 'POST', origin = ORIGIN, responder = defaultResponder() }) {
   return withEnv(env, async () => {
@@ -227,15 +227,44 @@ function evalPreviewHosts() {
   const hosts = new Function('return ' + m[1])();
   return (hostname) => hosts.indexOf(hostname) !== -1;
 }
-test('page : transmission active uniquement sur le Preview TEST listé', () => {
+test('page : transmission active uniquement sur l\'alias de branche Preview réel', () => {
   const active = evalPreviewHosts();
-  assert.strictEqual(active('proactifs-conseils-git-feat-rsu-form-preview-medymatima-a11ys-projects.vercel.app'), true);
+  assert.strictEqual(active('proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-projects.vercel.app'), true);
+  // Ancien nom supposé, jamais attribué par Vercel : refusé.
+  assert.strictEqual(active('proactifs-conseils-git-feat-rsu-form-preview-medymatima-a11ys-projects.vercel.app'), false);
+  // URL de déploiement propre à un push : non listée, refusée.
+  assert.strictEqual(active('proactifs-conseils-b13p0zuoz-medymatima-a11ys-projects.vercel.app'), false);
   assert.strictEqual(active('proactifsconseils.fr'), false);
   assert.strictEqual(active('www.proactifsconseils.fr'), false);
+  assert.strictEqual(active('proactifs-conseils.vercel.app'), false);
   assert.strictEqual(active('proactifs-conseils-git-main-medymatima-a11ys-projects.vercel.app'), false);
   assert.strictEqual(active('proactifs-conseils-git-autre-medymatima-a11ys-projects.vercel.app'), false);
   assert.strictEqual(active('proactifs-conseils-git-feat-rsu-form-local-medymatima-a11ys-projects.vercel.app'), false);
+  assert.strictEqual(active('proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-projects.vercel.app.evil.com'), false);
   assert.strictEqual(active('localhost'), false);
+});
+test('page : garde-fou du diagnostic (PC_PROD_HOSTS) refuse tout hôte Preview ou inconnu', () => {
+  const m = PAGE.match(/const PC_PROD_HOSTS = (\[[^\]]*\]);/);
+  assert.ok(m, 'liste PC_PROD_HOSTS introuvable');
+  const hosts = new Function('return ' + m[1])();
+  const ok = (h) => hosts.indexOf(h) !== -1;
+  assert.strictEqual(ok('proactifsconseils.fr'), true);
+  assert.strictEqual(ok('www.proactifsconseils.fr'), true);
+  assert.strictEqual(ok('proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-projects.vercel.app'), false);
+  assert.strictEqual(ok('proactifs-conseils-b13p0zuoz-medymatima-a11ys-projects.vercel.app'), false);
+  assert.strictEqual(ok('localhost'), false);
+});
+test('page : le diagnostic vérifie le garde-fou AVANT l\'appel vers public.leads', () => {
+  const guard = PAGE.indexOf('if (!actioIsProdHost()) {');
+  const write = PAGE.indexOf("fetch(_SB_URL + '/rest/v1/leads'");
+  assert.ok(guard > 0 && write > 0, 'garde ou écriture introuvable');
+  assert.ok(guard < write, 'le garde-fou doit précéder l\'écriture');
+});
+test('page : la clé embarquée dans le navigateur est une clé anon, jamais service_role', () => {
+  const m = PAGE.match(/const _SB_KEY = '([^']+)'/);
+  assert.ok(m, 'clé introuvable');
+  const payload = JSON.parse(Buffer.from(m[1].split('.')[1], 'base64url').toString('utf8'));
+  assert.strictEqual(payload.role, 'anon');
 });
 test('page : jeton anti-robot transmis au serveur', () => {
   assert.ok(PAGE.includes("captchaToken: (form.querySelector('[name=\"cf-turnstile-response\"]') || {}).value || ''"));
