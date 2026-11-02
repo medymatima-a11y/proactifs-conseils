@@ -10,15 +10,22 @@
 
 À l'ouverture de la session, lis dans cet ordre :
 
-1. **`.claude/skills/proactifs-design/SKILL.md`** — design system complet
-   (variables CSS, nav, hero, sections, footer, boilerplate SEO). Aucune
-   création de page sans ce skill.
-2. **`SITE-CONTEXT.md`** — architecture des pages existantes du site,
+1. **`../FRONTEND-RULES.md`** — règlement frontend obligatoire (pages de
+   référence, header/breadcrumb centralisés, footer, breakpoints, CSS).
+   Prime sur le skill `proactifs-design` en cas de contradiction.
+   ⚠️ Ce fichier est dans le dossier parent (`site-web/`). Cowork ne l'a
+   peut-être pas en lecture depuis `blog/`. Si tu n'y as pas accès,
+   signale-le à Medy avant de générer quoi que ce soit.
+2. **`.claude/skills/proactifs-design/SKILL.md`** — design system complet
+   (variables CSS, nav, hero, sections, footer, boilerplate SEO), subordonné
+   à `FRONTEND-RULES.md`. Aucune création de page sans ce skill.
+3. **`SITE-CONTEXT.md`** — architecture des pages existantes du site,
    workflow de production, conventions icônes, règles éditoriales.
-3. **`SEO-ARTICLES-SUIVI.md`** — articles déjà publiés, mots-clés couverts,
+4. **`SEO-ARTICLES-SUIVI.md`** — articles déjà publiés, mots-clés couverts,
    pages de service pour le maillage interne.
-4. Un article récent comme **gabarit de référence** :
-   `donation-vivant-2026.html` ou `gestion-patrimoine-entreprise-dirigeants-strategies-2026.html`.
+5. **`donation-vivant-2026.html`** comme **gabarit de référence unique**
+   pour un article de blog (seule page de la famille « article » conforme
+   au système actuel — voir `FRONTEND-RULES.md` §2).
 
 Si une de ces lectures manque, signale-le avant de générer quoi que ce soit.
 
