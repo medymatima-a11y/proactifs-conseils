@@ -373,6 +373,15 @@ test('isolation Turnstile : chaque environnement ne lit que ses propres variable
     assert.strictEqual(r.reason, 'config_turnstile_absente');
   });
 });
+test('Preview : les deux alias de branche sont acceptés par l\'endpoint, insertion vers TEST uniquement', async () => {
+  const HOST_B = 'proactifs-conseils-git-feat-rs-a2bdf1-medymatima-a11ys-projects.vercel.app';
+  const { res, calls } = await run({ env: { ...PREVIEW_ENV }, origin: `https://${HOST_B}`,
+    responder: defaultResponder({ hostname: HOST_B }) });
+  assert.strictEqual(res.statusCode, 200);
+  const post = inserts(calls)[0];
+  assert.ok(post.url.startsWith(`https://${T}.supabase.co/`));
+  assert.ok(!calls.some(c => c.url.includes(`${P}.supabase.co`)));
+});
 test('isolation Turnstile, endpoint : Preview avec secret production seul : 503 CONFIG_CAPTCHA, aucune insertion', async () => {
   // PREVIEW_NO_SECRET : secret Preview absent, secret production présent.
   const { res, calls } = await run({ env: { ...PREVIEW_NO_SECRET } });
@@ -395,15 +404,30 @@ test('rsu-config : POST refusé (405)', async () => {
 
 // ── 6. Garde-fou d'activation côté page ───────────────────────────────────────
 const PAGE = fs.readFileSync(path.join(ROOT, 'fiscalite-rsu-stock-options.html'), 'utf8');
-function evalPreviewHosts() {
+function evalPreviewHostList() {
   const m = PAGE.match(/var RSU_PREVIEW_TEST_HOSTS = (\[[^\]]*\]);/);
   assert.ok(m, 'liste des hôtes Preview TEST introuvable');
-  const hosts = new Function('return ' + m[1])();
+  return new Function('return ' + m[1])();
+}
+function evalPreviewHosts() {
+  const hosts = evalPreviewHostList();
   return (hostname) => hosts.indexOf(hostname) !== -1;
 }
 test('page : transmission active uniquement sur l\'alias de branche Preview réel', () => {
   const active = evalPreviewHosts();
   assert.strictEqual(active('proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-projects.vercel.app'), true);
+  // Alias stable de la branche feat/rsu-prod-hosts-local (déploiement dpl_4wdLCTrQG7r5U6JywVf31sPVesmi) : accepté.
+  assert.strictEqual(active('proactifs-conseils-git-feat-rs-a2bdf1-medymatima-a11ys-projects.vercel.app'), true);
+  // Variantes proches de l'alias accepté : refusées.
+  assert.strictEqual(active('proactifs-conseils-git-feat-rs-a2bdf1-medymatima-a11ys-projects.vercel.app.evil.com'), false);
+  assert.strictEqual(active('proactifs-conseils-git-feat-rs-a2bdf1-medymatima-a11ys-projects.vercel.app.'), false);
+  assert.strictEqual(active('proactifs-conseils-git-feat-rs-a2bdf2-medymatima-a11ys-projects.vercel.app'), false);
+  assert.strictEqual(active('proactifs-conseils-git-feat-rs-a2bdf1-autre-medymatima-a11ys-projects.vercel.app'), false);
+  // Liste exacte : deux alias de test, aucun autre.
+  assert.deepStrictEqual(evalPreviewHostList(), [
+    'proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-projects.vercel.app',
+    'proactifs-conseils-git-feat-rs-a2bdf1-medymatima-a11ys-projects.vercel.app',
+  ]);
   // Ancien nom supposé, jamais attribué par Vercel : refusé.
   assert.strictEqual(active('proactifs-conseils-git-feat-rsu-form-preview-medymatima-a11ys-projects.vercel.app'), false);
   // URL de déploiement propre à un push : non listée, refusée.
