@@ -18,10 +18,11 @@
    - RSU_TEST_SUPABASE_REF / RSU_PROD_SUPABASE_REF  références attendues (les deux, différentes)
    - RSU_DAILY_CAP          optionnel, nombre max de demandes par jour (défaut 50)
    - RSU_PROD_ENABLED       écritures en PRODUCTION refusées tant que != 'true' (défaut : refus)
-   - RSU_TURNSTILE_SECRET   OBLIGATOIRE (fail closed). Clé secrète Cloudflare Turnstile, côté serveur
-                            uniquement. Absente ou vide = toute demande refusée (503), aucun appel externe.
-                            Jeton (champ captchaToken) vérifié auprès de Cloudflare avant tout accès base.
-   - RSU_TURNSTILE_SITE_KEY clé publique Turnstile, lue par /api/rsu-config (jamais un secret).
+   - Turnstile (OBLIGATOIRE, fail closed) : noms distincts par environnement, lus via turnstileVars() :
+       Production : RSU_TURNSTILE_SECRET (secret) et RSU_TURNSTILE_SITE_KEY (clé publique)
+       Preview    : RSU_TURNSTILE_SECRET_Preview et RSU_TURNSTILE_SITE_KEY_Preview
+     Secret absent ou vide = toute demande refusée (503), aucun appel externe. Aucun repli entre
+     les deux jeux de variables. Jeton (captchaToken) vérifié auprès de Cloudflare avant tout accès base.
 
    Notification du cabinet : email transactionnel interne, via une clé DÉDIÉE
    (RSU_TX_BREVO_API_KEY), distincte de la clé marketing. Aucun contact créé,
@@ -39,6 +40,20 @@ const MAX_BODY_CHARS = 2000;
 const NOTIFY_ENDPOINT = 'https://api.brevo.com/v3/smtp/email'; // transactionnel uniquement (pas /v3/contacts)
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 const TURNSTILE_ACTION = 'rsu_request'; // action déclarée par le widget de la page RSU
+
+// Noms des variables Turnstile par environnement Vercel (noms distincts imposés par Vercel).
+// Un environnement absent de cette table n'a aucune clé : fail closed.
+const TURNSTILE_VARS = {
+  production: { site: 'RSU_TURNSTILE_SITE_KEY', secret: 'RSU_TURNSTILE_SECRET' },
+  preview: { site: 'RSU_TURNSTILE_SITE_KEY_Preview', secret: 'RSU_TURNSTILE_SECRET_Preview' },
+};
+// Retourne { siteKey, secret } de l'environnement courant, ou null si l'environnement n'est pas géré.
+// Chaque environnement ne lit que ses propres variables (jamais celles de l'autre).
+function turnstileVars(env) {
+  const names = Object.prototype.hasOwnProperty.call(TURNSTILE_VARS, env.VERCEL_ENV) ? TURNSTILE_VARS[env.VERCEL_ENV] : null;
+  if (!names) return null;
+  return { siteKey: String(env[names.site] || '').trim(), secret: String(env[names.secret] || '').trim() };
+}
 
 const DISPOSITIFS = ['RSU / actions gratuites', 'ESPP', 'Stock-options', 'Plusieurs dispositifs', 'Autre'];
 const BESOINS = ['Comprendre la fiscalité', 'Préparer une vente', 'Déclaration fiscale', 'Mobilité internationale', 'Autre'];
@@ -141,7 +156,8 @@ function checkTarget(env) {
 // expectedHost : hôte de la page ayant émis le jeton (origine validée, ou en-tête Host).
 // Contrôles : secret présent, jeton présent, succès Cloudflare, hôte et action identiques.
 async function verifyCaptcha(env, token, expectedHost) {
-  const secret = String(env.RSU_TURNSTILE_SECRET || '').trim();
+  const vars = turnstileVars(env);
+  const secret = vars ? vars.secret : '';
   if (!secret) return { ok: false, status: 503, reason: 'config_turnstile_absente' };
   const host = String(expectedHost || '').trim().toLowerCase();
   if (!host) return { ok: false, status: 503, reason: 'hote_inconnu' };

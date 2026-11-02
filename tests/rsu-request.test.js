@@ -15,14 +15,17 @@ const P = 'a'.repeat(20); // référence PROD factice
 const ORIGIN_HOST = 'proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-projects.vercel.app';
 const ENV_KEYS = ['VERCEL_ENV', 'SUPABASE_URL', 'SUPABASE_SERVICE_KEY', 'RSU_TEST_SUPABASE_URL', 'RSU_TEST_SUPABASE_SERVICE_KEY',
   'RSU_TEST_SUPABASE_REF', 'RSU_PROD_SUPABASE_REF',
-  'RSU_PROD_ENABLED', 'RSU_TURNSTILE_SECRET', 'RSU_TURNSTILE_SITE_KEY', 'RSU_DAILY_CAP', 'RSU_TX_BREVO_API_KEY', 'RSU_NOTIFY_TO'];
+  'RSU_PROD_ENABLED', 'RSU_TURNSTILE_SECRET', 'RSU_TURNSTILE_SITE_KEY', 'RSU_TURNSTILE_SECRET_Preview', 'RSU_TURNSTILE_SITE_KEY_Preview',
+  'RSU_DAILY_CAP', 'RSU_TX_BREVO_API_KEY', 'RSU_NOTIFY_TO'];
 // Preview : variables TEST dédiées + variables production présentes (cas réaliste : elles ne doivent jamais servir).
 const PREVIEW_ENV = { VERCEL_ENV: 'preview',
   RSU_TEST_SUPABASE_URL: `https://${T}.supabase.co`, RSU_TEST_SUPABASE_SERVICE_KEY: 'cle-factice-test',
   SUPABASE_URL: `https://${P}.supabase.co`, SUPABASE_SERVICE_KEY: 'cle-factice-prod',
-  RSU_TEST_SUPABASE_REF: T, RSU_PROD_SUPABASE_REF: P, RSU_TURNSTILE_SECRET: 'secret-factice-test' };
-// Environnement sans secret Turnstile (clé omise, pas de valeur « undefined »).
-const { RSU_TURNSTILE_SECRET: _omitted, ...PREVIEW_NO_SECRET } = PREVIEW_ENV;
+  RSU_TEST_SUPABASE_REF: T, RSU_PROD_SUPABASE_REF: P, RSU_TURNSTILE_SECRET_Preview: 'secret-factice-test',
+  RSU_TURNSTILE_SECRET: 'secret-factice-prod' };
+// Environnement sans secret Turnstile Preview (clé omise, pas de valeur « undefined »).
+// Le secret de production reste présent : Preview ne doit jamais s'en servir.
+const { RSU_TURNSTILE_SECRET_Preview: _omitted, ...PREVIEW_NO_SECRET } = PREVIEW_ENV;
 const PROD_ENV = { ...PREVIEW_ENV, VERCEL_ENV: 'production', SUPABASE_URL: `https://${P}.supabase.co` };
 
 function withEnv(vars, fn) {
@@ -159,7 +162,7 @@ test('consentement absent : 400, aucun appel', async () => {
 async function captchaWith(responder, { secret = 's', token = 'jeton-factice', host = ORIGIN_HOST } = {}) {
   const f = stubFetch(responder);
   try {
-    const r = await withEnv(secret === null ? {} : { RSU_TURNSTILE_SECRET: secret },
+    const r = await withEnv(secret === null ? {} : { VERCEL_ENV: 'preview', RSU_TURNSTILE_SECRET_Preview: secret },
       () => verifyCaptcha(process.env, token, host));
     return { r, calls: f.calls };
   } finally { f.restore(); }
@@ -167,7 +170,7 @@ async function captchaWith(responder, { secret = 's', token = 'jeton-factice', h
 const siteverify = (calls) => calls.filter(c => c.url.includes('challenges.cloudflare.com'));
 
 test('Turnstile sans secret (absent ou vide) : 503 CONFIG_CAPTCHA, aucun appel, aucune insertion (fail closed)', async () => {
-  for (const env of [PREVIEW_NO_SECRET, { ...PREVIEW_ENV, RSU_TURNSTILE_SECRET: '   ' }]) {
+  for (const env of [PREVIEW_NO_SECRET, { ...PREVIEW_ENV, RSU_TURNSTILE_SECRET_Preview: '   ' }]) {
     const { res, calls } = await run({ env });
     assert.strictEqual(res.statusCode, 503);
     assert.strictEqual(res.body.code, 'CONFIG_CAPTCHA');
@@ -313,8 +316,9 @@ test('production : jeton émis pour un autre domaine : refus, aucune insertion',
 });
 
 // ── 5 bis. Configuration publique (clé Turnstile seulement) ───────────────────
-test('rsu-config : GET renvoie la clé publique, jamais le secret', async () => {
-  await withEnv({ RSU_TURNSTILE_SITE_KEY: '0x-cle-publique-test', RSU_TURNSTILE_SECRET: 'secret-a-ne-pas-exposer' }, async () => {
+test('rsu-config : GET renvoie la clé publique Preview, jamais le secret', async () => {
+  await withEnv({ VERCEL_ENV: 'preview', RSU_TURNSTILE_SITE_KEY_Preview: '0x-cle-publique-test',
+    RSU_TURNSTILE_SECRET_Preview: 'secret-a-ne-pas-exposer' }, async () => {
     const res = mockRes();
     await configHandler({ method: 'GET', headers: {} }, res);
     assert.strictEqual(res.statusCode, 200);
@@ -323,12 +327,65 @@ test('rsu-config : GET renvoie la clé publique, jamais le secret', async () => 
     assert.strictEqual(res.headers['Cache-Control'], 'no-store');
   });
 });
+test('rsu-config : production renvoie RSU_TURNSTILE_SITE_KEY, jamais la clé Preview', async () => {
+  await withEnv({ VERCEL_ENV: 'production', RSU_TURNSTILE_SITE_KEY: '0x-cle-prod', RSU_TURNSTILE_SITE_KEY_Preview: '0x-cle-test' }, async () => {
+    const res = mockRes();
+    await configHandler({ method: 'GET', headers: {} }, res);
+    assert.deepStrictEqual(res.body, { turnstileSiteKey: '0x-cle-prod' });
+  });
+});
+test('rsu-config : preview sans clé Preview mais avec clé production : null, aucun repli', async () => {
+  await withEnv({ VERCEL_ENV: 'preview', RSU_TURNSTILE_SITE_KEY: '0x-cle-prod' }, async () => {
+    const res = mockRes();
+    await configHandler({ method: 'GET', headers: {} }, res);
+    assert.deepStrictEqual(res.body, { turnstileSiteKey: null });
+  });
+});
 test('rsu-config : clé absente : null (le formulaire refusera l\'envoi)', async () => {
   await withEnv({}, async () => {
     const res = mockRes();
     await configHandler({ method: 'GET', headers: {} }, res);
     assert.deepStrictEqual(res.body, { turnstileSiteKey: null });
   });
+});
+test('isolation Turnstile : chaque environnement ne lit que ses propres variables', async () => {
+  // Production sans secret de production, avec seulement le secret Preview : refus.
+  await withEnv({ VERCEL_ENV: 'production', RSU_TURNSTILE_SECRET_Preview: 'secret-preview' }, async () => {
+    const f = stubFetch(() => json({ success: true }));
+    try {
+      const r = await verifyCaptcha(process.env, 'jeton', ORIGIN_HOST);
+      assert.strictEqual(r.reason, 'config_turnstile_absente');
+      assert.strictEqual(f.calls.length, 0);
+    } finally { f.restore(); }
+  });
+  // Preview avec seulement le secret de production : refus.
+  await withEnv({ VERCEL_ENV: 'preview', RSU_TURNSTILE_SECRET: 'secret-prod' }, async () => {
+    const f = stubFetch(() => json({ success: true }));
+    try {
+      const r = await verifyCaptcha(process.env, 'jeton', ORIGIN_HOST);
+      assert.strictEqual(r.reason, 'config_turnstile_absente');
+      assert.strictEqual(f.calls.length, 0);
+    } finally { f.restore(); }
+  });
+  // Environnement non géré avec les deux secrets : refus.
+  await withEnv({ VERCEL_ENV: 'development', RSU_TURNSTILE_SECRET: 'a', RSU_TURNSTILE_SECRET_Preview: 'b' }, async () => {
+    const r = await verifyCaptcha(process.env, 'jeton', ORIGIN_HOST);
+    assert.strictEqual(r.reason, 'config_turnstile_absente');
+  });
+});
+test('isolation Turnstile, endpoint : Preview avec secret production seul : 503 CONFIG_CAPTCHA, aucune insertion', async () => {
+  // PREVIEW_NO_SECRET : secret Preview absent, secret production présent.
+  const { res, calls } = await run({ env: { ...PREVIEW_NO_SECRET } });
+  assert.strictEqual(res.statusCode, 503);
+  assert.strictEqual(res.body.code, 'CONFIG_CAPTCHA');
+  assert.strictEqual(calls.length, 0);
+});
+test('Turnstile production : le secret de production sert au siteverify (et non le secret Preview)', async () => {
+  const { res, calls } = await run({ env: { ...PROD_ENV, RSU_PROD_ENABLED: 'true', RSU_TURNSTILE_SECRET: 'secret-prod-reel' },
+    origin: 'https://proactifsconseils.fr', responder: defaultResponder({ hostname: 'proactifsconseils.fr' }) });
+  assert.strictEqual(res.statusCode, 200);
+  const verify = siteverify(calls)[0];
+  assert.strictEqual(JSON.parse(verify.body).secret, 'secret-prod-reel');
 });
 test('rsu-config : POST refusé (405)', async () => {
   const res = mockRes();
