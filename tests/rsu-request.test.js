@@ -239,11 +239,80 @@ test('verifyCaptcha : action différente de rsu_request : action_inattendue, 400
   const { r } = await captchaWith(() => json({ success: true, hostname: ORIGIN_HOST, action: 'autre' }));
   assert.strictEqual(r.reason, 'action_inattendue');
 });
-test('verifyCaptcha : réponse Cloudflare HTTP en erreur : erreur_cloudflare, 503', async () => {
+test('verifyCaptcha : HTTP 500 sans JSON : erreur_cloudflare_http, 503, detail http=500 json=non', async () => {
   const { r } = await captchaWith(() => new Response('', { status: 500 }));
   assert.strictEqual(r.ok, false);
   assert.strictEqual(r.status, 503);
-  assert.strictEqual(r.reason, 'erreur_cloudflare');
+  assert.strictEqual(r.reason, 'erreur_cloudflare_http');
+  assert.strictEqual(r.detail, 'http=500 json=non codes=-');
+});
+test('verifyCaptcha : non-2xx avec invalid-input-secret : secret_refuse, 503', async () => {
+  const { r } = await captchaWith(() => json({ success: false, 'error-codes': ['invalid-input-secret'] }, 400));
+  assert.strictEqual(r.ok, false);
+  assert.strictEqual(r.status, 503);
+  assert.strictEqual(r.reason, 'secret_refuse');
+  assert.strictEqual(r.detail, 'http=400 json=oui codes=invalid-input-secret');
+});
+test('verifyCaptcha : 2xx avec missing-input-secret : secret_refuse, même si HTTP 200', async () => {
+  const { r } = await captchaWith(() => json({ success: false, 'error-codes': ['missing-input-secret'] }, 200));
+  assert.strictEqual(r.reason, 'secret_refuse');
+  assert.strictEqual(r.status, 503);
+});
+test('verifyCaptcha : 2xx sans JSON : reponse_cloudflare_invalide, 503', async () => {
+  const { r } = await captchaWith(() => new Response('pas du json', { status: 200 }));
+  assert.strictEqual(r.ok, false);
+  assert.strictEqual(r.status, 503);
+  assert.strictEqual(r.reason, 'reponse_cloudflare_invalide');
+  assert.strictEqual(r.detail, 'http=200 json=non codes=-');
+});
+test('verifyCaptcha : 2xx success:false (jeton refusé) : jeton_refuse, 400, distinct de secret_refuse', async () => {
+  const { r } = await captchaWith(() => json({ success: false, 'error-codes': ['invalid-input-response'] }, 200));
+  assert.strictEqual(r.reason, 'jeton_refuse');
+  assert.strictEqual(r.status, 400);
+  assert.strictEqual(r.detail, 'http=200 json=oui codes=invalid-input-response');
+});
+test('verifyCaptcha : code inconnu jamais recopié, seulement compté', async () => {
+  const { r } = await captchaWith(() => json({ success: false, 'error-codes': ['code-secret-xyz', 'invalid-input-response'] }, 200));
+  assert.strictEqual(r.reason, 'jeton_refuse');
+  assert.strictEqual(r.detail, 'http=200 json=oui codes=invalid-input-response autres=1');
+  assert.ok(!r.detail.includes('code-secret-xyz'));
+});
+test('verifyCaptcha : 400 avec JSON non lié au secret : erreur_cloudflare_http (requête rejetée), 503', async () => {
+  const { r } = await captchaWith(() => json({ success: false, 'error-codes': ['bad-request'] }, 400));
+  assert.strictEqual(r.reason, 'erreur_cloudflare_http');
+  assert.strictEqual(r.status, 503);
+  assert.strictEqual(r.detail, 'http=400 json=oui codes=bad-request');
+});
+test('verifyCaptcha : succès : detail renseigné, aucune donnée sensible', async () => {
+  const { r } = await captchaWith(() => json({ success: true, hostname: ORIGIN_HOST, action: TURNSTILE_ACTION }));
+  assert.strictEqual(r.ok, true);
+  assert.strictEqual(r.detail, 'http=200 json=oui codes=-');
+});
+test('verifyCaptcha : diagnostic sans secret, jeton ni corps brut', async () => {
+  const body = '{"success":false,"error-codes":["invalid-input-secret"],"echo":"s"}';
+  const { r } = await captchaWith(() => new Response(body, { status: 400, headers: { 'content-type': 'application/json' } }));
+  assert.ok(!r.detail.includes('jeton-factice'));
+  assert.ok(!r.detail.includes('"s"'));
+  assert.ok(!r.detail.includes('echo'));
+});
+test('verifyCaptcha : journal serveur : raison + diagnostic, jamais secret ni jeton', async () => {
+  const logs = [];
+  const orig = console.error;
+  console.error = (...args) => logs.push(args.map(String).join(' '));
+  let out;
+  try {
+    out = await run({ env: { ...PREVIEW_ENV },
+      responder: defaultResponder({ turnstile: false, codes: ['invalid-input-secret'] }) });
+  } finally { console.error = orig; }
+  const sv = siteverify(out.calls);
+  assert.strictEqual(sv.length, 1);
+  const body = JSON.parse(sv[0].body);
+  const line = logs.find(l => l.includes('[rsu captcha refusé]'));
+  assert.ok(line, 'une ligne de journal attendue');
+  assert.ok(line.includes('secret_refuse'));
+  assert.ok(line.includes('codes=invalid-input-secret'));
+  assert.ok(!line.includes(body.secret), 'le secret ne doit jamais être journalisé');
+  assert.ok(!line.includes(body.response), 'le jeton ne doit jamais être journalisé');
 });
 test('verifyCaptcha : réseau coupé : erreur_reseau, 503', async () => {
   const { r } = await captchaWith(() => { throw new Error('réseau'); });

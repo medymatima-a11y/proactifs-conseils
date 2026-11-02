@@ -152,6 +152,20 @@ function checkTarget(env) {
   return { ok: true, mode: 'preview_test', url: env.RSU_TEST_SUPABASE_URL, key: env.RSU_TEST_SUPABASE_SERVICE_KEY };
 }
 
+// Codes d'erreur Cloudflare Turnstile connus (liste blanche : jamais recopiés tels quels dans les journaux).
+const CF_ERROR_CODES = [
+  'missing-input-secret', 'invalid-input-secret', 'missing-input-response', 'invalid-input-response',
+  'bad-request', 'timeout-or-duplicate', 'internal-error', 'internal-errorr', // « internal-errorr » : orthographe de la doc Cloudflare
+];
+const CF_SECRET_CODES = ['missing-input-secret', 'invalid-input-secret'];
+
+// Extrait uniquement les codes connus, dédoublonnés, et compte les autres sans les recopier.
+function cfErrorCodes(d) {
+  const raw = d && Array.isArray(d['error-codes']) ? d['error-codes'] : [];
+  const known = [...new Set(raw.filter(c => typeof c === 'string' && CF_ERROR_CODES.includes(c)))];
+  return { known, unknown: raw.length - raw.filter(c => typeof c === 'string' && CF_ERROR_CODES.includes(c)).length };
+}
+
 // Anti-robot serveur (Cloudflare Turnstile). FAIL CLOSED : sans secret, rien n'est enregistré.
 // expectedHost : hôte de la page ayant émis le jeton (origine validée, ou en-tête Host).
 // Contrôles : secret présent, jeton présent, succès Cloudflare, hôte et action identiques.
@@ -165,30 +179,39 @@ async function verifyCaptcha(env, token, expectedHost) {
   if (!response) return { ok: false, status: 400, reason: 'jeton_absent' };
   const ctrl = typeof AbortController === 'function' ? new AbortController() : null;
   const timer = ctrl ? setTimeout(() => ctrl.abort(), 10000) : null;
-  let d;
+  let r;
+  let d = null;
   try {
-    const r = await fetch(TURNSTILE_VERIFY_URL, {
+    r = await fetch(TURNSTILE_VERIFY_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ secret, response }),
       signal: ctrl ? ctrl.signal : undefined,
     });
     d = await r.json().catch(() => null);
-    if (!r.ok || !d || typeof d !== 'object') return { ok: false, status: 503, reason: 'erreur_cloudflare' };
   } catch (e) {
-    return { ok: false, status: 503, reason: 'erreur_reseau' };
+    return { ok: false, status: 503, reason: 'erreur_reseau', detail: 'http=- json=non codes=-' };
   } finally {
     if (timer) clearTimeout(timer);
   }
-  const codes = Array.isArray(d['error-codes']) ? d['error-codes'] : [];
+  // Détail de diagnostic : statut HTTP, présence d'un JSON, codes d'erreur de la liste blanche.
+  // Jamais le secret, le jeton, les données du formulaire ni le corps brut de la réponse.
+  const isJson = !!d && typeof d === 'object' && !Array.isArray(d);
+  const cf = cfErrorCodes(isJson ? d : null);
+  const detail = `http=${r.status} json=${isJson ? 'oui' : 'non'} codes=${cf.known.join('|') || '-'}`
+    + (cf.unknown ? ` autres=${cf.unknown}` : '');
+  // Secret refusé par Cloudflare : erreur de configuration côté serveur, pas un défaut du visiteur.
+  if (cf.known.some(c => CF_SECRET_CODES.includes(c))) return { ok: false, status: 503, reason: 'secret_refuse', detail };
+  if (!r.ok) return { ok: false, status: 503, reason: 'erreur_cloudflare_http', detail };
+  if (!isJson) return { ok: false, status: 503, reason: 'reponse_cloudflare_invalide', detail };
   if (d.success !== true) {
     // Jeton à usage unique et limité dans le temps : expiré ou déjà utilisé.
-    if (codes.includes('timeout-or-duplicate')) return { ok: false, status: 400, reason: 'jeton_expire' };
-    return { ok: false, status: 400, reason: 'jeton_refuse' };
+    if (cf.known.includes('timeout-or-duplicate')) return { ok: false, status: 400, reason: 'jeton_expire', detail };
+    return { ok: false, status: 400, reason: 'jeton_refuse', detail };
   }
-  if (String(d.hostname || '').toLowerCase() !== host) return { ok: false, status: 400, reason: 'domaine_inattendu' };
-  if (d.action !== TURNSTILE_ACTION) return { ok: false, status: 400, reason: 'action_inattendue' };
-  return { ok: true, status: 200, reason: null };
+  if (String(d.hostname || '').toLowerCase() !== host) return { ok: false, status: 400, reason: 'domaine_inattendu', detail };
+  if (d.action !== TURNSTILE_ACTION) return { ok: false, status: 400, reason: 'action_inattendue', detail };
+  return { ok: true, status: 200, reason: null, detail };
 }
 
 // Compte les demandes déjà reçues (filtres PostgREST). Renvoie null si le comptage échoue.
@@ -285,7 +308,7 @@ module.exports = async (req, res) => {
   if (!expectedHost) expectedHost = clean(req.headers.host, 255);
   const captcha = await verifyCaptcha(process.env, b.captchaToken, expectedHost);
   if (!captcha.ok) {
-    console.error('[rsu captcha refusé]', captcha.reason); // raison seule, jamais le jeton
+    console.error('[rsu captcha refusé]', captcha.reason, captcha.detail || ''); // raison + diagnostic, jamais le jeton ni le secret
     if (captcha.reason === 'config_turnstile_absente') {
       return res.status(503).json({ error: 'Vérification anti-robot indisponible. Merci de réessayer ou de nous appeler.', code: 'CONFIG_CAPTCHA' });
     }
