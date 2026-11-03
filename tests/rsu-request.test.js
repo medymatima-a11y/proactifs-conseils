@@ -487,15 +487,20 @@ test('page : transmission active uniquement sur l\'alias de branche Preview rée
   assert.strictEqual(active('proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-projects.vercel.app'), true);
   // Alias stable de la branche feat/rsu-prod-hosts-local (déploiement dpl_4wdLCTrQG7r5U6JywVf31sPVesmi) : accepté.
   assert.strictEqual(active('proactifs-conseils-git-feat-rs-a2bdf1-medymatima-a11ys-projects.vercel.app'), true);
+  // Alias stable de la branche feat/rsu-finalisation-conversion (03/11/2026) : accepté.
+  assert.strictEqual(active('proactifs-conseils-git-feat-rs-17f578-medymatima-a11ys-projects.vercel.app'), true);
+  assert.strictEqual(active('proactifs-conseils-git-feat-rs-17f578-medymatima-a11ys-projects.vercel.app.evil.com'), false);
+  assert.strictEqual(active('proactifs-conseils-git-feat-rs-17f579-medymatima-a11ys-projects.vercel.app'), false);
   // Variantes proches de l'alias accepté : refusées.
   assert.strictEqual(active('proactifs-conseils-git-feat-rs-a2bdf1-medymatima-a11ys-projects.vercel.app.evil.com'), false);
   assert.strictEqual(active('proactifs-conseils-git-feat-rs-a2bdf1-medymatima-a11ys-projects.vercel.app.'), false);
   assert.strictEqual(active('proactifs-conseils-git-feat-rs-a2bdf2-medymatima-a11ys-projects.vercel.app'), false);
   assert.strictEqual(active('proactifs-conseils-git-feat-rs-a2bdf1-autre-medymatima-a11ys-projects.vercel.app'), false);
-  // Liste exacte : deux alias de test, aucun autre.
+  // Liste exacte : trois alias de test, aucun autre.
   assert.deepStrictEqual(evalPreviewHostList(), [
     'proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-projects.vercel.app',
     'proactifs-conseils-git-feat-rs-a2bdf1-medymatima-a11ys-projects.vercel.app',
+    'proactifs-conseils-git-feat-rs-17f578-medymatima-a11ys-projects.vercel.app',
   ]);
   // Ancien nom supposé, jamais attribué par Vercel : refusé.
   assert.strictEqual(active('proactifs-conseils-git-feat-rsu-form-preview-medymatima-a11ys-projects.vercel.app'), false);
