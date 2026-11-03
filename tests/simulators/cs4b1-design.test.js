@@ -49,9 +49,10 @@ test('Libellé "revenu mensuel estimatif nécessaire" explicite (pas seulement �
 test('CTA conversion : bloc dédié + destination réelle + micro-réassurance factuelle', () => {
   assert.ok(/class="cta-conv"/.test(HTML));
   assert.ok(/Votre projet mérite plus qu['’]une simulation\./.test(visible));
-  assert.ok(/href="\/courtage-credit-immobilier"[^>]*id="cta-financement"/.test(HTML)
-    || /id="cta-financement"[^>]*href="\/courtage-credit-immobilier"/.test(HTML)
-    || /href="\/courtage-credit-immobilier"/.test(HTML));
+  // Destination renommée le 28/10/2026 : /courtage-credit-immobilier -> /pret-immobilier.
+  assert.ok(/href="\/pret-immobilier"[^>]*id="cta-financement"/.test(HTML)
+    || /id="cta-financement"[^>]*href="\/pret-immobilier"/.test(HTML)
+    || /href="\/pret-immobilier"/.test(HTML));
   ['Analyse personnalisée', 'Accompagnement financement', 'Sans engagement'].forEach(t =>
     assert.ok(visible.indexOf(t) !== -1, 'réassurance manquante: ' + t));
   // aucune promesse inventée
@@ -74,6 +75,6 @@ test('Publication : index,follow + lead connecté /api/subscribe, aucun secret t
 
 /* ---- Pas de mini-header prototype ------------------------------------- */
 test('Header : réel (#nav), aucun résidu proto-header', () => {
-  assert.ok(/<nav id="nav">/.test(HTML));
+  assert.ok(/<nav id="nav"[ >]/.test(HTML)); // aria-label ajouté depuis
   assert.ok(!/proto-header/.test(HTML));
 });

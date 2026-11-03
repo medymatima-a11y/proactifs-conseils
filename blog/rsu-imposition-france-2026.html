@@ -181,6 +181,14 @@
     .scroll-top:hover { background: var(--gold-light); box-shadow: var(--shadow-md); }
     @media (max-width: 1024px) { .article-body { grid-template-columns: 1fr; gap: 40px; } .article-sidebar { position: static; } }
     @media (max-width: 768px) { .article-hero { padding: 56px 24px 80px; } .article-hero h1 { font-size: 36px; } .article-body { padding: 40px 24px; } .key-numbers { grid-template-columns: 1fr 1fr; } footer { padding: 48px 24px 24px; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } .article-cta { padding: 40px 28px; } .article-cta h2 { font-size: 28px; } }
+    /* Encart contextuel : diagnostic actionnariat (renvoi vers la page pilier RSU) */
+    .rsu-diag-cta{display:flex;align-items:center;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;background:var(--sand);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:0 var(--r-md) var(--r-md) 0;padding:20px 24px;margin:36px 0}
+    .rsu-diag-cta .rdc-text{flex:1 1 320px;min-width:0}
+    .rsu-diag-cta .rdc-label{display:block;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--teal);margin-bottom:6px}
+    .article-content .rsu-diag-cta p{font-size:15px;line-height:1.6;color:var(--ink-soft);margin:0;text-align:left}
+    .article-content a.rdc-link{display:inline-block;flex:0 0 auto;color:var(--forest);font-size:14px;font-weight:600;text-decoration:none;border:1.5px solid var(--gold);border-radius:var(--r-md);padding:10px 18px;white-space:nowrap;transition:background .2s,color .2s}
+    .article-content a.rdc-link:hover{background:var(--gold-pale);color:var(--ink)}
+    @media(max-width:600px){.rsu-diag-cta{padding:18px}.article-content a.rdc-link{white-space:normal}}
   </style>
   <!-- Google tag (gtag.js) -->
   <script>
@@ -488,6 +496,14 @@
         <li>Convention fiscale bilatérale si activité dans plusieurs pays la même année</li>
       </ul>
     </div>
+
+    <aside class="rsu-diag-cta" aria-label="Diagnostic actionnariat">
+      <div class="rdc-text">
+        <span class="rdc-label">Diagnostic actionnariat &middot; 5 questions</span>
+        <p>Vesting à venir, actions acquises non vendues, carrière dans plusieurs pays&nbsp;: votre situation RSU gagne à être regardée dans son ensemble. Quelques minutes suffisent pour identifier les sujets à examiner en priorité.</p>
+      </div>
+      <a class="rdc-link" href="/fiscalite-rsu-stock-options" data-cta="article_diagnostic_rsu">Faire le point sur mes RSU &rarr;</a>
+    </aside>
 
     <h2 id="optimisation">Stratégies d'optimisation fiscale pour les porteurs de RSU</h2>
 

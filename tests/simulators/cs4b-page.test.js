@@ -54,7 +54,7 @@ test('SEO : Open Graph présent (title/description/url/type)', () => {
     assert.ok(new RegExp('property="' + p + '"').test(HTML), 'manque ' + p));
 });
 test('SEO : header centralisé réel (pas de mini-header prototype)', () => {
-  assert.ok(/<nav id="nav">/.test(HTML));
+  assert.ok(/<nav id="nav"[ >]/.test(HTML)); // aria-label ajouté depuis
   assert.ok(!/Prototype simulateur V2/.test(HTML));
   assert.ok(!/proto-header/.test(HTML));
 });

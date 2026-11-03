@@ -551,6 +551,38 @@
   </section>
 
   <script>
+  /* Mesure GA4 du formulaire de bilan : un seul generate_lead par chargement de page,
+     déclenché seulement après confirmation serveur. Aucun nom, email, téléphone,
+     message ni situation n'est transmis : uniquement des libellés techniques.
+     gtag respecte le Consent Mode s'il est activé ; jamais bloquant pour le formulaire. */
+  var bilanLeadSent = false;
+  var BILAN_SERVICES = ['impots','retraite','immo','epargne','actionnariat','transmission','cession','credit','declaration'];
+  /* Consentement analytique, lu dans le cookie first-party pc_consent (même format que cookie-consent.js).
+     Lu au moment de la soumission uniquement : un consentement donné ensuite ne déclenche
+     jamais l'événement rétroactivement. Absence de cookie, refus ou erreur = aucun événement. */
+  function hasAnalyticsConsent() {
+    try {
+      var m = document.cookie.match(/(?:^|;\s*)pc_consent=([^;]+)/);
+      if (!m) return false;
+      var v = JSON.parse(decodeURIComponent(m[1]));
+      return !!(v && v.a === true);
+    } catch (err) { return false; }
+  }
+  function trackBilanLead(service) {
+    if (bilanLeadSent) return;
+    if (!hasAnalyticsConsent()) return;
+    bilanLeadSent = true;
+    try {
+      if (typeof gtag === 'function') {
+        gtag('event', 'generate_lead', {
+          form_name: 'bilan_patrimonial',
+          lead_source: 'page_bilan_patrimonial',
+          service_category: BILAN_SERVICES.indexOf(service) !== -1 ? service : 'autre'
+        });
+      }
+    } catch (err) { /* ne jamais bloquer la confirmation */ }
+  }
+
   async function handleBilanSubmit(e) {
     e.preventDefault();
     var btn      = document.getElementById('submit-btn');
@@ -585,6 +617,10 @@
       });
 
       if (res.ok) {
+        // GA4 : generate_lead uniquement si le serveur confirme l'enregistrement ({ success: true })
+        var data = null;
+        try { data = await res.json(); } catch (_) { data = null; }
+        if (data && data.success === true) { trackBilanLead(service); }
         feedback.style.cssText = 'display:block; margin-top:16px; padding:20px 24px; border-radius:12px; font-size:14px; line-height:1.7; background:#E6F4F2; color:#1B5E52; border:1px solid #A7D7D0;';
         feedback.innerHTML = '<strong style="font-size:15px;">✓ Votre demande a bien été reçue !</strong><br>Un email de confirmation vous a été envoyé. Un conseiller vous contactera <strong>sous 24h</strong> pour convenir d\'un échange.';
         btn.style.display = 'none';

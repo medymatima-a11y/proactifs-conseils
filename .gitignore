@@ -17,3 +17,8 @@ scripts/temp-*
 
 # Config locale Claude Code
 .claude/
+
+# Secrets locaux — ne JAMAIS committer (vercel env pull écrit .env.local)
+.env
+.env.*
+Info.txt

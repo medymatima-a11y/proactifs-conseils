@@ -34,7 +34,9 @@ test('og:image : asset de marque existant', () => {
 
 /* ---- Analytics GA4 + pont sans PII ------------------------------------ */
 test('GA4 : tag + pont dataLayer->gtag whitelistant les 5 événements', () => {
-  assert.ok(/gtag\/js\?id=G-P53RQGXJZX/.test(HTML));
+  // gtag.js n'est plus codé en dur sur aucune page du site : cookie-consent.js
+  // l'injecte après consentement analytique (Consent Mode).
+  assert.ok(/src="\/assets\/js\/cookie-consent\.js"/.test(HTML), 'chargeur de consentement absent');
   assert.ok(/gtag\('config', 'G-P53RQGXJZX'\)/.test(HTML));
   ['simulation_started','simulation_completed','simulation_result','financing_cta_clicked','financing_lead_submitted']
     .forEach(ev => assert.ok(HTML.indexOf(ev) !== -1, 'event manquant dans le pont: ' + ev));

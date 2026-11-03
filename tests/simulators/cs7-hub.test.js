@@ -52,8 +52,9 @@ test('B3 — CTA de carte = span (pas de <a> imbriqué)', () => {
 });
 
 /* ---- C : conversion ---------------------------------------------------- */
-test('C1 — CTA financement vers /courtage-credit-immobilier', () => {
-  assert.ok(/<a class="cta" href="\/courtage-credit-immobilier" data-action="financing-cta">Étudier mon financement<\/a>/.test(HUB));
+test('C1 — CTA financement vers /pret-immobilier', () => {
+  // Destination renommée le 28/10/2026 (/courtage-credit-immobilier redirigée).
+  assert.ok(/<a class="cta" href="\/pret-immobilier" data-action="financing-cta">Étudier mon financement<\/a>/.test(HUB));
 });
 test('C2 — aucun formulaire lead direct sur le hub (V1)', () => {
   assert.ok(!/\/api\/subscribe/.test(HUB), 'pas de lead direct');
@@ -199,13 +200,13 @@ test('H4 — home : aucune H1 supplémentaire (nouvelle section en H2)', () => {
   assert.strictEqual(h1, 1, 'exactement une H1 sur la home');
 });
 test('H5 — partials/header.html : Simulateurs -> /simulateurs (desktop + mobile)', () => {
-  assert.ok(/<a href="\/simulateurs" class="nav-link">Simulateurs<\/a>/.test(HEADER_PARTIAL), 'desktop nav-link');
-  assert.ok(/<a class="m-item" href="\/simulateurs">Simulateurs<\/a>/.test(HEADER_PARTIAL), 'mobile m-item');
+  assert.ok(/<a href="\/simulateurs">Tous les simulateurs<\/a>/.test(HEADER_PARTIAL), 'desktop nav-link');
+  assert.ok(/<a class="m-item" href="\/simulateurs">Tous les simulateurs<\/a>/.test(HEADER_PARTIAL), 'mobile m-item');
   assert.ok(!/\{\{HOME_PREFIX\}\}#simulateurs/.test(HEADER_PARTIAL), 'plus de lien #simulateurs dans le partial');
 });
 test('H6 — header central régénéré sur la home : Simulateurs -> /simulateurs', () => {
-  assert.ok(/<a href="\/simulateurs" class="nav-link">Simulateurs<\/a>/.test(HOME), 'header desktop home');
-  assert.ok(/<a class="m-item" href="\/simulateurs">Simulateurs<\/a>/.test(HOME), 'header mobile home');
+  assert.ok(/<a href="\/simulateurs">Tous les simulateurs<\/a>/.test(HOME), 'header desktop home');
+  assert.ok(/<a class="m-item" href="\/simulateurs">Tous les simulateurs<\/a>/.test(HOME), 'header mobile home');
 });
 test('H7 — home : cartes analytics-ready (data-tool) sans PII/donnée financière', () => {
   assert.ok(/data-tool="capacite"/.test(HOME) && /data-tool="mensualite"/.test(HOME) && /data-tool="endettement"/.test(HOME));
