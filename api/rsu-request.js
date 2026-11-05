@@ -33,10 +33,10 @@
 
 const TABLE = 'rsu_requests';
 const CONSENT_VERSION = 'rsu-consent-v1';
-const LIMITS = { nom: [2, 80], email: [5, 160], telephone: [6, 30], commentaire: [0, 600] };
+const LIMITS = { prenom: [1, 80], nom: [2, 80], email: [5, 160], telephone: [6, 30], commentaire: [0, 600] };
 const PER_EMAIL_DAILY_LIMIT = 3;
 const DEFAULT_DAILY_CAP = 50;
-const MAX_BODY_CHARS = 2000;
+const MAX_BODY_CHARS = 4000; // 4 champs de plus depuis la fusion du diagnostic + jeton Turnstile (mesure : ~1 300 car. hors jeton)
 const NOTIFY_ENDPOINT = 'https://api.brevo.com/v3/smtp/email'; // transactionnel uniquement (pas /v3/contacts)
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 const TURNSTILE_ACTION = 'rsu_request'; // action déclarée par le widget de la page RSU
@@ -55,9 +55,29 @@ function turnstileVars(env) {
   return { siteKey: String(env[names.site] || '').trim(), secret: String(env[names.secret] || '').trim() };
 }
 
-const DISPOSITIFS = ['RSU / actions gratuites', 'ESPP', 'Stock-options', 'Plusieurs dispositifs', 'Autre'];
-const BESOINS = ['Comprendre la fiscalité', 'Préparer une vente', 'Déclaration fiscale', 'Mobilité internationale', 'Autre'];
+const DISPOSITIFS = [
+  // Anciennes valeurs (formulaire simplifié) — conservées pour les lignes déjà enregistrées.
+  'RSU / actions gratuites', 'ESPP', 'Stock-options', 'Plusieurs dispositifs', 'Autre',
+  // Diagnostic, question 1 « De quel type de plan s'agit-il ? »
+  'RSU', 'Actions gratuites', 'Stock-options ou BSPCE', 'Plan à préciser',
+];
+const BESOINS = [
+  // Anciennes valeurs (formulaire simplifié) — conservées pour les lignes déjà enregistrées.
+  'Comprendre la fiscalité', 'Préparer une vente', 'Déclaration fiscale', 'Mobilité internationale', 'Autre',
+  // Diagnostic, question 5 « Qu'attendez-vous en priorité ? »
+  'Fiscalité de mes actions', 'Préparation de ma déclaration', 'Vente ou conservation de mes actions',
+  'Départ ou arrivée en France', 'Réinvestissement après une vente', "Vue d'ensemble de ma situation",
+];
+// Échéance : plus demandée par le diagnostic, donc facultative. La liste reste
+// en vigueur pour toute valeur transmise.
 const ECHEANCES = ['Dès que possible', 'Dans les prochaines semaines', "Simple prise d'information"];
+
+// Diagnostic, question 3 « Quel montant représentent vos actions ? »
+const MONTANTS = ['< 25 k€', '25 à 50 k€', '50 à 100 k€', '100 à 250 k€', '> 250 k€', 'Montant non précisé'];
+// Diagnostic, question 4 « Où en êtes-vous aujourd'hui ? »
+const STADES = ['En acquisition', 'Acquises, non vendues', 'Déjà vendu', 'Vesting ou vente proche'];
+// Diagnostic, question 2 « Votre situation a-t-elle une dimension internationale ? »
+const INTERNATIONAL = ['France', 'Plusieurs pays', 'Arrivée en France', 'Départ de France', 'International autre'];
 
 const ALLOWED_ORIGINS = [
   'https://proactifsconseils.fr',
@@ -78,6 +98,7 @@ const TEL_RE = /^[0-9+()\s.-]{6,30}$/;
 // être enregistrée sous une forme différente de celle saisie.
 function validate(b) {
   const raw = (k) => String(b[k] ?? '').trim();
+  const prenom = raw('prenom');
   const nom = raw('nom');
   const email = raw('email').toLowerCase();
   const telephone = raw('telephone');
@@ -85,25 +106,36 @@ function validate(b) {
   const besoin = raw('besoin');
   const echeance = raw('echeance');
   const commentaire = raw('commentaire');
+  const montantEstime = raw('montant_estime');
+  const stade = raw('stade');
+  const dimensionInternationale = raw('dimension_internationale');
 
+  if (prenom.length < LIMITS.prenom[0] || prenom.length > LIMITS.prenom[1]) return { error: `Prénom : entre ${LIMITS.prenom[0]} et ${LIMITS.prenom[1]} caractères.` };
   if (nom.length < LIMITS.nom[0] || nom.length > LIMITS.nom[1]) return { error: `Nom : entre ${LIMITS.nom[0]} et ${LIMITS.nom[1]} caractères.` };
   if (email.length > LIMITS.email[1] || !EMAIL_RE.test(email)) return { error: 'Adresse email invalide.' };
   if (telephone && (telephone.length > LIMITS.telephone[1] || !TEL_RE.test(telephone))) return { error: 'Numéro de téléphone invalide.' };
   if (!DISPOSITIFS.includes(dispositif)) return { error: 'Dispositif invalide.' };
   if (!BESOINS.includes(besoin)) return { error: 'Besoin invalide.' };
-  if (!ECHEANCES.includes(echeance)) return { error: 'Échéance invalide.' };
+  if (echeance && !ECHEANCES.includes(echeance)) return { error: 'Échéance invalide.' };
+  if (montantEstime && !MONTANTS.includes(montantEstime)) return { error: 'Montant invalide.' };
+  if (stade && !STADES.includes(stade)) return { error: 'Stade invalide.' };
+  if (dimensionInternationale && !INTERNATIONAL.includes(dimensionInternationale)) return { error: 'Dimension internationale invalide.' };
   if (commentaire.length > LIMITS.commentaire[1]) return { error: 'Commentaire trop long (600 caractères maximum).' };
   if (b.consent !== true) return { error: 'Consentement requis pour traiter votre demande.' };
 
   return {
     data: {
+      prenom,
       nom,
       email,
       telephone: telephone || null,
       dispositif,
       besoin,
-      echeance,
+      echeance: echeance || null,
       commentaire: commentaire || null,
+      montant_estime: montantEstime || null,
+      stade: stade || null,
+      dimension_internationale: dimensionInternationale || null,
       consent_version: CONSENT_VERSION,
       statut: 'nouveau',
     },
@@ -371,3 +403,11 @@ module.exports.checkTarget = checkTarget;
 module.exports.verifyCaptcha = verifyCaptcha;
 module.exports.projectRefFromUrl = projectRefFromUrl;
 module.exports.TURNSTILE_ACTION = TURNSTILE_ACTION;
+module.exports.DISPOSITIFS = DISPOSITIFS;
+module.exports.BESOINS = BESOINS;
+module.exports.ECHEANCES = ECHEANCES;
+module.exports.MONTANTS = MONTANTS;
+module.exports.STADES = STADES;
+module.exports.INTERNATIONAL = INTERNATIONAL;
+module.exports.LIMITS = LIMITS;
+module.exports.MAX_BODY_CHARS = MAX_BODY_CHARS;

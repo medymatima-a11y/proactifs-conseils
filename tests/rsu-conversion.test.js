@@ -89,24 +89,99 @@ test('bilan : le service actionnariat est tagué et libellé', () => {
 // L'endpoint rejette toute valeur hors liste (400). Un libellé modifié d'un
 // seul côté casse le formulaire sans erreur visible à l'édition.
 
+// Le formulaire simplifié a été retiré : c'est le diagnostic en six étapes qui
+// alimente l'API. Chaque réponse doit appartenir à la liste que le serveur
+// accepte, sinon l'envoi part en 400 sans rien d'visible à l'édition.
+const api = require('../api/rsu-request.js');
+
+function actioSteps() {
+  const m = PILIER.match(/const actioSteps = (\[[\s\S]*?\n    \]);/);
+  assert.ok(m, 'actioSteps introuvable dans la page pilier');
+  return new Function('return ' + m[1])();
+}
+// Valeur réellement transmise : libellé court `s` s'il existe, sinon le libellé.
+function valeurs(step) {
+  return step.opts.map((o) => (o.s !== undefined ? o.s : o.l));
+}
+
+test('diagnostic : les six étapes sont intactes (cinq questions + contact)', () => {
+  const steps = actioSteps();
+  assert.strictEqual(steps.length, 5, 'le diagnostic doit garder ses cinq questions');
+  assert.deepStrictEqual(steps.map((s) => s.q), [
+    "De quel type de plan s'agit-il ?",
+    'Votre situation a-t-elle une dimension internationale ?',
+    'Quel montant représentent vos actions, à peu près ?',
+    'Où en êtes-vous aujourd\'hui ?',
+    'Qu\'attendez-vous en priorité ?',
+  ]);
+  for (const id of ['wPrenom', 'wNom', 'wEmail', 'wTel']) {
+    assert.ok(PILIER.includes('id="' + id + '"'), 'champ de contact ' + id + ' absent');
+  }
+});
+
 const COUPLAGES = [
-  ['rsu-dispositif', 'DISPOSITIFS'],
-  ['rsu-besoin', 'BESOINS'],
-  ['rsu-echeance', 'ECHEANCES'],
+  [0, 'DISPOSITIFS', 'Q1 type de plan'],
+  [1, 'INTERNATIONAL', 'Q2 dimension internationale'],
+  [2, 'MONTANTS', 'Q3 montant'],
+  [3, 'STADES', 'Q4 stade'],
+  [4, 'BESOINS', 'Q5 attente'],
 ];
 
-for (const [id, liste] of COUPLAGES) {
-  test('formulaire RSU : les options de #' + id + ' correspondent à ' + liste, () => {
-    const attendues = new RegExp('const ' + liste + ' = \\[([\\s\\S]*?)\\];').exec(
-      read('api/rsu-request.js')
-    );
-    assert.ok(attendues, liste + ' introuvable dans api/rsu-request.js');
-    const serveur = [...attendues[1].matchAll(/'((?:[^'\\]|\\.)*)'|"([^"]*)"/g)]
-      .map((m) => (m[1] !== undefined ? m[1].replace(/\\'/g, "'") : m[2]));
-    const page = selectOptions(PILIER, id);
-    assert.deepStrictEqual(page, serveur);
+for (const [i, liste, label] of COUPLAGES) {
+  test('diagnostic : les réponses de ' + label + ' sont acceptées par ' + liste, () => {
+    const options = valeurs(actioSteps()[i]);
+    const acceptees = api[liste];
+    assert.ok(Array.isArray(acceptees), liste + ' non exportée par api/rsu-request.js');
+    const refusees = options.filter((o) => !acceptees.includes(o));
+    assert.deepStrictEqual(refusees, [], label + ' : valeurs refusées par le serveur');
   });
 }
+
+test('diagnostic : chaque réponse a une colonne, aucune perte silencieuse', () => {
+  // validate() ne recopie que les clés qu'il connaît : un champ oublié ici
+  // disparaîtrait sans message d'erreur. Ce test est le garde-fou.
+  const steps = actioSteps();
+  const envoi = {
+    prenom: 'Camille', nom: 'Durand', email: 'camille@example.com', telephone: '06 00 00 00 02',
+    dispositif: valeurs(steps[0])[0],
+    dimension_internationale: valeurs(steps[1])[1],
+    montant_estime: valeurs(steps[2])[3],
+    stade: valeurs(steps[3])[1],
+    besoin: valeurs(steps[4])[5],
+    commentaire: '', consent: true,
+  };
+  const { data, error } = api.validate(envoi);
+  assert.ok(!error, 'validate a refusé une réponse pourtant proposée : ' + error);
+  for (const [k, v] of Object.entries(envoi)) {
+    if (k === 'consent' || k === 'commentaire') continue;
+    assert.strictEqual(data[k], v, 'champ perdu ou altéré : ' + k);
+  }
+  assert.strictEqual(data.consent_version, 'rsu-consent-v1');
+});
+
+test('diagnostic : la requête la plus lourde passe sous le plafond de taille', () => {
+  const steps = actioSteps();
+  const pire = {
+    prenom: 'x'.repeat(80), nom: 'x'.repeat(80), email: 'x'.repeat(150) + '@ex.fr',
+    telephone: '0'.repeat(30),
+    dispositif: valeurs(steps[0]).reduce((a, b) => (a.length > b.length ? a : b)),
+    dimension_internationale: valeurs(steps[1]).reduce((a, b) => (a.length > b.length ? a : b)),
+    montant_estime: valeurs(steps[2]).reduce((a, b) => (a.length > b.length ? a : b)),
+    stade: valeurs(steps[3]).reduce((a, b) => (a.length > b.length ? a : b)),
+    besoin: valeurs(steps[4]).reduce((a, b) => (a.length > b.length ? a : b)),
+    commentaire: 'x'.repeat(600), consent: true, website: '',
+    captchaToken: 'x'.repeat(2048), // jeton Turnstile de taille maximale documentée
+  };
+  const taille = JSON.stringify(pire).length;
+  assert.ok(taille <= api.MAX_BODY_CHARS,
+    'corps de ' + taille + ' caractères pour un plafond de ' + api.MAX_BODY_CHARS);
+});
+
+test('page pilier : le formulaire simplifié a bien disparu', () => {
+  for (const trace of ['contact-rsu', 'rsuForm', 'id="rsu-dispositif"', 'id="rsu-besoin"']) {
+    assert.ok(!PILIER.includes(trace), 'trace du formulaire simplifié : ' + trace);
+  }
+});
 
 test('formulaire RSU : la page déclare l’action Turnstile attendue par le serveur', () => {
   assert.ok(

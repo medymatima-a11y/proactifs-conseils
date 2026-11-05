@@ -518,43 +518,13 @@
       .err-list li { grid-template-columns: 44px 1fr; }
       .err-list li::before { font-size: 28px; }
     }
-    /* ── Formulaire commercial RSU/ESPP (#contact-rsu) ── */
-    #contact-rsu { background: var(--sand); padding: 96px 40px; scroll-margin-top: 90px; }
-    #contact-rsu .rsu-wrap { max-width: 760px; margin: 0 auto; }
-    #contact-rsu .rsu-title { font-family: 'Fraunces', serif; font-size: 40px; font-weight: 700; line-height: 1.2; margin: 0 0 16px; color: var(--ink); }
-    #contact-rsu .rsu-title em { color: var(--gold); font-style: italic; font-weight: 600; }
-    #contact-rsu .rsu-sub { font-size: 16px; color: var(--ink-soft); line-height: 1.7; margin: 0 0 36px; }
-    #contact-rsu form { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 36px; box-shadow: var(--shadow-md); }
-    .rsu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; }
-    .rsu-field { display: flex; flex-direction: column; gap: 6px; }
-    .rsu-field.full { grid-column: 1 / -1; }
-    .rsu-field label { font-size: 13px; font-weight: 600; color: var(--ink); }
-    .rsu-req { color: var(--gold); }
-    .rsu-field input, .rsu-field select, .rsu-field textarea { font: inherit; font-size: 15px; color: var(--ink); background: var(--ivory); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 12px 14px; min-height: 46px; width: 100%; box-sizing: border-box; }
-    .rsu-field textarea { min-height: 110px; resize: vertical; }
-    #contact-rsu input:focus, #contact-rsu select:focus, #contact-rsu textarea:focus { outline: 2px solid var(--gold); outline-offset: 2px; border-color: var(--gold); }
-    #contact-rsu [aria-invalid="true"] { border-color: #B42318; }
-    /* Hauteur réservée : l'apparition/disparition d'un message ne doit pas décaler le bouton (clic perdu). */
-    .rsu-err { font-size: 13px; line-height: 18px; min-height: 18px; color: #B42318; margin: 0; }
-    .rsu-hint { font-size: 12px; color: var(--slate); text-align: right; margin: 0; }
-    .rsu-consent { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--ink-soft); line-height: 1.6; margin-top: 8px; }
-    .rsu-consent input { margin-top: 4px; width: 18px; height: 18px; flex: 0 0 auto; accent-color: var(--gold); }
-    .rsu-consent a { color: var(--teal); }
-    .rsu-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
-    .rsu-actions { margin-top: 28px; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
-    #contact-rsu .btn-primary { cursor: pointer; border: none; font-family: inherit; }
-    .rsu-status { margin: 0; font-size: 14px; line-height: 1.6; }
-    .rsu-status-error { color: #B42318; }
-    .rsu-status-info { color: var(--ink-soft); background: var(--gold-pale); border-radius: var(--r-sm); padding: 12px 14px; }
-    @media (max-width: 768px) {
-      #contact-rsu { padding: 56px 16px; }
-      #contact-rsu .rsu-title { font-size: 30px; margin-bottom: 12px; }
-      #contact-rsu .rsu-sub { margin-bottom: 28px; }
-      #contact-rsu form { padding: 22px 18px; }
-      .rsu-grid { grid-template-columns: 1fr; gap: 16px; }
-      .rsu-actions { margin-top: 24px; }
-      #contact-rsu .btn-primary { width: 100%; text-align: center; }
-    }
+    /* ── Diagnostic : consentement, anti-robot, champ piège ── */
+    .wiz-consent { display:flex; align-items:flex-start; gap:10px; margin:14px 0 4px; font-size:12.5px; line-height:1.55; color:var(--ink-soft); cursor:pointer; }
+    .wiz-consent input { margin-top:2px; width:16px; height:16px; flex:0 0 auto; accent-color:var(--gold); }
+    .wiz-consent a { color:var(--teal); }
+    .wiz-captcha-wrap { margin:14px 0 4px; }
+    .wiz-captcha-err { margin:8px 0 0; font-size:12.5px; color:#B42318; line-height:1.5; }
+    .wiz-hp { position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; }
   </style>
   <!-- Google tag (gtag.js) -->
   <script>
@@ -994,7 +964,19 @@
           </div>
           <div class="wiz-field"><label>Email *</label><input type="email" id="wEmail" placeholder="Votre adresse email" required></div>
           <div class="wiz-field"><label>T&eacute;l&eacute;phone *</label><input type="tel" id="wTel" placeholder="Votre numéro de téléphone" required></div>
-          <p class="wiz-gdpr">&#x1F512; Vos donn&eacute;es sont confidentielles et ne seront jamais revendues. En soumettant ce formulaire, vous acceptez d&rsquo;&ecirc;tre contact&eacute; par Proactifs Conseils.</p>
+          <label class="wiz-consent" for="wConsent">
+            <input type="checkbox" id="wConsent">
+            <span>J&rsquo;accepte que Proactifs Conseils utilise les informations transmises pour r&eacute;pondre &agrave; ma demande, conform&eacute;ment &agrave; sa <a href="/confidentialite" target="_blank" rel="noopener">politique de confidentialit&eacute;</a>.&nbsp;*</span>
+          </label>
+          <p class="wiz-gdpr">&#x1F512; Vos donn&eacute;es sont confidentielles et ne seront jamais revendues.</p>
+          <div class="wiz-hp" aria-hidden="true">
+            <label for="wWebsite">Ne pas remplir</label>
+            <input type="text" id="wWebsite" tabindex="-1" autocomplete="off">
+          </div>
+          <div class="wiz-captcha-wrap" id="wizCaptchaWrap" style="display:none">
+            <div id="wizCaptcha"></div>
+            <p id="wizCaptchaErr" class="wiz-captcha-err" aria-live="polite"></p>
+          </div>
           <div id="wizError" role="alert" style="display:none;margin:0 0 12px;padding:10px 12px;border:1px solid #d9a3a3;background:#fdf1f1;color:#8a1f1f;border-radius:8px;font-size:.88rem;line-height:1.45"></div>
           <button class="wiz-submit-btn" onclick="actioWizSubmit()">Envoyer ma demande &rarr;</button>
         </div>
@@ -1099,99 +1081,8 @@
       <p class="cta-lead" style="margin-bottom:36px;">Faisons le point ensemble sur ce que vous détenez, sur les conséquences à analyser et sur la place de ce capital dans vos projets.</p>
       <div class="cta-actions">
         <button type="button" class="btn-primary" onclick="openActioWizard()">Faire mon diagnostic RSU &amp; Stock-options</button>
-        <a href="#contact-rsu" class="btn-primary-light">Demander une analyse de ma situation</a>
       </div>
       <p class="cta-sign">Proactifs Conseils. De vos actions d'entreprise à votre patrimoine personnel.</p>
-    </div>
-  </section>
-
-  <section id="contact-rsu" aria-labelledby="contact-rsu-title">
-    <div class="rsu-wrap">
-      <div class="sec-label">Demande d'analyse</div>
-      <h2 id="contact-rsu-title" class="rsu-title">Vos RSU, ESPP ou stock-options soulèvent des <em>questions fiscales ?</em></h2>
-      <p class="rsu-sub">Décrivez-nous votre situation en quelques instants. Nous reviendrons vers vous pour échanger sur les points à analyser et les solutions adaptées à votre situation.</p>
-
-      <form id="rsuForm" novalidate>
-        <div class="rsu-grid">
-          <div class="rsu-field">
-            <label for="rsu-nom">Nom <span class="rsu-req" aria-hidden="true">*</span></label>
-            <input id="rsu-nom" name="nom" type="text" autocomplete="name" maxlength="80" required aria-describedby="rsu-nom-err">
-            <p id="rsu-nom-err" class="rsu-err" aria-live="polite"></p>
-          </div>
-          <div class="rsu-field">
-            <label for="rsu-email">Email <span class="rsu-req" aria-hidden="true">*</span></label>
-            <input id="rsu-email" name="email" type="email" autocomplete="email" maxlength="160" required aria-describedby="rsu-email-err">
-            <p id="rsu-email-err" class="rsu-err" aria-live="polite"></p>
-          </div>
-          <div class="rsu-field">
-            <label for="rsu-tel">Téléphone <span>(facultatif)</span></label>
-            <input id="rsu-tel" name="telephone" type="tel" autocomplete="tel" aria-describedby="rsu-tel-err">
-            <p id="rsu-tel-err" class="rsu-err" aria-live="polite"></p>
-          </div>
-          <div class="rsu-field">
-            <label for="rsu-dispositif">Dispositif <span class="rsu-req" aria-hidden="true">*</span></label>
-            <select id="rsu-dispositif" name="dispositif" required aria-describedby="rsu-dispositif-err">
-              <option value="">Sélectionnez</option>
-              <option>RSU / actions gratuites</option>
-              <option>ESPP</option>
-              <option>Stock-options</option>
-              <option>Plusieurs dispositifs</option>
-              <option>Autre</option>
-            </select>
-            <p id="rsu-dispositif-err" class="rsu-err" aria-live="polite"></p>
-          </div>
-          <div class="rsu-field">
-            <label for="rsu-besoin">Besoin <span class="rsu-req" aria-hidden="true">*</span></label>
-            <select id="rsu-besoin" name="besoin" required aria-describedby="rsu-besoin-err">
-              <option value="">Sélectionnez</option>
-              <option>Comprendre la fiscalité</option>
-              <option>Préparer une vente</option>
-              <option>Déclaration fiscale</option>
-              <option>Mobilité internationale</option>
-              <option>Autre</option>
-            </select>
-            <p id="rsu-besoin-err" class="rsu-err" aria-live="polite"></p>
-          </div>
-          <div class="rsu-field full">
-            <label for="rsu-echeance">Échéance <span class="rsu-req" aria-hidden="true">*</span></label>
-            <select id="rsu-echeance" name="echeance" required aria-describedby="rsu-echeance-err">
-              <option value="">Sélectionnez</option>
-              <option>Dès que possible</option>
-              <option>Dans les prochaines semaines</option>
-              <option>Simple prise d'information</option>
-            </select>
-            <p id="rsu-echeance-err" class="rsu-err" aria-live="polite"></p>
-          </div>
-          <div class="rsu-field full">
-            <label for="rsu-commentaire">Commentaire <span>(facultatif)</span></label>
-            <textarea id="rsu-commentaire" name="commentaire" maxlength="600" aria-describedby="rsu-commentaire-hint"></textarea>
-            <p id="rsu-commentaire-hint" class="rsu-hint"><span id="rsu-count">0</span> / 600</p>
-          </div>
-        </div>
-
-        <div class="rsu-field full" style="margin-top:20px">
-          <label class="rsu-consent" style="font-weight:400">
-            <input id="rsu-consent" name="consent" type="checkbox" required aria-describedby="rsu-consent-err">
-            <span>J'accepte que Proactifs Conseils utilise les informations transmises pour répondre à ma demande, conformément à sa <a href="/confidentialite">politique de confidentialité</a>. <span class="rsu-req" aria-hidden="true">*</span></span>
-          </label>
-          <p id="rsu-consent-err" class="rsu-err" aria-live="polite"></p>
-        </div>
-
-        <div class="rsu-hp" aria-hidden="true">
-          <label for="rsu-website">Ne pas remplir</label>
-          <input id="rsu-website" name="website" type="text" tabindex="-1" autocomplete="off">
-        </div>
-
-        <div id="rsu-captcha-wrap" class="rsu-field full" style="display:none;margin-top:20px">
-          <div id="rsu-captcha" aria-label="Vérification anti-robot"></div>
-          <p id="rsu-captcha-err" class="rsu-err" aria-live="polite"></p>
-        </div>
-
-        <div class="rsu-actions">
-          <button type="submit" class="btn-primary">Demander une analyse de ma situation</button>
-          <p class="rsu-status" role="status" aria-live="polite"></p>
-        </div>
-      </form>
     </div>
   </section>
 
@@ -1254,8 +1145,6 @@
   </script>
 
   <script>
-    const _SB_URL = 'https://ullnkylrixdvormohryl.supabase.co';
-    const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbG5reWxyaXhkdm9ybW9ocnlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjUzNDgsImV4cCI6MjA5NDE0MTM0OH0.Fu5xc-VVA49qp1-WHgve8ZYpOB-QrciHzVeZx0GXmKk';
 
     // Diagnostic v2 : 5 questions de qualification. `s` = libellé court pour la synthèse "situation".
     const actioSteps = [
@@ -1397,6 +1286,9 @@
       document.getElementById('wizStepPct').textContent = '100%';
       document.getElementById('wizFill').style.width = '100%';
       document.getElementById('wizContact').style.display = 'block';
+      // Le jeton Turnstile expire après 300 s et ne sert qu'une fois : le widget
+      // n'est chargé qu'ici, à la dernière étape, pas à l'ouverture du diagnostic.
+      wizInitCaptcha();
       actioTrackOnce('contact', 'diagnostic_contact_view', actioTrackBase());
     }
     // Synthèse courte Q1 | Q2 | Q3 | Q4, ex. : RSU | Plusieurs pays | 100 à 250 k€ | Vesting ou vente proche
@@ -1407,61 +1299,140 @@
       }).filter(Boolean).join(' | ');
     }
     let actioSending = false;
-    /* Garde-fou : envois désactivés hors domaines de production (previews Vercel, local). */
-    const PC_PROD_HOSTS = ['proactifsconseils.fr', 'www.proactifsconseils.fr', 'pret-immobilier.proactifsconseils.fr'];
-    function actioIsProdHost() { return PC_PROD_HOSTS.indexOf(location.hostname) !== -1; }
+
+    /* ── Transmission du diagnostic ────────────────────────────────────────
+       Les réponses partent vers /api/rsu-request, qui écrit dans rsu_requests
+       avec la clé service côté serveur. Aucune clé Supabase n'est exposée au
+       navigateur, et la table leads n'est plus touchée.
+       Transmission ACTIVE uniquement sur les Preview TEST listés ci-dessous.
+       Production : hôtes listés, mais envoi désactivé tant que
+       RSU_PROD_ACTIVATED n'est pas passé à true (décision explicite). */
+    const RSU_PREVIEW_TEST_HOSTS = ['proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-projects.vercel.app', 'proactifs-conseils-git-feat-rs-a2bdf1-medymatima-a11ys-projects.vercel.app', 'proactifs-conseils-git-feat-rs-17f578-medymatima-a11ys-projects.vercel.app'];
+    const RSU_PROD_HOSTS = ['proactifsconseils.fr'];
+    const RSU_PROD_ACTIVATED = false;
+    const RSU_TRANSMISSION_ACTIVE = RSU_PREVIEW_TEST_HOSTS.indexOf(location.hostname) !== -1 ||
+      (RSU_PROD_ACTIVATED && RSU_PROD_HOSTS.indexOf(location.hostname) !== -1);
+    const RSU_ENDPOINT = '/api/rsu-request';
+
+    /* Anti-robot Cloudflare Turnstile, en rendu explicite.
+       Un jeton expire après 300 secondes et n'est valable qu'une fois
+       (documentation Cloudflare). Le widget est donc rendu à la dernière étape
+       seulement : le compte à rebours démarre quand le visiteur est à quelques
+       secondes d'envoyer, pas six questions plus tôt. */
+    let wizCaptchaId = null, wizCaptchaReady = false, wizCaptchaStarted = false;
+    function wizCaptchaMsg(t) { const e = document.getElementById('wizCaptchaErr'); if (e) e.textContent = t || ''; }
+    function wizLoadTurnstile() {
+      return new Promise(function (resolve, reject) {
+        if (window.turnstile) return resolve();
+        const sc = document.createElement('script');
+        sc.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+        sc.async = true;
+        sc.onload = function () { resolve(); };
+        sc.onerror = function () { reject(new Error('turnstile_load')); };
+        document.head.appendChild(sc);
+      });
+    }
+    function wizInitCaptcha() {
+      if (!RSU_TRANSMISSION_ACTIVE || wizCaptchaStarted) return;
+      wizCaptchaStarted = true;
+      const wrap = document.getElementById('wizCaptchaWrap');
+      if (wrap) wrap.style.display = 'block';
+      fetch('/api/rsu-config', { headers: { Accept: 'application/json' } })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (cfg) {
+          if (!cfg || !cfg.turnstileSiteKey) throw new Error('turnstile_key_absente');
+          return wizLoadTurnstile().then(function () { return cfg.turnstileSiteKey; });
+        })
+        .then(function (siteKey) {
+          wizCaptchaId = window.turnstile.render('#wizCaptcha', {
+            sitekey: siteKey,
+            action: 'rsu_request',
+            theme: 'light',
+            size: 'flexible',
+            callback: function () { wizCaptchaMsg(''); },
+            'expired-callback': function () { wizCaptchaMsg('La vérification a expiré. Merci de la refaire.'); },
+            'timeout-callback': function () { wizCaptchaMsg('La vérification a expiré. Merci de la refaire.'); },
+            'error-callback': function () { wizCaptchaMsg('La vérification anti-robot a échoué. Merci de réessayer.'); }
+          });
+          wizCaptchaReady = true;
+        })
+        .catch(function () {
+          wizCaptchaMsg('Vérification anti-robot indisponible. Merci de réessayer ou de nous appeler au 01 84 78 28 30.');
+        });
+    }
+
+    // Libellé court d'une réponse (champ s), sinon le libellé affiché.
+    function actioShort(i) {
+      const o = actioSteps[i] && actioSteps[i].opts.find(function (x) { return x.l === actioAnswers[i]; });
+      if (!o) return '';
+      return o.s !== undefined ? o.s : o.l;
+    }
+
     async function actioWizSubmit() {
       if (actioSending) return;
-      if (!actioIsProdHost()) {
-        const e0 = document.getElementById('wizError');
-        e0.textContent = 'Envois désactivés en environnement de test : aucune donnée n\'a été enregistrée.';
-        e0.style.display = 'block';
-        return;
+      const errEl = document.getElementById('wizError');
+      const btn = document.querySelector('#wizContact .wiz-submit-btn');
+      function fail(msg) { errEl.textContent = msg; errEl.style.display = 'block'; }
+      errEl.style.display = 'none'; errEl.textContent = '';
+
+      if (!RSU_TRANSMISSION_ACTIVE) {
+        return fail("Envois désactivés en environnement de test : aucune donnée n'a été enregistrée.");
       }
       const prenom = document.getElementById('wPrenom').value.trim();
       const nom = document.getElementById('wNom').value.trim();
       const email = document.getElementById('wEmail').value.trim();
       const tel = document.getElementById('wTel').value.trim();
-      if (!prenom || !nom || !email || !tel) { alert('Veuillez remplir tous les champs.'); return; }
+      if (!prenom || !nom || !email || !tel) return fail('Merci de remplir vos coordonnées.');
+      if (document.getElementById('wConsent').checked !== true) {
+        return fail('Cochez la case de consentement pour que nous puissions traiter votre demande.');
+      }
+      // Les deux réponses obligatoires côté serveur : type de plan et attente.
+      if (!actioShort(0) || !actioAnswers[4]) {
+        return fail('Il manque une réponse au diagnostic. Revenez en arrière pour la compléter.');
+      }
+      const captchaToken = (wizCaptchaId !== null && window.turnstile) ? (window.turnstile.getResponse(wizCaptchaId) || '') : '';
+      if (!captchaToken) {
+        return fail(wizCaptchaReady
+          ? 'Merci de valider la vérification anti-robot.'
+          : 'Vérification anti-robot indisponible. Merci de réessayer ou de nous appeler.');
+      }
 
-      const btn = document.querySelector('#wizContact .wiz-submit-btn');
-      const errEl = document.getElementById('wizError');
-      errEl.style.display = 'none'; errEl.textContent = '';
-      actioSending = true;
-      btn.disabled = true; btn.textContent = 'Envoi en cours…';
-
-      // Réponses détaillées, même format lisible que le diagnostic de l'accueil (q1, q2, ...)
-      const reponses = { page: 'fiscalite-rsu-stock-options', version: 'rsu-v2' };
-      actioSteps.forEach((st, i) => { if (actioAnswers[i]) reponses['q' + (i + 1)] = st.q + ' : ' + actioAnswers[i]; });
-
-      // Uniquement des colonnes existantes de public.leads
+      // Une clé absente d'ici serait perdue en silence : le serveur ne recopie
+      // que les champs qu'il connaît. Les tests vérifient cet aller-retour.
       const payload = {
         prenom: prenom,
         nom: nom,
         email: email,
         telephone: tel,
-        source: 'Page RSU - Diagnostic actionnariat',
-        situation: actioSituation(),
-        preoccupation: actioAnswers[4] || '',
-        reponses: reponses
+        dispositif: actioShort(0),               // Q1 — type de plan
+        dimension_internationale: actioShort(1), // Q2 — international
+        montant_estime: actioShort(2),           // Q3 — montant
+        stade: actioShort(3),                    // Q4 — où en êtes-vous
+        besoin: actioAnswers[4] || '',           // Q5 — attente prioritaire
+        commentaire: '',
+        consent: true,
+        captchaToken: captchaToken,
+        website: document.getElementById('wWebsite').value || ''
       };
 
-      let ok = false;
-      let errStage = '';
+      actioSending = true;
+      btn.disabled = true; btn.textContent = 'Envoi en cours…';
+      let ok = false, errStage = '';
       const ctrl = new AbortController();
-      const timer = setTimeout(() => ctrl.abort(), 15000);
+      const timer = setTimeout(function () { ctrl.abort(); }, 15000);
       try {
-        const res = await fetch(_SB_URL + '/rest/v1/leads', {
+        const res = await fetch(RSU_ENDPOINT, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'apikey': _SB_KEY, 'Authorization': 'Bearer ' + _SB_KEY, 'Prefer': 'return=minimal' },
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify(payload),
           signal: ctrl.signal
         });
-        ok = res.ok;
-        if (!ok) { errStage = 'server_rejected'; console.warn('Lead save rejected', res.status); }
+        let data = null;
+        try { data = await res.json(); } catch (e) { data = null; }
+        ok = res.ok && !!(data && data.success === true);
+        if (!ok) { errStage = 'server_rejected'; if (data && data.error) fail(data.error); }
       } catch (e) {
         errStage = 'network_error';
-        console.warn('Lead save error', e);
       } finally {
         clearTimeout(timer);
       }
@@ -1469,12 +1440,15 @@
       actioSending = false;
       if (!ok) {
         actioTrack('diagnostic_error', Object.assign(actioTrackBase(), { error_stage: errStage || 'server_rejected' }));
-        errEl.textContent = "Votre demande n'a pas pu être enregistrée. Vos réponses sont conservées : vous pouvez réessayer, ou nous joindre au 01 84 78 28 30.";
-        errEl.style.display = 'block';
+        if (!errEl.textContent) {
+          fail("Votre demande n'a pas pu être enregistrée. Vos réponses sont conservées : vous pouvez réessayer, ou nous joindre au 01 84 78 28 30.");
+        }
+        // Un jeton n'est valable qu'une fois : le widget est remis à zéro.
+        if (wizCaptchaId !== null && window.turnstile) { try { window.turnstile.reset(wizCaptchaId); } catch (e) { /* ne jamais bloquer */ } }
         btn.disabled = false; btn.textContent = 'Réessayer →';
         return; // pas de conversion Google Ads ni de diagnostic_submit en cas d'échec
       }
-      // Succès Supabase confirmé uniquement : conversion Google Ads (même événement que l'accueil), une seule fois
+      // Enregistrement confirmé par le serveur : conversion Google Ads, une seule fois
       if (!actioConvSent) {
         actioConvSent = true;
         try {
@@ -1490,175 +1464,5 @@
     }
   </script>
 <script src="/assets/js/navigation.js" defer></script>
-  <script>
-  /* Formulaire RSU/ESPP.
-     Transmission ACTIVE uniquement sur le Preview TEST explicitement listé ci-dessous.
-     Domaine public (proactifsconseils.fr) et tout autre hôte : aucune donnée transmise,
-     ni à Supabase, ni à Brevo, ni à Systeme.io, ni à GA4. */
-  (function () {
-    var RSU_PREVIEW_TEST_HOSTS = ['proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-projects.vercel.app', 'proactifs-conseils-git-feat-rs-a2bdf1-medymatima-a11ys-projects.vercel.app', 'proactifs-conseils-git-feat-rs-17f578-medymatima-a11ys-projects.vercel.app'];
-    // Production : hôtes listés, mais envoi désactivé tant que RSU_PROD_ACTIVATED n'est pas passé à true (décision explicite).
-    var RSU_PROD_HOSTS = ['proactifsconseils.fr'];
-    var RSU_PROD_ACTIVATED = false;
-    var RSU_TRANSMISSION_ACTIVE = RSU_PREVIEW_TEST_HOSTS.indexOf(location.hostname) !== -1 ||
-      (RSU_PROD_ACTIVATED && RSU_PROD_HOSTS.indexOf(location.hostname) !== -1);
-    var RSU_ENDPOINT = '/api/rsu-request';
-    var sending = false, sent = false;
-    var form = document.getElementById('rsuForm');
-    if (!form) return;
-    var statusEl = form.querySelector('.rsu-status');
-    // Anti-robot Cloudflare Turnstile (mode explicite). Chargé uniquement sur le Preview TEST.
-    var captchaId = null, captchaReady = false;
-    var captchaWrap = document.getElementById('rsu-captcha-wrap');
-    var captchaErr = document.getElementById('rsu-captcha-err');
-    function loadTurnstile() {
-      return new Promise(function (resolve, reject) {
-        if (window.turnstile) return resolve();
-        var s = document.createElement('script');
-        s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-        s.async = true;
-        s.onload = function () { resolve(); };
-        s.onerror = function () { reject(new Error('turnstile_load')); };
-        document.head.appendChild(s);
-      });
-    }
-    function initCaptcha() {
-      if (captchaWrap) captchaWrap.style.display = 'block';
-      fetch('/api/rsu-config', { headers: { Accept: 'application/json' } })
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (cfg) {
-          if (!cfg || !cfg.turnstileSiteKey) throw new Error('turnstile_key_absente');
-          return loadTurnstile().then(function () { return cfg.turnstileSiteKey; });
-        })
-        .then(function (siteKey) {
-          captchaId = window.turnstile.render('#rsu-captcha', {
-            sitekey: siteKey,
-            action: 'rsu_request',
-            theme: 'light',
-            size: 'flexible',
-            callback: function () { if (captchaErr) captchaErr.textContent = ''; },
-            'expired-callback': function () { if (captchaErr) captchaErr.textContent = 'La vérification a expiré. Merci de la refaire.'; },
-            'error-callback': function () { if (captchaErr) captchaErr.textContent = 'La vérification anti-robot a échoué. Merci de réessayer.'; }
-          });
-          captchaReady = true;
-        })
-        .catch(function () {
-          if (captchaErr) captchaErr.textContent = 'Vérification anti-robot indisponible. Merci de réessayer ou de nous appeler au 01 84 78 28 30.';
-        });
-    }
-    if (RSU_TRANSMISSION_ACTIVE) initCaptcha();
-    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    var RULES = [
-      { name: 'nom', msg: 'Indiquez votre nom.' },
-      { name: 'email', msg: 'Indiquez votre adresse email.', check: function (v) { return EMAIL_RE.test(v); }, badMsg: 'Adresse email invalide.' },
-      { name: 'dispositif', msg: 'Sélectionnez votre dispositif.' },
-      { name: 'besoin', msg: 'Sélectionnez votre besoin.' },
-      { name: 'echeance', msg: 'Sélectionnez une échéance.' },
-      { name: 'consent', msg: 'Cochez cette case pour que nous puissions traiter votre demande.', checkbox: true }
-    ];
-    function setError(el, text) {
-      var box = document.getElementById(el.id + '-err');
-      if (box) box.textContent = text || '';
-      if (text) el.setAttribute('aria-invalid', 'true'); else el.removeAttribute('aria-invalid');
-    }
-    function check(rule) {
-      var el = form.elements[rule.name];
-      if (!el) return null;
-      var ok = rule.checkbox ? el.checked : (el.value || '').trim() !== '';
-      if (ok && rule.check) ok = rule.check(el.value.trim());
-      var text = ok ? '' : (rule.badMsg && (el.value || '').trim() !== '' ? rule.badMsg : rule.msg);
-      setError(el, text);
-      return ok ? null : el;
-    }
-    var counter = document.getElementById('rsu-count');
-    var textarea = document.getElementById('rsu-commentaire');
-    if (textarea && counter) textarea.addEventListener('input', function () { counter.textContent = textarea.value.length; });
-    RULES.forEach(function (rule) {
-      var el = form.elements[rule.name];
-      if (el) el.addEventListener('blur', function () { if (el.value || el.checked) check(rule); });
-    });
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      statusEl.className = 'rsu-status';
-      statusEl.textContent = '';
-      // Champ piège : un robot qui le remplit n'obtient aucune réponse exploitable.
-      if (form.elements.website && form.elements.website.value) return;
-      var first = null;
-      RULES.forEach(function (rule) { var bad = check(rule); if (bad && !first) first = bad; });
-      if (first) {
-        first.focus();
-        statusEl.className = 'rsu-status rsu-status-error';
-        statusEl.textContent = 'Merci de corriger les champs signalés.';
-        return;
-      }
-      if (!RSU_TRANSMISSION_ACTIVE) {
-        statusEl.className = 'rsu-status rsu-status-info';
-        statusEl.textContent = 'Transmission non activée : aucune demande n\'a été envoyée. Cette section est en attente de validation.';
-        return;
-      }
-      if (sending || sent) return; // anti double soumission
-      // Jeton anti-robot : un jeton est à usage unique, lu au moment de l'envoi.
-      var captchaToken = (captchaId !== null && window.turnstile) ? (window.turnstile.getResponse(captchaId) || '') : '';
-      if (!captchaToken) {
-        statusEl.className = 'rsu-status rsu-status-error';
-        statusEl.textContent = captchaReady
-          ? 'Merci de valider la vérification anti-robot.'
-          : 'Vérification anti-robot indisponible. Merci de réessayer ou de nous appeler.';
-        return;
-      }
-      sending = true;
-      var btn = form.querySelector('button[type="submit"]');
-      if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
-      statusEl.className = 'rsu-status';
-      statusEl.textContent = 'Envoi en cours…';
-
-      var payload = {
-        nom: form.elements.nom.value.trim(),
-        email: form.elements.email.value.trim(),
-        telephone: form.elements.telephone.value.trim(),
-        dispositif: form.elements.dispositif.value,
-        besoin: form.elements.besoin.value,
-        echeance: form.elements.echeance.value,
-        commentaire: form.elements.commentaire.value.trim(),
-        consent: form.elements.consent.checked === true,
-        captchaToken: captchaToken,
-        website: ''
-      };
-      var ctrl = typeof AbortController === 'function' ? new AbortController() : null;
-      var timer = ctrl ? setTimeout(function () { ctrl.abort(); }, 15000) : null;
-
-      fetch(RSU_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-        signal: ctrl ? ctrl.signal : undefined
-      }).then(function (r) {
-        return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, status: r.status, d: d }; });
-      }).then(function (res) {
-        if (res.ok && res.d && res.d.success === true) {
-          // Succès confirmé par le serveur uniquement.
-          sent = true;
-          statusEl.className = 'rsu-status rsu-status-info';
-          statusEl.textContent = 'Votre demande a bien été reçue. Nous revenons vers vous rapidement.';
-          if (btn) { btn.disabled = true; btn.textContent = 'Demande envoyée'; }
-          try { if (typeof gtag === 'function') gtag('event', 'generate_lead', { form_name: 'rsu_contact' }); } catch (e) { /* ne jamais bloquer */ }
-          return;
-        }
-        var msg = (res.d && res.d.error) || 'Votre demande n\'a pas pu être enregistrée. Merci de réessayer ou de nous appeler au 01 84 78 28 30.';
-        statusEl.className = 'rsu-status rsu-status-error';
-        statusEl.textContent = msg;
-      }).catch(function () {
-        statusEl.className = 'rsu-status rsu-status-error';
-        statusEl.textContent = 'Connexion impossible. Votre demande n\'a pas été envoyée : merci de réessayer.';
-      }).then(function () {
-        if (timer) clearTimeout(timer);
-        sending = false;
-        if (!sent && btn) { btn.disabled = false; btn.textContent = 'Demander une analyse de ma situation'; }
-        // Jeton consommé ou refusé : nouvelle vérification avant tout nouvel essai.
-        if (!sent && captchaId !== null && window.turnstile) { try { window.turnstile.reset(captchaId); } catch (e) { /* ne jamais bloquer */ } }
-      });
-    });
-  })();
-  </script>
 </body>
 </html>

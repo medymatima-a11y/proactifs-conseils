@@ -71,7 +71,7 @@ function defaultResponder(opts = {}) {
     return json({}, 404);
   };
 }
-const VALID = { nom: 'Test RSU', email: 'test-rsu@example.com', telephone: '06 00 00 00 01', dispositif: 'ESPP',
+const VALID = { prenom: 'Test', nom: 'Test RSU', email: 'test-rsu@example.com', telephone: '06 00 00 00 01', dispositif: 'ESPP',
   besoin: 'Autre', echeance: "Simple prise d'information", commentaire: '', consent: true, website: '', captchaToken: 'jeton-factice-valide' };
 const ORIGIN = `https://${ORIGIN_HOST}`;
 
@@ -129,6 +129,65 @@ test('preview avec clé TEST absente mais clé production présente : refus, auc
 test('environnement inconnu : refus', () => {
   assert.strictEqual(checkTarget({ ...PREVIEW_ENV, VERCEL_ENV: 'development' }).reason, 'environnement_non_autorise');
 });
+
+// Les trois gardes qui tombent AVANT toute branche d'environnement : ils valent
+// donc pour la Preview comme pour la production. Chacun est éprouvé deux fois —
+// par checkTarget(), puis par l'endpoint, où l'on exige en plus zéro appel
+// réseau : le refus doit intervenir avant la moindre tentative d'écriture.
+const { RSU_TEST_SUPABASE_REF: _refTestOmise, ...PREVIEW_SANS_REF_TEST } = PREVIEW_ENV;
+const { RSU_PROD_SUPABASE_REF: _refProdOmise, ...PREVIEW_SANS_REF_PROD } = PREVIEW_ENV;
+// Formes que SUPABASE_REF_RE doit toutes rejeter : vide, trop courte, majuscules,
+// un caractère de trop, et l'URL complète au lieu de la seule référence.
+const REFS_INVALIDES = (r) => ['', 'trop-court', r.toUpperCase(), r + 'x', `https://${r}.supabase.co`];
+
+test('références TEST et production identiques : refus, aucun appel', async () => {
+  // Deux références égales rendraient aveugles les deux verrous de cible :
+  // « pointe TEST » et « pointe production » désigneraient le même projet.
+  const env = { ...PREVIEW_ENV, RSU_PROD_SUPABASE_REF: T };
+  assert.strictEqual(checkTarget(env).ok, false);
+  assert.strictEqual(checkTarget(env).reason, 'refs_identiques');
+  // Le garde est commun : la production le subit aussi, flag d'activation posé.
+  assert.strictEqual(
+    checkTarget({ ...PROD_ENV, RSU_PROD_ENABLED: 'true', RSU_TEST_SUPABASE_REF: P }).reason,
+    'refs_identiques');
+  const { res, calls } = await run({ env });
+  assert.strictEqual(res.statusCode, 503);
+  assert.strictEqual(res.body.code, 'CONFIG_REFUSEE');
+  assert.strictEqual(calls.length, 0, 'un appel réseau a eu lieu malgré le refus');
+});
+
+test('référence TEST absente ou invalide : refus, aucun appel', async () => {
+  // Sans référence TEST valide, rien ne permet d'affirmer que la Preview vise
+  // bien le projet de test : la seule réponse sûre est le refus.
+  assert.strictEqual(checkTarget(PREVIEW_SANS_REF_TEST).reason, 'ref_test_absente_ou_invalide');
+  for (const mauvaise of REFS_INVALIDES(T)) {
+    assert.strictEqual(
+      checkTarget({ ...PREVIEW_ENV, RSU_TEST_SUPABASE_REF: mauvaise }).reason,
+      'ref_test_absente_ou_invalide',
+      'référence acceptée à tort : ' + JSON.stringify(mauvaise));
+  }
+  const { res, calls } = await run({ env: PREVIEW_SANS_REF_TEST });
+  assert.strictEqual(res.statusCode, 503);
+  assert.strictEqual(res.body.code, 'CONFIG_REFUSEE');
+  assert.strictEqual(calls.length, 0, 'un appel réseau a eu lieu malgré le refus');
+});
+
+test('référence production absente ou invalide : refus, aucun appel', async () => {
+  // Elle ne sert qu'à interdire. Absente, le second verrou de la Preview
+  // — « ne jamais viser la production » — n'aurait plus rien à comparer.
+  assert.strictEqual(checkTarget(PREVIEW_SANS_REF_PROD).reason, 'ref_prod_absente_ou_invalide');
+  for (const mauvaise of REFS_INVALIDES(P)) {
+    assert.strictEqual(
+      checkTarget({ ...PREVIEW_ENV, RSU_PROD_SUPABASE_REF: mauvaise }).reason,
+      'ref_prod_absente_ou_invalide',
+      'référence acceptée à tort : ' + JSON.stringify(mauvaise));
+  }
+  const { res, calls } = await run({ env: PREVIEW_SANS_REF_PROD });
+  assert.strictEqual(res.statusCode, 503);
+  assert.strictEqual(res.body.code, 'CONFIG_REFUSEE');
+  assert.strictEqual(calls.length, 0, 'un appel réseau a eu lieu malgré le refus');
+});
+
 
 // ── 2. Endpoint : refus avant tout accès base ──────────────────────────────────
 test('production sans flag : 503 CONFIG_REFUSEE, aucun appel réseau', async () => {
@@ -474,7 +533,7 @@ test('rsu-config : POST refusé (405)', async () => {
 // ── 6. Garde-fou d'activation côté page ───────────────────────────────────────
 const PAGE = fs.readFileSync(path.join(ROOT, 'fiscalite-rsu-stock-options.html'), 'utf8');
 function evalPreviewHostList() {
-  const m = PAGE.match(/var RSU_PREVIEW_TEST_HOSTS = (\[[^\]]*\]);/);
+  const m = PAGE.match(/(?:var|const) RSU_PREVIEW_TEST_HOSTS = (\[[^\]]*\]);/);
   assert.ok(m, 'liste des hôtes Preview TEST introuvable');
   return new Function('return ' + m[1])();
 }
@@ -515,54 +574,70 @@ test('page : transmission active uniquement sur l\'alias de branche Preview rée
   assert.strictEqual(active('proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-projects.vercel.app.evil.com'), false);
   assert.strictEqual(active('localhost'), false);
 });
-test('page : garde-fou du diagnostic (PC_PROD_HOSTS) refuse tout hôte Preview ou inconnu', () => {
-  const m = PAGE.match(/const PC_PROD_HOSTS = (\[[^\]]*\]);/);
-  assert.ok(m, 'liste PC_PROD_HOSTS introuvable');
-  const hosts = new Function('return ' + m[1])();
-  const ok = (h) => hosts.indexOf(h) !== -1;
-  assert.strictEqual(ok('proactifsconseils.fr'), true);
-  assert.strictEqual(ok('www.proactifsconseils.fr'), true);
-  assert.strictEqual(ok('proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-projects.vercel.app'), false);
-  assert.strictEqual(ok('proactifs-conseils-b13p0zuoz-medymatima-a11ys-projects.vercel.app'), false);
-  assert.strictEqual(ok('localhost'), false);
+// Depuis la fusion du diagnostic, la page n'accède plus jamais à Supabase
+// directement : plus de clé anon dans le navigateur, plus d'écriture dans leads.
+test('page : aucune clé Supabase ni accès direct à la base depuis le navigateur', () => {
+  assert.ok(!/eyJ[A-Za-z0-9_-]{20,}/.test(PAGE), 'un jeton JWT subsiste dans la page');
+  assert.ok(!PAGE.includes('ullnkylrixdvormohryl'), 'référence au projet Supabase de production');
+  assert.ok(!PAGE.includes('_SB_KEY') && !PAGE.includes('_SB_URL'), 'constantes Supabase résiduelles');
+  assert.ok(!PAGE.includes('/rest/v1/'), 'appel PostgREST direct résiduel');
 });
-test('page : le diagnostic vérifie le garde-fou AVANT l\'appel vers public.leads', () => {
-  const guard = PAGE.indexOf('if (!actioIsProdHost()) {');
-  const write = PAGE.indexOf("fetch(_SB_URL + '/rest/v1/leads'");
-  assert.ok(guard > 0 && write > 0, 'garde ou écriture introuvable');
-  assert.ok(guard < write, 'le garde-fou doit précéder l\'écriture');
+test('page : le diagnostic envoie vers /api/rsu-request, et nulle part ailleurs', () => {
+  assert.ok(PAGE.includes("const RSU_ENDPOINT = '/api/rsu-request';"), 'endpoint serveur absent');
+  assert.ok(PAGE.includes('fetch(RSU_ENDPOINT, {'), 'envoi vers l\'endpoint introuvable');
+  const externes = [...PAGE.matchAll(/fetch\(\s*'(https?:[^']+)'/g)].map(m => m[1]);
+  assert.deepStrictEqual(externes, [], 'appel réseau externe depuis la page : ' + externes.join(', '));
 });
-test('page : la clé embarquée dans le navigateur est une clé anon, jamais service_role', () => {
-  const m = PAGE.match(/const _SB_KEY = '([^']+)'/);
-  assert.ok(m, 'clé introuvable');
-  const payload = JSON.parse(Buffer.from(m[1].split('.')[1], 'base64url').toString('utf8'));
-  assert.strictEqual(payload.role, 'anon');
+test('page : le consentement est une case à cocher, contrôlée avant l\'envoi', () => {
+  assert.ok(PAGE.includes('id="wConsent"'), 'case de consentement absente du formulaire');
+  assert.ok(PAGE.includes("document.getElementById('wConsent').checked !== true"), 'consentement non contrôlé');
+});
+test('page : le champ piège est présent et transmis', () => {
+  assert.ok(PAGE.includes('id="wWebsite"'), 'champ piège absent');
+  assert.ok(PAGE.includes("website: document.getElementById('wWebsite').value"), 'champ piège non transmis');
 });
 test('page : jeton Turnstile lu à l\'envoi et transmis sous captchaToken', () => {
   assert.ok(PAGE.includes('captchaToken: captchaToken,'));
-  assert.ok(PAGE.includes('window.turnstile.getResponse(captchaId)'));
+  assert.ok(PAGE.includes('window.turnstile.getResponse(wizCaptchaId)'));
 });
 test('page : widget Turnstile en mode explicite, action rsu_request, clé lue via /api/rsu-config', () => {
   assert.ok(PAGE.includes('challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'));
   assert.ok(PAGE.includes("fetch('/api/rsu-config'"));
   assert.ok(PAGE.includes("action: 'rsu_request'"));
-  assert.ok(PAGE.includes('id="rsu-captcha"'));
+  assert.ok(PAGE.includes('id="wizCaptcha"'));
 });
 test('page : widget initialisé uniquement sur le Preview TEST (jamais sur le domaine public)', () => {
-  assert.ok(/if \(RSU_TRANSMISSION_ACTIVE\) initCaptcha\(\);/.test(PAGE));
+  assert.ok(/function wizInitCaptcha\(\) \{\s*\n\s*if \(!RSU_TRANSMISSION_ACTIVE \|\| wizCaptchaStarted\) return;/.test(PAGE),
+    'wizInitCaptcha doit sortir immédiatement hors Preview TEST');
+});
+// Un jeton Turnstile expire après 300 s et ne sert qu'une fois. Le diagnostic
+// comptant six étapes, le widget ne doit être rendu qu'à la dernière.
+test('page : le widget anti-robot est rendu à la dernière étape, pas à l\'ouverture', () => {
+  const contact = PAGE.indexOf('function showActioContact()');
+  const init = PAGE.indexOf('wizInitCaptcha();', contact);
+  assert.ok(contact > 0 && init > contact, 'wizInitCaptcha() doit être appelé depuis showActioContact()');
+  const ouverture = PAGE.indexOf('function openActioWizard()');
+  const bloc = PAGE.slice(ouverture, PAGE.indexOf('function renderActioStep()'));
+  assert.ok(!bloc.includes('wizInitCaptcha'), 'le widget ne doit pas démarrer à l\'ouverture du diagnostic');
+});
+test('page : expiration et dépassement de délai du jeton sont traités', () => {
+  assert.ok(PAGE.includes("'expired-callback'"), 'expired-callback absent');
+  assert.ok(PAGE.includes("'timeout-callback'"), 'timeout-callback absent');
 });
 test('page : jeton réinitialisé après un échec (usage unique)', () => {
-  assert.ok(PAGE.includes('window.turnstile.reset(captchaId)'));
+  assert.ok(PAGE.includes('window.turnstile.reset(wizCaptchaId)'));
 });
 test('page : aucun secret Turnstile, aucune clé en dur, aucun appel siteverify côté navigateur', () => {
   assert.ok(!PAGE.includes('RSU_TURNSTILE_SECRET'));
   assert.ok(!/sitekey:\s*'0x/.test(PAGE));
   assert.ok(!PAGE.includes('siteverify'));
 });
-test('page : le diagnostic rapide n\'utilise pas Turnstile', () => {
-  const diag = PAGE.slice(PAGE.indexOf('function actioIsProdHost()'), PAGE.indexOf("fetch(_SB_URL + '/rest/v1/leads'"));
-  assert.ok(diag.length > 0);
-  assert.ok(!/turnstile/i.test(diag));
+test('page : le diagnostic refuse d\'envoyer sans jeton anti-robot', () => {
+  const sub = PAGE.slice(PAGE.indexOf('async function actioWizSubmit()'));
+  const garde = sub.indexOf('if (!captchaToken) {');
+  const envoi = sub.indexOf('await fetch(RSU_ENDPOINT');
+  assert.ok(garde > 0 && envoi > 0, 'garde ou envoi introuvable');
+  assert.ok(garde < envoi, 'le contrôle du jeton doit précéder l\'envoi');
 });
 test('CSP : challenges.cloudflare.com autorisé en script et iframe, pas en connect', () => {
   const vercel = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
@@ -576,7 +651,9 @@ test('CSP : challenges.cloudflare.com autorisé en script et iframe, pas en conn
 });
 
 // ── 7. SQL (contrôles statiques) ──────────────────────────────────────────────
-const SQL = fs.readFileSync(path.join(ROOT, 'migration-rsu-requests.sql'), 'utf8');
+const SQL_TABLE = fs.readFileSync(path.join(ROOT, 'migration-rsu-requests.sql'), 'utf8');
+const SQL_DIAG = fs.readFileSync(path.join(ROOT, 'migration-rsu-diagnostic.sql'), 'utf8');
+const SQL = SQL_TABLE + '\n' + SQL_DIAG;
 const sqlNoComments = SQL.split('\n').filter(l => !l.trim().startsWith('--')).join('\n');
 test('SQL : RLS activé, aucun accès anon, pas de politique INSERT ni UPDATE/DELETE', () => {
   assert.ok(/alter table public\.rsu_requests enable row level security/.test(sqlNoComments));
@@ -601,10 +678,14 @@ test('SQL : lecture réservée aux membres du cabinet', () => {
 });
 test('SQL : listes de valeurs identiques à l\'API', () => {
   const api = fs.readFileSync(path.join(ROOT, 'api', 'rsu-request.js'), 'utf8');
-  for (const name of ['DISPOSITIFS', 'BESOINS', 'ECHEANCES']) {
+  for (const name of ['DISPOSITIFS', 'BESOINS', 'ECHEANCES', 'MONTANTS', 'STADES', 'INTERNATIONAL']) {
     const m = api.match(new RegExp(`const ${name} = \\[([^\\]]*)\\];`));
     assert.ok(m, name);
-    const items = [...m[1].matchAll(/'((?:[^'\\]|\\.)*)'/g)].map(x => x[1]);
+    // Les commentaires sont retirés avant extraction : une apostrophe dans un
+    // commentaire ouvrirait une fausse chaîne et ferait remonter du texte libre.
+    const corps = m[1].split('\n').filter(l => !l.trim().startsWith('//')).join('\n');
+    const items = [...corps.matchAll(/'((?:[^'\\]|\\.)*)'|"([^"]*)"/g)]
+      .map(x => (x[1] !== undefined ? x[1].replace(/\\'/g, "'") : x[2]));
     assert.ok(items.length > 0);
     for (const it of items) assert.ok(SQL.includes(`'${it.replace(/'/g, "''")}'`), `${name} : « ${it} » absent du SQL`);
   }
