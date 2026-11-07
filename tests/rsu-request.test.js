@@ -16,7 +16,10 @@ const ORIGIN_HOST = 'proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-proj
 const ENV_KEYS = ['VERCEL_ENV', 'SUPABASE_URL', 'SUPABASE_SERVICE_KEY', 'RSU_TEST_SUPABASE_URL', 'RSU_TEST_SUPABASE_SERVICE_KEY',
   'RSU_TEST_SUPABASE_REF', 'RSU_PROD_SUPABASE_REF',
   'RSU_PROD_ENABLED', 'RSU_TURNSTILE_SECRET', 'RSU_TURNSTILE_SITE_KEY', 'RSU_TURNSTILE_SECRET_Preview', 'RSU_TURNSTILE_SITE_KEY_Preview',
-  'RSU_DAILY_CAP', 'RSU_TX_BREVO_API_KEY', 'RSU_NOTIFY_TO'];
+  'RSU_DAILY_CAP', 'BREVO_API_KEY', 'RSU_TX_BREVO_API_KEY', 'RSU_NOTIFY_TO', 'RSU_NOTIFY_FROM'];
+// BREVO_API_KEY est dans cette liste pour être RETIRÉE de l'environnement avant
+// chaque test : sans cela, une clé réellement présente sur le poste ferait passer
+// à tort le cas « aucune clé configurée ».
 // Preview : variables TEST dédiées + variables production présentes (cas réaliste : elles ne doivent jamais servir).
 const PREVIEW_ENV = { VERCEL_ENV: 'preview',
   RSU_TEST_SUPABASE_URL: `https://${T}.supabase.co`, RSU_TEST_SUPABASE_SERVICE_KEY: 'cle-factice-test',
@@ -47,7 +50,7 @@ function mockRes() {
 function stubFetch(responder) {
   const calls = [];
   const orig = global.fetch;
-  global.fetch = async (url, opts = {}) => { calls.push({ url: String(url), method: opts.method || 'GET', body: opts.body }); return responder(String(url), opts); };
+  global.fetch = async (url, opts = {}) => { calls.push({ url: String(url), method: opts.method || 'GET', body: opts.body, headers: opts.headers }); return responder(String(url), opts); };
   return { calls, restore: () => { global.fetch = orig; } };
 }
 const json = (obj, status = 200) => new Response(JSON.stringify(obj), { status, headers: { 'content-type': 'application/json' } });
@@ -693,4 +696,230 @@ test('SQL : listes de valeurs identiques à l\'API', () => {
 test('SQL : idempotent (create if not exists, drop policy if exists)', () => {
   assert.ok(/create table if not exists/.test(sqlNoComments));
   assert.ok(/drop policy if exists/.test(sqlNoComments));
+});
+
+// Retrait du bloc publication (06/11/2026). Le CRM n'écoute plus les demandes
+// RSU en postgres_changes : il n'utilise que le canal privé, qui passe par
+// realtime.messages et sa politique RLS. Publier la table ici ne servait donc à
+// rien, et le script Realtime de production la retirait ensuite — deux
+// écritures sur la production pour un effet nul, et entre les deux une fenêtre
+// où le signal d'activité des demandes était observable.
+const sansCommentaires = (s) => s.split('\n').filter(l => !l.trim().startsWith('--')).join('\n');
+test('SQL : la table n\'est jamais ajoutée à la publication supabase_realtime', () => {
+  for (const [nom, source] of [['migration-rsu-requests.sql', SQL_TABLE],
+                               ['migration-rsu-diagnostic.sql', SQL_DIAG]]) {
+    const code = sansCommentaires(source);
+    assert.ok(!/alter\s+publication/i.test(code),
+      `${nom} : aucune instruction « alter publication » ne doit subsister`);
+    assert.ok(!/add\s+table\s+public\.rsu_requests/i.test(code),
+      `${nom} : la table ne doit pas être ajoutée à une publication`);
+  }
+  // Le mot « publication » ne doit plus apparaître que dans les commentaires :
+  // un bloc do $$ … $$ qui la manipulerait passerait les deux tests ci-dessus.
+  assert.ok(!/publication/i.test(sansCommentaires(SQL)),
+    'plus aucune mention de publication hors commentaire dans les migrations du site');
+});
+test('SQL : le retrait du bloc publication reste justifié dans le fichier', () => {
+  // Sans la raison écrite à côté, le bloc revient à la première lecture rapide.
+  assert.ok(/RETIRÉ le 06\/11\/2026/.test(SQL_TABLE), 'date du retrait absente');
+  assert.ok(/rsu-demandes-prive/.test(SQL_TABLE), 'le canal privé qui remplace doit être nommé');
+  assert.ok(/postgres_changes/.test(SQL_TABLE), 'le mécanisme abandonné doit être nommé');
+  // TEST a été migré AVEC le bloc : l'information conditionne le retrait au § 3
+  // du script Realtime, et ne doit pas disparaître avec le code.
+  assert.ok(/TEST/.test(SQL_TABLE) && /03\/11\/2026/.test(SQL_TABLE),
+    'l\'état de TEST, migré avec l\'ancien bloc, doit rester écrit');
+});
+test('SQL : le fichier diagnostic est marqué non exécutable et nomme son remplaçant', () => {
+  // Il reste versionné pour que la suite démarre depuis un clone : 25 des 38
+  // valeurs acceptées par l'API n'existent que là. Mais il ne doit plus être
+  // exécuté : c'est migration-rsu-TEST-delta.sql qui fait autorité.
+  assert.ok(/NE PAS EXÉCUTER/.test(SQL_DIAG), 'avertissement de non-exécution absent');
+  assert.ok(/migration-rsu-TEST-delta\.sql/.test(SQL_DIAG), 'le fichier qui fait autorité doit être nommé');
+  assert.ok(/SUPPLANT/.test(SQL_DIAG), 'la supplantation doit être explicite');
+});
+
+// ── 8. Notification interne : clé Brevo mutualisée ────────────────────────────
+// Décision du 07/11/2026 : la notification utilise BREVO_API_KEY, la clé du
+// compte déjà présente en production, et ne lit RSU_TX_BREVO_API_KEY qu'en repli.
+// Les valeurs ci-dessous sont factices : aucune clé réelle dans ce fichier.
+const { brevoKey, notifyCabinet, BREVO_KEY_VARS, NOTIFY_ENDPOINT } = handler;
+const CLE_COMPTE = 'xkeysib-factice-compte';
+const CLE_DEDIEE = 'xkeysib-factice-dediee';
+const DEST = 'interne@example.invalid';
+// Un enregistrement porteur de données personnelles, pour vérifier qu'aucune ne sort.
+const RECORD = { nom: 'Dupont', prenom: 'Camille', email: 'camille.dupont@example.invalid',
+  telephone: '0600000000', dispositif: 'RSU', besoin: 'Fiscalité de mes actions',
+  montant_estime: '100 à 250 k€', commentaire: 'Mon plan vest en mars' };
+
+test('Brevo : les deux clés présentes — BREVO_API_KEY est retenue', () => {
+  const r = brevoKey({ BREVO_API_KEY: CLE_COMPTE, RSU_TX_BREVO_API_KEY: CLE_DEDIEE });
+  assert.strictEqual(r.key, CLE_COMPTE);
+  assert.strictEqual(r.source, 'BREVO_API_KEY');
+});
+test('Brevo : repli sur RSU_TX_BREVO_API_KEY quand la clé du compte est absente', () => {
+  const r = brevoKey({ RSU_TX_BREVO_API_KEY: CLE_DEDIEE });
+  assert.strictEqual(r.key, CLE_DEDIEE);
+  assert.strictEqual(r.source, 'RSU_TX_BREVO_API_KEY');
+});
+test('Brevo : une BREVO_API_KEY vide ou blanche ne masque pas le repli', () => {
+  for (const vide of ['', '   ', '\n']) {
+    const r = brevoKey({ BREVO_API_KEY: vide, RSU_TX_BREVO_API_KEY: CLE_DEDIEE });
+    assert.strictEqual(r.source, 'RSU_TX_BREVO_API_KEY', `valeur vide « ${JSON.stringify(vide)} »`);
+    assert.strictEqual(r.key, CLE_DEDIEE);
+  }
+});
+test('Brevo : aucune clé — ni valeur, ni source', () => {
+  assert.deepStrictEqual(brevoKey({}), { key: '', source: null });
+});
+test('Brevo : la valeur est nettoyée (un retour à la ligne ferait un en-tête invalide)', () => {
+  assert.strictEqual(brevoKey({ BREVO_API_KEY: '  ' + CLE_COMPTE + '\n' }).key, CLE_COMPTE);
+});
+test('Brevo : l\'ordre de priorité est bien compte puis clé dédiée', () => {
+  // Garde documentaire : inverser cet ordre changerait silencieusement la clé
+  // utilisée en Preview, où les deux variables peuvent coexister.
+  assert.deepStrictEqual(BREVO_KEY_VARS, ['BREVO_API_KEY', 'RSU_TX_BREVO_API_KEY']);
+});
+
+test('Notification : aucune clé — aucun envoi, aucun appel réseau', async () => {
+  const f = stubFetch(() => { throw new Error('aucun appel ne doit partir'); });
+  try {
+    await withEnv({ RSU_NOTIFY_TO: DEST }, async () => {
+      const r = await notifyCabinet(RECORD);
+      assert.strictEqual(r.sent, false);
+      assert.strictEqual(r.reason, 'non_configure'); // l'appelant reste silencieux sur ce motif
+      assert.strictEqual(r.manque, 'cle');
+    });
+    assert.strictEqual(f.calls.length, 0, 'aucun appel réseau sans clé');
+  } finally { f.restore(); }
+});
+test('Notification : clé présente mais destinataire absent — aucun envoi', async () => {
+  const f = stubFetch(() => { throw new Error('aucun appel ne doit partir'); });
+  try {
+    await withEnv({ BREVO_API_KEY: CLE_COMPTE }, async () => {
+      const r = await notifyCabinet(RECORD);
+      assert.strictEqual(r.reason, 'non_configure');
+      assert.strictEqual(r.manque, 'destinataire');
+    });
+    assert.strictEqual(f.calls.length, 0);
+  } finally { f.restore(); }
+});
+test('Notification : la clé du compte part bien dans l\'en-tête api-key', async () => {
+  const f = stubFetch(() => json({ messageId: '<factice>' }));
+  try {
+    await withEnv({ BREVO_API_KEY: CLE_COMPTE, RSU_TX_BREVO_API_KEY: CLE_DEDIEE, RSU_NOTIFY_TO: DEST }, async () => {
+      const r = await notifyCabinet(RECORD);
+      assert.strictEqual(r.sent, true);
+      assert.strictEqual(r.source, 'BREVO_API_KEY');
+    });
+    assert.strictEqual(f.calls.length, 1);
+    assert.strictEqual(f.calls[0].url, NOTIFY_ENDPOINT);
+    assert.strictEqual(f.calls[0].method, 'POST');
+    assert.strictEqual(f.calls[0].headers['api-key'], CLE_COMPTE, 'la clé dédiée ne doit pas servir');
+  } finally { f.restore(); }
+});
+test('Notification : en repli, c\'est la clé dédiée qui part, et la source la nomme', async () => {
+  const f = stubFetch(() => json({ messageId: '<factice>' }));
+  try {
+    await withEnv({ RSU_TX_BREVO_API_KEY: CLE_DEDIEE, RSU_NOTIFY_TO: DEST }, async () => {
+      const r = await notifyCabinet(RECORD);
+      assert.strictEqual(r.sent, true);
+      assert.strictEqual(r.source, 'RSU_TX_BREVO_API_KEY');
+    });
+    assert.strictEqual(f.calls[0].headers['api-key'], CLE_DEDIEE);
+  } finally { f.restore(); }
+});
+test('Notification : transactionnel seul, aucune liste, charge utile entièrement constante', async () => {
+  // Preuve par construction plutôt que par flairage : si la charge utile ne
+  // dépend QUE de constantes et du destinataire interne, aucune donnée de la
+  // demande ne peut s'y trouver, quelle que soit la demande. Le flairage par
+  // sous-chaîne, lui, est piégeux — « RSU » figure dans l'objet du message.
+  const f = stubFetch(() => json({ messageId: '<factice>' }));
+  try {
+    await withEnv({ BREVO_API_KEY: CLE_COMPTE, RSU_NOTIFY_TO: DEST }, () => notifyCabinet(RECORD));
+    const envoi = f.calls[0];
+    assert.ok(envoi.url.endsWith('/v3/smtp/email'), 'endpoint transactionnel');
+    assert.ok(!envoi.url.includes('/v3/contacts'), 'jamais la gestion de contacts');
+    const corps = JSON.parse(String(envoi.body));
+    assert.deepStrictEqual(Object.keys(corps).sort(), ['sender', 'subject', 'tags', 'textContent', 'to'],
+      'aucun champ de plus : ni listIds, ni templateId, ni params');
+    assert.deepStrictEqual(corps.to, [{ email: DEST }]);
+    assert.deepStrictEqual(corps.sender, { name: 'CRM Proactifs', email: DEST });
+    assert.deepStrictEqual(corps.tags, ['rsu-notification-interne']);
+    assert.strictEqual(corps.subject, 'Nouvelle demande RSU/ESPP à traiter dans le CRM');
+    assert.ok(/aucune donnée personnelle/.test(corps.textContent));
+  } finally { f.restore(); }
+});
+test('Notification : une demande entière ne laisse aucune trace dans le message', async () => {
+  // Valeurs sentinelles, choisies pour ne pouvoir figurer dans aucun libellé fixe.
+  const sentinelles = { nom: 'Zzsentinelle-Nom', prenom: 'Zzsentinelle-Prenom',
+    email: 'zzsentinelle@example.invalid', telephone: '0699000011',
+    dispositif: 'Zzsentinelle-Dispositif', besoin: 'Zzsentinelle-Besoin',
+    montant_estime: 'Zzsentinelle-Montant', stade: 'Zzsentinelle-Stade',
+    commentaire: 'Zzsentinelle-Commentaire' };
+  const f = stubFetch(() => json({ messageId: '<factice>' }));
+  try {
+    await withEnv({ BREVO_API_KEY: CLE_COMPTE, RSU_NOTIFY_TO: DEST }, () => notifyCabinet(sentinelles));
+    const corps = String(f.calls[0].body);
+    for (const [champ, valeur] of Object.entries(sentinelles)) {
+      assert.ok(!corps.includes(valeur), `« ${champ} » ne doit pas figurer dans la notification`);
+    }
+    assert.ok(!corps.includes('Zzsentinelle'), 'aucune sentinelle, même tronquée');
+  } finally { f.restore(); }
+});
+test('Notification : clé refusée par Brevo — motif et variable en cause remontés', async () => {
+  // C'est le cas d'une clé Restricted sans la permission « Transactional email ».
+  const f = stubFetch(() => new Response('', { status: 401 }));
+  try {
+    await withEnv({ BREVO_API_KEY: CLE_COMPTE, RSU_NOTIFY_TO: DEST }, async () => {
+      const r = await notifyCabinet(RECORD);
+      assert.strictEqual(r.sent, false);
+      assert.strictEqual(r.reason, 'http_401');
+      assert.strictEqual(r.source, 'BREVO_API_KEY', 'le nom de la variable permet le diagnostic');
+    });
+  } finally { f.restore(); }
+});
+test('Notification : incident réseau — la demande reste enregistrée', async () => {
+  const f = stubFetch(() => { throw new Error('réseau'); });
+  try {
+    await withEnv({ BREVO_API_KEY: CLE_COMPTE, RSU_NOTIFY_TO: DEST }, async () => {
+      const r = await notifyCabinet(RECORD);
+      assert.deepStrictEqual({ sent: r.sent, reason: r.reason, source: r.source },
+        { sent: false, reason: 'erreur_reseau', source: 'BREVO_API_KEY' });
+    });
+  } finally { f.restore(); }
+});
+test('Documentation : l\'en-tête de l\'API décrit la mutualisation et la permission requise', () => {
+  const api = fs.readFileSync(path.join(ROOT, 'api', 'rsu-request.js'), 'utf8');
+  const entete = api.slice(0, api.indexOf('*/'));
+  assert.ok(/BREVO_API_KEY/.test(entete), 'la clé du compte doit être documentée');
+  assert.ok(/repli TEMPORAIRE/i.test(entete), 'le statut temporaire du repli doit être écrit');
+  assert.ok(/Ne pas créer en production/i.test(entete), 'la consigne Vercel doit être écrite');
+  assert.ok(/Transactional email/.test(entete), 'la permission Brevo requise doit être écrite');
+});
+test('Documentation : toute variable lue par le code est décrite dans l\'en-tête', () => {
+  // Garde auto-entretenu : c'est ce test, et non la vigilance, qui empêche la
+  // liste des variables Vercel de dériver du code au prochain ajout.
+  const api = fs.readFileSync(path.join(ROOT, 'api', 'rsu-request.js'), 'utf8');
+  const fin = api.indexOf('*/');
+  const entete = api.slice(0, fin);
+  const corps = api.slice(fin);
+  const lues = new Set([...corps.matchAll(/\b(RSU_[A-Za-z_]+|SUPABASE_URL|SUPABASE_SERVICE_KEY|BREVO_API_KEY|VERCEL_ENV)\b/g)]
+    .map(m => m[1])
+    .filter(n => !/^RSU_(CONSENT|DELAI|CHAMPS|ACTIF|PROJET)/.test(n))); // constantes, pas des variables d'environnement
+  assert.ok(lues.size >= 10, 'extraction suspecte : ' + lues.size + ' nom(s) trouvé(s)');
+  const absentes = [...lues].filter(n => !entete.includes(n));
+  assert.deepStrictEqual(absentes, [], 'variables lues mais non documentées : ' + absentes.join(', '));
+});
+test('Documentation : la liste des variables de production est à jour', () => {
+  const api = fs.readFileSync(path.join(ROOT, 'api', 'rsu-request.js'), 'utf8');
+  const entete = api.slice(0, api.indexOf('*/'));
+  const bloc = entete.slice(entete.indexOf('Ce que PRODUCTION doit contenir'));
+  assert.ok(bloc.length > 100, 'bloc « ce que production doit contenir » introuvable');
+  for (const n of ['RSU_PROD_ENABLED', 'RSU_PROD_SUPABASE_REF', 'RSU_TEST_SUPABASE_REF', 'SUPABASE_URL',
+    'SUPABASE_SERVICE_KEY', 'RSU_TURNSTILE_SECRET', 'RSU_TURNSTILE_SITE_KEY', 'RSU_NOTIFY_TO', 'BREVO_API_KEY']) {
+    assert.ok(bloc.includes(n), `${n} doit figurer dans la liste de production`);
+  }
+  // Et surtout : la clé dédiée doit être explicitement exclue de la production.
+  assert.ok(/NE PAS créer en production[\s\S]*RSU_TX_BREVO_API_KEY/.test(bloc),
+    'RSU_TX_BREVO_API_KEY doit être nommée parmi les variables à ne pas créer en production');
 });

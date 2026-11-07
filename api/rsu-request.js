@@ -11,12 +11,21 @@
      uniquement vers le projet TEST exact (RSU_TEST_SUPABASE_REF). Sinon refus, aucune écriture.
 
    Variables d'environnement (côté serveur uniquement) :
+   - VERCEL_ENV                  fournie par Vercel, jamais à créer : 'production' ou 'preview'.
+                                 Toute autre valeur (dev local inclus) = refus, aucune écriture.
    - SUPABASE_URL                production, base de production (jamais lue en Preview)
    - SUPABASE_SERVICE_KEY        production, clé service (jamais lue en Preview)
    - RSU_TEST_SUPABASE_URL       Preview uniquement : URL du projet TEST
    - RSU_TEST_SUPABASE_SERVICE_KEY  Preview uniquement : clé service du projet TEST (Sensitive)
    - RSU_TEST_SUPABASE_REF / RSU_PROD_SUPABASE_REF  références attendues (les deux, différentes)
    - RSU_DAILY_CAP          optionnel, nombre max de demandes par jour (défaut 50)
+   - BREVO_API_KEY          notification interne du cabinet : clé du compte Brevo, déjà présente
+                            en production pour /api/subscribe-blog et /api/webhook-systemeio.
+                            Lue EN PREMIER depuis le 07/11/2026 (décision de mutualisation).
+   - RSU_TX_BREVO_API_KEY   repli TEMPORAIRE, lue seulement si BREVO_API_KEY est absente ou vide.
+                            Ne pas créer en production. À retirer quand aucun environnement ne la définit.
+   - RSU_NOTIFY_TO          adresse interne destinataire de la notification
+   - RSU_NOTIFY_FROM        optionnel, expéditeur (défaut : RSU_NOTIFY_TO)
    - RSU_PROD_ENABLED       écritures en PRODUCTION refusées tant que != 'true' (défaut : refus)
    - Turnstile (OBLIGATOIRE, fail closed) : noms distincts par environnement, lus via turnstileVars() :
        Production : RSU_TURNSTILE_SECRET (secret) et RSU_TURNSTILE_SITE_KEY (clé publique)
@@ -24,11 +33,37 @@
      Secret absent ou vide = toute demande refusée (503), aucun appel externe. Aucun repli entre
      les deux jeux de variables. Jeton (captchaToken) vérifié auprès de Cloudflare avant tout accès base.
 
-   Notification du cabinet : email transactionnel interne, via une clé DÉDIÉE
-   (RSU_TX_BREVO_API_KEY), distincte de la clé marketing. Aucun contact créé,
-   aucune liste, aucune donnée personnelle dans le message. Inactive tant que
+   Ce que PRODUCTION doit contenir — 9 variables, dont 3 déjà en place pour d'autres usages.
+   Liste revue le 07/11/2026 : RSU_TX_BREVO_API_KEY en sort, BREVO_API_KEY y entre sans création.
+     RSU_PROD_ENABLED = 'true'       sinon toute écriture est refusée
+     RSU_PROD_SUPABASE_REF           référence du projet de production
+     RSU_TEST_SUPABASE_REF           exigée AUSSI en production : checkTarget() valide les DEUX
+                                     références avant de choisir la cible, et refuse si elles sont égales
+     SUPABASE_URL                    (déjà en place)
+     SUPABASE_SERVICE_KEY            (déjà en place)
+     RSU_TURNSTILE_SECRET            fail closed : sans lui, 503 sur tout
+     RSU_TURNSTILE_SITE_KEY          servie à la page par /api/rsu-config
+     RSU_NOTIFY_TO                   sans elle, aucune notification (et aucun blocage)
+     BREVO_API_KEY                   (déjà en place) — permission « Transactional email : All » requise
+   Optionnelles : RSU_DAILY_CAP, RSU_NOTIFY_FROM.
+   À NE PAS créer en production : RSU_TX_BREVO_API_KEY, RSU_TEST_SUPABASE_URL,
+   RSU_TEST_SUPABASE_SERVICE_KEY, et les deux variables *_Preview.
+
+   Notification du cabinet : email transactionnel interne, envoyé sur
+   /v3/smtp/email UNIQUEMENT. Aucun contact créé, aucune liste (ni listIds, ni
+   /v3/contacts), aucune donnée personnelle dans le message. Inactive tant que
    les variables ne sont pas définies. Un échec de notification ne bloque jamais
    l'enregistrement de la demande.
+
+   La clé est celle du compte (BREVO_API_KEY), mutualisée avec les deux autres
+   endpoints Brevo du site. Le choix d'une clé dédiée a été abandonné le
+   07/11/2026 : une clé Brevo n'est pas cloisonnée par le fait d'exister, elle
+   l'est par ses permissions, et une variable de plus en production n'apportait
+   donc aucun cloisonnement en soi.
+   ⚠️ La clé doit avoir la permission « Transactional email : All » (ou être une
+   clé Full). Une clé Restricted limitée aux Contacts serait refusée par Brevo :
+   la notification échouerait en http_401/403, journalisée avec le nom de la
+   variable en cause, sans jamais empêcher l'enregistrement de la demande.
    ============================================================ */
 
 const TABLE = 'rsu_requests';
@@ -267,14 +302,34 @@ function startOfTodayIso() {
   return d.toISOString();
 }
 
+// Clé Brevo de la notification, par ordre de priorité. BREVO_API_KEY est la clé
+// du compte, déjà présente en production pour /api/subscribe-blog et
+// /api/webhook-systemeio : la mutualiser évite d'y créer une variable de plus.
+// RSU_TX_BREVO_API_KEY n'est lue qu'en repli, le temps que les environnements qui
+// la définissent encore soient alignés — à retirer ensuite, avec cette liste.
+const BREVO_KEY_VARS = ['BREVO_API_KEY', 'RSU_TX_BREVO_API_KEY'];
+// Retourne { key, source } où source est le NOM de la variable retenue, jamais sa
+// valeur : c'est ce nom, et lui seul, qui part dans les journaux. Le trim évite
+// qu'un retour à la ligne collé dans Vercel produise un en-tête invalide.
+function brevoKey(env) {
+  for (const name of BREVO_KEY_VARS) {
+    const valeur = String(env[name] || '').trim();
+    if (valeur) return { key: valeur, source: name };
+  }
+  return { key: '', source: null };
+}
+
 // Notification interne du cabinet, transactionnelle et sans donnée personnelle.
-// Gardée par variables dédiées : RSU_TX_BREVO_API_KEY (clé transactionnelle, à créer)
-// et RSU_NOTIFY_TO (adresse interne). Sans elles : aucun envoi, raison renvoyée.
+// Gardée par la présence d'une clé (voir brevoKey) et de RSU_NOTIFY_TO (adresse
+// interne). Sans elles : aucun envoi, aucun appel réseau, raison renvoyée.
 // Jamais de contact créé, jamais de liste (pas de listIds, pas de /v3/contacts).
 async function notifyCabinet(record) {
-  const apiKey = process.env.RSU_TX_BREVO_API_KEY;
-  const to = process.env.RSU_NOTIFY_TO;
-  if (!apiKey || !to) return { sent: false, reason: 'non_configure' };
+  const { key: apiKey, source } = brevoKey(process.env);
+  const to = String(process.env.RSU_NOTIFY_TO || '').trim();
+  // `reason` reste 'non_configure' dans les deux cas : l'appelant s'en sert pour
+  // rester silencieux sur une installation volontairement incomplète. `manque`
+  // nomme la catégorie défaillante, jamais une valeur.
+  if (!apiKey || !to) return { sent: false, reason: 'non_configure', manque: !apiKey ? 'cle' : 'destinataire' };
   const ctrl = typeof AbortController === 'function' ? new AbortController() : null;
   const timer = ctrl ? setTimeout(() => ctrl.abort(), 10000) : null;
   try {
@@ -290,9 +345,9 @@ async function notifyCabinet(record) {
       }),
       signal: ctrl ? ctrl.signal : undefined,
     });
-    return r.ok ? { sent: true } : { sent: false, reason: 'http_' + r.status };
+    return r.ok ? { sent: true, source } : { sent: false, reason: 'http_' + r.status, source };
   } catch (e) {
-    return { sent: false, reason: 'erreur_reseau' };
+    return { sent: false, reason: 'erreur_reseau', source };
   } finally {
     if (timer) clearTimeout(timer);
   }
@@ -390,7 +445,9 @@ module.exports = async (req, res) => {
   // La demande est enregistrée : une notification en échec ne modifie pas la réponse.
   try {
     const n = await notifyCabinet(v.data);
-    if (!n.sent && n.reason !== 'non_configure') console.error('[rsu notify]', n.reason);
+    // Le NOM de la variable, jamais sa valeur : c'est ce qui permet de distinguer
+    // une clé sans permission « Transactional email » d'un simple incident réseau.
+    if (!n.sent && n.reason !== 'non_configure') console.error('[rsu notify]', n.reason, 'cle lue dans', n.source);
   } catch (e) {
     console.error('[rsu notify] erreur inattendue');
   }
@@ -399,6 +456,9 @@ module.exports = async (req, res) => {
 
 module.exports.validate = validate;
 module.exports.notifyCabinet = notifyCabinet;
+module.exports.brevoKey = brevoKey;
+module.exports.BREVO_KEY_VARS = BREVO_KEY_VARS;
+module.exports.NOTIFY_ENDPOINT = NOTIFY_ENDPOINT;
 module.exports.checkTarget = checkTarget;
 module.exports.verifyCaptcha = verifyCaptcha;
 module.exports.projectRefFromUrl = projectRefFromUrl;
