@@ -56,18 +56,37 @@ create policy rsu_cabinet_select on public.rsu_requests
   for select to authenticated
   using (public.is_cabinet_member());
 
--- ── Temps réel pour le CRM (les abonnés respectent RLS) ───
-do $$
-begin
-  if not exists (
-    select 1 from pg_publication_tables
-    where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'rsu_requests'
-  ) then
-    alter publication supabase_realtime add table public.rsu_requests;
-  end if;
-end $$;
+-- ── Temps réel : RETIRÉ le 06/11/2026 ─────────────────────
+-- Cette migration ajoutait ici public.rsu_requests à la publication
+-- `supabase_realtime`, celle de postgres_changes. Le CRM ne s'en sert plus pour
+-- les demandes RSU : il n'écoute que le canal privé `rsu-demandes-prive`, qui
+-- passe par realtime.messages (Broadcast) et sa politique RLS, pas par cette
+-- publication. Un test de la suite CRM vérifie qu'aucun repli postgres_changes
+-- ne subsiste.
+--
+-- Publier la table ici n'apportait donc rien, et le script Realtime de
+-- production la retirait ensuite : deux écritures sur la production pour un
+-- effet nul, plus une fenêtre pendant laquelle le signal d'activité des
+-- demandes était observable par tout abonné. L'état visé est « hors
+-- publication » ; on l'atteint maintenant sans jamais en sortir.
+--
+-- Conservé en commentaire parce que le projet TEST (wzuvyztsohdvarxsixce) a été
+-- migré AVEC ce bloc, le 03/11/2026 : la table y figure donc dans la
+-- publication, et c'est le script Realtime qui l'en retire.
+--   do $$
+--   begin
+--     if not exists (
+--       select 1 from pg_publication_tables
+--       where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'rsu_requests'
+--     ) then
+--       alter publication supabase_realtime add table public.rsu_requests;
+--     end if;
+--   end $$;
 
 -- ── Retour arrière (à exécuter manuellement si besoin) ────
 -- drop policy if exists rsu_cabinet_select on public.rsu_requests;
--- alter publication supabase_realtime drop table public.rsu_requests;
 -- drop table if exists public.rsu_requests;
+-- (plus de ligne « alter publication … drop table » : cette migration
+--  n'ajoute plus la table à la publication, il n'y a donc rien à défaire.
+--  Sur TEST, migré avec l'ancien bloc, le retrait reste à la charge du
+--  script Realtime de production.)
