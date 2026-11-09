@@ -1304,12 +1304,13 @@
        Les réponses partent vers /api/rsu-request, qui écrit dans rsu_requests
        avec la clé service côté serveur. Aucune clé Supabase n'est exposée au
        navigateur, et la table leads n'est plus touchée.
-       Transmission ACTIVE uniquement sur les Preview TEST listés ci-dessous.
-       Production : hôtes listés, mais envoi désactivé tant que
-       RSU_PROD_ACTIVATED n'est pas passé à true (décision explicite). */
+       Transmission ACTIVE sur les Preview TEST listés ci-dessous ET, depuis
+       l'activation explicite de RSU_PROD_ACTIVATED, sur les hôtes de production.
+       Partout ailleurs — autre alias Preview, autre domaine — l'envoi est refusé
+       et le visiteur est renvoyé vers un contact direct. */
     const RSU_PREVIEW_TEST_HOSTS = ['proactifs-conseils-git-feat-rs-8f2ce8-medymatima-a11ys-projects.vercel.app', 'proactifs-conseils-git-feat-rs-a2bdf1-medymatima-a11ys-projects.vercel.app', 'proactifs-conseils-git-feat-rs-17f578-medymatima-a11ys-projects.vercel.app'];
     const RSU_PROD_HOSTS = ['proactifsconseils.fr'];
-    const RSU_PROD_ACTIVATED = false;
+    const RSU_PROD_ACTIVATED = true;
     const RSU_TRANSMISSION_ACTIVE = RSU_PREVIEW_TEST_HOSTS.indexOf(location.hostname) !== -1 ||
       (RSU_PROD_ACTIVATED && RSU_PROD_HOSTS.indexOf(location.hostname) !== -1);
     const RSU_ENDPOINT = '/api/rsu-request';
@@ -1376,7 +1377,7 @@
       errEl.style.display = 'none'; errEl.textContent = '';
 
       if (!RSU_TRANSMISSION_ACTIVE) {
-        return fail("Envois désactivés en environnement de test : aucune donnée n'a été enregistrée.");
+        return fail("L'envoi n'est pas disponible depuis cette adresse. Contactez le cabinet directement, nous reprendrons votre demande.");
       }
       const prenom = document.getElementById('wPrenom').value.trim();
       const nom = document.getElementById('wNom').value.trim();
