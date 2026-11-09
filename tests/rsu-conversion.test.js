@@ -255,24 +255,39 @@ test('bilan : le service actionnariat est une catégorie GA4 reconnue', () => {
 // (flat tax 30 %), 18,6 % à compter du 1er janvier 2026 (flat tax 31,4 %).
 // Source : service-public.fr, fiche F2329, mise à jour le 30 juin 2026.
 
-test('fiscal : la page déclaration distingue les deux années de cession', () => {
-  assert.match(DECLARATION, /cession réalisée en 2025/, 'régime 2025 non explicité');
-  assert.match(DECLARATION, /à compter du 1<sup>er<\/sup> janvier 2026|à compter du 1er janvier 2026/, 'bascule 2026 non explicitée');
-  assert.match(DECLARATION, /17,2&nbsp;%|17,2 %/, 'taux 2025 absent');
-  assert.match(DECLARATION, /18,6&nbsp;%|18,6 %/, 'taux 2026 absent');
+// Corrigé le 09/11/2026. La règle précédente — 30 % pour une cession 2025,
+// 31,4 % à partir de 2026 — était fausse : les plus-values de cession de valeurs
+// mobilières sont des revenus du patrimoine visés à l'article L.136-6 CSS, et la
+// hausse de CSG de l'article 12 de la LFSS 2026 les atteint dès l'imposition des
+// revenus 2025. La page doit donc annoncer UN taux, et dire qu'il couvre 2025.
+test('fiscal : la page couvre explicitement les cessions 2025 imposées en 2026', () => {
+  assert.match(DECLARATION, /cessions réalisées en 2025 et imposées en 2026/,
+    'la couverture des cessions 2025 n’est pas explicite');
+  assert.match(DECLARATION, /L[.]136-6/, 'base légale (CSS L.136-6) absente');
+  assert.match(DECLARATION, /financement de la sécurité sociale pour 2026/,
+    'la LFSS 2026 doit être citée');
+  assert.match(DECLARATION, /18,6&nbsp;%|18,6 %/, 'part de prélèvements sociaux absente');
 });
 
-test('fiscal : aucun taux de flat tax annoncé sans son année de cession', () => {
-  // « 31,4 % » et « 30 % » ne doivent jamais apparaître comme un taux unique
-  // et intemporel : chaque mention vit dans une phrase qui nomme l'année.
-  const sansAnnee = [...DECLARATION.matchAll(/[^.]*31,4(?:&nbsp;| )%[^.]*\./g)]
+test('fiscal : le PFU est annoncé à 31,4 %, jamais à 30 %', () => {
+  // Le risque n’est plus l’absence d’année, c’est la survivance du 30 %.
+  const trente = [...DECLARATION.matchAll(/[^.]*[^0-9]30(?:&nbsp;| )%[^.]*[.]/g)]
     .map((m) => m[0])
-    .filter((phrase) => !/202[56]/.test(phrase));
-  assert.deepStrictEqual(sansAnnee, [], 'mentions de 31,4 % sans année : ' + sansAnnee.join(' | '));
+    .filter((phrase) => /flat tax|PFU|prélèvement forfaitaire/i.test(phrase));
+  assert.deepStrictEqual(trente, [], 'PFU encore annoncé à 30 % : ' + trente.join(' | '));
+  assert.match(DECLARATION, /31,4&nbsp;%|31,4 %/, 'taux du PFU absent');
+  assert.match(DECLARATION, /12,8&nbsp;%|12,8 %/, 'part d’impôt sur le revenu absente');
 });
 
-test('fiscal : l’exemple chiffré indique le taux de son année', () => {
-  assert.match(DECLARATION, /11 236 €<\/strong>, au taux de 30&nbsp;% applicable aux cessions de 2025/);
+test('fiscal : l’exemple chiffré applique bien 31,4 % à sa base', () => {
+  // La base et le montant affichés restent arithmétiquement liés : sans cela, une
+  // correction de taux peut laisser un montant périmé à l’écran.
+  const base = 37454;
+  const attendu = Math.round(base * 0.314);
+  assert.strictEqual(attendu, 11761, 'arithmétique du PFU : ' + attendu);
+  assert.ok(DECLARATION.includes('37 454 €'), 'base de l’exemple absente');
+  assert.match(DECLARATION, /11 761 €<\/strong>, au taux de 31,4&nbsp;%/,
+    'le montant affiché ne correspond pas à la base × 31,4 %');
 });
 
 test('fiscal : une source officielle datée est citée près des taux', () => {
@@ -292,8 +307,11 @@ test('fiscal : le JSON-LD porte la même règle que le texte visible', () => {
   }
   const faq = blocs.map((b) => b[1]).join('\n');
   if (/31,4 %/.test(faq)) {
-    assert.match(faq, /cession réalisée en 2025/, 'JSON-LD : 31,4 % sans le régime 2025');
+    assert.match(faq, /cessions réalisées en 2025 et imposées en 2026/,
+      'JSON-LD : 31,4 % sans préciser qu’il couvre les cessions 2025');
+    assert.match(faq, /L[.]136-6/, 'JSON-LD : base légale absente');
   }
+  assert.ok(!/30 % pour une cession/.test(faq), 'JSON-LD : règle périmée des 30 %');
 });
 
 /* ── 7. Séparation gain d'acquisition / plus-value de cession ───────────── */

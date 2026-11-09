@@ -1,9 +1,16 @@
 -- ══════════════════════════════════════════════════════════
 -- MIGRATION — table public.rsu_requests (demandes RSU/ESPP du site)
 --
--- PRÉPARÉE LOCALEMENT. NON EXÉCUTÉE.
--- Exécution = GO ORANGE, d'abord sur le projet TEST (wzuvyztsohdvarxsixce), puis sur PROD
--- dans une étape distincte. Prérequis : public.is_cabinet_member() présente (vérifiée sur TEST).
+-- TEST (wzuvyztsohdvarxsixce)       : APPLIQUÉE le 03/11/2026.
+-- PRODUCTION (ullnkylrixdvormohryl) : APPLIQUÉE — date non établie.
+--   Constaté le 09/11/2026 par sonde en lecture seule sur l'API REST publique
+--   de la production : public.rsu_requests répond « permission denied » (42501)
+--   là où une table absente répondrait PGRST205, et chacune de ses colonnes
+--   répond 42501 là où une colonne absente répondrait 42703. La table existe
+--   donc bien, et anon n'y a aucun droit.
+-- Il n'y a plus rien à exécuter ici. Toute écriture en production relève du
+-- GO ROUGE, dans une étape distincte.
+-- Prérequis : public.is_cabinet_member() présente (vérifiée sur TEST le 07/11/2026).
 --
 -- Principes :
 --   - RLS activé. Aucun accès anon.
@@ -71,8 +78,11 @@ create policy rsu_cabinet_select on public.rsu_requests
 -- publication » ; on l'atteint maintenant sans jamais en sortir.
 --
 -- Conservé en commentaire parce que le projet TEST (wzuvyztsohdvarxsixce) a été
--- migré AVEC ce bloc, le 03/11/2026 : la table y figure donc dans la
--- publication, et c'est le script Realtime qui l'en retire.
+-- migré AVEC ce bloc, le 03/11/2026 : la table y a donc figuré dans la
+-- publication, et la section de retrait du script Realtime l'en a sortie le même
+-- jour. Relevé en base le 07/11/2026 : la publication de TEST est vide, la table
+-- n'y figure plus. En production elle n'y entrera jamais, ce bloc étant neutralisé :
+-- le § 3 du script Realtime y trouvera « rien à retirer ».
 --   do $$
 --   begin
 --     if not exists (

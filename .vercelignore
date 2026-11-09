@@ -15,6 +15,10 @@ Claude outputs/
 .claude/
 blog/.claude/
 *.md
+# Migrations : versionnées, mais jamais servies. Sans cette ligne, Vercel les
+# publie à la racine du site (vérifié sur la Preview : 200, application/x-sql),
+# ce qui exposerait schéma, politiques RLS et référence du projet.
+*.sql
 *.bak
 *.bak.*
 *.skill
