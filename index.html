@@ -1447,8 +1447,18 @@ a.lead-card { text-decoration:none; color:inherit; }
             <option>Investisseur</option>
           </select>
         </div>
-        <p class="wiz-gdpr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;color:var(--teal)"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Vos données sont confidentielles et ne seront jamais revendues. En soumettant ce formulaire, vous acceptez d'être contacté par Proactifs Conseils.</p>
+        <p class="wiz-gdpr"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;color:var(--teal)"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Vos données sont confidentielles et ne seront jamais revendues. En soumettant ce formulaire, vous acceptez d'être contacté par Proactifs Conseils. Vos réponses servent uniquement à préparer cet échange — <a href="/confidentialite" target="_blank" rel="noopener">politique de confidentialité</a>.<span id="pcCaptchaNote"></span></p>
+        <!-- Case FACULTATIVE : prospection marketing. Non précochée, ne conditionne jamais l'envoi. -->
+        <label for="pcConsent" style="display:flex;align-items:flex-start;gap:9px;margin:10px 0 4px;font-size:12.5px;line-height:1.5;color:#4b5563;cursor:pointer">
+          <input type="checkbox" id="pcConsent" name="consentMarketing" style="margin-top:2px;width:16px;height:16px;flex:0 0 auto">
+          <span>J'accepte de recevoir par email les informations et invitations de Proactifs Conseils. Facultatif, désinscription en un clic à tout moment.</span>
+        </label>
         <p class="wiz-error" id="wizError" style="display:none" role="alert" aria-live="assertive"></p>
+        <!-- Anti-robot discret : invisible tant qu'aucune interaction n'est requise, n'empêche jamais l'envoi -->
+        <div class="pc-captcha-wrap" id="pcCaptchaWrap" style="display:none">
+          <div id="pcCaptcha"></div>
+          <p id="pcCaptchaErr" class="pc-captcha-err" aria-live="polite" style="font-size:12.5px;color:#6b7280;margin:6px 0 0"></p>
+        </div>
         <button class="wiz-submit-btn" onclick="wizSubmit()">Envoyer ma demande →</button>
       </div>
     </div>
@@ -2358,6 +2368,9 @@ function wizNext() {
     document.getElementById('wizQBody').style.display='none';
     document.getElementById('wizQFooter').style.display='none';
     document.getElementById('wizContact').style.display='block';
+    // Le jeton Turnstile expire après 300 s : le widget n'est préparé qu'ici,
+    // à la dernière étape, pas à l'ouverture du diagnostic.
+    if (window.ProactifsCaptcha) window.ProactifsCaptcha.prepare();
     wizTrackOnce('contact', 'diagnostic_contact_view', wizTrackBase());
   } else {
     renderWizStep();
@@ -2429,22 +2442,24 @@ async function wizSubmit() {
     };
     const reponses = {};
     answersLabels.forEach((a, i) => { reponses['q' + (i + 1)] = a; });
-    const res = await fetch('https://ullnkylrixdvormohryl.supabase.co/rest/v1/leads', {
+    const res = await fetch('/api/subscribe', {
       method: 'POST',
-      headers: {
-        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbG5reWxyaXhkdm9ybW9ocnlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjUzNDgsImV4cCI6MjA5NDE0MTM0OH0.Fu5xc-VVA49qp1-WHgve8ZYpOB-QrciHzVeZx0GXmKk',
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         prenom,
         nom,
         email,
-        telephone:     tel,
-        source:        _srcMap[wizService] || 'Quiz Homepage',
+        tel,
         situation,
+        service:       wizService,
+        source:        _srcMap[wizService] || 'Quiz Homepage',
         preoccupation: _preoccupation,
         reponses,
+        captchaToken:  window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
+        hp:            window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '',
+        // Case facultative : son état est transmis, il ne bloque rien.
+        consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
+        consentVersion:   'marketing-consent-v1',
       }),
     });
     ok = res.ok;
@@ -2457,6 +2472,9 @@ async function wizSubmit() {
 
   // ── Échec (réseau HS ou réponse Supabase non-OK) : ne jamais perdre un lead silencieusement ──
   if (!ok) {
+    // Un jeton anti-robot ne vaut qu'une fois : on le régénère pour que la
+    // nouvelle tentative du visiteur puisse aboutir.
+    if (window.ProactifsCaptcha) window.ProactifsCaptcha.reset();
     wizTrack('diagnostic_error', Object.assign(wizTrackBase(), { error_stage: errStage || 'server_rejected' }));
     if (errEl) {
       errEl.textContent = "Une erreur est survenue lors de l'envoi. Vos informations n'ont pas été transmises. Veuillez réessayer.";
@@ -2729,6 +2747,7 @@ document.addEventListener('click', function(e){
   });
 })();
 </script>
+<script src="/assets/js/subscribe-captcha.js" defer></script>
 <script src="/assets/js/navigation.js" defer></script>
 </body>
 </html>

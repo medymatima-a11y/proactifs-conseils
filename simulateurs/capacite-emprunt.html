@@ -481,6 +481,16 @@
             <div class="sim-field"><label class="sim-field__label" for="f-tel">Téléphone</label><input class="sim-field__input" id="f-tel" type="tel" autocomplete="tel"></div>
             <div class="sim-field"><label class="sim-field__label" for="f-projet-lead">Votre projet (facultatif)</label><input class="sim-field__input" id="f-projet-lead" autocomplete="off"></div>
             <p class="sim-consent">En envoyant ce formulaire, vos coordonnées sont transmises à Proactifs Conseils pour être recontacté au sujet de votre projet. Vos données restent strictement confidentielles et ne sont jamais revendues.</p>
+            <!-- Case FACULTATIVE : prospection marketing. Non précochée, ne conditionne jamais l'envoi. -->
+            <label for="pcConsent" style="display:flex;align-items:flex-start;gap:9px;margin:10px 0 4px;font-size:12.5px;line-height:1.5;color:#4b5563;cursor:pointer">
+              <input type="checkbox" id="pcConsent" name="consentMarketing" style="margin-top:2px;width:16px;height:16px;flex:0 0 auto">
+              <span>J'accepte de recevoir par email les informations et invitations de Proactifs Conseils. Facultatif, désinscription en un clic à tout moment.</span>
+            </label>
+            <!-- Anti-robot discret : invisible tant qu'aucune interaction n'est requise, n'empêche jamais l'envoi -->
+            <div class="pc-captcha-wrap" id="pcCaptchaWrap" style="display:none">
+              <div id="pcCaptcha"></div>
+              <p id="pcCaptchaErr" class="pc-captcha-err" aria-live="polite" style="font-size:12.5px;color:#6b7280;margin:6px 0 0"></p>
+            </div>
             <button type="submit" class="sim-cta">Envoyer ma demande</button>
           </form>
           <div id="sim-lead-msg" class="sim-msg" role="status" aria-live="polite"></div>
@@ -650,6 +660,14 @@
 <script src="/assets/js/simulators/ui.js"></script>
 <script src="/assets/js/simulators/prototype-capacity.js"></script>
 <!-- Navigation centralisée (menu mobile, mega-panels) -->
+<script src="/assets/js/subscribe-captcha.js" defer></script>
+<script>
+  // Widget préparé au premier contact réel avec le formulaire : jeton frais
+  // (300 s de validité) et aucun appel Cloudflare pour un visiteur qui ne le remplit pas.
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.ProactifsCaptcha) window.ProactifsCaptcha.prepareOnFirstInteraction('#sim-lead-form');
+  });
+</script>
 <script src="/assets/js/navigation.js" defer></script>
 <script>
   (function () {
@@ -659,10 +677,21 @@
         return fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          // Case facultative : son état est transmis, il ne bloque rien.
+          body: JSON.stringify(Object.assign({}, payload, {
+            consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
+            consentVersion: 'marketing-consent-v1',
+            captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
+            hp: window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : ''
+          }))
         }).then(function (res) {
           if (!res.ok) throw new Error('subscribe ' + res.status);
           return res.json().catch(function () { return { ok: true }; });
+        }).catch(function (err) {
+          // Un jeton anti-robot ne vaut qu'une fois : on le régénère pour que la
+          // nouvelle tentative du visiteur puisse aboutir.
+          if (window.ProactifsCaptcha) window.ProactifsCaptcha.reset();
+          throw err;
         });
       },
       leadSuccessMessage: 'Merci, votre demande a bien été envoyée. Nous vous recontactons rapidement.'

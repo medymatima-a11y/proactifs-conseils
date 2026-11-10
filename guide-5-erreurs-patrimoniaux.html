@@ -845,7 +845,7 @@
       </div>
     </div>
 
-    <form class="hero-form" onsubmit="event.preventDefault(); redirectToSysteme(this);">
+    <form class="hero-form" onsubmit="event.preventDefault(); soumettreDemandeGuide(this);">
       <div class="form-row">
         <div class="form-field">
           <label for="hero-prenom">Prénom</label>
@@ -855,6 +855,17 @@
           <label for="hero-email">Email</label>
           <input id="hero-email" type="email" name="email" placeholder="vous@exemple.fr" autocomplete="email" required>
         </div>
+      </div>
+      <!-- Case FACULTATIVE : prospection marketing. Non précochée, ne conditionne jamais l'envoi. -->
+      <label style="display:flex;align-items:flex-start;gap:9px;margin:10px 0 4px;font-size:12.5px;line-height:1.5;color:#4b5563;cursor:pointer;text-align:left">
+        <input type="checkbox" name="consentMarketing" style="margin-top:2px;width:16px;height:16px;flex:0 0 auto">
+        <span>J'accepte de recevoir par email les informations et invitations de Proactifs Conseils. Facultatif, désinscription en un clic à tout moment.</span>
+      </label>
+      <!-- Anti-robot discret, conteneur PROPRE à ce formulaire : si Cloudflare
+           exige une interaction, le défi s'affiche ici, sous les yeux du visiteur. -->
+      <div class="pc-captcha-wrap" id="pcCaptchaWrapHaut" style="display:none">
+        <div id="pcCaptchaHaut"></div>
+        <p id="pcCaptchaErrHaut" class="pc-captcha-err" aria-live="polite" style="font-size:12.5px;color:#6b7280;margin:6px 0 0"></p>
       </div>
       <button type="submit" class="btn-cta">
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
@@ -1074,10 +1085,21 @@
       Recevez les 5 erreurs et leurs solutions en détail.<br>
       Lecture en 15 minutes. Résultats potentiels : des années d'optimisation.
     </p>
-    <form class="final-form" onsubmit="event.preventDefault(); redirectToSysteme(this);">
+    <form class="final-form" onsubmit="event.preventDefault(); soumettreDemandeGuide(this);">
       <div class="final-form-row">
         <input type="text" name="prenom" placeholder="Votre prénom" autocomplete="given-name">
         <input type="email" name="email" placeholder="vous@exemple.fr" autocomplete="email" required>
+      </div>
+      <!-- Case FACULTATIVE : prospection marketing. Non précochée, ne conditionne jamais l'envoi. -->
+      <label style="display:flex;align-items:flex-start;gap:9px;margin:10px 0 4px;font-size:12.5px;line-height:1.5;color:#4b5563;cursor:pointer;text-align:left">
+        <input type="checkbox" name="consentMarketing" style="margin-top:2px;width:16px;height:16px;flex:0 0 auto">
+        <span>J'accepte de recevoir par email les informations et invitations de Proactifs Conseils. Facultatif, désinscription en un clic à tout moment.</span>
+      </label>
+      <!-- Anti-robot discret, conteneur PROPRE à ce formulaire : le défi ne
+           s'affiche jamais dans l'autre formulaire, hors du champ de vision. -->
+      <div class="pc-captcha-wrap" id="pcCaptchaWrapBas" style="display:none">
+        <div id="pcCaptchaBas"></div>
+        <p id="pcCaptchaErrBas" class="pc-captcha-err" aria-live="polite" style="font-size:12.5px;color:rgba(255,255,255,.65);margin:6px 0 0"></p>
       </div>
       <button type="submit" class="btn-cta">
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
@@ -1110,33 +1132,98 @@
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
 
-  // Capture le lead puis redirige vers Systeme.io
-  async function redirectToSysteme(form) {
+  // Capture le lead puis redirige vers notre page de remerciement
+  async function soumettreDemandeGuide(form) {
     const emailInput = form.querySelector('input[type="email"]');
     const textInput  = form.querySelector('input[type="text"]');
     const email      = emailInput?.value?.trim() || '';
     const firstName  = textInput?.value?.trim()  || '';
     if (!email) { emailInput?.focus(); return; }
+    const consentBox = form.querySelector('input[name="consentMarketing"]');
+    const consentMarketing = !!(consentBox && consentBox.checked);
+    // Chaque formulaire a son propre widget : on lit et on réinitialise celui
+    // du formulaire soumis, jamais celui de l'autre.
+    const cibleCaptcha = form.classList.contains('final-form') ? '#pcCaptchaBas' : '#pcCaptchaHaut';
 
-    // Désactive le bouton pendant l'envoi
+    // Désactive le bouton pendant l'envoi, en gardant son libellé d'origine
+    // (icône comprise) pour pouvoir le rétablir en cas de reprise.
     const btn = form.querySelector('button, input[type="submit"]');
+    const btnHtml = btn ? btn.innerHTML : '';
     if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
 
-    // Enregistrement en arrière-plan (Airtable + Systeme.io)
+    // Zone de message propre au formulaire soumis, créée à la demande.
+    function messageReprise(texte) {
+      let el = form.querySelector('.guide-msg');
+      if (!el) {
+        el = document.createElement('p');
+        el.className = 'guide-msg';
+        el.setAttribute('role', 'status');
+        el.setAttribute('aria-live', 'polite');
+        el.style.cssText = 'margin:10px 0 0;font-size:13px;line-height:1.5;color:#8a1f1f';
+        form.appendChild(el);
+      }
+      el.textContent = texte;
+    }
+    // Reprise : le visiteur garde tout ce qu'il a saisi, seul le jeton
+    // anti-robot est régénéré et le bouton redevient actif.
+    function permettreReprise(texte) {
+      if (window.ProactifsCaptcha) window.ProactifsCaptcha.reset(cibleCaptcha);
+      if (btn) { btn.disabled = false; btn.innerHTML = btnHtml; }
+      messageReprise(texte);
+    }
+
+    // Enregistrement dans le CRM (Supabase, table leads). La réponse décide :
+    // la redirection vers le guide n'a lieu que si le serveur a accepté.
     try {
-      await fetch('/api/subscribe-guide', {
+      const res = await fetch('/api/subscribe-guide', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prenom: firstName, email }),
+        // Case facultative : son état est transmis, il ne bloque rien.
+        // Jeton anti-robot et champ piège : le navigateur ne refuse jamais de
+        // lui-même, c'est le serveur qui tranche (400 / 403 et reprise possible).
+        body: JSON.stringify({ prenom: firstName, email, consentMarketing: consentMarketing, consentVersion: 'marketing-consent-v1',
+          captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token(cibleCaptcha) : '',
+          hp: window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '' }),
       });
-    } catch(e) { console.warn('subscribe-guide error:', e); }
 
-    // Redirection vers Systeme.io
-    const url = new URL('https://www.proactifsconseils.com/merci-guide');
-    url.searchParams.set('email', email);
-    if (firstName) url.searchParams.set('first_name', firstName);
-    window.location.href = url.toString();
+      if (!res.ok) {
+        // 403 : jeton expiré (cas le plus courant — il ne vaut que 300 s) ou
+        // refusé. 400 : jeton absent. Dans les deux cas, on invite à renvoyer,
+        // sans rien reprocher au visiteur et sans effacer sa saisie.
+        permettreReprise(res.status === 403
+          ? 'La vérification de sécurité a expiré. Vos informations sont conservées : cliquez à nouveau sur le bouton pour recevoir votre guide.'
+          : 'La vérification de sécurité n\'a pas pu aboutir. Vos informations sont conservées : cliquez à nouveau sur le bouton pour recevoir votre guide.');
+        return;
+      }
+    } catch(e) {
+      console.warn('subscribe-guide error:', e);
+      permettreReprise('L\'envoi n\'a pas abouti. Vos informations sont conservées : cliquez à nouveau sur le bouton, ou appelez-nous au 01 84 78 28 30.');
+      return;
+    }
+
+    // Redirection vers notre page de remerciement : le PDF y est servi
+    // directement depuis /files/, sans dépendance à un tunnel externe et sans
+    // faire sortir l'email du visiteur du domaine.
+    window.location.href = '/merci-guide';
   }
+</script>
+<script src="/assets/js/subscribe-captcha.js" defer></script>
+<script>
+  // Deux formulaires, DEUX widgets : chacun rend dans son propre conteneur, de
+  // sorte qu'un défi Cloudflare s'affiche toujours dans le formulaire que le
+  // visiteur est en train de remplir. La préparation reste paresseuse et
+  // idempotente par cible : un widget n'est chargé qu'au premier contact avec
+  // son formulaire, et le jeton (valable 300 s) est frais à l'envoi.
+  var PC_CIBLES = {
+    '.hero-form':  { holder: '#pcCaptchaHaut', wrap: 'pcCaptchaWrapHaut', err: 'pcCaptchaErrHaut' },
+    '.final-form': { holder: '#pcCaptchaBas',  wrap: 'pcCaptchaWrapBas',  err: 'pcCaptchaErrBas' }
+  };
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!window.ProactifsCaptcha) return;
+    Object.keys(PC_CIBLES).forEach(function (selecteur) {
+      window.ProactifsCaptcha.prepareOnFirstInteraction(selecteur, PC_CIBLES[selecteur]);
+    });
+  });
 </script>
 </body>
 </html>

@@ -804,6 +804,16 @@
               <input type="tel" id="wz-tel" placeholder="Téléphone *" required>
             </div>
           </div>
+          <!-- Case FACULTATIVE : prospection marketing. Non précochée, ne conditionne jamais l'envoi. -->
+          <label for="pcConsent" style="display:flex;align-items:flex-start;gap:9px;margin:10px 0 4px;font-size:12.5px;line-height:1.5;color:#4b5563;cursor:pointer">
+            <input type="checkbox" id="pcConsent" name="consentMarketing" style="margin-top:2px;width:16px;height:16px;flex:0 0 auto">
+            <span>J'accepte de recevoir par email les informations et invitations de Proactifs Conseils. Facultatif, désinscription en un clic à tout moment.</span>
+          </label>
+          <!-- Anti-robot discret : invisible tant qu'aucune interaction n'est requise, n'empêche jamais l'envoi -->
+          <div class="pc-captcha-wrap" id="pcCaptchaWrap" style="display:none">
+            <div id="pcCaptcha"></div>
+            <p id="pcCaptchaErr" class="pc-captcha-err" aria-live="polite" style="font-size:12.5px;color:#6b7280;margin:6px 0 0"></p>
+          </div>
           <div class="wz-nav">
             <button class="wz-btn wz-btn-back" onclick="wzPrev()">← Modifier mes réponses</button>
             <button class="wz-btn wz-btn-submit" id="wz-submit" onclick="wzSubmit()">Envoyer ma demande</button>
@@ -1047,7 +1057,12 @@
         const res = await fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prenom, nom: '', email, tel, situation: wzData.step2 || '', service: 'credit', answers }),
+          // Case facultative : son état est transmis, il ne bloque rien.
+          body: JSON.stringify({ prenom, nom: '', email, tel, situation: wzData.step2 || '', service: 'credit', answers,
+            consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
+            captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
+            hp: window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '',
+            consentVersion: 'marketing-consent-v1' }),
         });
         if (res.ok) {
           msgEl.className = 'wz-msg wz-msg-ok';
@@ -1055,6 +1070,8 @@
           btn.textContent = 'Envoyé ✓';
         } else { throw new Error('err'); }
       } catch (e) {
+        // Un jeton anti-robot ne vaut qu'une fois : on le régénère pour la nouvelle tentative.
+        if (window.ProactifsCaptcha) window.ProactifsCaptcha.reset();
         msgEl.className = 'wz-msg wz-msg-err';
         msgEl.textContent = 'Une erreur est survenue. Réessayez ou appelez-nous au 01 84 78 28 30.';
         btn.disabled = false;
@@ -1076,6 +1093,14 @@
     });
   }
 })();
+</script>
+<script src="/assets/js/subscribe-captcha.js" defer></script>
+<script>
+  // Widget préparé au premier contact réel avec le formulaire : jeton frais
+  // (300 s de validité) et aucun appel Cloudflare pour un visiteur qui ne le remplit pas.
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.ProactifsCaptcha) window.ProactifsCaptcha.prepareOnFirstInteraction('.wz-step[data-step="7"]');
+  });
 </script>
 </body>
 </html>
