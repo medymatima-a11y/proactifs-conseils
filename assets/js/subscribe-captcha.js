@@ -35,17 +35,30 @@
   var NOTE_HTML = 'Protection anti-robot assurée par Cloudflare Turnstile ' +
     '(<a href="/confidentialite" target="_blank" rel="noopener">politique de confidentialité</a>).';
 
-  var state = 'inactif';   // inactif | en_cours | pret | indisponible
-  var widgetId = null;
-  var started = false;
+  /* Une instance par formulaire. Une page avec un seul formulaire n'en a qu'une,
+     et tout fonctionne alors sans passer aucune option : les identifiants par
+     défaut (#pcCaptcha, pcCaptchaWrap, pcCaptchaErr, pcCaptchaNote) sont ceux
+     des neuf pages existantes. Une page à plusieurs formulaires — le guide
+     patrimonial — déclare une cible par formulaire, pour que le défi Cloudflare
+     s'affiche dans le formulaire réellement utilisé et non ailleurs. */
+  var DEFAUTS = { holder: '#pcCaptcha', wrap: 'pcCaptchaWrap', err: 'pcCaptchaErr', note: 'pcCaptchaNote' };
+  var instances = [];
   var hpInput = null;
 
-  function msg(text) {
-    var el = d.getElementById('pcCaptchaErr');
+  function instance(cible) {
+    if (!cible) return instances.length ? instances[0] : null;
+    for (var i = 0; i < instances.length; i++) {
+      if (instances[i].holder === cible) return instances[i];
+    }
+    return null;
+  }
+
+  function msg(inst, text) {
+    var el = d.getElementById((inst && inst.err) || DEFAUTS.err);
     if (el) el.textContent = text || '';
   }
 
-  function ensureHoneypot() {
+  function ensureHoneypot(inst) {
     if (hpInput) return hpInput;
     hpInput = d.createElement('input');
     hpInput.type = 'text';
@@ -56,7 +69,7 @@
     hpInput.setAttribute('tabindex', '-1');
     hpInput.setAttribute('aria-hidden', 'true');
     hpInput.style.display = 'none';
-    var host = d.getElementById('pcCaptchaWrap') || d.body;
+    var host = (inst && d.getElementById(inst.wrap)) || d.getElementById(DEFAUTS.wrap) || d.body;
     host.appendChild(hpInput);
     return hpInput;
   }
@@ -73,13 +86,24 @@
     });
   }
 
-  function prepare() {
-    ensureHoneypot();
-    if (started) return;
-    started = true;
-    state = 'en_cours';
-    var holder = d.getElementById('pcCaptcha');
-    if (!holder || typeof w.fetch !== 'function') { state = 'indisponible'; return; }
+  /* `options` est facultatif. Sans lui, la cible par défaut est utilisée, donc
+     les pages à formulaire unique n'ont rien à déclarer. Idempotent PAR CIBLE :
+     un même formulaire ne prépare jamais deux widgets. */
+  function prepare(options) {
+    options = options || {};
+    var inst = {
+      holder: options.holder || DEFAUTS.holder,
+      wrap: options.wrap || DEFAUTS.wrap,
+      err: options.err || DEFAUTS.err,
+      note: options.note || DEFAUTS.note,
+      id: null,
+      state: 'en_cours',
+    };
+    ensureHoneypot(inst);
+    if (instance(inst.holder)) return;
+    instances.push(inst);
+    var holder = d.querySelector(inst.holder);
+    if (!holder || typeof w.fetch !== 'function') { inst.state = 'indisponible'; return; }
 
     w.fetch(CONFIG_URL, { headers: { Accept: 'application/json' } })
       .then(function (r) { return r.ok ? r.json() : null; })
@@ -88,42 +112,46 @@
         return loadScript().then(function () { return cfg; });
       })
       .then(function (cfg) {
-        var wrap = d.getElementById('pcCaptchaWrap');
+        var wrap = d.getElementById(inst.wrap);
         if (wrap) wrap.style.display = 'block';
-        var note = d.getElementById('pcCaptchaNote');
+        var note = d.getElementById(inst.note);
         if (note) note.innerHTML = ' ' + NOTE_HTML;
-        widgetId = w.turnstile.render('#pcCaptcha', {
+        inst.id = w.turnstile.render(inst.holder, {
           sitekey: cfg.turnstileSiteKey,
           action: cfg.action || 'subscribe_form',
           appearance: 'interaction-only',
           size: 'flexible',
           theme: 'light',
           'refresh-expired': 'auto',
-          callback: function () { msg(''); },
-          'expired-callback': function () { msg(ERR_MSG); },
-          'timeout-callback': function () { msg(ERR_MSG); },
-          'error-callback': function () { msg(''); /* jamais de message anxiogène : l'envoi reste possible */ }
+          callback: function () { msg(inst, ''); },
+          'expired-callback': function () { msg(inst, ERR_MSG); },
+          'timeout-callback': function () { msg(inst, ERR_MSG); },
+          'error-callback': function () { msg(inst, ''); /* jamais de message anxiogène : l'envoi reste possible */ }
         });
-        state = 'pret';
+        inst.state = 'pret';
       })
       .catch(function () {
         // Clé absente, script bloqué, réseau coupé : on n'affiche rien et on
         // laisse le formulaire fonctionner. Trace technique seulement.
-        state = 'indisponible';
+        inst.state = 'indisponible';
         if (w.console && w.console.warn) w.console.warn('anti-robot indisponible, envoi non bloqué');
       });
   }
 
-  function token() {
+  // `cible` facultative : sans elle, la première instance préparée est utilisée
+  // (comportement des pages à formulaire unique).
+  function token(cible) {
     try {
-      if (widgetId !== null && w.turnstile) return w.turnstile.getResponse(widgetId) || '';
+      var inst = instance(cible);
+      if (inst && inst.id !== null && w.turnstile) return w.turnstile.getResponse(inst.id) || '';
     } catch (e) { /* ne jamais bloquer */ }
     return '';
   }
 
-  function reset() {
+  function reset(cible) {
     try {
-      if (widgetId !== null && w.turnstile) w.turnstile.reset(widgetId);
+      var inst = instance(cible);
+      if (inst && inst.id !== null && w.turnstile) w.turnstile.reset(inst.id);
     } catch (e) { /* ne jamais bloquer */ }
   }
 
@@ -132,15 +160,16 @@
     return el ? String(el.value || '') : '';
   }
 
-  // Prépare au premier contact avec le formulaire : un seul widget par page,
-  // chargé seulement si le visiteur commence réellement à le remplir.
-  function prepareOnFirstInteraction(selector) {
+  /* Prépare au premier contact avec le formulaire : un widget par formulaire,
+     chargé seulement si le visiteur commence réellement à le remplir.
+     `options` permet de viser le conteneur propre à ce formulaire. */
+  function prepareOnFirstInteraction(selector, options) {
     var form = d.querySelector(selector);
     if (!form) return;
     var once = function () {
       form.removeEventListener('focusin', once);
       form.removeEventListener('change', once);
-      prepare();
+      prepare(options);
     };
     form.addEventListener('focusin', once);
     form.addEventListener('change', once);
@@ -152,7 +181,11 @@
     token: token,
     reset: reset,
     hp: hp,
-    state: function () { return state; },
+    // Sans argument : état de la première instance préparée, 'inactif' si aucune.
+    state: function (cible) {
+      var inst = instance(cible);
+      return inst ? inst.state : 'inactif';
+    },
     expiredMessage: ERR_MSG
   };
 })(window, document);

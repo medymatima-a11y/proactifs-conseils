@@ -41,7 +41,8 @@ function fakeDom(opts = {}) {
     created.push(el);
     return el;
   }
-  for (const id of ['pcCaptcha', 'pcCaptchaWrap', 'pcCaptchaErr', 'pcCaptchaNote']) byId[id] = mkEl('div');
+  const ids = ['pcCaptcha', 'pcCaptchaWrap', 'pcCaptchaErr', 'pcCaptchaNote'].concat(opts.ids || []);
+  for (const id of ids) byId[id] = mkEl('div');
   const document = {
     createElement: mkEl,
     getElementById: (id) => (Object.prototype.hasOwnProperty.call(byId, id) ? byId[id] : null),
@@ -172,6 +173,95 @@ test('module client : prepare() est idempotent', async () => {
   await flush();
   assert.strictEqual(fetchCalls.length, 1, 'un seul appel de configuration');
   assert.strictEqual(renders.length, 1, 'un seul widget par page');
+});
+
+/* ── Plusieurs formulaires sur une même page (guide patrimonial) ──
+   Un widget par cible, chacun rendu dans son propre conteneur, pour qu'un défi
+   Cloudflare s'affiche dans le formulaire réellement utilisé. */
+
+const CIBLE_HAUT = { holder: '#pcCaptchaHaut', wrap: 'pcCaptchaWrapHaut', err: 'pcCaptchaErrHaut' };
+const CIBLE_BAS = { holder: '#pcCaptchaBas', wrap: 'pcCaptchaWrapBas', err: 'pcCaptchaErrBas' };
+const IDS_GUIDE = ['pcCaptchaHaut', 'pcCaptchaWrapHaut', 'pcCaptchaErrHaut', 'pcCaptchaBas', 'pcCaptchaWrapBas', 'pcCaptchaErrBas'];
+
+function domGuide(turnstile) {
+  return fakeDom({ ids: IDS_GUIDE, config: { turnstileSiteKey: 'cle-publique-factice', action: 'subscribe_form' }, turnstile });
+}
+
+test('module client : deux cibles = deux widgets, chacun dans son conteneur', async () => {
+  const renders = [];
+  const turnstile = {
+    render: (sel, params) => { renders.push({ sel, params }); return renders.length; },
+    getResponse: (id) => 'jeton-' + id,
+    reset: (id) => { renders.push('reset-' + id); },
+  };
+  const { api, byId } = domGuide(turnstile);
+  api.prepare(CIBLE_HAUT);
+  api.prepare(CIBLE_BAS);
+  await flush();
+  assert.strictEqual(renders.length, 2, 'un widget par formulaire attendu');
+  assert.strictEqual(renders[0].sel, '#pcCaptchaHaut');
+  assert.strictEqual(renders[1].sel, '#pcCaptchaBas');
+  // Chaque enveloppe est révélée indépendamment.
+  assert.strictEqual(byId.pcCaptchaWrapHaut.style.display, 'block');
+  assert.strictEqual(byId.pcCaptchaWrapBas.style.display, 'block');
+  // Jeton et réinitialisation sont bien portés par la cible demandée.
+  assert.strictEqual(api.token('#pcCaptchaHaut'), 'jeton-1');
+  assert.strictEqual(api.token('#pcCaptchaBas'), 'jeton-2');
+  api.reset('#pcCaptchaBas');
+  assert.strictEqual(renders[renders.length - 1], 'reset-2', 'réinitialisation appliquée au mauvais widget');
+});
+
+test('module client : les messages vont dans le formulaire concerné, pas dans l\'autre', async () => {
+  const rappels = {};
+  const turnstile = {
+    render: (sel, params) => { rappels[sel] = params; return sel; },
+    getResponse: () => '', reset: () => {},
+  };
+  const { api, byId } = domGuide(turnstile);
+  api.prepare(CIBLE_HAUT);
+  api.prepare(CIBLE_BAS);
+  await flush();
+  rappels['#pcCaptchaBas']['expired-callback']();
+  assert.ok(/expir/i.test(byId.pcCaptchaErrBas.textContent), 'message absent du formulaire du bas');
+  assert.strictEqual(byId.pcCaptchaErrHaut.textContent, '', 'message affiché dans le formulaire du haut à tort');
+  assert.strictEqual(byId.pcCaptchaErr.textContent, '', 'message écrit dans la zone par défaut inexistante sur cette page');
+});
+
+test('module client : idempotence PAR cible', async () => {
+  const renders = [];
+  const turnstile = { render: (sel) => { renders.push(sel); return sel; }, getResponse: () => '', reset: () => {} };
+  const { api, fetchCalls } = domGuide(turnstile);
+  api.prepare(CIBLE_HAUT);
+  api.prepare(CIBLE_HAUT);
+  api.prepare(CIBLE_BAS);
+  api.prepare(CIBLE_BAS);
+  await flush();
+  assert.deepStrictEqual(renders, ['#pcCaptchaHaut', '#pcCaptchaBas'], 'un widget par cible, sans doublon');
+  assert.strictEqual(fetchCalls.length, 2, 'une configuration par cible');
+});
+
+test('module client : compatibilité — sans cible, tout vise le conteneur par défaut', async () => {
+  const renders = [];
+  const turnstile = { render: (sel) => { renders.push(sel); return 7; }, getResponse: (id) => 'jeton-' + id, reset: (id) => { renders.push('reset-' + id); } };
+  const { api, byId } = fakeDom({ config: { turnstileSiteKey: 'cle-publique-factice' }, turnstile });
+  api.prepare();                       // appel des neuf autres pages
+  await flush();
+  assert.deepStrictEqual(renders, ['#pcCaptcha'], 'cible par défaut attendue');
+  assert.strictEqual(api.state(), 'pret');
+  assert.strictEqual(api.token(), 'jeton-7', 'lecture sans cible cassée');
+  api.reset();
+  assert.strictEqual(renders[renders.length - 1], 'reset-7', 'réinitialisation sans cible cassée');
+  assert.ok(/Cloudflare Turnstile/.test(byId.pcCaptchaNote.innerHTML), 'mention RGPD par défaut perdue');
+});
+
+test('module client : une cible inconnue ne renvoie ni jeton ni erreur', async () => {
+  const turnstile = { render: () => 1, getResponse: () => 'jeton', reset: () => { throw new Error('ne doit pas être appelé'); } };
+  const { api } = domGuide(turnstile);
+  api.prepare(CIBLE_HAUT);
+  await flush();
+  assert.strictEqual(api.token('#pcInconnu'), '', 'jeton renvoyé pour une cible inexistante');
+  api.reset('#pcInconnu'); // ne doit rien lever
+  assert.strictEqual(api.state('#pcInconnu'), 'inactif');
 });
 
 test('module client : aucune clé ni URL Supabase dans le fichier servi', () => {

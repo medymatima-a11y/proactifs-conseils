@@ -1,19 +1,21 @@
 /* ============================================================
    Vercel Serverless Function — /api/subscribe
    INSERT dans Supabase (table leads) — le trigger notify_new_lead
-   gère automatiquement : notification Medy + ajout Brevo liste 23
-   + email de confirmation personnalisé au client.
+   gère automatiquement : notification Medy + email de confirmation
+   personnalisé au client, et ajout à la liste Brevo 23 SI le consentement
+   marketing est donné.
 
-   ⚠️ DÉPENDANCE NON RÉSOLUE PAR CE FICHIER (2026-11-10)
-   Trigger `on_new_lead_notify` sur `public.leads`, fonction
-   `public.notify_new_lead()` : il ajoute CHAQUE insertion dans `leads` à la
-   liste Brevo 23 — laquelle sert aussi aux campagnes marketing — sans tenir
-   compte du consentement (constat confirmé par Medy le 2026-11-10 ;
-   documentation du dépôt : docs/CREDIT-SIMULATEURS-V2.md:34). Aucun fichier SQL
-   versionné ne définit ce trigger : son corps n'est pas vérifiable ici.
-   Tant qu'il n'est pas modifié (migration = GO ROUGE), le refus de la case de
-   consentement ci-dessous n'empêche PAS l'abonnement : il n'arrête que le
-   chemin applicatif (Systeme.io → /api/webhook-systemeio → liste Brevo).
+   ── Chemin base, état au 2026-11-11 ──
+   Trigger `on_new_lead_notify` sur `public.leads` (AFTER INSERT, FOR EACH ROW,
+   sans clause WHEN) → fonction `public.notify_new_lead()`. Cette fonction a été
+   corrigée en production : l'ajout à la liste Brevo 23 est désormais encadré par
+   la garde `NEW.reponses #>> '{consentement,marketing}' = 'true'`, tandis que la
+   notification interne et l'email de confirmation restent inconditionnels.
+   L'inscription marketing exige donc le consentement explicite des DEUX côtés :
+   ici pour le chemin applicatif, et dans la base pour le chemin trigger.
+   Conséquence : une ligne insérée sans `reponses.consentement` (import manuel,
+   /api/estimation) n'est pas abonnée. Aucun fichier SQL du dépôt ne définit ce
+   trigger : la source de vérité est la base.
 
    ── Point d'entrée unique des formulaires du site ──
    La clé Supabase reste côté serveur (SUPABASE_SERVICE_KEY) : aucune
@@ -419,9 +421,9 @@ const handler = async (req, res) => {
      visiteur a coché la case facultative. Sans consentement, la demande est
      enregistrée et traitée, mais aucun abonnement marketing n'est déclenché
      par le code applicatif.
-     ⚠️ Cela ne referme PAS le trigger `on_new_lead_notify` côté base de données
-     (voir l'en-tête de ce fichier) : tant qu'il n'est pas modifié, il peut
-     continuer d'abonner tout le monde. Correctif base = migration, GO ROUGE. */
+     Le chemin base est protégé de son côté : depuis le 2026-11-11, le trigger
+     `on_new_lead_notify` n'ajoute à la liste Brevo 23 que si
+     `reponses.consentement.marketing` vaut vrai (voir l'en-tête de ce fichier). */
   /* Règle unique depuis le 2026-11-10 : AUCUNE inscription marketing sans
      consentement explicite. Un refus comme une absence de case donnent le même
      résultat — rien ne part. Les huit formulaires du site transmettent

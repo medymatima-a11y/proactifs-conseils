@@ -861,10 +861,11 @@
         <input type="checkbox" name="consentMarketing" style="margin-top:2px;width:16px;height:16px;flex:0 0 auto">
         <span>J'accepte de recevoir par email les informations et invitations de Proactifs Conseils. Facultatif, désinscription en un clic à tout moment.</span>
       </label>
-      <!-- Anti-robot discret : invisible tant qu'aucune interaction n'est requise, n'empêche jamais l'envoi -->
-      <div class="pc-captcha-wrap" id="pcCaptchaWrap" style="display:none">
-        <div id="pcCaptcha"></div>
-        <p id="pcCaptchaErr" class="pc-captcha-err" aria-live="polite" style="font-size:12.5px;color:#6b7280;margin:6px 0 0"></p>
+      <!-- Anti-robot discret, conteneur PROPRE à ce formulaire : si Cloudflare
+           exige une interaction, le défi s'affiche ici, sous les yeux du visiteur. -->
+      <div class="pc-captcha-wrap" id="pcCaptchaWrapHaut" style="display:none">
+        <div id="pcCaptchaHaut"></div>
+        <p id="pcCaptchaErrHaut" class="pc-captcha-err" aria-live="polite" style="font-size:12.5px;color:#6b7280;margin:6px 0 0"></p>
       </div>
       <button type="submit" class="btn-cta">
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
@@ -1094,6 +1095,12 @@
         <input type="checkbox" name="consentMarketing" style="margin-top:2px;width:16px;height:16px;flex:0 0 auto">
         <span>J'accepte de recevoir par email les informations et invitations de Proactifs Conseils. Facultatif, désinscription en un clic à tout moment.</span>
       </label>
+      <!-- Anti-robot discret, conteneur PROPRE à ce formulaire : le défi ne
+           s'affiche jamais dans l'autre formulaire, hors du champ de vision. -->
+      <div class="pc-captcha-wrap" id="pcCaptchaWrapBas" style="display:none">
+        <div id="pcCaptchaBas"></div>
+        <p id="pcCaptchaErrBas" class="pc-captcha-err" aria-live="polite" style="font-size:12.5px;color:rgba(255,255,255,.65);margin:6px 0 0"></p>
+      </div>
       <button type="submit" class="btn-cta">
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
         Télécharger le guide maintenant
@@ -1134,6 +1141,9 @@
     if (!email) { emailInput?.focus(); return; }
     const consentBox = form.querySelector('input[name="consentMarketing"]');
     const consentMarketing = !!(consentBox && consentBox.checked);
+    // Chaque formulaire a son propre widget : on lit et on réinitialise celui
+    // du formulaire soumis, jamais celui de l'autre.
+    const cibleCaptcha = form.classList.contains('final-form') ? '#pcCaptchaBas' : '#pcCaptchaHaut';
 
     // Désactive le bouton pendant l'envoi, en gardant son libellé d'origine
     // (icône comprise) pour pouvoir le rétablir en cas de reprise.
@@ -1157,7 +1167,7 @@
     // Reprise : le visiteur garde tout ce qu'il a saisi, seul le jeton
     // anti-robot est régénéré et le bouton redevient actif.
     function permettreReprise(texte) {
-      if (window.ProactifsCaptcha) window.ProactifsCaptcha.reset();
+      if (window.ProactifsCaptcha) window.ProactifsCaptcha.reset(cibleCaptcha);
       if (btn) { btn.disabled = false; btn.innerHTML = btnHtml; }
       messageReprise(texte);
     }
@@ -1172,7 +1182,7 @@
         // Jeton anti-robot et champ piège : le navigateur ne refuse jamais de
         // lui-même, c'est le serveur qui tranche (400 / 403 et reprise possible).
         body: JSON.stringify({ prenom: firstName, email, consentMarketing: consentMarketing, consentVersion: 'marketing-consent-v1',
-          captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
+          captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token(cibleCaptcha) : '',
           hp: window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '' }),
       });
 
@@ -1199,14 +1209,20 @@
 </script>
 <script src="/assets/js/subscribe-captcha.js" defer></script>
 <script>
-  // Deux formulaires sur la page, un seul widget (le module rend dans #pcCaptcha,
-  // placé dans le formulaire du haut). La préparation est idempotente : la
-  // première interaction avec l'un ou l'autre formulaire suffit, et le jeton
-  // (valable 300 s) est donc frais au moment de l'envoi.
+  // Deux formulaires, DEUX widgets : chacun rend dans son propre conteneur, de
+  // sorte qu'un défi Cloudflare s'affiche toujours dans le formulaire que le
+  // visiteur est en train de remplir. La préparation reste paresseuse et
+  // idempotente par cible : un widget n'est chargé qu'au premier contact avec
+  // son formulaire, et le jeton (valable 300 s) est frais à l'envoi.
+  var PC_CIBLES = {
+    '.hero-form':  { holder: '#pcCaptchaHaut', wrap: 'pcCaptchaWrapHaut', err: 'pcCaptchaErrHaut' },
+    '.final-form': { holder: '#pcCaptchaBas',  wrap: 'pcCaptchaWrapBas',  err: 'pcCaptchaErrBas' }
+  };
   document.addEventListener('DOMContentLoaded', function () {
     if (!window.ProactifsCaptcha) return;
-    window.ProactifsCaptcha.prepareOnFirstInteraction('.hero-form');
-    window.ProactifsCaptcha.prepareOnFirstInteraction('.final-form');
+    Object.keys(PC_CIBLES).forEach(function (selecteur) {
+      window.ProactifsCaptcha.prepareOnFirstInteraction(selecteur, PC_CIBLES[selecteur]);
+    });
   });
 </script>
 </body>

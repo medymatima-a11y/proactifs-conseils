@@ -1,8 +1,9 @@
 /* ============================================================
    Vercel Serverless Function — /api/subscribe-guide
    Capture les téléchargements du guide 5 erreurs :
-   1. INSERT dans Supabase (table leads) — le trigger gère
-      notification + ajout Brevo automatiquement
+   1. INSERT dans Supabase (table leads) — le trigger gère la notification
+      interne et l'email de confirmation, et n'ajoute à la liste Brevo 23
+      que si le consentement marketing est donné (garde posée en base).
    Ordre des contrôles (décision du 2026-11-10) :
    1. Anti-robot Turnstile, si SUBSCRIBE_TURNSTILE_SECRET existe — même secret
       et même action que /api/subscribe, aucune variable de plus. Jeton absent
@@ -17,9 +18,9 @@
    horodatée rangée dans `reponses.consentement`. Aucun libellé dupliqué ici.
    Sans consentement : le guide est envoyé, le lead est enregistré, mais aucun
    contact Systeme.io n'est créé — donc aucun passage par
-   /api/webhook-systemeio vers la liste Brevo de diffusion.
-   ⚠️ Comme pour /api/subscribe, cela ne referme pas le trigger
-   `on_new_lead_notify` côté base, qui abonne à la liste 23 à chaque insertion.
+   /api/webhook-systemeio vers la liste Brevo de diffusion. Et le trigger
+   `on_new_lead_notify`, corrigé en production le 2026-11-11, n'ajoute pas
+   davantage ce lead à la liste 23 : il lit la même preuve de consentement.
    ============================================================ */
 
 const SYSTEME_API = 'https://api.systeme.io/api/contacts';

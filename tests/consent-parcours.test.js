@@ -399,21 +399,46 @@ test('garde SQL : les leads d\'estimation n\'ont pas d\'objet consentement', () 
    quand l'anti-robot n'est pas configuré. Seule l'inscription marketing est
    conditionnée. */
 
-test('guide : page équipée du widget partagé sur ses deux formulaires', () => {
+test('guide : un widget anti-robot PAR formulaire, dans le bon formulaire', () => {
   const html = read('guide-5-erreurs-patrimoniaux.html');
   assert.ok(/<script src="\/assets\/js\/subscribe-captcha\.js" defer><\/script>/.test(html), 'module non inclus');
-  assert.ok(html.includes('id="pcCaptcha"'), 'cible de rendu absente');
-  assert.ok(html.includes("prepareOnFirstInteraction('.hero-form')"), 'formulaire du haut non accroché');
-  assert.ok(html.includes("prepareOnFirstInteraction('.final-form')"), 'formulaire du bas non accroché');
   assert.ok(/addEventListener\('DOMContentLoaded'/.test(html), 'accroche avant que le module en defer soit prêt');
-  assert.ok(/captchaToken: window\.ProactifsCaptcha \? window\.ProactifsCaptcha\.token\(\) : ''/.test(html), 'jeton non transmis');
-  assert.ok(/hp: window\.ProactifsCaptcha \? window\.ProactifsCaptcha\.hp\(\) : ''/.test(html), 'champ piège non transmis');
-  assert.ok(html.includes('window.ProactifsCaptcha.reset()'), 'widget non réinitialisé après échec');
-  assert.ok(!/if\s*\(\s*!\s*captchaToken\s*\)/.test(html), 'blocage client sur jeton manquant');
-  // Un seul widget pour deux formulaires : un seul conteneur attendu.
-  assert.strictEqual((html.match(/id="pcCaptchaWrap"/g) || []).length, 1, 'plusieurs conteneurs : le module n\'en rend qu\'un');
-});
 
+  // Découpe les deux formulaires pour vérifier le CONTENANT, pas seulement la présence.
+  const iHaut = html.indexOf('<form class="hero-form"');
+  const iBas = html.indexOf('<form class="final-form"');
+  assert.ok(iHaut > 0 && iBas > iHaut, 'les deux formulaires doivent exister, dans cet ordre');
+  const blocHaut = html.slice(iHaut, html.indexOf('</form>', iHaut));
+  const blocBas = html.slice(iBas, html.indexOf('</form>', iBas));
+
+  // Chaque formulaire porte SON conteneur, accessible et annoncé.
+  assert.ok(blocHaut.includes('id="pcCaptchaHaut"'), 'conteneur du formulaire du haut absent de ce formulaire');
+  assert.ok(blocHaut.includes('id="pcCaptchaWrapHaut"'), 'enveloppe du haut absente');
+  assert.ok(/id="pcCaptchaErrHaut"[^>]*aria-live="polite"/.test(blocHaut), 'zone de message du haut absente ou non annoncée');
+  assert.ok(blocBas.includes('id="pcCaptchaBas"'), 'conteneur du formulaire du bas absent de ce formulaire');
+  assert.ok(blocBas.includes('id="pcCaptchaWrapBas"'), 'enveloppe du bas absente');
+  assert.ok(/id="pcCaptchaErrBas"[^>]*aria-live="polite"/.test(blocBas), 'zone de message du bas absente ou non annoncée');
+
+  // Aucun croisement : le conteneur de l'un ne doit pas se trouver chez l'autre.
+  assert.ok(!blocHaut.includes('pcCaptchaBas'), 'le conteneur du bas se trouve dans le formulaire du haut');
+  assert.ok(!blocBas.includes('pcCaptchaHaut'), 'le conteneur du haut se trouve dans le formulaire du bas');
+
+  // Régression interdite : retour à un conteneur unique partagé.
+  assert.ok(!/id="pcCaptchaWrap"/.test(html), 'conteneur partagé réintroduit : le défi s\'afficherait hors du formulaire utilisé');
+  assert.ok(!/id="pcCaptcha"/.test(html), 'cible de rendu partagée réintroduite');
+
+  // Chaque formulaire est préparé avec SA cible.
+  assert.ok(/'\.hero-form':\s*\{ holder: '#pcCaptchaHaut'/.test(html), 'cible du haut non déclarée');
+  assert.ok(/'\.final-form':\s*\{ holder: '#pcCaptchaBas'/.test(html), 'cible du bas non déclarée');
+  assert.ok(/prepareOnFirstInteraction\(selecteur, PC_CIBLES\[selecteur\]\)/.test(html), 'préparation sans cible : le module retomberait sur le conteneur par défaut');
+
+  // Jeton et réinitialisation portent sur le widget du formulaire soumis.
+  assert.ok(/const cibleCaptcha = form\.classList\.contains\('final-form'\) \? '#pcCaptchaBas' : '#pcCaptchaHaut'/.test(html), 'cible non déduite du formulaire soumis');
+  assert.ok(/token\(cibleCaptcha\)/.test(html), 'jeton lu sans cible');
+  assert.ok(/reset\(cibleCaptcha\)/.test(html), 'réinitialisation sans cible');
+  assert.ok(/hp: window\.ProactifsCaptcha \? window\.ProactifsCaptcha\.hp\(\) : ''/.test(html), 'champ piège non transmis');
+  assert.ok(!/if\s*\(\s*!\s*captchaToken\s*\)/.test(html), 'blocage client sur jeton manquant');
+});
 /* Matrice complète captcha x consentement.
    Décision du 2026-11-10 : la vérification anti-robot précède TOUTE écriture.
    Un jeton absent (400) ou refusé (403) fait refuser la demande — le visiteur
@@ -545,7 +570,7 @@ test('guide : message de reprise sans perte de saisie', () => {
   assert.ok(/Vos informations sont conservées/.test(html), "le visiteur doit savoir qu'il ne perd rien");
   assert.ok(/cliquez à nouveau sur le bouton/.test(html), 'le visiteur doit savoir quoi faire');
   assert.ok(/btn\.disabled = false; btn\.innerHTML = btnHtml;/.test(html), 'bouton non rétabli (libellé et icône)');
-  assert.ok(/window\.ProactifsCaptcha\.reset\(\)/.test(html), 'widget non réinitialisé');
+  assert.ok(/window\.ProactifsCaptcha\.reset\(cibleCaptcha\)/.test(html), 'widget non réinitialisé (cible du formulaire soumis)');
   assert.ok(!/form\.reset\(\)/.test(html), 'le formulaire est réinitialisé : saisie perdue');
   assert.ok(!/location\.reload\(\)/.test(html), 'rechargement de page : saisie perdue');
   const posRefus = html.indexOf('permettreReprise(res.status === 403');
