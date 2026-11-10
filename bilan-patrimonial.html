@@ -546,6 +546,16 @@
         <button id="submit-btn" class="submit-btn" onclick="handleBilanSubmit(event)">Prendre rendez-vous</button>
         <div id="form-feedback" style="display:none; margin-top:16px; padding:16px 20px; border-radius:12px; font-size:14px; line-height:1.6;"></div>
         <p class="form-guarantee">Vos données restent strictement confidentielles et ne sont jamais revendues.</p>
+        <!-- Case FACULTATIVE : prospection marketing. Non précochée, ne conditionne jamais l'envoi. -->
+        <label for="pcConsent" style="display:flex;align-items:flex-start;gap:9px;margin:10px 0 4px;font-size:12.5px;line-height:1.5;color:#4b5563;cursor:pointer">
+          <input type="checkbox" id="pcConsent" name="consentMarketing" style="margin-top:2px;width:16px;height:16px;flex:0 0 auto">
+          <span>J'accepte de recevoir par email les informations et invitations de Proactifs Conseils. Facultatif, désinscription en un clic à tout moment.</span>
+        </label>
+        <!-- Anti-robot discret : invisible tant qu'aucune interaction n'est requise, n'empêche jamais l'envoi -->
+        <div class="pc-captcha-wrap" id="pcCaptchaWrap" style="display:none">
+          <div id="pcCaptcha"></div>
+          <p id="pcCaptchaErr" class="pc-captcha-err" aria-live="polite" style="font-size:12.5px;color:#6b7280;margin:6px 0 0"></p>
+        </div>
       </div>
     </div>
   </section>
@@ -613,7 +623,12 @@
       var res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prenom: prenom, nom: nom, email: email, tel: tel, situation: situation, service: service, answers: answers })
+        // Case facultative : son état est transmis, il ne bloque rien.
+        body: JSON.stringify({ prenom: prenom, nom: nom, email: email, tel: tel, situation: situation, service: service, answers: answers,
+          consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
+          captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
+          hp: window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '',
+          consentVersion: 'marketing-consent-v1' })
       });
 
       if (res.ok) {
@@ -631,6 +646,8 @@
         throw new Error('Erreur serveur ' + res.status);
       }
     } catch(err) {
+      // Un jeton anti-robot ne vaut qu'une fois : on le régénère pour la nouvelle tentative.
+      if (window.ProactifsCaptcha) window.ProactifsCaptcha.reset();
       console.error('Submit error:', err);
       feedback.style.cssText = 'display:block; margin-top:16px; padding:16px 20px; border-radius:12px; font-size:14px; line-height:1.6; background:#FEF3C7; color:#92400E; border:1px solid #FDE68A;';
       feedback.textContent = 'Une erreur est survenue. Veuillez réessayer ou nous contacter directement au 01 84 78 28 30.';
@@ -734,6 +751,14 @@
       document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
     });
   </script>
+<script src="/assets/js/subscribe-captcha.js" defer></script>
+<script>
+  // Widget préparé au premier contact réel avec le formulaire : jeton frais
+  // (300 s de validité) et aucun appel Cloudflare pour un visiteur qui ne le remplit pas.
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.ProactifsCaptcha) window.ProactifsCaptcha.prepareOnFirstInteraction('.form-wrap');
+  });
+</script>
 <script src="/assets/js/navigation.js" defer></script>
 </body>
 </html>

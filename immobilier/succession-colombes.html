@@ -722,8 +722,18 @@
             </div>
             <div class="estim-submit">
               <button type="submit" class="btn-primary" id="successionBtn">Demander mon Diagnostic Succession 360</button>
+              <!-- Case FACULTATIVE : prospection marketing. Non précochée, ne conditionne jamais l'envoi. -->
+              <label for="pcConsent" style="display:flex;align-items:flex-start;gap:9px;margin:10px 0 4px;font-size:12px;line-height:1.5;color:#4b5563;cursor:pointer;text-align:left">
+                <input type="checkbox" id="pcConsent" name="consentMarketing" style="margin-top:2px;width:16px;height:16px;flex:0 0 auto">
+                <span>J'accepte de recevoir par email les informations et invitations de Proactifs Conseils. Facultatif, désinscription en un clic à tout moment.</span>
+              </label>
               <div class="estim-msg" id="successionMsg"></div>
-              <p class="estim-confidentialite"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg> Vos informations sont confidentielles.</p>
+              <!-- Anti-robot discret : invisible tant qu'aucune interaction n'est requise, n'empêche jamais l'envoi -->
+              <div class="pc-captcha-wrap" id="pcCaptchaWrap" style="display:none">
+                <div id="pcCaptcha"></div>
+                <p id="pcCaptchaErr" class="pc-captcha-err" aria-live="polite" style="font-size:12px;color:#6b7280;margin:6px 0 0"></p>
+              </div>
+              <p class="estim-confidentialite"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg> Vos informations sont confidentielles et servent uniquement à organiser votre Diagnostic Succession 360 — <a href="/confidentialite" target="_blank" rel="noopener">politique de confidentialité</a>.<span id="pcCaptchaNote"></span></p>
             </div>
           </form>
           <div class="estim-success" id="successionSuccess" hidden>
@@ -811,9 +821,7 @@
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    /* ── Formulaire Diagnostic Succession 360 → Supabase (table leads, même pipeline que /immobilier) ── */
-    const _SB_URL = 'https://ullnkylrixdvormohryl.supabase.co';
-    const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbG5reWxyaXhkdm9ybW9ocnlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjUzNDgsImV4cCI6MjA5NDE0MTM0OH0.Fu5xc-VVA49qp1-WHgve8ZYpOB-QrciHzVeZx0GXmKk';
+    /* ── Formulaire Diagnostic Succession 360 → /api/subscribe (table leads, clé côté serveur) ── */
 
     document.getElementById('successionForm').addEventListener('submit', async function(ev) {
       ev.preventDefault();
@@ -838,16 +846,21 @@
       const reponses = { ville_bien: ville, nb_heritiers: heritiers, statut };
 
       try {
-        const res = await fetch(_SB_URL + '/rest/v1/leads', {
+        const res = await fetch('/api/subscribe', {
           method: 'POST',
-          headers: { 'apikey': _SB_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            prenom, nom: '', email, telephone: tel,
+            prenom, nom: '', email, tel,
+            service: 'succession',
             source: 'Diagnostic Succession 360',
             situation: statut,
             preoccupation: 'Succession immobilière',
-            statut: 'nouveau',
-            reponses
+            reponses,
+            captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
+            hp: window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '',
+            // Case facultative : son état est transmis, il ne bloque rien.
+            consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
+            consentVersion: 'marketing-consent-v1'
           })
         });
         if (res.ok) {
@@ -858,11 +871,21 @@
           throw new Error('Supabase ' + res.status);
         }
       } catch (e) {
+        // Un jeton anti-robot ne vaut qu'une fois : on le régénère pour la nouvelle tentative.
+        if (window.ProactifsCaptcha) window.ProactifsCaptcha.reset();
         msgEl.className = 'estim-msg estim-msg-err';
         msgEl.textContent = 'Une erreur est survenue. Réessayez ou appelez-nous au 01 84 78 28 30.';
         btn.disabled = false;
         btn.textContent = 'Demander mon Diagnostic Succession 360';
       }
+    });
+
+    // Formulaire visible dès l'arrivée : le widget n'est préparé qu'au premier
+    // contact réel avec le formulaire, pour ne pas charger Cloudflare pour un
+    // visiteur qui ne le remplira pas (et pour que le jeton de 300 s soit frais).
+    // (subscribe-captcha.js est chargé en `defer` : il est prêt avant DOMContentLoaded)
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.ProactifsCaptcha) window.ProactifsCaptcha.prepareOnFirstInteraction('#successionForm');
     });
 
     const successionResetBtn = document.getElementById('successionReset');
@@ -877,6 +900,7 @@
       });
     }
   </script>
+  <script src="/assets/js/subscribe-captcha.js" defer></script>
   <script src="/assets/js/navigation.js" defer></script>
 </body>
 </html>

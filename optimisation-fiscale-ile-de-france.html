@@ -1238,7 +1238,17 @@
             <option>Investisseur</option>
           </select>
         </div>
-        <p class="wiz-gdpr">&#x1F512; Vos donn&eacute;es sont confidentielles et ne seront jamais revendues. En soumettant ce formulaire, vous acceptez d&rsquo;&ecirc;tre contact&eacute; par Proactifs Conseils.</p>
+        <p class="wiz-gdpr">&#x1F512; Vos donn&eacute;es sont confidentielles et ne seront jamais revendues. En soumettant ce formulaire, vous acceptez d&rsquo;&ecirc;tre contact&eacute; par Proactifs Conseils. Vos r&eacute;ponses servent uniquement &agrave; pr&eacute;parer cet &eacute;change &mdash; <a href="/confidentialite" target="_blank" rel="noopener">politique de confidentialit&eacute;</a>.<span id="pcCaptchaNote"></span></p>
+        <!-- Case FACULTATIVE : prospection marketing. Non précochée, ne conditionne jamais l'envoi. -->
+        <label for="pcConsent" style="display:flex;align-items:flex-start;gap:9px;margin:10px 0 4px;font-size:12.5px;line-height:1.5;color:#4b5563;cursor:pointer">
+          <input type="checkbox" id="pcConsent" name="consentMarketing" style="margin-top:2px;width:16px;height:16px;flex:0 0 auto">
+          <span>J'accepte de recevoir par email les informations et invitations de Proactifs Conseils. Facultatif, désinscription en un clic à tout moment.</span>
+        </label>
+        <!-- Anti-robot discret : invisible tant qu'aucune interaction n'est requise, n'empêche jamais l'envoi -->
+        <div class="pc-captcha-wrap" id="pcCaptchaWrap" style="display:none">
+          <div id="pcCaptcha"></div>
+          <p id="pcCaptchaErr" class="pc-captcha-err" aria-live="polite" style="font-size:12.5px;color:#6b7280;margin:6px 0 0"></p>
+        </div>
         <button class="wiz-submit-btn" onclick="fiscalWizSubmit()">Envoyer ma demande &rarr;</button>
       </div>
     </div>
@@ -1325,9 +1335,7 @@
   </script>
 
   <script>
-    /* ── Wizard fiscal — Supabase leads ── */
-    const _SB_URL = 'https://ullnkylrixdvormohryl.supabase.co';
-    const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVsbG5reWxyaXhkdm9ybW9ocnlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjUzNDgsImV4cCI6MjA5NDE0MTM0OH0.Fu5xc-VVA49qp1-WHgve8ZYpOB-QrciHzVeZx0GXmKk';
+    /* ── Wizard fiscal — leads via /api/subscribe (aucune clé dans le navigateur) ── */
     const fiscalSteps = [
       { q:"Quel est votre niveau d’imposition ?", sub:"Cela nous permet d’identifier les leviers les plus efficaces.", opts:[
         {l:"Je ne sais pas exactement"},
@@ -1445,6 +1453,8 @@
         document.getElementById('wizQBody').style.display = 'none';
         document.getElementById('wizQFooter').style.display = 'none';
         document.getElementById('wizContact').style.display = 'block';
+        // Le jeton Turnstile expire après 300 s : widget préparé à la dernière étape.
+        if (window.ProactifsCaptcha) window.ProactifsCaptcha.prepare();
       } else {
         renderFiscalStep();
       }
@@ -1480,22 +1490,24 @@
         if (s && ans !== undefined) reponses['q' + (i + 1)] = { question: s.q, reponse: s.opts[ans].l };
       });
       try {
-        const res = await fetch(_SB_URL + '/rest/v1/leads', {
+        const res = await fetch('/api/subscribe', {
           method: 'POST',
-          headers: {
-            'apikey': _SB_KEY,
-            'Content-Type': 'application/json',
-            'Prefer': 'return=minimal'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             prenom,
             nom,
             email,
-            telephone:     tel,
+            tel,
+            service:       'impots',
             source:        'Quiz Fiscalité',
             situation,
             preoccupation: 'Réduire mes impôts',
-            reponses
+            reponses,
+            captchaToken:  window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
+            hp:            window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '',
+            // Case facultative : son état est transmis, il ne bloque rien.
+            consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
+            consentVersion:   'marketing-consent-v1'
           })
         });
         if (!res.ok) throw new Error('Supabase ' + res.status);
@@ -1521,6 +1533,8 @@
         document.getElementById('wizProgressWrap').style.display = 'none';
       } catch(err) {
         console.error(err);
+        // Un jeton anti-robot ne vaut qu'une fois : on le régénère pour la nouvelle tentative.
+        if (window.ProactifsCaptcha) window.ProactifsCaptcha.reset();
         if (btn) { btn.disabled = false; btn.textContent = 'Être rappelé →'; }
         alert('Une erreur est survenue. Veuillez réessayer ou nous contacter directement.');
       }
@@ -1551,6 +1565,7 @@
   details > summary::-webkit-details-marker { display: none; }
   details > summary { list-style: none; }
 </style>
+<script src="/assets/js/subscribe-captcha.js" defer></script>
 <script src="/assets/js/navigation.js" defer></script>
 </body>
 </html>
