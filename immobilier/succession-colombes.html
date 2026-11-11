@@ -823,6 +823,11 @@
 
     /* ── Formulaire Diagnostic Succession 360 → /api/subscribe (table leads, clé côté serveur) ── */
 
+    // Anti-doublon de la conversion : le formulaire pouvant être renvoyé après
+    // succès (bouton « Nouvelle demande »), sans ce drapeau un même visiteur
+    // produirait plusieurs conversions pour une seule demande.
+    let successionConvSent = false;
+
     document.getElementById('successionForm').addEventListener('submit', async function(ev) {
       ev.preventDefault();
       const prenom = document.getElementById('s-prenom').value.trim();
@@ -864,6 +869,20 @@
           })
         });
         if (res.ok) {
+          // ── Enregistrement confirmé par le serveur : conversion Google Ads ──
+          // Même nom d'événement que les autres parcours (seul événement clé
+          // actif dans GA4, relayé vers Ads par l'import). Ni `value` ni
+          // `currency` : la grille de valeur par parcours n'est pas arrêtée.
+          // Une seule fois par demande : le bouton « Nouvelle demande » remet
+          // le drapeau à zéro, une seconde demande réelle est donc comptée.
+          if (!successionConvSent) {
+            successionConvSent = true;
+            try {
+              if (typeof gtag === 'function') {
+                gtag('event', 'ads_conversion_Formulaire_1', { event_category: 'formulaire', event_label: 'succession-immobiliere' });
+              }
+            } catch (e) { /* ne jamais bloquer l'écran de confirmation */ }
+          }
           this.reset();
           this.hidden = true;
           document.getElementById('successionSuccess').hidden = false;
@@ -891,6 +910,7 @@
     const successionResetBtn = document.getElementById('successionReset');
     if (successionResetBtn) {
       successionResetBtn.addEventListener('click', function() {
+        successionConvSent = false; // nouvelle demande explicite : elle pourra être comptée
         document.getElementById('successionSuccess').hidden = true;
         document.getElementById('successionForm').hidden = false;
         const btn = document.getElementById('successionBtn');

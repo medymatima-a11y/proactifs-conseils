@@ -860,10 +860,14 @@
   ];
 
   let actioStep = 0;
+  // Anti-doublon de la conversion : une seule par ouverture du diagnostic,
+  // comme sur la page pilier RSU. Le wizard pouvant être réouvert et renvoyé,
+  // sans ce drapeau un même visiteur produirait plusieurs conversions.
+  let actioConvSent = false;
   const actioAnswers = [];
 
   function openActioWizard() {
-    actioStep = 0; actioAnswers.length = 0;
+    actioStep = 0; actioAnswers.length = 0; actioConvSent = false;
     document.getElementById('wiz-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
     document.getElementById('wizIntro').style.display = 'block';
@@ -993,6 +997,19 @@
       errEl.style.display = 'block';
       btn.disabled = false; btn.textContent = 'Réessayer →';
       return;
+    }
+    // ── Enregistrement confirmé par le serveur : conversion Google Ads ──
+    // Même nom d'événement que les autres parcours (seul événement clé actif
+    // dans GA4, relayé vers Ads par l'import). Ni `value` ni `currency` : la
+    // grille de valeur par parcours n'est pas arrêtée. Une seule fois par
+    // ouverture du diagnostic, comme sur la page pilier RSU.
+    if (!actioConvSent) {
+      actioConvSent = true;
+      try {
+        if (typeof gtag === 'function') {
+          gtag('event', 'ads_conversion_Formulaire_1', { event_category: 'wizard', event_label: 'declaration-rsu-espp' });
+        }
+      } catch (e) { /* ne jamais bloquer l'écran de confirmation */ }
     }
     document.getElementById('wizContact').style.display = 'none';
     document.getElementById('wizThanks').style.display = 'block';
