@@ -1132,6 +1132,20 @@
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
 
+  /* Consentement analytique, lu dans le cookie first-party `pc_consent` écrit
+     par assets/js/cookie-consent.js (forme { a, m, t }, `a` = analytique).
+     Même lecture que `hasAnalyticsConsent()` de bilan-patrimonial.html, non
+     factorisée pour ne pas élargir le périmètre de ce lot. Retourne false sur
+     toute anomalie : cookie absent, JSON illisible, accès refusé. */
+  function hasAnalyticsConsent() {
+    try {
+      var m = document.cookie.match(/(?:^|;\s*)pc_consent=([^;]+)/);
+      if (!m) return false;
+      var v = JSON.parse(decodeURIComponent(m[1]));
+      return !!(v && v.a === true);
+    } catch (err) { return false; }
+  }
+
   // Capture le lead puis redirige vers notre page de remerciement
   async function soumettreDemandeGuide(form) {
     const emailInput = form.querySelector('input[type="email"]');
@@ -1200,6 +1214,25 @@
       permettreReprise('L\'envoi n\'a pas abouti. Vos informations sont conservées : cliquez à nouveau sur le bouton, ou appelez-nous au 01 84 78 28 30.');
       return;
     }
+
+    // ── Enregistrement confirmé par le serveur ──
+    // La conversion n'est PAS émise ici : la redirection ci-dessous décharge la
+    // page et l'événement serait coupé. On dépose un marqueur à usage unique,
+    // consommé par /merci-guide qui émet l'événement une fois arrivée.
+    //
+    // Le marqueur n'est écrit QUE si le consentement analytique est déjà
+    // accordé au moment de la soumission. C'est ici, à l'écriture, que se ferme
+    // le cas d'une acceptation postérieure à l'envoi : sans marqueur, la page
+    // de remerciement n'aura rien à consommer, donc rien à transmettre.
+    // Contrepartie assumée : un visiteur qui accepte après avoir soumis n'est
+    // jamais compté.
+    //
+    // Tout est protégé : lecture du consentement comme accès au stockage. En
+    // navigation privée, avec le stockage bloqué ou les cookies inaccessibles,
+    // on perd la mesure — jamais la redirection ni la remise du guide.
+    try {
+      if (hasAnalyticsConsent()) sessionStorage.setItem('pc_conv_guide', '1');
+    } catch (e) { /* mesure perdue, guide délivré quand même */ }
 
     // Redirection vers notre page de remerciement : le PDF y est servi
     // directement depuis /files/, sans dépendance à un tunnel externe et sans

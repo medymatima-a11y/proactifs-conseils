@@ -422,5 +422,30 @@
 <!-- Calendly widget script -->
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
+<!-- Conversion du parcours « guide 5 erreurs » ──────────────────────────────
+     Le formulaire dépose un marqueur à usage unique avant de rediriger ici ;
+     l'événement est émis à l'arrivée, sur une page qui n'est pas en train de
+     se décharger. Le marqueur est LU puis SUPPRIMÉ avant toute émission : une
+     actualisation de cette page ne peut donc pas produire une seconde
+     conversion. Tout accès au stockage est protégé — en navigation privée ou
+     avec le stockage bloqué, l'accesseur peut lever : on perd la mesure, jamais
+     la page ni le téléchargement. Ni `value` ni `currency` : la grille de
+     valeur par parcours n'est pas arrêtée. -->
+<script>
+  (function () {
+    var marqueur = null;
+    try {
+      marqueur = sessionStorage.getItem('pc_conv_guide');
+      sessionStorage.removeItem('pc_conv_guide');
+    } catch (e) { return; }
+    if (!marqueur) return;
+    try {
+      if (typeof gtag === 'function') {
+        gtag('event', 'ads_conversion_Formulaire_1', { event_category: 'formulaire', event_label: 'guide-5-erreurs' });
+      }
+    } catch (e) { /* la page de remerciement ne doit jamais casser */ }
+  })();
+</script>
+
 </body>
 </html>

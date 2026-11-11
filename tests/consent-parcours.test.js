@@ -13,6 +13,7 @@ const test = require('node:test');
 const assert = require('node:assert');
 const fs = require('fs');
 const path = require('path');
+const vm = require('vm');
 
 const ROOT = path.resolve(__dirname, '..');
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
@@ -589,6 +590,297 @@ test('guide : un seul secret pour les deux endpoints, une seule action', () => {
   const src = read('api/subscribe-guide.js');
   assert.ok(!/SUBSCRIBE_GUIDE_TURNSTILE|GUIDE_TURNSTILE_SECRET/.test(src), 'variable propre introduite');
   assert.ok(src.includes("require('./subscribe.js').__internals"), 'vérification dupliquée au lieu d\'être partagée');
+});
+
+/* ════════ 2 septies. Conversions Google Ads des parcours longtemps muets ════════
+   Trois parcours enregistraient un lead sans émettre aucun événement : ils étaient
+   invisibles dans GA4 et dans Ads. Ces tests épinglent l'émission, son libellé, et
+   surtout sa POSITION : après le contrôle de la réponse serveur, et pour le guide
+   avant la redirection qui décharge la page. */
+
+const CONVERSION = "gtag('event', 'ads_conversion_Formulaire_1'";
+
+test('conversion : declaration RSU/ESPP — émise après le contrôle de la réponse', () => {
+  const html = read('declaration-rsu-espp-france.html');
+  assert.ok(html.includes(CONVERSION), 'événement de conversion absent');
+  assert.ok(/event_label: 'declaration-rsu-espp'/.test(html), 'libellé de parcours attendu');
+  // Ni valeur ni devise : la grille commerciale n'est pas arrêtée.
+  const bloc = html.slice(html.indexOf(CONVERSION), html.indexOf(CONVERSION) + 260);
+  assert.ok(!/value:/.test(bloc), 'aucune valeur monétaire ne doit être inventée');
+  assert.ok(!/currency:/.test(bloc), 'aucune devise ne doit être inventée');
+  // Position : après la sortie en échec, avant l'écran de remerciement.
+  const posEchec = html.indexOf("btn.textContent = 'Réessayer →';");
+  const posConv = html.indexOf(CONVERSION);
+  const posMerci = html.indexOf("document.getElementById('wizThanks').style.display = 'block'");
+  assert.ok(posEchec > 0 && posConv > posEchec, 'la conversion doit suivre le contrôle de la réponse');
+  assert.ok(posMerci > posConv, 'la conversion doit précéder l\'écran de remerciement');
+  // Anti-doublon : le wizard peut être réouvert et renvoyé.
+  assert.ok(/let actioConvSent = false;/.test(html), 'drapeau anti-doublon absent');
+  assert.ok(/actioConvSent = false;/.test(html.slice(html.indexOf('function openActioWizard'), html.indexOf('function openActioWizard') + 200)), 'drapeau non remis à zéro à la réouverture');
+  assert.ok(/if \(!actioConvSent\) \{/.test(html), 'émission non protégée par le drapeau');
+});
+
+test('conversion : succession immobilière — émise dans la branche de succès', () => {
+  const html = read('immobilier/succession-colombes.html');
+  assert.ok(html.includes(CONVERSION), 'événement de conversion absent');
+  assert.ok(/event_label: 'succession-immobiliere'/.test(html), 'libellé de parcours attendu');
+  const bloc = html.slice(html.indexOf(CONVERSION), html.indexOf(CONVERSION) + 260);
+  assert.ok(!/value:/.test(bloc) && !/currency:/.test(bloc), 'ni valeur ni devise inventées');
+  // Position : à l'intérieur de `if (res.ok)`, avant la bascule d'affichage.
+  const posOk = html.indexOf('if (res.ok) {');
+  const posConv = html.indexOf(CONVERSION);
+  const posSucces = html.indexOf("document.getElementById('successionSuccess').hidden = false");
+  assert.ok(posOk > 0 && posConv > posOk, 'la conversion doit être dans la branche de succès');
+  assert.ok(posSucces > posConv, 'la conversion doit précéder l\'écran de succès');
+  // Aucune émission sur le chemin d'échec.
+  const posThrow = html.indexOf("throw new Error('Supabase '");
+  assert.ok(posThrow > posConv, 'la conversion ne doit pas suivre la branche d\'échec');
+  // Anti-doublon : le bouton « Nouvelle demande » réaffiche le formulaire.
+  assert.ok(/let successionConvSent = false;/.test(html), 'drapeau anti-doublon absent');
+  assert.ok(/if \(!successionConvSent\) \{/.test(html), 'émission non protégée par le drapeau');
+  assert.ok(/successionConvSent = false; \/\/ nouvelle demande/.test(html), 'drapeau non remis à zéro sur nouvelle demande');
+});
+
+test('conversion guide : succès serveur → marqueur posé, aucune émission sur la page du formulaire', () => {
+  const html = read('guide-5-erreurs-patrimoniaux.html');
+  // Plus aucune émission ici : la page se décharge, l'événement serait coupé.
+  assert.ok(!html.includes("gtag('event', 'ads_conversion_Formulaire_1'"), 'émission résiduelle sur la page du formulaire');
+  assert.ok(/sessionStorage\.setItem\('pc_conv_guide', '1'\)/.test(html), 'marqueur non déposé');
+  // Position : après le contrôle de la réponse ET après le catch réseau, avant la redirection.
+  const posRefus = html.indexOf('permettreReprise(res.status === 403');
+  const posCatch = html.indexOf("console.warn('subscribe-guide error:'");
+  const posMarqueur = html.indexOf("sessionStorage.setItem('pc_conv_guide'");
+  const posRedir = html.indexOf("window.location.href = '/merci-guide'");
+  assert.ok(posRefus > 0 && posMarqueur > posRefus, 'le marqueur doit suivre le contrôle de la réponse');
+  assert.ok(posCatch > 0 && posMarqueur > posCatch, 'le marqueur doit être hors du catch réseau');
+  assert.ok(posRedir > posMarqueur, 'le marqueur doit précéder la redirection');
+});
+
+test('conversion guide : erreur serveur → aucun marqueur, donc aucune conversion', () => {
+  const html = read('guide-5-erreurs-patrimoniaux.html');
+  // Les deux chemins d'échec sortent par `return` AVANT la pose du marqueur.
+  const posMarqueur = html.indexOf("sessionStorage.setItem('pc_conv_guide'");
+  const blocEchec = html.slice(html.indexOf('if (!res.ok) {'), posMarqueur);
+  assert.ok(/return;/.test(blocEchec), 'le chemin d\'échec doit sortir avant la pose du marqueur');
+  const blocCatch = html.slice(html.indexOf("console.warn('subscribe-guide error:'"), posMarqueur);
+  assert.ok(/return;/.test(blocCatch), 'le chemin réseau doit sortir avant la pose du marqueur');
+  // Un seul point de dépôt dans toute la page.
+  assert.strictEqual((html.match(/sessionStorage\.setItem\('pc_conv_guide'/g) || []).length, 1, 'plusieurs points de dépôt');
+});
+
+test('conversion guide : redirection hors du try — un stockage bloqué ne prive jamais du guide', () => {
+  const html = read('guide-5-erreurs-patrimoniaux.html');
+  const posTry = html.lastIndexOf('try {', html.indexOf("sessionStorage.setItem('pc_conv_guide'"));
+  const posCatchMarqueur = html.indexOf('} catch (e) { /* mesure perdue');
+  const posRedir = html.indexOf("window.location.href = '/merci-guide'");
+  assert.ok(posTry > 0 && posCatchMarqueur > posTry, 'la pose du marqueur doit être protégée par un try/catch');
+  assert.ok(posRedir > posCatchMarqueur, 'la redirection doit être APRÈS le catch, donc insensible à un échec de stockage');
+  // Le catch ne doit ni relancer, ni interrompre le parcours.
+  const corpsCatch = html.slice(posCatchMarqueur, posCatchMarqueur + 120);
+  assert.ok(!/throw|return/.test(corpsCatch), 'le catch ne doit ni relancer ni interrompre la remise du guide');
+});
+
+/* Le script de /merci-guide est exécuté dans un bac à sable : on vérifie le
+   comportement, pas seulement l'ordre des lignes. Aucun réseau, aucun DOM réel. */
+function executerMerciGuide(stockage) {
+  const html = read('merci-guide.html');
+  const i = html.indexOf("(function () {\n    var marqueur = null;");
+  assert.ok(i > 0, 'script de conversion introuvable dans merci-guide.html');
+  const fin = html.indexOf('</script>', i);
+  const code = html.slice(i, fin);
+  const evenements = [];
+  const sandbox = {
+    sessionStorage: stockage,
+    gtag: function () { evenements.push(Array.prototype.slice.call(arguments)); },
+    console: { warn() {}, error() {} },
+  };
+  sandbox.globalThis = sandbox;
+  vm.runInNewContext(code, sandbox, { filename: 'merci-guide.html' });
+  return evenements;
+}
+function stockageMemoire(valeurInitiale) {
+  const data = valeurInitiale === undefined ? {} : { pc_conv_guide: valeurInitiale };
+  return {
+    data,
+    getItem: (k) => (Object.prototype.hasOwnProperty.call(data, k) ? data[k] : null),
+    removeItem: (k) => { delete data[k]; },
+    setItem: (k, v) => { data[k] = String(v); },
+  };
+}
+
+test('conversion guide : marqueur présent → une seule conversion, puis marqueur consommé', () => {
+  const st = stockageMemoire('1');
+  const ev = executerMerciGuide(st);
+  assert.strictEqual(ev.length, 1, 'une et une seule conversion attendue');
+  assert.strictEqual(ev[0][0], 'event');
+  assert.strictEqual(ev[0][1], 'ads_conversion_Formulaire_1');
+  assert.strictEqual(ev[0][2].event_label, 'guide-5-erreurs');
+  assert.ok(!('value' in ev[0][2]) && !('currency' in ev[0][2]), 'ni valeur ni devise ne doivent être inventées');
+  assert.strictEqual(st.getItem('pc_conv_guide'), null, 'marqueur non consommé');
+});
+
+test('conversion guide : actualisation de /merci-guide → aucune seconde conversion', () => {
+  const st = stockageMemoire('1');
+  assert.strictEqual(executerMerciGuide(st).length, 1, 'première visite : une conversion');
+  assert.strictEqual(executerMerciGuide(st).length, 0, 'actualisation : aucune conversion');
+  // C'est l'ordre lecture-puis-suppression qui le garantit.
+  const html = read('merci-guide.html');
+  const posLire = html.indexOf("sessionStorage.getItem('pc_conv_guide')");
+  const posSupprimer = html.indexOf("sessionStorage.removeItem('pc_conv_guide')");
+  const posEmission = html.indexOf("gtag('event', 'ads_conversion_Formulaire_1'");
+  assert.ok(posLire > 0 && posSupprimer > posLire, 'la suppression doit suivre la lecture');
+  assert.ok(posEmission > posSupprimer, 'la suppression doit précéder toute émission');
+});
+
+test('conversion guide : visite directe de /merci-guide sans marqueur → aucune conversion', () => {
+  assert.strictEqual(executerMerciGuide(stockageMemoire()).length, 0, 'conversion émise sans marqueur');
+});
+
+test('conversion guide : stockage indisponible → aucune conversion, page intacte', () => {
+  const stockageQuiLeve = {
+    getItem() { throw new Error('SecurityError'); },
+    removeItem() { throw new Error('SecurityError'); },
+    setItem() { throw new Error('SecurityError'); },
+  };
+  let ev;
+  assert.doesNotThrow(() => { ev = executerMerciGuide(stockageQuiLeve); }, 'la page de remerciement ne doit jamais casser');
+  assert.strictEqual(ev.length, 0, 'aucune conversion sans marqueur lisible');
+  // Et la page conserve son bouton de téléchargement.
+  assert.ok(/href="\/files\/guide-5-erreurs-patrimoniaux\.pdf" download/.test(read('merci-guide.html')), 'bouton de téléchargement perdu');
+});
+
+test('conversion guide : /merci-guide n\'ajoute aucune destination ni configuration', () => {
+  const html = read('merci-guide.html');
+  assert.strictEqual((html.match(/gtag\('config', 'G-P53RQGXJZX'\)/g) || []).length, 1, 'configuration GA4 altérée');
+  assert.strictEqual((html.match(/gtag\('config', 'AW-835423035'\)/g) || []).length, 1, 'configuration Ads altérée');
+  assert.ok(html.includes('/assets/js/cookie-consent.js'), 'module de consentement retiré');
+  assert.strictEqual((html.match(/ads_conversion_Formulaire_1/g) || []).length, 1, 'plusieurs émissions sur la page de remerciement');
+});
+
+/* ── Garde de consentement à l'écriture du marqueur ──
+   Le marqueur n'est déposé que si le consentement analytique est déjà accordé
+   au moment de la soumission. On exécute le code RÉEL de la page (lecture du
+   cookie + écriture conditionnelle) dans un bac à sable, plutôt que de le
+   reformuler dans le test. Aucun réseau, aucun DOM réel. */
+function executerGardeGuide(options) {
+  const html = read('guide-5-erreurs-patrimoniaux.html');
+  const iFn = html.indexOf('function hasAnalyticsConsent() {');
+  assert.ok(iFn > 0, 'lecture du consentement introuvable dans la page');
+  const finFn = html.indexOf('\n  }', iFn) + '\n  }'.length;
+  const source = html.slice(iFn, finFn);
+  const iEcriture = html.indexOf("if (hasAnalyticsConsent()) sessionStorage.setItem('pc_conv_guide', '1');");
+  assert.ok(iEcriture > 0, 'écriture conditionnelle du marqueur introuvable');
+  const ecriture = html.slice(html.lastIndexOf('try {', iEcriture), html.indexOf('\n', html.indexOf('} catch (e) { /* mesure perdue', iEcriture)));
+
+  const magasin = {};
+  const document = {};
+  if (options.cookieLeve) {
+    Object.defineProperty(document, 'cookie', { get() { throw new Error('SecurityError'); } });
+  } else {
+    document.cookie = options.cookie || '';
+  }
+  const sessionStorage = options.stockageLeve
+    ? { setItem() { throw new Error('SecurityError'); } }
+    : { setItem: (k, v) => { magasin[k] = String(v); } };
+
+  const sandbox = { document, sessionStorage, JSON, console: { warn() {}, error() {} } };
+  sandbox.globalThis = sandbox;
+  vm.runInNewContext(source + '\n' + ecriture, sandbox, { filename: 'guide-garde.js' });
+  return magasin;
+}
+const cookieConsent = (a, m) => 'pc_consent=' + encodeURIComponent(JSON.stringify({ a: a, m: m, t: Date.now() }));
+
+test('garde guide : consentement analytique accordé → marqueur écrit', () => {
+  const magasin = executerGardeGuide({ cookie: cookieConsent(true, true) });
+  assert.strictEqual(magasin.pc_conv_guide, '1', 'marqueur non écrit malgré le consentement');
+  // Analytique seul suffit.
+  assert.strictEqual(executerGardeGuide({ cookie: cookieConsent(true, false) }).pc_conv_guide, '1');
+});
+
+test('garde guide : consentement refusé → aucun marqueur', () => {
+  assert.strictEqual(executerGardeGuide({ cookie: cookieConsent(false, false) }).pc_conv_guide, undefined, 'marqueur écrit malgré le refus');
+  // Marketing accepté mais analytique refusé : choix retenu — pas de marqueur.
+  assert.strictEqual(executerGardeGuide({ cookie: cookieConsent(false, true) }).pc_conv_guide, undefined,
+    'la garde porte sur le consentement ANALYTIQUE seul, marketing accepté ne suffit pas');
+});
+
+test('garde guide : aucun choix encore exprimé → aucun marqueur', () => {
+  // Cookie absent : le visiteur n'a ni accepté ni refusé. Comportement retenu :
+  // on n'écrit pas — cohérent avec le site, où rien n'est chargé avant un choix.
+  assert.strictEqual(executerGardeGuide({ cookie: '' }).pc_conv_guide, undefined, 'marqueur écrit sans choix exprimé');
+  // Cookie illisible : traité comme une absence de choix.
+  assert.strictEqual(executerGardeGuide({ cookie: 'pc_consent=%7Bcorrompu' }).pc_conv_guide, undefined, 'JSON corrompu traité comme un accord');
+});
+
+test('garde guide : lecture du consentement qui lève → aucun marqueur, aucune exception', () => {
+  let magasin;
+  assert.doesNotThrow(() => { magasin = executerGardeGuide({ cookieLeve: true }); }, 'une lecture de cookie en erreur ne doit jamais remonter');
+  assert.strictEqual(magasin.pc_conv_guide, undefined, 'marqueur écrit malgré une lecture impossible');
+});
+
+test('garde guide : stockage qui lève → aucune exception, parcours intact', () => {
+  let magasin;
+  assert.doesNotThrow(() => { magasin = executerGardeGuide({ cookie: cookieConsent(true, true), stockageLeve: true }); });
+  assert.strictEqual(magasin.pc_conv_guide, undefined);
+});
+
+test('garde guide : position — après le succès serveur, avant l\'écriture, et la redirection reste hors du try', () => {
+  const html = read('guide-5-erreurs-patrimoniaux.html');
+  const posRefus = html.indexOf('permettreReprise(res.status === 403');
+  const posCatchReseau = html.indexOf("console.warn('subscribe-guide error:'");
+  const posGarde = html.indexOf('if (hasAnalyticsConsent()) sessionStorage.setItem');
+  const posCatchMarqueur = html.indexOf('} catch (e) { /* mesure perdue');
+  const posRedir = html.indexOf("window.location.href = '/merci-guide'");
+  assert.ok(posGarde > posRefus && posGarde > posCatchReseau, 'la garde doit suivre le succès serveur');
+  assert.ok(posCatchMarqueur > posGarde, 'la garde doit être protégée par le try/catch');
+  assert.ok(posRedir > posCatchMarqueur, 'la redirection doit rester hors du try, donc toujours atteinte');
+  // Une seule écriture, et elle est conditionnée.
+  assert.strictEqual((html.match(/sessionStorage\.setItem\('pc_conv_guide'/g) || []).length, 1);
+  assert.ok(!/^\s*sessionStorage\.setItem\('pc_conv_guide'/m.test(html), 'écriture inconditionnelle résiduelle');
+});
+
+test('garde guide : refus puis acceptation sur /merci-guide ne transmet rien', () => {
+  // À la soumission, refus : aucun marqueur n'est écrit.
+  const magasin = executerGardeGuide({ cookie: cookieConsent(false, false) });
+  assert.strictEqual(magasin.pc_conv_guide, undefined);
+  // À l'arrivée, même si le visiteur accepte ensuite, il n'y a rien à consommer.
+  assert.strictEqual(executerMerciGuide(stockageMemoire()).length, 0, 'conversion émise sans marqueur');
+  // Et /merci-guide ne porte aucune garde : c'est bien à l'écriture que tout se joue.
+  assert.ok(!read('merci-guide.html').includes('hasAnalyticsConsent'), 'garde ajoutée à tort sur la page de remerciement');
+});
+
+test('garde guide : mécanisme repris du site, pas réinventé', () => {
+  const guide = read('guide-5-erreurs-patrimoniaux.html');
+  const bilan = read('bilan-patrimonial.html');
+  // Même cookie, même clé, même test que le précédent du site.
+  for (const motif of ["pc_consent=([^;]+)", 'v.a === true']) {
+    assert.ok(guide.includes(motif), 'lecture du consentement divergente : ' + motif);
+    assert.ok(bilan.includes(motif), 'le précédent du site a changé, revoir la garde du guide');
+  }
+  // La garde du bilan n'a pas été modifiée par ce lot.
+  assert.ok(/function hasAnalyticsConsent\(\) \{/.test(bilan), 'garde du bilan altérée');
+});
+
+test('conversion : nom d\'événement unique sur tous les parcours émetteurs', () => {
+  // Un seul événement clé est actif dans GA4 : tous les parcours doivent le
+  // réutiliser, sinon le nouveau nom ne compterait pas comme conversion.
+  const emetteurs = [
+    'index.html',
+    'fiscalite-rsu-stock-options.html',
+    'declaration-rsu-espp-france.html',
+    'immobilier/succession-colombes.html',
+    // Le parcours guide émet depuis sa page d'arrivée, pas depuis le formulaire.
+    'merci-guide.html',
+  ];
+  for (const p of emetteurs) {
+    assert.ok(read(p).includes(CONVERSION), `${p} : nom d'événement divergent ou absent`);
+  }
+  assert.ok(!read('guide-5-erreurs-patrimoniaux.html').includes(CONVERSION), 'la page du formulaire ne doit plus émettre');
+  // Les 150 € existants ne sont pas touchés.
+  assert.ok(/value: 150,/.test(read('index.html')), 'valeur de la home modifiée');
+  assert.ok(/value: 150,/.test(read('fiscalite-rsu-stock-options.html')), 'valeur du pilier RSU modifiée');
+  // Et aucune destination Ads n'a été ajoutée sur la page succession.
+  assert.ok(!read('immobilier/succession-colombes.html').includes("config', 'AW-"), 'destination Ads ajoutée à tort');
 });
 
 /* ════════ 3. Parcours NON corrigés — comportement épinglé ════════ */

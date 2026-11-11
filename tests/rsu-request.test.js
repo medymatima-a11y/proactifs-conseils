@@ -651,6 +651,12 @@ test('CSP : challenges.cloudflare.com autorisé en script et iframe, pas en conn
   assert.ok(directive('frame-src').includes('https://challenges.cloudflare.com'));
   assert.ok(!directive('connect-src').includes('challenges.cloudflare.com'));
   assert.ok(header.value.includes("object-src 'none'"), 'directives existantes conservées');
+  // Collecte Google Ads (ad.doubleclick.net/ccm/s/collect) : appelée tantôt en
+  // pixel, tantôt en beacon — les deux directives sont donc nécessaires.
+  // `script-src` reste volontairement inchangé : aucun script n'en provient.
+  assert.ok(directive('img-src').includes('https://ad.doubleclick.net'), 'collecte Ads autorisée en image');
+  assert.ok(directive('connect-src').includes('https://ad.doubleclick.net'), 'collecte Ads autorisée en connexion');
+  assert.ok(!directive('script-src').includes('ad.doubleclick.net'), 'script-src ne doit pas être élargi');
 });
 
 // ── 7. SQL (contrôles statiques) ──────────────────────────────────────────────
