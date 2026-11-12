@@ -736,6 +736,21 @@
           "url": "/blog"
         }
       ]
+    },
+    {
+      "file": "blog/epargne-salariale-actionnariat-cadre-patrimoine.html",
+      "url": "/blog/epargne-salariale-actionnariat-cadre-patrimoine",
+      "label": "Épargne salariale : l'oublié du patrimoine des cadres",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
     }
   ]
 }
