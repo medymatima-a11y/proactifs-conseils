@@ -205,6 +205,10 @@
     {
       "source": "/blog/retraite-micro-entrepreneur-profession-liberale",
       "destination": "/blog/retraite-micro-entrepreneur-profession-liberale.html"
+    },
+    {
+      "source": "/blog/epargne-salariale-actionnariat-cadre-patrimoine",
+      "destination": "/blog/epargne-salariale-actionnariat-cadre-patrimoine.html"
     }
   ],
   "redirects": [
