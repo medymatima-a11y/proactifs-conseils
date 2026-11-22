@@ -828,8 +828,19 @@
     // produirait plusieurs conversions pour une seule demande.
     let successionConvSent = false;
 
+    // Garde de réentrance de l'ENVOI. Rôle distinct de `successionConvSent`,
+    // qui protège la MESURE : celle-ci protège le POST lui-même. Elle couvre
+    // le double clic, la validation au clavier par Entrée (soumission
+    // implicite du formulaire) et deux déclenchements rapprochés par
+    // n'importe quelle voie, sans dépendre de l'état `disabled` du bouton.
+    // Cycle de vie : libérée en cas d'échec (nouvelle tentative possible),
+    // maintenue après un succès, remise à zéro par « Nouvelle demande ».
+    let successionSending = false;
+
     document.getElementById('successionForm').addEventListener('submit', async function(ev) {
       ev.preventDefault();
+      // Un envoi déjà en cours : on sort avant toute lecture de champ.
+      if (successionSending) return;
       const prenom = document.getElementById('s-prenom').value.trim();
       const email  = document.getElementById('s-email').value.trim();
       const tel    = document.getElementById('s-tel').value.trim();
@@ -845,6 +856,7 @@
         return;
       }
 
+      successionSending = true;
       btn.disabled = true;
       btn.textContent = 'Envoi en cours…';
 
@@ -890,6 +902,9 @@
           throw new Error('Supabase ' + res.status);
         }
       } catch (e) {
+        // Échec (réponse non-ok ou fetch qui lève) : la garde d'envoi est
+        // libérée, la saisie est conservée, une nouvelle tentative est possible.
+        successionSending = false;
         // Un jeton anti-robot ne vaut qu'une fois : on le régénère pour la nouvelle tentative.
         if (window.ProactifsCaptcha) window.ProactifsCaptcha.reset();
         msgEl.className = 'estim-msg estim-msg-err';
@@ -911,6 +926,7 @@
     if (successionResetBtn) {
       successionResetBtn.addEventListener('click', function() {
         successionConvSent = false; // nouvelle demande explicite : elle pourra être comptée
+        successionSending = false;  // et elle pourra être envoyée : la garde d'envoi repart de zéro
         document.getElementById('successionSuccess').hidden = true;
         document.getElementById('successionForm').hidden = false;
         const btn = document.getElementById('successionBtn');
