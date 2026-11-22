@@ -48,9 +48,16 @@ test('empreinte : identique entre deux tentatives du même contenu', () => {
     service: 'impots', situation: 'Cadre', reponses: { q1: 'oui' },
     consentMarketing: true, consentVersion: 'marketing-consent-v1',
   };
-  // Deux appels successifs à validate() posent DEUX horodatages différents.
   const a = validate(corps, { hote: 'proactifsconseils.fr' }).data;
   const b = validate(corps, { hote: 'proactifsconseils.fr' }).data;
+  /* Deux appels successifs à validate() posent deux horodatages, mais rien ne
+     garantit qu'ils diffèrent : sur un runner rapide ils tombent dans la même
+     milliseconde, et ce test échouait alors sur son propre garde-fou (observé
+     en CI le 22/11/2026, exécution 45040949971). On impose donc l'écart au lieu
+     de l'espérer. L'objet reste celui que validate() produit ; seul
+     l'horodatage du second est décalé d'une seconde. */
+  b.reponses.consentement.horodatage =
+    new Date(Date.parse(a.reponses.consentement.horodatage) + 1000).toISOString();
   assert.notStrictEqual(
     a.reponses.consentement.horodatage, b.reponses.consentement.horodatage,
     'les horodatages doivent bien différer, sinon le test ne prouve rien'
