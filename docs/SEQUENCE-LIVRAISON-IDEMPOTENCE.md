@@ -27,8 +27,8 @@ lectures décident de la suite :
 |---|---|
 | 1 — colonnes | Une colonne `NOT NULL` sans défaut, absente du `record` de `api/subscribe.js`, ferait échouer toute insertion. |
 | 4 — volume et activité | De quoi choisir la forme du `create unique index` : taille de la table, activité en écriture, interruption acceptable. Voir « Forme de l'index » ci-dessous. |
-| 6 — `notify_new_lead()` | Structure et mécanismes, sans aucun texte de code. Des appels préfixés par `net.` (pg_net) sortent en asynchrone après validation ⇒ un échec laisse la demande enregistrée et perd la notification. Des appels non préfixés, ou une levée d'exception sans rattrapage, agissent dans la transaction ⇒ l'échec **annule** l'insertion. Les deux comportements sont mesurés ; celui qui s'applique dépend de cette fonction. |
-| 10 — idempotence | Doit répondre « absentes / absent / 0 sur 2 » avant migration. |
+| 6 — `notify_new_lead()` | Structure et **indices**, sans aucun texte de code. Des appels préfixés par `net.` (pg_net) sortent en asynchrone après validation ⇒ un échec laisse la demande enregistrée et perd la notification. Des appels non préfixés, ou une levée d'exception sans rattrapage, agissent dans la transaction ⇒ l'échec **annule** l'insertion. Les deux comportements sont mesurés ; celui qui s'applique dépend de cette fonction. **Ces détections n'en sont pas la preuve** : un appel en commentaire compte comme présent, un appel passé par une fonction intermédiaire n'apparaît pas, du SQL dynamique échappe à la détection. Trancher demande de lire la fonction. |
+| 10 — idempotence | Cinq objets, chacun rendu `ABSENT`, `PRESENT CONFORME` ou `PRESENT A VERIFIER` : les deux colonnes, l'index unique, les deux `CHECK`. Les cinq doivent répondre `ABSENT` avant migration, et `PRESENT CONFORME` après. Des colonnes présentes ne prouvent pas que l'index et les `CHECK` le sont. |
 
 Ne pas passer à l'étape 1 avant d'avoir lu ces quatre lignes.
 
@@ -95,7 +95,10 @@ Contrôles après D1 :
 3. La migration termine par `notify pgrst, 'reload schema'` : sans ce
    rechargement, PostgREST continue d'ignorer les deux colonnes.
 4. Relancer le script de diagnostic : la section 10 doit répondre
-   « PRESENTES / PRESENT / 2 sur 2 ».
+   `PRESENT CONFORME` sur **les cinq objets** — les deux colonnes, l'index
+   unique, les deux `CHECK`. Un seul `PRESENT A VERIFIER` arrête là : la
+   migration n'est pas allée au bout, ou un objet existait déjà sous une autre
+   forme. Ne pas passer à l'étape 3.
 
 Le comportement des formulaires ne change pas à cette étape : le drapeau est
 toujours éteint, donc aucune clé n'est envoyée.

@@ -19,22 +19,37 @@
 -- l'absence de secret : il suffit d'une forme non prevue pour qu'une cle
 -- passe. Il n'y a donc ici ni pg_get_functiondef, ni prosrc, ni extrait.
 --
--- La section 6 restitue a la place la STRUCTURE et les MECANISMES, calcules
--- sans rien afficher du texte :
+-- La section 6 restitue a la place la STRUCTURE et des INDICES de mecanismes,
+-- calcules sans rien afficher du texte :
 --   - identite : langage, SECURITY DEFINER ou INVOKER, volatilite,
 --     search_path impose, nombre de lignes ;
 --   - sorties HTTP : nombre d'appels http_post / http_get, et combien sont
---     prefixes par net. (pg_net, asynchrone) — c'est ce qui departage les deux
---     comportements mesures ;
---   - mecanismes presents ou absents, en oui / non : pg_notify, levee
---     d'exception, bloc de rattrapage, ecriture, suppression, lecture d'un
---     secret dans Vault, lecture d'un reglage, presence d'une URL litterale,
---     presence d'un en-tete d'autorisation ;
+--     prefixes par net. (pg_net) ;
+--   - mecanismes en oui / non : pg_notify, levee d'exception, bloc de
+--     rattrapage, ecriture, suppression, lecture d'un secret dans Vault,
+--     lecture d'un reglage, presence d'une URL litterale, presence d'un
+--     en-tete d'autorisation ;
 --   - tables ecrites, par leur seul identifiant.
 --
 -- Une URL ou un en-tete detecte est signale par « OUI », jamais affiche.
 -- Aucun contenu de ligne ne sort non plus : le volume est un count(*), jamais
--- un echantillon.
+-- un echantillon. La section 5 ne sort que les metadonnees des triggers, sans
+-- leurs arguments ni leur condition WHEN.
+--
+-- ⚠ CE QUE CES INDICES NE PROUVENT PAS
+-- Les detections de la section 6 sont faites par expressions regulieres sur le
+-- texte de la fonction. Elles orientent, elles ne concluent pas :
+--   - un appel laisse en COMMENTAIRE est compte comme present ;
+--   - un appel passe par une FONCTION INTERMEDIAIRE (un wrapper maison qui
+--     appelle lui-meme net.http_post) n'apparait pas ici ;
+--   - du SQL DYNAMIQUE (EXECUTE sur une chaine construite) echappe a toute
+--     detection textuelle ;
+--   - un meme libelle peut apparaitre dans une chaine de caracteres sans etre
+--     un appel.
+-- Autrement dit : « 0 appel HTTP » ne demontre pas qu'il n'y a pas de sortie
+-- HTTP, et « OUI » ne demontre pas qu'elle est atteinte a l'execution. Pour
+-- trancher entre comportement synchrone et asynchrone, lire la fonction dans
+-- l'editeur SQL — ces indices disent seulement ou regarder.
 -- ─────────────────────────────────────────────────────────────────────
 --
 -- COMMENT L'EXECUTER
@@ -60,25 +75,35 @@
 --              laisser un index INVALID a supprimer puis refaire. Le choix
 --              depend de la taille de la table, de son activite en ecriture et
 --              de l'interruption acceptable — aucune regle automatique ici.
---   section 6  notify_new_lead() : la ligne des appels HTTP decide lequel des
---              deux comportements mesures s'applique. Des appels prefixes par
---              net. (pg_net) sortent en asynchrone, apres validation de la
+--   section 5  triggers : moment, evenements, portee, etat et fonction
+--              appelee. Un trigger DESACTIVE ne notifie rien.
+--   section 6  notify_new_lead() : la ligne des appels HTTP oriente vers l'un
+--              des deux comportements mesures. Des appels prefixes par net.
+--              (pg_net) sortent en asynchrone, apres validation de la
 --              transaction : un echec laisse la demande enregistree et perd la
 --              notification, sans reprise automatique. Des appels non
 --              prefixes, ou une levee d'exception sans rattrapage, agissent
 --              dans la transaction : l'echec ANNULE l'insertion, la demande
---              n'est pas enregistree et la cle n'est pas consommee. Suite a
---              donner : docs/REPRISE-NOTIFICATIONS-LEADS.md.
+--              n'est pas enregistree et la cle n'est pas consommee. Ces
+--              indices ne tranchent pas a eux seuls : voir l'avertissement
+--              ci-dessus, puis lire la fonction. Suite a donner :
+--              docs/REPRISE-NOTIFICATIONS-LEADS.md.
 --   section 6  autres fonctions citant « leads » : ce sont les autres chemins
 --              d'ecriture possibles. Une ecriture qui ne passe pas par
 --              api/subscribe.js n'aura pas de cle d'idempotence — ce n'est pas
 --              un probleme (index total, NULLS DISTINCT laisse les lignes sans
 --              cle libres), mais il faut la connaitre avant d'activer.
---   section 9  extensions : aucune ligne = ni pg_net ni http installes, donc
---              aucune sortie HTTP possible depuis la base (c'est le cas sur
---              TEST, ou ce script a ete verifie le 22/11/2026).
---   section 10 etat de l'idempotence : dit si la migration est deja appliquee.
---              Les trois lignes doivent repondre « absent » avant migration.
+--   section 9  extensions : aucune ligne = ni pg_net ni http installes. C'est
+--              un indice plus solide que la section 6, puisqu'une sortie HTTP
+--              exige l'extension (c'est le cas sur TEST, ou ce script a ete
+--              verifie le 22/11/2026).
+--   section 10 etat de l'idempotence, objet par objet : deux colonnes, un
+--              index, deux contraintes CHECK. Chacun est rendu ABSENT,
+--              PRESENT CONFORME ou PRESENT A VERIFIER. Ces cinq objets sont
+--              independants : des colonnes presentes ne prouvent pas que
+--              l'index et les CHECK le sont, ni que la migration est allee au
+--              bout. La migration n'est appliquee que si les cinq repondent
+--              PRESENT CONFORME.
 -- ══════════════════════════════════════════════════════════════════════
 
 with
@@ -153,11 +178,35 @@ with
                         where d.datname = current_database()), '(date inconnue)')
   ),
 
+  -- Metadonnees des triggers seulement. Pas de pg_get_triggerdef : sa sortie
+  -- porte les arguments du trigger et sa condition WHEN, qui peuvent contenir
+  -- des valeurs. Ici, leur presence est signalee, leur contenu jamais.
   triggers_leads as (
     select 5 as section,
            row_number() over (order by t.tgname)::int as ord,
            'trigger' as rubrique,
-           t.tgname || ' | ' || pg_get_triggerdef(t.oid) as detail
+           t.tgname
+           || ' | ' || case when (t.tgtype::int & 64) <> 0 then 'INSTEAD OF'
+                            when (t.tgtype::int & 2)  <> 0 then 'BEFORE'
+                            else 'AFTER' end
+           || ' ' || trim(
+                  case when (t.tgtype::int & 4)  <> 0 then 'INSERT ' else '' end
+               || case when (t.tgtype::int & 8)  <> 0 then 'DELETE ' else '' end
+               || case when (t.tgtype::int & 16) <> 0 then 'UPDATE ' else '' end
+               || case when (t.tgtype::int & 32) <> 0 then 'TRUNCATE ' else '' end)
+           || ' | ' || case when (t.tgtype::int & 1) <> 0 then 'FOR EACH ROW'
+                            else 'FOR EACH STATEMENT' end
+           || ' | etat ' || case t.tgenabled
+                              when 'O' then 'actif'
+                              when 'D' then 'DESACTIVE'
+                              when 'R' then 'actif en replica seulement'
+                              when 'A' then 'actif toujours'
+                              else t.tgenabled::text end
+           || ' | fonction ' || t.tgfoid::regproc::text
+           || ' | ' || case when t.tgqual is not null
+                            then 'avec condition WHEN (non affichee)'
+                            else 'sans condition WHEN' end
+           || ' | ' || t.tgnargs::text || ' argument(s) (non affiches)' as detail
     from pg_trigger t
     where t.tgrelid = (select rel from cible) and not t.tgisinternal
   ),
@@ -180,36 +229,51 @@ with
       )
   ),
 
-  -- STRUCTURE ET MECANISMES, sans afficher une seule ligne de code.
+  -- STRUCTURE ET INDICES, sans afficher une seule ligne de code.
   structure as (
+    -- Identite. De proconfig, seul search_path est restitue : les autres
+    -- reglages peuvent porter des valeurs sans rapport avec ce diagnostic.
     select 6 as section, f.proname, 1 as sous_ord,
            'langage ' || f.lanname
            || ' | ' || case when f.prosecdef then 'SECURITY DEFINER' else 'SECURITY INVOKER' end
            || ' | ' || case f.provolatile when 'i' then 'IMMUTABLE'
                                           when 's' then 'STABLE'
                                           else 'VOLATILE' end
-           || ' | config ' || coalesce(array_to_string(f.proconfig, ' '), '(aucune)')
+           || ' | ' || coalesce(
+                  (select cfg from unnest(f.proconfig) as cfg where cfg like 'search_path=%' limit 1),
+                  '(search_path non impose)')
            || ' | ' || (length(f.src) - length(replace(f.src, E'\n', '')) + 1)::text
            || ' lignes' as detail
     from fonctions f
 
     union all
 
-    -- La ligne qui departage asynchrone et synchrone.
+    -- Avertissement place AVANT les indices, pour qu'il soit lu avec eux.
     select 6, f.proname, 2,
-           'appels http_post / http_get : '
+           'ATTENTION : les lignes suivantes sont des INDICES textuels, pas une '
+           || 'preuve du comportement — un appel en commentaire compte comme '
+           || 'present, un appel passe par une fonction intermediaire n''apparait '
+           || 'pas, et du SQL dynamique (EXECUTE) echappe a la detection. '
+           || 'Conclure entre synchrone et asynchrone demande de lire la fonction.'
+    from fonctions f
+
+    union all
+
+    -- L'indice qui oriente entre asynchrone et synchrone.
+    select 6, f.proname, 3,
+           'indice, appels http_post / http_get : '
            || regexp_count(f.src, 'http_(post|get)', 1, 'i')::text || ' au total, dont '
            || regexp_count(f.src, 'net\.http_', 1, 'i')::text
            || ' prefixes par net. (pg_net, ASYNCHRONE apres validation) ; '
            || greatest(regexp_count(f.src, 'http_(post|get)', 1, 'i')
                        - regexp_count(f.src, 'net\.http_', 1, 'i'), 0)::text
-           || ' non prefixes (candidats SYNCHRONES, dans la transaction)'
+           || ' non prefixes (candidats SYNCHRONES, dans la transaction) — a confirmer'
     from fonctions f
 
     union all
 
-    select 6, f.proname, 2 + m.rang,
-           case when f.src ~* m.motif then 'OUI  ' else 'non  ' end || m.libelle
+    select 6, f.proname, 3 + m.rang,
+           'indice ' || case when f.src ~* m.motif then 'OUI  ' else 'non  ' end || m.libelle
     from fonctions f
     cross join (values
       (1,  'pg_notify',                          'notification interne pg_notify'),
@@ -223,7 +287,9 @@ with
       (9,  'authorization|apikey|bearer|api-key','contient un en-tete d''autorisation (NON affiche)'),
       (10, 'dblink|pg_background',               'sort de la transaction par dblink ou pg_background'),
       (11, 'pgmq|\mqueue\M',                     'met en file (pgmq ou table de file)'),
-      (12, 'supabase_functions|edge',            'appelle une fonction Edge')
+      (12, 'supabase_functions|edge',            'appelle une fonction Edge'),
+      (13, '\mexecute\M',                        'contient du SQL dynamique (EXECUTE) : detection non fiable'),
+      (14, '\mperform\M[[:space:]]+[a-z_]+\(',   'appelle une autre fonction (la detection peut lui echapper)')
     ) as m(rang, motif, libelle)
 
     union all
@@ -232,7 +298,7 @@ with
     -- d'identifiant, donc aucun fragment de valeur ne peut sortir par la.
     select 6, f.proname,
            40 + row_number() over (partition by f.proname order by t.ecrite)::int,
-           'ecrit dans ' || t.ecrite
+           'indice, ecrit dans ' || t.ecrite
     from fonctions f
     cross join lateral (
       select distinct lower(x[1]) as ecrite
@@ -292,27 +358,98 @@ with
     where e.extname in ('pg_net', 'http', 'pgmq', 'pg_cron')
   ),
 
+  -- Etat de l'idempotence, objet par objet. Trois reponses possibles par
+  -- objet : ABSENT, PRESENT CONFORME, PRESENT A VERIFIER.
   etat_idempotence as (
-    select 10 as section, 1 as ord, 'idempotence' as rubrique,
-           'colonnes idempotency_key + payload_fingerprint : '
-           || case when (select count(*) from information_schema.columns
-                         where table_schema = 'public' and table_name = 'leads'
-                           and column_name in ('idempotency_key', 'payload_fingerprint')) = 2
-                   then 'PRESENTES (migration deja appliquee)' else 'absentes' end as detail
+    select 10 as section, 0 as ord, 'idempotence' as rubrique,
+           'cinq objets independants ci-dessous (2 colonnes, 1 index, 2 CHECK). '
+           || 'Des colonnes presentes ne prouvent pas que l''index et les CHECK '
+           || 'le sont : la migration n''est appliquee que si les cinq repondent '
+           || 'PRESENT CONFORME.' as detail
+
     union all
-    select 10, 2, 'idempotence',
-           'index unique leads_idempotency_key_uniq : '
-           || case when exists (select 1 from pg_indexes
-                                where schemaname = 'public'
-                                  and indexname = 'leads_idempotency_key_uniq')
-                   then 'PRESENT' else 'absent' end
+
+    -- Les deux colonnes : text, nullable, sans defaut.
+    select 10, v.ord, 'idempotence',
+           v.nom || ' : ' ||
+           case
+             when c.column_name is null then 'ABSENT'
+             when c.data_type = 'text' and c.is_nullable = 'YES'
+                  and c.column_default is null
+               then 'PRESENT CONFORME (text, nullable, sans defaut)'
+             else 'PRESENT A VERIFIER (' || c.data_type
+                  || ', ' || case when c.is_nullable = 'YES' then 'nullable' else 'NOT NULL' end
+                  || ', defaut ' || coalesce(c.column_default, 'aucun') || ')'
+           end
+    from (values (1, 'colonne idempotency_key',     'idempotency_key'),
+                 (2, 'colonne payload_fingerprint', 'payload_fingerprint')
+         ) as v(ord, nom, col)
+    left join information_schema.columns c
+      on c.table_schema = 'public' and c.table_name = 'leads'
+     and c.column_name = v.col
+
     union all
+
+    -- L'index : unique, TOTAL (sans predicat), une seule colonne, NULLS
+    -- DISTINCT, valide. Un index partiel ne serait pas deduit par PostgREST.
     select 10, 3, 'idempotence',
-           'contraintes CHECK d''idempotence : '
-           || (select count(*)::text from pg_constraint
-               where conrelid = (select rel from cible) and contype = 'c'
-                 and conname in ('leads_idempotency_key_forme', 'leads_idempotence_paire'))
-           || ' / 2'
+           'index leads_idempotency_key_uniq : ' ||
+           case
+             when i.indexrelid is null then 'ABSENT'
+             when i.indisunique and i.indpred is null and i.indnkeyatts = 1
+                  and not i.indnullsnotdistinct and i.indisvalid
+                  and a.attname = 'idempotency_key'
+               then 'PRESENT CONFORME (unique, total, sur idempotency_key seule, NULLS DISTINCT, valide)'
+             else 'PRESENT A VERIFIER ('
+                  || case when i.indisunique then 'unique' else 'NON unique' end
+                  || case when i.indpred is null then ', total' else ', PARTIEL' end
+                  || ', ' || i.indnkeyatts::text || ' colonne(s) de cle'
+                  || ', premiere colonne ' || coalesce(a.attname, '(expression)')
+                  || case when i.indnullsnotdistinct then ', NULLS NOT DISTINCT' else ', NULLS DISTINCT' end
+                  || case when i.indisvalid then ', valide' else ', INVALID' end || ')'
+           end
+    from (select 1 as un) z
+    left join pg_index i
+      on i.indexrelid = to_regclass('public.leads_idempotency_key_uniq')
+    left join pg_attribute a
+      on a.attrelid = i.indrelid and a.attnum = i.indkey[0]
+
+    union all
+
+    -- Un autre index unique sur la seule colonne idempotency_key suffirait a
+    -- ON CONFLICT : sa presence change la lecture des lignes ci-dessus.
+    select 10, 4, 'idempotence',
+           'autres index uniques portant sur la seule colonne idempotency_key : '
+           || (select count(*)::text
+               from pg_index i2
+               join pg_class ic on ic.oid = i2.indexrelid
+               where i2.indrelid = (select rel from cible)
+                 and i2.indisunique and i2.indnkeyatts = 1
+                 and ic.relname <> 'leads_idempotency_key_uniq'
+                 and (select a2.attname from pg_attribute a2
+                      where a2.attrelid = i2.indrelid and a2.attnum = i2.indkey[0])
+                     = 'idempotency_key')
+
+    union all
+
+    -- Les deux CHECK : comparaison a la definition exacte de la migration.
+    select 10, v.ord, 'idempotence',
+           'contrainte ' || v.nom || ' : ' ||
+           case
+             when k.conname is null then 'ABSENT'
+             when pg_get_constraintdef(k.oid) = v.attendu then 'PRESENT CONFORME'
+             else 'PRESENT A VERIFIER — definition differente de celle de la '
+                  || 'migration (voir section 2 pour la lire)'
+           end
+    from (values
+      (5, 'leads_idempotency_key_forme',
+          'CHECK (((idempotency_key IS NULL) OR (idempotency_key ~ ''^[A-Za-z0-9_-]{16,64}$''::text)))'),
+      (6, 'leads_idempotence_paire',
+          'CHECK (((idempotency_key IS NULL) = (payload_fingerprint IS NULL)))')
+         ) as v(ord, nom, attendu)
+    left join pg_constraint k
+      on k.conrelid = (select rel from cible)
+     and k.contype = 'c' and k.conname = v.nom
   )
 
 select section, rubrique, detail
