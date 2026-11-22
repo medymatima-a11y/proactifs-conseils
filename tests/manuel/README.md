@@ -36,8 +36,32 @@ dans `garde-essai.js` :
    dans sa sortie.
 7. la base doit porter la table marqueur `zz_essai_notifications`, qui n'existe
    que sur la reproduction ; `leads` doit contenir moins de 200 lignes ; et
-   **aucune adresse hors `.invalid`**. Une seule adresse qui pourrait être
-   réelle arrête tout, avant la moindre suppression.
+   **chaque ligne doit être une donnée réservée à cette recette**, c'est-à-dire
+   une adresse `essai-<scenario>@example.invalid`, écrite par ces bancs. Une
+   adresse en `.invalid` ne suffit pas à désigner une ligne supprimable : une
+   ligne `.invalid` venue d'un autre essai, ou une ligne sans adresse, arrête
+   tout aussi sûrement qu'une adresse qui pourrait être réelle. Le refus
+   compte les catégories et **ne recopie aucune adresse**.
+
+La purge suit la même règle : le `DELETE` sur `leads` est borné au motif
+réservé, dans la suppression comme dans le contrôle qui la suit. Une ligne
+apparue entre le contrôle du décor et la purge n'est donc pas emportée.
+
+Ces verrous sont éprouvés par la suite automatique —
+[`tests/garde-bancs-manuels.test.js`](../garde-bancs-manuels.test.js), 12 tests
+sans base, sans clé et sans réseau. Un code de sécurité non testé ne protège
+que sur le papier.
+
+## Démontage automatique, même après un échec
+
+Les bancs posent `SUPABASE_URL`, `SUPABASE_SERVICE_KEY` et
+`SUBSCRIBE_IDEMPOTENCY` dans leur propre processus, et en retirent d'autres. Le
+`finally` remet l'environnement **exactement** comme il était — valeur
+d'origine, ou absence d'origine —, reprend les lignes réservées et remet le
+trigger en mode `normal`. Un essai interrompu au scénario N ne laisse donc plus
+la reproduction en `leve_exception`. Seuls les **noms** des variables sont
+journalisés, jamais les valeurs ; et une erreur de démontage est signalée sans
+jamais remplacer l'erreur d'origine.
 
 En plus, le `fetch` des bancs est cloisonné : seules les requêtes vers le
 projet d'essai sortent. Systeme.io et Brevo sont interceptés et répondent
@@ -92,9 +116,15 @@ Puis lancer avec `ESSAI_ROLE_SERVICE=oui` (voir l'étape suivante). La garde
 refuse autrement toute clé de service, et le banc écrit le rôle employé dans
 son en-tête.
 
-État attendu de la base avant de lancer, aligné sur le relevé de production du
-22/11/2026 : quatre lignes, adresses en `.invalid`, les deux colonnes
-d'idempotence à `NULL`.
+État attendu de `leads` avant de lancer : **vide, ou uniquement des lignes
+réservées à cette recette** (`essai-…@example.invalid`), les deux colonnes
+d'idempotence à `NULL`. Toute autre ligne fait refuser le banc, avant la
+moindre suppression : la retirer à la main, ou monter un décor neuf.
+
+Les quatre lignes neutres qui ont servi à mesurer la migration — forme du
+relevé de production du 22/11/2026, aucune donnée de production — ne sont pas
+un prérequis des bancs : ceux-ci purgent `leads` entre chaque scénario. Si
+elles ne portent pas une adresse réservée, les retirer avant de lancer.
 
 ### 3. Lancer
 
@@ -106,6 +136,15 @@ $env:ESSAI_SB_URL = "https://<ref-du-projet-jetable>.supabase.co"
 $env:ESSAI_SB_KEY = (Read-Host "cle anon du projet d essai" -AsSecureString | ConvertFrom-SecureString -AsPlainText)
 $env:ESSAI_CONFIRME = "oui-reproduction-jetable"
 node tests/manuel/essai-postgrest-idempotence.js
+```
+
+`ConvertFrom-SecureString -AsPlainText` demande **PowerShell 7 ou plus**
+(`pwsh`). Sous Windows PowerShell 5.1, la même lecture sans écho s'écrit :
+
+```powershell
+$s = Read-Host "cle du projet d essai" -AsSecureString
+$env:ESSAI_SB_KEY = [Runtime.InteropServices.Marshal]::PtrToStringBSTR([Runtime.InteropServices.Marshal]::SecureStringToBSTR($s))
+Remove-Variable s
 ```
 
 ```powershell

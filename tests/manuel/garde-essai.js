@@ -21,9 +21,13 @@
         service est refusée, sauf ESSAI_ROLE_SERVICE=oui — et le banc le
         journalise alors en clair.
      7. la base doit porter la table marqueur zz_essai_notifications, qui
-        n'existe que sur la reproduction, et aucune ligne de `leads` ne doit
-        avoir une adresse hors .invalid. Une seule adresse réelle arrête tout :
-        c'est le verrou qui protège contre la purge.
+        n'existe que sur la reproduction, et CHAQUE ligne de `leads` doit être
+        une donnée réservée à cette recette : une adresse
+        essai-<scenario>@example.invalid, écrite par ces bancs. Le suffixe
+        .invalid ne suffit pas à désigner une ligne supprimable — une ligne
+        .invalid venue d'un autre essai, ou une ligne sans adresse, arrête tout
+        aussi sûrement qu'une adresse réelle. C'est le verrou qui protège
+        contre la purge, et la purge elle-même ne porte que sur ces lignes.
    ============================================================ */
 
 // Base de production du site. Jamais touchée par un banc d'essai.
@@ -34,6 +38,20 @@ const REF_TEST = 'wzuvyztsohdvarxsixce';
 const MARQUEUR = 'zz_essai_notifications';
 // Au-delà, ce n'est manifestement pas une reproduction jetable.
 const MAX_LIGNES = 200;
+/* Les adresses que ces bancs écrivent, et les SEULES lignes qu'ils peuvent
+   supprimer. Le suffixe .invalid ne vaut pas marqueur : une reproduction du
+   CRM, l'essai d'un autre chantier ou une saisie à la main peuvent aussi être
+   en .invalid sans appartenir à cette recette. Le marqueur, c'est cette
+   convention de nommage, portée par les bancs eux-mêmes. */
+const MOTIF_RESERVE = /^essai-[a-z0-9._-]{1,48}@example\.invalid$/;
+/* Le même motif, écrit pour PostgREST. Il borne le DELETE : une ligne apparue
+   entre le contrôle du décor et la purge ne peut pas être emportée. */
+const FILTRE_RESERVES = 'email=ilike.essai-*@example.invalid';
+
+/* Vrai si cette adresse est une donnée réservée à cette recette. */
+function estReserve(email) {
+  return MOTIF_RESERVE.test(String(email || '').trim().toLowerCase());
+}
 
 class RefusEssai extends Error {}
 
@@ -158,19 +176,37 @@ async function verifierDecor(ctx, fetchReel) {
     );
   }
 
-  const reelles = lignes.filter((l) => {
-    const e = String((l && l.email) || '').toLowerCase();
-    return e !== '' && !/\.invalid$/.test(e);
-  }).length;
-  if (reelles > 0) {
+  /* Classement de CHAQUE ligne. Seules les lignes réservées à cette recette
+     sont supprimables ; tout le reste arrête le banc avant la première purge.
+     Aucune adresse n'est journalisée : on ne compte que les catégories. */
+  let reservees = 0;
+  let autresInvalid = 0;
+  let sansAdresse = 0;
+  let possiblementReelles = 0;
+  for (const l of lignes) {
+    const e = String((l && l.email) || '').trim().toLowerCase();
+    if (e === '') { sansAdresse += 1; continue; }
+    if (estReserve(e)) { reservees += 1; continue; }
+    if (/\.invalid$/.test(e)) { autresInvalid += 1; continue; }
+    possiblementReelles += 1;
+  }
+
+  if (possiblementReelles > 0) {
     refuser(
-      '`leads` contient ' + reelles + ' ligne(s) dont l\'adresse n\'est pas en .invalid.',
-      'Ces bancs purgent la table : ils s\'arrêtent plutôt que de supprimer une demande qui pourrait être réelle. Vider la table à la main si elle est bien jetable.'
+      '`leads` contient ' + possiblementReelles + ' ligne(s) dont l\'adresse n\'est pas en .invalid : elles pourraient être réelles.',
+      'Ces bancs purgent la table : ils s\'arrêtent plutôt que de supprimer une demande de client. Si cette base est bien jetable, la vider à la main.'
+    );
+  }
+  if (autresInvalid > 0 || sansAdresse > 0) {
+    refuser(
+      '`leads` contient ' + (autresInvalid + sansAdresse) + ' ligne(s) qui ne sont pas réservées à cette recette ('
+        + autresInvalid + ' adresse(s) en .invalid hors motif, ' + sansAdresse + ' sans adresse).',
+      'Le motif réservé est ' + String(MOTIF_RESERVE) + '. Une adresse en .invalid ne suffit pas : ces lignes viennent d\'ailleurs, et ces bancs ne suppriment pas ce qu\'ils n\'ont pas écrit. Les retirer à la main, ou monter un décor neuf.'
     );
   }
 
-  console.log('[garde] projet ' + ctx.ref + ', rôle ' + ctx.role + ', ' + lignes.length + ' ligne(s) dans `leads`, toutes en .invalid. Décor conforme.');
-  return { lignes: lignes.length };
+  console.log('[garde] projet ' + ctx.ref + ', rôle ' + ctx.role + ', ' + lignes.length + ' ligne(s) dans `leads`, toutes réservées à cette recette. Décor conforme.');
+  return { lignes: lignes.length, reservees: reservees };
 }
 
 /* Un fetch qui ne laisse sortir QUE les requêtes vers le projet d'essai.
@@ -188,12 +224,43 @@ function fetchCloisonne(ctx, fetchReel, routes) {
   };
 }
 
+/* Pose les variables dont les handlers ont besoin, et rend une fonction qui
+   remet l'environnement EXACTEMENT comme il était : valeur d'origine, ou
+   absence d'origine. À appeler dans un `finally`, pour qu'un essai interrompu
+   ne laisse derrière lui ni URL, ni clé de service, ni drapeau d'idempotence.
+   Aucune valeur n'est journalisée : seuls les NOMS des variables le sont. */
+function poserEnvironnement(env, valeurs, aSupprimer) {
+  const avant = new Map();
+  const noter = (nom) => {
+    if (!avant.has(nom)) {
+      avant.set(nom, Object.prototype.hasOwnProperty.call(env, nom) ? env[nom] : undefined);
+    }
+  };
+  const posees = valeurs || {};
+  for (const nom of Object.keys(posees)) { noter(nom); env[nom] = posees[nom]; }
+  for (const nom of (aSupprimer || [])) { noter(nom); delete env[nom]; }
+  return function restaurer() {
+    const noms = [];
+    for (const paire of avant) {
+      const nom = paire[0];
+      const valeur = paire[1];
+      if (valeur === undefined) delete env[nom]; else env[nom] = valeur;
+      noms.push(nom);
+    }
+    console.log('[garde] environnement remis en etat : ' + noms.join(', '));
+  };
+}
+
 module.exports = {
   RefusEssai: RefusEssai,
   REFS_INTERDITES: REFS_INTERDITES,
   REF_TEST: REF_TEST,
   MARQUEUR: MARQUEUR,
   MAX_LIGNES: MAX_LIGNES,
+  MOTIF_RESERVE: MOTIF_RESERVE,
+  FILTRE_RESERVES: FILTRE_RESERVES,
+  estReserve: estReserve,
+  poserEnvironnement: poserEnvironnement,
   roleDeLaCle: roleDeLaCle,
   roleEstPublic: roleEstPublic,
   verifierEnvironnement: verifierEnvironnement,

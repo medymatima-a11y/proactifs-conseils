@@ -11,7 +11,9 @@
      N. et si le trigger était SYNCHRONE ? Son échec annulerait l'insertion.
 
    ⚠️ Il ÉCRIT et SUPPRIME. Verrous dans garde-essai.js : production refusée
-   sans condition, et une seule adresse hors .invalid arrête tout.
+   sans condition, et une seule ligne de `leads` qui n'est pas réservée à cette
+   recette arrête tout - une adresse en .invalid n'y suffit pas. La purge ne
+   porte que sur ces lignes réservées.
 
    Aucun service externe n'est appelé : tout hôte autre que le projet d'essai
    lève une erreur.
@@ -56,15 +58,24 @@ async function sbGet(c) {
   if (!r.ok) throw new Error('lecture ' + c + ' : ' + r.status + ' ' + (await r.text()));
   return r.json();
 }
+/* Le DELETE sur `leads` est BORNÉ aux lignes réservées à cette recette : une
+   ligne arrivée entre le contrôle du décor et la purge n'est pas emportée.
+   `zz_essai_notifications` n'existe que sur la reproduction : elle part en
+   entier. */
+const CIBLES_PURGE = [
+  { table: 'zz_essai_notifications', filtre: 'id=not.is.null' },
+  { table: 'leads', filtre: garde.FILTRE_RESERVES },
+];
+
 async function purge() {
-  for (const t of ['zz_essai_notifications', 'leads']) {
-    await vraiFetch(SB_URL + '/rest/v1/' + t + '?id=not.is.null', { method: 'DELETE', headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY, Prefer: 'return=minimal' } });
+  for (const c of CIBLES_PURGE) {
+    await vraiFetch(SB_URL + '/rest/v1/' + c.table + '?' + c.filtre, { method: 'DELETE', headers: { apikey: SB_KEY, Authorization: 'Bearer ' + SB_KEY, Prefer: 'return=minimal' } });
   }
-  for (const t of ['leads', 'zz_essai_notifications']) {
-    const reste = await sbGet(t + '?select=id');
+  for (const c of CIBLES_PURGE) {
+    const reste = await sbGet(c.table + '?select=id&' + c.filtre);
     if (reste.length) {
       throw new Error(
-        'purge inefficace sur ' + t + ' : ' + reste.length + ' ligne(s).\n' +
+        'purge inefficace sur ' + c.table + ' : ' + reste.length + ' ligne(s) réservée(s).\n' +
         '  → les politiques d\'essai DELETE pour anon sont-elles en place ? Voir tests/manuel/README.md.'
       );
     }
@@ -95,80 +106,99 @@ function corps(k, email) {
 (async () => {
   await garde.verifierDecor(ctx, vraiFetch);
 
-  process.env.SUPABASE_URL = SB_URL;
-  process.env.SUPABASE_SERVICE_KEY = SB_KEY;
-  process.env.SUBSCRIBE_IDEMPOTENCY = 'on';
-  delete process.env.SUBSCRIBE_TURNSTILE_SECRET;
-  delete process.env.SYSTEME_API_KEY;
-  delete process.env.BREVO_API_KEY;
-  delete process.env.BREVO_LIST_ID_MARKETING;
+  /* Variables posées par la garde, qui rend de quoi remettre l'environnement
+     exactement comme il était. Le `finally` plus bas l'appelle quoi qu'il
+     arrive, et remet aussi le trigger en mode `normal` : un essai interrompu
+     au scénario N laisserait sinon la reproduction en `leve_exception`. */
+  const restaurerEnv = garde.poserEnvironnement(process.env, {
+    SUPABASE_URL: SB_URL,
+    SUPABASE_SERVICE_KEY: SB_KEY,
+    SUBSCRIBE_IDEMPOTENCY: 'on',
+  }, [
+    'SUBSCRIBE_TURNSTILE_SECRET',
+    'SYSTEME_API_KEY',
+    'BREVO_API_KEY',
+    'BREVO_LIST_ID_MARKETING',
+  ]);
 
-  const PAR = Number(process.env.ESSAI_PARALLELE || 8);
-  const TOURS = Number(process.env.ESSAI_TOURS || 6);
-  let doublons = 0;
-  let cinqCents = 0;
-  const autres = [];
-  const tours = [];
+  try { // essais - tout ce qui suit est demonte dans le finally
 
-  await mode('normal');
-  await purge();
-  for (let t = 0; t < TOURS; t += 1) {
-    const k = ('contention-' + t + '-ABCDEFGHIJKLMNOPQRSTUVWXYZ').slice(0, 34);
-    const lots = [];
-    for (let i = 0; i < PAR; i += 1) lots.push(appel(corps(k, 'essai-contention@example.invalid')));
-    const r = await Promise.all(lots);
-    const lignes = await sbGet('leads?select=id&idempotency_key=eq.' + encodeURIComponent(k));
-    const journal = await sbGet('zz_essai_notifications?select=lead_id');
-    const codes = {};
-    for (const x of r) {
-      const c = x.statut + (x.rejeu ? '/rejeu' : '');
-      codes[c] = (codes[c] || 0) + 1;
-      if (x.statut >= 500) cinqCents += 1;
-      else if (x.statut !== 200) autres.push(x.statut);
-    }
-    if (lignes.length !== 1) doublons += 1;
-    tours.push({ tour: t, lignes: lignes.length, journal: journal.length, codes: codes });
+    const PAR = Number(process.env.ESSAI_PARALLELE || 8);
+    const TOURS = Number(process.env.ESSAI_TOURS || 6);
+    let doublons = 0;
+    let cinqCents = 0;
+    const autres = [];
+    const tours = [];
+
+    await mode('normal');
     await purge();
+    for (let t = 0; t < TOURS; t += 1) {
+      const k = ('contention-' + t + '-ABCDEFGHIJKLMNOPQRSTUVWXYZ').slice(0, 34);
+      const lots = [];
+      for (let i = 0; i < PAR; i += 1) lots.push(appel(corps(k, 'essai-contention@example.invalid')));
+      const r = await Promise.all(lots);
+      const lignes = await sbGet('leads?select=id&idempotency_key=eq.' + encodeURIComponent(k));
+      const journal = await sbGet('zz_essai_notifications?select=lead_id');
+      const codes = {};
+      for (const x of r) {
+        const c = x.statut + (x.rejeu ? '/rejeu' : '');
+        codes[c] = (codes[c] || 0) + 1;
+        if (x.statut >= 500) cinqCents += 1;
+        else if (x.statut !== 200) autres.push(x.statut);
+      }
+      if (lignes.length !== 1) doublons += 1;
+      tours.push({ tour: t, lignes: lignes.length, journal: journal.length, codes: codes });
+      await purge();
+    }
+    console.log('L — contention sur l index : ' + TOURS + ' tours de ' + PAR + ' appels simultanes, meme cle');
+    for (const t of tours) console.log('   tour ' + t.tour + ' : ' + t.lignes + ' ligne, ' + t.journal + ' entrees de journal, reponses ' + JSON.stringify(t.codes));
+    console.log('   tours avec doublon : ' + doublons + ' / ' + TOURS + '   reponses 5xx : ' + cinqCents + '   autres codes : ' + JSON.stringify(autres));
+    console.log('');
+
+    /* M — notification NON livrée. Modélise un appel pg_net parti après le
+       commit et tombé en erreur (cf. net._http_response). */
+    await purge();
+    await mode('echec_confirmation');
+    const KM = 'livraison-ABCDEFGHIJKLMNOPQRSTUV';
+    const m1 = await appel(corps(KM, 'essai-livraison@example.invalid'));
+    const jm1 = await sbGet('zz_essai_notifications?select=canal,resultat&order=id.asc');
+    const m2 = await appel(corps(KM, 'essai-livraison@example.invalid'));
+    const jm2 = await sbGet('zz_essai_notifications?select=canal,resultat&order=id.asc');
+    const lm = await sbGet('leads?select=id');
+    console.log('M — notification en echec, puis rejeu');
+    console.log('   1er appel  : ' + m1.statut + (m1.rejeu ? ' rejeu' : '') + ' ; ' + lm.length + ' ligne ; journal ' + JSON.stringify(jm1));
+    console.log('   rejeu      : ' + m2.statut + (m2.rejeu ? ' rejeu' : '') + ' ; journal inchange = ' + String(JSON.stringify(jm1) === JSON.stringify(jm2)));
+    console.log('   => la demande est enregistree, la confirmation est perdue, et rien ne la retente.');
+    console.log('      Reprise manuelle : docs/REPRISE-NOTIFICATIONS-LEADS.md');
+    console.log('');
+
+    /* N — trigger SYNCHRONE qui échoue : l'insertion est annulée. */
+    await purge();
+    await mode('leve_exception');
+    const KN = 'synchrone-ABCDEFGHIJKLMNOPQRSTUV';
+    const n1 = await appel(corps(KN, 'essai-synchrone@example.invalid'));
+    const ln1 = await sbGet('leads?select=id');
+    await mode('normal');
+    const n2 = await appel(corps(KN, 'essai-synchrone@example.invalid'));
+    const ln2 = await sbGet('leads?select=id,idempotency_key');
+    console.log('N — trigger synchrone en erreur (hypothese extension http, pas pg_net)');
+    console.log('   1er appel  : ' + n1.statut + ' ; ' + ln1.length + ' ligne (transaction annulee, cle non consommee)');
+    console.log('   reessai    : ' + n2.statut + ' ; ' + ln2.length + ' ligne ; cle ' + JSON.stringify(ln2.map((x) => x.idempotency_key)));
+    console.log('   => avec un trigger synchrone, un echec de notification annule la demande ;');
+    console.log('      le dispositif ne la perd pas, mais il ne la sauve pas non plus.');
+
+  } finally {
+    /* Démontage, même après un échec : trigger remis en mode `normal`, lignes
+       réservées reprises, environnement restauré. Une erreur de démontage est
+       signalée, jamais substituée à l'erreur d'origine. */
+    try {
+      await mode('normal');
+      await purge();
+    } catch (e) {
+      console.error('[demontage] remise en etat impossible : ' + ((e && e.message) || e));
+    }
+    restaurerEnv();
   }
-  console.log('L — contention sur l index : ' + TOURS + ' tours de ' + PAR + ' appels simultanes, meme cle');
-  for (const t of tours) console.log('   tour ' + t.tour + ' : ' + t.lignes + ' ligne, ' + t.journal + ' entrees de journal, reponses ' + JSON.stringify(t.codes));
-  console.log('   tours avec doublon : ' + doublons + ' / ' + TOURS + '   reponses 5xx : ' + cinqCents + '   autres codes : ' + JSON.stringify(autres));
-  console.log('');
-
-  /* M — notification NON livrée. Modélise un appel pg_net parti après le
-     commit et tombé en erreur (cf. net._http_response). */
-  await purge();
-  await mode('echec_confirmation');
-  const KM = 'livraison-ABCDEFGHIJKLMNOPQRSTUV';
-  const m1 = await appel(corps(KM, 'essai-livraison@example.invalid'));
-  const jm1 = await sbGet('zz_essai_notifications?select=canal,resultat&order=id.asc');
-  const m2 = await appel(corps(KM, 'essai-livraison@example.invalid'));
-  const jm2 = await sbGet('zz_essai_notifications?select=canal,resultat&order=id.asc');
-  const lm = await sbGet('leads?select=id');
-  console.log('M — notification en echec, puis rejeu');
-  console.log('   1er appel  : ' + m1.statut + (m1.rejeu ? ' rejeu' : '') + ' ; ' + lm.length + ' ligne ; journal ' + JSON.stringify(jm1));
-  console.log('   rejeu      : ' + m2.statut + (m2.rejeu ? ' rejeu' : '') + ' ; journal inchange = ' + String(JSON.stringify(jm1) === JSON.stringify(jm2)));
-  console.log('   => la demande est enregistree, la confirmation est perdue, et rien ne la retente.');
-  console.log('      Reprise manuelle : docs/REPRISE-NOTIFICATIONS-LEADS.md');
-  console.log('');
-
-  /* N — trigger SYNCHRONE qui échoue : l'insertion est annulée. */
-  await purge();
-  await mode('leve_exception');
-  const KN = 'synchrone-ABCDEFGHIJKLMNOPQRSTUV';
-  const n1 = await appel(corps(KN, 'essai-synchrone@example.invalid'));
-  const ln1 = await sbGet('leads?select=id');
-  await mode('normal');
-  const n2 = await appel(corps(KN, 'essai-synchrone@example.invalid'));
-  const ln2 = await sbGet('leads?select=id,idempotency_key');
-  console.log('N — trigger synchrone en erreur (hypothese extension http, pas pg_net)');
-  console.log('   1er appel  : ' + n1.statut + ' ; ' + ln1.length + ' ligne (transaction annulee, cle non consommee)');
-  console.log('   reessai    : ' + n2.statut + ' ; ' + ln2.length + ' ligne ; cle ' + JSON.stringify(ln2.map((x) => x.idempotency_key)));
-  console.log('   => avec un trigger synchrone, un echec de notification annule la demande ;');
-  console.log('      le dispositif ne la perd pas, mais il ne la sauve pas non plus.');
-
-  await mode('normal');
-  await purge();
 })().catch((e) => {
   if (e instanceof garde.RefusEssai) { console.error('\n' + e.message + '\n'); process.exit(2); }
   console.error('ESSAI INTERROMPU :', (e && e.stack) || e);
