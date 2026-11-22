@@ -11,6 +11,18 @@
   var BREVO_KEY = 'd0aqzyj88l6bfuhczwn7zv35';
   var loaded = { gtag: false, brevo: false };
 
+  /* Hôtes autorisés à collecter. Reprend la forme de RSU_PROD_HOSTS /
+     RSU_TRANSMISSION_ACTIVE de fiscalite-rsu-stock-options.html : liste
+     explicite, comparaison EXACTE sur location.hostname, aucun motif — un
+     « se termine par proactifsconseils.fr » laisserait passer les alias de
+     Preview. Ailleurs (localhost, 127.0.0.1, *.vercel.app, tout autre
+     domaine), gtag.js n'est jamais chargé : ni GA4, ni conversions Ads.
+     Toute anomalie de lecture vaut refus. */
+  var MESURE_HOSTS = ['proactifsconseils.fr', 'www.proactifsconseils.fr'];
+  function hoteAutoriseMesure() {
+    try { return MESURE_HOSTS.indexOf(location.hostname) !== -1; } catch (e) { return false; }
+  }
+
   function read() {
     try {
       var m = document.cookie.match(/(?:^|;\s*)pc_consent=([^;]+)/);
@@ -54,7 +66,10 @@
       }
       Array.prototype.splice.apply(dl, [at, 0].concat(upd));
     }
-    if ((c.a || c.m) && !loaded.gtag) {
+    // Le consentement reste la première condition ; la garde d'hôte s'y ajoute,
+    // elle ne la remplace pas. Un visiteur de Production qui refuse n'envoie
+    // toujours rien.
+    if ((c.a || c.m) && !loaded.gtag && hoteAutoriseMesure()) {
       loaded.gtag = true;
       addScript('https://www.googletagmanager.com/gtag/js?id=' + GA_ID);
     }

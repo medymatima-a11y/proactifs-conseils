@@ -2428,6 +2428,11 @@ async function wizSubmit() {
 
   let ok = false;
   let errStage = '';
+  // Code HTTP de la réponse serveur, pour distinguer un 400 « jeton absent »
+  // d'un 403 anti-robot ou d'un 500. Reste null si le fetch n'a jamais abouti :
+  // le paramètre est alors ABSENT de l'événement plutôt que porteur d'une
+  // valeur sentinelle, qui polluerait les agrégations numériques de GA4.
+  let httpStatus = null;
   try {
     const _srcMap = {
       impots:       'Quiz Fiscalité',
@@ -2463,7 +2468,7 @@ async function wizSubmit() {
       }),
     });
     ok = res.ok;
-    if (!ok) errStage = 'server_rejected';
+    if (!ok) { errStage = 'server_rejected'; httpStatus = res.status; }
   } catch(e) {
     console.warn('Subscribe error:', e);
     ok = false;
@@ -2475,7 +2480,13 @@ async function wizSubmit() {
     // Un jeton anti-robot ne vaut qu'une fois : on le régénère pour que la
     // nouvelle tentative du visiteur puisse aboutir.
     if (window.ProactifsCaptcha) window.ProactifsCaptcha.reset();
-    wizTrack('diagnostic_error', Object.assign(wizTrackBase(), { error_stage: errStage || 'server_rejected' }));
+    // Seul un entier est transmis : jamais le message serveur, jamais une URL,
+    // jamais un contenu de formulaire.
+    wizTrack('diagnostic_error', Object.assign(
+      wizTrackBase(),
+      { error_stage: errStage || 'server_rejected' },
+      (typeof httpStatus === 'number' ? { http_status: httpStatus } : {})
+    ));
     if (errEl) {
       errEl.textContent = "Une erreur est survenue lors de l'envoi. Vos informations n'ont pas été transmises. Veuillez réessayer.";
       errEl.style.display = 'block';
