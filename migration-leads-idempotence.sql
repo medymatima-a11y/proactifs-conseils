@@ -45,6 +45,45 @@
 -- ne peut alors pas l'inférer (« no unique or exclusion constraint matching
 -- the ON CONFLICT specification »). D'où l'index total.
 --
+-- ══════════════════════════════════════════════════════════
+-- ⚠️ PRÉALABLES À L'ACTIVATION EN PRODUCTION
+--
+-- Aucun des trois n'est fait au 22/11/2026. Tant qu'ils ne le sont pas, ce
+-- fichier ne doit pas être appliqué en production et SUBSCRIBE_IDEMPOTENCY ne
+-- doit pas être créée. Les essais ont porté sur une REPRODUCTION de `leads`
+-- (voir plus bas) : ils établissent la sémantique, pas la conformité du
+-- schéma réel.
+--
+--   A. INSPECTER LA BASE DE PRODUCTION
+--      - schéma réel de public.leads : toutes ses colonnes, leurs types, leurs
+--        contraintes NOT NULL et DEFAULT. La reproduction n'a que les colonnes
+--        qu'écrit le site et que lit le CRM ; une colonne NOT NULL sans défaut
+--        ferait échouer toute insertion ;
+--      - index existants : vérifier qu'aucun index ne porte déjà sur
+--        idempotency_key, et mesurer le coût de création de l'index unique sur
+--        le volume réel (create unique index CONCURRENTLY si la table est
+--        grosse et l'écriture continue) ;
+--      - corps réel de public.notify_new_lead() : aucun fichier du dépôt ne le
+--        définit. Lire la fonction en base. S'il utilise pg_net, un échec
+--        d'envoi ne peut pas annuler l'insertion ; s'il appelle en SYNCHRONE
+--        (extension http), un échec ANNULE la demande. Les deux comportements
+--        ont été mesurés, et ils ne se valent pas ;
+--      - autres triggers et autres écrivains de `leads` (imports, Make.com,
+--        /api/estimation) : vérifier qu'aucun n'écrirait idempotency_key.
+--
+--   B. ÉPROUVER LE PARCOURS AVEC LE RÔLE DE SERVICE
+--      Les essais ont utilisé la clé anon, avec des politiques RLS ajoutées
+--      pour l'occasion. La production écrit avec SUPABASE_SERVICE_KEY, qui
+--      contourne RLS : le comportement de `resolution=ignore-duplicates` et de
+--      `return=representation` doit être reconfirmé avec ce rôle, sur une
+--      reproduction fidèle du schéma relevé en A.
+--      tests/manuel/README.md explique comment (ESSAI_ROLE_SERVICE=oui).
+--
+--   C. SÉQUENCE D'ACTIVATION, dans cet ordre et pas un autre
+--      migration → création de la variable → redéploiement.
+--      Détail ci-dessous.
+-- ══════════════════════════════════════════════════════════
+--
 -- ⚠️ ORDRE DE DÉPLOIEMENT, IMPÉRATIF
 --   1. Déployer le code. La variable SUBSCRIBE_IDEMPOTENCY n'existe pas encore,
 --      donc la clé reçue est ignorée et aucune colonne nouvelle n'est écrite :
@@ -145,7 +184,9 @@ comment on column public.leads.payload_fingerprint is
 -- REPRODUCTION SUR TEST, ET CE QU'ELLE A MONTRÉ (22/11/2026)
 --
 -- `public.leads` n'existait pas sur TEST. Une reproduction y a donc été créée,
--- sans copier aucune donnée de production :
+-- sans copier aucune donnée de production. Elle est versionnée :
+-- tests/manuel/reproduction-leads-TEST.sql, et tests/manuel/README.md dit
+-- comment rejouer les bancs d'essai. En résumé :
 --   - colonnes : id uuid (gen_random_uuid), created_at, prenom, nom, email,
 --     telephone, source, situation, preoccupation, reponses jsonb, statut,
 --     client_id, date_conversion. Établies par recoupement de ce que le site
