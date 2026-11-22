@@ -751,6 +751,21 @@
           "url": "/blog"
         }
       ]
+    },
+    {
+      "file": "blog/retraite-micro-entrepreneur-economies-impot-2026.html",
+      "url": "/blog/retraite-micro-entrepreneur-economies-impot-2026",
+      "label": "Retraite micro-entrepreneur : économies d'impôt 2026",
+      "trail": [
+        {
+          "label": "Accueil",
+          "url": "/"
+        },
+        {
+          "label": "Blog",
+          "url": "/blog"
+        }
+      ]
     }
   ]
 }
