@@ -554,9 +554,13 @@ test('guide : Supabase en échec après captcha valide — 500, aucun marketing'
 test("guide : la vérification anti-robot précède l'insertion dans leads", () => {
   const src = read('api/subscribe-guide.js');
   const posCaptcha = src.indexOf('const captcha = turnstileState(');
-  const posInsert = src.indexOf('/rest/v1/leads');
+  // L'écriture dans `leads` passe désormais par insererLead(), point d'entrée
+  // unique partagé avec /api/subscribe (il porte la clé d'idempotence).
+  const posInsert = src.indexOf('await insererLead(');
   const posSysteme = src.indexOf('SYSTEME_API,');
   assert.ok(posCaptcha > 0 && posInsert > 0 && posSysteme > 0);
+  assert.ok(!src.includes('/rest/v1/leads'),
+    'aucune écriture directe ne doit subsister ici : une seule implémentation');
   assert.ok(posCaptcha < posInsert, "le captcha doit être contrôlé avant l'insertion");
   assert.ok(posCaptcha < posSysteme, 'le captcha doit être contrôlé avant tout appel marketing');
   assert.ok(src.includes("status(400).json({ error: 'Vérification anti-robot manquante.' })"), 'code 400 non aligné sur /api/subscribe');

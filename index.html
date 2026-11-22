@@ -2447,25 +2447,32 @@ async function wizSubmit() {
     };
     const reponses = {};
     answersLabels.forEach((a, i) => { reponses['q' + (i + 1)] = a; });
+    const corpsDemande = {
+      prenom,
+      nom,
+      email,
+      tel,
+      situation,
+      service:       wizService,
+      source:        _srcMap[wizService] || 'Quiz Homepage',
+      preoccupation: _preoccupation,
+      reponses,
+      captchaToken:  window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
+      hp:            window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '',
+      // Case facultative : son état est transmis, il ne bloque rien.
+      consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
+      consentVersion:   'marketing-consent-v1',
+    };
+    /* Clé d'idempotence : le serveur n'enregistre qu'une fois par clé. Une
+       réponse perdue en route puis réessayée ne crée donc pas un second lead,
+       ni le second email de confirmation qui va avec. Le jeton anti-robot est
+       exclu de l'empreinte — il est régénéré à chaque tentative. Détail du
+       cycle de vie de la clé : assets/js/idempotence.js. */
+    if (window.ProactifsIdem) corpsDemande.idempotencyKey = window.ProactifsIdem.cle('subscribe:accueil', corpsDemande);
     const res = await fetch('/api/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        prenom,
-        nom,
-        email,
-        tel,
-        situation,
-        service:       wizService,
-        source:        _srcMap[wizService] || 'Quiz Homepage',
-        preoccupation: _preoccupation,
-        reponses,
-        captchaToken:  window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
-        hp:            window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '',
-        // Case facultative : son état est transmis, il ne bloque rien.
-        consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
-        consentVersion:   'marketing-consent-v1',
-      }),
+      body: JSON.stringify(corpsDemande),
     });
     ok = res.ok;
     if (!ok) { errStage = 'server_rejected'; httpStatus = res.status; }
@@ -2496,6 +2503,13 @@ async function wizSubmit() {
   }
 
   // ── Succès Supabase confirmé uniquement ──
+  /* La demande est enregistrée : la clé d'idempotence a fait son office et
+     n'a plus de raison d'être. L'oublier garantit qu'une NOUVELLE demande
+     volontaire, même à contenu identique, reçoive une clé neuve et soit bien
+     enregistrée. Ne jamais oublier sur un échec : c'est là que la clé doit
+     survivre pour que le réessai ne crée pas de doublon. */
+  if (window.ProactifsIdem) window.ProactifsIdem.oublier('subscribe:accueil');
+
   // Google Analytics / Ads conversion tracking
   // Le nom d'event matche la conversion "Formulaire" reliée à Google Ads
   // via GA4 (Objectifs → Conversions → action "Formulaire", source GA4).
@@ -2758,6 +2772,7 @@ document.addEventListener('click', function(e){
   });
 })();
 </script>
+<script src="/assets/js/idempotence.js" defer></script>
 <script src="/assets/js/subscribe-captcha.js" defer></script>
 <script src="/assets/js/navigation.js" defer></script>
 </body>

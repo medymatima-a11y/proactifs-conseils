@@ -26,7 +26,13 @@
 const SYSTEME_API = 'https://api.systeme.io/api/contacts';
 // Constantes et fonctions partagées : une seule source de vérité pour le
 // libellé de consentement comme pour la vérification anti-robot.
-const { CONSENT_VERSION, CONSENT_TEXTS, turnstileState, verifyCaptcha } = require('./subscribe.js').__internals;
+const {
+  CONSENT_VERSION, CONSENT_TEXTS, turnstileState, verifyCaptcha,
+  // Idempotence : même clé, même empreinte, même point d'écriture que
+  // /api/subscribe. Voir le bloc « Idempotence » de api/subscribe.js pour le
+  // raisonnement complet et l'ordre de déploiement.
+  idempotenceState, empreinteCharge, insererLead, IDEM_KEY_RE,
+} = require('./subscribe.js').__internals;
 
 function preuveConsentement(body, source, hote) {
   const versionIn = String(body.consentVersion ?? '').trim();
@@ -100,35 +106,56 @@ module.exports = async (req, res) => {
      La demande arrive TOUJOURS dans le CRM dès lors que la vérification
      anti-robot est passée — que le consentement marketing soit donné,
      refusé ou non recueilli. */
-  try {
-    const sbRes = await fetch(`${supabaseUrl}/rest/v1/leads`, {
-      method: 'POST',
-      headers: {
-        'apikey': supabaseKey,
-        'Authorization': `Bearer ${supabaseKey}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal',
-      },
-      body: JSON.stringify({
-        prenom:        (prenom || '').trim(),
-        nom:           null,
-        email:         email.trim().toLowerCase(),
-        telephone:     null,
-        source:        SOURCE,
-        situation:     null,
-        preoccupation: null,
-        reponses:      { consentement },
-        statut:        'nouveau',
-      }),
-    });
-    if (!sbRes.ok) {
-      const sbErr = await sbRes.text();
-      console.error('Supabase INSERT error:', sbRes.status, sbErr);
-      return res.status(500).json({ error: 'Erreur enregistrement' });
+  const record = {
+    prenom:        (prenom || '').trim(),
+    nom:           null,
+    email:         email.trim().toLowerCase(),
+    telephone:     null,
+    source:        SOURCE,
+    situation:     null,
+    preoccupation: null,
+    reponses:      { consentement },
+    statut:        'nouveau',
+  };
+
+  /* Clé d'idempotence : ici l'enjeu est aussi l'email de livraison du guide.
+     Un rejeu qui créerait une seconde ligne redéclencherait le trigger, donc
+     un second email de confirmation pour un seul téléchargement demandé. */
+  const idem = idempotenceState(process.env);
+  let cleIdem = null;
+  let empreinte = null;
+  if (idem.active) {
+    const brut = String(body.idempotencyKey || '').trim();
+    if (brut) {
+      if (!IDEM_KEY_RE.test(brut)) {
+        console.warn('subscribe-guide: cle d\'idempotence malformee', { longueur: brut.length });
+        return res.status(400).json({ error: 'Requête refusée.' });
+      }
+      cleIdem = brut;
+      empreinte = empreinteCharge(record);
     }
+  }
+
+  let issue;
+  try {
+    issue = await insererLead({ supabaseUrl, supabaseKey, record, cle: cleIdem, empreinte });
   } catch (e) {
     console.error('Supabase fetch error:', e.message);
     return res.status(500).json({ error: 'Erreur serveur' });
+  }
+  if (issue.etat === 'erreur') {
+    console.error('Supabase INSERT error:', issue.statut, issue.detail);
+    return res.status(500).json({ error: 'Erreur enregistrement' });
+  }
+  if (issue.etat === 'conflit') {
+    console.warn('subscribe-guide: cle d\'idempotence reutilisee avec un contenu different');
+    return res.status(409).json({ error: 'Cette demande a déjà été enregistrée. Rechargez la page pour en adresser une nouvelle.' });
+  }
+  if (issue.etat === 'rejeu') {
+    /* Le guide a déjà été demandé avec cette clé : succès, aucune ligne de
+       plus, et le contact Systeme.io plus bas n'est pas rejoué. */
+    console.warn('subscribe-guide: rejeu reconnu, aucune ligne creee');
+    return res.status(200).json({ success: true, rejeu: true });
   }
 
   /* ── 3. Systeme.io (tags marketing) ─────────────────────────

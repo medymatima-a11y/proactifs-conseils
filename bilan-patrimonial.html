@@ -620,18 +620,30 @@
     var answers = message ? ['Informations complémentaires : ' + message] : [];
 
     try {
+      // Case facultative : son état est transmis, il ne bloque rien.
+      var corpsDemande = { prenom: prenom, nom: nom, email: email, tel: tel, situation: situation, service: service, answers: answers,
+        consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
+        captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
+        hp: window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '',
+        consentVersion: 'marketing-consent-v1' };
+      /* Clé d'idempotence : le serveur n'enregistre qu'une fois par clé. Une
+         réponse perdue en route puis réessayée ne crée donc pas un second lead,
+         ni le second email de confirmation qui va avec. Le jeton anti-robot est
+         exclu de l'empreinte — il est régénéré à chaque tentative. Détail du
+         cycle de vie de la clé : assets/js/idempotence.js. */
+      if (window.ProactifsIdem) corpsDemande.idempotencyKey = window.ProactifsIdem.cle('subscribe:bilan', corpsDemande);
       var res = await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        // Case facultative : son état est transmis, il ne bloque rien.
-        body: JSON.stringify({ prenom: prenom, nom: nom, email: email, tel: tel, situation: situation, service: service, answers: answers,
-          consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
-          captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
-          hp: window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '',
-          consentVersion: 'marketing-consent-v1' })
+        body: JSON.stringify(corpsDemande)
       });
 
       if (res.ok) {
+        /* Demande enregistrée : la clé d'idempotence n'a plus de raison d'être.
+           L'oublier garantit qu'une NOUVELLE demande volontaire, même à contenu
+           identique, reçoive une clé neuve. Jamais sur un échec : c'est là que
+           la clé doit survivre pour que le réessai ne crée pas de doublon. */
+        if (window.ProactifsIdem) window.ProactifsIdem.oublier('subscribe:bilan');
         // GA4 : generate_lead uniquement si le serveur confirme l'enregistrement ({ success: true })
         var data = null;
         try { data = await res.json(); } catch (_) { data = null; }
@@ -751,6 +763,7 @@
       document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
     });
   </script>
+<script src="/assets/js/idempotence.js" defer></script>
 <script src="/assets/js/subscribe-captcha.js" defer></script>
 <script>
   // Widget préparé au premier contact réel avec le formulaire : jeton frais

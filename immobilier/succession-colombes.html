@@ -862,25 +862,39 @@
 
       const reponses = { ville_bien: ville, nb_heritiers: heritiers, statut };
 
+      const corpsDemande = {
+        prenom, nom: '', email, tel,
+        service: 'succession',
+        source: 'Diagnostic Succession 360',
+        situation: statut,
+        preoccupation: 'Succession immobilière',
+        reponses,
+        captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
+        hp: window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '',
+        // Case facultative : son état est transmis, il ne bloque rien.
+        consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
+        consentVersion: 'marketing-consent-v1'
+      };
+      /* Clé d'idempotence : le serveur n'enregistre qu'une fois par clé. Une
+         réponse perdue en route puis réessayée ne crée donc pas un second lead,
+         ni le second email de confirmation qui va avec. Le jeton anti-robot est
+         exclu de l'empreinte — il est régénéré à chaque tentative. Détail du
+         cycle de vie de la clé : assets/js/idempotence.js. */
+      if (window.ProactifsIdem) corpsDemande.idempotencyKey = window.ProactifsIdem.cle('subscribe:succession', corpsDemande);
+
       try {
         const res = await fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            prenom, nom: '', email, tel,
-            service: 'succession',
-            source: 'Diagnostic Succession 360',
-            situation: statut,
-            preoccupation: 'Succession immobilière',
-            reponses,
-            captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
-            hp: window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '',
-            // Case facultative : son état est transmis, il ne bloque rien.
-            consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
-            consentVersion: 'marketing-consent-v1'
-          })
+          body: JSON.stringify(corpsDemande)
         });
         if (res.ok) {
+          /* Demande enregistrée : la clé d'idempotence n'a plus de raison
+             d'être. L'oublier garantit qu'une NOUVELLE demande volontaire, même
+             à contenu identique, reçoive une clé neuve. Jamais sur un échec :
+             c'est là que la clé doit survivre pour que le réessai du visiteur
+             ne crée pas de doublon. */
+          if (window.ProactifsIdem) window.ProactifsIdem.oublier('subscribe:succession');
           // ── Enregistrement confirmé par le serveur : conversion Google Ads ──
           // Même nom d'événement que les autres parcours (seul événement clé
           // actif dans GA4, relayé vers Ads par l'import). Ni `value` ni
@@ -936,7 +950,8 @@
       });
     }
   </script>
-  <script src="/assets/js/subscribe-captcha.js" defer></script>
+  <script src="/assets/js/idempotence.js" defer></script>
+<script src="/assets/js/subscribe-captcha.js" defer></script>
   <script src="/assets/js/navigation.js" defer></script>
 </body>
 </html>
