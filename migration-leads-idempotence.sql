@@ -1,11 +1,10 @@
 -- ══════════════════════════════════════════════════════════
 -- MIGRATION — clé d'idempotence sur public.leads
 --
--- TEST (wzuvyztsohdvarxsixce)       : NON APPLICABLE EN L'ÉTAT.
---   public.leads n'existe pas sur ce projet (vérifié le 22/11/2026 : la liste
---   des tables du schéma public ne la contient pas). Les répétitions ont donc
---   porté sur une table d'essai jetable reproduisant la structure utile, pas
---   sur `leads`. Voir « Répétition sur TEST » plus bas.
+-- TEST (wzuvyztsohdvarxsixce)       : APPLIQUÉE le 22/11/2026 sur une
+--   REPRODUCTION de public.leads créée pour l'occasion — la table n'existait pas
+--   sur ce projet. Forme, contraintes, politiques RLS et trigger reconstitués ;
+--   aucune donnée réelle n'a été copiée. Voir « Reproduction sur TEST » plus bas.
 -- PRODUCTION (ullnkylrixdvormohryl) : NON APPLIQUÉE. Relève du GO ROUGE.
 --
 -- Problème traité. Rien n'empêchait deux POST identiques de créer deux lignes
@@ -51,13 +50,31 @@
 --      donc la clé reçue est ignorée et aucune colonne nouvelle n'est écrite :
 --      comportement strictement inchangé, même sans cette migration.
 --   2. Appliquer ce fichier.
---   3. Créer SUBSCRIBE_IDEMPOTENCY=on. La protection devient active.
+--   3. Créer SUBSCRIBE_IDEMPOTENCY=on, PUIS redéployer. La protection devient
+--      active. (Vérifié absente des trois environnements du projet Vercel
+--      `proactifs-conseils` le 22/11/2026.)
 --   Inverser 2 et 3 casse les DIX formulaires du site : PostgREST refuserait
 --   l'insertion (PGRST204, colonne inconnue) et toute demande échouerait.
 --
--- Retour arrière. Retirer SUBSCRIBE_IDEMPOTENCY suffit, sans redéploiement et
--- sans toucher la base : les colonnes restent, inutilisées. Le retrait des
--- colonnes elles-mêmes figure en fin de fichier, et n'est pas nécessaire.
+-- Retour arrière. Il porte sur la variable, pas sur la base : les colonnes
+-- peuvent rester, inutilisées. Mais sur Vercel un changement de variable
+-- n'atteint PAS le déploiement en cours (voir « Vercel » ci-dessous) : il faut
+-- donc soit un Instant Rollback vers le déploiement précédent — construit sans
+-- la variable, donc sans le dispositif, et c'est le chemin immédiat —, soit
+-- retirer SUBSCRIBE_IDEMPOTENCY puis redéployer. Le retrait des colonnes
+-- elles-mêmes figure en fin de fichier, et n'est pas nécessaire.
+--
+-- ── Vercel : prise en compte des variables ────────────────
+-- « Changes to environment variables are not applied to previous deployments,
+-- they only apply to new deployments. You must redeploy your project to update
+-- the value of any variables you change in the deployment. »
+--   vercel.com/docs/environment-variables/managing-environment-variables
+--   (page datée du 11/09/2026, relue le 22/11/2026)
+-- Et au dépannage : « A change in the dashboard has no effect → […] The running
+-- deployment keeps the values it was built with. → Redeploy the project. »
+--   vercel.com/docs/environment-variables (17/09/2026, relue le 22/11/2026)
+-- Donc : créer comme retirer SUBSCRIBE_IDEMPOTENCY demande un redéploiement.
+-- Aucune étape de ce fichier ne suppose une prise en compte immédiate.
 --
 -- Idempotent : relançable sans erreur.
 -- ══════════════════════════════════════════════════════════
@@ -125,47 +142,80 @@ comment on column public.leads.payload_fingerprint is
 --   notify pgrst, 'reload schema';
 
 -- ══════════════════════════════════════════════════════════
--- RÉPÉTITION SUR TEST
+-- REPRODUCTION SUR TEST, ET CE QU'ELLE A MONTRÉ (22/11/2026)
 --
--- public.leads n'existant pas sur TEST, la migration n'y est pas applicable
--- telle quelle. Ce qui a été éprouvé le 22/11/2026, c'est la SÉMANTIQUE, sur
--- `public.zz_essai_idem` : mêmes colonnes, même index unique, mêmes
--- contraintes, et un trigger AFTER INSERT FOR EACH ROW écrivant dans un journal
--- — il tient le rôle de `notify_new_lead()`. On ne compte pas des emails, on
--- compte les déclenchements qui les produiraient.
+-- `public.leads` n'existait pas sur TEST. Une reproduction y a donc été créée,
+-- sans copier aucune donnée de production :
+--   - colonnes : id uuid (gen_random_uuid), created_at, prenom, nom, email,
+--     telephone, source, situation, preoccupation, reponses jsonb, statut,
+--     client_id, date_conversion. Établies par recoupement de ce que le site
+--     écrit (api/subscribe.js, subscribe-guide.js, estimation.js) et de ce que
+--     le CRM lit et met à jour (crm-interface.html) ;
+--   - RLS activée, politiques `leads_insert_public` (INSERT TO public) et
+--     `crm_leads_all` (authenticated, hors sessions anonymes), relevées en
+--     production le 05/10/2026 dans
+--     crm-proactifs/_branche-securite/securite-v2/tests/00-replique-locale.sql ;
+--   - trigger `on_new_lead_notify` AFTER INSERT FOR EACH ROW →
+--     `public.notify_new_lead()`, réécrite SANS appel réseau : elle journalise
+--     les trois canaux (notification interne, email de confirmation, liste
+--     Brevo 23) avec la même garde de consentement que la version corrigée en
+--     production le 11/11/2026 ;
+--   - puis ce fichier, appliqué tel quel.
+-- Les essais passent par le VRAI chemin : les handlers /api/subscribe et
+-- /api/subscribe-guide, PostgREST, l'index. Systeme.io et Brevo sont
+-- interceptés et n'ont jamais été appelés. Les adresses sont en .invalid.
 --
---   Essai                                      Lignes   Déclenchements
---   1  même clé, même empreinte, ×2              1            1
---      (l'insertion initiale rend 1 ligne, le rejeu en rend 0)
---   2  même clé, empreinte différente            1            1
---      (rien d'inséré ; la ligne reste 'Lea' / 'empreinte-A', intacte)
---   3  clés différentes, MÊME EMAIL              2            2
---      (les deux demandes légitimes de la même personne sont conservées)
---   4  deux écritures sans clé                   4            4
---      (les NULL restent distincts : imports et lignes anciennes passent)
---   5  deux connexions simultanées, même clé     1            1
---      (deux appels lancés ensemble, 1 s de recouvrement ; une seule a inséré)
---   6  même clé SANS clause ON CONFLICT          —            —
---      (erreur 23505 : c'est bien l'index qui refuse, pas une politesse du code)
---   7  clé malformée, puis clé sans empreinte    5            5
---      (les deux refusées par les contraintes CHECK — le total ne bouge pas)
+-- 27 scénarios, 0 échec. Les plus parlants :
+--   - insertion réussie puis réponse perdue, réessai même clé → 200
+--     { rejeu: true }, 1 ligne, 3 entrées de journal sur UN SEUL lead_id ;
+--   - 6 tours de 8 appels simultanés portant la même clé → chaque fois 1 ligne
+--     et 3 entrées ; réponses 1×200 + 7×200/rejeu ; 0 doublon, 0 erreur 5xx ;
+--   - même clé, contenu différent → 409, la ligne initiale intacte (prénom
+--     inchangé), aucun UPDATE ;
+--   - clé malformée → 400 et rien en base ; origine refusée → 403 et rien en
+--     base ; champ piège → 400 et rien en base ;
+--   - sans clé, ou variable absente → 2 lignes, clés NULL : chemin historique ;
+--   - Turnstile (clés d'essai publiées par Cloudflare) : même clé + jeton frais
+--     → 200 { rejeu: true } ; même clé + jeton déjà consommé → 403 au captcha,
+--     AVANT l'idempotence.
 --
--- Le nombre de déclenchements a suivi le nombre de lignes à chaque étape :
--- jamais un déclenchement sans ligne, donc jamais un email rejoué.
--- La table d'essai et son trigger ont été supprimés après vérification ; rien
--- ne subsiste sur TEST.
+-- ⚠️ DOUBLON ≠ LIVRAISON. Deux mesures le montrent :
+--   - canal de notification en échec après l'insertion : la demande reste
+--     enregistrée, la notification est perdue, et le rejeu ne la retente pas.
+--     Idem pour Systeme.io et Brevo : échec au premier appel, aucune reprise au
+--     rejeu (0 appel externe mesuré). Une notification manquée demande donc
+--     toujours une reprise manuelle ;
+--   - trigger rendu SYNCHRONE et mis en échec : l'insertion est annulée,
+--     réponse 500, 0 ligne, clé non consommée — un réessai enregistre
+--     normalement. Le dispositif ne perd pas la demande, mais ne la sauve pas.
+-- pg_net n'émet la requête qu'après le commit (« HTTP requests are not started
+-- until the transaction is committed », supabase.com/docs/guides/database/
+-- extensions/pg_net, relu le 22/11/2026), donc un échec d'envoi ne peut pas
+-- annuler la ligne ; il ne se lit que dans net._http_response, conservé 6 h.
 --
--- Ce qui n'est PAS éprouvé : le comportement sur le schéma réel de `leads`, et
--- l'interaction avec le vrai `notify_new_lead()` en production. Cela demande un
--- GO ROUGE, ou une copie fidèle de `leads` sur TEST.
+-- Ce qui n'est PAS éprouvé :
+--   - le corps réel de `public.notify_new_lead()`. Aucun fichier du dépôt ne le
+--     définit et il n'est pas lisible depuis cette session : laquelle des deux
+--     formes (asynchrone pg_net ou synchrone) est en production reste à voir ;
+--   - les colonnes que `leads` porterait en production en plus de celles
+--     ci-dessus. Elles ne gênent pas l'index, mais la reproduction ne les a pas ;
+--   - le volume réel et les index existants.
+-- Écart assumé de la reproduction : les essais écrivent avec la clé anon, alors
+-- que la production écrit avec SUPABASE_SERVICE_KEY, qui contourne RLS. Deux
+-- politiques propres à l'essai (SELECT et DELETE pour anon) ont donc été
+-- ajoutées le temps des mesures, puis retirées. Cela ne touche ni ON CONFLICT
+-- ni le trigger : seule l'autorisation change.
 -- ══════════════════════════════════════════════════════════
 
 -- ══════════════════════════════════════════════════════════
 -- RETOUR ARRIÈRE — à n'exécuter que délibérément
 --
--- Premier réflexe : retirer la variable SUBSCRIBE_IDEMPOTENCY. Le code cesse
--- aussitôt d'écrire ces colonnes, sans redéploiement, et les demandes repassent
--- par le chemin historique. Les colonnes restantes ne gênent rien.
+-- Premier réflexe : neutraliser la variable SUBSCRIBE_IDEMPOTENCY — Instant
+-- Rollback vers le déploiement précédent pour un effet immédiat, ou retrait de
+-- la variable PUIS redéploiement. Le code cesse alors d'écrire ces colonnes et
+-- les demandes repassent par le chemin historique. Les colonnes restantes ne
+-- gênent rien. Un changement de variable seul ne suffit pas : le déploiement en
+-- cours garde les valeurs avec lesquelles il a été construit.
 --
 -- Retrait complet, si la décision est prise de ne pas garder le dispositif.
 -- Il détruit les clés déjà enregistrées : un rejeu tardif ne serait plus

@@ -22,8 +22,20 @@
      plus la même : elle doit pouvoir être enregistrée.
    - Succès confirmé, puis `oublier()` → nouvelle clé. Une demande volontaire
      de plus n'est pas un rejeu.
-   - Nouvel onglet, navigateur fermé et réouvert → nouvelle session, donc
-     nouvelle clé. C'est la frontière assumée du dispositif.
+   - Nouvel onglet, navigateur fermé et réouvert, autre appareil → nouvelle
+     session, donc nouvelle clé. C'est la frontière assumée du dispositif.
+
+   Ce que le dispositif ne couvre PAS, et pourquoi. Les pages envoient par
+   fetch, pas par soumission de <form> : un rechargement ne ré-émet donc aucun
+   POST, et il n'y a pas de boîte « renvoyer les données ». Les rejeux possibles
+   sont ceux de la page elle-même — bouton réessayer, rechargement suivi d'une
+   saisie identique, onglet dupliqué, deux envois simultanés — et c'est ce que
+   la clé couvre. Un POST rejoué tel quel par un outil ou un script hors de ces
+   pages porte le même jeton Turnstile, déjà consommé : il est refusé par le
+   captcha (403) avant d'atteindre l'idempotence, ce qui empêche le doublon sans
+   passer par elle. C'est pourquoi `captchaToken` est exclu de l'empreinte :
+   l'y laisser ferait de chaque nouvelle tentative un contenu « différent »,
+   donc une clé neuve, donc exactement le doublon qu'on veut éviter.
 
    L'empreinte calculée ici ne sert QU'À cette décision locale : réutiliser ou
    non la clé. Le serveur calcule la sienne, en SHA-256, et ne lit jamais

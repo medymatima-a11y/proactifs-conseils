@@ -325,6 +325,26 @@ function validate(body, context = {}) {
    applicatifs (Systeme.io, Brevo) sont, eux, court-circuités par le retour
    anticipé du chemin « rejeu ».
 
+   ⚠️ Ce dispositif supprime le DOUBLON. Il ne garantit RIEN sur la livraison.
+   Deux conséquences, mesurées le 2026-11-22 sur une reproduction de `leads` :
+     - si un canal de notification échoue après l'insertion, la demande reste
+       enregistrée et la notification est perdue ; le rejeu, qui ne crée pas de
+       ligne, ne la retente pas. Même chose pour Systeme.io et Brevo : un échec
+       au premier appel n'est jamais repris, puisque le chemin « rejeu » saute
+       ces appels. Un échec de notification demande donc toujours une reprise
+       manuelle ;
+     - si le trigger devenait SYNCHRONE (extension `http` au lieu de pg_net),
+       son échec annulerait l'insertion : réponse 500, aucune ligne, clé non
+       consommée — un réessai enregistrerait normalement. Le dispositif ne perd
+       pas la demande, mais ne la sauve pas non plus.
+   pg_net, lui, n'émet la requête qu'après le commit (« HTTP requests are not
+   started until the transaction is committed », supabase.com/docs/guides/
+   database/extensions/pg_net, relu le 2026-11-22), donc un échec d'envoi ne
+   peut pas annuler la ligne : il se lit dans net._http_response, et nulle part
+   ailleurs. Le corps réel de public.notify_new_lead() n'est défini par aucun
+   fichier du dépôt et n'est pas lisible d'ici : laquelle des deux formes est en
+   production reste à vérifier.
+
    Même clé, contenu identique  → 200 { success: true, rejeu: true }, 0 ligne.
    Même clé, contenu différent  → 409. La demande initiale n'est jamais écrasée
                                   (pas de `merge-duplicates`, aucun UPDATE).
@@ -335,15 +355,45 @@ function validate(body, context = {}) {
    calcule de son côté une empreinte à lui, qui ne sert qu'à décider s'il
    réutilise sa clé ; les deux ne se parlent pas et n'ont pas à concorder.
 
+   ── Articulation avec le jeton Turnstile, et cas réellement couverts ──
+   Le captcha est vérifié AVANT l'écriture. Un rejeu doit donc présenter un
+   jeton frais : les pages en régénèrent un à chaque tentative, et c'est
+   pourquoi le jeton est exclu de l'empreinte calculée côté navigateur.
+   Mesuré le 2026-11-22 contre challenges.cloudflare.com avec les clés d'essai
+   publiées par Cloudflare (dont le secret 3x…AA, « token already spent ») :
+     - même clé + jeton FRAIS            → 200 { rejeu: true }, aucune ligne ;
+     - même clé + jeton DÉJÀ CONSOMMÉ    → 403 au captcha, AVANT l'idempotence.
+   Ce qui est donc couvert : la nouvelle tentative lancée par la page (nouveau
+   jeton, même clé), le rechargement suivi d'une saisie identique, l'onglet
+   dupliqué, deux requêtes simultanées. Ce qui ne l'est pas : un POST rejoué
+   tel quel par un outil ou un script, qui est refusé au captcha et non
+   dédupliqué ; une nouvelle session (onglet neuf, navigateur relancé, autre
+   appareil), qui reçoit une clé neuve ; un navigateur sans sessionStorage, qui
+   n'en réutilise aucune. Les pages envoient par fetch, pas par soumission de
+   <form> : il n'y a donc pas de ré-émission de POST au rechargement.
+
    ── Ordre de déploiement, impératif ──
    La variable SUBSCRIBE_IDEMPOTENCY commande tout. Tant qu'elle ne vaut pas
    'on', la clé reçue est ignorée et aucune colonne nouvelle n'est écrite :
    1. Déployer ce code. Rien ne change, même si la base n'a pas les colonnes.
    2. Appliquer migration-leads-idempotence.sql.
-   3. Créer SUBSCRIBE_IDEMPOTENCY=on. La protection devient active.
+   3. Créer SUBSCRIBE_IDEMPOTENCY=on, PUIS redéployer.
    Inverser 2 et 3 casse les dix formulaires : PostgREST refuserait l'insertion
-   (PGRST204, colonne inconnue) et toute demande échouerait. Retour arrière
-   immédiat sans redéploiement : retirer la variable. */
+   (PGRST204, colonne inconnue) et toute demande échouerait.
+
+   ⚠️ Sur Vercel, un changement de variable n'atteint PAS le déploiement en
+   cours : « Changes to environment variables are not applied to previous
+   deployments […] You must redeploy your project » et, au dépannage, « A change
+   in the dashboard has no effect → Redeploy the project »
+   (vercel.com/docs/environment-variables/managing-environment-variables et
+   /environment-variables, pages relues le 2026-11-22). Créer ou retirer la
+   variable demande donc un redéploiement. Deux retours arrière :
+     - immédiat : Instant Rollback vers le déploiement précédent, construit
+       sans la variable, donc sans le dispositif ;
+     - ordinaire : retirer SUBSCRIBE_IDEMPOTENCY, puis redéployer.
+   La base n'est touchée dans aucun des deux cas.
+   La même réserve vaut pour les étapes 2 et 3 de l'activation Turnstile plus
+   haut, écrites avant cette vérification. */
 const IDEM_VAR = 'SUBSCRIBE_IDEMPOTENCY';
 // Longueur et alphabet de l'UUID v4 sans tirets jusqu'aux identifiants plus
 // longs : assez large pour ne pas contraindre le client, assez étroit pour
