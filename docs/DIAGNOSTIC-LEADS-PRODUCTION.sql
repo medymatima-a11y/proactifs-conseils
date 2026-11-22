@@ -3,7 +3,7 @@
 --
 -- Pourquoi ce fichier : l'activation de SUBSCRIBE_IDEMPOTENCY suppose de
 -- connaitre le schema REEL de la table, ses contraintes, ses index, son volume
--- et surtout le corps reel de public.notify_new_lead() — qu'aucun fichier du
+-- et le fonctionnement reel de public.notify_new_lead() — qu'aucun fichier du
 -- depot ne definit. Le projet de production (ullnkylrixdvormohryl) n'est pas
 -- joignable depuis les connecteurs de la session ou cette PR a ete preparee :
 -- seule l'organisation « Proactif conseils TEST » y apparait, avec le seul
@@ -12,21 +12,37 @@
 -- Ce qu'il fait : une seule requete SELECT. Aucun INSERT, UPDATE, DELETE,
 -- ALTER, CREATE ni DROP. Rien n'est modifie, rien n'est verrouille.
 --
--- Ce qu'il NE sort PAS :
---   - aucun contenu de ligne (pas un nom, pas une adresse, pas un montant) ;
---     le volume est un count(*), jamais un echantillon ;
---   - les corps de fonctions passent par un masquage : jetons JWT, cles
---     sb_secret_/sb_publishable_, en-tetes Bearer, adresses e-mail, chaines de
---     plus de 40 caracteres. Le masquage est une precaution, pas une garantie :
---     RELIRE la section 6 avant de recopier le resultat ailleurs.
+-- ─────────────────────────────────────────────────────────────────────
+-- CE SCRIPT NE SORT AUCUN TEXTE DE CORPS DE FONCTION
+--
+-- Masquer un corps de fonction par expressions regulieres ne garantit pas
+-- l'absence de secret : il suffit d'une forme non prevue pour qu'une cle
+-- passe. Il n'y a donc ici ni pg_get_functiondef, ni prosrc, ni extrait.
+--
+-- La section 6 restitue a la place la STRUCTURE et les MECANISMES, calcules
+-- sans rien afficher du texte :
+--   - identite : langage, SECURITY DEFINER ou INVOKER, volatilite,
+--     search_path impose, nombre de lignes ;
+--   - sorties HTTP : nombre d'appels http_post / http_get, et combien sont
+--     prefixes par net. (pg_net, asynchrone) — c'est ce qui departage les deux
+--     comportements mesures ;
+--   - mecanismes presents ou absents, en oui / non : pg_notify, levee
+--     d'exception, bloc de rattrapage, ecriture, suppression, lecture d'un
+--     secret dans Vault, lecture d'un reglage, presence d'une URL litterale,
+--     presence d'un en-tete d'autorisation ;
+--   - tables ecrites, par leur seul identifiant.
+--
+-- Une URL ou un en-tete detecte est signale par « OUI », jamais affiche.
+-- Aucun contenu de ligne ne sort non plus : le volume est un count(*), jamais
+-- un echantillon.
+-- ─────────────────────────────────────────────────────────────────────
 --
 -- COMMENT L'EXECUTER
 --   1. Ouvrir https://supabase.com/dashboard → projet de PRODUCTION
 --      (ullnkylrixdvormohryl, et surtout pas crm-proactifs-TEST) → SQL Editor.
 --   2. Coller tout le fichier, lancer (Ctrl+Entree). Une seule grille de
 --      resultats sort, en trois colonnes : section, rubrique, detail.
---   3. Exporter en CSV, ou recopier le resultat. Relire la section 6 avant de
---      le transmettre.
+--   3. Exporter en CSV, ou recopier le resultat.
 --   4. Alternative en ligne de commande, si la chaine de connexion est sous la
 --      main — elle contient le mot de passe, ne jamais la coller dans un
 --      message :
@@ -36,26 +52,31 @@
 --   section 1  colonnes : une colonne NOT NULL sans defaut, absente du
 --              `record` construit par api/subscribe.js, ferait echouer toute
 --              insertion. Comparer avec les champs de ce fichier.
---   section 4  volume : sous ~100 000 lignes, le `create unique index` de
---              migration-leads-idempotence.sql passe en quelques secondes.
---              Au-dela, le passer en CONCURRENTLY — donc hors du begin/commit
---              de la migration, qui ne l'admet pas dans une transaction.
---   section 6  corps de notify_new_lead() : c'est lui qui decide lequel des
---              deux comportements mesures s'applique. S'il poste en asynchrone
---              (net.http_post de pg_net), un echec de notification laisse la
---              demande enregistree et la notification est perdue, sans reprise
---              automatique. S'il appelle en synchrone (extension http) ou s'il
---              peut lever une exception, l'echec ANNULE l'insertion : la
---              demande n'est pas enregistree et la cle n'est pas consommee.
---              Suite a donner : docs/REPRISE-NOTIFICATIONS-LEADS.md.
+--   section 4  volume et activite : de quoi decider de la forme du
+--              `create unique index`. Un `create index` ordinaire prend un
+--              verrou qui bloque les ecritures le temps de sa construction ;
+--              `concurrently` ne les bloque pas, mais il est plus long, fait
+--              deux passes, ne peut pas tourner dans une transaction, et peut
+--              laisser un index INVALID a supprimer puis refaire. Le choix
+--              depend de la taille de la table, de son activite en ecriture et
+--              de l'interruption acceptable — aucune regle automatique ici.
+--   section 6  notify_new_lead() : la ligne des appels HTTP decide lequel des
+--              deux comportements mesures s'applique. Des appels prefixes par
+--              net. (pg_net) sortent en asynchrone, apres validation de la
+--              transaction : un echec laisse la demande enregistree et perd la
+--              notification, sans reprise automatique. Des appels non
+--              prefixes, ou une levee d'exception sans rattrapage, agissent
+--              dans la transaction : l'echec ANNULE l'insertion, la demande
+--              n'est pas enregistree et la cle n'est pas consommee. Suite a
+--              donner : docs/REPRISE-NOTIFICATIONS-LEADS.md.
 --   section 6  autres fonctions citant « leads » : ce sont les autres chemins
 --              d'ecriture possibles. Une ecriture qui ne passe pas par
 --              api/subscribe.js n'aura pas de cle d'idempotence — ce n'est pas
 --              un probleme (index total, NULLS DISTINCT laisse les lignes sans
 --              cle libres), mais il faut la connaitre avant d'activer.
 --   section 9  extensions : aucune ligne = ni pg_net ni http installes, donc
---              notify_new_lead() ne sort pas de la base par ces chemins (c'est
---              le cas sur TEST, ou ce script a ete verifie le 22/11/2026).
+--              aucune sortie HTTP possible depuis la base (c'est le cas sur
+--              TEST, ou ce script a ete verifie le 22/11/2026).
 --   section 10 etat de l'idempotence : dit si la migration est deja appliquee.
 --              Les trois lignes doivent repondre « absent » avant migration.
 -- ══════════════════════════════════════════════════════════════════════
@@ -116,6 +137,20 @@ with
            || ' | table ' || pg_size_pretty(pg_table_size((select rel from cible)))
            || ' | total avec index ' || pg_size_pretty(pg_total_relation_size((select rel from cible)))
            as detail
+    union all
+    select 4, 2, 'activite',
+           'insertions ' || coalesce(s.n_tup_ins::text, '?')
+           || ' | mises a jour ' || coalesce(s.n_tup_upd::text, '?')
+           || ' | suppressions ' || coalesce(s.n_tup_del::text, '?')
+           || ' | lignes vivantes estimees ' || coalesce(s.n_live_tup::text, '?')
+           || ' | dernier autovacuum ' || coalesce(s.last_autovacuum::text, '(aucun)')
+    from pg_stat_user_tables s
+    where s.relid = (select rel from cible)
+    union all
+    select 4, 3, 'activite',
+           'compteurs ci-dessus accumules depuis '
+           || coalesce((select d.stats_reset::text from pg_stat_database d
+                        where d.datname = current_database()), '(date inconnue)')
   ),
 
   triggers_leads as (
@@ -127,10 +162,13 @@ with
     where t.tgrelid = (select rel from cible) and not t.tgisinternal
   ),
 
-  corps_brut as (
-    select p.proname,
-           pg_get_functiondef(p.oid) as def
+  -- Les fonctions a decrire : celles branchees en trigger sur leads, plus
+  -- celles qui citent la table (autres chemins d'ecriture).
+  fonctions as (
+    select p.oid, p.proname, p.prosrc as src, l.lanname,
+           p.prosecdef, p.provolatile, p.proconfig
     from pg_proc p
+    join pg_language l on l.oid = p.prolang
     join pg_namespace n on n.oid = p.pronamespace
     where n.nspname = 'public'
       and (
@@ -142,29 +180,75 @@ with
       )
   ),
 
-  corps_masque as (
-    select proname,
-           regexp_replace(
-             regexp_replace(
-               regexp_replace(
-                 regexp_replace(
-                   regexp_replace(def,
-                     'eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}',
-                     '<<JWT MASQUE>>', 'g'),
-                   'sb_(secret|publishable)_[A-Za-z0-9_-]+', '<<CLE MASQUEE>>', 'g'),
-                 '(?i)(bearer[[:space:]]+)[A-Za-z0-9._-]{12,}', '\1<<MASQUE>>', 'g'),
-               '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}', '<<ADRESSE MASQUEE>>', 'g'),
-             '[A-Za-z0-9+/_-]{40,}={0,2}', '<<CHAINE LONGUE MASQUEE>>', 'g') as def
-    from corps_brut
+  -- STRUCTURE ET MECANISMES, sans afficher une seule ligne de code.
+  structure as (
+    select 6 as section, f.proname, 1 as sous_ord,
+           'langage ' || f.lanname
+           || ' | ' || case when f.prosecdef then 'SECURITY DEFINER' else 'SECURITY INVOKER' end
+           || ' | ' || case f.provolatile when 'i' then 'IMMUTABLE'
+                                          when 's' then 'STABLE'
+                                          else 'VOLATILE' end
+           || ' | config ' || coalesce(array_to_string(f.proconfig, ' '), '(aucune)')
+           || ' | ' || (length(f.src) - length(replace(f.src, E'\n', '')) + 1)::text
+           || ' lignes' as detail
+    from fonctions f
+
+    union all
+
+    -- La ligne qui departage asynchrone et synchrone.
+    select 6, f.proname, 2,
+           'appels http_post / http_get : '
+           || regexp_count(f.src, 'http_(post|get)', 1, 'i')::text || ' au total, dont '
+           || regexp_count(f.src, 'net\.http_', 1, 'i')::text
+           || ' prefixes par net. (pg_net, ASYNCHRONE apres validation) ; '
+           || greatest(regexp_count(f.src, 'http_(post|get)', 1, 'i')
+                       - regexp_count(f.src, 'net\.http_', 1, 'i'), 0)::text
+           || ' non prefixes (candidats SYNCHRONES, dans la transaction)'
+    from fonctions f
+
+    union all
+
+    select 6, f.proname, 2 + m.rang,
+           case when f.src ~* m.motif then 'OUI  ' else 'non  ' end || m.libelle
+    from fonctions f
+    cross join (values
+      (1,  'pg_notify',                          'notification interne pg_notify'),
+      (2,  'raise[[:space:]]+exception',         'peut lever une exception, donc annuler l''insertion'),
+      (3,  'exception[[:space:]]+when',          'rattrape ses erreurs (bloc exception)'),
+      (4,  'insert[[:space:]]+into',             'ecrit dans une table'),
+      (5,  '\mupdate\M|\mdelete\M',              'modifie ou supprime des lignes'),
+      (6,  'vault\.|decrypted_secret',           'lit un secret dans Vault'),
+      (7,  'current_setting',                    'lit un reglage de session ou de base'),
+      (8,  'https?://',                          'contient au moins une URL litterale (NON affichee)'),
+      (9,  'authorization|apikey|bearer|api-key','contient un en-tete d''autorisation (NON affiche)'),
+      (10, 'dblink|pg_background',               'sort de la transaction par dblink ou pg_background'),
+      (11, 'pgmq|\mqueue\M',                     'met en file (pgmq ou table de file)'),
+      (12, 'supabase_functions|edge',            'appelle une fonction Edge')
+    ) as m(rang, motif, libelle)
+
+    union all
+
+    -- Tables ecrites : identifiants seulement, motif restreint aux caracteres
+    -- d'identifiant, donc aucun fragment de valeur ne peut sortir par la.
+    select 6, f.proname,
+           40 + row_number() over (partition by f.proname order by t.ecrite)::int,
+           'ecrit dans ' || t.ecrite
+    from fonctions f
+    cross join lateral (
+      select distinct lower(x[1]) as ecrite
+      from regexp_matches(
+             f.src,
+             'insert[[:space:]]+into[[:space:]]+([a-zA-Z_][a-zA-Z0-9_]{0,30}(\.[a-zA-Z_][a-zA-Z0-9_]{0,30})?)',
+             'g') as x
+    ) t
   ),
 
   corps as (
     select 6 as section,
-           row_number() over (order by m.proname, t.i)::int as ord,
-           'corps ' || m.proname as rubrique,
-           t.ligne as detail
-    from corps_masque m,
-         unnest(string_to_array(m.def, E'\n')) with ordinality as t(ligne, i)
+           row_number() over (order by s.proname, s.sous_ord)::int as ord,
+           'fonction ' || s.proname as rubrique,
+           s.detail
+    from structure s
   ),
 
   droits as (
@@ -201,8 +285,8 @@ with
            row_number() over (order by e.extname)::int as ord,
            'extension' as rubrique,
            e.extname || ' ' || e.extversion
-           || case when e.extname = 'pg_net' then '  (envoi ASYNCHRONE possible)'
-                   when e.extname = 'http'   then '  (envoi SYNCHRONE possible)'
+           || case when e.extname = 'pg_net' then '  (sortie HTTP ASYNCHRONE possible)'
+                   when e.extname = 'http'   then '  (sortie HTTP SYNCHRONE possible)'
                    else '' end as detail
     from pg_extension e
     where e.extname in ('pg_net', 'http', 'pgmq', 'pg_cron')

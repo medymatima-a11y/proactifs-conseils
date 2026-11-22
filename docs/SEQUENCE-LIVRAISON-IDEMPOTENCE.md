@@ -1,8 +1,16 @@
 # Séquence de livraison — idempotence des formulaires (PR 28)
 
-État au 22/11/2026 : rien n'est fusionné, rien n'est déployé, aucune migration
-Production, `SUBSCRIBE_IDEMPOTENCY` absente des trois environnements. Ce
-document est la marche à suivre quand la décision de livrer sera prise.
+État au 22/11/2026 — rien n'est fusionné, rien n'est déployé, aucune migration
+Production, `SUBSCRIBE_IDEMPOTENCY` absente des trois environnements. Les trois
+objets de la livraison n'en sont pas au même point :
+
+| Objet | État |
+|---|---|
+| **Code, idempotence désactivée** | **Candidat à la fusion**, sous réserve de revue finale. |
+| **Migration Production** | **En attente** du diagnostic du schéma, des contraintes et des index. |
+| **Activation de la variable** | **En attente** des vérifications restantes, dont le vrai parcours HTTP avec le rôle service sur TEST. |
+
+Ce document est la marche à suivre quand la décision de livrer sera prise.
 
 L'ordre compte : inverser les étapes 2 et 3 casse les onze formulaires
 (PostgREST répond `PGRST204` sur une colonne qu'il ne connaît pas).
@@ -18,11 +26,31 @@ lectures décident de la suite :
 | Section | Ce qu'on en tire |
 |---|---|
 | 1 — colonnes | Une colonne `NOT NULL` sans défaut, absente du `record` de `api/subscribe.js`, ferait échouer toute insertion. |
-| 4 — volume | Sous ~100 000 lignes, le `create unique index` de la migration passe en quelques secondes. Au-delà : `CONCURRENTLY`, donc **hors** du `begin/commit`. |
-| 6 — `notify_new_lead()` | Asynchrone (`net.http_post`) ⇒ un échec de notification laisse la demande enregistrée et perd la notification. Synchrone, ou capable de lever une exception ⇒ l'échec **annule** l'insertion. Les deux comportements sont mesurés ; celui qui s'applique dépend de cette fonction. |
+| 4 — volume et activité | De quoi choisir la forme du `create unique index` : taille de la table, activité en écriture, interruption acceptable. Voir « Forme de l'index » ci-dessous. |
+| 6 — `notify_new_lead()` | Structure et mécanismes, sans aucun texte de code. Des appels préfixés par `net.` (pg_net) sortent en asynchrone après validation ⇒ un échec laisse la demande enregistrée et perd la notification. Des appels non préfixés, ou une levée d'exception sans rattrapage, agissent dans la transaction ⇒ l'échec **annule** l'insertion. Les deux comportements sont mesurés ; celui qui s'applique dépend de cette fonction. |
 | 10 — idempotence | Doit répondre « absentes / absent / 0 sur 2 » avant migration. |
 
 Ne pas passer à l'étape 1 avant d'avoir lu ces quatre lignes.
+
+### Forme de l'index — un choix, pas une règle
+
+La migration crée un index unique **total** sur `idempotency_key`. Deux formes,
+et aucun seuil chiffré ne tranche à votre place :
+
+- `create unique index` ordinaire : rapide, une seule passe, tient dans la
+  transaction de la migration — mais prend un verrou qui **bloque les écritures**
+  sur `leads` le temps de la construction. Un formulaire envoyé pendant ce
+  temps-là attend, et peut expirer.
+- `create unique index concurrently` : ne bloque pas les écritures, mais plus
+  long, deux passes, **ne peut pas tourner dans une transaction** (donc hors du
+  `begin/commit` de la migration), et peut laisser un index `INVALID` à
+  supprimer avant de refaire.
+
+Ce qui décide : la taille de la table et son activité en écriture (section 4 du
+diagnostic), et la durée d'indisponibilité des formulaires que vous acceptez.
+Une table petite et calme se prête à la forme ordinaire ; une table volumineuse
+ou qui reçoit des envois en continu appelle `concurrently`. Entre les deux,
+c'est un arbitrage, et il vous revient.
 
 ---
 
@@ -61,9 +89,9 @@ Contrôles après D1 :
    sur sa fraîcheur, prendre un export explicite de la seule table concernée
    avant de continuer.
 2. Appliquer [`migration-leads-idempotence.sql`](../migration-leads-idempotence.sql)
-   dans le SQL Editor de production. Si l'étape 0 a montré un gros volume,
-   sortir le `create unique index` du `begin/commit` et le passer en
-   `create unique index concurrently`.
+   dans le SQL Editor de production, **dans la forme retenue** à l'étape 0
+   (voir « Forme de l'index ») : telle quelle, ou le `create unique index`
+   sorti du `begin/commit` et passé en `concurrently`.
 3. La migration termine par `notify pgrst, 'reload schema'` : sans ce
    rechargement, PostgREST continue d'ignorer les deux colonnes.
 4. Relancer le script de diagnostic : la section 10 doit répondre
