@@ -73,6 +73,29 @@ Dans l'éditeur SQL du projet d'essai :
 Tant qu'elles sont là, la table est lisible et vidable avec la seule clé
 publique.
 
+#### Variante — parcours sous le rôle de service (celui de la production)
+
+C'est la seule forme qui éprouve ce que fait réellement la production :
+`SUPABASE_SERVICE_KEY` contourne RLS, là où la clé publique en dépend.
+
+Dans cette variante, **ne pas poser les politiques propres à l'essai** de
+l'étape 3 : le rôle de service n'en a pas besoin, et les poser masquerait
+justement ce qu'on veut vérifier. Monter donc :
+
+1. `reproduction-leads-TEST.sql` ;
+2. la transaction courte de
+   [`../../docs/SEQUENCE-LIVRAISON-IDEMPOTENCE.md`](../../docs/SEQUENCE-LIVRAISON-IDEMPOTENCE.md)
+   — celle de l'étape 2, avec `lock_timeout` et `statement_timeout` bornés ;
+3. rien d'autre.
+
+Puis lancer avec `ESSAI_ROLE_SERVICE=oui` (voir l'étape suivante). La garde
+refuse autrement toute clé de service, et le banc écrit le rôle employé dans
+son en-tête.
+
+État attendu de la base avant de lancer, aligné sur le relevé de production du
+22/11/2026 : quatre lignes, adresses en `.invalid`, les deux colonnes
+d'idempotence à `NULL`.
+
 ### 3. Lancer
 
 La clé est passée par l'environnement, jamais en argument de ligne de commande
@@ -92,10 +115,31 @@ node tests/manuel/essai-contention-livraison.js
 Variables facultatives du second banc : `ESSAI_PARALLELE` (8 par défaut) et
 `ESSAI_TOURS` (6 par défaut).
 
+**Sous le rôle de service** — même chose, avec la clé de service du projet
+d'essai et le drapeau qui la débloque :
+
+```powershell
+$env:ESSAI_SB_URL = "https://wzuvyztsohdvarxsixce.supabase.co"
+$env:ESSAI_SB_KEY = (Read-Host "cle de SERVICE du projet d essai" -AsSecureString | ConvertFrom-SecureString -AsPlainText)
+$env:ESSAI_CONFIRME = "oui-reproduction-jetable"
+$env:ESSAI_ROLE_SERVICE = "oui"
+node tests/manuel/essai-postgrest-idempotence.js
+```
+
+```powershell
+node tests/manuel/essai-contention-livraison.js
+```
+
+La clé ne doit transiter par aucun message : `Read-Host` la lit dans le
+terminal, l'environnement la porte le temps de la session, et la ligne de
+nettoyage ci-dessous l'efface. Les services externes restent neutralisés quel
+que soit le rôle — `fetchCloisonne` ne laisse passer que le projet d'essai et
+refuse tout autre hôte.
+
 Quand c'est fini, effacer la clé de la session :
 
 ```powershell
-Remove-Item Env:ESSAI_SB_KEY, Env:ESSAI_SB_URL, Env:ESSAI_CONFIRME
+Remove-Item Env:ESSAI_SB_KEY, Env:ESSAI_SB_URL, Env:ESSAI_CONFIRME, Env:ESSAI_ROLE_SERVICE -ErrorAction SilentlyContinue
 ```
 
 ### 4. Démonter

@@ -74,13 +74,31 @@ create table if not exists public.zz_essai_notifications (
 alter table public.zz_essai_notifications enable row level security;
 
 -- ── notify_new_lead() neutralisée ─────────────────────────
--- Trois modes, pilotés par public.zz_essai_reglage :
---   normal             : tout est « mis_en_file » — équivaut à pg_net, qui
---                        n'émet la requête qu'après le commit ;
---   echec_confirmation : la confirmation échoue APRÈS le commit (notification
---                        perdue, ligne conservée) ;
---   leve_exception     : appel synchrone en erreur — l'insertion est annulée.
--- Aucun appel réseau dans aucun des trois.
+-- ALIGNÉE sur le relevé de production du 22/11/2026 : la fonction y porte
+-- TROIS appels `net.http_*`, l'extension pg_net est installée, et un bloc de
+-- gestion d'erreurs est présent. D'où la forme ci-dessous : trois canaux, et
+-- chacun sous son propre rattrapage.
+--
+-- Conséquence, et c'est l'enjeu : pg_net n'émet la requête qu'APRÈS validation
+-- de la transaction, et un bloc d'erreurs attrape ce qui échoue. Un canal en
+-- panne laisse donc la demande enregistrée et perd la notification, sans
+-- annuler l'insertion. C'est le cas « doublon ≠ livraison ».
+--
+-- ⚠ RÉSERVE MAINTENUE : le corps réel de la fonction de production n'a PAS été
+-- lu. Ce qui précède vient d'indices (comptage d'appels, extensions
+-- installées, présence d'un bloc d'erreurs), et des indices ne sont pas une
+-- preuve — un appel en commentaire est compté, un appel passé par une fonction
+-- intermédiaire ne l'est pas, du SQL dynamique échappe à la détection. Le mode
+-- `leve_exception` est donc conservé : il couvre le cas contraire, où l'échec
+-- n'est pas rattrapé et annule l'insertion.
+--
+-- Modes, pilotés par public.zz_essai_reglage :
+--   normal              : les trois canaux sont « mis_en_file » ;
+--   echec_canal_1       : la notification interne échoue, rattrapée ;
+--   echec_confirmation  : la confirmation échoue, rattrapée ;
+--   echec_marketing     : l'abonnement marketing échoue, rattrapé ;
+--   leve_exception      : échec NON rattrapé — l'insertion est annulée.
+-- Aucun appel réseau dans aucun des cinq.
 create table if not exists public.zz_essai_reglage (id int primary key default 1, mode text not null default 'normal');
 insert into public.zz_essai_reglage (id, mode) values (1, 'normal') on conflict (id) do nothing;
 
@@ -96,18 +114,44 @@ language plpgsql security definer set search_path = public as $$
 declare m text;
 begin
   select mode into m from public.zz_essai_reglage where id = 1;
+
+  -- Cas de contraste : échec NON rattrapé, qui annule l'insertion.
   if m = 'leve_exception' then
     raise exception 'essai: notification synchrone en erreur';
   end if;
-  insert into public.zz_essai_notifications (lead_id, email, canal, resultat)
-  values (NEW.id, NEW.email, 'notification_interne', 'mis_en_file');
-  insert into public.zz_essai_notifications (lead_id, email, canal, resultat)
-  values (NEW.id, NEW.email, 'email_confirmation',
-          case when m = 'echec_confirmation' then 'echec_http_502' else 'mis_en_file' end);
-  if NEW.reponses #>> '{consentement,marketing}' = 'true' then
+
+  -- Canal 1 — tient le rôle du premier net.http_*
+  begin
+    if m = 'echec_canal_1' then raise exception 'essai: canal 1 indisponible'; end if;
     insert into public.zz_essai_notifications (lead_id, email, canal, resultat)
-    values (NEW.id, NEW.email, 'brevo_liste_23', 'mis_en_file');
-  end if;
+    values (NEW.id, NEW.email, 'notification_interne', 'mis_en_file');
+  exception when others then
+    insert into public.zz_essai_notifications (lead_id, email, canal, resultat)
+    values (NEW.id, NEW.email, 'notification_interne', 'echec_rattrape');
+  end;
+
+  -- Canal 2 — confirmation au visiteur
+  begin
+    if m = 'echec_confirmation' then raise exception 'essai: confirmation indisponible'; end if;
+    insert into public.zz_essai_notifications (lead_id, email, canal, resultat)
+    values (NEW.id, NEW.email, 'email_confirmation', 'mis_en_file');
+  exception when others then
+    insert into public.zz_essai_notifications (lead_id, email, canal, resultat)
+    values (NEW.id, NEW.email, 'email_confirmation', 'echec_rattrape');
+  end;
+
+  -- Canal 3 — abonnement marketing, soumis au consentement
+  begin
+    if m = 'echec_marketing' then raise exception 'essai: marketing indisponible'; end if;
+    insert into public.zz_essai_notifications (lead_id, email, canal, resultat)
+    values (NEW.id, NEW.email, 'brevo_liste_23',
+            case when NEW.reponses #>> '{consentement,marketing}' = 'true'
+                 then 'mis_en_file' else 'ignore_sans_consentement' end);
+  exception when others then
+    insert into public.zz_essai_notifications (lead_id, email, canal, resultat)
+    values (NEW.id, NEW.email, 'brevo_liste_23', 'echec_rattrape');
+  end;
+
   return NEW;
 end $$;
 

@@ -88,10 +88,59 @@ Contrôles après D1 :
    restauration disponible (Database → Backups) et le noter. En cas de doute
    sur sa fraîcheur, prendre un export explicite de la seule table concernée
    avant de continuer.
-2. Appliquer [`migration-leads-idempotence.sql`](../migration-leads-idempotence.sql)
-   dans le SQL Editor de production, **dans la forme retenue** à l'étape 0
-   (voir « Forme de l'index ») : telle quelle, ou le `create unique index`
-   sorti du `begin/commit` et passé en `concurrently`.
+2. Appliquer la **transaction courte** ci-dessous dans le SQL Editor de
+   production. Elle contient exactement les ordres de
+   [`migration-leads-idempotence.sql`](../migration-leads-idempotence.sql) —
+   les deux colonnes, les deux `CHECK`, l'index unique, les deux commentaires —
+   avec deux ajouts : les délais bornés, et une transaction explicite, pour que
+   rien ne reste à moitié appliqué.
+
+```sql
+begin;
+
+-- Attendre un verrou au plus 3 s : si une transaction longue tient la table,
+-- on échoue vite et proprement au lieu de bloquer les formulaires derrière.
+set local lock_timeout = '3s';
+-- Et 15 s au total : sur le relevé du 22/11/2026 (4 lignes, 80 Ko avec index)
+-- l'ensemble a pris 9 ms sur la copie TEST alignée. 15 s est une marge, pas
+-- une estimation.
+set local statement_timeout = '15s';
+
+alter table public.leads add column if not exists idempotency_key text;
+alter table public.leads add column if not exists payload_fingerprint text;
+
+alter table public.leads
+  add constraint leads_idempotency_key_forme
+  check (idempotency_key is null or idempotency_key ~ '^[A-Za-z0-9_-]{16,64}$');
+
+alter table public.leads
+  add constraint leads_idempotence_paire
+  check ((idempotency_key is null) = (payload_fingerprint is null));
+
+create unique index leads_idempotency_key_uniq on public.leads (idempotency_key);
+
+comment on column public.leads.idempotency_key is
+  'Identifiant de la demande logique, emis par le navigateur. Unique. NULL pour les ecritures sans cle (lignes anterieures, imports, /api/estimation).';
+comment on column public.leads.payload_fingerprint is
+  'SHA-256 du contenu de la demande, calcule cote serveur. Distingue un rejeu (meme empreinte, succes sans nouvelle ligne) d un conflit (empreinte differente, 409).';
+
+commit;
+```
+
+   Pourquoi la forme ordinaire et non `concurrently` : le relevé donne **4
+   lignes, 80 Ko avec index**, et aucun autre index unique sur cette clé. Les
+   `add column` sont nullables et sans défaut, donc des changements de
+   métadonnées ; la validation des `CHECK` parcourt quatre lignes ; l'index se
+   construit sur quatre lignes. Le verrou dure quelques millisecondes, et
+   `lock_timeout` couvre le seul vrai risque — attendre derrière une
+   transaction longue. `concurrently` serait ici plus lent, interdirait la
+   transaction, et exposerait à un index `INVALID` pour rien.
+
+   Les `add constraint` sont écrits **sans** `if not exists` — cette clause
+   n'existe pas pour les contraintes. Le relevé les donne absentes : la
+   transaction échouera franchement si ce n'est plus le cas, ce qui vaut mieux
+   qu'un `do $$` qui passerait en silence sur une contrainte homonyme
+   différente.
 3. La migration termine par `notify pgrst, 'reload schema'` : sans ce
    rechargement, PostgREST continue d'ignorer les deux colonnes.
 4. Relancer le script de diagnostic : la section 10 doit répondre

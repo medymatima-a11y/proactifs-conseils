@@ -270,7 +270,15 @@ async function etat() {
   const i2 = await appel(guide, JSON.parse(JSON.stringify(cI)));
   const apresI = await etat();
   note('I guide : rejeu reconnu', '200 puis 200 rejeu:true', i1.statut + '/' + i2.statut + ' ' + JSON.stringify(i2.corps), i1.statut === 200 && i2.statut === 200 && !!i2.corps && i2.corps.rejeu === true);
-  note('I guide : un seul envoi', '1 ligne, 2 entrees (pas de brevo sans consentement)', apresI.lignes.length + ' ligne(s), ' + apresI.journal.length + ' entrees : ' + apresI.journal.map((x) => x.canal).join(','), apresI.lignes.length === 1 && apresI.journal.length === 2);
+  /* Trois canaux, comme en production (trois appels net.http_* releves le
+     22/11/2026). Sans consentement, le canal marketing est bien atteint mais
+     n'abonne personne : il se journalise « ignore_sans_consentement ». */
+  const brevoI = apresI.journal.filter((x) => x.canal === 'brevo_liste_23');
+  note('I guide : un seul envoi', '1 ligne, 3 entrees dont brevo ignore_sans_consentement',
+    apresI.lignes.length + ' ligne(s), ' + apresI.journal.length + ' entrees : '
+      + apresI.journal.map((x) => x.canal + '=' + x.resultat).join(','),
+    apresI.lignes.length === 1 && apresI.journal.length === 3
+      && brevoI.length === 1 && brevoI[0].resultat === 'ignore_sans_consentement');
 
   /* J — origine refusée : le contrôle précède l'écriture */
   await remiseAZero();
