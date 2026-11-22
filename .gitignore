@@ -22,3 +22,11 @@ scripts/temp-*
 .env
 .env.*
 Info.txt
+
+# Fichiers de travail du workflow Tests (.github/workflows/tests.yml) :
+# sélection des fichiers de test et résumé TAP. Éphémères sur le runner,
+# listés ici pour qu'une exécution locale ne salisse pas l'arbre.
+tous-tests.txt
+bancs-manuels.txt
+fichiers-tests.txt
+resume.tap
