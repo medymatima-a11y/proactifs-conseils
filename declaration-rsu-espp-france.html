@@ -864,19 +864,10 @@
   // comme sur la page pilier RSU. Le wizard pouvant être réouvert et renvoyé,
   // sans ce drapeau un même visiteur produirait plusieurs conversions.
   let actioConvSent = false;
-  // Garde de réentrance de l'ENVOI. Rôle distinct de `actioConvSent`, qui
-  // protège la MESURE : celle-ci protège le POST lui-même. Elle couvre le
-  // double clic, la validation au clavier par Entrée et deux déclenchements
-  // rapprochés par n'importe quelle voie, sans dépendre de l'état du bouton.
-  // Cycle de vie : libérée en cas d'échec (nouvelle tentative possible),
-  // maintenue après un succès, remise à zéro par la réouverture du diagnostic.
-  let actioSending = false;
   const actioAnswers = [];
 
-  // Réouverture = nouvelle demande : les deux drapeaux repartent de zéro,
-  // sinon la garde d'envoi maintenue après un succès bloquerait tout envoi.
   function openActioWizard() {
-    actioStep = 0; actioAnswers.length = 0; actioConvSent = false; actioSending = false;
+    actioStep = 0; actioAnswers.length = 0; actioConvSent = false;
     document.getElementById('wiz-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
     document.getElementById('wizIntro').style.display = 'block';
@@ -942,6 +933,7 @@
     // Le jeton Turnstile expire après 300 s : widget préparé à la dernière étape.
     if (window.ProactifsCaptcha) window.ProactifsCaptcha.prepare();
   }
+  let actioSending = false;
   async function actioWizSubmit() {
     if (actioSending) return;
     const prenom = document.getElementById('wPrenom').value.trim();
@@ -997,10 +989,8 @@
       clearTimeout(timer);
     }
 
+    actioSending = false;
     if (!ok) {
-      // Échec : la garde d'envoi est libérée pour que le visiteur puisse
-      // réessayer. Elle reste posée sur le chemin de succès, plus bas.
-      actioSending = false;
       // Un jeton anti-robot ne vaut qu'une fois : on le régénère pour la nouvelle tentative.
       if (window.ProactifsCaptcha) window.ProactifsCaptcha.reset();
       errEl.textContent = "Votre demande n'a pas pu être enregistrée. Vos réponses sont conservées : vous pouvez réessayer, ou nous joindre au 01 84 78 28 30.";

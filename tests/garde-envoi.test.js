@@ -1,17 +1,24 @@
 'use strict';
-/* Garde de réentrance de l'ENVOI — deux formulaires concernés :
-     - declaration-rsu-espp-france.html (diagnostic en overlay, bouton onclick)
-     - immobilier/succession-colombes.html (formulaire, écouteur `submit`)
+/* Garde de réentrance de l'ENVOI — deux formulaires examinés :
+     - immobilier/succession-colombes.html (formulaire, écouteur `submit`) :
+       défaut réel. Deux soumissions rapprochées produisaient deux POST vers
+       /api/subscribe, mesurés au navigateur. Corrigé par `successionSending`.
+     - declaration-rsu-espp-france.html (diagnostic en overlay, bouton onclick) :
+       PAS de défaut. Le double POST rapporté était un artefact de mesure — le
+       banc d'essai comptait /api/subscribe-config comme une soumission. Sa
+       garde `actioSending` préexistante suffit ; la page est restée telle
+       quelle et les tests ci-dessous constatent son comportement réel.
 
-   Le double clic réel observé au navigateur produisait deux POST. La garde
-   corrigée est un drapeau de réentrance DANS la fonction de soumission : elle
+   La garde est un drapeau de réentrance DANS la fonction de soumission : elle
    ne dépend ni du libellé du bouton, ni de son attribut `disabled`.
 
-   Cycle de vie attendu, identique sur les deux pages :
+   Cycle de vie attendu sur succession :
      échec   → garde libérée, saisie conservée, nouvelle tentative possible ;
      succès  → garde maintenue, aucun second envoi ;
-     remise à zéro explicite (« Nouvelle demande », réouverture du diagnostic)
-             → un nouvel envoi redevient possible.
+     remise à zéro explicite (« Nouvelle demande ») → envoi à nouveau possible.
+   Sur déclaration, la garde est libérée après un succès : le bouton étant alors
+   masqué, le visiteur ne peut plus la franchir, et le rejeu par code relève de
+   la clé d'idempotence côté serveur.
 
    Les tests EXÉCUTENT le script réel de chaque page dans un bac à sable, avec
    un DOM factice et un `fetch` instrumenté. Aucun appel réseau, aucune clé. */
@@ -162,38 +169,47 @@ test('declaration : coupure reseau -> la garde est liberee elle aussi', async ()
   assert.strictEqual(m.net.appels.length, 2);
 });
 
-test('declaration : succes -> la garde reste posee, aucun second POST', async () => {
+test('declaration : succes -> etape de contact masquee, bouton plus atteignable', async () => {
+  // Cette page LIBÈRE la garde après un succès, contrairement à succession.
+  // Ce n'est pas un défaut : le bouton d'envoi vit dans #wizContact, masqué dès
+  // que le serveur a confirmé. Masqué, il n'est ni cliquable ni focusable, et il
+  // n'y a pas de <form> ici — donc aucune soumission implicite par Entrée. Le
+  // seul rejeu possible passe par du code (console, script), pas par le
+  // visiteur : c'est la clé d'idempotence côté serveur qui le couvre.
   const m = montageDeclaration();
   m.envoyer();
   await m.net.repondre(0, { ok: true, status: 200 });
   assert.strictEqual(m.dom.el('wizThanks').style.display, 'block', 'ecran de remerciement attendu');
-  m.envoyer();
-  m.envoyer();
-  await attendreBoucle();
-  assert.strictEqual(m.net.appels.length, 1, 'apres un succes, aucun envoi supplementaire');
+  assert.strictEqual(m.dom.el('wizContact').style.display, 'none', 'etape de contact masquee attendue');
+  assert.ok(DECL_SRC.includes('onclick="actioWizSubmit()"'),
+    'envoi declenche par onclick, pas par un <form> : pas de soumission implicite');
 });
 
-test('declaration : reouverture du diagnostic -> un nouvel envoi redevient possible', async () => {
+test('declaration : apres un succes la garde est liberee (constat, non corrige)', async () => {
+  // Test de constat : il documente le comportement réel plutôt que d'affirmer
+  // une protection que la page n'a pas. Un premier correctif de ce chantier
+  // avait ajouté ici un maintien de la garde après succès ; il a été retiré.
+  // Le défaut rapporté sur cette page était un faux positif de mesure — le banc
+  // d'essai comptait /api/subscribe-config comme une soumission — et le chemin
+  // que ce correctif prétendait fermer n'est pas atteignable par un visiteur.
   const m = montageDeclaration();
   m.envoyer();
   await m.net.repondre(0, { ok: true, status: 200 });
-  m.bac.openActioWizard();      // équivalent du bouton « Nouvelle demande »
   m.envoyer();
   await attendreBoucle();
-  assert.strictEqual(m.net.appels.length, 2, 'la reouverture doit remettre la garde a zero');
+  assert.strictEqual(m.net.appels.length, 2,
+    'constat : un appel force apres succes repart — couvert cote serveur, pas cote page');
 });
 
 test('declaration : la garde est le premier geste de la fonction', () => {
   assert.ok(/async function actioWizSubmit\(\) \{\s*\n\s*if \(actioSending\) return;/.test(DECL_SRC),
     'la verification de reentrance doit preceder toute lecture de champ');
-  // Un seul endroit pose la garde ; trois la mettent à faux : la déclaration,
-  // la réouverture du diagnostic et la branche d'échec. Aucun autre.
+  // État d'origine de la page, restauré après retrait d'une correction inutile :
+  // la garde est déclarée à faux, posée une fois, libérée une fois après le
+  // fetch. Deux occurrences de mise à faux, pas trois.
   assert.strictEqual((DECL_SRC.match(/actioSending = true;/g) || []).length, 1);
   assert.strictEqual((DECL_SRC.match(/let actioSending = false;/g) || []).length, 1);
-  assert.strictEqual((DECL_SRC.match(/actioSending = false;/g) || []).length, 3);
-  // La libération inconditionnelle après le fetch ne doit plus exister.
-  assert.ok(!/clearTimeout\(timer\);\s*\n\s*\}\s*\n\s*\n?\s*actioSending = false;/.test(DECL_SRC),
-    'la garde ne doit plus etre liberee sur le chemin de succes');
+  assert.strictEqual((DECL_SRC.match(/actioSending = false;/g) || []).length, 2);
   // Le drapeau de conversion garde son rôle propre, inchangé.
   assert.ok(/if \(!actioConvSent\) \{\s*\n\s*actioConvSent = true;/.test(DECL_SRC));
   assert.ok(DECL_SRC.includes("gtag('event', 'ads_conversion_Formulaire_1', { event_category: 'wizard', event_label: 'declaration-rsu-espp' })"));
