@@ -65,6 +65,8 @@
    par défaut, avec une porte de sortie explicite (SUBSCRIBE_ORIGIN_ENFORCE).
    ============================================================ */
 
+const crypto = require('crypto');
+
 const SYSTEME_API = 'https://api.systeme.io/api/contacts';
 const BREVO_CONTACTS_API = 'https://api.brevo.com/v3/contacts';
 const TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
@@ -298,6 +300,199 @@ function validate(body, context = {}) {
   };
 }
 
+/* ── Idempotence ───────────────────────────────────────────
+   Problème traité : rien n'empêchait deux POST identiques de créer deux lignes
+   dans `leads`. La garde de réentrance des pages ne protège que le navigateur
+   qui l'exécute — un onglet dupliqué, un rejeu réseau ou un script passent au
+   travers. Et chaque ligne insérée déclenche le trigger `on_new_lead_notify`,
+   donc une notification interne ET un email de confirmation au visiteur : un
+   doublon n'est pas qu'une ligne de trop, c'est un second email reçu.
+
+   Dispositif retenu : une clé fournie par le NAVIGATEUR, unique par demande
+   logique (voir assets/js/idempotence.js), et une contrainte d'unicité en base.
+   Ce n'est pas une déduplication sur l'email : une même personne peut faire
+   autant de demandes légitimes qu'elle veut, chacune avec sa propre clé.
+
+   Atomicité : tenue par l'index unique `leads_idempotency_key_uniq`, pas par
+   une lecture préalable côté application. Une seule instruction SQL est émise
+   (INSERT … ON CONFLICT DO NOTHING, via `resolution=ignore-duplicates`). Deux
+   requêtes simultanées portant la même clé sont sérialisées par l'index : une
+   insère, l'autre n'insère rien. Un « SELECT puis INSERT » applicatif aurait
+   laissé la fenêtre de course grande ouverte.
+
+   Effets de bord : le trigger est AFTER INSERT FOR EACH ROW. Aucune ligne
+   insérée = aucun déclenchement, donc aucun email rejoué. Les appels marketing
+   applicatifs (Systeme.io, Brevo) sont, eux, court-circuités par le retour
+   anticipé du chemin « rejeu ».
+
+   ⚠️ Ce dispositif supprime le DOUBLON. Il ne garantit RIEN sur la livraison.
+   Deux conséquences, mesurées le 2026-11-22 sur une reproduction de `leads` :
+     - si un canal de notification échoue après l'insertion, la demande reste
+       enregistrée et la notification est perdue ; le rejeu, qui ne crée pas de
+       ligne, ne la retente pas. Même chose pour Systeme.io et Brevo : un échec
+       au premier appel n'est jamais repris, puisque le chemin « rejeu » saute
+       ces appels. Un échec de notification demande donc toujours une reprise
+       manuelle ;
+     - si le trigger devenait SYNCHRONE (extension `http` au lieu de pg_net),
+       son échec annulerait l'insertion : réponse 500, aucune ligne, clé non
+       consommée — un réessai enregistrerait normalement. Le dispositif ne perd
+       pas la demande, mais ne la sauve pas non plus.
+   pg_net, lui, n'émet la requête qu'après le commit (« HTTP requests are not
+   started until the transaction is committed », supabase.com/docs/guides/
+   database/extensions/pg_net, relu le 2026-11-22), donc un échec d'envoi ne
+   peut pas annuler la ligne : il se lit dans net._http_response, et nulle part
+   ailleurs. Le corps réel de public.notify_new_lead() n'est défini par aucun
+   fichier du dépôt et n'est pas lisible d'ici : laquelle des deux formes est en
+   production reste à vérifier.
+
+   Même clé, contenu identique  → 200 { success: true, rejeu: true }, 0 ligne.
+   Même clé, contenu différent  → 409. La demande initiale n'est jamais écrasée
+                                  (pas de `merge-duplicates`, aucun UPDATE).
+   Aucune clé transmise         → comportement historique, strictement inchangé.
+
+   L'empreinte est calculée ICI, jamais reçue du navigateur : un client fautif
+   ne peut pas faire passer un contenu différent pour un rejeu. Le navigateur
+   calcule de son côté une empreinte à lui, qui ne sert qu'à décider s'il
+   réutilise sa clé ; les deux ne se parlent pas et n'ont pas à concorder.
+
+   ── Articulation avec le jeton Turnstile, et cas réellement couverts ──
+   Le captcha est vérifié AVANT l'écriture. Un rejeu doit donc présenter un
+   jeton frais : les pages en régénèrent un à chaque tentative, et c'est
+   pourquoi le jeton est exclu de l'empreinte calculée côté navigateur.
+   Mesuré le 2026-11-22 contre challenges.cloudflare.com avec les clés d'essai
+   publiées par Cloudflare (dont le secret 3x…AA, « token already spent ») :
+     - même clé + jeton FRAIS            → 200 { rejeu: true }, aucune ligne ;
+     - même clé + jeton DÉJÀ CONSOMMÉ    → 403 au captcha, AVANT l'idempotence.
+   Ce qui est donc couvert : la nouvelle tentative lancée par la page (nouveau
+   jeton, même clé), le rechargement suivi d'une saisie identique, l'onglet
+   dupliqué, deux requêtes simultanées. Ce qui ne l'est pas : un POST rejoué
+   tel quel par un outil ou un script, qui est refusé au captcha et non
+   dédupliqué ; une nouvelle session (onglet neuf, navigateur relancé, autre
+   appareil), qui reçoit une clé neuve ; un navigateur sans sessionStorage, qui
+   n'en réutilise aucune. Les pages envoient par fetch, pas par soumission de
+   <form> : il n'y a donc pas de ré-émission de POST au rechargement.
+
+   ── Ordre de déploiement, impératif ──
+   La variable SUBSCRIBE_IDEMPOTENCY commande tout. Tant qu'elle ne vaut pas
+   'on', la clé reçue est ignorée et aucune colonne nouvelle n'est écrite :
+   1. Déployer ce code. Rien ne change, même si la base n'a pas les colonnes.
+   2. Appliquer migration-leads-idempotence.sql.
+   3. Créer SUBSCRIBE_IDEMPOTENCY=on, PUIS redéployer.
+   Inverser 2 et 3 casse les dix formulaires : PostgREST refuserait l'insertion
+   (PGRST204, colonne inconnue) et toute demande échouerait.
+
+   ⚠️ Sur Vercel, un changement de variable n'atteint PAS le déploiement en
+   cours : « Changes to environment variables are not applied to previous
+   deployments […] You must redeploy your project » et, au dépannage, « A change
+   in the dashboard has no effect → Redeploy the project »
+   (vercel.com/docs/environment-variables/managing-environment-variables et
+   /environment-variables, pages relues le 2026-11-22). Créer ou retirer la
+   variable demande donc un redéploiement. Deux retours arrière :
+     - immédiat : Instant Rollback vers le déploiement précédent, construit
+       sans la variable, donc sans le dispositif ;
+     - ordinaire : retirer SUBSCRIBE_IDEMPOTENCY, puis redéployer.
+   La base n'est touchée dans aucun des deux cas.
+   La même réserve vaut pour les étapes 2 et 3 de l'activation Turnstile plus
+   haut, écrites avant cette vérification. */
+const IDEM_VAR = 'SUBSCRIBE_IDEMPOTENCY';
+// Longueur et alphabet de l'UUID v4 sans tirets jusqu'aux identifiants plus
+// longs : assez large pour ne pas contraindre le client, assez étroit pour
+// qu'une valeur fantaisiste soit refusée plutôt qu'insérée.
+const IDEM_KEY_RE = /^[A-Za-z0-9_-]{16,64}$/;
+
+function idempotenceState(env = {}) {
+  const brut = String(env[IDEM_VAR] || '').trim().toLowerCase();
+  if (brut === 'on') return { active: true, source: IDEM_VAR };
+  return { active: false, source: IDEM_VAR, reason: brut ? 'valeur_' + brut : 'variable_absente' };
+}
+
+/* JSON à clés triées : deux objets de même contenu donnent le même texte,
+   quel que soit l'ordre d'insertion des propriétés. */
+function canonique(valeur) {
+  if (valeur === undefined) return 'null';
+  if (valeur === null || typeof valeur !== 'object') return JSON.stringify(valeur);
+  if (Array.isArray(valeur)) return '[' + valeur.map(canonique).join(',') + ']';
+  return '{' + Object.keys(valeur).sort()
+    .map((k) => JSON.stringify(k) + ':' + canonique(valeur[k]))
+    .join(',') + '}';
+}
+
+/* Empreinte du contenu de la demande. `consentement.horodatage` est posé par
+   le serveur à chaque appel : laissé dedans, il ferait de tout rejeu un
+   conflit. Tout le reste de l'enregistrement dérive de ce que le visiteur a
+   soumis, donc entre dans l'empreinte. */
+function empreinteCharge(record) {
+  let copie;
+  try {
+    copie = JSON.parse(JSON.stringify(record));
+  } catch (_) {
+    return null;
+  }
+  if (copie && copie.reponses && copie.reponses.consentement) {
+    delete copie.reponses.consentement.horodatage;
+  }
+  return crypto.createHash('sha256').update(canonique(copie)).digest('hex');
+}
+
+/* Point d'écriture unique dans `leads`, partagé avec /api/subscribe-guide.
+   Retourne l'issue, ne décide d'aucun code HTTP : c'est l'affaire de
+   l'appelant, qui sait quel message afficher. */
+async function insererLead({ supabaseUrl, supabaseKey, record, cle, empreinte }) {
+  const enTetes = {
+    'apikey': supabaseKey,
+    'Authorization': `Bearer ${supabaseKey}`,
+    'Content-Type': 'application/json',
+  };
+
+  if (!cle) {
+    const r = await fetch(`${supabaseUrl}/rest/v1/leads`, {
+      method: 'POST',
+      headers: Object.assign({}, enTetes, { 'Prefer': 'return=minimal' }),
+      body: JSON.stringify(record),
+    });
+    if (!r.ok) return { etat: 'erreur', statut: r.status, detail: await r.text() };
+    return { etat: 'insere' };
+  }
+
+  const corps = Object.assign({}, record, {
+    idempotency_key: cle,
+    payload_fingerprint: empreinte,
+  });
+  // `select=id` : la représentation renvoyée se limite à l'identifiant, aucune
+  // donnée personnelle ne revient dans le processus pour rien.
+  const r = await fetch(`${supabaseUrl}/rest/v1/leads?on_conflict=idempotency_key&select=id`, {
+    method: 'POST',
+    headers: Object.assign({}, enTetes, {
+      'Prefer': 'resolution=ignore-duplicates,return=representation',
+    }),
+    body: JSON.stringify(corps),
+  });
+  if (!r.ok) return { etat: 'erreur', statut: r.status, detail: await r.text() };
+
+  let lignes = null;
+  try { lignes = await r.json(); } catch (_) { lignes = null; }
+  // Une ligne renvoyée = insertion réelle. Tableau vide = conflit ignoré : la
+  // clé existait déjà, rien n'a été créé, aucun trigger n'a été déclenché.
+  if (Array.isArray(lignes) && lignes.length > 0) return { etat: 'insere' };
+
+  const relecture = await fetch(
+    `${supabaseUrl}/rest/v1/leads?idempotency_key=eq.${encodeURIComponent(cle)}` +
+    '&select=payload_fingerprint&limit=1',
+    { headers: enTetes }
+  );
+  if (!relecture.ok) return { etat: 'erreur', statut: relecture.status, detail: await relecture.text() };
+  let existant = null;
+  try {
+    const j = await relecture.json();
+    existant = Array.isArray(j) && j.length ? j[0] : null;
+  } catch (_) { existant = null; }
+  // Conflit annoncé mais ligne introuvable : état incohérent, traité comme une
+  // erreur plutôt que comme un succès silencieux.
+  if (!existant) return { etat: 'erreur', statut: 500, detail: 'conflit sans ligne correspondante' };
+  if (String(existant.payload_fingerprint || '') !== String(empreinte || '')) return { etat: 'conflit' };
+  return { etat: 'rejeu' };
+}
+
 // Action déclarée par le widget des pages (voir api/subscribe-config.js et
 // assets/js/subscribe-captcha.js). Vérifiée quand Cloudflare la renvoie : un
 // jeton obtenu sur un autre widget du compte ne peut pas être rejoué ici.
@@ -393,26 +588,60 @@ const handler = async (req, res) => {
   const service = checked.service;
   const tagName = TAG_MAP[service] || 'site-web';
 
-  // ── 1. INSERT dans Supabase (table leads) ──────────────────
-  try {
-    const sbRes = await fetch(`${supabaseUrl}/rest/v1/leads`, {
-      method: 'POST',
-      headers: {
-        'apikey': supabaseKey,
-        'Authorization': `Bearer ${supabaseKey}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal',
-      },
-      body: JSON.stringify(record),
-    });
-    if (!sbRes.ok) {
-      const sbErr = await sbRes.text();
-      console.error('Supabase INSERT error:', sbRes.status, sbErr);
-      return res.status(500).json({ error: 'Erreur enregistrement' });
+  /* ── Clé d'idempotence, si le dispositif est activé ─────────
+     Une clé absente n'est pas une faute : les appelants historiques et les
+     navigateurs sans sessionStorage n'en envoient pas, et leur demande doit
+     passer comme avant. Une clé MALFORMÉE, en revanche, est refusée : elle ne
+     peut venir que d'un client fautif, et l'insérer telle quelle donnerait une
+     protection illusoire. */
+  const idem = idempotenceState(env);
+  let cleIdem = null;
+  let empreinte = null;
+  if (idem.active) {
+    const brut = String(body.idempotencyKey || '').trim();
+    if (brut) {
+      if (!IDEM_KEY_RE.test(brut)) {
+        console.warn('subscribe: cle d\'idempotence malformee', { longueur: brut.length });
+        return res.status(400).json({ error: 'Requête refusée.' });
+      }
+      cleIdem = brut;
+      empreinte = empreinteCharge(record);
     }
+  } else if (String(body.idempotencyKey || '').trim()) {
+    console.warn('subscribe: cle d\'idempotence recue mais dispositif inactif', {
+      variable: idem.source, raison: idem.reason,
+    });
+  }
+
+  // ── 1. INSERT dans Supabase (table leads) ──────────────────
+  let issue;
+  try {
+    issue = await insererLead({ supabaseUrl, supabaseKey, record, cle: cleIdem, empreinte });
   } catch (e) {
     console.error('Supabase fetch error:', e.message);
     return res.status(500).json({ error: 'Erreur serveur' });
+  }
+  if (issue.etat === 'erreur') {
+    console.error('Supabase INSERT error:', issue.statut, issue.detail);
+    return res.status(500).json({ error: 'Erreur enregistrement' });
+  }
+  if (issue.etat === 'conflit') {
+    // Même clé, contenu différent. La demande déjà enregistrée reste intacte.
+    console.warn('subscribe: cle d\'idempotence reutilisee avec un contenu different', {
+      source: record.source,
+    });
+    return res.status(409).json({ error: 'Cette demande a déjà été enregistrée. Rechargez la page pour en adresser une nouvelle.' });
+  }
+  if (issue.etat === 'rejeu') {
+    /* Rejeu reconnu : la demande était déjà en base. Retour en succès — pour le
+       visiteur, sa demande EST enregistrée, et lui montrer une erreur le
+       pousserait à réessayer sans fin. Aucune ligne créée, donc aucun email de
+       confirmation rejoué par le trigger ; et ce retour anticipé saute les
+       appels marketing plus bas, qui ne doivent pas repartir non plus. */
+    console.warn('subscribe: rejeu reconnu, aucune ligne creee, aucun effet de bord rejoue', {
+      source: record.source,
+    });
+    return res.status(200).json({ success: true, rejeu: true });
   }
 
   /* ── 2. Systeme.io (tags marketing) ─────────────────────────
@@ -506,9 +735,17 @@ module.exports.__internals = {
   CONSENT_TEXTS,
   TAG_MAP,
   LABEL_MAP,
+  IDEM_VAR,
+  IDEM_KEY_RE,
   isAllowedOrigin,
   originEnforced,
   turnstileState,
+  // Partagés avec /api/subscribe-guide : une seule définition de la clé
+  // d'idempotence, de l'empreinte et du point d'écriture dans `leads`.
+  idempotenceState,
+  canonique,
+  empreinteCharge,
+  insererLead,
   // Partagé avec /api/subscribe-guide : une seule implémentation de la
   // vérification Cloudflare, un seul secret, une seule action.
   verifyCaptcha,

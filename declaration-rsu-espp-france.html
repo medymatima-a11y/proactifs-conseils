@@ -970,6 +970,12 @@
       consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
       consentVersion: 'marketing-consent-v1'
     };
+    /* Clé d'idempotence : le serveur n'enregistre qu'une fois par clé. Une
+       réponse perdue en route puis réessayée ne crée donc pas un second lead,
+       ni le second email de confirmation qui va avec. Le jeton anti-robot est
+       exclu de l'empreinte — il est régénéré à chaque tentative. Détail du
+       cycle de vie de la clé : assets/js/idempotence.js. */
+    if (window.ProactifsIdem) payload.idempotencyKey = window.ProactifsIdem.cle('subscribe:declaration-rsu', payload);
 
     let ok = false;
     const ctrl = new AbortController();
@@ -998,6 +1004,11 @@
       btn.disabled = false; btn.textContent = 'Réessayer →';
       return;
     }
+    /* Demande enregistrée : la clé d'idempotence n'a plus de raison d'être.
+       L'oublier garantit qu'une NOUVELLE demande volontaire, même à contenu
+       identique, reçoive une clé neuve. Jamais sur un échec : c'est là que la
+       clé doit survivre pour que le réessai ne crée pas de doublon. */
+    if (window.ProactifsIdem) window.ProactifsIdem.oublier('subscribe:declaration-rsu');
     // ── Enregistrement confirmé par le serveur : conversion Google Ads ──
     // Même nom d'événement que les autres parcours (seul événement clé actif
     // dans GA4, relayé vers Ads par l'import). Ni `value` ni `currency` : la
@@ -1017,6 +1028,7 @@
   }
 </script>
 
+<script src="/assets/js/idempotence.js" defer></script>
 <script src="/assets/js/subscribe-captcha.js" defer></script>
 <script src="/assets/js/navigation.js" defer></script>
 </body>

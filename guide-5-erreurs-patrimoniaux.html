@@ -1188,16 +1188,24 @@
 
     // Enregistrement dans le CRM (Supabase, table leads). La réponse décide :
     // la redirection vers le guide n'a lieu que si le serveur a accepté.
+    // Case facultative : son état est transmis, il ne bloque rien.
+    // Jeton anti-robot et champ piège : le navigateur ne refuse jamais de
+    // lui-même, c'est le serveur qui tranche (400 / 403 et reprise possible).
+    const corpsDemande = { prenom: firstName, email, consentMarketing: consentMarketing, consentVersion: 'marketing-consent-v1',
+      captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token(cibleCaptcha) : '',
+      hp: window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '' };
+    /* Clé d'idempotence : le serveur n'enregistre qu'une fois par clé. Ici
+       l'enjeu est aussi l'email : un rejeu qui créerait une seconde ligne
+       déclencherait un second message de confirmation pour un seul guide
+       demandé. Le jeton anti-robot est exclu de l'empreinte — il est régénéré
+       à chaque tentative. Voir assets/js/idempotence.js. */
+    if (window.ProactifsIdem) corpsDemande.idempotencyKey = window.ProactifsIdem.cle('guide', corpsDemande);
+
     try {
       const res = await fetch('/api/subscribe-guide', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        // Case facultative : son état est transmis, il ne bloque rien.
-        // Jeton anti-robot et champ piège : le navigateur ne refuse jamais de
-        // lui-même, c'est le serveur qui tranche (400 / 403 et reprise possible).
-        body: JSON.stringify({ prenom: firstName, email, consentMarketing: consentMarketing, consentVersion: 'marketing-consent-v1',
-          captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token(cibleCaptcha) : '',
-          hp: window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '' }),
+        body: JSON.stringify(corpsDemande),
       });
 
       if (!res.ok) {
@@ -1216,6 +1224,13 @@
     }
 
     // ── Enregistrement confirmé par le serveur ──
+    /* La clé d'idempotence a fait son office : on l'oublie, pour qu'une
+       nouvelle demande volontaire — un autre guide, une autre adresse — reçoive
+       une clé neuve. Jamais sur un échec : les deux chemins de reprise
+       ci-dessus la conservent, de sorte qu'un réessai après réponse perdue ne
+       crée ni second lead ni second email. */
+    if (window.ProactifsIdem) window.ProactifsIdem.oublier('guide');
+
     // La conversion n'est PAS émise ici : la redirection ci-dessous décharge la
     // page et l'événement serait coupé. On dépose un marqueur à usage unique,
     // consommé par /merci-guide qui émet l'événement une fois arrivée.
@@ -1240,6 +1255,7 @@
     window.location.href = '/merci-guide';
   }
 </script>
+<script src="/assets/js/idempotence.js" defer></script>
 <script src="/assets/js/subscribe-captcha.js" defer></script>
 <script>
   // Deux formulaires, DEUX widgets : chacun rend dans son propre conteneur, de

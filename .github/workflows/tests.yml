@@ -1,0 +1,137 @@
+name: Tests
+
+# Exécute la suite automatisée (`node:test`) sur chaque pull request et sur
+# chaque push vers main. Jusqu'ici personne ne l'exécutait : les deux autres
+# workflows ne se déclenchent que sur des commentaires et des revues
+# (claude.yml) ou sur un push vers main touchant du HTML (index-on-publish.yml).
+# Un contrôle vert de cette PR n'attestait donc qu'un build d'aperçu Vercel.
+#
+# Ce workflow n'a besoin d'AUCUN secret : ni Supabase, ni Vercel, ni Brevo, ni
+# Systeme.io. Les tests n'ouvrent aucune connexion réseau — ils lisent les
+# fichiers du dépôt et appellent les handlers avec un `fetch` remplacé.
+#
+# ⚠️ Les bancs de `tests/manuel/` sont exclus explicitement : ils écrivent et
+# suppriment dans une base, et appellent des services externes. Ils ne
+# correspondent à aucun motif de découverte de `node --test` (ils ne se
+# terminent pas par `.test.js`), mais l'étape de sélection les retire malgré
+# tout et échoue si l'un d'eux apparaissait un jour dans la liste.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# Une exécution à la fois par référence : une nouvelle poussée annule la
+# précédente, encore en cours.
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  node-test:
+    name: node --test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      # Les motifs de découverte par défaut de `node --test`, repris ici pour
+      # que la sélection soit explicite et vérifiable plutôt que implicite.
+      MOTIF_TESTS: '((^|/)test\.(c|m)?js|\.test\.(c|m)?js|[-_]test\.(c|m)?js|(^|/)test-[^/]*\.(c|m)?js|(^|/)test/.*\.(c|m)?js)$'
+      # Plancher de sécurité : la suite comptait 686 tests le 22/11/2026. Le
+      # plancher protège contre une sélection vide ou effondrée (un `git mv`,
+      # un motif cassé), pas contre un test ajouté. À relever si la suite
+      # grossit franchement.
+      PLANCHER_TESTS: '600'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          # Même version majeure que le runtime des fonctions Vercel du projet
+          # (réglage `nodeVersion: 24.x`), pour que la CI éprouve ce qui tourne
+          # réellement en production.
+          node-version: '24'
+
+      - name: Sélectionner les fichiers de test
+        run: |
+          set -euo pipefail
+
+          git ls-files | grep -E "$MOTIF_TESTS" | sort > tous-tests.txt || true
+          grep    '^tests/manuel/' tous-tests.txt > bancs-manuels.txt || true
+          grep -v '^tests/manuel/' tous-tests.txt > fichiers-tests.txt || true
+
+          if [ -s bancs-manuels.txt ]; then
+            echo "::error::Un banc de tests/manuel/ correspond aux motifs de découverte. Il a été retiré de la sélection — ces bancs écrivent en base et appellent des services externes."
+            sed 's/^/  retiré : /' bancs-manuels.txt
+          fi
+
+          NB=$(wc -l < fichiers-tests.txt | tr -d ' ')
+          if [ "$NB" -eq 0 ]; then
+            echo "::error::Aucun fichier de test sélectionné. Un contrôle vert sur une suite vide ne vaut rien : échec volontaire."
+            exit 1
+          fi
+
+          echo "$NB fichier(s) de test sélectionné(s) :"
+          sed 's/^/  /' fichiers-tests.txt
+
+      - name: Exécuter la suite
+        run: |
+          set -euo pipefail
+
+          mapfile -t FICHIERS < fichiers-tests.txt
+
+          # Deux rapporteurs : `spec` lisible dans le journal, `tap` dans un
+          # fichier pour compter ce qui a réellement été exécuté.
+          node --test \
+            --test-reporter=spec --test-reporter-destination=stdout \
+            --test-reporter=tap  --test-reporter-destination=resume.tap \
+            "${FICHIERS[@]}"
+
+      - name: Vérifier que des tests ont bien été exécutés
+        if: always()
+        run: |
+          set -euo pipefail
+
+          if [ ! -s resume.tap ]; then
+            echo "::error::Aucun résumé TAP produit : la suite n'a pas tourné."
+            exit 1
+          fi
+
+          lire() { grep -E "^# $1 " resume.tap | tail -1 | awk '{print $3}' || true; }
+          TESTS=$(lire tests);  TESTS=${TESTS:-0}
+          PASS=$(lire pass);    PASS=${PASS:-0}
+          FAIL=$(lire fail);    FAIL=${FAIL:-0}
+          SKIP=$(lire skipped); SKIP=${SKIP:-0}
+          TODO=$(lire todo);    TODO=${TODO:-0}
+          NB=$(wc -l < fichiers-tests.txt | tr -d ' ')
+
+          echo "fichiers=$NB tests=$TESTS pass=$PASS fail=$FAIL skipped=$SKIP todo=$TODO"
+
+          {
+            echo "### Suite automatisée"
+            echo ""
+            echo "| Fichiers | Tests | Réussis | Échoués | Ignorés | À faire |"
+            echo "|---:|---:|---:|---:|---:|---:|"
+            echo "| $NB | $TESTS | $PASS | $FAIL | $SKIP | $TODO |"
+            echo ""
+            echo "Bancs de \`tests/manuel/\` exclus : ils écrivent en base et appellent des services externes."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$TESTS" -eq 0 ]; then
+            echo "::error::0 test exécuté. Un contrôle vert sur une suite vide ne vaut rien : échec volontaire."
+            exit 1
+          fi
+          if [ "$TESTS" -lt "$PLANCHER_TESTS" ]; then
+            echo "::error::$TESTS tests exécutés, moins que le plancher de $PLANCHER_TESTS. La sélection s'est effondrée : vérifier MOTIF_TESTS et l'emplacement des fichiers."
+            exit 1
+          fi
+          if [ "$FAIL" -ne 0 ]; then
+            echo "::error::$FAIL test(s) en échec."
+            exit 1
+          fi

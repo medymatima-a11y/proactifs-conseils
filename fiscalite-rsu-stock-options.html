@@ -1418,7 +1418,10 @@
 
       actioSending = true;
       btn.disabled = true; btn.textContent = 'Envoi en cours…';
-      let ok = false, errStage = '';
+      // `httpStatus` reste null si le fetch n'a jamais abouti (coupure réseau ou
+      // délai de 15 s) : le paramètre est alors ABSENT de l'événement, plutôt
+      // que porteur d'une sentinelle qui polluerait les agrégations de GA4.
+      let ok = false, errStage = '', httpStatus = null;
       const ctrl = new AbortController();
       const timer = setTimeout(function () { ctrl.abort(); }, 15000);
       try {
@@ -1431,7 +1434,7 @@
         let data = null;
         try { data = await res.json(); } catch (e) { data = null; }
         ok = res.ok && !!(data && data.success === true);
-        if (!ok) { errStage = 'server_rejected'; if (data && data.error) fail(data.error); }
+        if (!ok) { errStage = 'server_rejected'; httpStatus = res.status; if (data && data.error) fail(data.error); }
       } catch (e) {
         errStage = 'network_error';
       } finally {
@@ -1440,7 +1443,13 @@
 
       actioSending = false;
       if (!ok) {
-        actioTrack('diagnostic_error', Object.assign(actioTrackBase(), { error_stage: errStage || 'server_rejected' }));
+        // Seul un entier est transmis : `data.error` est affiché à l'écran mais
+        // n'entre JAMAIS dans les paramètres de mesure.
+        actioTrack('diagnostic_error', Object.assign(
+          actioTrackBase(),
+          { error_stage: errStage || 'server_rejected' },
+          (typeof httpStatus === 'number' ? { http_status: httpStatus } : {})
+        ));
         if (!errEl.textContent) {
           fail("Votre demande n'a pas pu être enregistrée. Vos réponses sont conservées : vous pouvez réessayer, ou nous joindre au 01 84 78 28 30.");
         }

@@ -269,6 +269,9 @@ const ENV_KEYS = [
   'SUBSCRIBE_ALLOWED_ORIGINS', 'SUBSCRIBE_ORIGIN_ENFORCE',
   'SUBSCRIBE_TURNSTILE_SECRET', 'SUBSCRIBE_TURNSTILE_SECRET_Preview',
   'BREVO_API_KEY', 'BREVO_LIST_ID_MARKETING',
+  // Effacée explicitement : ces tests décrivent le chemin SANS idempotence.
+  // Sa présence dans l'environnement changerait les en-têtes de l'insertion.
+  'SUBSCRIBE_IDEMPOTENCY',
 ];
 
 function withEnv(values, fn) {

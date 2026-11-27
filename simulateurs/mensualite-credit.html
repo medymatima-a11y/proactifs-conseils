@@ -574,6 +574,7 @@
 <script src="/assets/js/simulators/ui.js"></script>
 <script src="/assets/js/simulators/prototype-mensualite.js"></script>
 <!-- Navigation centralisée (menu mobile, mega-panels) -->
+<script src="/assets/js/idempotence.js" defer></script>
 <script src="/assets/js/subscribe-captcha.js" defer></script>
 <script>
   // Widget préparé au premier contact réel avec le formulaire : jeton frais
@@ -590,18 +591,30 @@
     // Transport lead RÉEL — identique au simulateur capacité (POST /api/subscribe).
     M.init({
       leadTransport: function (payload) {
+        // Case facultative : son état est transmis, il ne bloque rien.
+        var corpsDemande = Object.assign({}, payload, {
+          consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
+          consentVersion: 'marketing-consent-v1',
+          captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
+          hp: window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : ''
+        });
+        /* Clé d'idempotence : le serveur n'enregistre qu'une fois par clé. Une
+           réponse perdue en route puis réessayée ne crée donc pas un second lead,
+           ni le second email de confirmation qui va avec. Le jeton anti-robot est
+           exclu de l'empreinte — il est régénéré à chaque tentative. Détail du
+           cycle de vie de la clé : assets/js/idempotence.js. */
+        if (window.ProactifsIdem) corpsDemande.idempotencyKey = window.ProactifsIdem.cle('subscribe:mensualite-credit', corpsDemande);
         return fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          // Case facultative : son état est transmis, il ne bloque rien.
-          body: JSON.stringify(Object.assign({}, payload, {
-            consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
-            consentVersion: 'marketing-consent-v1',
-            captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
-            hp: window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : ''
-          }))
+          body: JSON.stringify(corpsDemande)
         }).then(function (res) {
           if (!res.ok) throw new Error('subscribe ' + res.status);
+          /* Demande enregistrée : la clé d'idempotence n'a plus de raison d'être.
+             L'oublier garantit qu'une NOUVELLE demande volontaire, même à contenu
+             identique, reçoive une clé neuve. Jamais sur un échec : c'est là que
+             la clé doit survivre pour que le réessai ne crée pas de doublon. */
+          if (window.ProactifsIdem) window.ProactifsIdem.oublier('subscribe:mensualite-credit');
           return res.json().catch(function () { return { ok: true }; });
         }).catch(function (err) {
           // Un jeton anti-robot ne vaut qu'une fois : on le régénère pour que la

@@ -828,8 +828,19 @@
     // produirait plusieurs conversions pour une seule demande.
     let successionConvSent = false;
 
+    // Garde de réentrance de l'ENVOI. Rôle distinct de `successionConvSent`,
+    // qui protège la MESURE : celle-ci protège le POST lui-même. Elle couvre
+    // le double clic, la validation au clavier par Entrée (soumission
+    // implicite du formulaire) et deux déclenchements rapprochés par
+    // n'importe quelle voie, sans dépendre de l'état `disabled` du bouton.
+    // Cycle de vie : libérée en cas d'échec (nouvelle tentative possible),
+    // maintenue après un succès, remise à zéro par « Nouvelle demande ».
+    let successionSending = false;
+
     document.getElementById('successionForm').addEventListener('submit', async function(ev) {
       ev.preventDefault();
+      // Un envoi déjà en cours : on sort avant toute lecture de champ.
+      if (successionSending) return;
       const prenom = document.getElementById('s-prenom').value.trim();
       const email  = document.getElementById('s-email').value.trim();
       const tel    = document.getElementById('s-tel').value.trim();
@@ -845,30 +856,45 @@
         return;
       }
 
+      successionSending = true;
       btn.disabled = true;
       btn.textContent = 'Envoi en cours…';
 
       const reponses = { ville_bien: ville, nb_heritiers: heritiers, statut };
 
+      const corpsDemande = {
+        prenom, nom: '', email, tel,
+        service: 'succession',
+        source: 'Diagnostic Succession 360',
+        situation: statut,
+        preoccupation: 'Succession immobilière',
+        reponses,
+        captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
+        hp: window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '',
+        // Case facultative : son état est transmis, il ne bloque rien.
+        consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
+        consentVersion: 'marketing-consent-v1'
+      };
+      /* Clé d'idempotence : le serveur n'enregistre qu'une fois par clé. Une
+         réponse perdue en route puis réessayée ne crée donc pas un second lead,
+         ni le second email de confirmation qui va avec. Le jeton anti-robot est
+         exclu de l'empreinte — il est régénéré à chaque tentative. Détail du
+         cycle de vie de la clé : assets/js/idempotence.js. */
+      if (window.ProactifsIdem) corpsDemande.idempotencyKey = window.ProactifsIdem.cle('subscribe:succession', corpsDemande);
+
       try {
         const res = await fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            prenom, nom: '', email, tel,
-            service: 'succession',
-            source: 'Diagnostic Succession 360',
-            situation: statut,
-            preoccupation: 'Succession immobilière',
-            reponses,
-            captchaToken: window.ProactifsCaptcha ? window.ProactifsCaptcha.token() : '',
-            hp: window.ProactifsCaptcha ? window.ProactifsCaptcha.hp() : '',
-            // Case facultative : son état est transmis, il ne bloque rien.
-            consentMarketing: !!(document.getElementById('pcConsent') && document.getElementById('pcConsent').checked),
-            consentVersion: 'marketing-consent-v1'
-          })
+          body: JSON.stringify(corpsDemande)
         });
         if (res.ok) {
+          /* Demande enregistrée : la clé d'idempotence n'a plus de raison
+             d'être. L'oublier garantit qu'une NOUVELLE demande volontaire, même
+             à contenu identique, reçoive une clé neuve. Jamais sur un échec :
+             c'est là que la clé doit survivre pour que le réessai du visiteur
+             ne crée pas de doublon. */
+          if (window.ProactifsIdem) window.ProactifsIdem.oublier('subscribe:succession');
           // ── Enregistrement confirmé par le serveur : conversion Google Ads ──
           // Même nom d'événement que les autres parcours (seul événement clé
           // actif dans GA4, relayé vers Ads par l'import). Ni `value` ni
@@ -890,6 +916,9 @@
           throw new Error('Supabase ' + res.status);
         }
       } catch (e) {
+        // Échec (réponse non-ok ou fetch qui lève) : la garde d'envoi est
+        // libérée, la saisie est conservée, une nouvelle tentative est possible.
+        successionSending = false;
         // Un jeton anti-robot ne vaut qu'une fois : on le régénère pour la nouvelle tentative.
         if (window.ProactifsCaptcha) window.ProactifsCaptcha.reset();
         msgEl.className = 'estim-msg estim-msg-err';
@@ -911,6 +940,7 @@
     if (successionResetBtn) {
       successionResetBtn.addEventListener('click', function() {
         successionConvSent = false; // nouvelle demande explicite : elle pourra être comptée
+        successionSending = false;  // et elle pourra être envoyée : la garde d'envoi repart de zéro
         document.getElementById('successionSuccess').hidden = true;
         document.getElementById('successionForm').hidden = false;
         const btn = document.getElementById('successionBtn');
@@ -920,7 +950,8 @@
       });
     }
   </script>
-  <script src="/assets/js/subscribe-captcha.js" defer></script>
+  <script src="/assets/js/idempotence.js" defer></script>
+<script src="/assets/js/subscribe-captcha.js" defer></script>
   <script src="/assets/js/navigation.js" defer></script>
 </body>
 </html>
